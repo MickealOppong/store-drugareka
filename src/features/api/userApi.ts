@@ -1,0 +1,104 @@
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type { TPayout } from "../../types/TPayout";
+import type { TResponseDto } from "../../types/TResponseDto";
+import type { TListShipmentPage } from "../../types/TShipment";
+import type { TUserDto } from "../../types/TUserDto";
+import type { TUserUpdateRequest } from "../../types/TUserUpdatRequest";
+import { baseUrl } from "./baseUrl";
+
+
+
+
+
+
+
+export const userApi = createApi({
+    reducerPath:'userApi',
+    baseQuery:fetchBaseQuery({
+    baseUrl,
+                  prepareHeaders: (headers) => {
+      // RTK Query runs this function EVERY time you make a request
+     const token = localStorage.getItem('tk')??'';
+
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
+    
+    }),
+    tagTypes:['users','user','roles'],
+    endpoints:(build)=>({
+        getUser:build.query<TResponseDto,string>({
+            query:(username)=>({
+                url:`/api/users/user`,
+                params:{
+                    username
+                },
+            }),
+              providesTags:['user'],
+          
+        }),
+
+         getAllUsers:build.query<TUserDto[],void>({
+            query:()=>({
+                url:`/api/users/all`,
+            }),
+              providesTags:['users'],
+          
+        }),
+          newUser:build.mutation<TResponseDto,TUserUpdateRequest>({
+            query:(body)=>({
+                url:`/api/users/new`,
+                method:"POST",
+                body
+            }),
+              invalidatesTags:['user','users']
+          
+        }),
+          editUser:build.mutation<TResponseDto,TUserUpdateRequest>({
+            query:(body)=>({
+                url:`/api/users/edit`,
+                method:"PUT",
+                body
+            }),
+              invalidatesTags:['user','users']
+          
+        }),
+           deleteUser:build.mutation<TResponseDto,number>({
+            query:(userId)=>({
+                url:`/api/users/delete`,
+                method:"DELETE",
+                params:{
+                    userId
+                }
+            }),
+              invalidatesTags:['user','users']
+        }),
+             allRoles:build.query<string[],void>({
+            query:()=>({
+                url:`/api/users/roles`,
+            }),
+        }),
+           getMyPayouts: build.query<TPayout[],void>({
+              query: () => ({
+                url: "/api/users/payouts",
+              }),
+
+            }),
+             getShipments: build.query<TListShipmentPage,{page:number,size:number}>({
+              query: ({page,size}) => ({
+                url: "/api/shipment/shipments",
+                params:{
+                    page,size
+                }
+              }),
+
+            }),
+      
+    }),
+ 
+})
+export const {useGetUserQuery,useNewUserMutation,useEditUserMutation,useDeleteUserMutation,useLazyGetUserQuery,useLazyGetAllUsersQuery
+    ,useLazyAllRolesQuery,useGetMyPayoutsQuery,useGetShipmentsQuery
+}=userApi

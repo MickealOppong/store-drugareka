@@ -1,0 +1,638 @@
+{
+  "DiscoverFeed": {
+    "brand_name": "Spotkac",
+    "tagline": "Trouvez votre partenaire idéal",
+    "real_moments": "De vrais moments.",
+    "NETWORK_ERROR": "Oups, le réseau est indisponible. Veuillez réessayer dans quelques minutes.",
+    "real_connections": "De vraies connexions.",
+    "card_actions": {
+      "view_profile": "voir",
+      "connect": "Rencontrer"
+    },
+    "profile_meta": {
+      "header_message": "Trouvez des personnes qui partagent vos centres d’intérêt.",
+      "sub_message": "Parce que les relations significatives commencent par des expériences partagées."
+    }
+  },
+  "Messages": {
+    "title": "Messages",
+    "search_placeholder": "rechercher",
+    "search_result": "Aucun résultat ne correspond aux critères de recherche"
+  },
+  "Matches": {
+    "ConnectionsPage": {
+      "title": "Connexions",
+      "tabs": {
+        "interests_received": "Centres d’intérêt reçus",
+        "matches": "Matchs"
+      },
+      "card1": {
+        "connected_via": "Connexion via votre",
+        "moment_suffix": "moment",
+        "time_now": "Maintenant",
+        "time_yesterday": "Hier",
+        "actions": {
+          "compatibility": "Voir la compatibilité",
+          "pass": "Passer",
+          "accept": "Accepter"
+        }
+      },
+      "matches": "Matchs",
+      "card2": {
+        "title": "cliquer pour ouvrir la conversation"
+      }
+    }
+  },
+  "My_moments": {
+    "welcomeMessage": "Mes moments",
+    "sub_message": "Les connexions significatives commencent lorsque vous partagez vos centres d’intérêt et vos expériences de vie",
+    "btn": "Ajouter un moment",
+    "delete_btn": "Supprimer",
+    "visibility": {
+      "visibility": "visibilité",
+      "public": "PUBLIC",
+      "match_only": "MATCH UNIQUEMENT",
+      "public_text": "Tout le monde",
+      "match_only_text": "Verrouillé pour les matchs"
+    },
+    "Create_moment": {
+      "title": "Partager un moment",
+      "message": "Photo ou vidéo (taille maximale : 30 Mo)",
+      "media_title": "Téléverser un média",
+      "media_message": "Glissez-déposez ou cliquez pour parcourir les fichiers",
+      "fields": {
+        "moment": "Moment",
+        "caption": "Légende",
+        "caption_placeholder": "Que dit ce moment de vous ?",
+        "cancel_btn": "Annuler",
+        "share_btn": "Partager"
+      }
+    }
+  },
+  "ProfilePage": {
+    "title": "Mon profil",
+    "view_profile": "Profil de {{name}}",
+    "edit_btn": "Modifier le profil",
+    "cancel_btn": "Annuler la modification",
+    "change_image_btn": "changer la photo",
+    "update_btn": "mettre à jour",
+    "sections": {
+      "basic_information": {
+        "title": "Informations de base",
+        "fields": {
+          "first_name": "Prénom",
+          "last_name": "Nom",
+          "date_of_birth": "Date de naissance",
+          "email": "E-mail",
+          "gender": "Genre",
+          "age": "âge",
+          "preference": "Préférence",
+          "from": "De",
+          "speaks": "Parle",
+          "profession": "Profession",
+          "city": "Ville",
+          "country": "Pays",
+          "height": "Taille (cm)"
+        }
+      },
+      "search": {
+        "title": "Trouver ma position",
+        "GENERAL_ERROR": "Ville non reconnue. Laissez ce champ vide pour continuer.",
+        "FETCH_ERROR": "Impossible de récupérer l’adresse. Veuillez la saisir manuellement.",
+        "FIND_ERROR": "Impossible de déterminer automatiquement le nom de votre ville.",
+        "placeholder": "Recherchez votre ville"
+      },
+      "about_me": {
+        "title": "À propos de moi",
+        "fields": {
+          "bio_label": "Courte présentation",
+          "education": "Éducation",
+          "basics": "Informations essentielles",
+          "relationship": "Relation",
+          "drinks": "Alcool",
+          "smokes": "Tabac",
+          "pets": "Animaux",
+          "exercise": "Exercice"
+        }
+      },
+      "what_im_looking_for": {
+        "title": "Ce que je recherche",
+        "fields": {
+          "ideal_preference": "Préférence idéale"
+        }
+      },
+      "looking_for_meta": {
+        "title": "Recherche",
+        "fields": {
+          "looking_for_label": "Recherche",
+          "interested_in_label": "Intéressé(e) par"
+        }
+      },
+      "lifestyle": {
+        "title": "Mode de vie",
+        "fields": {
+          "language": "LANGUE",
+          "education": "ÉDUCATION",
+          "profession": "PROFESSION",
+          "drinks": "ALCOOL",
+          "smoking": "TABAC",
+          "pets": "ANIMAUX",
+          "socialEnergy": "Énergie sociale",
+          "planningStyle": "Style de planification",
+          "chronoType": "Type de rythme",
+          "communication": "Style de communication"
+        }
+      }
+    }
+  },
+  "SettingsPage": {
+    "sections": {
+      "login_credentials": {
+        "title": "Identifiants de connexion",
+        "email_label": "Adresse e-mail",
+        "password_label": "Mot de passe",
+        "change_password_btn": "Changer le mot de passe",
+        "New_password_lable": "Nouveau mot de passe",
+        "Comfirm_password_lable": "Nouveau mot de passe",
+        "cancel_password_change": "Annuler le changement de mot de passe"
+      },
+      "support_legal": {
+        "title": "Assistance et mentions légales",
+        "help_center": "Centre d’aide et FAQ",
+        "privacy_policy": "Politique de confidentialité",
+        "terms_of_service": "Conditions d’utilisation"
+      },
+      "danger_zone": {
+        "title": "Zone dangereuse",
+        "warning_text": "La suppression de votre compte supprimera définitivement vos conversations et vos matchs.",
+        "delete_btn": "Supprimer mon compte"
+      }
+    },
+    "actions": {
+      "save_changes_btn": "Enregistrer les modifications du compte",
+      "logout_btn": "Se déconnecter"
+    }
+  },
+  "LoginPage": {
+    "brand_name": "spotkac",
+    "title": "Bon retour",
+    "subtitle": "Découvrez des personnes à travers leurs expériences.",
+    "email": {
+      "placeholder": "Adresse e-mail",
+      "email_error": "Ce nom d’utilisateur n’existe pas."
+    },
+    "password": {
+      "placeholder": "Mot de passe",
+      "password_error": "Mot de passe incorrect."
+    },
+    "submit_btn": "Se connecter",
+    "divider_text": "ou",
+    "forgot_password_link": "Réinitialiser le mot de passe",
+    "signup_prompt": {
+      "text": "Vous n’avez pas de compte ?",
+      "link": "S’inscrire"
+    }
+  },
+  "RegisterPage": {
+    "brand_name": "spotkac",
+    "title": "Créer un compte",
+    "subtitle": "Trouvez quelqu’un qui partage votre passion",
+    "location_message": "Votre position nous aide à trouver des personnes à proximité. Vous pouvez la saisir manuellement ou activer la localisation et cliquer sur le repère pour la détecter automatiquement.",
+    "fields": {
+      "firstName": {
+        "placeholder": "Prénom",
+        "firstname_error": "Le prénom ne peut pas être vide"
+      },
+      "lastName": {
+        "placeholder": "Nom",
+        "lastname_error": "Le nom ne peut pas être vide"
+      },
+      "email": {
+        "placeholder": "Adresse e-mail",
+        "email_error": "Veuillez fournir une adresse e-mail valide. L’e-mail ne peut pas être vide.",
+        "email_taken": "Cette adresse e-mail est déjà utilisée, choisissez-en une autre.",
+        "error": "erreur"
+      },
+      "dob_error": "La date de naissance doit être antérieure à aujourd’hui. Vous devez avoir au moins 18 ans pour accéder à cette plateforme.",
+      "gender": "genre",
+      "location": "localisation",
+      "location_error": "La localisation ne peut pas être vide",
+      "gender_error": "Le genre ne peut pas être vide",
+      "password": {
+        "placeholder": "mot de passe",
+        "password_error": "Le mot de passe doit comporter entre 8 et 32 caractères, ne peut pas être vide et doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial."
+      },
+      "Other": {
+        "date_of_birth": "Date de naissance",
+        "gender": "Genre",
+        "location": "Ville ou commune"
+      },
+      "terms_and_privacy": {
+        "link": "J’accepte les",
+        "terms": "Conditions d’utilisation",
+        "and": "et",
+        "privacy_policy": "Politique de confidentialité",
+        "brand_name": "de Spotkac"
+      },
+      "submit_btn": "Créer un compte",
+      "login_prompt": {
+        "text": "Vous avez déjà un compte ?",
+        "link": "Se connecter"
+      }
+    }
+  },
+  "Landing": {
+    "Discover": "Découvrir",
+    "Matches": "Matchs",
+    "Messages": "Messages",
+    "My moments": "Mes moments",
+    "Settings": "Paramètres",
+    "Profile": {
+      "logged in": "connecté"
+    },
+    "logout": "Se déconnecter"
+  },
+  "match_Dialog": {
+    "title": "Pas encore de matchs",
+    "Message": "Ne vous inquiétez pas ! Continuez à explorer et à découvrir de nouvelles personnes",
+    "btn": "Commencer à découvrir"
+  },
+  "message_Dialog": {
+    "title": "Pas encore de messages",
+    "Message": "Ne vous inquiétez pas ! Continuez à explorer et à découvrir de nouvelles personnes",
+    "btn": "Commencer à découvrir"
+  },
+  "filter_dialog": {
+    "title": "Oups. Aucun profil à proximité pour le moment",
+    "Message": "Ne vous inquiétez pas ! Élargissez votre zone de recherche pour découvrir des personnes."
+  },
+  "warning_dialog": {
+    "title": "Partagez un moment public",
+    "Message": "Avant de pouvoir envoyer une demande de match, votre profil doit comporter au moins un moment public. Les moments publics permettent aux autres de découvrir qui vous êtes. Les moments réservés aux matchs ne sont visibles qu’après la connexion et ne permettent donc pas d’utiliser les fonctions de connexion.",
+    "btn": "ajouter un moment"
+  },
+  "Chatroom": {
+    "status": {
+      "online": "En ligne",
+      "offline": "Hors ligne"
+    },
+    "header": {
+      "connected_via": "Connecté via"
+    },
+    "menu": {
+      "unmatch": "Annuler le match",
+      "view_profile": "Voir le profil"
+    },
+    "footer": {
+      "input_placeholder": "Message à {{name}}"
+    }
+  },
+  "Options": {
+    "Gender": {
+      "MALE": "Homme",
+      "FEMALE": "Femme",
+      "NON_BINARY": "Non binaire",
+      "All": "Tous"
+    },
+    "chronoType": {
+      "EARLY_BIRD": "Lève-tôt",
+      "NIGHT_OWL": "Oiseau de nuit",
+      "FLEXIBLE": "Flexible"
+    },
+    "planningStyle": {
+      "STRUCTURED_PLANNER": "Planificateur structuré",
+      "SPONTANEOUS": "Spontané",
+      "IT_DEPENDS": "Cela dépend"
+    },
+    "socialEnergy": {
+      "INTROVERT": "Introverti",
+      "EXTROVERT": "Extraverti",
+      "IT_DEPENDS": "Cela dépend"
+    },
+    "Preference": {
+      "MEN": "Hommes",
+      "WOMEN": "Femmes",
+      "NON_BINARY": "Non binaire",
+      "All": "Tous"
+    },
+    "language": {
+      "ENGLISH": "Anglais",
+      "POLISH": "Polonais",
+      "FRENCH": "Français",
+      "OTHER": "Autre"
+    },
+    "education": {
+      "BACHELORS_DEGREE": "Licence",
+      "MASTERS_DEGREE": "Master",
+      "PHD": "Doctorat",
+      "VOCATIONAL": "Formation professionnelle",
+      "HIGH_SCHOOL": "Lycée",
+      "OTHER": "Autre"
+    },
+    "Questions": {
+      "YES": "Oui, je le fais",
+      "NO": "Non",
+      "INDIFFERENT": "Indifférent(e)",
+      "LOVE_TO": "J’aimerais un jour"
+    },
+    "drinks": {
+      "DONT_DRINK": "Ne boit pas",
+      "YES": "Oui",
+      "NO": "Non",
+      "OCCASIONAL": "Occasionnellement"
+    },
+    "Header": {
+      "any_city": "N’importe quelle ville",
+      "all": "Tous",
+      "Looking_for": "Recherche",
+      "Age_limit": "Age limit",
+      "Target_location": "Target Location",
+      "Shared_activity": "Shared Activity",
+      "Gender": "Genre",
+      "filter_btn": "Appliquer les filtres",
+      "title": "Préférences de découverte",
+      "Reset_all": "Tout réinitialiser",
+      "Min": "Min",
+      "Max": "Max"
+    },
+    "LookingFor": {
+      "LONG_TERM_RELATIONSHIP": "Relation à long terme",
+      "SHORT_TERM_RELATIONSHIP": "Court terme, ouvert(e) au long terme",
+      "NOT_DECIDED": "Je ne sais pas encore",
+      "FRIENDS": "De nouveaux amis"
+    }
+  },
+  "Professions": {
+    "SOFTWARE_ENGINEER": "Ingénieur logiciel",
+    "WEB_DEVELOPER": "Développeur web",
+    "DATA_SCIENTIST": "Data Scientist / analyste",
+    "IT_SUPPORT": "Spécialiste / support informatique",
+    "PRODUCT_MANAGER": "Responsable produit / projet",
+    "MARKETING_SPECIALIST": "Spécialiste marketing",
+    "CONTENT_CREATOR": "Créateur de contenu / influenceur",
+    "GRAPHIC_DESIGNER": "Graphiste",
+    "UX_UI_DESIGNER": "Designer UX/UI",
+    "PHOTOGRAPHER": "Photographe / vidéaste",
+    "WRITER_JOURNALIST": "Écrivain / journaliste",
+    "ARCHITECT": "Architecte",
+    "INTERIOR_DESIGNER": "Designer d’intérieur",
+    "REGISTERED_NURSE": "Infirmier / infirmière",
+    "DOCTOR_PHYSICIAN": "Médecin",
+    "DENTIST": "Dentiste",
+    "PHARMACIST": "Pharmacien / pharmacienne",
+    "THERAPIST_COUNSELOR": "Thérapeute / conseiller",
+    "PHYSIOTHERAPIST": "Kinésithérapeute",
+    "FITNESS_TRAINER": "Coach sportif",
+    "PRIMARY_TEACHER": "Enseignant du primaire",
+    "HIGH_SCHOOL_TEACHER": "Enseignant du secondaire",
+    "UNIVERSITY_PROFESSOR": "Professeur d’université",
+    "TUTOR_INSTRUCTOR": "Tuteur / formateur",
+    "CHEF_COOK": "Chef / cuisinier",
+    "BARTENDER": "Barman / barmaid",
+    "BARISTA": "Barista",
+    "RESTAURANT_MANAGER": "Responsable de restaurant",
+    "FLIGHT_ATTENDANT": "Agent de bord",
+    "HOTEL_HOSPITALITY": "Hôtellerie",
+    "ELECTRICIAN": "Électricien",
+    "PLUMBER": "Plombier",
+    "CARPENTER_BUILDER": "Menuisier / constructeur",
+    "MECHANIC": "Mécanicien automobile",
+    "HAIRDRESSER_STYLIST": "Coiffeur / barbier",
+    "ACCOUNTANT": "Comptable",
+    "FINANCIAL_ANALYST": "Analyste financier",
+    "BANKER": "Banquier d’investissement",
+    "HR_SPECIALIST": "Spécialiste RH",
+    "BUSINESS_CONSULTANT": "Consultant en affaires",
+    "SALES_REPRESENTATIVE": "Commercial",
+    "ENTREPRENEUR_OWNER": "Entrepreneur / chef d’entreprise",
+    "REAL_ESTATE_AGENT": "Agent immobilier",
+    "LAWYER_ATTORNEY": "Avocat",
+    "PARALEGAL": "Assistant juridique",
+    "CIVIL_SERVANT": "Fonctionnaire / administration",
+    "FIREFIGHTER": "Pompier",
+    "PARAMEDIC": "Ambulancier / secouriste",
+    "POLICE_OFFICER": "Policier / policière",
+    "SOCIAL_WORKER": "Travailleur social",
+    "MILITARY_SERVICE": "Personnel militaire",
+    "BLACKSMITH": "Blacksmith / Metal Artisan",
+    "GOLDSMITH_JEWELER": "Orfèvre / bijoutier",
+    "POTTER_CERAMICIST": "Potier / céramiste",
+    "SHOE_MAKER_COBBLER": "Cordonnier",
+    "TAILOR_SEAMSTRESS": "Tailleur / couturier",
+    "LEATHER_WORKER": "Artisan du cuir",
+    "STONEMASON": "Tailleur de pierre / sculpteur",
+    "WEAVER_TEXTILE": "Tisserand / artisan textile",
+    "GLASSBLOWER": "Souffleur de verre",
+    "STUDENT_UNDERGRAD": "Étudiant en licence",
+    "STUDENT_POSTGRAD": "Étudiant en master / doctorat",
+    "FREELANCER": "Indépendant / freelance",
+    "ARTIST_MUSICIAN": "Artiste / musicien",
+    "OTHER": "Autre profession"
+  },
+  "Moments": {
+    "HAVING_COFFEE": "Prendre un café",
+    "WALKING_MY_DOG": "Promener mon chien",
+    "WORKING_OUT_AT_THE_GYM": "Faire du sport à la salle",
+    "COOKING_DINNER": "Préparer le dîner",
+    "BAKING": "Faire de la pâtisserie",
+    "READING_A_BOOK": "Lire un livre",
+    "WATCHING_A_MOVIE": "Regarder un film",
+    "PLAYING_VIDEO_GAMES": "Jouer aux jeux vidéo",
+    "PLAYING_BOARD_GAMES": "Jouer à des jeux de société",
+    "OUT_WITH_FRIENDS": "Sortir avec des amis",
+    "HAVING_BRUNCH": "Prendre un brunch",
+    "DINING_OUT": "Manger au restaurant",
+    "HIKING": "Faire de la randonnée",
+    "GOING_FOR_A_RUN": "Aller courir",
+    "CYCLING": "Faire du vélo",
+    "AT_THE_BEACH": "À la plage",
+    "WATCHING_THE_SUNSET": "Regarder le coucher du soleil",
+    "ON_VACATION": "En vacances",
+    "ROAD_TRIP": "Voyage en voiture",
+    "CAMPING": "Camping",
+    "TAKING_PHOTOS": "Prendre des photos",
+    "MAKING_ART": "Créer de l’art",
+    "PLAYING_MUSIC": "Jouer de la musique",
+    "DANCING": "Danser",
+    "SHOPPING": "Faire du shopping",
+    "VOLUNTEERING": "Faire du bénévolat",
+    "STUDYING": "Étudier",
+    "WORKING": "Travailler",
+    "RELAXING_AT_HOME": "Se détendre à la maison",
+    "TRYING_SOMETHING_NEW": "Essayer quelque chose de nouveau"
+  },
+  "Cities": {
+    "any_city": "N’importe quelle ville",
+    "WARSZAWA": "Varsovie",
+    "KRAKÓW": "Cracovie",
+    "ŁÓDŹ": "Łódź",
+    "WROCŁAW": "Wrocław",
+    "POZNAŃ": "Poznań",
+    "GDAŃSK": "Gdańsk",
+    "SZCZECIN": "Szczecin",
+    "BYDGOSZCZ": "Bydgoszcz",
+    "LUBLIN": "Lublin",
+    "BIAŁYSTOK": "Białystok",
+    "KATOWICE": "Katowice",
+    "GDYNIA": "Gdynia",
+    "CZĘSTOCHOWA": "Częstochowa",
+    "RADOM": "Radom",
+    "RZESZÓW": "Rzeszów",
+    "TORUŃ": "Toruń",
+    "SOSNOWIEC": "Sosnowiec",
+    "KIELCE": "Kielce",
+    "GLIWICE": "Gliwice",
+    "OLSZTYN": "Olsztyn",
+    "ZABRZE": "Zabrze",
+    "BIELSKO_BIAŁA": "Bielsko-Biała",
+    "BYTOM": "Bytom",
+    "ZIELONA_GÓRA": "Zielona Góra",
+    "RYBNIK": "Rybnik",
+    "RUDA_ŚLĄSKA": "Ruda Śląska",
+    "OPOLE": "Opole",
+    "TYCHY": "Tychy",
+    "GORZÓW_WIELKOPOLSKI": "Gorzów Wielkopolski",
+    "ELBLĄG": "Elbląg"
+  },
+  "CTA": {
+    "View": "Plus",
+    "Spotkac": "spotkaj",
+    "Message_brand": "Spotkać — ",
+    "Message": "votre entremetteur de confiance",
+    "Info": " Connectons-nous"
+  },
+  "Menu": {
+    "Discover": "Découvrir",
+    "Matches": "Matchs",
+    "Messages": "Messages",
+    "Moments": "Mes moments",
+    "Settings": "Paramètres",
+    "Profile": "Profil",
+    "Log_in": "Logged in",
+    "Log_out": "Se déconnecter"
+  },
+  "Recent_Activities": {
+    "title": "Activités récentes",
+    "Activities": "Moments"
+  },
+  "Settings": {
+    "title": "Paramètres du compte",
+    "header": "Identifiants de connexion",
+    "fields": {
+      "email_label": "Adresse e-mail",
+      "password_label": "Mot de passe",
+      "change_password_label": "Changer le mot de passe",
+      "current_password_label": "Mot de passe actuel",
+      "new_password_label": "New Password",
+      "confirm_password_label": "Confirmer le mot de passe",
+      "cancel_password_change_label": "Annuler le changement de mot de passe"
+    },
+    "Support_&_Legal": {
+      "title": "Assistance et mentions légales",
+      "help_center_link": "Centre d’aide et FAQ",
+      "privacy_policy": "Politique de confidentialité",
+      "terms_of_service": "Conditions d’utilisation",
+      "btn": "Enregistrer les modifications du compte"
+    },
+    "Danger_zone": {
+      "title": "Zone dangereuse",
+      "text": "La suppression de votre compte supprimera définitivement vos conversations et vos matchs.",
+      "btn": "Supprimer mon compte"
+    },
+    "Reset_password": {
+      "title": "Réinitialiser le mot de passe",
+      "fields": {
+        "email_label": "E-mail",
+        "email_placeholder": "E-mail",
+        "date_of_birth_label": "Date of birth",
+        "location": "localisation",
+        "location_placeholder": "Localisation",
+        "new_password_label": "New Password",
+        "password_placeholder": "Minimum 8 caractères",
+        "confirm_password_label": "Confirmer le mot de passe",
+        "btn": "Changer le mot de passe"
+      }
+    }
+  },
+  "discover_Dialog": {
+    "title": "Aucun profil ne correspond à votre recherche",
+    "Message": "Ne vous inquiétez pas ! Élargissez votre zone de recherche pour découvrir des personnes."
+  },
+  "Delete_dialog": {
+    "message": "Nous sommes désolés de vous voir partir. Voulez-vous supprimer votre compte?",
+    "yes_btn": "Oui",
+    "no_btn": "Non"
+  },
+  "Moment_captions": {
+    "HAVING_COFFEE": "Un café tranquille et un moment de calme sont mes façons préférées de commencer la journée.",
+    "WALKING_MY_DOG": "Mon chien me garde actif, au grand air, et probablement plus heureux que je ne le mérite.",
+    "WORKING_OUT_AT_THE_GYM": "J’aime rester actif et prendre le temps de me sentir fort et en bonne santé.",
+    "COOKING_DINNER": "J’aime cuisiner à la maison, essayer de nouvelles recettes et préparer quelque chose de A à Z.",
+    "BAKING": "La pâtisserie est mon excuse préférée pour ralentir et préparer quelque chose de délicieux.",
+    "READING_A_BOOK": "Donnez-moi un bon livre, un endroit calme, et je peux disparaître pendant des heures.",
+    "WATCHING_A_VOLUME": "Un bon film, quelques snacks et une soirée tranquille, c’est difficile à battre.",
+    "PLAYING_VIDEO_GAMES": "J’aime me perdre dans un bon jeu quand j’ai un peu de temps pour moi.",
+    "PLAYING_BOARD_GAMES": "J’aime un peu de compétition, surtout avec de bons amis.",
+    "OUT_WITH_FRIENDS": "Certains de mes meilleurs moments sont de simples soirées à rire avec de bons amis.",
+    "HAVING_BRUNCH": "Bonne nourriture, bon café et rien qui presse — c’est mon genre de week-end.",
+    "DINING_OUT": "J’aime découvrir de nouveaux endroits, goûter des plats différents et trouver des petits trésors cachés.",
+    "HIKING": "Je suis le plus heureux dehors, à explorer de nouveaux sentiers et à sortir de la routine.",
+    "GOING_FOR_A_RUN": "Courir m’aide à me vider la tête, rester actif et profiter du plein air.",
+    "CYCLING": "J’adore enfourcher mon vélo, explorer de nouveaux endroits et profiter du trajet.",
+    "AT_THE_BEACH": "Donnez-moi du soleil, la mer et un peu de temps libre, et je suis heureux.",
+    "WATCHING_THE_SUNSET": "Je ne me lasse jamais de m’arrêter pour admirer un beau coucher de soleil, où que je sois.",
+    "ON_VACATION": "J’aime découvrir de nouveaux endroits, essayer de nouvelles choses et créer des souvenirs en chemin.",
+    "ROAD_TRIP": "Bonne musique, routes ouvertes, étapes intéressantes et aucun plan strict — c’est mon genre d’aventure.",
+    "CAMPING": "J’aime vraiment m’éloigner du bruit et passer du temps en plein air.",
+    "TAKING_PHOTOS": "J’aime remarquer les petits moments et immortaliser ceux qui valent la peine d’être gardés en mémoire.",
+    "MAKING_ART": "Créer quelque chose de mes propres mains est l’une de mes façons préférées de me détendre.",
+    "PLAYING_MUSIC": "La musique a toujours fait partie de ma vie, que je l’écoute ou que j’en joue.",
+    "DANCING": "J’aime la bonne musique, la bonne énergie et avoir une raison de danser.",
+    "SHOPPING": "J’aime explorer de nouveaux endroits, trouver des choses intéressantes et parfois me faire plaisir.",
+    "VOLUNTEERING": "J’aime consacrer une partie de mon temps à faire quelque chose d’utile pour les autres.",
+    "STUDYING": "Je travaille toujours vers quelque chose de nouveau et j’aime apprendre en chemin.",
+    "WORKING": "Je suis ambitieux dans ce que je fais, mais je pense aussi que la vie doit être plus que le travail.",
+    "RELAXING_AT_HOME": "Parfois, ma soirée idéale consiste simplement à rester chez moi, déconnecter et profiter d’un peu de calme.",
+    "TRYING_SOMETHING_NEW": "J’aime garder une vie intéressante et dire oui à des expériences que je n’ai jamais essayées."
+  },
+  "Rules": {
+    "title": "Règles de conduite",
+    "subtitle": "Veuillez accepter nos règles communautaires avant d’explorer les matchs.",
+    "btn_agree": "Je comprends et j’accepte",
+    "respect_title": "Soyez bienveillant et respectueux",
+    "respect_desc": "Le harcèlement, les discours haineux, les menaces ou les comportements toxiques entraîneront un bannissement permanent immédiat.",
+    "media_title": "L’authenticité est notre marque de fabrique",
+    "media_desc": "Chaque moment partagé doit inclure votre propre image ou une courte vidéo. L’authenticité est au cœur de cette plateforme.",
+    "moment_title": "Moments partagés",
+    "moment_desc": "Vous pouvez créer des moments publics ou réservés aux matchs. Toutefois, pour envoyer une demande de match, vous devez avoir au moins un moment public.",
+    "safety_title": "Restez en sécurité",
+    "safety_desc": "Ne partagez jamais votre mot de passe, vos informations bancaires ou votre adresse physique avec des personnes que vous venez de rencontrer."
+  },
+  "Compatibility": {
+    "owner": "VOUS",
+    "eyebrow": "Votre connexion",
+    "title": "Vous avez beaucoup en commun",
+    "description": "{{shared}} centres d’intérêt et expériences communs vous donnent un excellent point de départ.",
+    "compatible": "Compatible",
+    "shared": "En commun",
+    "complementary": "Complémentaire",
+    "unique": "Unique",
+    "unique_interests": "centres d’intérêt uniques",
+    "details_shared": "Ce que vous partagez",
+    "shared_description": "Voici les centres d’intérêt et les valeurs que vous avez déjà en commun.",
+    "details_opposites_header": "Là où vous vous complétez",
+    "opposites_description": "Tout ne doit pas être identique. Certaines différences peuvent créer un équilibre.",
+    "details_unique": "Ce que vous apportez à la relation",
+    "unique_description": "Voici ce qui rend chacun de vous unique.",
+    "footer": "Les meilleures connexions commencent par quelque chose que vous partagez déjà.",
+    "compatibility": "Voir la compatibilité",
+    "loading": "Découverte de ce qui vous rend compatibles…",
+    "opposites": {
+      "SOCIAL_ENERGY": "Équilibre social (introverti et extraverti)",
+      "CHRONO_TYPE": "Équilibre jour/nuit (lève-tôt et oiseau de nuit)",
+      "PLANNING_STYLE": "Harmonie de vie (planificateur et esprit libre)",
+      "COMMUNICATION_PROFILE": "Alchimie conversationnelle (bavard et auditeur)",
+      "FINANCIAL_MINDSET": "Stabilité du mode de vie (épargnant et dépensier)"
+    }
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "STORE": {
+    "BRAND_NAME": "Druga Reka",
+    "tagline": "Find your perfect match",
+    "real_moments": "Real moments.",
+    "NETWORK_ERROR":"Oops network down, please try again in few minutes.",
+    "real_connections": "Real connections.",
+    "card_actions": {
+      "view_profile": "zobacz",
+      "connect": "Spotkaj"
+    },
+    "profile_meta": {
+      "header_message": "Find people who share your interests.",
+      "sub_message": "Because meaningful relationships start with shared experiences."
+    }
+  },
+
+  "LoginPage": {
+    "brand_name": "spotkac",
+    "title": "Welcome back",
+    "subtitle": "Discover people through their experiences.",
+    "email": {
+      "placeholder": "Email address",
+      "email_error": "Username does not exist."
+    },
+    "password": {
+      "placeholder": "Password",
+      "password_error": "Incorrect password."
+    },
+    "submit_btn": "Log In",
+    "divider_text": "or",
+    "forgot_password_link": "Reset password",
+    "signup_prompt": {
+      "text": "Don't have an account?",
+      "link": "Sign up"
+    }
+  },
+  "REGISTER_PAGE": {
+    "TITLE": "Create Account",
+    "SUBTITLE": "Join the family and start making money",
+    "location_message": "Your location helps us find people nearby. You can enter it manually or enable location and click the pinpoint to auto-detect.",
+    "fields": {
+      "firstName": {
+        "placeholder": "FirstName",
+        "firstname_error": "First name cannot be empty"
+      },
+      "lastName": {
+        "placeholder": "lastName",
+        "lastname_error": "last Name cannot be empty"
+      },
+      "email": {
+        "placeholder": "Email Address",
+        "email_error": "Please provide a valid email address,Email cannot be empty",
+        "email_taken": "Email already in use, choose a different email.",
+        "error": "error"
+      },
+      "dob_error": "Birth date must be a past date,You must be at least 18 years old to access this platform.",
+      "gender": "gender",
+      "location": "location",
+      "location_error": "Location cannot be empty",
+      "gender_error": "Gender cannot be empty",
+      "password": {
+        "placeholder": "password",
+        "password_error": "Password must be between 8 and 32 characters long,Password cannot be null,Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+      },
+      "Other":{
+        "date_of_birth":"Date of Birth",
+        "gender":"Gender",
+        "location":"City or Town"
+      },
+      "terms_and_privacy": {
+        "link": "I accept the",
+        "terms": "Terms of Service",
+        "and": "and",
+        "privacy_policy": "Privacy Policy",
+        "brand_name": "of Spotkac"
+      },
+      "submit_btn": "Create Account",
+      "login_prompt": {
+        "text": "Already have an account?",
+        "link": "Log In"
+      }
+    }
+  },
+
+  "Chatroom": {
+    "status": {
+      "online": "Online",
+      "offline": "Offline"
+    },
+    "header": {
+      "connected_via": "Connected via"
+    },
+    "menu": {
+      "unmatch": "Unmatch",
+      "view_profile": "View profile"
+    },
+    "footer": {
+      "input_placeholder": "Message {{name}}"
+    }
+  },
+  "Options": {
+    "Gender": {
+      "MALE": "Male",
+      "FEMALE": "Female",
+      "NON_BINARY": "Non-binary",
+      "All": "All"
+    },
+    "chronoType": {
+      "EARLY_BIRD": "Early bird",
+      "NIGHT_OWL": "Night Owl",
+      "FLEXIBLE": "Flexible"
+    },
+    "planningStyle": {
+      "STRUCTURED_PLANNER": "Structured Planner",
+      "SPONTANEOUS": "Spontaneous",
+      "IT_DEPENDS": "It depends"
+    },
+    "socialEnergy": {
+      "INTROVERT": "Introvert",
+      "EXTROVERT": "Extrovert",
+      "IT_DEPENDS": "It depends"
+    },
+    "Preference": {
+      "MEN": "Men",
+      "WOMEN": "Women",
+      "NON_BINARY": "Non-binary",
+      "All": "All"
+    },
+    "language": {
+      "ENGLISH": "English",
+      "POLISH": "Polish",
+      "FRENCH": "French",
+      "OTHER": "Other"
+    },
+    "education": {
+      "BACHELORS_DEGREE": "Bachelor's degree",
+      "MASTERS_DEGREE": "Master's degree",
+      "PHD": "PHD",
+      "VOCATIONAL": "Vocational",
+      "HIGH_SCHOOL": "High School",
+      "OTHER": "Other"
+    },
+    "Questions": {
+      "YES": "Yes, I do",
+      "NO": "No",
+      "INDIFFERENT": "Neutral about it",
+      "LOVE_TO": "Wants someday"
+    },
+    "drinks": {
+      "DONT_DRINK": "Don't drink",
+      "YES": "Yes",
+      "NO": "No",
+      "OCCASIONAL": "Occasional"
+    },
+    "Header": {
+      "any_city": "Any city",
+      "all": "All",
+      "Looking_for": "Looking for",
+      "Age_limit": "Age limit",
+      "Target_location": "Target Location",
+      "Shared_activity": "Shared Activity",
+      "Gender": "Gender",
+      "filter_btn": "Apply filters",
+      "title": "Discover preferences",
+      "Reset_all": "Reset all",
+      "Min": "Min",
+      "Max": "Max"
+    },
+    "LookingFor": {
+      "LONG_TERM_RELATIONSHIP": "Long-term relationship",
+      "SHORT_TERM_RELATIONSHIP": "Short-term,open to long",
+      "NOT_DECIDED": "Still figuring it out",
+      "FRIENDS": "New friends"
+    }
+  }
+
+}

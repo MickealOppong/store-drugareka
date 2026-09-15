@@ -1,0 +1,1 @@
+export type TResetPasswordDto={username:string,location:string,date_of_birth:string,newPassword:string,confirmNewPassword:string}
