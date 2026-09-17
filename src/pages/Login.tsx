@@ -18,18 +18,16 @@ const Login = () => {
   const [errorPassword, setErrorPassword] = useState<string>("");
   const [fetchError, setFetchError] = useState<string>("");
   const navigate = useNavigate();
-  //http request
+  const { t } = useTranslation();
+
+  // http request
   const [login] = useLoginMutation();
 
-  //userslice update
+  // userslice update
   const dispatch = useDispatch();
 
-  //create cart on login from guest Cart Items
-  
-const [mergeCart] = useMergeCartMutation()
-
-  //translation hook
-  const { t } = useTranslation();
+  // create cart on login from guest Cart Items
+  const [mergeCart] = useMergeCartMutation();
 
   const handleEyeClick = (type: String) => {
     if (type == "password") {
@@ -41,6 +39,8 @@ const [mergeCart] = useMergeCartMutation()
 
   const handleLoginRequest = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorEmail("");
+    setErrorPassword("");
 
     const formData = new FormData(e.target);
     const formValues = Object.fromEntries(formData);
@@ -53,8 +53,7 @@ const [mergeCart] = useMergeCartMutation()
       const { httpStatus, data } = response as { httpStatus: number, data: TUserDto, message: string };
 
       if (httpStatus === 200) {
-
-          // Proceed with account dispatch and routing transitions cleanly
+        // Proceed with account dispatch and routing transitions cleanly
         dispatch(loginUser(response.data));
 
         // Wrap with a strict container guard to prevent JSON parsing crashes
@@ -66,15 +65,14 @@ const [mergeCart] = useMergeCartMutation()
             
             if (Array.isArray(guestItemIds) && guestItemIds.length > 0) {
               // Lock with await so path navigation waits for database completion
-              const cartResponse = await mergeCart(guestItemIds).unwrap();
-              console.log("Kasoa.pl Cart Merge Response:", cartResponse);
+              await mergeCart(guestItemIds).unwrap();
             }
           } catch (cartError) {
             console.error("Failed to execute background cart merge operations:", cartError);
           } finally {
-            //Flush guest storage cache clean to avoid redundant merge triggers
+            // Flush guest storage cache clean to avoid redundant merge triggers
             localStorage.removeItem('guest_cart');
-            dispatch(setGuestCartCount(0))
+            dispatch(setGuestCartCount(0));
           }
         }
         
@@ -89,11 +87,9 @@ const [mergeCart] = useMergeCartMutation()
 
       if (httpStatus === 401) {
         if (response.message.toLowerCase().startsWith("username")) {
-          setErrorEmail(() => response.message);
-          setErrorPassword("");
+          setErrorEmail(response.message);
         } else {
-          setErrorPassword(() => response.message);
-          setErrorEmail("");
+          setErrorPassword(response.message);
         }
       }
         
@@ -102,33 +98,30 @@ const [mergeCart] = useMergeCartMutation()
       // Handle Redux Network Level Errors (FETCH_ERROR)
       if (error.status === "FETCH_ERROR") {
         setFetchError("NETWORK_ERROR");
-        setErrorPassword("");
-        setErrorEmail("");
       }
     }
   };
 
-  return (
+ return (
     <>
-  {fetchError && (
-  <div className="fetch_error">
-    {/* Optional: Add a clean react warning icon directly into the template wrapper if wanted */}
-    <h2>{t(`DiscoverFeed.${fetchError}`)}</h2>
-  </div>
-)}
+      {fetchError && (
+        <div className="fetch_error">
+          <h2>{t("DiscoverFeed.NETWORK_ERROR")}</h2>
+        </div>
+      )}
 
       <div className="login-page">
         <div className="login-card">
           <div className="brand">
-            <FiHeart
-              size={16}
-              className="heart"
-            />
-            <h1>{t("LoginPage.brand_name")}</h1>
+            <FiHeart size={16} className="heart" />
+            <h1>{t("STORE.BRAND_NAME")}</h1>
           </div>
 
           <h2>{t("LoginPage.title")}</h2>
-          <p>{t("DiscoverFeed.real_moments")}{" "}{t("DiscoverFeed.real_connections")}</p>
+          <p>
+            {t("DiscoverFeed.real_moments")}{" "}
+            {t("DiscoverFeed.real_connections")}
+          </p>
 
           <form onSubmit={handleLoginRequest}>
             {/* EMAIL */}
@@ -142,16 +135,16 @@ const [mergeCart] = useMergeCartMutation()
                   <input
                     type="email"
                     name="username"
-                    placeholder=""
                     autoComplete="email"
-               
+                    required
                   />
                 </div>
               </div>
-            {
-              errorEmail && <span className="error-text">{t('LoginPage.email.email_error')}</span>
-            }
+              {errorEmail && (
+                <span className="error-text">{t('LoginPage.email.email_error')}</span>
+              )}
             </div>
+
             {/* PASSWORD */}
             <div>
               <div className="register-input-group">
@@ -161,57 +154,41 @@ const [mergeCart] = useMergeCartMutation()
                     {t("LoginPage.password.placeholder")}
                   </label>
                   <input
-                     type={`${showText==='password'?'password':'text'}`}
-                    placeholder=""
+                    type={`${showText === 'password' ? 'password' : 'text'}`}
                     name="password"
-                    autoComplete="new-password"
+                    autoComplete="current-password"
                     defaultValue={'Singing@1'}
-                    
+                    required
                   />
-                  
                 </div>
-                 <span onClick={()=>handleEyeClick('password')}  style={{display:showText==='text'?'flex':'none'}}><FaEye/></span>
-                 <span onClick={()=>handleEyeClick('text')} style={{display:showText==='password'?'flex':'none'}}><RiEyeOffFill/></span>
+                <span onClick={() => handleEyeClick('password')} style={{ display: showText === 'text' ? 'flex' : 'none' }}>
+                  <FaEye />
+                </span>
+                <span onClick={() => handleEyeClick('text')} style={{ display: showText === 'password' ? 'flex' : 'none' }}>
+                  <RiEyeOffFill />
+                </span>
               </div>
-                      {
-              errorPassword && <span className="error-text">{t('LoginPage.password.password_error')}</span>
-            }
+              {errorPassword && (
+                <span className="error-text">{t('LoginPage.password.password_error')}</span>
+              )}
             </div>
 
-            <button
-              type="submit"
-              className="login-btn"
-            >
+            <button type="submit" className="login-btn">
               {t("LoginPage.submit_btn")}
             </button>
           </form>
 
           <div className="divider">
-            <span> {t("LoginPage.divider_text")}</span>
+            <span>{t("LoginPage.divider_text")}</span>
           </div>
-          <Link
-            to={"/reset"}
-            className="reset-password-link"
-          >
+
+          <Link to="/reset" className="reset-password-link">
             {t("LoginPage.forgot_password_link")}
           </Link>
-          <button
-            className="social-btn"
-            style={{ display: "none" }}
-          >
-            Continue with Google
-          </button>
-
-          <button
-            className="social-btn"
-            style={{ display: "none" }}
-          >
-            Continue with Apple
-          </button>
 
           <div className="signup-link">
-            {t("LoginPage.signup_prompt.text")}
-            <a href="/register"> {t("LoginPage.signup_prompt.link")}</a>
+            {t("LoginPage.signup_prompt.text")}{" "}
+            <Link to="/register">{t("LoginPage.signup_prompt.link")}</Link>
           </div>
         </div>
       </div>

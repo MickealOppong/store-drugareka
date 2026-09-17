@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FiSearch } from "react-icons/fi";
-
 import { useGetMyPayoutsQuery } from "../features/api/userApi";
-import './../css/GenericViewLayout.css'; // Reuses your unified generic layout styles seamlessly
+import './../css/GenericViewLayout.css';
 
-const SellerLayout = () => {
+const SellerPayout = () => {
   const [search, setSearch] = useState("");
+  const { t } = useTranslation();
 
   // Read data stream array from user API query injection
   const { data: payouts = [] } = useGetMyPayoutsQuery();
@@ -24,10 +25,10 @@ const SellerLayout = () => {
             ====================================================== */}
       <header className="panel-view__header">
         <div>
-          <span className="panel-view__eyebrow">Listing payout</span>
-          <h1 className="panel-view__title">Wypłaty</h1>
+          <span className="panel-view__eyebrow">{t("payouts.header.eyebrow")}</span>
+          <h1 className="panel-view__title">{t("payouts.header.title")}</h1>
           <p className="panel-view__description">
-            Zarządzaj swoimi wypłatami i rozliczeniami salda.
+            {t("payouts.header.description")}
           </p>
         </div>
       </header>
@@ -40,7 +41,7 @@ const SellerLayout = () => {
           <FiSearch />
           <input
             type="text"
-            placeholder="Szukaj po numerze zamówienia..."
+            placeholder={t("payouts.toolbar.search_placeholder")}
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
@@ -48,7 +49,9 @@ const SellerLayout = () => {
 
         <div className="panel-view__metrics-counter">
           {filteredPayouts.length}{" "}
-          {filteredPayouts.length === 1 ? "wypłata" : "wypłaty"}
+          {filteredPayouts.length === 1 
+            ? t("payouts.toolbar.count_singular") 
+            : t("payouts.toolbar.count_plural")}
         </div>
       </div>
 
@@ -58,11 +61,11 @@ const SellerLayout = () => {
       <section className="panel-view__content-card">
         {filteredPayouts.length === 0 ? (
           <div className="panel-view__empty-state">
-            <div className="panel-view__empty-title">Brak wypłat</div>
+            <div className="panel-view__empty-title">{t("payouts.empty.title")}</div>
             <p>
               {search
-                ? "Nie znaleziono rozliczeń pasujących do wyszukiwania."
-                : "Nie zarejestrowano jeszcze żadnych wypłat na Twoim koncie."}
+                ? t("payouts.empty.search_desc")
+                : t("payouts.empty.default_desc")}
             </p>
           </div>
         ) : (
@@ -70,12 +73,12 @@ const SellerLayout = () => {
             <table className="data-table">
               <thead>
                 <tr>
-                  <th>Sprzedawca</th>
-                  <th>ID Rozliczenia</th>
-                  <th>Zamówienie</th>
-                  <th>Status</th>
-                  <th>Waluta</th>
-                  <th>Suma</th>
+                  <th>{t("payouts.table.headers.seller")}</th>
+                  <th>{t("payouts.table.headers.payout_id")}</th>
+                  <th>{t("payouts.table.headers.order")}</th>
+                  <th>{t("payouts.table.headers.status")}</th>
+                  <th>{t("payouts.table.headers.currency")}</th>
+                  <th>{t("payouts.table.headers.total")}</th>
                 </tr>
               </thead>
 
@@ -83,7 +86,6 @@ const SellerLayout = () => {
                 {filteredPayouts.map((payout) => {
                   // Standardizes status tokens (e.g., PENDING_PAYOUT -> pending-payout) to load correct style sheets
                   const normalizedStatusClass = payout.status?.toLowerCase().replace(/_/g, "-");
-                  const humanReadableStatus = payout.status?.replace(/_/g, " ");
 
                   return (
                     <tr key={payout.id}>
@@ -110,7 +112,7 @@ const SellerLayout = () => {
                       
                       <td>
                         <span className={`status-badge status-badge--${normalizedStatusClass}`}>
-                          {humanReadableStatus}
+                          {t(`payouts.table.statuses.${payout.status?.toLowerCase()}`, { defaultValue: payout.status?.replace(/_/g, " ") })}
                         </span>
                       </td>
                       
@@ -137,4 +139,4 @@ const SellerLayout = () => {
   );
 };
 
-export default SellerLayout;
+export default SellerPayout;

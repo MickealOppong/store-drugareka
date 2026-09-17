@@ -78,6 +78,7 @@ const User: React.FC<UserSidebarProps> = ({ onNavigate }) => {
           <FiCreditCard className="al-nav-link__icon" />
           <span>{t("user_sidebar.menu.payouts")}</span>
         </NavLink>
+       
       </nav>
 
       <div className="al-sidebar-footer">

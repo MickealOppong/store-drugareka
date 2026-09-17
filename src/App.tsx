@@ -1,9 +1,32 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import {
+  AccountLayout,
+  AdminDashboard,
+  CartPage,
+  Categories,
+  Checkout, // Resolved duplicate checkout strategies cleanly
+  Complaint,
+  Dashboard,
+  ErrorPage,
+  Landing,
+  Login,
+  PaymentConfirmation,
+  Register,
+  Sell,
+  SellerPayout,
+  SharedLayout,
+  Shipment,
+  Shop,
+  WishList,
+} from "./pages/index";
+
 import {
   AddBrand,
   AddCategory,
   AddComplaintForm,
   AddCondition,
+  AddListing,
   AddUser,
   BrandView,
   CategoryView,
@@ -17,43 +40,15 @@ import {
   ProductView,
   ProtectedRoute,
   UserProductView,
-  UserView
-} from "./components/index";
-
-import {
-  AccountLayout,
-  AddListing,
-  AdminDashboard,
-  CartPage,
-  Categories,
-  Checkout,
-  CheckoutForm,
-  Complaint,
-  Dashboard,
-  ErrorPage,
-  Landing,
-  Login,
-  PaymentConfirmation,
-  Register,
-  Sell,
-  SellerPayout,
-  SharedLayout,
-  Shipment,
-  Shop,
-  WishList
-} from "./pages/index";
-import { store } from "./store";
-
-//loaders
-
-import { loader as accountLoader } from "./pages/AccountLayout";
-import { loader as adminLoader } from "./pages/AdminDashboard";
+  UserView,
+} from "./components";
 import AdminOrderView from "./pages/AdminOrderView";
 import ContactForm from "./pages/ContactForm";
-import { loader as landingLoader } from "./pages/Landing";
 import Orders from "./pages/Orders";
+import { store } from "./store";
 
-//action
+import { loader as accountLoader } from "./pages/AccountLayout";
+import { loader as landingLoader } from "./pages/Landing";
 
 function App() {
   const router = createBrowserRouter([
@@ -71,10 +66,10 @@ function App() {
           path: "shop",
           element: <Shop />,
         },
-          {
-      path: "/sell",
-      element: <Sell />,
-    },
+        {
+          path: "sell", 
+          element: <Sell />,
+        },
         {
           path: "shop/listing/:listingId",
           element: <ProductDetails />,
@@ -83,17 +78,10 @@ function App() {
           path: "shop/categories",
           element: <Categories />,
         },
-
         {
           path: "category/:slug",
-          element: "<Category />",
+          element: <Categories />,
         },
-
-        {
-          path: "product/:id",
-          element: "<Product />",
-        },
-
         {
           path: "cart",
           element: (
@@ -103,10 +91,10 @@ function App() {
           ),
         },
         {
-          path: "checkout",
+          path: "checkout", 
           element: (
             <ProtectedRoute>
-              <CheckoutForm />
+              <Checkout />
             </ProtectedRoute>
           ),
         },
@@ -115,14 +103,6 @@ function App() {
           element: (
             <ProtectedRoute>
               <PaymentConfirmation />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "/checkout",
-          element: (
-            <ProtectedRoute>
-              <Checkout />
             </ProtectedRoute>
           ),
         },
@@ -141,7 +121,6 @@ function App() {
           path: "user",
           element: <Dashboard />,
         },
-
         {
           path: "listings/me",
           element: <UserProductView />,
@@ -150,48 +129,43 @@ function App() {
           path: "wishlist",
           element: <WishList />,
         },
-
         {
           path: "listings/new",
           element: <AddListing />,
         },
-          {
+        {
           path: "complaints/new/:id",
-          element: <AddComplaintForm/>,
+          element: <AddComplaintForm />,
         },
-
         {
           path: "listings/:listingId/edit",
           element: <EditListing />,
         },
-
         {
           path: "orders",
-          element: <Orders/>,
+          element: <Orders />,
         },
-          {
+        {
           path: "orders/:id/details",
-          element: <OrderDetails/>,
+          element: <OrderDetails />,
         },
-
         {
           path: "shipments",
           element: <Shipment />,
         },
-
         {
           path: "payouts",
           element: <SellerPayout />,
         },
         {
           path: "admin/shipments",
-          element: <Shipment/>,
+          element: <Shipment />,
         },
         {
           path: "admin/listings",
           element: <ProductView />,
         },
-          {
+        {
           path: "admin/payouts",
           element: <SellerPayout />,
         },
@@ -199,9 +173,9 @@ function App() {
           path: "admin/users",
           element: <UserView />,
         },
-         {
+        {
           path: "admin/reports",
-          element: <Complaint/>,
+          element: <Complaint />,
         },
         {
           path: "admin/user/new",
@@ -219,15 +193,13 @@ function App() {
           path: "admin/brand/new",
           element: <AddBrand />,
         },
-     {
+        {
           path: "admin/orders",
-          element: <AdminOrderView/>,
+          element: <AdminOrderView />,
         },
-
         {
           path: "admin",
           element: <AdminDashboard />,
-          loader: adminLoader(store),
         },
         {
           path: "admin/categories",
@@ -255,8 +227,6 @@ function App() {
         },
       ],
     },
-
-
     {
       path: "/login",
       element: <Login />,
@@ -265,7 +235,6 @@ function App() {
       path: "/contact",
       element: <ContactForm />,
     },
-
     {
       path: "/register",
       element: <Register />,

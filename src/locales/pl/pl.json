@@ -449,5 +449,77 @@
         "cancelled": "Anulowane"
       }
     }
+  },
+  "STORE": {
+    "BRAND_NAME": "KASOA"
+  },
+  "DiscoverFeed": {
+    "NETWORK_ERROR": "Błąd połączenia sieciowego. Spróbuj ponownie później.",
+    "real_moments": "Prawdziwe produkty.",
+    "real_connections": "Prawdziwe oszczędności."
+  },
+  "REGISTER_PAGE": {
+    "TITLE": "Utwórz konto",
+    "SUBTITLE": "Dołącz do naszej zweryfikowanej platformy produktów z drugiej ręki już dziś."
+  },
+  "LoginPage": {
+    "brand_name": "DrugaRęka",
+    "title": "Witaj ponownie",
+    "email": {
+      "placeholder": "Adres e-mail",
+      "email_error": "Nie znaleziono konta przypisanego do tego adresu e-mail."
+    },
+    "password": {
+      "placeholder": "Hasło",
+      "password_error": "Błędne hasło. Spróbuj ponownie."
+    },
+    "submit_btn": "Zaloguj się",
+    "divider_text": "LUB",
+    "forgot_password_link": "Nie pamiętasz hasła?",
+    "signup_prompt": {
+      "text": "Nie masz jeszcze konta?",
+      "link": "Zarejestruj się tutaj"
+    }
+  },
+  "RegisterPage": {
+    "fields": {
+      "firstName": {
+        "placeholder": "Imię",
+        "firstname_error": "Proszę podać poprawne imię."
+      },
+      "lastName": {
+        "placeholder": "Nazwisko",
+        "lastname_error": "Proszę podać poprawne nazwisko."
+      },
+      "Other": {
+        "date_of_birth": "Data urodzenia"
+      },
+      "dob_error": "Musisz spełniać minimalne wymagania wiekowe, aby założyć konto.",
+      "email": {
+        "placeholder": "Adres e-mail",
+        "email_error": "Proszę podać poprawny format adresu e-mail.",
+        "email_taken": "Ten adres e-mail jest już przypisany do innego konta."
+      },
+      "password": {
+        "placeholder": "Hasło",
+        "password_error": "Hasło musi mieć co najmniej 8 znaków i zawierać znaki specjalne."
+      },
+      "terms_and_privacy": {
+        "link": "Oświadczam, że akceptuję",
+        "terms": "Regulamin serwisu",
+        "and": "oraz",
+        "privacy_policy": "Politykę prywatności",
+        "brand_name": "sklepu DrugaRęka."
+      },
+      "validation": {
+        "terms_required": "Zaakceptuj regulamin i politykę prywatności, aby kontynuować."
+      },
+      "submit_btn": "Zarejestruj się",
+      "login_prompt": {
+        "text": "Masz już konto?",
+        "link": "Zaloguj się tutaj"
+      }
+    }
   }
+ 
 }

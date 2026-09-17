@@ -150,8 +150,7 @@ const Register = () => {
     <>
       {fetchError && (
         <div className="fetch_error">
-          {/* Optional: Add a clean react warning icon directly into the template wrapper if wanted */}
-          <h2>{t(`DiscoverFeed.NETWORK_ERROR`)}</h2>
+          <h2>{t("DiscoverFeed.NETWORK_ERROR")}</h2>
         </div>
       )}
 
@@ -170,8 +169,8 @@ const Register = () => {
           </div>
 
           <form onSubmit={handleFormSubmit}>
-            {/*FIRST NAME */}
             <div className="register-form-row">
+              {/* FIRST NAME */}
               <div>
                 <div className="register-input-group">
                   <FiUser className="input-icon" />
@@ -183,9 +182,8 @@ const Register = () => {
                       className="register-input"
                       type="text"
                       name="firstName"
-                      placeholder=""
                       autoComplete="given-name"
-                      onFocus={() => handleFirstNameInputFocus()}
+                      onFocus={handleFirstNameInputFocus}
                       required
                     />
                   </div>
@@ -196,7 +194,8 @@ const Register = () => {
                   </span>
                 )}
               </div>
-              {/*LAST NAME */}
+
+              {/* LAST NAME */}
               <div>
                 <div className="register-input-group">
                   <FiUser className="input-icon" />
@@ -207,9 +206,8 @@ const Register = () => {
                     <input
                       type="text"
                       name="lastName"
-                      placeholder=""
                       autoComplete="family-name"
-                      onFocus={() => handleLastNameInputFocus()}
+                      onFocus={handleLastNameInputFocus}
                       required
                     />
                   </div>
@@ -235,7 +233,7 @@ const Register = () => {
                     name="dob"
                     id="dob"
                     defaultValue={new Date().toISOString().split("T")[0]}
-                    onFocus={() => handleDateOfBirthInputFocus()}
+                    onFocus={handleDateOfBirthInputFocus}
                     required
                   />
                 </div>
@@ -258,9 +256,8 @@ const Register = () => {
                   <input
                     type="email"
                     name="email"
-                    placeholder=""
                     autoComplete="email"
-                    onFocus={() => handleEmailInputFocus()}
+                    onFocus={handleEmailInputFocus}
                     required
                   />
                 </div>
@@ -288,10 +285,9 @@ const Register = () => {
                   </label>
                   <input
                     type="password"
-                    placeholder=""
                     name="password"
                     autoComplete="new-password"
-                    onFocus={() => handlePasswordInputFocus()}
+                    onFocus={handlePasswordInputFocus}
                     required
                     defaultValue={'Singing@1'}
                   />
@@ -304,7 +300,7 @@ const Register = () => {
               )}
             </div>
 
-            {/* TERMS */}
+            {/* TERMS & PRIVACY */}
             <label className="terms">
               <input
                 type="checkbox"
@@ -314,22 +310,12 @@ const Register = () => {
               />
               <span>
                 {t("RegisterPage.fields.terms_and_privacy.link")}{" "}
-                <Link
-                  to="/terms"
-                  className="legal-link"
-                  target="_blank"
-                >
+                <Link to="/terms" className="legal-link" target="_blank">
                   {t("RegisterPage.fields.terms_and_privacy.terms")}{" "}
                 </Link>{" "}
                 {t("RegisterPage.fields.terms_and_privacy.and")}{" "}
-                <Link
-                  to="/terms"
-                  className="legal-link"
-                  target="_blank"
-                >
-                  {t(
-                    "RegisterPage.fields.terms_and_privacy.privacy_policy",
-                  )}{" "}
+                <Link to="/terms" className="legal-link" target="_blank">
+                  {t("RegisterPage.fields.terms_and_privacy.privacy_policy")}{" "}
                 </Link>
                 {t("RegisterPage.fields.terms_and_privacy.brand_name")}
               </span>
@@ -341,7 +327,7 @@ const Register = () => {
               type="submit"
               className="register-btn"
             >
-              {t("RegisterPage.fields.submit_btn")}
+        {t("RegisterPage.fields.submit_btn")}
               <FiArrowRight />
             </button>
           </form>

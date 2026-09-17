@@ -447,5 +447,76 @@
         "cancelled": "Cancelled"
       }
     }
+  },
+  "STORE": {
+    "BRAND_NAME": "KASOA"
+  },
+  "DiscoverFeed": {
+    "NETWORK_ERROR": "Network connection error. Please try again later.",
+    "real_moments": "Real items.",
+    "real_connections": "Real savings."
+  },
+  "REGISTER_PAGE": {
+    "TITLE": "Create an Account",
+    "SUBTITLE": "Join our trust-verified second-hand marketplace platform today."
+  },
+  "LoginPage": {
+    "brand_name": "DrugaRęka",
+    "title": "Welcome Back",
+    "email": {
+      "placeholder": "Email Address",
+      "email_error": "No account associated with this email address."
+    },
+    "password": {
+      "placeholder": "Password",
+      "password_error": "Incorrect password. Please try again."
+    },
+    "submit_btn": "Log in",
+    "divider_text": "OR",
+    "forgot_password_link": "Forgot your password?",
+    "signup_prompt": {
+      "text": "Don't have an account yet?",
+      "link": "Sign up here"
+    }
+  },
+  "RegisterPage": {
+    "fields": {
+      "firstName": {
+        "placeholder": "First Name",
+        "firstname_error": "Please enter a valid first name."
+      },
+      "lastName": {
+        "placeholder": "Last Name",
+        "lastname_error": "Please enter a valid last name."
+      },
+      "Other": {
+        "date_of_birth": "Date of Birth"
+      },
+      "dob_error": "You must be over legal minimum age requirements to register.",
+      "email": {
+        "placeholder": "Email Address",
+        "email_error": "Please enter a valid email address structure.",
+        "email_taken": "This email address is already registered to another account."
+      },
+      "password": {
+        "placeholder": "Password",
+        "password_error": "Password must be at least 8 characters long and contain symbols."
+      },
+      "terms_and_privacy": {
+        "link": "I agree to the",
+        "terms": "Terms of Service",
+        "and": "and",
+        "privacy_policy": "Privacy Policy",
+        "brand_name": "of DrugaRęka store."
+      },
+      "validation": {
+        "terms_required": "Please accept the terms and conditions to proceed."
+      },
+      "submit_btn": "Create account",
+      "login_prompt": {
+        "text": "Already have an account?",
+        "link": "Log in here"
+      }
+    }
   }
 }
