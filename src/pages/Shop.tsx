@@ -1,15 +1,16 @@
 import { useMemo, useState } from "react";
 import {
   FiChevronDown,
+  FiEdit,
   FiHeart,
   FiSearch,
   FiShoppingBag,
   FiSliders,
-  FiX,
+  FiX
 } from "react-icons/fi";
 
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import type { Store } from "redux";
 import { Loading, Pagination } from "../components";
 import {
   useAddWishListMutation,
@@ -18,47 +19,23 @@ import {
 import { useGetAllCategoriesQuery, useGetStoreListingsFeedQuery } from "../features/api/storeApi";
 import { useAddToCart } from "../hooks/useAddTocart";
 import { useRecentViews } from "../hooks/useRecentViews";
-import { useAppSelector, type RootState } from "../store";
+import { useAppSelector } from "../store";
 import { formatPrice } from "../util/util";
 import "./../css/Shop.css";
 
-export const loader =
-  (store: Store<RootState>) =>
-  async ({ request }: { request: Request }) => {
-    
-    /*
-    const url = new URLSearchParams(request.url.split("?")[1]);
-    const queryCategory = url.get("category") as string;
-
-    const dispatch = store.dispatch as AppDispatch;
-
-    const promise = await dispatch(
-      storeApi.endpoints.getStoreListingsFeed.initiate({
-    queryCategory,
-    page: 0,
-    size: 20},
-{
-        forceRefetch: true,
-      }),
-    );
-
-    const data: TListPageDto = promise.data as TListPageDto
-
-    console.log(data);
-    
-    return data || { listings:[],totalPages:0,page:0,totalElements:0}
-    */
-   return null;
-
-  };
-
+// Helper function to safely translate backend data conditions to local strings
+const getConditionKey = (condition: string) => {
+  if (!condition) return "good";
+  return condition.toLowerCase().replace(/\s+/g, '_');
+};
 
 const Shop = () => {
+  //translation hook
+  const {t} = useTranslation();
 
-  //const data = useLoaderData()  as TListPageDto
-  //const products = data.listings || [];
-  //console.log(d);
-  
+//user id
+const userId = useAppSelector((state)=>state.userSlice.userId)  
+
 const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { addItemToCart} = useAddToCart();
@@ -84,6 +61,9 @@ const navigate = useNavigate();
   const {  data, isLoading: isProductsLoading  } =useGetStoreListingsFeedQuery(request,{refetchOnFocus:true,refetchOnMountOrArgChange:true})
   const products = data?.listings || []
   
+  
+  console.log(products);
+  console.log(userId);
   
   
   const { 
@@ -175,32 +155,24 @@ const navigate = useNavigate();
                 SHOP HEADER
             ====================================================== */}
 
-      <section className="shop-page__header">
+  <section className="shop-page__header">
         <div className="shop-page__heading">
           <span className="shop-page__eyebrow">Druga Ręka</span>
-
-          <h1>Znajdź coś wyjątkowego</h1>
-
-          <p>Sprawdzone produkty z drugiej ręki w atrakcyjnych cenach.</p>
+          <h1>{t("shop.header.title")}</h1>
+          <p>{t("shop.header.description")}</p>
         </div>
 
         {/* SEARCH */}
-
         <div className="shop-page__search">
           <FiSearch />
-
           <input
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Szukaj produktów, marek..."
+            placeholder={t("shop.header.search_placeholder")}
           />
-
           {search && (
-            <button
-              type="button"
-              onClick={() => setSearch("")}
-            >
+            <button type="button" onClick={() => setSearch("")}>
               <FiX />
             </button>
           )}
@@ -211,12 +183,12 @@ const navigate = useNavigate();
                 CATEGORY NAVIGATION
             ====================================================== */}
 
-      <section className="shop-page__categories">
+   <section className="shop-page__categories">
         <button
           className={selectedCategory === "all" ? "active" : ""}
           onClick={() => handleCategoryButtonClick("all")}
         >
-          Wszystko
+          {t("shop.categories.all")}
         </button>
 
         {categories.map((category) => (
@@ -234,44 +206,33 @@ const navigate = useNavigate();
                 TOOLBAR
             ====================================================== */}
 
-      <section className="shop-page__toolbar">
+  <section className="shop-page__toolbar">
         <div className="shop-page__result-count">
           <strong>{filteredProducts.length}</strong>
-
-          <span>produktów</span>
+          <span> {t("shop.toolbar.products_count")}</span>
         </div>
 
         <div className="shop-page__toolbar-actions">
           {/* MOBILE FILTER */}
-
           <button
             className="shop-page__filter-button"
             onClick={() => setShowFilters(true)}
           >
             <FiSliders />
-            Filtry
+            {t("shop.toolbar.filters")}
           </button>
 
           {/* SORT */}
-
           <div className="shop-page__sort">
-            <span>Sortuj:</span>
-
+            <span>{t("shop.toolbar.sort_label")}</span>
             <div>
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value)}
-              >
-                <option value="newest">Najnowsze</option>
-                <option value="oldest">Najstarze</option>
-
-                <option value="price-low">Cena: rosnąco</option>
-
-                <option value="price-high">Cena: malejąco</option>
-
-                <option value="discount">Największa okazja</option>
+              <select value={sort} onChange={(e) => setSort(e.target.value)}>
+                <option value="newest">{t("shop.toolbar.sort_options.newest")}</option>
+                <option value="oldest">{t("shop.toolbar.sort_options.oldest")}</option>
+                <option value="price-low">{t("shop.toolbar.sort_options.price_low")}</option>
+                <option value="price-high">{t("shop.toolbar.sort_options.price_high")}</option>
+                <option value="discount">{t("shop.toolbar.sort_options.discount")}</option>
               </select>
-
               <FiChevronDown />
             </div>
           </div>
@@ -282,84 +243,72 @@ const navigate = useNavigate();
                 PRODUCTS
             ====================================================== */}
 
-          {
-            isProductsLoading ?<Loading/>:
-              <section className="shop-page__products">
-        {filteredProducts.length === 0 ? (
-          <div className="shop-page__empty">
-            <FiSearch />
-
-            <h2>Nie znaleziono produktów</h2>
-
-            <p>Spróbuj zmienić wyszukiwanie lub wybrać inną kategorię.</p>
-
-            <button
-              onClick={() => {
-                setSearch("");
-                handleCategoryButtonClick("all");
-              }}
-            >
-              Wyczyść filtry
-            </button>
-          </div>
-        ) : (
-          filteredProducts.map((product) => {
-            const isWishlisted = wishlists.includes(product.listingId);
-                 
-
-            const discount = Math.round(
-              ((product.priceDto.storeNewPrice -
-                product.priceDto.storeOldPrice) /
-                product.priceDto.storeOldPrice) *
-                100,
-            );
-
-            return (
-              <article
-                className="shop-product-card"
-                key={product.listingId}
+       {isProductsLoading ? (
+        <Loading />
+      ) : (
+        <section className="shop-page__products">
+          {filteredProducts.length === 0 ? (
+            <div className="shop-page__empty">
+              <FiSearch />
+              <h2>{t("shop.empty.title")}</h2>
+              <p>{t("shop.empty.description")}</p>
+              <button
+                onClick={() => {
+                  setSearch("");
+                  handleCategoryButtonClick("all");
+                }}
               >
-                {/* IMAGE */}
+                {t("shop.empty.clear_btn")}
+              </button>
+            </div>
+          ) : (
+            filteredProducts.map((product) => {
+              const isWishlisted = wishlists.includes(product.listingId);
+              const discount = Math.round(
+                ((product.priceDto.storeNewPrice - product.priceDto.storeOldPrice) /
+                  product.priceDto.storeOldPrice) * 100
+              );
 
-                <div className="shop-product-card__media">
-                  <Link
-                    to={`/shop/listing/${product.listingId}`}
-                    className="shop-product-card__image-link"
-                  >
-                    <img
-                      src={product?.media[0].image}
-                      alt={product.productName}
-                      loading="lazy"
-                      onClick={() => addView(product.listingId)}
-                    />
-                  </Link>
+              return (
+                <article className="shop-product-card" key={product.listingId}>
+                  {/* IMAGE */}
+                  <div className="shop-product-card__media">
+                    <Link
+                      to={`/shop/listing/${product.listingId}`}
+                      className="shop-product-card__image-link"
+                    >
+                      <img
+                        src={product?.media[0]?.image}
+                        alt={product.productName}
+                        loading="lazy"
+                        onClick={() => addView(product.listingId)}
+                      />
+                    </Link>
 
-                  <span className="shop-product-card__discount">
-                    -{discount}%
-                  </span>
+                    <span className="shop-product-card__discount">
+                      -{discount}%
+                    </span>
 
-                  <button
-                    className={`shop-product-card__wishlist ${
-                      isWishlisted ? "active" : ""
-                    }`}
-                    onClick={() => toggleWishlist(product.listingId)}
-                    aria-label="Dodaj do ulubionych"
-                  >
-                    <FiHeart />
-                  </button>
-                </div>
+                    <button
+                      className={`shop-product-card__wishlist ${isWishlisted ? "active" : ""}`}
+                      onClick={() => toggleWishlist(product.listingId)}
+                      aria-label={t("shop.product.add_wishlist")}
+                      style={{ display: product.sellerId === userId ? 'none' : 'flex' }}
+                    >
+                      <FiHeart />
+                    </button>
+                  </div>
 
-                {/* CONTENT */}
+                  {/* CONTENT */}
+                  <div className="shop-product-card__content">
+                    <span className="shop-product-card__brand">
+                      {product.brand}
+                    </span>
 
-                <div className="shop-product-card__content">
-                  <span className="shop-product-card__brand">
-                    {product.brand}
-                  </span>
+                    <h2>{product.productName}</h2>
 
-                  <h2>{product.productName}</h2>
-
-                  <div className="shop-product-card__condition">
-                    <span>{product.productCondition}</span>
+                    <div className="shop-product-card__condition">
+                    <span>{t(`landing.new_arrivals.conditions.${getConditionKey(product.productCondition)}`)}</span>
                   </div>
 
                   <div className="shop-product-card__bottom">
@@ -373,20 +322,30 @@ const navigate = useNavigate();
                       </del>
                     </div>
 
-                    <button
+                    {
+                      !userId || product.sellerId!==userId?<button
                       className="shop-product-card__buy"
                       aria-label="Kup produkt"
                       onClick={()=>addItemToCart(product.listingId)}
+              
                     >
                       <FiShoppingBag />
+                    </button>:<button
+                      className="shop-product-card__buy"
+                      aria-label="Kup produkt"
+                      onClick={()=>navigate(`/account/listings/${product.listingId}/edit`)}
+  
+                    >
+                      <FiEdit />
                     </button>
+                    }
                   </div>
                 </div>
               </article>
             );
           })
         )}
-      </section>
+      </section>)
           }
           <Pagination page={data?.page as number} totalPage={data?.totalPages as number} size={data?.pageSize as number}/>
 
@@ -403,7 +362,7 @@ const navigate = useNavigate();
 
           <div className="shop-filter-drawer__panel">
             <div className="shop-filter-drawer__header">
-              <h2>Filtry</h2>
+              <h2>{t("shop.filter_drawer.title")}</h2>
 
               <button onClick={() => setShowFilters(false)}>
                 <FiX />
@@ -411,7 +370,7 @@ const navigate = useNavigate();
             </div>
 
             <div className="shop-filter-drawer__body">
-              <label>Kategoria</label>
+              <label>{t("shop.filter_drawer.label")}</label>
 
               <select
                 value={selectedCategory}
@@ -421,7 +380,7 @@ const navigate = useNavigate();
                   setShowFilters(false);
                 }}
               >
-                <option value="all">Wszystkie</option>
+                <option value="all">{t("shop.filter_drawer.all_option")}</option>
 
                 {categories.map((category) => (
                   <option

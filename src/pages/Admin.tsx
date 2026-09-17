@@ -1,5 +1,3 @@
-import { NavLink, useNavigate } from "react-router-dom";
-
 import {
     FiArrowLeft,
     FiBarChart2,
@@ -11,165 +9,113 @@ import {
     FiShoppingBag,
     FiTag,
     FiTruck,
-    FiUsers
+    FiUsers,
 } from "react-icons/fi";
-
 import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { Loading } from "../components";
 import { useLogoutMutation } from "../features/api/authApi";
 import { logoutUser } from "../features/slice/userSlice";
-import "./../css/Admin.css";
+import './../css/Admin.css';
 
-const AdminSidebar = ({onNavigate}:{onNavigate:()=>void}) => {
+interface AdminSidebarProps {
+  onNavigate: () => void;
+}
 
+const AdminSidebar: React.FC<AdminSidebarProps> = ({ onNavigate }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const refreshToken = localStorage.getItem("rtk") as string;
+  const [logout, { isLoading }] = useLogoutMutation();
 
-        //dispatcher
-        const dispatch = useDispatch()
-    
-        //nivaget hook
-        const navigate = useNavigate();
-    
-        //refresh token
-        const refreshToken = localStorage.getItem('rtk') as string;
-    
-        //logout hook
-        const [logout,{isLoading}]= useLogoutMutation()
-      
-        const handleAccountLogout =async ()=>{
-    
-          const response = await logout(refreshToken)
-    
-          if(response.data===true){
-              dispatch(logoutUser())
-              navigate('/')
-          }
-    
-          
-        }
+  const handleAccountLogout = async () => {
+    try {
+      await logout(refreshToken).unwrap();
+      dispatch(logoutUser());
+      navigate("/");
+    } catch (error) {
+      console.error("Admin logout session interception error:", error);
+      dispatch(logoutUser());
+      navigate("/login");
+    }
+  };
 
-        if(isLoading){
-            return <p>Loading</p>
-        }
-        
-    return (
-        <aside className="account-sidebar">
+  if (isLoading) {
+    return <Loading />;
+  }
 
-            {/* =====================================================
-                ADMIN MENU
-            ====================================================== */}
+  return (
+    <div className="al-sidebar">
+      <div className="al-sidebar__label">Administracja</div>
 
-            <div className="account-sidebar__label">
-                ADMINISTRACJA
-            </div>
+      <nav className="al-sidebar__menu">
+        <NavLink to="/account/admin" end className="al-nav-link" onClick={onNavigate}>
+          <FiGrid className="al-nav-link__icon" />
+          <span>Dashboard</span>
+        </NavLink>
 
+        <NavLink to="/account/admin/listings" className="al-nav-link" onClick={onNavigate}>
+          <FiPackage className="al-nav-link__icon" />
+          <span>Produkty</span>
+        </NavLink>
 
-            <nav>
+        <NavLink to="/account/admin/categories" className="al-nav-link" onClick={onNavigate}>
+          <FiLayers className="al-nav-link__icon" />
+          <span>Kategorie</span>
+        </NavLink>
 
-                {/* Dashboard */}
+        <NavLink to="/account/admin/brands" className="al-nav-link" onClick={onNavigate}>
+          <FiTag className="al-nav-link__icon" />
+          <span>Marki</span>
+        </NavLink>
 
-                <NavLink
-                    to="/account/admin"
-                    end onClick={onNavigate}
-                >
-                    <FiGrid />
-                    Dashboard
-                </NavLink>
+        <NavLink to="/account/admin/orders" className="al-nav-link" onClick={onNavigate}>
+          <FiShoppingBag className="al-nav-link__icon" />
+          <span>Zamówienia</span>
+        </NavLink>
 
+        <NavLink to="/account/admin/shipments" className="al-nav-link" onClick={onNavigate}>
+          <FiTruck className="al-nav-link__icon" />
+          <span>Wysyłki</span>
+        </NavLink>
 
-                {/* Products / Listings */}
+        <NavLink to="/account/admin/users" className="al-nav-link" onClick={onNavigate}>
+          <FiUsers className="al-nav-link__icon" />
+          <span>Użytkownicy</span>
+        </NavLink>
 
-                <NavLink to="/account/admin/listings" onClick={onNavigate}>
-                    <FiPackage />
-                    Produkty
-                </NavLink>
+        <NavLink to="/account/admin/conditions" className="al-nav-link" onClick={onNavigate}>
+          <FiLayers className="al-nav-link__icon" />
+          <span>Condition</span>
+        </NavLink>
 
+        <NavLink to="/account/admin/reports" className="al-nav-link" onClick={onNavigate}>
+          <FiFlag className="al-nav-link__icon" />
+          <span>Zgłoszenia</span>
+        </NavLink>
 
-                {/* Categories */}
+        <NavLink to="/account/admin/analytics" className="al-nav-link" onClick={onNavigate}>
+          <FiBarChart2 className="al-nav-link__icon" />
+          <span>Analityka</span>
+        </NavLink>
 
-                <NavLink to="/account/admin/categories" onClick={onNavigate}>
-                    <FiLayers />
-                    Kategorie
-                </NavLink>
+        <NavLink to="/account/admin/payouts" className="al-nav-link" onClick={onNavigate}>
+          <FiCreditCard className="al-nav-link__icon" />
+          <span>Wypłaty</span>
+        </NavLink>
+      </nav>
 
+      <div className="al-sidebar-footer">
+        <NavLink to="/shop" className="al-sidebar-footer__back-link" onClick={onNavigate}>
+          Powrót do sklepu
+        </NavLink>
 
-                {/* Brands */}
-
-                <NavLink to="/account/admin/brands" onClick={onNavigate}>
-                    <FiTag />
-                    Marki
-                </NavLink>
-
-
-                {/* Orders */}
-
-                <NavLink to="/account/admin/orders" onClick={onNavigate}>
-                    <FiShoppingBag />
-                    Zamówienia
-                </NavLink>
-
-
-                {/* Shipments */}
-
-                <NavLink to="/account/admin/shipments" onClick={onNavigate}>
-                    <FiTruck />
-                    Wysyłki
-                </NavLink>
-
-
-                {/* Users */}
-
-                <NavLink to="/account/admin/users" onClick={onNavigate}>
-                    <FiUsers />
-                    Użytkownicy
-                </NavLink>
-                {/* Conditions*/}
-
-                <NavLink to="/account/admin/conditions" onClick={onNavigate}>
-                    <FiLayers />
-                    Condition
-                </NavLink>
-
-
-                {/* Reports */}
-
-                <NavLink to="/account/admin/reports" onClick={onNavigate}>
-                    <FiFlag />
-                    Zgłoszenia
-                </NavLink>
-
-
-                {/* Analytics */}
-
-                <NavLink to="/account/admin/analytics" onClick={onNavigate}>
-                    <FiBarChart2 />
-                    Analityka
-                </NavLink>
-
-
-                {/* Payouts */}
-
-                <NavLink to="/account/admin/payouts" onClick={onNavigate}>
-                    <FiCreditCard />
-                    Wypłaty
-                </NavLink>
-
-            </nav>
-
-
-            {/* =====================================================
-                BOTTOM
-            ====================================================== */}
-
-            <div className="account-sidebar__bottom">
-
-                <NavLink to="/shop">
-                    Powrót do sklepu
-                </NavLink>
-
-                    <button className="sidebar-close-btn" onClick={()=>handleAccountLogout()}><FiArrowLeft/> Log out</button>
-            </div>
-
-        </aside>
-    );
+        <button type="button" className="al-sidebar-footer__logout-btn" onClick={handleAccountLogout}>
+          <FiArrowLeft /> <span>Log out</span>
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default AdminSidebar;

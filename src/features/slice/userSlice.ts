@@ -28,6 +28,7 @@ const userSlice = createSlice({
 
      //store to local storage
      storeToLocalStorage('username',email)
+     storeToLocalStorage('id',userId)
      storeToLocalStorage('fname',firstName)
      storeToLocalStorage('lname',lastName)
      storeToLocalStorage('tk',token)
@@ -43,6 +44,7 @@ const userSlice = createSlice({
      state.firstName = ''
      state.lastName = ''
      removeFromLocalStorage('username')
+        removeFromLocalStorage('id')
      removeFromLocalStorage('fname')
      removeFromLocalStorage('lname')
      removeFromLocalStorage('tk')

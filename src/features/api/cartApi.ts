@@ -21,51 +21,66 @@ export const cartApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['cart'],
+  tagTypes: ["cart"],
   endpoints: (build) => ({
     addToCart: build.mutation<TResponseDto, number>({
       query: (listingId) => ({
         url: "/api/cart/new",
         params: {
-         listingId
+          listingId,
         },
-        method:"POST",
+        method: "POST",
       }),
-      invalidatesTags:['cart']
+      invalidatesTags: ["cart"],
     }),
-    getBuyerCart: build.query<TCart,void>({
+    mergeCart: build.mutation<TResponseDto, number[]>({
+      query: (guestItemIds) => ({
+        url: "/api/cart/merge",
+        params: {
+          guestItemIds,
+        },
+        method: "POST",
+      }),
+      invalidatesTags: ["cart"],
+    }),
+    getBuyerCart: build.query<TCart, void>({
       query: () => ({
-        url: "/api/cart/carts"
+        url: "/api/cart/carts",
       }),
-      providesTags:['cart']
+      providesTags: ["cart"],
     }),
- getCartCount: build.query<number,void>({
+    getCartCount: build.query<number, void>({
       query: () => ({
-        url: "/api/cart/count"
+        url: "/api/cart/count",
       }),
-      providesTags:['cart']
+      providesTags: ["cart"],
     }),
-     removeCartItem: build.mutation<number,number>({
+    removeCartItem: build.mutation<number, number>({
       query: (listingId) => ({
         url: "/api/cart/remove",
-        params:{
-            listingId
+        params: {
+          listingId,
         },
-        method:"DELETE"
+        method: "DELETE",
       }),
-      invalidatesTags:['cart']
+      invalidatesTags: ["cart"],
     }),
-      addAddress:build.mutation<void,TAddress>({
-                query:(body)=>({
-                    url:`/api/address/new`,
-                    body,
-                    method:"POST"
-                }),
-                invalidatesTags:['cart']
-            }),
+    addAddress: build.mutation<void, TAddress>({
+      query: (body) => ({
+        url: `/api/address/new`,
+        body,
+        method: "POST",
+      }),
+      invalidatesTags: ["cart"],
+    }),
   }),
-  
 });
-export const { 
-    useAddToCartMutation,useGetCartCountQuery,useRemoveCartItemMutation,useAddAddressMutation,useGetBuyerCartQuery,useLazyGetBuyerCartQuery
+export const {
+  useAddToCartMutation,
+  useGetCartCountQuery,
+  useRemoveCartItemMutation,
+  useAddAddressMutation,
+  useGetBuyerCartQuery,
+  useLazyGetBuyerCartQuery,
+  useMergeCartMutation
 } = cartApi;

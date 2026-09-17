@@ -1,92 +1,96 @@
 import { useState } from "react";
-import { FiEye, FiSearch } from "react-icons/fi";
-import { Link, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { FiEdit, FiSearch } from "react-icons/fi";
+import { useSearchParams } from "react-router-dom";
 
-import { Pagination } from "../components";
+import { Pagination, ShipmentStatusModal } from "../components";
 import { useGetShipmentsQuery } from "../features/api/userApi";
 import type { TShipment } from "../types/TShipment";
-import "./../css/GenericViewLayout.css"; // Reuses your unified generic layout styles seamlessly
+import "./../css/GenericViewLayout.css"; // Shared layout framework classes
 
 const Shipment = () => {
   const [search, setSearch] = useState("");
   const [searchParams] = useSearchParams();
+  const { t } = useTranslation();
+
+  // 1. DIALOG STATE ANCHORS
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedShipment, setSelectedShipment] = useState<TShipment | null>(null);
 
   const page = parseInt(searchParams.get("page") || "1", 10);
   const size = 10;
 
-  /*
-   * =====================================================
-   * API SHIPMENT QUERY DATA LIFECYCLE
-   * =====================================================
-   */
-  const { data, isLoading, isError } = useGetShipmentsQuery({
-    page,
-    size,
-  });
-
+  // 2. DISPATCH MAIN DATA PIPELINE DATA STREAM
+  const { data, isLoading, isError, refetch } = useGetShipmentsQuery({ page, size });
   const shipments = (data?.shipments as TShipment[]) || [];
 
-  /*
-   * =====================================================
-   * SEARCH BY DELIVERY ADDRESS
-   * =====================================================
-   */
+  // 3. LOGISTICAL SEARCH FILTER ENGINE
   const filteredList = shipments.filter((item) =>
     item.deliveryAddress?.toLowerCase().includes(search.toLowerCase())
   );
 
+  const openStatusModal = (shipment: TShipment) => {
+    setSelectedShipment(shipment);
+    setModalOpen(true);
+  };
+
+  const closeStatusModal = () => {
+    setModalOpen(false);
+    setSelectedShipment(null);
+  };
+
   return (
     <main className="panel-view">
       {/* =================================================
-                GENERIC HEADER BLOCK
+                UNIVERSAL HEADER BLOCK
             ================================================== */}
       <header className="panel-view__header">
         <div>
-          <span className="panel-view__eyebrow">Shipments</span>
-          <h1 className="panel-view__title">Order Shipments</h1>
-          <p className="panel-view__description">Zarządzaj Dostawami i Logistyką.</p>
+          <span className="panel-view__eyebrow">{t("shipments.header.eyebrow")}</span>
+          <h1 className="panel-view__title">{t("shipments.header.title")}</h1>
+          <p className="panel-view__description">{t("shipments.header.description")}</p>
         </div>
       </header>
 
       {/* =================================================
-                GENERIC TOOLBAR GRID
+                UNIVERSAL SEARCH TOOLBAR GRID
             ================================================== */}
       <div className="panel-view__toolbar">
         <div className="panel-view__search-wrapper">
           <FiSearch />
           <input
             type="text"
-            placeholder="Szukaj adresu dostawy..."
+            placeholder={t("shipments.toolbar.search_placeholder")}
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
         </div>
 
         <div className="panel-view__metrics-counter">
-          {filteredList.length} {filteredList.length === 1 ? "Wpis" : "Wpisy"}
+          {filteredList.length}{" "}
+          {filteredList.length === 1 
+            ? t("shipments.toolbar.count_singular") 
+            : t("shipments.toolbar.count_plural")}
         </div>
       </div>
 
-      {/* =================================================
-                GENERIC ERROR ROW MAPPER
-            ================================================== */}
       {isError && (
-        <div className="panel-view__error-box">Unable to load shipments data payload.</div>
+        <div className="panel-view__error-box">{t("shipments.table.error")}</div>
       )}
 
       {/* =================================================
-                GENERIC CARD WORKSPACE TABLE
+                UNIVERSAL WORKSPACE GRID TABLE CARD
             ================================================== */}
       <section className="panel-view__content-card">
         {isLoading ? (
-          <div className="panel-view__loading-overlay">Ładowanie Użytkowników...</div>
+          <div className="panel-view__loading-overlay">{t("shipments.table.loading")}</div>
         ) : filteredList.length === 0 ? (
           <div className="panel-view__empty-state">
-            <div className="panel-view__empty-title">Brak Wyników</div>
+            <div className="panel-view__empty-title">{t("shipments.empty.title")}</div>
             <p>
               {search
-                ? "Nie znaleziono przesyłek pasujących do kryteriów wyszukiwania."
-                : "Brak aktywnych rekordów przesyłek w systemie."}
+                ? t("shipments.empty.search_desc")
+                : t("shipments.empty.default_desc")}
             </p>
           </div>
         ) : (
@@ -94,74 +98,70 @@ const Shipment = () => {
             <table className="data-table">
               <thead>
                 <tr>
-                  <th>Order</th>
-                  <th>Seller</th>
-                  <th>Delivery Address</th>
-                  <th>Shipped At</th>
-                  <th>Delivered At</th>
-                  <th>Status</th>
-                  <th className="data-table__actions-header">Action</th>
+                  <th>{t("shipments.table.headers.order")}</th>
+                  <th>{t("shipments.table.headers.seller")}</th>
+                  <th>{t("shipments.table.headers.address")}</th>
+                  <th>{t("shipments.table.headers.shipped_at")}</th>
+                  <th>{t("shipments.table.headers.delivered_at")}</th>
+                  <th>{t("shipments.table.headers.status")}</th>
+                  <th className="data-table__actions-header">{t("shipments.table.headers.action")}</th>
                 </tr>
               </thead>
 
               <tbody>
                 {filteredList.map((item) => {
                   const normalizedStatusClass = item.status?.toLowerCase().replace(/_/g, "-");
-                  const humanReadableStatus = item.status?.replace(/_/g, " ");
 
                   return (
                     <tr key={item.id}>
-                      {/* ORDER REFS */}
                       <td>
                         <span className="data-table__text font-semibold text-main">
-                          #{item.id}
+                          #{item.orderNumber}
                         </span>
                       </td>
 
-                      {/* SELLER DATA */}
                       <td>
-                        <span className="data-table__text text-muted">
-                          {item.seller}
-                        </span>
+                        <span className="data-table__text text-muted">{item.seller}</span>
                       </td>
 
-                      {/* DIRECT MVP CUSTOMER DELIVERY ADDRESS DESCRIPTOR */}
                       <td>
-                        <span className="data-table__text" style={{ whiteSpace: "normal", wordBreak: "break-word", minWidth: "180px", display: "inline-block" }}>
+                        <span
+                          className="data-table__text"
+                          style={{ whiteSpace: "normal", wordBreak: "break-word", minWidth: "180px", display: "inline-block" }}
+                        >
                           {item.deliveryAddress}
                         </span>
                       </td>
 
-                      {/* NULLABLE TIMESTAMPS HANDLERS */}
                       <td>
                         <span className="data-table__text text-muted">
-                          {item.shippedAt ? new Date(item.shippedAt).toLocaleDateString("pl-PL") : '-'}
+                          {item.shippedAt ? new Date(item.shippedAt).toLocaleDateString("pl-PL") : "-"}
                         </span>
                       </td>
 
                       <td>
                         <span className="data-table__text text-muted">
-                          {item.deliveredAt ? new Date(item.deliveredAt).toLocaleDateString("pl-PL") : '-'}
+                          {item.deliveredAt ? new Date(item.deliveredAt).toLocaleDateString("pl-PL") : "-"}
                         </span>
                       </td>
 
-                      {/* DYNAMIC REGEX BADGE EXTRACTOR */}
                       <td>
                         <span className={`status-badge status-badge--${normalizedStatusClass}`}>
-                          {humanReadableStatus}
+                          {t(`buyer_view.table.statuses.${item.status?.toLowerCase()}`, { defaultValue: item.status?.replace(/_/g, " ") })}
                         </span>
                       </td>
 
-                      {/* ACTION LINK HUB */}
                       <td>
                         <div className="data-table__actions">
-                          <Link
-                            to={`/account/orders/${item.listingOrderId}`}
+                          <button
+                            type="button"
                             className="data-table__action-link"
-                            title="View order tracking specifics"
+                            style={{ background: "none", border: "none", cursor: "pointer" }}
+                            title={t("shipments.actions.edit_hint")}
+                            onClick={() => openStatusModal(item)}
                           >
-                            <FiEye />
-                          </Link>
+                            <FiEdit />
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -173,14 +173,25 @@ const Shipment = () => {
         )}
       </section>
 
-      {/* =================================================
-                PAGINATION ACTION ELEMENTS
-            ================================================== */}
       {data && (
         <Pagination
           page={data.page}
           totalPage={data.totalPages}
           size={data.pageSize}
+        />
+      )}
+
+      {/* =================================================
+                ISOLATED DECOUPLED INLINE DIALOG SUB-PANEL
+            ================================================== */}
+      {modalOpen && selectedShipment && (
+        <ShipmentStatusModal
+          shipment={selectedShipment}
+          onClose={closeStatusModal}
+          onSaveSuccess={() => {
+            closeStatusModal();
+            refetch(); // Instantly refresh data grids without needing an overhead site layout reboot
+          }}
         />
       )}
     </main>

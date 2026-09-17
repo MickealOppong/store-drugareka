@@ -3,6 +3,7 @@ import { FiEdit2, FiPlus, FiSearch, FiTrash2 } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
 
 import { useGetStorelistingsQuery } from "../features/api/itemApi";
+import { useDeleteBrandMutation } from "../features/api/transApi";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
 import { isFetchBaseQueryError } from "../util/util";
@@ -16,12 +17,16 @@ const ProductView = () => {
   const page = parseInt(searchParams.get("page" )as string)||1;
   const size = 30;
 
+  //delete mutation hook
+    const [deleteListing] = useDeleteBrandMutation()
   // Spring Boot JPA is 0-indexed, so we subtract 1 on our outgoing backend cache query
+
   const { data, isLoading: productsLoading, error } = useGetStorelistingsQuery({
     page, 
     size
   });
-console.log(page);
+
+console.log(data);
 
   const productListings = data?.listings as TListTrans[];
   const [search, setSearch] = useState("");
@@ -35,13 +40,19 @@ console.log(page);
   /*
    * Delete Handler Action
    */
-  const handleDelete = async (product: TListTrans) => {
+  const handleDelete = async (listing:number) => {
     const confirmed = window.confirm(
-      `Czy na pewno chcesz usunąć kategorię "${product.productId}"?`,
+      `Czy na pewno chcesz usunąć kategorię "${listing}"?`,
     );
 
     if (!confirmed) {
       return;
+    }
+    try {
+      await deleteListing(listing)
+      setDeletingId(listing)
+    } catch (error) {
+      
     }
   };
 
@@ -247,8 +258,8 @@ console.log(page);
                           className="data-table__action-link"
                           style={{ color: "#e11d48" }}
                           title="Usuń"
-                          disabled={deletingId === product.productId}
-                          onClick={() => handleDelete(product)}
+                          disabled={deletingId === product.listingId}
+                          onClick={() => handleDelete(product.listingId)}
                         >
                           <FiTrash2 />
                         </button>

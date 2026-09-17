@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FiEdit2, FiPlus, FiSearch, FiTrash2 } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
 import { useGetMylistingsQuery } from "../features/api/itemApi";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
@@ -24,6 +25,11 @@ const UserProductView = () => {
    * ROLE AUTH CHECK
    */
   const roles = useAppSelector((state) => state.userSlice.roles);
+
+  /**
+   *  translation
+   */
+  const {t} = useTranslation()
 
   /*
    * Delete Handler Action
@@ -55,11 +61,11 @@ const UserProductView = () => {
       {/* =====================================================
                 GENERIC HEADER BLOCK
             ====================================================== */}
-      <header className="panel-view__header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+    <header className="panel-view__header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
-          <span className="panel-view__eyebrow">Products</span>
-          <h1 className="panel-view__title">All Products</h1>
-          <p className="panel-view__description">Zarządzaj swoimi produktami i ogłoszeniami.</p>
+          <span className="panel-view__eyebrow">{t("user_products.header.eyebrow")}</span>
+          <h1 className="panel-view__title">{t("user_products.header.title")}</h1>
+          <p className="panel-view__description">{t("user_products.header.description")}</p>
         </div>
 
         {/* Dynamic add button using your standard Sage Green styling elements */}
@@ -70,20 +76,21 @@ const UserProductView = () => {
             style={{ display: "flex", gap: "0.5rem", padding: "0 1rem", width: "auto", minWidth: "130px", height: "40px", backgroundColor: "#66704A", color: "#ffffff", borderColor: "#66704A", borderRadius: "12px", textDecoration: "none", fontWeight: 600, fontSize: "14px" }}
           >
             <FiPlus />
-            Dodaj produkt
+            {t("user_products.header.add_btn")}
           </Link>
         )}
       </header>
 
+
       {/* =====================================================
                 GENERIC TOOLBAR GRID
             ====================================================== */}
-      <div className="panel-view__toolbar">
+   <div className="panel-view__toolbar">
         <div className="panel-view__search-wrapper">
           <FiSearch />
           <input
             type="text"
-            placeholder="Szukaj produktu..."
+            placeholder={t("user_products.toolbar.search_placeholder")}
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
@@ -91,14 +98,16 @@ const UserProductView = () => {
 
         <div className="panel-view__metrics-counter">
           {filteredList.length}{" "}
-          {filteredList.length === 1 ? "produkt" : "produkty"}
+          {filteredList.length === 1 
+            ? t("user_products.toolbar.count_singular") 
+            : t("user_products.toolbar.count_plural")}
         </div>
       </div>
 
       {/* =====================================================
                 GENERIC ERROR ROW MAPPER
             ====================================================== */}
-      {error && (
+     {error && (
         <div className="panel-view__error-box">
           {isFetchBaseQueryError(error)}
         </div>
@@ -109,14 +118,14 @@ const UserProductView = () => {
             ====================================================== */}
       <section className="panel-view__content-card">
         {productsLoading ? (
-          <div className="panel-view__loading-overlay">Ładowanie produktów...</div>
+          <div className="panel-view__loading-overlay">{t("user_products.table.loading")}</div>
         ) : filteredList.length === 0 ? (
           <div className="panel-view__empty-state">
-            <div className="panel-view__empty-title">Brak produktów</div>
+            <div className="panel-view__empty-title">{t("user_products.empty.title")}</div>
             <p>
               {search
-                ? "Nie znaleziono produktów pasujących do wyszukiwania."
-                : "Nie utworzono jeszcze żadnych produktów na tym koncie."}
+                ? t("user_products.empty.search_desc")
+                : t("user_products.empty.default_desc")}
             </p>
           </div>
         ) : (
@@ -124,17 +133,17 @@ const UserProductView = () => {
             <table className="data-table">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>ID</th>
-                  <th>Description</th>
-                  {roles.includes("ROLE_ADMIN") && <th>Seller ID</th>}
-                  <th>Slug</th>
-                  <th>Brand</th>
-                  <th>Category</th>
-                  <th>Price</th>
-                  <th>Product Status</th>
-                  <th>Listing Status</th>
-                  <th className="data-table__actions-header">Akcje</th>
+                  <th>{t("user_products.table.headers.name")}</th>
+                  <th>{t("user_products.table.headers.id")}</th>
+                  <th>{t("user_products.table.headers.description")}</th>
+                  {roles.includes("ROLE_ADMIN") && <th>{t("user_products.table.headers.seller_id")}</th>}
+                  <th>{t("user_products.table.headers.slug")}</th>
+                  <th>{t("user_products.table.headers.brand")}</th>
+                  <th>{t("user_products.table.headers.category")}</th>
+                  <th>{t("user_products.table.headers.price")}</th>
+                  <th>{t("user_products.table.headers.product_status")}</th>
+                  <th>{t("user_products.table.headers.listing_status")}</th>
+                  <th className="data-table__actions-header">{t("user_products.table.headers.actions")}</th>
                 </tr>
               </thead>
 
@@ -198,21 +207,21 @@ const UserProductView = () => {
                     {/* PRICE IN PLN */}
                     <td>
                       <span className="data-table__text font-bold text-primary">
-                        {product.priceDto.sellerNewPrice}
+                        {product.priceDto.sellerNewPrice} zł
                       </span>
                     </td>
 
                     {/* PHYSICAL ITEM AVAILABILITY BADGE */}
                     <td>
                       <span className={`status-badge status-badge--${product.inventoryStatus?.toLowerCase().replace(/_/g, "-")}`}>
-                        {product.inventoryStatus?.replace(/_/g, " ")}
+                        {t(`user_products.table.statuses.${product.inventoryStatus?.toLowerCase()}`, { defaultValue: product.inventoryStatus?.replace(/_/g, " ") })}
                       </span>
                     </td>
 
                     {/* PUBLIC LISTING FEED DISPLAY BADGE */}
                     <td>
                       <span className={`status-badge status-badge--${product.listingStatus?.toLowerCase().replace(/_/g, "-")}`}>
-                        {product.listingStatus?.replace(/_/g, " ")}
+                        {t(`user_products.table.statuses.${product.listingStatus?.toLowerCase()}`, { defaultValue: product.listingStatus?.replace(/_/g, " ") })}
                       </span>
                     </td>
 
@@ -222,8 +231,8 @@ const UserProductView = () => {
                         <Link
                           to={`/account/listings/${product.listingId}/edit`}
                           className="data-table__action-link"
-                          title="Edytuj produkt"
-                          style={{display:product.inventoryStatus==='SOLD'?'none':'flex'}}
+                          title={t("user_products.actions.edit_hint")}
+                          style={{ display: product.inventoryStatus === 'SOLD' ? 'none' : 'flex' }}
                         >
                           <FiEdit2 />
                         </Link>
@@ -232,7 +241,7 @@ const UserProductView = () => {
                           type="button"
                           className="data-table__action-link"
                           style={{ color: "#e11d48" ,display:product.inventoryStatus==='AVAILABLE'?'flex':'none'}}
-                          title="Usuń produkt"
+                          title={t("user_products.actions.delete_hint")}
                           disabled={deletingId === product.productId}
                           onClick={() => handleDelete(product)}
                         >

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FiHeart, FiShoppingBag, FiUser } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { appName } from "../data/data";
 import { useLogoutMutation } from "../features/api/authApi";
 import { useGetCartCountQuery } from "../features/api/cartApi";
 import { useGetWishlistCountQuery } from "../features/api/itemApi";
@@ -67,7 +68,7 @@ const onWishlistButtonClick=()=>{
       
       {/* 1. BRAND PLATFORM LOGO PROFILE */}
       <Link to="/" className="brand">
-        <span>Druga</span>Ręka
+       {appName} <span>.pl</span>
       </Link>
 
       {/* 2. CORE MARKETPLACE CATEGORIZATION NAVIGATION */}

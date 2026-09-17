@@ -154,10 +154,9 @@ export const transApi = createApi({
             }),
             providesTags:['conditions']
         }),
-        
     })
 })
 export const {useNewCategoryMutation,useLazyAllParentcategoriesQuery,useEditCategoryMutation,useLazyGetCategoryQuery
     ,useDeleteCategoryMutation,useDeleteBrandMutation,useEditBrandMutation,useNewBrandMutation,useLazyAllBrandsQuery,useLazyFetchBrandQuery,
-    useFetchConditionQuery,useGetAllConditionsQuery,useNewConditionMutation,useDeleteConditionMutation
+    useFetchConditionQuery,useGetAllConditionsQuery,useNewConditionMutation,useDeleteConditionMutation,useAllBrandsQuery
 }= transApi

@@ -9,4 +9,5 @@ export type TOrdersDto = {
   orderNumber: string;
   orderTotal: number;
   shipping:number
+  deliveryStatus?:string
 };

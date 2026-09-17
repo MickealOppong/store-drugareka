@@ -80,8 +80,6 @@ const Register = () => {
           password,
           isTermsAccepted,
         }).unwrap();
-
-        console.log(response);
         
         // 2. SUCCESS FLOW: Since we unwrapped, we know the backend returned a 2xx success code
         //console.log('Registration Successful:', payload);

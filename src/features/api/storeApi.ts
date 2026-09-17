@@ -4,13 +4,14 @@ import type { TCategoryReponse } from "../../types/TCategoryResponse";
 import type { TListPageDto } from "../../types/TListPageDto";
 import type { TListTrans } from "../../types/TListTrans";
 import type { TResponseDto } from "../../types/TResponseDto";
+import type { TSellingActivity } from "../../types/TsellingActivity";
 import { baseUrl } from "./baseUrl";
 
 export const storeApi = createApi({
   reducerPath: "storeApi",
   baseQuery: fetchBaseQuery({
     baseUrl,
-       prepareHeaders: (headers) => {
+    prepareHeaders: (headers) => {
       // RTK Query runs this function EVERY time you make a request
       const token = localStorage.getItem("tk") ?? "";
 
@@ -21,24 +22,28 @@ export const storeApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["listings", "categories","listing"],
+  tagTypes: ["listings", "categories", "listing"],
   endpoints: (build) => ({
     getStoreListings: build.query<TListTrans[], void>({
       query: () => ({
         url: "/api/store/listings",
       }),
     }),
-      getStoreListingsFeed: build.query<TListPageDto, { queryCategory: string; page: number; size: number; }>({
-      query: ({queryCategory,page,size}) => ({
+    getStoreListingsFeed: build.query<
+      TListPageDto,
+      { queryCategory: string; page: number; size: number }
+    >({
+      query: ({ queryCategory, page, size }) => ({
         url: `/api/store/store-listing`,
-        params:{
+        params: {
           queryCategory,
-          page,size
-        }
+          page,
+          size,
+        },
       }),
-      providesTags:['listing']
+      providesTags: ["listing"],
     }),
-     getAllCategories: build.query<TCategoryReponse[], void>({
+    getAllCategories: build.query<TCategoryReponse[], void>({
       query: () => ({
         url: "/api/store/all-categories",
       }),
@@ -48,27 +53,39 @@ export const storeApi = createApi({
     getListing: build.query<TListTrans, number>({
       query: (listingId) => ({
         url: `/api/store/listing/${listingId}`,
-        params:{
-            listingId
-        }
+        params: {
+          listingId,
+        },
       }),
       providesTags: ["listings"],
     }),
-     getTop6ProductCategories: build.query<TCategoryReponse[], void>({
+    getTop6ProductCategories: build.query<TCategoryReponse[], void>({
       query: () => ({
-        url: `/api/store/top6-categories`
+        url: `/api/store/top6-categories`,
       }),
       providesTags: ["categories"],
     }),
-       getProductCategories: build.query<TResponseDto, void>({
+    getProductCategories: build.query<TResponseDto, void>({
       query: () => ({
-        url: `/api/store/all-categories`
+        url: `/api/store/all-categories`,
       }),
       providesTags: ["categories"],
+    }),
+
+    getRecentSellerActivity: build.query<TSellingActivity[], void>({
+      query: () => ({
+        url: "/api/analytics/seller-recent",
+      }),
+      providesTags: ["listings"],
     }),
   }),
 });
-export const { useGetStoreListingsFeedQuery, useGetAllCategoriesQuery,useGetListingQuery,
-  useGetProductCategoriesQuery,useGetTop6ProductCategoriesQuery,useLazyGetListingQuery
-} =
-  storeApi;
+export const {
+  useGetStoreListingsFeedQuery,
+  useGetAllCategoriesQuery,
+  useGetListingQuery,
+  useGetProductCategoriesQuery,
+  useGetTop6ProductCategoriesQuery,
+  useLazyGetListingQuery,
+  useGetRecentSellerActivityQuery,
+} = storeApi;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FiEye, FiFlag, FiSearch } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
+import { FiFlag, FiSearch } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
 
 import { useGetPurchaseOrdersQuery } from "../features/api/itemApi";
@@ -10,20 +11,18 @@ import Pagination from "./Pagination";
 const SellerView: React.FC = () => {
   const [search, setSearch] = useState("");
   const [searchParams] = useSearchParams();
+  const { t } = useTranslation();
   
   const page = parseInt(searchParams.get("page") || "1", 10);
   const size = 10;
 
   // ISOLATED API COMPONENT FETCH
-  const { data, isLoading, isError ,error} = useGetPurchaseOrdersQuery({
+  const { data, isLoading, isError, error } = useGetPurchaseOrdersQuery({
     page,
     size,
   });
 
   const orders = (data?.orders as TOrdersDto[]) || [];
-
-  
-  
 
   // ISOLATED SEARCH FILTER ENGINE
   const filteredList = orders.filter((order) => {
@@ -43,41 +42,44 @@ const SellerView: React.FC = () => {
           <FiSearch />
           <input
             type="text"
-            placeholder="Search sales..."
+            placeholder={t("seller_view.toolbar.search_placeholder")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <div className="panel-view__metrics-counter">
-          {filteredList.length} {filteredList.length === 1 ? "sale" : "sales"}
+          {filteredList.length}{" "}
+          {filteredList.length === 1 
+            ? t("seller_view.toolbar.count_singular") 
+            : t("seller_view.toolbar.count_plural")}
         </div>
       </div>
 
       {isError && (
-        <div className="panel-view__error-box">Unable to fetch sales records.</div>
+        <div className="panel-view__error-box">{t("seller_view.table.error")}</div>
       )}
 
       <section className="panel-view__content-card">
         {isLoading ? (
-          <div className="panel-view__loading-overlay">Loading sales...</div>
+          <div className="panel-view__loading-overlay">{t("seller_view.table.loading")}</div>
         ) : filteredList.length === 0 ? (
           <div className="panel-view__empty-state">
-            <div className="panel-view__empty-title">No sales found</div>
-            <p>{search ? "No sales match your search." : "Your sales records will appear here."}</p>
+            <div className="panel-view__empty-title">{t("seller_view.empty.title")}</div>
+            <p>{search ? t("seller_view.empty.search_desc") : t("seller_view.empty.default_desc")}</p>
           </div>
         ) : (
           <div className="panel-view__scroll-table-container">
             <table className="data-table">
               <thead>
                 <tr>
-                  <th>Order</th>
-                  <th>Buyer</th>
-                  <th>Subtotal</th>
-                  <th>Shipping</th>
-                  <th>Total</th>
-                  <th>Status</th>
-                  <th>Created</th>
-                  <th className="data-table__actions-header">Action</th>
+                  <th>{t("seller_view.table.headers.order")}</th>
+                  <th>{t("seller_view.table.headers.buyer")}</th>
+                  <th>{t("seller_view.table.headers.subtotal")}</th>
+                  <th>{t("seller_view.table.headers.shipping")}</th>
+                  <th>{t("seller_view.table.headers.total")}</th>
+                  <th>{t("seller_view.table.headers.status")}</th>
+                  <th>{t("seller_view.table.headers.created")}</th>
+                  <th className="data-table__actions-header">{t("seller_view.table.headers.action")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -109,7 +111,7 @@ const SellerView: React.FC = () => {
                     </td>
                     <td>
                       <span className={`status-badge status-badge--${order.orderStatus?.toLowerCase().replace(/_/g, "-")}`}>
-                        {order.orderStatus?.replace(/_/g, " ")}
+                        {t(`buyer_view.table.statuses.${order.orderStatus?.toLowerCase()}`, { defaultValue: order.orderStatus?.replace(/_/g, " ") })}
                       </span>
                     </td>
                     <td>
@@ -119,10 +121,7 @@ const SellerView: React.FC = () => {
                     </td>
                     <td>
                       <div className="data-table__actions">
-                        <Link to={`/account/orders/${order.id}`} className="data-table__action-link" title="View Details">
-                          <FiEye />
-                        </Link>
-                        <Link to={`/account/complaints/new/${order.id}`} className="data-table__action-link" title="File Dispute">
+                        <Link to={`/account/complaints/new/${order.id}`} className="data-table__action-link" title={t("seller_view.actions.file_dispute")}>
                           <FiFlag />
                         </Link>
                       </div>

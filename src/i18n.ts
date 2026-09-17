@@ -2,10 +2,7 @@ import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
-import deLocale from './locales/de/de.json';
 import enLocale from './locales/en//en.json';
-import frLocale from './locales/fr/fr.json';
-import twLocale from './locales/gh/tw.json';
 import plLocale from './locales/pl/pl.json';
 
 i18n
@@ -15,9 +12,6 @@ i18n
     resources: {
       en: { translation: enLocale },
       pl: { translation: plLocale },
-      fr: { translation: frLocale },
-      tw: { translation: twLocale },
-      de: { translation: deLocale }
     },
     // ============================================================
     // THE SMART DETECT & FALLBACK CONFIGURATION

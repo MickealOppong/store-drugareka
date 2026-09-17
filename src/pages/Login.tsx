@@ -6,9 +6,9 @@ import { RiEyeOffFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../features/api/authApi";
+import { useMergeCartMutation } from "../features/api/cartApi";
+import { setGuestCartCount } from "../features/slice/cartSlice";
 import { loginUser } from "../features/slice/userSlice";
-import { useAddToCart } from "../hooks/useAddTocart";
-import { useAppSelector } from "../store";
 import type { TUserDto } from "../types/TUserDto";
 import "./../css/LoginPage.css";
 
@@ -25,8 +25,8 @@ const Login = () => {
   const dispatch = useDispatch();
 
   //create cart on login from guest Cart Items
-  const {guestCartItems} = useAppSelector((state)=>state.cartSlice)
-  const {addItemToCart} = useAddToCart()
+  
+const [mergeCart] = useMergeCartMutation()
 
   //translation hook
   const { t } = useTranslation();
@@ -47,28 +47,44 @@ const Login = () => {
 
     const username = formValues.username as string;
     const password = formValues.password as string;
-    
 
     try {
       const response = await login({ username, password }).unwrap();
+      const { httpStatus, data } = response as { httpStatus: number, data: TUserDto, message: string };
 
-      const {httpStatus,data} = response as {httpStatus:number,data:TUserDto,message:string}
-  console.log(response);
-  
-      
       if (httpStatus === 200) {
+
+          // Proceed with account dispatch and routing transitions cleanly
         dispatch(loginUser(response.data));
-        /*
-          if(guestCartItems.length>0){
-                  
-            guestCartItems.map(async (item)=>{
-              await addItemToCart(item)
-            })
+
+        // Wrap with a strict container guard to prevent JSON parsing crashes
+        const rawGuestCart = localStorage.getItem('guest_cart');
+        
+        if (rawGuestCart) {
+          try {
+            const guestItemIds: number[] = JSON.parse(rawGuestCart);
+            
+            if (Array.isArray(guestItemIds) && guestItemIds.length > 0) {
+              // Lock with await so path navigation waits for database completion
+              const cartResponse = await mergeCart(guestItemIds).unwrap();
+              console.log("Kasoa.pl Cart Merge Response:", cartResponse);
+            }
+          } catch (cartError) {
+            console.error("Failed to execute background cart merge operations:", cartError);
+          } finally {
+            //Flush guest storage cache clean to avoid redundant merge triggers
+            localStorage.removeItem('guest_cart');
+            dispatch(setGuestCartCount(0))
           }
-            */
-              data.roles.includes("ROLE_ADMIN")?navigate("/account/admin")
-          :navigate('/shop');
+        }
+        
+        // Dynamic Role Guard Redirection Layout Mapping
+        const userRolesList = data?.roles || [];
+        userRolesList.includes("ROLE_ADMIN") 
+          ? navigate("/account/admin") 
+          : navigate('/shop');
           
+        return; 
       }
 
       if (httpStatus === 401) {
@@ -82,12 +98,12 @@ const Login = () => {
       }
         
     } catch (error: any) {
+      console.error("Authentication lifecycle failure:", error);
       // Handle Redux Network Level Errors (FETCH_ERROR)
       if (error.status === "FETCH_ERROR") {
         setFetchError("NETWORK_ERROR");
         setErrorPassword("");
         setErrorEmail("");
-        return;
       }
     }
   };

@@ -15,9 +15,6 @@ interface LanguageSwitcherProps {
 const LANGUAGES: LangOption[] = [
   { code: 'pl', label: 'PL' },
   { code: 'en', label: 'EN' },
-  { code: 'de', label: 'DE' },
-  { code: 'fr', label: 'FR' },
-  { code: 'tw', label: 'TWI' }
 ];
 
 

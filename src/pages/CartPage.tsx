@@ -1,29 +1,22 @@
-import { useEffect } from "react";
 import { FiShoppingBag } from "react-icons/fi";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Cart } from "../components/index";
 import { useGetBuyerCartQuery, useRemoveCartItemMutation } from "../features/api/cartApi";
 import { useCheckoutBuyerMutation } from "../features/api/checkoutApi";
-import { updateGuestCartItems } from "../features/slice/cartSlice";
 import type { TCart } from "../types/TCart";
 import './../css/Cart.css';
 
 const CartPage = () => {
   const { data: cart, isLoading: cartLoading } = useGetBuyerCartQuery();
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
+
+ 
 
   const [deleteItem] = useRemoveCartItemMutation();
   const [checkout] = useCheckoutBuyerMutation();
 
-  // Synchronize Redux global tracking state when the remote API finishes loading
-  useEffect(() => {
-    if (cart?.cartItemList) {
-      const listingIds = cart.cartItemList.map((item) => item.listingId);
-      dispatch(updateGuestCartItems(listingIds));
-    }
-  }, [cart, dispatch]);
+
 
   const handleRemoveItem = async (listingId: number) => {
     try {

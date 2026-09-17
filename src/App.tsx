@@ -12,6 +12,7 @@ import {
   EditCategory,
   EditListing,
   EditUser,
+  OrderDetails,
   ProductDetails,
   ProductView,
   ProtectedRoute,
@@ -39,7 +40,7 @@ import {
   SharedLayout,
   Shipment,
   Shop,
-  WishList,
+  WishList
 } from "./pages/index";
 import { store } from "./store";
 
@@ -49,11 +50,8 @@ import { loader as accountLoader } from "./pages/AccountLayout";
 import { loader as adminLoader } from "./pages/AdminDashboard";
 import AdminOrderView from "./pages/AdminOrderView";
 import ContactForm from "./pages/ContactForm";
-import { loader as dashboardLoader } from "./pages/Dashboard";
 import { loader as landingLoader } from "./pages/Landing";
 import Orders from "./pages/Orders";
-import { loader as shopLoader } from "./pages/Shop";
-import { loader as wishlistLoader } from "./pages/WishList";
 
 //action
 
@@ -72,8 +70,11 @@ function App() {
         {
           path: "shop",
           element: <Shop />,
-          loader: shopLoader(store),
         },
+          {
+      path: "/sell",
+      element: <Sell />,
+    },
         {
           path: "shop/listing/:listingId",
           element: <ProductDetails />,
@@ -139,7 +140,6 @@ function App() {
         {
           path: "user",
           element: <Dashboard />,
-          loader: dashboardLoader(store),
         },
 
         {
@@ -148,7 +148,6 @@ function App() {
         },
         {
           path: "wishlist",
-          loader: wishlistLoader(store),
           element: <WishList />,
         },
 
@@ -169,6 +168,10 @@ function App() {
         {
           path: "orders",
           element: <Orders/>,
+        },
+          {
+          path: "orders/:id/details",
+          element: <OrderDetails/>,
         },
 
         {
@@ -253,10 +256,6 @@ function App() {
       ],
     },
 
-    {
-      path: "/sell",
-      element: <Sell />,
-    },
 
     {
       path: "/login",
@@ -270,14 +269,6 @@ function App() {
     {
       path: "/register",
       element: <Register />,
-    },
-    {
-      path: "/checkout",
-      element: <CheckoutForm />,
-    },
-    {
-      path: "/checkout/success",
-      element: <PaymentConfirmation />,
     },
   ]);
   return <RouterProvider router={router} />;

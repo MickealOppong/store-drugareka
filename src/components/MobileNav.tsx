@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FiArrowRight, FiHeart, FiMenu, FiShoppingBag, FiUser, FiX } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { appName } from "../data/data";
 import { useLogoutMutation } from "../features/api/authApi";
 import { useGetCartCountQuery } from "../features/api/cartApi";
 import { useGetWishlistCountQuery } from "../features/api/itemApi";
@@ -80,7 +81,7 @@ const MobileNav = () => {
         
         {/* 1. BRAND LOGO */}
         <Link to="/" className="mn-brand" onClick={() => setMenuOpen(false)}>
-          <span className="mn-brand__light">Druga</span>Ręka
+          {appName}<span className="mn-brand__light">.pl</span>
         </Link>
 
         {/* 2. ACTIONS TOOLBAR PANEL */}

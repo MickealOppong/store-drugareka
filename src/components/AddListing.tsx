@@ -5,25 +5,32 @@ import { SHIPPING_METHOD } from "../data/data";
 import { useAddListingMutation } from "../features/api/itemApi";
 import { useGetAllCategoriesQuery } from "../features/api/storeApi";
 import {
-  useGetAllConditionsQuery
+  useAllBrandsQuery,
+  useGetAllConditionsQuery,
 } from "../features/api/transApi";
+import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TProductData } from "../types/TProductData";
 import "./../css/AddListing.css";
+import SearchSelect from "./SearchSelect";
 
 type TFile = {
-  file: Blob;
+  file: File;
   preview: string;
 };
 
 const AddListing = () => {
   const [images, setImages] = useState<TFile[]>([]);
 
+  /**
+   * Brand query
+   */
+  const { data: brands = [] } = useAllBrandsQuery();
 
   /**
    * * navigate hook
    */
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   /**
    * Errors
    */
@@ -40,8 +47,8 @@ const AddListing = () => {
   /**
    * * crud hooks
    */
-  const {data:categories=[]} = useGetAllCategoriesQuery();
-  const {data:conditions=[]}= useGetAllConditionsQuery();
+  const { data: categories = [] } = useGetAllCategoriesQuery();
+  const { data: conditions = [] } = useGetAllConditionsQuery();
   const [addItem] = useAddListingMutation();
 
   const [formData, setFormData] = useState<TProductData>({
@@ -58,15 +65,15 @@ const AddListing = () => {
     status: "",
     images: [],
     imageSortOrder: [],
-    shippingMethod:''
+    shippingMethod: "",
   });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-         // Dynamic clean up based on field names
-  if (name === "brand" && brandError) setBrandError("");
-  if (name === "name" && nameError) setNameError("");
+    // Dynamic clean up based on field names
+    if (name === "brand" && brandError) setBrandError("");
+    if (name === "name" && nameError) setNameError("");
 
     setFormData((prev) => ({
       ...prev,
@@ -77,9 +84,9 @@ const AddListing = () => {
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
 
-     // Dynamic clean up based on field names
-  if (name === "condition" && conditionError) setConditionError("");
-  if (name === "category" && categoryError) setCategoryError("");
+    // Dynamic clean up based on field names
+    if (name === "condition" && conditionError) setConditionError("");
+    if (name === "category" && categoryError) setCategoryError("");
 
     setFormData((prev) => ({
       ...prev,
@@ -90,10 +97,9 @@ const AddListing = () => {
   const handleTextInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
 
-       // Dynamic clean up based on field names
-  if (name === "shipping" && nameError) setShippingError("");
-  if (name === "description" && brandError) setDescriptionError("");
-
+    // Dynamic clean up based on field names
+    if (name === "shippingInfo" && shippingError) setShippingError("");
+    if (name === "description" && descriptionError) setDescriptionError("");
 
     setFormData((prev) => ({
       ...prev,
@@ -102,17 +108,17 @@ const AddListing = () => {
   };
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files as FileList);
+    const files = Array.from(e.target.files ?? []);
 
-           // Dynamic clean up based on field names
-            setImageError("");
+    // Dynamic clean up based on field names
+    setImageError("");
 
     const newImages = files.map((file) => ({
       file,
       preview: URL.createObjectURL(file),
     }));
 
-    setImages((prev) => [...prev, ...newImages]);
+    setImages((prev) => [...prev, ...newImages].slice(0, 8));
   };
 
   /**
@@ -157,48 +163,60 @@ const AddListing = () => {
     });
 
     console.log("Product:", productData);
-       try {
-        
+    try {
       const response = await addItem(dataToSend);
-      console.log(response);
-      
-      if(response.data?.httpStatus===200){
-        navigate('/account/listings/me')
+
+      if (response.data?.httpStatus === 200) {
+        navigate("/account/listings/me");
       }
 
       if (response.error) {
-        type TError={ price:string,name:string,description:string,status:string,category:string
-          ,brand:string,condition:string,shipping:string,shippingMethod:string }
-  
-        const { data,status} = response?.error as {
-          data:any;
+        type TError = {
+          price: string;
+          name: string;
+          description: string;
+          status: string;
+          category: string;
+          brand: string;
+          condition: string;
+          shipping: string;
+          shippingMethod: string;
+        };
+
+        const { data, status } = response?.error as {
+          data: any;
           message: string;
           status: number;
         };
-        if(status===400){
-          setImageError(data.error?data.error as string:'')
+        if (status === 400) {
+          setImageError(data.error ? (data.error as string) : "");
         }
 
-        if(status===413){
-          setImageError(data.error)
+        if (status === 413) {
+          setImageError(data.error);
         }
-    
-        const { name,description,category,brand,condition,shipping,price,shippingMethod} = data.error as TError;
+
+        const {
+          name,
+          description,
+          category,
+          brand,
+          condition,
+          shipping,
+          price,
+          shippingMethod,
+        } = data.error as TError;
         setNameError(name);
         setConditionError(condition);
         setCategoryError(category);
         setDescriptionError(description);
         setBrandError(brand);
-        setShippingError(shipping)
-        setPriceError(price)
-        setShippingMethodError(shippingMethod)
-
-    
+        setShippingError(shipping);
+        setPriceError(price);
+        setShippingMethodError(shippingMethod);
       }
-        
     } catch (error: any) {}
   };
-
 
   return (
     <main className="add-product">
@@ -309,7 +327,9 @@ const AddListing = () => {
                   </label>
                 )}
               </div>
-                {imageError && <span className="form-field__error-msg">{imageError}</span>}
+              {imageError && (
+                <span className="form-field__error-msg">{imageError}</span>
+              )}
             </section>
 
             {/* Basic Information */}
@@ -323,23 +343,25 @@ const AddListing = () => {
               </div>
 
               <div className="form-grid">
-               <div>
-                 <div className="form-field form-field--full">
-                  <label htmlFor="name">Product name</label>
+                <div>
+                  <div className="form-field form-field--full">
+                    <label htmlFor="name">Product name</label>
 
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="e.g. Vintage leather jacket"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                  />
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="e.g. Vintage leather jacket"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  {/* Fallback handling for downstream pricing or general shippingErrors if passed */}
+                  {nameError && (
+                    <span className="form-field__error-msg">{nameError}</span>
+                  )}
                 </div>
-                               {/* Fallback handling for downstream pricing or general shippingErrors if passed */}
-                {nameError && <span className="form-field__error-msg">{nameError}</span>}
-               </div>
 
                 <div className="form-field">
                   <label htmlFor="category">Category</label>
@@ -368,8 +390,12 @@ const AddListing = () => {
                       );
                     })}
                   </select>
-                   {/* Fallback handling for general shippingErrors if passed */}
-                {categoryError && <span className="form-field__error-msg">{categoryError}</span>}
+                  {/* Fallback handling for general shippingErrors if passed */}
+                  {categoryError && (
+                    <span className="form-field__error-msg">
+                      {categoryError}
+                    </span>
+                  )}
                 </div>
 
                 <div className="form-field">
@@ -399,28 +425,36 @@ const AddListing = () => {
                       );
                     })}
                   </select>
-                       {conditionError && <span className="form-field__error-msg">{conditionError}</span>}
+                  {conditionError && (
+                    <span className="form-field__error-msg">
+                      {conditionError}
+                    </span>
+                  )}
                 </div>
 
-               <div>
-                 <div className="form-field form-field--full">
-                  <label htmlFor="description">Description</label>
+                <div>
+                  <div className="form-field form-field--full">
+                    <label htmlFor="description">Description</label>
 
-                  <textarea
-                    id="description"
-                    name="description"
-                    rows={7}
-                    placeholder="Describe the product, its condition, features and anything buyers should know..."
-                    value={formData.description}
-                    onChange={handleTextInputChange}
-                  />
+                    <textarea
+                      id="description"
+                      name="description"
+                      rows={7}
+                      placeholder="Describe the product, its condition, features and anything buyers should know..."
+                      value={formData.description}
+                      onChange={handleTextInputChange}
+                    />
 
-                  <span className="form-field__hint">
-                    Be clear and honest about the product.
-                  </span>
+                    <span className="form-field__hint">
+                      Be clear and honest about the product.
+                    </span>
+                  </div>
+                  {descriptionError && (
+                    <span className="form-field__error-msg">
+                      {descriptionError}
+                    </span>
+                  )}
                 </div>
-                                       {descriptionError && <span className="form-field__error-msg">{descriptionError}</span>}
-               </div>
               </div>
             </section>
 
@@ -453,7 +487,9 @@ const AddListing = () => {
                       required
                     />
                   </div>
-                    {priceError && <span className="form-field__error-msg">{priceError}</span>}
+                  {priceError && (
+                    <span className="form-field__error-msg">{priceError}</span>
+                  )}
                 </div>
 
                 <div className="form-field">
@@ -470,21 +506,13 @@ const AddListing = () => {
                   />
                 </div>
 
-           <div>
-                 <div className="form-field">
-                  <label htmlFor="brand">Brand</label>
-
-                  <input
-                    id="brand"
-                    name="brand"
-                    type="text"
-                    placeholder="e.g. Nike"
-                    value={formData.brand}
-                    onChange={handleInputChange}
-                  />
+                <div >
+                   <label htmlFor="brand">Brand</label>
+                  <SearchSelect brands={brands as TbrandResponse[]} value={formData.brand} onChange={handleSelectChange}  />
+                  {brandError && (
+                    <span className="form-field__error-msg">{brandError}</span>
+                  )}
                 </div>
-                {brandError && <span className="form-field__error-msg">{brandError}</span>}
-           </div>
 
                 <div className="form-field">
                   <label htmlFor="sku">SKU</label>
@@ -508,38 +536,46 @@ const AddListing = () => {
                 <div>
                   <h2>Shipping</h2>
                   <p>
-                    Within how many days can this product be delivery to buyer?
+                    Within how many days can this product be delivered to the buyer?
                   </p>
                 </div>
-            
               </div>
-               <div className="form-field">
-                  <label htmlFor="condition">Shipping method</label>
-
-                  <select
-                    id="shippingMethod"
-                    name="shippingMethod"
-                    value={formData.shippingMethod}
-                    onChange={handleSelectChange}
-                  >
-                    <option
-                      value=""
-                      disabled
-                    >
-                      Select shiping method
-                    </option>
-
-                    {
-                      SHIPPING_METHOD.map((method)=>{
-                        return <option key={method.id} value={method.value}>{method.method}</option>
-                      })
-                    }
-                  </select>
-                       {shippingMethodError && <span className="form-field__error-msg">{shippingMethodError}</span>}
-                </div>
-
               <div className="form-field">
-                <label htmlFor="shipping">Shipping information</label>
+                <label htmlFor="shippingMethod">Shipping method</label>
+
+                <select
+                  id="shippingMethod"
+                  name="shippingMethod"
+                  value={formData.shippingMethod}
+                  onChange={handleSelectChange}
+                >
+                  <option
+                    value=""
+                    disabled
+                  >
+                    Select shipping method
+                  </option>
+
+                  {SHIPPING_METHOD.map((method) => {
+                    return (
+                      <option
+                        key={method.id}
+                        value={method.value}
+                      >
+                        {method.method}
+                      </option>
+                    );
+                  })}
+                </select>
+                {shippingMethodError && (
+                  <span className="form-field__error-msg">
+                    {shippingMethodError}
+                  </span>
+                )}
+              </div>
+
+              <div className="form-field shippingInfo">
+                <label htmlFor="shippingInfo">Shipping information</label>
 
                 <textarea
                   id="shippingInfo"
@@ -550,7 +586,9 @@ const AddListing = () => {
                   onChange={handleTextInputChange}
                 />
               </div>
-              {shippingError && <span className="form-field__error-msg">{shippingError}</span>}
+              {shippingError && (
+                <span className="form-field__error-msg">{shippingError}</span>
+              )}
             </section>
           </div>
 
@@ -627,7 +665,6 @@ const AddListing = () => {
                 </div>
               </div>
             </section>
-          
           </aside>
         </div>
       </form>

@@ -1,4 +1,4 @@
-export const appName = 'spotkac'
+export const appName = 'kasoa'
 export const appPurpose = 'Designed for real connections.'
 export const loginText1='Welcome back!'
 export const loginText2='Log in to continue your adventure'

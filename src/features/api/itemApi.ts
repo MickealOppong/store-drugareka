@@ -1,9 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type { ShipmentRequest } from "../../components/ShipmentStatusModal";
 import type { TListComplaintPage } from "../../types/TComplaints";
 import type { TDashboard } from "../../types/TDashboard";
 import type { TListPageDto } from "../../types/TListPageDto";
 import type { TListTrans } from "../../types/TListTrans";
 import type { TOrderPageDto } from "../../types/TOrderPageDto";
+import type { TOrdersDto } from "../../types/TOrdersDto";
 import type { TResponseDto } from "../../types/TResponseDto";
 import type { TWishLists } from "../../types/TWishLists";
 import { baseUrl } from "./baseUrl";
@@ -24,13 +26,23 @@ export const itemApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["categories",'wishlists','products','orders','complaints'],
+  tagTypes: ["categories",'wishlists','products','orders','complaints','shipment'],
   endpoints: (build) => ({
     addListing: build.mutation<TResponseDto, FormData>({
       query: (body) => ({
         url: "/api/item/listing",
         method: "post",
         body,
+      }),
+      invalidatesTags:['products']
+    }),
+      deleteListing: build.mutation<void, number>({
+      query: (listing) => ({
+        url: "/api/item/listing/delete",
+        method: "delete",
+        params:{
+          listing
+        }
       }),
       invalidatesTags:['products']
     }),
@@ -106,6 +118,15 @@ export const itemApi = createApi({
       }),
       providesTags:['orders']
     }),
+      getPurchaseDetails: build.query<TOrdersDto[],number>({
+      query: (id) => ({
+        url: "/api/orders/buying/details",
+        params:{
+          id
+        }
+      }),
+      providesTags:['orders']
+    }),
           getSaleOrders: build.query<TOrderPageDto,{page:number,size:number}>({
       query: ({page,size}) => ({
         url: "/api/orders/selling",
@@ -141,11 +162,20 @@ export const itemApi = createApi({
       }),
    providesTags:['complaints']
     }),
+        updateShipmentStatus: build.mutation<void,ShipmentRequest>({
+      query: ({shipmentId,trackingNumber,comment,status,createdAt}) => ({
+        url: "/api/shipment/update-status",
+        params:{shipmentId,trackingNumber,comment,status,createdAt},
+        method:'PUT'
+      }),
+    invalidatesTags:['shipment']
+    }),
   }),
 });
 export const { useAddListingMutation,useGetMylistingsQuery,
   useAddWishListMutation,useGetUserDashboardQuery,useLazyGetRecentViewsQuery,
   useGetWishlistCountQuery,useGetWishListsQuery,useGetStoreOrdersQuery,useGetStorelistingsQuery,
   useAddComplaintMutation,useGetComplaintsQuery,useEditListingMutation,
-  useGetPurchaseOrdersQuery,useGetSaleOrdersQuery
+  useGetPurchaseOrdersQuery,useGetSaleOrdersQuery,useGetPurchaseDetailsQuery,useUpdateShipmentStatusMutation,
+  useDeleteListingMutation
 } = itemApi;

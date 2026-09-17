@@ -1,6 +1,7 @@
 export type TDashboard = {
   awaitingShipmentCount: number;
   itemSoldCount: number;
+  itemSoldCancelledCount: number;
   listingCount: number;
   ordersCount: number;
   outstandingPayout: number;

@@ -1,361 +1,302 @@
-import { Link } from "react-router-dom";
-import "./../css/Dashboard.css";
-
+import { useEffect, useState } from "react";
 import {
   FiArrowRight,
   FiCheckCircle,
   FiClock,
   FiHeart,
   FiPackage,
-  FiPlus,
   FiShoppingBag,
   FiTruck,
 } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
-import { useEffect, useState } from "react";
-import type { Store } from "redux";
-import { useAddWishListMutation, useGetUserDashboardQuery, useGetWishListsQuery, useLazyGetRecentViewsQuery } from "../features/api/itemApi";
-import { useAppSelector, type RootState } from "../store";
+import { useTranslation } from "react-i18next";
+import {
+  useAddWishListMutation,
+  useGetUserDashboardQuery,
+  useGetWishListsQuery,
+  useLazyGetRecentViewsQuery,
+} from "../features/api/itemApi";
+import { useGetRecentSellerActivityQuery } from "../features/api/storeApi";
+import { useAppSelector } from "../store";
 import type { TDashboard } from "../types/TDashboard";
 import { formatPrice } from "../util/util";
+import "./../css/Dashboard.css"; // Imports your non-inline decoupled BEM style rules cleanly
 import type { TListTrans } from "./../types/TListTrans";
 
-
-const sellingActivity = [
-  {
-    id: 1,
-    name: "Nike Air Max",
-    status: "Sold",
-    type: "sold",
-  },
-  {
-    id: 2,
-    name: "Baby stroller",
-    status: "Awaiting shipment",
-    type: "shipping",
-  },
-  {
-    id: 3,
-    name: "Zara Jacket",
-    status: "Active",
-    type: "active",
-  },
-];
-const dashboardDef:TDashboard = {
+const dashboardDef: TDashboard = {
   ordersCount: 0,
   awaitingShipmentCount: 0,
   itemSoldCount: 0,
+  itemSoldCancelledCount: 0,
   listingCount: 0,
   outstandingPayout: 0,
-  wishlistCount: 0
-}
-export const loader = (store: Store<RootState>) => async () => {
-  /*
-  const dispatch = store.dispatch as AppDispatch;
-  const response = await dispatch(
-    itemApi.endpoints.getUserDashboard.initiate(),
-  );
-  */
-  return null;
+  wishlistCount: 0,
 };
 
-const Dashboard = () => {
-  const {data:dashboard=dashboardDef} = useGetUserDashboardQuery()
 
-  const { firstName, lastName, roles } = useAppSelector(
-    (state) => state.userSlice,
-  );
-  const isSeller = roles.includes("ROLE_SELLER");
+const Dashboard = () => {
+  const { data: dashboard = dashboardDef } = useGetUserDashboardQuery();
+
+  //recent seller activity
+const {data:sellingActivity=[]} = useGetRecentSellerActivityQuery()
+
+
+  const {
+    firstName,
+    lastName,
+    roles = [],
+  } = useAppSelector((state) => state.userSlice);
+
+  // Fallback array constraint blocks runtime trace rejections
+  const isSeller = (roles || []).includes("ROLE_SELLER");
 
   /**
-   *  RECENT VIEWS
+   * RECENT VIEWS PIPELINE
    */
   const [recentProducts, setRecentProducts] = useState<TListTrans[]>([]);
-
-
   const [fetchViewedItems] = useLazyGetRecentViewsQuery();
-  const ids: number[] = JSON.parse(
-    localStorage.getItem("recent_views") as string,
-  );
 
+  /**
+   * translation
+   */
+  const {t} = useTranslation()
+  
   async function getRecentViews() {
-    if (ids!==null) {
-      const response = await fetchViewedItems(ids);
-      setRecentProducts((response.data as TListTrans[]) || []);
+    const rawIds = localStorage.getItem("recent_views");
+    if (rawIds) {
+      try {
+        const ids: number[] = JSON.parse(rawIds);
+        if (Array.isArray(ids) && ids.length > 0) {
+          const response = await fetchViewedItems(ids);
+          setRecentProducts((response.data as TListTrans[]) || []);
+        }
+      } catch (err) {
+        console.error(
+          "Failed to map historical browser view tracking logs:",
+          err,
+        );
+      }
     }
   }
 
   /**
-   * TOGGLE WISHLIST
+   * TOGGLE WISHLIST ACTION
    */
+  const [addToWish] = useAddWishListMutation();
+  const toggleWishlist = async (listingId: number) => {
+    await addToWish(listingId);
+  };
 
-   const [addToWish] = useAddWishListMutation();
-  
-    const toggleWishlist = async (listingId: number) => {
-
-      await addToWish(listingId);
-    
-    };
-
-    /**
-     * fetch wish list
-     */
-  const {data:wishlists=[]} = useGetWishListsQuery();
-    const isWishlisted = wishlists.map((item) => item.listingId);
-
+  /**
+   * FETCH WISHLIST REGISTER MATRIX
+   */
+  const { data: wishlists = [] } = useGetWishListsQuery();
+  const isWishlisted = wishlists.map((item) => item.listingId);
 
   useEffect(() => {
-
     getRecentViews();
   }, []);
 
-
- 
-  
-
   return (
-    <section className="dashboard">
+    <section className="db-view">
       {/* =================================================
-                HEADER
-            ================================================= */}
-
-      <header className="dashboard__header">
-        <div>
-          <span className="dashboard__eyebrow">MY ACCOUNT</span>
-
-          <h1>Welcome {`${firstName} ${lastName}`}.</h1>
-
-          <p>Manage your shopping and selling activity from one place.</p>
+                1. MASTER ACCOUNT RUNTIME HEADER
+          ================================================= */}
+     <header className="db-view__header">
+        <div className="db-view__header-meta">
+          <span className="db-eyebrow">{t("dashboard.header.eyebrow")}</span>
+          <h1 className="db-view__title">
+            {t("dashboard.header.welcome")}, {firstName} {lastName}.
+          </h1>
+          <p className="db-view__description">
+            {t("dashboard.header.description")}
+          </p>
         </div>
 
-        <Link
-          to="/shop"
-          className="dashboard__shop-button"
-        >
-          Continue shopping
+        <Link to="/shop" className="db-shop-btn">
+          <span>{t("dashboard.header.cta_shop")}</span>
           <FiArrowRight />
         </Link>
       </header>
 
       {/* =================================================
-                QUICK STATS
-            ================================================= */}
-
-      <section className="dashboard__stats">
-        <Link
-          to="/account/orders"
-          className="dashboard-stat"
-        >
-          <div className="dashboard-stat__icon">
+                2. HIGH-DENSITY METRICS STATS BLOCKS
+          ================================================= */}
+   <section className="db-stats-row">
+        <Link to="/account/orders" className="db-stat-card">
+          <div className="db-stat-card__icon">
             <FiShoppingBag />
           </div>
-
-          <div className="dashboard-stat__content">
-            <span>Orders</span>
-
-            <strong>{dashboard.ordersCount}</strong>
+          <div className="db-stat-card__body">
+            <span className="db-stat-card__label">{t("dashboard.stats.orders")}</span>
+            <strong className="db-stat-card__value">
+              {dashboard.ordersCount}
+            </strong>
           </div>
-
-          <FiArrowRight className="dashboard-stat__arrow" />
+          <FiArrowRight className="db-stat-card__arrow" />
         </Link>
 
-        <Link
-          to="/account/wishlist"
-          className="dashboard-stat"
-        >
-          <div className="dashboard-stat__icon">
+        <Link to="/account/wishlist" className="db-stat-card">
+          <div className="db-stat-card__icon">
             <FiHeart />
           </div>
-
-          <div className="dashboard-stat__content">
-            <span>Wishlist</span>
-
-            <strong>{dashboard.wishlistCount}</strong>
+          <div className="db-stat-card__body">
+            <span className="db-stat-card__label">{t("dashboard.stats.wishlist")}</span>
+            <strong className="db-stat-card__value">
+              {dashboard.wishlistCount}
+            </strong>
           </div>
-
-          <FiArrowRight className="dashboard-stat__arrow" />
+          <FiArrowRight className="db-stat-card__arrow" />
         </Link>
 
         {isSeller && (
-          <Link
-            to="/account/listings"
-            className="dashboard-stat"
-          >
-            <div className="dashboard-stat__icon">
+          <Link to="/account/listings" className="db-stat-card">
+            <div className="db-stat-card__icon">
               <FiPackage />
             </div>
-
-            <div className="dashboard-stat__content">
-              <span>Active listings</span>
-
-              <strong>{dashboard.listingCount}</strong>
+            <div className="db-stat-card__body">
+              <span className="db-stat-card__label">{t("dashboard.stats.active_listings")}</span>
+              <strong className="db-stat-card__value">
+                {dashboard.listingCount}
+              </strong>
             </div>
-
-            <FiArrowRight className="dashboard-stat__arrow" />
+            <FiArrowRight className="db-stat-card__arrow" />
           </Link>
         )}
       </section>
 
       {/* =================================================
-                SHOPPING SECTION
-            ================================================= */}
-
-      <section className="dashboard-section">
-        <div className="dashboard-section__header">
+                3. PURCHASES USER ACTION PORTALS
+          ================================================= */}
+     <section className="db-section">
+        <div className="db-section__header">
           <div>
-            <span className="dashboard-section__eyebrow">SHOPPING</span>
-
-            <h2>Your shopping</h2>
+            <span className="db-eyebrow">{t("dashboard.shopping_section.eyebrow")}</span>
+            <h2 className="db-section__title">{t("dashboard.shopping_section.title")}</h2>
           </div>
-
-          <Link to="/account/orders">
-            View orders
-            <FiArrowRight />
+          <Link to="/account/orders" className="db-section__header-link">
+            <span>{t("dashboard.shopping_section.view_orders")}</span> <FiArrowRight />
           </Link>
         </div>
 
-        <div className="dashboard-actions">
-          <Link
-            to="/shop"
-            className="dashboard-action dashboard-action--primary"
-          >
-            <div className="dashboard-action__icon">
+        <div className="db-actions-grid">
+          <Link to="/shop" className="db-action-item db-action-item--primary">
+            <div className="db-action-item__icon">
               <FiShoppingBag />
             </div>
-
-            <div>
-              <strong>Continue shopping</strong>
-
-              <span>Discover something new</span>
+            <div className="db-action-item__body">
+              <strong>{t("dashboard.shopping_section.grid.shop_title")}</strong>
+              <span>{t("dashboard.shopping_section.grid.shop_desc")}</span>
             </div>
-
-            <FiArrowRight />
+            <FiArrowRight className="db-action-item__arrow" />
           </Link>
 
-          <Link
-            to="/account/wishlist"
-            className="dashboard-action"
-          >
-            <div className="dashboard-action__icon">
+          <Link to="/account/wishlist" className="db-action-item">
+            <div className="db-action-item__icon">
               <FiHeart />
             </div>
-
-            <div>
-              <strong>Your wishlist</strong>
-
-              <span>{`${dashboard.wishlistCount} saved items`}</span>
+            <div className="db-action-item__body">
+              <strong>{t("dashboard.shopping_section.grid.wishlist_title")}</strong>
+              <span>
+                {t("dashboard.shopping_section.grid.wishlist_desc", { count: dashboard.wishlistCount })}
+              </span>
             </div>
-
-            <FiArrowRight />
+            <FiArrowRight className="db-action-item__arrow" />
           </Link>
 
-          <Link
-            to="/account/orders"
-            className="dashboard-action"
-          >
-            <div className="dashboard-action__icon">
+          <Link to="/account/orders" className="db-action-item">
+            <div className="db-action-item__icon">
               <FiTruck />
             </div>
-
-            <div>
-              <strong>Your orders</strong>
-
-              <span>Track your purchases</span>
+            <div className="db-action-item__body">
+              <strong>{t("dashboard.shopping_section.grid.orders_title")}</strong>
+              <span>{t("dashboard.shopping_section.grid.orders_desc")}</span>
             </div>
-
-            <FiArrowRight />
+            <FiArrowRight className="db-action-item__arrow" />
           </Link>
         </div>
       </section>
 
       {/* =================================================
-                SELLING SECTION
-            ================================================= */}
-
-      {isSeller ? (
-        <section className="dashboard-section dashboard-section--selling">
-          <div className="dashboard-section__header">
+                4. SELLER INSIGHTS LOGISTICS SPLIT BLOCKS
+          ================================================= */}
+   {isSeller ? (
+        <section className="db-section db-section--selling">
+          <div className="db-section__header">
             <div>
-              <span className="dashboard-section__eyebrow">SELLING</span>
-
-              <h2>Your selling</h2>
+              <span className="db-eyebrow">{t("dashboard.selling_section.eyebrow")}</span>
+              <h2 className="db-section__title">{t("dashboard.selling_section.title")}</h2>
             </div>
-
-            <Link to="/account/listings">
-              Seller dashboard
-              <FiArrowRight />
+            <Link to="/account/orders" className="db-section__header-link">
+              <span>{t("dashboard.selling_section.view_dashboard")}</span> <FiArrowRight />
             </Link>
           </div>
 
-          {/* SELLING STATS */}
-
-          <div className="selling-stats">
-            <div className="selling-stat">
-              <span>Active listings</span>
-
-              <strong>{dashboard.listingCount}</strong>
+          <div className="db-seller-stats">
+            <div className="db-seller-metric">
+              <span className="db-seller-metric__label">{t("dashboard.selling_section.metrics.active")}</span>
+              <strong className="db-seller-metric__value">
+                {dashboard.listingCount}
+              </strong>
             </div>
-
-            <div className="selling-stat">
-              <span>Items sold</span>
-
-              <strong>{dashboard.itemSoldCount}</strong>
+            <div className="db-seller-metric">
+              <span className="db-seller-metric__label">{t("dashboard.selling_section.metrics.sold")}</span>
+              <strong className="db-seller-metric__value">
+                {dashboard.itemSoldCount}
+              </strong>
             </div>
-
-            <div className="selling-stat">
-              <span>Awaiting shipment</span>
-
-              <strong>{dashboard.awaitingShipmentCount}</strong>
+            <div className="db-seller-metric">
+              <span className="db-seller-metric__label">{t("dashboard.selling_section.metrics.cancelled")}</span>
+              <strong className="db-seller-metric__value">
+                {dashboard.itemSoldCancelledCount}
+              </strong>
             </div>
-
-            <div className="selling-stat">
-              <span>Available payout</span>
-
-              <strong>{dashboard.outstandingPayout}</strong>
+            <div className="db-seller-metric">
+              <span className="db-seller-metric__label">{t("dashboard.selling_section.metrics.awaiting")}</span>
+              <strong className="db-seller-metric__value">
+                {dashboard.awaitingShipmentCount}
+              </strong>
+            </div>
+            <div className="db-seller-metric">
+              <span className="db-seller-metric__label">{t("dashboard.selling_section.metrics.payout")}</span>
+              <strong className="db-seller-metric__value">
+                {formatPrice(dashboard.outstandingPayout)} zł
+              </strong>
             </div>
           </div>
 
-          {/* SELLING ACTIVITY */}
-
-          <div className="selling-activity">
-            <div className="selling-activity__header">
-              <h3>Recent activity</h3>
-
-              <Link to="/account/listings">View listings</Link>
+         <div className="db-activity-panel">
+            <div className="db-activity-panel__header">
+              <h3>{t("dashboard.selling_section.activity.title")}</h3>
+              <Link to="/account/listings/me" className="db-section__header-link">
+               {t("dashboard.selling_section.activity.view_listings")}
+              </Link>
             </div>
 
-            <div className="selling-activity__list">
+            <div className="db-activity-panel__list">
               {sellingActivity.map((item) => (
                 <div
                   key={item.id}
-                  className="selling-item"
+                  className="db-item-row"
                 >
-                  <div className="selling-item__image">
+                  <div className="db-item-row__media">
                     <FiPackage />
                   </div>
-
-                  <div className="selling-item__name">
+                  <div className="db-item-row__info">
                     <strong>{item.name}</strong>
                   </div>
-
                   <div
-                    className={`
-                                            selling-item__status
-                                            selling-item__status--${item.type}
-                                        `}
+                    className={`db-item-row__status db-item-row__status--${item.type}`}
                   >
                     {item.type === "sold" && <FiCheckCircle />}
-
                     {item.type === "shipping" && <FiTruck />}
-
                     {item.type === "active" && <FiClock />}
-
                     <span>{item.status}</span>
                   </div>
-
                   <Link
-                    to={`/account/listings/${item.id}`}
-                    className="selling-item__arrow"
+                    to={item.path}
+                    className="db-item-row__action"
                   >
                     <FiArrowRight />
                   </Link>
@@ -366,95 +307,20 @@ const Dashboard = () => {
         </section>
       ) : (
         /* =================================================
-                   NON SELLER
+                   5. NON-SELLER UPGRADE REGISTRATION CTA
                 ================================================= */
-
-        <section className="dashboard-sell-cta">
-          <div className="dashboard-sell-cta__content">
-            <span>HAVE SOMETHING YOU NO LONGER USE?</span>
-
-            <h2>
-              Turn unused things
-              <br />
-              into money.
-            </h2>
-
-            <p>List your item with DrugaRęka and let us handle the selling.</p>
-
-            <Link
-              to="/sell"
-              className="dashboard-sell-cta__button"
-            >
-              Start selling
-              <FiArrowRight />
-            </Link>
-          </div>
-
-          <div className="dashboard-sell-cta__icon">
-            <FiPlus />
+        <section className="db-sell-cta">
+          <div className="db-sell-cta__content">
+            HAVE SOMETHING YOU NO LONGER USE?Turn unused thingsinto money.List
+            your item with DrugaRęka and let us handle the selling.
           </div>
         </section>
       )}
-
-      {/* =================================================
-                RECENTLY VIEWED
-            ================================================= */}
-
-      <section className="dashboard-section">
-        <div className="dashboard-section__header">
-          <div>
-            <span className="dashboard-section__eyebrow">DISCOVER</span>
-
-            <h2>Recently viewed</h2>
-          </div>
-
-          <Link to="/shop">
-            Explore the store
-            <FiArrowRight />
-          </Link>
-        </div>
-
-        <div className="dashboard-products">
-          {recentProducts.map((product) => (
-
-            <div
-              key={product.listingId}
-        
-              className="dashboard-product"
-            >
-              <Link       to={`/shop/listing/${product.listingId}`} className="dashboard-product__image">
-                <img
-                  src={product.media[0].image}
-                  alt={product.productName}
-                />
-              </Link>
-                <button
-                  className={`dashboard-product__favorite ${
-                      isWishlisted.includes(product.listingId) ? "active" : ""
-                    }`}
-                  onClick={() => {
-                    toggleWishlist(product.inventoryId)
-                  }}
-                  
-                >
-                  <FiHeart />
-                </button>
-
-              <div className="dashboard-product__info">
-             
-                <span>{product.productCondition}</span>
-
-                <h3>{product.brand}</h3>
-
-                <strong>{formatPrice(product.priceDto.storeNewPrice)} zł</strong>
-                
-              </div>
-              
-            </div>
-          ))}
-        </div>
-      </section>
     </section>
   );
 };
+
 export default Dashboard;
+
+
+
