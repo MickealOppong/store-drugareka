@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FiCheck, FiSearch, FiTag, FiX } from "react-icons/fi";
-import "../css/SearchSelect.css";
 import type { TbrandResponse } from "../types/TBrandResponse";
+import "./../css/SearchSelect.css";
 
 interface SearchSelectProps {
   brands: TbrandResponse[];

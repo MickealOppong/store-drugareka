@@ -10,7 +10,6 @@ import {
 import { Link } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
-import "../css/Dashboard.css"; // Imports your non-inline decoupled BEM style rules cleanly
 import {
   useGetUserDashboardQuery
 } from "../features/api/itemApi";
@@ -18,6 +17,7 @@ import { useGetRecentSellerActivityQuery } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
 import type { TDashboard } from "../types/TDashboard";
 import { formatPrice } from "../util/util";
+import "./../css/Dashboard.css"; // Imports your non-inline decoupled BEM style rules cleanly
 
 const dashboardDef: TDashboard = {
   ordersCount: 0,

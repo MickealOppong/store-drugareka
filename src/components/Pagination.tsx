@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router";
-import "../css/Pagination.css";
+import "./../css/Pagination.css";
 
 interface PaginationProps {
     page: number;        // 1-indexed current page from URL/API

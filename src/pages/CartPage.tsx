@@ -2,10 +2,10 @@ import { useTranslation } from "react-i18next";
 import { FiShoppingBag } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { Cart } from "../components/index";
-import '../css/Cart.css';
 import { useGetBuyerCartQuery, useRemoveCartItemMutation } from "../features/api/cartApi";
 import { useCheckoutBuyerMutation } from "../features/api/checkoutApi";
 import type { TCart } from "../types/TCart";
+import './../css/Cart.css';
 
 const CartPage = () => {
   const { data: cart, isLoading: cartLoading } = useGetBuyerCartQuery();

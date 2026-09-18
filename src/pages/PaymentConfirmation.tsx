@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { FiCheckCircle, FiShoppingBag } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
-import '../css/PaymentConfirmation.css';
+import './../css/PaymentConfirmation.css';
 
 export const PaymentConfirmation = () => {
   const { t } = useTranslation();

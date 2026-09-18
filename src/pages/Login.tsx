@@ -5,12 +5,12 @@ import { FiHeart, FiLock, FiMail } from "react-icons/fi";
 import { RiEyeOffFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import "../css/LoginPage.css";
 import { useLoginMutation } from "../features/api/authApi";
 import { useMergeCartMutation } from "../features/api/cartApi";
 import { setGuestCartCount } from "../features/slice/cartSlice";
 import { loginUser } from "../features/slice/userSlice";
 import type { TUserDto } from "../types/TUserDto";
+import "./../css/LoginPage.css";
 
 const Login = () => {
   const [showText, setShowText] = useState<String>("password");

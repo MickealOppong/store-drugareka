@@ -13,9 +13,9 @@ import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { Loading } from "../components";
-import '../css/Admin.css';
 import { useLogoutMutation } from "../features/api/authApi";
 import { logoutUser } from "../features/slice/userSlice";
+import './../css/Admin.css';
 
 interface UserSidebarProps {
   onNavigate: () => void;

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiSearch } from "react-icons/fi";
-import '../css/GenericViewLayout.css';
 import { useGetMyPayoutsQuery } from "../features/api/userApi";
+import './../css/GenericViewLayout.css';
 
 const SellerPayout = () => {
   const [search, setSearch] = useState("");

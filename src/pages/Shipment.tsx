@@ -4,9 +4,9 @@ import { FiEdit, FiSearch } from "react-icons/fi";
 import { useSearchParams } from "react-router-dom";
 
 import { Pagination, ShipmentStatusModal } from "../components";
-import "../css/GenericViewLayout.css"; // Shared layout framework classes
 import { useGetShipmentsQuery } from "../features/api/userApi";
 import type { TShipment } from "../types/TShipment";
+import "./../css/GenericViewLayout.css"; // Shared layout framework classes
 
 const Shipment = () => {
   const [search, setSearch] = useState("");

@@ -11,12 +11,12 @@ import {
   FiTruck,
 } from "react-icons/fi";
 import { useNavigate, useParams } from "react-router-dom";
-import "../css/ProductDetails.css";
 import { useAddWishListMutation, useGetWishListsQuery } from "../features/api/itemApi";
 import { useGetListingQuery } from "../features/api/storeApi";
 import { useAddToCart } from "../hooks/useAddTocart";
 import { useAppSelector } from "../store";
 import { formatPrice } from "../util/util";
+import "./../css/ProductDetails.css";
 
 // Helper function to safely translate backend condition data strings to localized dictionary keys
 const getConditionSlug = (condition: string) => {

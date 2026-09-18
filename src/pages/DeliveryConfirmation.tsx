@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiAlertCircle, FiCheckCircle, FiPackage } from "react-icons/fi";
 import { useSearchParams } from "react-router-dom";
-import '../css/DeliveryConfirmation.css';
 import { useConfirmDeliveryMutation } from "../features/api/storeApi";
+import './../css/DeliveryConfirmation.css';
 
 export const DeliveryConfirmation = () => {
   const [searchParams] = useSearchParams();

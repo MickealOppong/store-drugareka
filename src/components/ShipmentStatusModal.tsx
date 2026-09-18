@@ -1,8 +1,8 @@
 import React, { useState, type ChangeEvent } from "react";
 import { FiCalendar, FiMessageSquare, FiSave, FiTruck, FiX } from "react-icons/fi";
-import "../css/ShipmentStatusModal.css";
 import { useUpdateShipmentStatusMutation } from "../features/api/itemApi";
 import type { TShipment } from "../types/TShipment";
+import "./../css/ShipmentStatusModal.css";
 
 interface ShipmentStatusModalProps {
   shipment: TShipment;

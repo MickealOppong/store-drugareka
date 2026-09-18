@@ -10,8 +10,8 @@ import {
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-import "../css/Sell.css"; // Imports the newly structured, isolated styles cleanly
 import { useAppSelector } from "../store";
+import "./../css/Sell.css"; // Imports the newly structured, isolated styles cleanly
 
 const Sell = () => {
   // Default to empty array fallback to prevent guest user NullPointerExceptions

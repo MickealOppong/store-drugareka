@@ -9,13 +9,13 @@ import {
   FiTruck
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import '../css/MobileLanding.css';
 import { appName } from "../data/data";
 import { useGetLandingListingQuery, useGetTop6ProductCategoriesQuery } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
 import { formatPrice, sanitizeBackendKey } from "../util/util";
 import hero from './../assets/hero-large.png';
 import heroSmall from './../assets/hero-small.png';
+import './../css/MobileLanding.css';
 import LanguageSwitcher from "./LanguageSwitcher";
 import Loading from "./Loading";
 

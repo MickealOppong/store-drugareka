@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import '../css/LangSwitch.css';
+import './../css/LangSwitch.css';
 
 
 // Define the shape of our supported languages configuration array

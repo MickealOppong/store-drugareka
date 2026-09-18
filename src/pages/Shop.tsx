@@ -12,7 +12,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Loading, Pagination } from "../components";
-import "../css/Shop.css";
 import {
   useAddWishListMutation,
   useGetWishListsQuery,
@@ -25,6 +24,7 @@ import { useAddToCart } from "../hooks/useAddTocart";
 import { useRecentViews } from "../hooks/useRecentViews";
 import { useAppSelector } from "../store";
 import { formatPrice, sanitizeBackendKey } from "../util/util";
+import "./../css/Shop.css";
 
 
 

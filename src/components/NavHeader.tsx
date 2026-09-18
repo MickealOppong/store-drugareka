@@ -3,13 +3,13 @@ import { useTranslation } from "react-i18next";
 import { FiHeart, FiShoppingBag, FiUser } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import "../css/NavHeader.css";
 import { appName } from "../data/data";
 import { useLogoutMutation } from "../features/api/authApi";
 import { useGetCartCountQuery } from "../features/api/cartApi";
 import { useGetWishlistCountQuery } from "../features/api/itemApi";
 import { logoutUser } from "../features/slice/userSlice";
 import { useAppSelector } from "../store";
+import "./../css/NavHeader.css";
 import Loading from "./Loading";
 import Search from "./Search";
 

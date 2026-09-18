@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { FiHeart, FiShoppingBag, FiTrash2 } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-import '../css/wishlist.scss';
 import { useAddWishListMutation, useGetWishListsQuery } from "../features/api/itemApi";
 import { useAddToCart } from "../hooks/useAddTocart";
 import { formatPrice } from "../util/util";
+import './../css/wishlist.scss';
 
 const WishList = () => {
   const { data: wishlistItems = [] } = useGetWishListsQuery();

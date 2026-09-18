@@ -1,8 +1,8 @@
 import React, { useState, type ChangeEvent, type FormEvent } from "react";
 import { FiAlertTriangle, FiArrowLeft, FiSend } from "react-icons/fi";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import "../css/AddComplaintForm.css"; // Imports the dedicated complaint form stylesheet
 import { useAddComplaintMutation } from "../features/api/itemApi";
+import "./../css/AddComplaintForm.css"; // Imports the dedicated complaint form stylesheet
 
 interface ComplaintFormData {
   issue: string;

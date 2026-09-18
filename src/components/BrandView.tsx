@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { FiEdit2, FiPlus, FiSearch, FiTrash2 } from "react-icons/fi";
 import { Link, useRevalidator } from "react-router-dom";
 
-import "../css/GenericViewLayout.css"; // Universal layout style mapping sheet
 import {
   useDeleteBrandMutation,
   useLazyAllBrandsQuery
 } from "../features/api/transApi";
 import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TResponseDto } from "../types/TResponseDto";
+import "./../css/GenericViewLayout.css"; // Universal layout style mapping sheet
 
 const BrandView = () => {
   const [brands, setBrands] = useState<TbrandResponse[]>([]);

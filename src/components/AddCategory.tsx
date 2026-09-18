@@ -1,10 +1,10 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import { useNavigate, useRevalidator } from "react-router";
-import "../css/View.css";
 import {
   useLazyAllParentcategoriesQuery,
   useNewCategoryMutation,
 } from "../features/api/transApi";
+import "./../css/View.css";
 
 const AddCategory = () => {
   const [categories, setCategories] = useState<string[]>([]);

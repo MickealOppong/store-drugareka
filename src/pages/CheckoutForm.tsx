@@ -5,7 +5,7 @@ import {
 import { loadStripe } from '@stripe/stripe-js';
 import { useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router';
-import '../css/Checkout.css';
+import './../css/Checkout.css';
 
 // Make sure to call `loadStripe` outside of a component's render to avoid
 // recreating the `Stripe` object on every render.

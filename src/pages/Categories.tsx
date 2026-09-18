@@ -2,9 +2,9 @@ import { useTranslation } from "react-i18next";
 import { FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { Loading } from "../components";
-import "../css/Categories.css"; // Imports the new isolated layout module cleanly
 import { useGetAllCategoriesQuery } from "../features/api/storeApi";
 import { sanitizeBackendKey } from "../util/util";
+import "./../css/Categories.css"; // Imports the new isolated layout module cleanly
 
 const Categories = () => {
   //translation hook
