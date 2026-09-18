@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -12,17 +11,13 @@ import { Link } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 import {
-  useAddWishListMutation,
-  useGetUserDashboardQuery,
-  useGetWishListsQuery,
-  useLazyGetRecentViewsQuery,
+  useGetUserDashboardQuery
 } from "../features/api/itemApi";
 import { useGetRecentSellerActivityQuery } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
 import type { TDashboard } from "../types/TDashboard";
 import { formatPrice } from "../util/util";
 import "./../css/Dashboard.css"; // Imports your non-inline decoupled BEM style rules cleanly
-import type { TListTrans } from "./../types/TListTrans";
 
 const dashboardDef: TDashboard = {
   ordersCount: 0,
@@ -51,52 +46,18 @@ const {data:sellingActivity=[]} = useGetRecentSellerActivityQuery()
   // Fallback array constraint blocks runtime trace rejections
   const isSeller = (roles || []).includes("ROLE_SELLER");
 
-  /**
-   * RECENT VIEWS PIPELINE
-   */
-  const [recentProducts, setRecentProducts] = useState<TListTrans[]>([]);
-  const [fetchViewedItems] = useLazyGetRecentViewsQuery();
+ 
 
   /**
    * translation
    */
   const {t} = useTranslation()
   
-  async function getRecentViews() {
-    const rawIds = localStorage.getItem("recent_views");
-    if (rawIds) {
-      try {
-        const ids: number[] = JSON.parse(rawIds);
-        if (Array.isArray(ids) && ids.length > 0) {
-          const response = await fetchViewedItems(ids);
-          setRecentProducts((response.data as TListTrans[]) || []);
-        }
-      } catch (err) {
-        console.error(
-          "Failed to map historical browser view tracking logs:",
-          err,
-        );
-      }
-    }
-  }
 
-  /**
-   * TOGGLE WISHLIST ACTION
-   */
-  const [addToWish] = useAddWishListMutation();
-  const toggleWishlist = async (listingId: number) => {
-    await addToWish(listingId);
-  };
 
-  /**
-   * FETCH WISHLIST REGISTER MATRIX
-   */
-  const { data: wishlists = [] } = useGetWishListsQuery();
-  const isWishlisted = wishlists.map((item) => item.listingId);
 
-  useEffect(() => {
-    getRecentViews();
-  }, []);
+
+
 
   return (
     <section className="db-view">

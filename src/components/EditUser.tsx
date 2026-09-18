@@ -1,9 +1,9 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import { useNavigate, useParams } from "react-router";
 import {
-    useEditUserMutation,
-    useLazyAllRolesQuery,
-    useLazyGetUserQuery,
+  useEditUserMutation,
+  useLazyAllRolesQuery,
+  useLazyGetUserQuery,
 } from "../features/api/userApi";
 import type { TResponseDto } from "../types/TResponseDto";
 import type { TUserUpdateRequest } from "../types/TUserUpdatRequest";
@@ -20,10 +20,10 @@ const EditUser = () => {
   const [email, setEmail] = useState<string>("");
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false);
-  const [saving, setSaving] = useState(false);
+
+  const [saving, ] = useState(false);
   const [error, setError] = useState("");
-  const [success, setIsSuccess] = useState("");
+  const [success,] = useState("");
 
   const { userId } = useParams();
 
@@ -40,7 +40,7 @@ const EditUser = () => {
   }, []);
 
   const fetchUser = async () => {
-    const response = await getUser(parseInt(userId as string));
+    const response = await getUser(userId as string);
 
     if (response.data) {
       const { data, httpStatus } = response.data as TResponseDto;

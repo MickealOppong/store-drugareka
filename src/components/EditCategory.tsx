@@ -69,7 +69,8 @@ const EditCategory = () => {
       parent,
       sortOrder,
       active,
-      slug: name
+      slug: name,
+      image: ""
     }
   
 

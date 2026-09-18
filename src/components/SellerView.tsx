@@ -17,7 +17,7 @@ const SellerView: React.FC = () => {
   const size = 10;
 
   // ISOLATED API COMPONENT FETCH
-  const { data, isLoading, isError, error } = useGetPurchaseOrdersQuery({
+  const { data, isLoading, isError} = useGetPurchaseOrdersQuery({
     page,
     size,
   });

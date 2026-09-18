@@ -11,7 +11,7 @@ import "./../css/GenericViewLayout.css"; // Universal layout style mapping sheet
 import Pagination from "./Pagination";
 
 const ProductView = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams,] = useSearchParams();
   
   // Read active pagination location straight from URL parameters (1-indexed base)
   const page = parseInt(searchParams.get("page" )as string)||1;
@@ -56,14 +56,7 @@ console.log(data);
     }
   };
 
-  /**
-   * Syncs URL Search parameters dynamically when user triggers navigation numbers
-   */
-  const handlePageChange = (targetPage: number) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", String(targetPage));
-    setSearchParams(params);
-  };
+
 
   if (!productListings) {
     return null;

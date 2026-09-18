@@ -1,12 +1,13 @@
-import type { TbrandDto } from "./TBrandResponse";
-import type { TCategoryDto } from "./TCategoryResponse";
+import type { TbrandResponse } from "./TBrandResponse";
+import type { TCategoryReponse } from "./TCategoryResponse";
+
 
 export type TProduct = {
   productId: number;
-  brand: TbrandDto
+  brand: TbrandResponse
   name:string,
   description:string,
-  category:TCategoryDto
+  category:TCategoryReponse
   price: number;
   oldPrice: number;
   condition: string;

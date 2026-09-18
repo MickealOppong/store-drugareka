@@ -23,10 +23,10 @@ const AddCategory = () => {
   const [image, setImage] = useState<File | null>(null);
   const [sortOrder, setSortOrder] = useState<number>(0);
 
-  const [loading, setLoading] = useState(false);
-  const [saving, setSaving] = useState(false);
+  const [loading, ] = useState(false);
+  const [saving,] = useState(false);
   const [error, setError] = useState("");
-  const [success, setIsSuccess] = useState("");
+  const [success,] = useState("");
 
   async function parentCategories() {
     const response = await getParentCategories();

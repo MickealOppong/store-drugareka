@@ -11,10 +11,10 @@ const AddCondition= () => {
   const {revalidate} = useRevalidator()
   const navigate = useNavigate()
 
-  const [loading, setLoading] = useState(false);
-  const [saving, setSaving] = useState(false);
+
+  const [saving,] = useState(false);
   const [error, setError] = useState("");
-  const [success, setIsSuccess] = useState("");
+  const [success, ] = useState("");
 
 
 /**

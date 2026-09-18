@@ -252,6 +252,7 @@ fetchListing()
           brand: string;
           condition: string;
           shipping: string;
+          shippingMethod:string
         };
 
         const { data, status } = response?.error as {
@@ -275,6 +276,7 @@ fetchListing()
           condition,
           shipping,
           price,
+shippingMethod
         } = data.error as TError;
         setNameError(name);
         setConditionError(condition);
@@ -283,7 +285,9 @@ fetchListing()
         setBrandError(brand);
         setShippingError(shipping);
         setPriceError(price);
+        setShippingMethodError(shippingMethod)
       }
+
         
     } catch (error: any) {}
   };

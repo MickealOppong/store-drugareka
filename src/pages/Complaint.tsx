@@ -5,17 +5,7 @@ import { useGetComplaintsQuery } from "../features/api/itemApi";
 import "./../css/Complaint.css"; // Layout-specific styling updates
 import "./../css/GenericViewLayout.css"; // Reuses your unified generic layout styles
 
-// Mock data structured similarly to your Spring Boot DTO model responses
-interface TCustomerReportDto {
-  id: number;
-  reportNumber: string;
-  reporterUsername: string;
-  reportedEntityId: string; // Order Number or Product ID
-  issueType: "FRAUD" | "DELIVERY_ISSUE" | "ITEM_MISMATCH" | "BUG_REPORT";
-  description: string;
-  status: "OPEN" | "UNDER_REVIEW" | "RESOLVED" | "DISMISSED";
-  createdAt: string;
-}
+
 
 const Complaint = () => {
   const [search, setSearch] = useState("");
@@ -38,11 +28,7 @@ const Complaint = () => {
     setSearchParams(params);
   };
 
-  const handlePageChange = (targetPage: number) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", String(targetPage));
-    setSearchParams(params);
-  };
+
 
   // Filter pipeline handling query checks and sub-tab selection matrixes
   const filteredReports = complaints.filter((report) => {

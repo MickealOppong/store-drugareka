@@ -10,7 +10,7 @@ import { isFetchBaseQueryError } from "../util/util";
 import "./../css/GenericViewLayout.css"; // Reuses your unified generic layout styles seamlessly
 
 const UserProductView = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams,] = useSearchParams();
   // Read active pagination location straight from URL parameters (1-indexed base)
   const page = parseInt(searchParams.get("page" )as string)||1;
   const size = 30;
@@ -19,7 +19,7 @@ const UserProductView = () => {
   
   const productListings = data?.listings as TListTrans[];
   const [search, setSearch] = useState("");
-  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [deletingId] = useState<number | null>(null);
 
   /**
    * ROLE AUTH CHECK
