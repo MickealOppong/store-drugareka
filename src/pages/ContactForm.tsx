@@ -1,6 +1,6 @@
 import React, { useState, type ChangeEvent, type FormEvent } from "react";
 import { FiMail, FiMapPin, FiPhone, FiSend } from "react-icons/fi";
-import "./../css/ContactForm.css"; // Imports the dedicated contact stylesheet directly
+import './../css/ContactForm.css';
 
 interface ContactFormData {
   fullName: string;
