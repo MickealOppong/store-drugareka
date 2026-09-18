@@ -9,7 +9,7 @@ import './../css/GenericViewLayout.css'; // Reuses your unified generic layout s
 
 const ConditionView = () => {
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, ] = useState(false);
   const [error, setError] = useState("");
   const [deletingId, setDeletingId] = useState<number | null>(null);
 

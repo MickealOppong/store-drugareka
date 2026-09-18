@@ -1,7 +1,6 @@
 
 export { default as AddCategory } from "./AddCategory";
 export { default as BrandView } from "./BrandView";
-export { default as CategorySelector } from "./CategorySelector";
 export { default as CategoryView } from "./CategoryView";
 export { default as DesktopLanding } from "./DesktopLanding";
 export { default as EditCategory } from "./EditCategory";
