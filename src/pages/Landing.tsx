@@ -1,8 +1,8 @@
 import type { Store } from "redux";
 import { DesktopLanding, MobileLanding } from "../components/index";
+import '../css/Landing.css';
 import { storeApi } from "../features/api/storeApi";
 import { type AppDispatch, type RootState } from "../store";
-import './../css/Landing.css';
 
 export const loader =(store:Store<RootState>)=>async ()=>{
     const dispatch = store.dispatch as AppDispatch;

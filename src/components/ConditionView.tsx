@@ -2,10 +2,10 @@ import { useState } from "react";
 import { FiEdit2, FiPlus, FiSearch, FiTrash2 } from "react-icons/fi";
 import { Link, useRevalidator } from "react-router-dom";
 
+import '../css/GenericViewLayout.css'; // Reuses your unified generic layout styles seamlessly
 import { useDeleteConditionMutation, useGetAllConditionsQuery } from "../features/api/transApi";
 import type { TConditionDto } from "../types/TConditionDto";
 import type { TResponseDto } from "../types/TResponseDto";
-import './../css/GenericViewLayout.css'; // Reuses your unified generic layout styles seamlessly
 
 const ConditionView = () => {
   const [search, setSearch] = useState("");

@@ -2,12 +2,12 @@ import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { Outlet, redirect } from "react-router-dom";
 import type { Store } from "redux";
+import '../css/AccountLayout.css';
 import { appName } from "../data/data";
 import { userApi } from "../features/api/userApi";
 import { updateUser } from "../features/slice/userSlice";
 import { useAppSelector, type AppDispatch, type RootState } from "../store";
 import type { TUserDto } from "../types/TUserDto";
-import './../css/AccountLayout.css';
 import Admin from "./Admin";
 import User from "./User";
 

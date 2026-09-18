@@ -1,8 +1,8 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import { useNavigate } from "react-router";
+import "../css/General.css";
 import { useLazyAllRolesQuery, useNewUserMutation } from "../features/api/userApi";
 import type { TUserUpdateRequest } from "../types/TUserUpdatRequest";
-import "./../css/General.css";
 
 const AddUser = () => {
   const [active, setActive] = useState<boolean>(false);

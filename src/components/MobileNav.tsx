@@ -3,13 +3,13 @@ import { useTranslation } from "react-i18next";
 import { FiArrowRight, FiHeart, FiMenu, FiShoppingBag, FiUser, FiX } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import "../css/MobileNav.css";
 import { appName } from "../data/data";
 import { useLogoutMutation } from "../features/api/authApi";
 import { useGetCartCountQuery } from "../features/api/cartApi";
 import { useGetWishlistCountQuery } from "../features/api/itemApi";
 import { logoutUser } from "../features/slice/userSlice";
 import { useAppSelector } from "../store";
-import "./../css/MobileNav.css";
 import Loading from "./Loading";
 import Search from "./Search";
 

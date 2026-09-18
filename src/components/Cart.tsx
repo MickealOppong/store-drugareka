@@ -1,9 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { FiArrowRight } from "react-icons/fi";
+import '../css/Cart.css';
 import type { TCart } from "../types/TCart";
 import { formatPrice } from "../util/util";
-import './../css/Cart.css';
 import CartAddressManager from "./CartAddressManager";
 import CartItemCard from "./CartItemCard";
 

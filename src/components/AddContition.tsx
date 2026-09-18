@@ -1,10 +1,10 @@
 import { useState, type ChangeEvent } from "react";
 import { useNavigate, useRevalidator } from "react-router";
+import '../css/View.css';
 import {
   useNewConditionMutation
 } from "../features/api/transApi";
 import type { TConditionRequest } from "../types/TConditionRequest";
-import './../css/View.css';
 
 const AddCondition= () => {
   const [active, setActive] = useState<boolean>(false);

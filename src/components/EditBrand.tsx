@@ -1,11 +1,11 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import { useNavigate, useParams, useRevalidator } from "react-router";
+import "../css/View.css";
 import {
   useEditBrandMutation,
   useLazyFetchBrandQuery
 } from "../features/api/transApi";
 import type { TbrandResponse } from "../types/TBrandResponse";
-import "./../css/View.css";
 
 const EditBrand = () => {
  

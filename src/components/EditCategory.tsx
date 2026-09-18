@@ -1,12 +1,12 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import { useNavigate, useParams, useRevalidator } from "react-router";
+import '../css/View.css';
 import {
   useEditCategoryMutation,
   useLazyAllParentcategoriesQuery,
   useLazyGetCategoryQuery
 } from "../features/api/transApi";
 import type { TCategoryReponse } from "../types/TCategoryResponse";
-import './../css/View.css';
 
 const EditCategory = () => {
  

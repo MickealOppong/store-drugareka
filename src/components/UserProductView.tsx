@@ -3,11 +3,11 @@ import { FiEdit2, FiPlus, FiSearch, FiTrash2 } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
+import '../css/GenericViewLayout.css';
 import { useGetMylistingsQuery } from "../features/api/itemApi";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
 import { isFetchBaseQueryError } from "../util/util";
-import './../css/GenericViewLayout.css';
 
 const UserProductView = () => {
     const [searchParams,] = useSearchParams();

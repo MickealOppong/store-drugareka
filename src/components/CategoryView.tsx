@@ -2,11 +2,11 @@ import { useState } from "react";
 import { FiEdit2, FiPlus, FiSearch, FiTrash2 } from "react-icons/fi";
 import { Link, useRevalidator } from "react-router-dom";
 
+import '../css/GenericViewLayout.css'; // Reuses your unified generic layout styles seamlessly
 import { useGetAllCategoriesQuery } from "../features/api/storeApi";
 import { useDeleteCategoryMutation } from "../features/api/transApi";
 import type { TCategoryReponse } from "../types/TCategoryResponse";
 import type { TResponseDto } from "../types/TResponseDto";
-import './../css/GenericViewLayout.css'; // Reuses your unified generic layout styles seamlessly
 
 const CategoryView = () => {
   const [search, setSearch] = useState("");

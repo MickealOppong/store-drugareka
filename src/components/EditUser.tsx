@@ -1,5 +1,6 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import { useNavigate, useParams } from "react-router";
+import "../css/General.css";
 import {
   useEditUserMutation,
   useLazyAllRolesQuery,
@@ -7,7 +8,6 @@ import {
 } from "../features/api/userApi";
 import type { TResponseDto } from "../types/TResponseDto";
 import type { TUserUpdateRequest } from "../types/TUserUpdatRequest";
-import "./../css/General.css";
 
 const EditUser = () => {
   const [active, setActive] = useState<boolean>(false);

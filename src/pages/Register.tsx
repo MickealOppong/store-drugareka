@@ -8,7 +8,7 @@ import {
 } from "react-icons/fi";
 
 import { Link, useNavigate } from "react-router-dom";
-import "./../css/Register.css";
+import "../css/Register.css";
 
 import { useTranslation } from "react-i18next";
 import { RiHand } from "react-icons/ri";

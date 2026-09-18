@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { FiEye, FiFlag, FiSearch } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
 
+import Pagination from '../components/Pagination';
 import { useGetStoreOrdersQuery } from "../features/api/itemApi";
 import type { TOrdersDto } from "../types/TOrdersDto";
 import { formatPrice } from "../util/util";
-import Pagination from './../components/Pagination';
 
 
 const AdminOrderView: React.FC = () => {

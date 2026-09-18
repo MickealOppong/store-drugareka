@@ -9,8 +9,8 @@ import {
 import { Link, redirect } from "react-router-dom";
 
 import type { Store } from "redux";
+import "../css/AdminDashboard.css"; // Clean target compilation path
 import type { RootState } from "../store";
-import "./../css/AdminDashboard.css"; // Clean target compilation path
 
 export const loader = (store: Store<RootState>) => async () => {
   const roles = store.getState().userSlice.roles || [];
