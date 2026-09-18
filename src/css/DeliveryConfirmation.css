@@ -1,0 +1,104 @@
+.dc-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F4F7F6;
+  /* Alabaster template background tone */
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.dc-card {
+  max-width: 440px;
+  width: 100%;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  border-radius: 12px;
+  border: 1px solid #E0E7E6;
+  background-color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(13, 19, 19, 0.03);
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.dc-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 64px;
+  background-color: #F4F7F6;
+  color: #1E3A3A;
+  /* Spruce Accent Tint */
+  font-size: 1.6rem;
+  border-radius: 50%;
+  margin-bottom: 1.25rem;
+}
+
+.dc-icon--success {
+  background-color: #EDF7F3;
+  color: #2A6B4E;
+  /* Sage Green */
+}
+
+.dc-icon--error {
+  background-color: #FEE2E2;
+  color: #EF4444;
+}
+
+.dc-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #5E6C6A;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.dc-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0D1313;
+  margin: 0 0 0.75rem 0;
+}
+
+.dc-card p {
+  font-size: 14px;
+  color: #42504F;
+  line-height: 1.5;
+  margin: 0 0 1.5rem 0;
+}
+
+.dc-error {
+  background-color: #FEE2E2;
+  color: #991B1B;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.dc-btn {
+  width: 100%;
+  height: 40px;
+  background-color: #1E3A3A;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dc-btn:hover {
+  background-color: #2D5252;
+}
+
+.dc-btn:disabled {
+  background-color: #A2D2C8;
+  cursor: not-allowed;
+}

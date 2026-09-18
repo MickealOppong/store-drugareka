@@ -1,0 +1,218 @@
+@import "./Variables.scss"; // Imports $color-primary, $color-border, $background, $color-bg-light, etc.
+
+.brand-select {
+  position: relative;
+  width: 100%;
+  font-family: $font-sans;
+  box-sizing: border-box;
+
+  &__label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color:$color-secondary;
+    margin-bottom: 0.5rem;
+  }
+
+  &__control {
+    width: 100%;
+    height: 44px;
+    background-color: $background;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: $transition-default;
+
+    &--focused {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba(30, 58, 58, 0.08); // Spruce shadow focus ring
+    }
+  }
+
+  &__meta-icon {
+    font-size: 16px;
+    color: $color-text-muted; // Grey Zinc #5E6C6A
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  &__search-icon {
+    font-size: 16px;
+    color: $color-text-muted;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  &__input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    color: $color-text-main; // Deep Matte Ink #0D1313
+    padding: 0;
+    box-sizing: border-box;
+
+    &::placeholder {
+      color: lighten($color-text-muted, 10%);
+    }
+  }
+
+  &__placeholder {
+    font-size: 14px;
+    color: lighten($color-text-muted, 10%);
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 24px;
+
+    &--selected {
+      color: $color-text-main;
+      font-weight: 500;
+    }
+  }
+
+  &__clear-btn {
+    background: none;
+    border: none;
+    color: $color-text-muted;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    position: absolute;
+    right: 12px;
+    border-radius: 50%;
+    transition: $transition-default;
+
+    &:hover {
+      background-color: $color-bg-light; // Pure Cool Alabaster
+      color: $color-error; // Radiant Crimson fallback alert highlight
+    }
+  }
+
+  // Floating selection drop-down matrix box configuration
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    background-color: $background;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    box-shadow: 0 10px 24px rgba(13, 19, 19, 0.08); // Balanced elevation drops
+    z-index: 1000;
+    max-height: 260px;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  &__option {
+    padding: 10px 14px;
+    font-size: 14px;
+    color: $color-text-main; 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $background; 
+    transition: $transition-default;
+
+
+    &:hover {
+      background-color: $color-success-bg;
+      color: $color-primary; 
+    }
+
+
+    &--active {
+      background-color: $color-success-bg !important;
+      color: $color-success !important;      
+      font-weight: 700; 
+      
+      &:hover {
+        background-color: darken($color-success-bg, 2%) !important; 
+        color: $color-success !important;
+      }
+    }
+  }
+
+
+  &__check-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  &__state-text {
+    padding: 16px;
+    text-align: center;
+    font-size: 13px;
+    color: $color-text-muted;
+  }
+
+  // Inline Quick Creation Layout Configuration Slots
+  &__empty-state {
+    padding: 16px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  &__empty-text {
+    margin: 0 0 12px 0;
+    font-size: 13px;
+    color: $color-text-muted;
+    word-break: break-word;
+  }
+
+  &__add-new-btn {
+    width: 100%;
+    height: 36px;
+    background-color: $color-primary-light; // Crisp Glacial Mint #D1E5E3
+    color: $color-primary; // Deep Spruce #1E3A3A
+    border: none;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 12px;
+    transition: $transition-default;
+
+    svg {
+      font-size: 14px;
+      stroke-width: 2.5;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: $color-primary;
+      color: $color-text-light;
+      box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}

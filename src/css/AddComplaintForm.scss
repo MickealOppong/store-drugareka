@@ -1,0 +1,228 @@
+@import './variables.scss'; // Imports your global design tokens ($font-sans, $color-primary, etc.)
+
+.complaint-form-page {
+    width: 100%;
+    max-width: 760px; // Centered narrower alignment layout looks cleaner for inputs entries
+    margin: 0 auto;
+    padding: 2rem 24px 4rem 24px;
+    box-sizing: border-box;
+    font-family: $font-sans;
+
+    &__back-header {
+        margin-bottom: 1.5rem;
+    }
+
+    &__back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 14px;
+        font-weight: 600;
+        color: $color-secondary;
+        text-decoration: none;
+        transition: $transition-default;
+
+        &:hover {
+            color: $color-primary;
+        }
+    }
+
+    &__title-area {
+        margin-bottom: 2rem;
+    }
+
+    &__eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: $color-accent; // Crimson accent highlight draws immediate attention
+        display: block;
+        margin-bottom: 0.35rem;
+    }
+
+    &__title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $color-text-main;
+        margin: 0 0 0.5rem 0;
+    }
+
+    &__description {
+        font-size: 15px;
+        color: $color-text-muted;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    // =========================================================
+    // CORE CONTAINER INPUT CARD
+    // =========================================================
+    &__card-body {
+        background-color: $background;
+        border: 1px solid $color-border;
+        border-radius: 16px;
+        padding: 2.25rem 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    &__form-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1.75rem;
+        width: 100%;
+    }
+
+    &__submit-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        height: 46px;
+        padding: 0 1.75rem;
+        background-color: $color-accent; // Uses Crimson text/accent elements for high visibility warning operations
+        color: $color-text-light;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: $transition-default;
+
+        svg {
+            font-size: 14px;
+            stroke-width: 2.5;
+        }
+
+        &:hover:not(:disabled) {
+            background-color: darken($color-accent, 7%);
+            transform: translateY(-1px);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+
+    // =========================================================
+    // NOTIFICATION ALERT BANNERS
+    // =========================================================
+    &__alert-banner {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        width: 100%;
+        padding: 1.25rem;
+        border-radius: 12px;
+        margin-bottom: 1.75rem;
+        font-size: 14px;
+        line-height: 1.4;
+        box-sizing: border-box;
+
+        &--success {
+            background-color: $color-safety-bg; // Soft Green #f0fdf4
+            border: 1px solid $color-safety-text; // Border #16a34a
+            color: $color-safety-text;
+            
+            .complaint-form-page__alert-icon {
+                color: $color-safety-text;
+            }
+        }
+
+        &--error {
+            background-color: rgba($color-accent, 0.07);
+            border: 1px solid $color-accent;
+            color: $color-accent;
+        }
+    }
+
+    &__alert-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+        margin-top: 1px;
+    }
+}
+
+// =========================================================
+// ISOLATED FIELD MODULE BLOCK
+// =========================================================
+.complaint-input-field {
+    margin-bottom: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+
+    &__label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: $color-text-muted;
+        margin-bottom: 0.45rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    &__select, &__textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid $color-border;
+        background-color: $background;
+        color: $color-text-main;
+        font-family: $font-sans;
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+        transition: $transition-default;
+
+        &:focus {
+            border-color: $color-accent; // Focused fields turn warning Crimson accent to highlight dispute operations
+            box-shadow: 0 0 0 3px rgba($color-accent, 0.1);
+        }
+    }
+
+    &__select {
+        height: 46px;
+        cursor: pointer;
+        appearance: none; // Strips default dropdown chrome arrow indicators
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://w3.org' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%237c8378' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        background-size: 16px;
+        padding-right: 40px;
+    }
+
+    &__textarea {
+        resize: vertical;
+        min-height: 160px;
+        line-height: 1.5;
+    }
+}
+
+// Responsive mobile constraints definitions
+@media (max-width: 480px) {
+    .complaint-form-page {
+        padding: 1.5rem 16px 3rem 16px;
+
+        &__card-body {
+            padding: 1.5rem 1.25rem;
+        }
+
+        &__title {
+            font-size: 1.6rem;
+        }
+
+        &__form-footer {
+            button {
+                width: 100%; // Stretches button width on small screens
+            }
+        }
+    }
+}

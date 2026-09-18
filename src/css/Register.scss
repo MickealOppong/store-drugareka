@@ -1,0 +1,381 @@
+// ==========================================================================
+// CONFIGURATION: VARIABLES & BREAKPOINTS
+// ==========================================================================
+
+@import './Variables.scss';
+
+
+
+// ==========================================================================
+// GLOBAL FETCH ERROR BAR
+// ==========================================================================
+
+.fetch_error {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  width: calc(100% - 2.5rem);
+  max-width: 480px;
+  background-color: #fef2f2;
+  border: 1px solid rgba($color-accent, 0.2);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  animation: slideInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  h2 {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $color-accent;
+    text-align: center;
+    line-height: 1.4;
+  }
+}
+
+@keyframes slideInDown {
+  from { transform: translate(-50%, -20px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+// ==========================================================================
+// MAIN PAGE STRUCTURE (`.register-page`)
+// ==========================================================================
+
+.register-page {
+  font-family: $font-sans;
+  color: $color-text-main;
+  background-color: $background-2;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+  box-sizing: border-box;
+
+
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: $transition-default;
+  }
+}
+
+// ==========================================================================
+// THE REGISTRATION CONTAINER CARD (`.register-card`)
+// ==========================================================================
+
+.register-card {
+  width: 100%;
+  max-width: 480px; // Optimized width to keep side-by-side inputs cleanly proportioned
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+    border: 1px solid $color-border;
+    padding: 3rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.03);
+ 
+
+  // Brand Header Block
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+
+    .register-heart {
+      color: $color-accent;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+  }
+
+  // Heading Block
+  .register-heading {
+    margin-bottom: 2rem;
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin: 0 0 0.5rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: $color-text-muted;
+      margin: 0;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+}
+
+// ==========================================================================
+// INPUT LAYOUTS & PARENT-HOVER INTERACTION FIELDS
+// ==========================================================================
+
+// Double Grid Layout Layer (First Name / Last Name Row)
+.register-form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  @include media-up($breakpoint-sm) {
+    flex-direction: row;
+    gap: 1rem;
+
+    > div {
+      flex: 1;
+      width: 50%;
+    }
+  }
+}
+
+// Parent Input Group Container Box
+.register-input-group {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid $color-border;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  transition: $transition-default;
+
+  // NEW: Parent Hover State Updates
+  &:hover {
+    border-color: $color-secondary;
+
+    .input-icon {
+      color: $color-text-main;
+    }
+  }
+
+  // Active Focus State Updates
+  &:focus-within {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 1px $color-primary;
+
+    .input-icon {
+      color: $color-primary;
+    }
+  }
+
+  // Left Embedded Input Vectors
+  .input-icon {
+    font-size: 1.1rem;
+    color: $color-secondary;
+    margin-right: 0.85rem;
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+  }
+
+  // Text & Label Grid Alignment Layout
+  .input-group_div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: $color-text-muted;
+      margin-bottom: 0.15rem;
+    }
+
+    input,
+    input.register-input {
+      border: none;
+      background: transparent;
+      padding: 0.2rem 0;
+      font-family: $font-sans;
+      font-size: 0.95rem;
+      color: $color-text-main;
+      width: 100%;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    // Custom configuration safeties for native calendar date rows
+    input[type="date"] {
+      color: $color-text-main;
+      cursor: pointer;
+      font-family: $font-sans;
+      
+      &::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        opacity: 0.5;
+        transition: opacity 0.2s ease;
+        
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+// Inline Form Field Errors
+.error {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: $color-accent;
+  margin-top: 0.4rem;
+  padding-left: 0.25rem;
+}
+
+// ==========================================================================
+// LEGAL CHECKBOX BAR (`.terms`)
+// ==========================================================================
+
+.terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  user-select: none;
+
+  // NEW: Parent Hover updates standard border profiles dynamically
+  &:hover {
+    input[type="checkbox"] {
+      border-color: $color-primary;
+    }
+  }
+
+  // Customized Native Native Checkbox Mask Hides Safari Box Layout Defaults
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid $color-border;
+    border-radius: 4px;
+    background-color: #ffffff;
+    margin: 0.15rem 0 0 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: $transition-default;
+
+    &:checked {
+      background-color: $color-primary;
+      border-color: $color-primary;
+
+      &::after {
+        content: '';
+        width: 4px;
+        height: 8px;
+        border: solid #ffffff;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+        margin-bottom: 2px;
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-accent;
+    }
+  }
+
+  span {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: $color-text-muted;
+
+    .legal-link {
+      color: $color-primary;
+      font-weight: 600;
+      border-bottom: 1px solid transparent;
+
+      &:hover {
+        color: $color-accent;
+        border-color: $color-accent;
+      }
+    }
+  }
+}
+
+// ==========================================================================
+// ACTION TRIGGERS & FOOTER REDIRECT LINKS
+// ==========================================================================
+
+// Primary Submit Action Button Layout
+.register-btn {
+  font-family: $font-sans;
+  background-color: $color-primary;
+  color: $color-text-light;
+  border: 1px solid $color-primary;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.25rem;
+  min-height: $touch-target-min;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  transition: $transition-default;
+
+  svg {
+    font-size: 1.1rem;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // NEW: Parent Hover Rule slides vector graphic forward dynamically
+  &:hover {
+    background-color: $color-primary-light;
+    border-color: $color-primary-light;
+
+    svg {
+      transform: translateX(4px);
+    }
+  }
+}
+
+
+
+// Secondary Footer Prompt Sign-up Area
+.login-link {
+  text-align: center;
+  font-size: 0.9rem;
+  color: $color-text-muted;
+  margin-top: 2rem;
+
+  a {
+    font-weight: 700;
+    color: $color-primary;
+    margin-left: 0.25rem;
+
+    &:hover {
+      color: $color-accent;
+    }
+  }
+}

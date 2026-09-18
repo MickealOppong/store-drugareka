@@ -1,0 +1,238 @@
+.al-layout {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #111111;
+  background-color: #FFFFFF;
+  min-height: 100vh;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+  .al-layout {
+    flex-direction: row !important;
+  }
+}
+
+.al-mobile-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid #e5e5e5;
+  background-color: #FFFFFF;
+  position: sticky;
+  top: 0;
+  z-index: 101;
+  height: 60px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .al-mobile-bar {
+    display: none !important;
+  }
+}
+
+.al-mobile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #111111;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: 6px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.al-mobile-toggle:hover {
+  background-color: #f9f9f9;
+  color: #66704A;
+}
+
+.al-mobile-toggle:active {
+  transform: scale(0.95);
+}
+
+.al-sidebar-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 1024px) {
+  .al-sidebar-wrapper {
+    position: sticky;
+    top: 0;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    height: 100vh;
+    width: 320px;
+    flex-shrink: 0;
+  }
+}
+
+.al-sidebar-wrapper--open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.al-sidebar-wrapper--open .al-sidebar-overlay {
+  opacity: 1;
+}
+
+.al-sidebar-wrapper--open .al-sidebar-container {
+  transform: translateX(0);
+}
+
+.al-sidebar-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(13, 19, 19, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+@media (min-width: 1024px) {
+  .al-sidebar-overlay {
+    display: none !important;
+  }
+}
+
+.al-sidebar-container {
+  position: relative;
+  width: 300px;
+  max-width: 85vw;
+  height: 100%;
+  background-color: #FFFFFF;
+  box-shadow: 10px 0 30px rgba(13, 19, 19, 0.05);
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.25rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+  z-index: 2;
+}
+
+@media (min-width: 1024px) {
+  .al-sidebar-container {
+    width: 100%;
+    max-width: 100%;
+    box-shadow: none;
+    transform: none !important;
+    transition: none;
+    padding: 2.5rem 1.5rem;
+    border-right: 1px solid #e5e5e5;
+  }
+}
+
+.al-sidebar-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #666666;
+  font-size: 1.35rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.al-sidebar-close:hover {
+  color: #66704A;
+  background-color: #f9f9f9;
+}
+
+.al-sidebar-close:active {
+  transform: scale(0.92);
+}
+
+@media (min-width: 1024px) {
+  .al-sidebar-close {
+    display: none !important;
+  }
+}
+
+.al-brand {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #66704A;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.al-brand__light {
+  font-weight: 400;
+  color: #666666;
+  margin-left: 1px;
+}
+
+.al-brand--sidebar {
+  margin-bottom: 2.5rem;
+  height: 40px;
+}
+
+@media (min-width: 1024px) {
+  .al-brand--sidebar {
+    margin-bottom: 3rem;
+  }
+}
+
+.al-sidebar-nav {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.al-content {
+  flex: 1;
+  max-width: 100%;
+  padding: 1.5rem 1.25rem;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  min-height: calc(100vh - 60px);
+}
+
+@media (min-width: 768px) {
+  .al-content {
+    padding: 2.5rem 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .al-content {
+    padding: 3rem 3.5rem;
+    height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+}

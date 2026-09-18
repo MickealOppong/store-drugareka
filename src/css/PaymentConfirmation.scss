@@ -1,0 +1,135 @@
+@import './Variables.scss'; // Imports Spruce (#1E3A3A), Alabaster (#F4F7F6), Ink (#0D1313)
+
+.success-receipt {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-bg-light; // Cool Alabaster background matrix
+  padding: 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+
+  &__card {
+    max-width: 520px;
+    width: 100%;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-radius: 16px;
+    border: 1px solid $color-border;
+    box-shadow: 0 12px 36px rgba(13, 19, 19, 0.04);
+    box-sizing: border-box;
+    background-color: $background; // Pure white surface base ground
+  }
+
+  &__icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background-color: $color-success-bg; // Soft Mint Tint #EDF7F3
+    color: $color-success;              // Jade Sage Green #2A6B4E
+    font-size: 2rem;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+  }
+
+  &__eyebrow {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: $color-success;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  &__title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: $color-text-main; // Deep Matte Ink #0D1313
+    margin: 0 0 1rem 0;
+    line-height: 1.25;
+  }
+
+  &__description {
+    font-size: 14px;
+    color: $color-secondary; // Granite Grey #42504F
+    line-height: 1.6;
+    margin: 0 0 1.5rem 0;
+  }
+
+  &__session-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background-color: $color-bg-light;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: $color-text-muted;
+    margin-bottom: 1.5rem;
+
+    code {
+      font-family: $font-sans;
+      font-weight: 600;
+      color: $color-text-main;
+    }
+  }
+
+  &__hint-box {
+    background-color: $color-bg-light;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 2rem;
+    font-size: 13px;
+    color: $color-text-muted;
+    text-align: left;
+    line-height: 1.5;
+    border-left: 3px solid $color-primary; // Deep Spruce #1E3A3A left accent strip
+    box-sizing: border-box;
+  }
+
+  &__hint-title {
+    display: block;
+    color: $color-text-main;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+
+  &__hint-desc {
+    margin: 0;
+    color: $color-text-muted;
+  }
+
+  &__support-text {
+    font-size: 13px;
+    color: $color-text-muted;
+    margin: 0 0 2rem 0;
+  }
+
+  &__link {
+    color: $color-primary;
+    font-weight: 600;
+    text-decoration: underline;
+    transition: $transition-default;
+
+    &:hover {
+      color: lighten($color-primary, 10%);
+    }
+  }
+
+  &__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    height: 42px;
+    padding: 0 2rem;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+}

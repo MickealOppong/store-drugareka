@@ -1,0 +1,601 @@
+@import "./Variables.scss"; // Imports Spruce, Mint, Alabaster, and Ink design tokens
+
+// Local design parameters synchronized with your marketplace dashboard theme
+$ap-radius-large: 12px;
+$ap-radius-small: 8px;
+$ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
+
+.add-product {
+  min-height: 100%;
+  padding: 1.5rem 1.25rem;
+  background-color: $color-bg-light; // Cool Alabaster background
+  color: $color-text-main; // Deep Matte Ink text
+  font-family: $font-sans;
+  box-sizing: border-box;
+
+  @include media-up($breakpoint-md) {
+    padding: 2rem;
+  }
+
+  /* ==========================================================================
+     TOP CONTROL ACTION HEADER
+     ========================================================================== */
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+    max-width: $max-width-content;
+    width: 100%;
+
+    @include media-up($breakpoint-sm) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+
+    h1 {
+      margin: 0 0 2px 0;
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: $color-text-main;
+    }
+
+    p {
+      margin: 0;
+      font-size: 13px;
+      color: $color-text-muted; // Muted Zinc Grey
+    }
+  }
+
+  &__back {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $color-border;
+    border-radius: $ap-radius-small;
+    background: $background;
+    color: $color-secondary; // Granite grey tracking accent
+    text-decoration: none;
+    box-shadow: 0 1px 2px rgba(13, 19, 19, 0.02);
+    transition: $transition-default;
+    flex-shrink: 0;
+
+    svg {
+      font-size: 16px;
+      stroke-width: 2.25;
+    }
+
+    &:hover {
+      border-color: $color-primary;
+      background: $color-primary-light; // Soft Mint Tint
+      color: $color-primary; // Deep Spruce
+      transform: translateX(-1px);
+    }
+  }
+
+  &__header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+
+    @include media-up($breakpoint-sm) {
+      width: auto;
+    }
+  }
+
+  &__draft-btn,
+  &__publish-btn {
+    flex: 1;
+    min-height: 42px;
+    padding: 0 1.25rem;
+    border-radius: $ap-radius-small;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: $transition-default;
+    outline: none;
+
+    @include media-up($breakpoint-sm) {
+      flex: 0 0 auto;
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+
+  &__draft-btn {
+    border: 1px solid $color-border;
+    background: $background;
+    color: $color-secondary;
+
+    &:hover {
+      border-color: darken($color-border, 12%);
+      background-color: $color-bg-light;
+    }
+  }
+
+  &__publish-btn {
+    border: none;
+    background: $color-primary;
+    color: $color-text-light;
+    box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
+
+    &:hover {
+      background: $color-primary-dark;
+      box-shadow: 0 6px 16px rgba(15, 31, 31, 0.22);
+    }
+  }
+
+  /* ==========================================================================
+     ASYMMETRIC GRID STRUCTURE
+     ========================================================================== */
+  &__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: $max-width-content;
+    width: 100%;
+
+    @include media-up($breakpoint-lg) {
+      grid-template-columns: minmax(0, 1fr) 300px;
+    }
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    min-width: 0; // Protects grid layout from expanding on wide imagery streams
+  }
+
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100%;
+
+    @include media-up($breakpoint-md) {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include media-up($breakpoint-lg) {
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 1.5rem; // Locks panels on viewport scroll track
+    }
+  }
+
+  /* ==========================================================================
+     SHARED CONTENT CARDS FRAMEWORKS
+     ========================================================================== */
+  .product-section,
+  .product-card {
+    background: $background;
+    border: 1px solid $color-border;
+    border-radius: $ap-radius-large;
+    box-shadow: 0 2px 8px rgba(13, 19, 19, 0.01);
+    box-sizing: border-box;
+
+  }
+
+  .product-card {
+    padding: 1.25rem;
+
+    &__header {
+      margin-bottom: 1rem;
+
+      h3 {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: $color-text-main;
+      }
+    }
+  }
+
+  .product-section {
+    padding: 1.5rem;
+   
+
+    &__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+
+      h2 {
+        margin: 0 0 4px 0;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        color: $color-text-main;
+      }
+
+      p {
+        margin: 0;
+        font-size: 12.5px;
+        color: $color-text-muted;
+        line-height: 1.5;
+      }
+
+      > span {
+        padding: 4px 8px;
+        border-radius: 10px;
+        background: $color-bg-light;
+        color: $color-text-muted;
+        font-size: 11px;
+        font-weight: 700;
+      }
+    }
+
+    .shippingInfo{
+      margin-top: 12px;
+    }
+  }
+
+  /* ==========================================================================
+     MEDIA UPLOADER IMAGERY PIPELINES
+     ========================================================================== */
+  .product-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+
+    @include media-up($breakpoint-sm) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .product-image,
+  .product-image__upload {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .product-image {
+    border: 1px solid $color-border;
+    background: $color-bg-light;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &__remove {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 26px;
+      height: 26px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 50%;
+      background: rgba(13, 19, 19, 0.75);
+      color: $color-text-light;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: $transition-default;
+
+      &:hover {
+        background: $color-text-muted;
+        transform: scale(1.05);
+      }
+    }
+
+    &__primary {
+      position: absolute;
+      left: 6px;
+      bottom: 6px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.9);
+      color: $color-primary;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .product-image__upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border: 1.5px dashed darken($color-border, 5%);
+    background: $background;
+    color: $color-text-muted;
+    cursor: pointer;
+    transition: $transition-default;
+
+    &:hover {
+      border-color: $color-secondary;
+      background: $color-success-bg;
+    }
+
+    input[type="file"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    svg {
+      font-size: 20px;
+      color: $color-primary;
+      margin-bottom: 2px;
+    }
+
+    span {
+      font-size: 12px;
+      font-weight: 700;
+      color: $color-secondary;
+    }
+
+    small {
+      font-size: 10px;
+      color: lighten($color-text-muted, 10%);
+    }
+  }
+
+  /* ==========================================================================
+     UNIVERSAL INPUT STRUCTURE FIELDS
+     ========================================================================== */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+
+    @include media-up($breakpoint-sm) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    box-sizing: border-box;
+
+    &--full {
+      @include media-up($breakpoint-sm) {
+        grid-column: 1 / -1;
+      }
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: $color-secondary;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid $color-border;
+      border-radius: 8px;
+      outline: none;
+      background: $background;
+      color: $color-text-main;
+      font: inherit;
+      font-size: 13px;
+      transition: $transition-default;
+
+      &::placeholder {
+        color: lighten($color-text-muted, 15%);
+      }
+
+      &:hover {
+        border-color: darken($color-border, 10%);
+      }
+
+      &:focus {
+        border-color: $color-primary;
+        box-shadow: 0 0 0 3px rgba(30, 58, 58, 0.08);
+      }
+    }
+
+    input,
+    select {
+      height: 42px;
+      padding: 0 12px;
+    }
+
+    select {
+      cursor: pointer;
+      background-color: $background;
+    }
+
+    textarea {
+      min-height: 100px;
+      padding: 10px 12px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    &__hint {
+      font-size: 11px;
+      color: lighten($color-text-muted, 10%);
+      margin-top: -2px;
+    }
+
+    &__error-msg {
+      display: block;
+      color: $color-error; // Radiant Crimson error channel
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 1px;
+    }
+  }
+  .input-with-prefix {
+    position: relative;
+    width: 100%;
+    span {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: $color-text-muted;
+      font-size: 13px;
+      font-weight: 700;
+      pointer-events: none;
+      z-index: 2;
+    }
+    input {
+      padding-left: 32px; // Clear view clearance to protect the currency prefix metric
+    }
+  }
+  /* ==========================================================================SIDEBAR STATUS SUB-WIDGET COMPONENTS========================================================================== */
+  .status-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    background: $color-bg-light;
+    &__icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: $color-safety-text;
+      // Glacial Mint Accent Ring
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      span.primary {
+        width: 6px;
+        height: 6px;
+        display: block;
+        border-radius: 50%;
+        background: $color-bg-light;
+      }
+    }
+    &__message {
+      min-width: 0;
+      strong {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        color: $color-text-main;
+        margin-bottom: 2px;
+      }
+      p {
+        margin: 0;
+        font-size: 11px;
+        color: $color-text-muted;
+        line-height: 1.4;
+      }
+    }
+  }
+  .product-tips {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    li {
+      position: relative;
+      padding-left: 14px;
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: $color-secondary;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 6px;
+        left: 0;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: $color-accent; // High-conversion radiant pop key
+      }
+    }
+  }
+  .product-preview {
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    background: $background;
+    overflow: hidden;
+    &__image {
+      aspect-ratio: 16 / 13;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $color-bg-light;
+      color: lighten($color-text-muted, 15%);
+      font-size: 28px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+    }
+    &__content {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      span {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: $color-text-muted;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+      }
+      h4 {
+        margin: 0 0 6px 0;
+        font-size: 13px;
+        font-weight: 600;
+        color: $color-text-main;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      strong {
+        font-size: 15px;
+        font-weight: 800;
+        color: $color-primary;
+      }
+    }
+  }
+}

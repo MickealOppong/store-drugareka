@@ -1,0 +1,126 @@
+@import './variables.scss';
+
+.pagination-nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 2rem auto;
+    width: 100%;
+    user-select: none;
+    font-family: $font-sans;
+}
+
+.pagination-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 0.5rem;
+    border: 1px solid $color-border;
+    border-radius: 12px;
+    background-color: $background;
+    color: $color-text-main;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: $transition-default;
+    box-sizing: border-box;
+    outline: none;
+
+    &.number-btn {
+        font-family: $font-sans;
+    }
+
+    &.arrow-btn {
+        color: $color-secondary;
+        
+        svg {
+            width: 16px;
+            height: 16px;
+            stroke-width: 2.5;
+        }
+    }
+
+    // HIGH-SPECIFICITY CURRENT PAGE HIGHLIGHT (Sage Green Variant Integration)
+    &.is-active {
+        background-color: $color-primary; // #66704A Earthy Sage Green
+        border-color: $color-primary;
+        color: $color-text-light;        // #ffffff Crisp contrast White
+        font-weight: 600;
+        cursor: default;
+        pointer-events: none;             // Blocks unnecessary multi-clicks
+        box-shadow: 0 4px 12px rgba($color-primary, 0.25);
+    }
+
+    &:hover:not(:disabled):not(.is-active) {
+        background-color: $background-2;
+        border-color: darken($color-border, 10%);
+        color: $color-primary;
+        transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled):not(.is-active) {
+        transform: scale(0.96);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+        background-color: $color-bg-light;
+        border-color: $color-border;
+        color: $color-text-muted;
+        transform: none !important;
+    }
+}
+
+// Ensure buttons and ellipses use EXACTLY matching structural layout limits
+.pagination-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px; // ◄--- Crucial: Sets identical default layout sizes
+    height: 40px;
+    box-sizing: border-box;
+    // Your rest styles...
+}
+
+.pagination-ellipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px; // ◄--- MUST match your button min-width perfectly!
+    height: 40px;    // ◄--- MUST match your button height perfectly!
+    color: $color-text-muted;
+    font-size: 14px;
+    letter-spacing: 0; // Turn off wide spacing to keep layout alignment clean
+}
+
+
+// --------------------------------------------------
+// Mobile Responsive Views (Enforcing Touch Boundaries)
+// --------------------------------------------------
+@media (max-width: $breakpoint-sm) {
+    .pagination-nav-container {
+        gap: 0.25rem;
+    }
+
+    .pagination-btn {
+        // Aligns precisely with your $touch-target-min (44px) guidelines
+        min-width: calc(#{$touch-target-min} - 6px); 
+        height: calc(#{$touch-target-min} - 6px);
+        border-radius: 10px;
+        font-size: 13px;
+
+        &.arrow-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+    }
+
+    .pagination-ellipsis {
+        width: 24px;
+        height: 34px;
+    }
+}

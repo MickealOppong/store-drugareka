@@ -1,0 +1,282 @@
+@import './variables.scss'; // Hooks your design variables ($font-sans, $color-primary, etc.)
+
+.contact-form-page {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem 32px 4rem 32px;
+    box-sizing: border-box;
+    font-family: $font-sans;
+
+    &__header {
+        margin-bottom: 2rem;
+    }
+
+    &__eyebrow {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: $color-primary;
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+
+    &__title {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: $color-text-main;
+        margin: 0 0 0.5rem 0;
+    }
+
+    &__description {
+        font-size: 15px;
+        color: $color-text-muted;
+        margin: 0;
+    }
+
+    // =========================================================
+    // RESPONSIVE SPLIT MULTI-COLUMN CONTAINER
+    // =========================================================
+    &__layout-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        width: 100%;
+        box-sizing: border-box;
+
+        @media (min-width: $breakpoint-md) {
+            display: grid;
+            grid-template-columns: minmax(320px, 1fr) 2fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+    }
+
+    // =========================================================
+    // LEFT PANEL DIRECT CHANNELS INFORMATION
+    // =========================================================
+    &__info-card {
+        background-color: $color-bg-light;
+        border: 1px solid $color-border;
+        border-radius: 16px;
+        padding: 2rem 1.5rem;
+        box-sizing: border-box;
+    }
+
+    &__info-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: $color-text-main;
+        margin: 0 0 0.5rem 0;
+    }
+
+    &__info-description {
+        font-size: 14px;
+        color: $color-text-muted;
+        margin: 0 0 2rem 0;
+        line-height: 1.5;
+    }
+
+    &__channels-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    &__channel-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &__icon-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        background-color: lighten($color-primary, 42%);
+        color: $color-primary;
+        flex-shrink: 0;
+
+        svg {
+            font-size: 18px;
+            stroke-width: 2.2;
+        }
+    }
+
+    &__text-wrapper {
+        min-width: 0;
+
+        strong {
+            display: block;
+            font-size: 14px;
+            color: $color-text-main;
+            font-weight: 600;
+            margin-bottom: 0.125rem;
+        }
+
+        p {
+            font-size: 14px;
+            color: $color-secondary;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    // =========================================================
+    // RIGHT INTERACTIVE INPUT PANEL CARD
+    // =========================================================
+    &__input-card {
+        background-color: $background;
+        border: 1px solid $color-border;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1.5rem;
+        width: 100%;
+    }
+
+    &__submit-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        height: 46px;
+        padding: 0 1.75rem;
+        background-color: $color-primary; // Sage green primary action mapping fill
+        color: $color-text-light;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: $transition-default;
+
+        svg {
+            font-size: 14px;
+            stroke-width: 2.5;
+        }
+
+        &:hover {
+            background-color: darken($color-primary, 6%);
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+
+    // =========================================================
+    // BANNERS STATUS HANDLING NOTIFICATIONS
+    // =========================================================
+    &__feedback-banner {
+        display: block;
+        width: 100%;
+        padding: 1rem;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        font-size: 14px;
+        box-sizing: border-box;
+
+        &--success {
+            background-color: $color-safety-bg; // Soft Green #f0fdf4
+            border: 1px solid $color-safety-text; // Border #16a34a
+            color: $color-safety-text;
+        }
+
+        &--error {
+            background-color: rgba($color-accent, 0.07);
+            border: 1px solid $color-accent;
+            color: $color-accent;
+        }
+    }
+}
+
+// =========================================================
+// ISOLATED FORM FIELD SUB-MODULE (STANDALONE MAPPING)
+// =========================================================
+.contact-input-field {
+    margin-bottom: 1.25rem;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+
+    &__label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: $color-text-muted;
+        margin-bottom: 0.35rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    &__input, &__textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid $color-border;
+        background-color: $background;
+        color: $color-text-main;
+        font-family: $font-sans;
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+        transition: $transition-default;
+
+        &::placeholder {
+            color: $color-text-muted;
+            opacity: 0.8;
+        }
+
+        &:focus {
+            border-color: $color-primary; // Transitions focused nodes to brand Sage Green
+            box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+        }
+    }
+
+    &__textarea {
+        resize: vertical;
+        min-height: 140px;
+        line-height: 1.5;
+    }
+}
+
+// =========================================================
+// TABLET AND COMPACT SCREENBREAK BREAKOUTS
+// =========================================================
+@media (max-width: $breakpoint-sm) {
+    .contact-form-page {
+        padding: 1.5rem 16px 3rem 16px;
+
+        &__input-card {
+            padding: 1.25rem;
+        }
+
+        &__footer {
+            button {
+                width: 100%; // Scales button to full viewport width for better tapping layout alignment
+            }
+        }
+    }
+}

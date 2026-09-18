@@ -1,0 +1,241 @@
+@import "./Variables.scss"; // Hooks core design tokens ($color-primary, $color-border, $background, etc.)
+
+// ==========================================================================
+// 1. DYNAMIC FULL-SCREEN BLUR BACKDROP SCRIM LAYER OVERRIDES
+// ==========================================================================
+.mn-backdrop--modal {
+  position: fixed;
+  top: 0 !important; // Forces override of mobile menu height clipping offsets
+  left: 0;
+  width: 100vw;
+  height: 100vh !important; // Locks to the absolute maximum device ceiling viewport height
+  background-color: rgba(13, 19, 19, 0.4); // Scoped charcoal color alpha veil
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); // Cross-browser validation guard for iOS Safari layout models
+  z-index: 99999; // Sandwiched securely behind the modal box container pane layer
+  box-sizing: border-box;
+}
+
+// ==========================================================================
+// 2. CENTRAL DIALOG CONTENT COMPONENT CARD WRAPPER
+// ==========================================================================
+.logistics-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); // Perfectly aligns to true window dead-center grids
+  width: calc(100% - 24px); // Clean padding constraint boundary safety lock on mobile devices
+  max-width: 520px;
+  background-color: $background;
+  border-radius: 12px;
+  border: 1px solid $color-border;
+  box-shadow: 0 20px 48px rgba(13, 19, 19, 0.15); // Deep, modern architectural elevation drop shadows
+  box-sizing: border-box;
+  overflow: hidden;
+  display: block;
+  font-family: $font-sans;
+
+  // Append this entry configuration inside your .logistics-modal container definition rules:
+.logistics-modal {
+  // ... existing styles ...
+
+  &__input {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid $color-border;
+    padding: 0 12px;
+    outline: none;
+    font-size: 14px;
+    font-family: inherit;
+    color: $color-text-main;
+    background-color: $background;
+    box-sizing: border-box;
+    transition: $transition-default;
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.08); // Focus ring highlight halo
+    }
+
+    &::placeholder {
+      color: lighten($color-text-muted, 10%);
+    }
+  }
+}
+
+
+  // Header banner containing target reference indices labels
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid $color-border;
+    background-color: $color-bg-light; // Cool Alabaster tint matching brand tokens
+    box-sizing: border-box;
+  }
+
+  &__title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800; // Aligns with platform master header token rules
+    color: $color-text-main; // Matte Ink
+    letter-spacing: -0.01em;
+  }
+
+  &__subtitle {
+    font-size: 12px;
+    color: $color-text-muted; // Cool grey zinc profile
+    font-weight: 500;
+  }
+
+  &__close-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: $color-text-muted;
+    cursor: pointer;
+    display: flex;
+    padding: 4px;
+    border-radius: 6px;
+    transition: $transition-default;
+    outline: none;
+
+    &:hover:not(:disabled) {
+      color: $color-text-main;
+      background-color: lighten($color-border, 5%);
+    }
+
+    &:active {
+      transform: scale(0.92);
+    }
+  }
+
+  // Inner form structural fields and rows allocations
+  &__form {
+    padding: 1.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__error {
+    margin-bottom: 1.25rem;
+  }
+
+  &__fields-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100%;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    width: 100%;
+  }
+
+  &__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: $color-secondary; // Mid-tone granite tracker
+
+    &--icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+
+      svg {
+        font-size: 14px;
+        color: $color-primary; // Deep Spruce
+      }
+    }
+  }
+
+  &__select {
+    width: 100%;
+    height: 42px;
+    border-radius: 8px;
+    border: 1px solid $color-border;
+    padding: 0 12px;
+    outline: none;
+    font-size: 14px;
+    font-family: inherit;
+    color: $color-text-main;
+    background-color: $background;
+    box-sizing: border-box;
+    transition: $transition-default;
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.08); // Interactive focus state halo
+    }
+  }
+
+  &__textarea {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid $color-border;
+    padding: 12px;
+    outline: none;
+    font-size: 14px;
+    font-family: inherit;
+    color: $color-text-main;
+    background-color: $background;
+    box-sizing: border-box;
+    resize: none; // Locked to prevent interface layout degradation on runs
+    transition: $transition-default;
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.08);
+    }
+  }
+
+  // Footer navigation actions alignment segment
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+    border-top: 1px solid $color-border;
+    padding-top: 1.25rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__btn-cancel {
+    width: auto !important;
+    display: inline-flex !important;
+    padding: 0 1.25rem !important;
+    height: 40px !important;
+    align-items: center;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+  }
+
+  &__btn-save {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 !important;
+    align-self: auto !important;
+    height: 40px !important;
+    padding: 0 1.25rem !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    background-color: $color-primary !important;
+    border-radius: 8px !important; // Matches clean corner metrics of buttons
+  }
+}

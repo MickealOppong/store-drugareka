@@ -1,0 +1,32 @@
+@import './variables.scss';
+
+.page-loader-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    //background-color: rgba($background, 0.7); /* Translucent overlay */
+    backdrop-filter: blur(8px); /* Smooth hardware-accelerated frosted glass */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Higher than fixed headers and sidebars */
+}
+
+/* Elegant, seamless dual-ring infinity spinner */
+.app-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid $color-border;
+    border-top-color: $color-primary; /* Spotkac accent signature */
+    border-radius: 50%;
+    animation: spin 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) infinite;
+}
+
+@media (min-width:768px){
+    .page-loader-backdrop{
+        width: 90%;
+        right: 0;
+    }
+}

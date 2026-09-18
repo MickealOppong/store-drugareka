@@ -1,0 +1,646 @@
+@import "./Variables.scss"; // Hooks core Spruce (#1E3A3A), Alabaster (#F4F7F6), Ink (#0D1313)
+
+// Scoped layout parameters
+$db-card-bg: #ffffff;
+$db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
+
+.db-view {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: $font-sans;
+  color: $color-text-main;
+  background-color: $background;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid $color-border;
+    margin-bottom: 2.5rem;
+
+    @include media-up($breakpoint-sm) {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &__title {
+    margin: 0.25rem 0 0 0;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: $color-text-main;
+  }
+
+  &__description {
+    margin: 0.5rem 0 0 0;
+    font-size: 14px;
+    color: $color-text-muted;
+  }
+}
+
+// Global Reusable Text Label Atom
+.db-eyebrow {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: $color-text-muted;
+  text-transform: uppercase;
+}
+
+// High-Performance Retail Store Action Button
+.db-shop-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 1.25rem;
+  height: 42px;
+  background-color: $color-bg-light;
+  color: $color-primary;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: $transition-default;
+  border: 1px solid $color-border;
+
+  svg {
+    font-size: 1rem;
+    transition: transform 0.2s $db-physics-cubic;
+  }
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-text-light;
+    border-color: $color-primary;
+    svg {
+      transform: translateX(3px);
+    }
+  }
+}
+
+// =========================================================
+// WIDGET HIGH-DENSITY METRICS CARDS (`.db-stats-row`)
+// =========================================================
+.db-stats-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+
+  @include media-up($breakpoint-sm) {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+}
+
+.db-stat-card {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem;
+  background-color: $db-card-bg;
+  border: 1px solid $color-border;
+  border-radius: 12px;
+  text-decoration: none;
+  box-sizing: border-box;
+  position: relative;
+  transition: $transition-default;
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background-color: $color-bg-light;
+    color: $color-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
+    font-size: 12px;
+    font-weight: 500;
+    color: $color-text-muted;
+  }
+
+  &__value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: $color-text-main;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+
+  &__arrow {
+    margin-left: auto;
+    font-size: 1.1rem;
+    color: lighten($color-text-muted, 15%);
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: darken($color-border, 10%);
+    box-shadow: 0 10px 24px rgba(13, 19, 19, 0.03);
+
+    .db-stat-card__arrow {
+      color: $color-text-main;
+      transform: translateX(2px);
+    }
+  }
+}
+
+// =========================================================
+// REUSABLE DASHBOARD INTERIOR GRID PANELS
+// =========================================================
+.db-section {
+  margin-bottom: 3rem;
+  width: 100%;
+  box-sizing: border-box;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+
+  &__title {
+    margin: 2px 0 0 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  &__header-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: $color-primary;
+    text-decoration: none;
+    transition: $transition-default;
+
+    svg {
+      font-size: 14px;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      color: darken($color-primary, 10%);
+      svg {
+        transform: translateX(2px);
+      }
+    }
+  }
+}
+
+// Actions Link Ribbon Modules
+.db-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @include media-up($breakpoint-md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.db-action-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background-color: $db-card-bg;
+  border: 1px solid $color-border;
+  border-radius: 12px;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: $transition-default;
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: $color-bg-light;
+    color: $color-primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+
+    strong {
+      font-size: 14px;
+      font-weight: 700;
+      color: $color-text-main;
+    }
+    span {
+      font-size: 12px;
+      color: $color-text-muted;
+      margin-top: 1px;
+    }
+  }
+
+  &__arrow {
+    margin-left: auto;
+    font-size: 1rem;
+    color: lighten($color-text-muted, 15%);
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    border-color: darken($color-border, 10%);
+    background-color: $color-bg-light;
+
+    .db-action-item__arrow {
+      transform: translateX(2px);
+    }
+  }
+
+  &--primary {
+    background-color: $color-primary;
+    border-color: $color-primary;
+
+    .db-action-item__icon {
+      background-color: rgba(255, 255, 255, 0.15);
+      color: $color-text-light;
+    }
+    .db-action-item__body strong {
+      color: $color-text-light;
+    }
+    .db-action-item__body span {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .db-action-item__arrow {
+      color: $color-text-light;
+    }
+
+    &:hover {
+      background-color: darken($color-primary, 4%);
+      border-color: darken($color-primary, 4%);
+    }
+  }
+}
+
+// =========================================================
+// SELLER PERFORMANCE DATA REGISTRIES
+// =========================================================
+.db-seller-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  background-color: $color-bg-light;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid $color-border;
+  margin-bottom: 2rem;
+
+  @include media-up($breakpoint-md) {
+    grid-template-columns: repeat(5, 1fr);
+    padding: 2rem 1.5rem;
+  }
+}
+
+.db-seller-metric {
+  display: flex;
+  flex-direction: column;
+  border-bottom: none;
+  box-sizing: border-box;
+
+  &__label {
+    font-size: 12px;
+    color: $color-text-muted;
+    font-weight: 500;
+  }
+
+  &__value {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: $color-text-main;
+    margin-top: 4px;
+    letter-spacing: -0.01em;
+  }
+}
+
+// Activity Rows Layout Loops
+.db-activity-panel {
+  border: 1px solid $color-border;
+  background-color: $db-card-bg;
+  border-radius: 12px;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid $color-border;
+    background-color: $color-bg-light;
+
+    h3 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+.db-item-row {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid $color-border;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__media {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background-color: $color-bg-light;
+    color: $color-text-muted;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  &__info {
+    min-width: 0;
+    flex: 1;
+    strong {
+      font-size: 14px;
+      color: $color-text-main;
+      font-weight: 600;
+    }
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+
+    &--sold {
+      background-color: $color-success-bg;
+      color: $color-success;
+    }
+    &--shipping {
+      background-color: #fef3c7;
+      color: #d97706;
+    }
+    &--active {
+      background-color: #eff6ff;
+      color: #2563eb;
+    }
+  }
+
+  &__action {
+    color: lighten($color-text-muted, 15%);
+    font-size: 1.1rem;
+    display: flex;
+    transition: color 0.2s ease;
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}
+
+// =========================================================
+// NON-SELLER REGISTRATION PROMO BANNER (`.db-sell-cta`)
+// =========================================================
+.db-sell-cta {
+  background-color: $color-primary;
+  border-radius: 16px;
+  padding: 2.5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  color: $color-text-light;
+  margin-bottom: 3rem;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include media-up($breakpoint-md) {
+    padding: 3.5rem 3rem;
+  }
+
+  &__content {
+    max-width: 480px;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin: 0.5rem 0 0.75rem 0;
+    color: $color-text-light;
+
+    @include media-up($breakpoint-md) {
+      font-size: 2.25rem;
+    }
+  }
+
+  &__desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0 0 2rem 0;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 46px;
+    padding: 0 1.5rem;
+    background-color: $background;
+    color: $color-primary;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: $transition-default;
+    svg {
+      transition: transform 0.2s ease;
+    }
+    &:hover {
+      background-color: $color-bg-light;
+      svg {
+        transform: translateX(3px);
+      }
+    }
+  }
+  &__backdrop-icon {
+    position: absolute;
+    right: -2rem;
+    bottom: -2rem;
+    font-size: 12rem;
+    color: rgba(255, 255, 255, 0.04);
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+// =========================================================// RECENTLY VIEWED PRODUCTS RESPONSIVE GRID MATRIX// =========================================================
+.db-products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  @include media-up($breakpoint-sm) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  @include media-up($breakpoint-lg) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+.db-product-card {
+  background-color: $db-card-bg;
+  border: 1px solid $color-border;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(13, 19, 19, 0.01);
+  display: flex;
+  flex-direction: column;
+  transition: $transition-default;
+  &__gallery {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: $color-bg-light;
+    overflow: hidden;
+  }
+  &__link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+  }
+  &__wish-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: $background;
+    border: 1px solid $color-border;
+    color: $color-text-muted;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: $transition-default;
+    outline: none;
+    z-index: 3;
+    &:hover {
+      color: $color-accent;
+      transform: scale(1.05);
+    }
+    &.is-active {
+      background-color: #ffe4e6;
+      color: $color-accent;
+      border-color: #fca5a5;
+      svg {
+        fill: $color-accent;
+      }
+    }
+  }
+  &__meta {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  &__condition {
+    align-self: flex-start;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: $color-text-muted;
+    background-color: $color-bg-light;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  &__brand {
+    margin: 0 0 0.35rem 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: $color-text-main;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &__price {
+    font-size: 15px;
+    font-weight: 800;
+    color: $color-primary;
+    margin-top: auto;
+  }
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(13, 19, 19, 0.04);
+    border-color: darken($color-border, 10%);
+    .db-product-card__gallery img {
+      transform: scale(1.04);
+    }
+  }
+}

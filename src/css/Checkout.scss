@@ -1,0 +1,91 @@
+@import './Variables.scss'; // Hooks premium Spruce (#1E3A3A), Alabaster (#F4F7F6), Ink (#0D1313)
+
+
+
+
+#checkout {
+  width: 100%;
+
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: $background; 
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-family: $font-sans;
+  
+  // Animation entrance trigger smoothing page loads
+  animation: checkoutFadeUp 0.5s $transition-default forwards;
+
+  @include media-up($breakpoint-md) {
+    margin: 4rem auto;
+    padding: 2.5rem;
+  }
+}
+
+// ==========================================================================
+// 2. STRIPE EMBEDDED IFRAME LAYOUT TARGETING OVERRIDES
+// ==========================================================================
+
+// Targets the mounting platform container element injected by Stripe's SDK library wrapper
+.StripeElement, 
+.stripe-embedded-checkout-container {
+  width: 100% !important;
+  box-sizing: border-box;
+  min-height: 250px;
+  background-color: transparent !important;
+  transition: $transition-default;
+}
+
+// Refreshes breathing space adjustments inside checkout row loops
+iframe {
+  display: block;
+  width: 100% !important;
+}
+
+// ==========================================================================
+// 3. SECURE ESSENTIAL LAYOUT LOADING STATES
+// ==========================================================================
+
+// Pre-loading backdrop layout placeholder skeleton mapping rules
+#checkout:empty {
+  min-height: 400px;
+  position: relative;
+  background-color: $color-bg-light; // #F4F7F6 Cool Alabaster shimmer fallback Ground
+  border-style: dashed;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    margin-top: -16px;
+    margin-left: -16px;
+    border: 3px solid $color-border;
+    border-top-color: $color-primary; // Matte Spruce spinning core
+    border-radius: 50%;
+    animation: checkoutSpinner 0.8s linear infinite;
+  }
+}
+
+// ==========================================================================
+// 4. ANIMATION PHYSICS MATRIX DESIGNS
+// ==========================================================================
+
+@keyframes checkoutFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes checkoutSpinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

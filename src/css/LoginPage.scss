@@ -1,0 +1,329 @@
+// ==========================================================================
+// 1. CONFIGURATION (VARIABLES & TOKENS)
+// ==========================================================================
+
+@import './Variables.scss';
+
+// ==========================================================================
+// 2. MIXINS
+// ==========================================================================
+
+
+
+// ==========================================================================
+// 3. GLOBAL FETCH ERROR BAR
+// ==========================================================================
+
+.fetch_error {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  width: calc(100% - 2.5rem);
+  max-width: 480px;
+  background-color:$background;
+  border: 1px solid rgba($color-accent, 0.2);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  animation: slideInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  h2 {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $color-accent;
+    text-align: center;
+    line-height: 1.4;
+  }
+}
+
+@keyframes slideInDown {
+  from { transform: translate(-50%, -20px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+
+// ==========================================================================
+// 4. MAIN CONTAINER (`.login-page`)
+// ==========================================================================
+
+.login-page {
+  font-family: $font-sans;
+  color: $color-text-main;
+  background-color: $background-2;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1.25rem;
+  box-sizing: border-box;
+
+
+  // Universal typography handling inside page scope
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: $transition-default;
+  }
+}
+
+
+// ==========================================================================
+// 5. THE LOGIN CARD MAPPING (`.login-card`)
+// ==========================================================================
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+
+   background: $background;
+    border: 1px solid $color-border;
+    padding: 3rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.03);
+
+
+
+  // Brand Header
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+
+    .heart {
+      color: $color-accent;
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+  }
+
+  // Typography Elements
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    margin: 0 0 0.5rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: $color-text-muted;
+    margin: 0 0 2rem;
+  }
+
+  // Form Elements Wrapper
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+}
+
+
+// ==========================================================================
+// 6. INPUT GROUPS & INTERACTION LAYERS
+// ==========================================================================
+
+.register-input-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid $color-border;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  transition: $transition-default;
+
+  // Highlights input border elegantly on interaction
+  &:focus-within {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 1px $color-primary;
+  }
+
+  // Left Vector Icons
+  .input-icon {
+    font-size: 1.1rem;
+    color: $color-secondary;
+    margin-right: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  // Text & Label Grid Controller
+  .input-group_div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: $color-text-muted;
+      margin-bottom: 0.15rem;
+    }
+
+    input {
+      border: none;
+      background: transparent;
+      padding: 0.2rem 0;
+      font-family: $font-sans;
+      font-size: 0.95rem;
+      color: $color-text-main;
+      width: 100%;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  // Action interactive spans (Eye visibility icons toggle)
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    min-width: $touch-target-min;
+    min-height: $touch-target-min;
+    margin-right: -0.5rem;
+    color: $color-secondary;
+    font-size: 1.1rem;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: $color-text-main;
+    }
+  }
+}
+
+// Error Context Subtext
+.error-text {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: $color-accent;
+  margin-top: 0.4rem;
+  padding-left: 0.25rem;
+}
+
+
+// ==========================================================================
+// 7. INTERACTION BUTTONS & LINKS
+// ==========================================================================
+
+// Primary Submit Action
+.login-btn {
+  font-family: $font-sans;
+  background-color: $color-primary;
+  color: $color-text-light;
+  border: 1px solid $color-primary;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.25rem;
+  min-height: $touch-target-min;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 0.5rem;
+  transition: $transition-default;
+
+  &:hover {
+    background-color: $color-primary-light;
+    border-color: $color-primary-light;
+  }
+}
+
+// Reset Link
+.reset-password-link {
+  display: inline-block;
+  align-self: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: $color-text-muted;
+  margin-top: 1.5rem;
+  border-bottom: 1px solid transparent;
+
+  &:hover {
+    color: $color-text-main;
+    border-color: $color-text-main;
+  }
+}
+
+// Hidden Social Authentication Elements (Styled cleanly for eventual activation)
+.social-btn {
+  font-family: $font-sans;
+  background-color: transparent;
+  color: $color-text-main;
+  border: 1px solid $color-border;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.25rem;
+  min-height: $touch-target-min;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 0.75rem;
+  transition: $transition-default;
+
+  &:hover {
+    background-color: $color-bg-light;
+    border-color: $color-primary;
+  }
+}
+
+// Global Custom Divider Row
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-top: 1.75rem;
+  color: $color-border;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid $color-border;
+  }
+
+  span {
+    padding: 0 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #999999;
+  }
+}
+
+// Secondary Footer Prompt Sign-up Area
+.signup-link {
+  text-align: center;
+  font-size: 0.9rem;
+  color: $color-text-muted;
+  margin-top: 2rem;
+
+  a {
+    font-weight: 700;
+    color: $color-primary;
+    margin-left: 0.25rem;
+
+    &:hover {
+      color: $color-accent;
+    }
+  }
+}

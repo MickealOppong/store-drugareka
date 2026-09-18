@@ -1,0 +1,178 @@
+@import "./Variables.scss"; // Hooks $color-primary, $color-border, $color-bg-light, $font-sans, etc.
+
+// ==========================================================================
+// 1. MAIN PANEL WRAPPER MAPPING PANEL CONTAINER
+// ==========================================================================
+
+.ct-panel {
+  width: 100%;
+  max-width: $max-width-content; // Locks layout strictly to 1280px content bounds
+  margin: 0 auto;
+  padding: 3rem 1.25rem; // Fluid, tap-safe mobile horizontal framing values
+  box-sizing: border-box;
+  font-family: $font-sans;
+  background-color: $background;
+
+  @include media-up($breakpoint-md) {
+    padding: 5rem 1.5rem; // Adds premium breathing room on desktop monitors
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid $color-border;
+    padding-bottom: 1.25rem;
+
+    @include media-up($breakpoint-md) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  &__eyebrow {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: $color-text-muted; // Muted Zinc Grey #5E6C6A
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-size: 1.85rem;
+    font-weight: 800; // Bold premium header signature weight
+    letter-spacing: -0.03em;
+    margin: 0.35rem 0 0 0;
+    color: $color-text-main; // Deep Matte Ink #0D1313
+    line-height: 1.2;
+
+    @include media-up($breakpoint-md) {
+      font-size: 2.25rem;
+    }
+  }
+}
+
+// ==========================================================================
+// 2. RESPONSIVE DISCOVERY GRID LAYOUT
+// ==========================================================================
+
+.ct-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); // 2-columns setup natively on tight mobile screens
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include media-up($breakpoint-sm) {
+    grid-template-columns: repeat(3, 1fr); // 3-columns scaling for phablets / tablets
+    gap: 1.25rem;
+  }
+
+  @include media-up($breakpoint-lg) {
+    grid-template-columns: repeat(4, 1fr); // High-density 4-columns layout for wide desktop monitors
+    gap: 1.5rem;
+  }
+}
+
+// ==========================================================================
+// 3. ISOLATED BEM CATEGORY INTERACTIVE CARD SELECTORS (`.ct-card`)
+// ==========================================================================
+
+.ct-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5; // Enforces a beautiful asymmetric vertical card constraint proportion
+  border-radius: 12px; // Crisp modern corner alignment matching brand tokens
+  overflow: hidden;
+  background-color: $color-bg-light; // Pure Cool Alabaster #F4F7F6 fallback ground
+  text-decoration: none;
+  display: block;
+  box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(13, 19, 19, 0.02);
+  transition: $transition-default;
+
+  // Thumb holding background thumbnail image graphics safely
+  &__thumb {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // Clean axis cropping preventing distortion parameters
+      object-position: center;
+      display: block;
+      transform: scale(1.001); // Eradicates sub-pixel layout blurring in WebKit/Blink engines
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+  }
+
+  // Linear dark gradient overlay panel text protection layer
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    // Uses transparency fades backed by deep charcoal tone mappings
+    background: linear-gradient(
+      to top,
+      rgba(13, 19, 19, 0.75) 0%,
+      rgba(13, 19, 19, 0.3) 40%,
+      rgba(13, 19, 19, 0) 70%
+    );
+    padding: 1.25rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    box-sizing: border-box;
+    z-index: 2;
+
+    @include media-up($breakpoint-md) {
+      padding: 1.5rem;
+    }
+  }
+
+  &__name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+    color: $color-text-light; // Pure white contrast text layer
+    text-shadow: 0 1px 4px rgba(13, 19, 19, 0.2);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 0.5rem;
+  }
+
+  &__icon {
+    font-size: 1.2rem;
+    color: $color-text-light;
+    flex-shrink: 0;
+    transform: translateX(-6px);
+    opacity: 0;
+    transition: $transition-default;
+  }
+
+  // ==========================================================================
+  // HOVER STATE PHYSICS TRANSITIONS INTERACTION MODULES
+  // ==========================================================================
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(13, 19, 19, 0.08); // Soft depth boost
+
+    .ct-card__thumb img {
+      transform: scale(1.05); // Smooth background zooming acceleration trace
+    }
+
+    .ct-card__icon {
+      transform: translateX(0);
+      opacity: 1; // Reveals call to action arrow on hover locks cleanly
+      color: $color-primary-light; // Glacial Mint glow indicator
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}

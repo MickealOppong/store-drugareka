@@ -1,0 +1,215 @@
+// ==========================================================================
+// CONFIGURATION TOKENS
+// ==========================================================================
+$color-primary: #111111;
+$color-secondary: #767676;
+$color-bg-light: #f9f9f9;
+$color-text-main: #111111;
+$color-text-muted: #666666;
+$color-border: #e5e5e5;
+$color-accent: #e11d48; // Crimson error states
+$transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+$breakpoint-sm: 576px;
+
+// ==========================================================================
+// CORE WORKSPACE WRAPPER
+// ==========================================================================
+.form-category {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: $color-text-muted;
+    margin-bottom: 0.5rem;
+    padding-left: 0.25rem;
+
+    span {
+      color: $color-accent;
+    }
+  }
+
+  // The Split Workspace Board
+  &__workspace {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $color-border;
+    border-radius: 6px;
+    background-color: #ffffff;
+    overflow: hidden;
+    min-height: 280px;
+
+    @media (min-width: $breakpoint-sm) {
+      flex-direction: row;
+    }
+
+    &--error {
+      border-color: $color-accent;
+      box-shadow: 0 0 0 1px $color-accent;
+    }
+  }
+}
+
+// ==========================================================================
+// LEFT PANEL: SIDEBAR TABS
+// ==========================================================================
+.form-category__sidebar {
+  display: flex;
+  overflow-x: auto;
+  background-color: $color-bg-light;
+  border-bottom: 1px solid $color-border;
+  flex-shrink: 0;
+
+  @media (min-width: $breakpoint-sm) {
+    flex-direction: column;
+    width: 220px;
+    overflow-x: visible;
+    border-bottom: none;
+    border-right: 1px solid $color-border;
+  }
+
+  &::-webkit-scrollbar {
+    display: none; // Cleaner aesthetic on native touch monitors
+  }
+}
+
+.category-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: $color-text-muted;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: $transition-fast;
+
+  @media (min-width: $breakpoint-sm) {
+    width: 100%;
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid rgba($color-border, 0.5);
+  }
+
+  // Explicit hardware-accelerated loops for child micro-interactions
+  &__icon, &__name, &__arrow {
+    transition: $transition-fast;
+  }
+
+  &__icon {
+    font-size: 1.15rem;
+    display: flex;
+    color: $color-secondary;
+  }
+
+  &__arrow {
+    margin-left: auto;
+    font-size: 1rem;
+    opacity: 0;
+    transform: translateX(-4px);
+    display: none;
+
+    @media (min-width: $breakpoint-sm) {
+      display: block;
+    }
+  }
+
+  // NEW: Parent Hover Rule triggers interactive internal transitions
+  &:hover {
+    color: $color-text-main;
+    background-color: rgba(0, 0, 0, 0.01);
+
+    .category-tab__icon {
+      color: $color-primary;
+    }
+    .category-tab__arrow {
+      opacity: 0.5;
+      transform: translateX(0);
+    }
+  }
+
+  // Active Tab State Overrides
+  &--active {
+    color: $color-primary;
+    font-weight: 700;
+    background-color: #ffffff !important;
+
+    @media (min-width: $breakpoint-sm) {
+      border-right: 3px solid $color-primary; // Direct spatial focus indicator line
+    }
+
+    .category-tab__icon {
+      color: $color-primary;
+    }
+    .category-tab__arrow {
+      opacity: 1 !important;
+      transform: translateX(0) !important;
+      color: $color-primary;
+    }
+  }
+}
+
+// ==========================================================================
+// RIGHT PANEL: PILLS GRID FLOW
+// ==========================================================================
+.form-category__content {
+  flex-grow: 1;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+
+.subcategory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.subcategory-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid $color-border;
+  border-radius: 20px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: $color-text-muted;
+  cursor: pointer;
+  transition: $transition-fast;
+  user-select: none;
+
+  &__check {
+    font-size: 0.9rem;
+    color: $color-primary;
+  }
+
+  // Parent Hover Rule
+  &:hover {
+    border-color: $color-text-main;
+    color: $color-text-main;
+    background-color: $color-bg-light;
+  }
+
+  // Selected Subcategory State
+  &--active {
+    background-color: $color-primary !important;
+    border-color: $color-primary !important;
+    color: #ffffff !important;
+    font-weight: 600;
+
+    .subcategory-pill__check {
+      color: #ffffff;
+    }
+  }
+}

@@ -1,0 +1,339 @@
+@import './Variables.scss';
+
+.mobile-search {
+  position: fixed;
+  top: 0;
+  inset: 0;
+  z-index: 1000;
+
+  min-height: 100dvh;
+
+  background-color: $color-bg-light;
+
+  overflow-y: auto;
+  
+
+}
+
+.mobile-search__header {
+  height: 64px;
+
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid $color-border;
+}
+
+.mobile-search__close {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+
+  color:  $color-text-muted;
+
+  cursor: pointer;
+
+  svg {
+    width: 21px;
+    height: 21px;
+  }
+}
+
+.mobile-search__title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mobile-search__spacer {
+  width: 38px;
+}
+
+.mobile-search__content {
+  padding: 22px 18px 40px;
+}
+
+.mobile-search__form {
+  position: relative;
+
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+
+  border: 1px solid $color-border;
+
+  background: $color-bg-light;
+
+  border-radius: 4px;
+
+  transition: border-color 0.2s ease;
+
+  &:focus-within {
+    border-color: $color-bg-dark;
+  }
+
+  input {
+    flex: 1;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 0 88px 0 46px;
+
+    border: 0;
+    outline: 0;
+
+    background: transparent;
+
+    color: $color-text-main;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    &::placeholder {
+      color: $color-text-muted;
+    }
+
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+  }
+}
+
+.mobile-search__icon {
+  position: absolute;
+  left: 17px;
+
+  width: 19px;
+  height: 19px;
+
+  color:  $color-text-muted;
+}
+
+.mobile-search__clear {
+  position: absolute;
+  right: 48px;
+
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  background: transparent;
+
+  color:  $color-text-main;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.mobile-search__submit {
+  position: absolute;
+  right: 7px;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 3px;
+
+  background:  $color-bg-dark;
+  color: $color-bg-light;
+
+  svg {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+
+// =====================================================
+// SEARCH SECTIONS
+// =====================================================
+
+.mobile-search__section {
+  margin-top: 38px;
+}
+
+.mobile-search__eyebrow {
+  display: block;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  color: $color-text-light;
+
+}
+
+.mobile-search__suggestions {
+  margin-top: 16px;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
+}
+
+.mobile-search__suggestions button {
+  padding: 10px 15px;
+
+  border: 1px solid $color-border;
+  border-radius: 30px;
+
+  background: transparent;
+
+  color: $color-text-muted;
+
+  font-family: inherit;
+  font-size: 11px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+
+  &:active {
+    background: $color-text-light;
+    color: $color-bg-light;
+  }
+}
+
+
+// =====================================================
+// RECENT SEARCHES
+// =====================================================
+
+.mobile-search__section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-search__clear-history {
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+
+  color:  $color-text-muted;
+
+  font-family: inherit;
+  font-size: 10px;
+
+  cursor: pointer;
+}
+
+.mobile-search__recent {
+  margin-top: 14px;
+
+  border-top: 1px solid $color-border;
+}
+
+.mobile-search__recent button {
+  width: 100%;
+
+  min-height: 52px;
+
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  border: 0;
+  border-bottom: 1px solid $color-border;
+
+  background: transparent;
+
+  color: $color-text-main;
+
+  font-family: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  svg:first-child {
+    width: 15px;
+    height: 15px;
+
+    color:  $color-text-muted;
+  }
+
+  span {
+    flex: 1;
+
+    font-size: 12px;
+  }
+
+  svg:last-child {
+    width: 14px;
+    height: 14px;
+
+    color: $color-text-muted;
+  }
+}
+
+
+// =====================================================
+// DISCOVERY CTA
+// =====================================================
+
+.mobile-search__discover {
+  margin-top: 48px;
+
+  padding: 28px 22px;
+
+  background: $color-primary;
+  border-radius: 4px;
+}
+
+.mobile-search__discover h2 {
+  margin: 10px 0 22px;
+
+  font-size: 27px;
+  line-height: 1.05;
+
+  letter-spacing: -1.2px;
+}
+
+.mobile-search__discover a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 11px;
+
+  font-weight: 600;
+  color: $color-text-light;
+  text-decoration: none;
+
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}

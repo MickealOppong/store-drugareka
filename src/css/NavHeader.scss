@@ -1,0 +1,203 @@
+// ==========================================================================
+// 1. CONFIGURATION (VARIABLES & DESIGN SYSTEM BASICS)
+// ==========================================================================
+
+@import './Variables.scss';
+
+// ==========================================================================
+// 3. CORE CONTAINER FRAMEWORK (`.landing-header`)
+// ==========================================================================
+
+.landing-header {
+  font-family: $font-sans;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background-color: rgba(255, 255, 255, 0.85); // Elegant translucent glass filter
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid $color-border;
+  width: 100%;
+  box-sizing: border-box;
+  display: none;
+
+    @include media-up($breakpoint-md) {
+      display: block;
+    }
+
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 64px;
+    box-sizing: border-box;
+
+    @include media-up($breakpoint-md) {
+      padding: 0.75rem 1.5rem;
+    }
+  }
+
+  &__search-overlay {
+    position: relative;
+    z-index: 1000;
+  }
+}
+
+// ==========================================================================
+// 4. BRAND PLATFORM LOGO PROFILE (`.brand`)
+// ==========================================================================
+
+.brand {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: $color-primary;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  min-height: $touch-target-min;
+
+  span {
+    font-weight: 400;
+    color: $color-text-muted;
+  }
+}
+
+// ==========================================================================
+// 5. CENTRAL NAVIGATION PATHWAY (`.landing-nav`)
+// ==========================================================================
+
+.landing-nav {
+  display: none; // Hidden on mobile views; managed separately by MobileHeader layouts
+
+  @include media-up($breakpoint-md) {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: $color-text-muted;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    min-height: $touch-target-min;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &.active {
+      font-weight: 600;
+      color: $color-primary;
+    }
+  }
+
+  // Highlight accent styling custom-tailored for the seller funnel prompt
+  .sell-link {
+    color: $color-accent;
+    font-weight: 600;
+
+    &:hover {
+      color: scale-color($color-accent, $lightness: -10%);
+    }
+  }
+}
+
+// ==========================================================================
+// 6. CONTROL UTILITY FLEX GROUPS (`.landing-header__actions`)
+// ==========================================================================
+
+.landing-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  @include media-up($breakpoint-md) {
+    gap: 1rem;
+  }
+}
+
+// Micro Interaction Trigger Action Vectors
+.icon-button {
+  background: transparent;
+  border: none;
+  color: $color-text-main;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  min-height: $touch-target-min;
+  min-width: $touch-target-min;
+  transition: $transition-default;
+  outline: none;
+
+  svg {
+    font-size: 1.25rem;
+    transition: transform 0.2s ease;
+  }
+
+  // Text strings auto-collapse in narrow tablet slots, cleanly emerging on wide viewports
+  span {
+    display: none;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    @include media-up($breakpoint-lg) {
+      display: inline;
+    }
+  }
+
+  &:hover {
+    background-color: $color-bg-light;
+    color: $color-primary-light;
+
+    svg {
+      transform: scale(1.05);
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// Session Access Authentication CTA Button
+.login-button {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  background-color: $color-primary;
+  color: $color-text-light;
+  border: 1px solid $color-primary;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  white-space: nowrap;
+  transition: $transition-default;
+  outline: none;
+
+  &:hover {
+    background-color: $color-primary-light;
+    border-color: $color-primary-light;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}

@@ -1,0 +1,211 @@
+.brand-select {
+  position: relative;
+  width: 100%;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.brand-select__label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #767676;
+  margin-bottom: 0.5rem;
+}
+
+.brand-select__control {
+  width: 100%;
+  height: 44px;
+  background-color: #FFFFFF;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-select__control--focused {
+  border-color: #66704A;
+  box-shadow: 0 0 0 3px rgba(30, 58, 58, 0.08);
+}
+
+.brand-select__meta-icon {
+  font-size: 16px;
+  color: #666666;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.brand-select__search-icon {
+  font-size: 16px;
+  color: #666666;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.brand-select__input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  color: #111111;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.brand-select__input::placeholder {
+  color: gray;
+}
+
+.brand-select__placeholder {
+  font-size: 14px;
+  color: gray;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 24px;
+}
+
+.brand-select__placeholder--selected {
+  color: #111111;
+  font-weight: 500;
+}
+
+.brand-select__clear-btn {
+  background: none;
+  border: none;
+  color: #666666;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  position: absolute;
+  right: 12px;
+  border-radius: 50%;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-select__clear-btn:hover {
+  background-color: #f9f9f9;
+  color: #C24B4B;
+}
+
+.brand-select__dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background-color: #FFFFFF;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(13, 19, 19, 0.08);
+  z-index: 1000;
+  max-height: 260px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.brand-select__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.brand-select__option {
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #111111;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-select__option:hover {
+  background-color: #EDF7F3;
+  color: #66704A;
+}
+
+.brand-select__option--active {
+  background-color: #EDF7F3 !important;
+  color: #2A6B4E !important;
+  font-weight: 700;
+}
+
+.brand-select__option--active:hover {
+  background-color: #e6f4ee !important;
+  color: #2A6B4E !important;
+}
+
+.brand-select__check-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.brand-select__state-text {
+  padding: 16px;
+  text-align: center;
+  font-size: 13px;
+  color: #666666;
+}
+
+.brand-select__empty-state {
+  padding: 16px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.brand-select__empty-text {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  color: #666666;
+  word-break: break-word;
+}
+
+.brand-select__add-new-btn {
+  width: 100%;
+  height: 36px;
+  background-color: #393c2e;
+  color: #66704A;
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 12px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-select__add-new-btn svg {
+  font-size: 14px;
+  stroke-width: 2.5;
+}
+
+.brand-select__add-new-btn:hover:not(:disabled) {
+  background-color: #66704A;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
+}
+
+.brand-select__add-new-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

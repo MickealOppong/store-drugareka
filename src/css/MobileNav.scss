@@ -1,0 +1,256 @@
+@import "./Variables.scss"; // Imports $color-primary, $color-bg-light, $background, etc.
+
+// ==========================================================================
+// 1. MOBILE NAVBAR CONTROLLER WRAPPER GRID
+// ==========================================================================
+
+.mn-header {
+  font-family: $font-sans;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99999; // Enforces a solid stacking layer above any database grids or cards
+  background-color: $background-3;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid $color-border;
+  box-sizing: border-box;
+
+  @media (min-width: $breakpoint-md) {
+    display: none !important; // Completely unmounts the mobile framework layout on desktop grids
+  }
+
+  &__inner {
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: $header-height-mobile; // Securely hard-locked to 60px
+    position: relative;
+    z-index: 100001;
+    background-color: $background;
+    box-sizing: border-box;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  &__action-btn {
+    background: transparent;
+    border: none;
+    color: $color-text-main;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0.5rem;
+    border-radius: 8px;
+    min-height: $touch-target-min;
+    min-width: $touch-target-min;
+    transition: $transition-default;
+    outline: none;
+    box-sizing: border-box;
+
+    svg {
+      font-size: 1.35rem; // Prominent, touch-friendly scale layout bounds
+      stroke-width: 2;
+    }
+
+    &:hover {
+      background-color: $color-bg-light;
+      color: $color-primary;
+    }
+
+    &:active {
+      transform: scale(0.92);
+    }
+  }
+
+  // Numerical Badge counters styling anchors
+  &__counter-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: $color-accent; // High-conversion radiant highlight indicator
+    color: $color-text-light;
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  &__menu-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: $touch-target-min;
+    min-width: $touch-target-min;
+    outline: none;
+    transition: $transition-default;
+    color: $color-primary;
+    margin-left: 0.25rem;
+    border-left: 1px solid $color-border;
+    border-radius: 0;
+    padding-left: 0.5rem;
+    box-sizing: border-box;
+
+    svg {
+      font-size: 1.4rem;
+      stroke-width: 2.25;
+    }
+
+    &:active {
+      transform: scale(0.92);
+    }
+  }
+}
+
+// ==========================================================================
+// 2. BRAND LOGO SPECIFICATION LINK (`.mn-brand`)
+// ==========================================================================
+
+.mn-brand {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: $color-primary;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  min-height: $touch-target-min;
+
+  &__light {
+    font-weight: 400;
+    color: $color-text-muted;
+    margin-right: 1px;
+  }
+}
+
+// ==========================================================================
+// 3. FIXED OVERLAY SLIDER MENU PANEL DRAWER (`.mn-drawer`)
+// ==========================================================================
+
+.mn-drawer {
+  position: fixed;
+  top: $header-height-mobile; // Locks exactly at 60px down from viewport ceiling
+  left: 0;
+  width: 100vw;
+  
+  // 🚀 HIGHLY CRITICAL FIX: Forces explicit container viewport layout bounds to prevent hidden overflows
+  height: calc(100vh - #{$header-height-mobile}); 
+  background-color: $background;
+  z-index: 100000; // Sits right underneath the nav inner top-bar row frame element
+  box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  
+  // Hardware accelerated display configurations pipeline
+  display: block !important;
+  visibility: visible !important;
+  animation: mnDrawerReveal 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1.25rem 4rem 1.25rem; // Deep bottom padding avoids mobile system bar masking
+    gap: 0.65rem;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  &__nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: $color-text-main;
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    background-color: $color-bg-light;
+    min-height: 52px;
+    box-sizing: border-box;
+    transition: $transition-default;
+
+    &--login {
+      background-color: transparent;
+      border: 1px solid $color-border;
+      color: $color-primary;
+    }
+
+    &:active {
+      background-color: $color-primary-light;
+      color: $color-primary-light;
+      
+      .mn-drawer__link-icon {
+        transform: translateX(4px);
+        color: $color-primary-light;
+      }
+    }
+  }
+
+  &__link-text {
+    pointer-events: none;
+  }
+
+  &__link-icon {
+    font-size: 1.1rem;
+    color: $color-text-muted;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // Session termination custom override utility button elements
+  &__logout-btn {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: $color-primary;
+    color: $color-text-light;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 52px;
+    width: 100%;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-top: 1rem;
+    box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
+    transition: $transition-default;
+
+    &:active {
+      background-color: $color-primary-light;
+      transform: scale(0.97);
+    }
+  }
+}
+
+// ==========================================================================
+// 4. PHYSICS TRANSITIONS
+// ==========================================================================
+
+@keyframes mnDrawerReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

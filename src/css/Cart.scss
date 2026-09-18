@@ -1,0 +1,620 @@
+// ==========================================================================
+// DRUGA RĘKA - BRAND SYNCED SHOPPING BAG SPECIFICATION
+// ==========================================================================
+
+@import "./Variables.scss";
+
+@mixin mobile-container {
+  width: 100%;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  box-sizing: border-box;
+}
+
+@mixin container {
+  width: 100%;
+  max-width: $max-width-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  box-sizing: border-box;
+}
+
+// ==========================================================================
+// RENDER MAIN VIEWS LAYOUT SHELL
+// ==========================================================================
+
+.cart-page {
+  @include mobile-container;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  font-family: $font-sans;
+  color: $color-text-main;
+  background-color: $background;
+
+  @include media-up($breakpoint-md) {
+    @include container;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+.cart-header {
+  border-bottom: 1px solid $color-border;
+  padding-bottom: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.cart-title {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: $color-text-main;
+}
+
+.cart-workspace {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: start;
+
+  @include media-up($breakpoint-md) {
+    grid-template-columns: 1fr 360px;
+  }
+}
+
+// ==========================================================================
+// DECOUPLED SUB-COMPONENT: CART ITEM CARD (`CartItemCard.tsx`)
+// ==========================================================================
+
+.cart-items-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.cart-item-card {
+  display: flex;
+  gap: 1.25rem;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: $background;
+  transition: $transition-default;
+  box-sizing: border-box;
+  width: 100%;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+    border-color: darken($color-border, 5%);
+  }
+}
+
+.cart-item-thumb {
+  margin: 0;
+  width: 110px;
+  height: 110px;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: $color-bg-light;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.02);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.cart-item-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-item-body-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.cart-item-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.cart-item-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0;
+  color: $color-text-main;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cart-item-delivery-label {
+  margin: 0;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $color-text-muted;
+  font-weight: 600;
+}
+
+.cart-item-price {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: $color-text-main;
+}
+
+.cart-item-shipping-fee {
+  font-size: 0.85rem;
+  color: $color-text-muted;
+  font-weight: 600;
+}
+
+.cart-item-remove-btn {
+  background: none;
+  border: none;
+  color: $color-secondary;
+  cursor: pointer;
+  width: $touch-target-min;
+  height: $touch-target-min;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: $transition-default;
+  flex-shrink: 0;
+  outline: none;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2;
+  }
+
+  &:hover {
+    color: $color-accent;
+    background-color: #fff1f2;
+  }
+}
+
+// ==========================================================================
+// DECOUPLED SUB-COMPONENT: ADDRESS MANAGER PANE (`CartAddressManager.tsx`)
+// ==========================================================================
+
+.cart-address-block {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  background-color: $color-bg-light;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.cart-address-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px dashed $color-border;
+  padding-bottom: 0.85rem;
+
+  button {
+    background: $background;
+    border: 1px solid $color-border;
+    color: $color-text-muted;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: $transition-default;
+    outline: none;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    &.edit {
+      &:hover {
+        color: $color-bg-dark;
+        border-color: $color-bg-dark;
+      }
+    }
+
+    &.cancel {
+      &:hover {
+        color: $color-accent;
+        border-color: lighten($color-accent, 15%);
+        background-color: #fff1f2;
+      }
+    }
+  }
+}
+
+.cart-address-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  color: $color-text-main;
+
+  svg {
+    color: $color-text-main;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.cart-address-saved {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  color: $color-safety-text;
+  background-color: $color-safety-bg;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid border-lighten($color-safety-text, 20%);
+  box-sizing: border-box;
+}
+
+.cart-address-check-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.cart-address-details {
+  p {
+    margin: 0 0 0.25rem 0;
+    font-size: 0.9rem;
+    color: $color-text-main;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .cart-address-phone-text {
+    margin-top: 0.5rem;
+    font-weight: 500;
+    color: $color-text-muted;
+  }
+}
+
+.cart-address-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.cart-form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+
+  @include media-up($breakpoint-md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cart-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+
+  .error {
+    color: $color-accent;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin: 0;
+  }
+}
+
+.cart-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+
+  label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: $color-text-main;
+  }
+
+  input {
+    width: 100%;
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid $color-border;
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+    background-color: $background;
+    transition: $transition-default;
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 1px $color-primary;
+    }
+  }
+}
+
+.cart-address-save-btn {
+  align-self: flex-start;
+  background-color: $color-primary;
+  color: $color-text-light;
+  border: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.65rem 1.25rem;
+  border-radius: 4px;
+  cursor: pointer;
+  min-height: 40px;
+  margin-top: 0.5rem;
+  transition: $transition-default;
+
+  &:hover:not(:disabled) {
+    background-color: darken($color-primary, 8%);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// ==========================================================================
+// RIGHT PANEL SIDEBAR: SIDEBAR TOTAL SUMMARY
+// ==========================================================================
+
+.cart-summary-sidebar {
+  background-color: $color-bg-light;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  padding: 1.75rem;
+  position: sticky;
+  top: 2rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.cart-summary-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.01em;
+}
+
+.cart-summary-ledger {
+  margin: 0 0 1.5rem 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.cart-summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #4b5563;
+
+  dt {
+    margin: 0;
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 600;
+    color: $color-text-main;
+  }
+
+  &.cart-summary-total-row {
+    border-top: 1px dashed #d4d4d4;
+    padding-top: 1rem;
+    margin-top: 0.35rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: $color-text-main;
+
+    dd {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: $color-text-main;
+    }
+  }
+}
+
+.cart-checkout-btn {
+  width: 100%;
+  min-height: $touch-target-min + 4px;
+  background-color: $color-bg-dark;
+  color: $color-text-light;
+  border: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: $transition-default;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2.5;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: lighten($color-bg-dark, 15%);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    background-color: #e5e7eb !important;
+    color: #999999 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+  }
+}
+
+.cart-checkout-warning {
+  font-size: 0.75rem;
+  color: $color-accent;
+  font-weight: 600;
+  margin: 0.75rem 0 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.cart-summary-notice {
+  font-size: 0.75rem;
+  color: $color-text-muted;
+  line-height: 1.5;
+  margin: 1.25rem 0 0 0;
+  text-align: center;
+}
+
+.cart-empty-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5rem 1.25rem; // Perfectly matches mobile layout grid margins
+  font-family: $font-sans;
+  background-color: $background;
+  box-sizing: border-box;
+  width: 100%;
+
+  @include media-up($breakpoint-md) {
+    padding: 7rem 1.5rem; // Adds comfortable breathing room on desktop monitors
+  }
+}
+
+.cart-empty-icon-wrap {
+  background-color: $color-bg-light; 
+  color: $color-text-muted;     
+  padding: 1.5rem;
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $color-border;
+  flex-shrink: 0;
+  transition: $transition-default;
+
+  svg {
+    width: 38px;
+    height: 38px;
+    stroke-width: 1.5;
+  }
+}
+
+.cart-empty-title {
+  font-size: 1.5rem;
+  font-weight: 800; // Bold typography signature
+  color: $color-text-main; // Deep Matte Ink #0D1313
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.cart-empty-text {
+  font-size: 0.9rem;
+  color: $color-text-muted;
+  margin: 0 0 2.25rem 0;
+  max-width: 360px;
+  line-height: 1.6;
+}
+
+.cart-empty-link {
+  background-color: $color-primary; // Deep Spruce Obsidian trust color
+  color: $color-text-light;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.8rem 1.75rem;
+  border-radius: 6px; // Crisp, modern corner radius alignment
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  box-sizing: border-box;
+  transition: $transition-default;
+
+  &:hover {
+    background-color: lighten($color-primary, 6%); // Smooth hover brighten physics
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(30, 58, 58, 0.12);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// ==========================================================================
+// COMPANION VIEWPORT TRANSACTION LOADER OVERLAYS
+// ==========================================================================
+
+.cart-loading-screen {
+  display: flex;
+  height: 400px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: $background;
+  box-sizing: border-box;
+
+  .cart-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3.5px solid $color-bg-light;
+    border-top-color: $color-accent; // Sparks high-conversion Terracotta Coral flash highlight rings
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: cartModuleSpin 0.72s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+}
+
+@keyframes cartModuleSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

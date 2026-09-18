@@ -1,0 +1,554 @@
+// ==========================================================================
+// 1. CONFIGURATION: MOBILE TOKENS & VARIABLES
+// ==========================================================================
+
+@import "./Variables.scss";
+
+// ==========================================================================
+// 2. MIXINS & UTILITIES
+// ==========================================================================
+
+
+
+// ==========================================================================
+// 3. CORE & SHARED ELEMENT STYLING
+// ==========================================================================
+
+.mobile-landing {
+  font-family: $font-sans;
+  color: $color-text-main;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+// Fluid Mobile Section Layouts
+.mobile-landing > section {
+  @include mobile-container;
+  padding-bottom: 3.5rem;
+}
+
+// Section Headings
+.mobile-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.75rem;
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0.35rem 0 0;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $color-primary;
+    min-height: $touch-target-min;
+  }
+}
+
+.mobile-section-eyebrow {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: $color-text-muted;
+  text-transform: uppercase;
+}
+
+// Buttons
+.mobile-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%; // Stacked buttons block out full width on mobile viewports
+  min-height: $touch-target-min;
+  padding: 0.85rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  box-sizing: border-box;
+  text-align: center;
+  transition:$transition-default;
+
+  &--primary {
+    background-color: $color-primary;
+    color: $color-text-light !important;
+    border: 1px solid $color-primary;
+  }
+
+  &--secondary {
+    background-color: transparent;
+    //color: $color-primary;
+    color: olivedrab;
+    border: 1px solid $color-border;
+
+
+  }
+
+  &--light {
+    background-color: $color-text-light;
+    color: $color-primary;
+    border: 1px solid $color-text-light;
+  }
+}
+
+// Global Brand / Logo Typography Style
+.mobile-brand {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+
+  span {
+    font-weight: 400;
+    color: $color-text-muted;
+  }
+}
+
+// ==========================================================================
+// 4. HEADER & NAVIGATION OVERLAY (`.mobile-header`, `.mobile-menu`)
+// ==========================================================================
+
+
+
+
+// ==========================================================================
+// 5. HERO BLOCK (`.mobile-hero`)
+// ==========================================================================
+
+.mobile-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 2rem;
+
+  &__content {
+    .mobile-hero__eyebrow {
+      @extend .mobile-section-eyebrow;
+      margin-bottom: 0.85rem;
+    }
+  }
+
+  &__title {
+    font-size: 2.25rem;
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    margin: 0 0 1rem;
+
+    em {
+      font-style: italic;
+      font-weight: 400;
+      font-family: serif;
+    }
+  }
+
+  &__description {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: $color-text-muted;
+    margin: 0 0 2rem;
+  }
+
+  &__actions {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  // Composite Overlapping Image Grid
+  &__visual {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  &__image {
+    position: absolute;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+
+    &--large {
+      width: 70%;
+      height: 85%;
+      left: 0;
+      top: 0;
+    }
+
+    &--small {
+      width: 48%;
+      height: 55%;
+      right: 0;
+      bottom: 5%;
+      border: 4px solid #ffffff;
+    }
+  }
+
+  // Floating verified badge component
+  &__verified {
+    position: absolute;
+    left: 4%;
+    bottom: 12%;
+    background: #ffffff;
+    padding: 0.65rem 0.85rem;
+    border-radius: 6px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    max-width: 180px;
+
+    svg {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      color: $color-primary;
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    strong {
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    span {
+      font-size: 0.7rem;
+      color: $color-text-muted;
+    }
+  }
+}
+
+// ==========================================================================
+// 6. TRUST HORIZONTAL GRID (`.mobile-trust`)
+// ==========================================================================
+
+.mobile-trust {
+  border-top: 1px solid $color-border;
+  border-bottom: 1px solid $color-border;
+  background-color: $color-bg-light;
+
+  // Implements 2x2 grid layout safe down to 320px
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 1rem;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    svg {
+      font-size: 1.25rem;
+      color: $color-primary;
+    }
+
+    strong {
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: block;
+    }
+
+    span {
+      font-size: 0.75rem;
+      color: $color-text-muted;
+      line-height: 1.3;
+    }
+  }
+}
+
+// ==========================================================================
+// 7. CATEGORIES CARDS GRID (`.mobile-categories`)
+// ==========================================================================
+
+.mobile-category-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); // Neat clean 2x2 layout blocks
+  gap: 0.75rem;
+}
+
+.mobile-category-card {
+  position: relative;
+  aspect-ratio: 1 / 1; // Square blocks maximize imagery on narrow layouts
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: $color-bg-light;
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0) 60%
+    );
+    padding: 1rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    color: $color-text-light;
+
+    h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    svg {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+// ==========================================================================
+// 8. PRODUCT FLUID MAPPING (`.mobile-products`)
+// ==========================================================================
+
+
+.mobile-product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem 0.75rem;
+}
+
+.mobile-product-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 12px;
+
+  &__media {
+    display: block;
+    aspect-ratio: 1 / 1;
+    background-color: $color-bg-light;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.65rem;
+
+  }
+
+  &__favorite {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+    color: $color-text-main;
+    z-index: 10;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+
+    h3 {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin: 0;
+      color: $color-text-main;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; // Keeps title rows on a single line safely
+    }
+    strong {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: $color-text-main;
+    }
+  }
+  &__condition {
+    align-self: flex-start;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: $color-text-muted;
+    background-color: $color-bg-light;
+    padding: 0.15rem 0.4rem;
+    border-radius: 2px;
+    margin-bottom: 0.15rem;
+  }
+}
+
+.mobile-seller {
+  background-color: $color-bg-dark;
+  color: $color-text-light;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  &__content {
+    .mobile-section-eyebrow {
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 0.75rem;
+
+    
+    }
+    h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin: 0 0 1rem;
+      em {
+        font-style: italic;
+        font-weight: 400;
+        font-family: serif;
+      }
+    }
+    p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 1.75rem;
+    }
+
+      .mobile-button {
+      align-self: flex-start;
+      border-color: transparent;
+      background: $color-primary;
+      color: $color-text-light;
+    }
+      
+  }
+  &__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+}
+.mobile-seller__step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  span {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.25);
+    font-family: serif;
+    line-height: 1;
+  }
+  strong {
+    font-size: 1rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 0;
+  }
+}
+.mobile-final-cta {
+  text-align: center;
+  border-top: 1px solid $color-border;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .mobile-section-eyebrow {
+    margin-bottom: 0.75rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin: 0 0 2rem;
+  }
+}
+// ==========================================================================
+// 10. COMPACT MOBILE FOOTER BLOCK (.mobile-footer)
+// ==========================================================================
+
+.mobile-footer {
+  @include mobile-container;
+  border-top: 1px solid $color-border;
+  padding-top: 3rem;
+  padding-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  &__brand {
+    p {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: $color-text-muted;
+    }
+  }
+  &__links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    // Split columns cleanly for list groupingsgap: 2rem 1rem;
+    h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0 0 1rem;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    a {
+      font-size: 0.9rem;
+      color: $color-text-muted;
+    }
+  }
+  &__bottom {
+    border-top: 1px solid $color-border;
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: $color-text-muted;
+    div {
+      display: flex;
+      gap: 1.25rem;
+    }
+  }
+}
+@media (min-width:768px) {
+  // Graceful degradation layout guard if responsive layer breaks down
+  .mobile-landing {
+    display: none !important;
+  }
+}

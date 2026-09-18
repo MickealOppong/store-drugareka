@@ -1,0 +1,250 @@
+@import './Variables.scss'; // Hooks strict Spruce (#1E3A3A), Alabaster (#F4F7F6), Ink (#0D1313)
+
+// Scoped local layout tokens definitions
+$al-sidebar-width-desktop: 320px;
+$al-sidebar-width-mobile:  300px;
+$al-physics-cubic:         cubic-bezier(0.16, 1, 0.3, 1);
+
+// ==========================================================================
+// MAIN COMPONENT PACKET SHELL GRID LAYOUT
+// ==========================================================================
+
+.al-layout {
+  font-family: $font-sans;
+  color: $color-text-main;
+  background-color: $background;
+  min-height: 100vh;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  @include media-up($breakpoint-lg) {
+    flex-direction: row !important;
+  }
+}
+
+// ==========================================================================
+// MOBILE RESPONSIVE TOP BAR ELEMENT BAR
+// ==========================================================================
+
+.al-mobile-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid $color-border;
+  background-color: $background;
+  position: sticky;
+  top: 0;
+  z-index: 101;
+  height: $header-height-mobile;
+  box-sizing: border-box;
+  width: 100%;
+
+  @include media-up($breakpoint-lg) {
+    display: none !important; // Extinguish entirely from desktop view ports
+  }
+}
+
+.al-mobile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: $color-text-main;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  min-height: $touch-target-min;
+  min-width: $touch-target-min;
+  border-radius: 6px;
+  transition: $transition-default;
+  outline: none;
+
+  &:hover {
+    background-color: $color-bg-light;
+    color: $color-primary;
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// ==========================================================================
+// RESPONSIVE CONTROL SUB-DRAWER SYSTEM WRAPPERS
+// ==========================================================================
+
+.al-sidebar-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0.3s $al-physics-cubic;
+
+  @include media-up($breakpoint-lg) {
+    position: sticky;
+    top: 0;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    height: 100vh;
+    width: $al-sidebar-width-desktop;
+    flex-shrink: 0;
+  }
+
+  &--open {
+    visibility: visible;
+    pointer-events: auto;
+
+    .al-sidebar-overlay {
+      opacity: 1;
+    }
+
+    .al-sidebar-container {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Scrim backdrop masking with advanced glassmorphism blurs
+.al-sidebar-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(13, 19, 19, 0.4); // Scoped via custom Charcoal Ink tokens
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+
+  @include media-up($breakpoint-lg) {
+    display: none !important;
+  }
+}
+
+// Core inner navigation wrapper housing elements
+.al-sidebar-container {
+  position: relative;
+  width: $al-sidebar-width-mobile;
+  max-width: 85vw;
+  height: 100%;
+  background-color: $background;
+  box-shadow: 10px 0 30px rgba(13, 19, 19, 0.05);
+  transform: translateX(-100%);
+  transition: transform 0.4s $al-physics-cubic;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.25rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+  z-index: 2;
+
+  @include media-up($breakpoint-lg) {
+    width: 100%;
+    max-width: 100%;
+    box-shadow: none;
+    transform: none !important;
+    transition: none;
+    padding: 2.5rem 1.5rem;
+    border-right: 1px solid $color-border;
+  }
+}
+
+.al-sidebar-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: $color-text-muted; // Grey Zinc token #5E6C6A
+  font-size: 1.35rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  min-height: $touch-target-min;
+  min-width: $touch-target-min;
+  border-radius: 50%;
+  transition: $transition-default;
+  outline: none;
+
+  &:hover {
+    color: $color-primary;
+    background-color: $color-bg-light;
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+
+  @include media-up($breakpoint-lg) {
+    display: none !important;
+  }
+}
+
+// ==========================================================================
+// UNIFIED BRAND DESIGN ATOMS
+// ==========================================================================
+
+.al-brand {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: $color-primary; // Matte Spruce #1E3A3A
+  display: flex;
+  align-items: center;
+  user-select: none;
+
+  &__light {
+    font-weight: 400;
+    color: $color-text-muted;
+    margin-left: 1px;
+  }
+
+  &--sidebar {
+    margin-bottom: 2.5rem;
+    height: 40px;
+
+    @include media-up($breakpoint-lg) {
+      margin-bottom: 3rem;
+    }
+  }
+}
+
+// Embedded children routing parameters adjustments
+.al-sidebar-nav {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+// ==========================================================================
+// DYNAMIC VIEWPORT CORE STAGING SURFACE FRAMEWORK
+// ==========================================================================
+
+.al-content {
+  flex: 1;
+  max-width: 100%;
+  padding: 1.5rem 1.25rem;
+  box-sizing: border-box;
+  background-color: $background;
+  min-height: calc(100vh - #{$header-height-mobile});
+
+  @include media-up($breakpoint-md) {
+    padding: 2.5rem 2rem;
+  }
+
+  @include media-up($breakpoint-lg) {
+    padding: 3rem 3.5rem;
+    height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+}

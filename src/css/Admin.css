@@ -1,0 +1,177 @@
+.al-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.al-sidebar__label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #666666;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  padding-left: 0.5rem;
+  user-select: none;
+}
+
+.al-sidebar__menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.al-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #666666;
+  border-radius: 8px;
+  text-decoration: none;
+  min-height: 44px;
+  box-sizing: border-box;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.al-nav-link__icon {
+  font-size: 1.15rem;
+  color: #767676;
+  transition: color 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.al-nav-link:hover {
+  background-color: #f9f9f9;
+  color: #111111;
+}
+
+.al-nav-link:hover .al-nav-link__icon {
+  color: #111111;
+  transform: scale(1.05);
+}
+
+.al-nav-link.active {
+  background-color: #66704A;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.al-nav-link.active .al-nav-link__icon {
+  color: #ffffff;
+}
+
+.al-nav-link.active:hover {
+  background-color: #5b6442;
+}
+
+.al-sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 1.5rem;
+  margin-top: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.al-sidebar-footer__back-link {
+  align-self: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #666666;
+  text-decoration: none;
+  padding: 0.5rem;
+  border-bottom: 2px solid transparent;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.al-sidebar-footer__back-link:hover {
+  color: #e11d48;
+  border-color: #e11d48;
+}
+
+.al-sidebar-footer__logout-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  border: 1px solid #e5e5e5;
+  color: #e11d48;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.al-sidebar-footer__logout-btn svg {
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.al-sidebar-footer__logout-btn:hover:not(:disabled) {
+  background-color: #fff1f2;
+  border-color: #eb607e;
+}
+
+.al-sidebar-footer__logout-btn:hover:not(:disabled) svg {
+  transform: translateX(-2px);
+}
+
+.al-sidebar-footer__logout-btn:active {
+  transform: scale(0.97);
+}
+
+.al-add-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #66704A;
+  color: #ffffff !important;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  width: 100%;
+  height: 46px;
+  text-decoration: none;
+  box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.al-add-btn svg {
+  font-size: 1.1rem;
+  stroke-width: 2.5;
+  transition: transform 0.2s ease;
+}
+
+.al-add-btn:hover {
+  background-color: #747f54;
+  box-shadow: 0 6px 16px rgba(30, 58, 58, 0.22);
+}
+
+.al-add-btn:hover svg {
+  transform: rotate(90deg);
+}
+
+.al-add-btn:active {
+  transform: scale(0.97);
+}

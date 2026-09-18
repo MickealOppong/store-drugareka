@@ -1,0 +1,66 @@
+
+$font-sans:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+// Color Palette
+//$color-primary: #111111;
+$color-primary:#66704A;
+$color-primary-light: #393c2e;
+$color-primary-dark: #2a2e1c;
+$color-secondary: #767676;
+$color-bg-light: #f9f9f9;
+$color-bg-dark: #111111;
+$color-text-main: #111111;
+$color-text-muted: #666666;
+$color-text-light: #ffffff;
+$color-border: #e5e5e5;
+$color-accent: #e11d48; // Subtle crimson accent for notifications/hover
+
+// Layout & Grid
+$max-width-content: 1280px;
+$header-height: 80px;
+
+// Animation & Transitions
+$transition-default: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Breakpoints
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
+$touch-target-min: 44px;
+$header-height-mobile: 60px;
+
+$background: #FFFFFF;
+$background-1: linear-gradient(235deg, #e5e4e7 10%, hsl(270, 12%, 93%) 100%);
+$background-2: #f6f6fb;
+$background-3: rgba(252, 252, 253, 0.9); // Fixed line break here!
+$color-safety-text: #16a34a;
+$color-safety-bg: #f0fdf4; 
+
+@mixin media-up($breakpoint) {
+  @media (min-width: $breakpoint) { @content; }
+}
+
+@mixin mobile-container {
+  width: 100%;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  box-sizing: border-box;
+}
+
+@mixin container {
+
+  width: 100%;
+  max-width: $max-width-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+$color-success:       #2A6B4E; // Jade Sage Guard (Deep, readable green text)
+$color-success-bg:    #EDF7F3; // Soft Mint Tint (Clean, light background container)
+
+$color-error:         #C24B4B; // Alert Crimson
+$color-error-bg:      #FDF2F2; // Soft Red Tint
