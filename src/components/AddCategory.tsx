@@ -4,7 +4,7 @@ import {
   useLazyAllParentcategoriesQuery,
   useNewCategoryMutation,
 } from "../features/api/transApi";
-import "./../css/View.css";
+import './../css/View.css';
 
 const AddCategory = () => {
   const [categories, setCategories] = useState<string[]>([]);

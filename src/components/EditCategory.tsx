@@ -6,7 +6,7 @@ import {
   useLazyGetCategoryQuery
 } from "../features/api/transApi";
 import type { TCategoryReponse } from "../types/TCategoryResponse";
-import "./../css/View.css";
+import './../css/View.css';
 
 const EditCategory = () => {
  
