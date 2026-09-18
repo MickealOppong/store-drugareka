@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { BuyerView, SellerView } from "../components";
 import './../css/GenericViewLayout.css';
-
 type UserOrderViewType = "buying" | "selling";
 
 const Orders = () => {

@@ -7,7 +7,7 @@ import { userApi } from "../features/api/userApi";
 import { updateUser } from "../features/slice/userSlice";
 import { useAppSelector, type AppDispatch, type RootState } from "../store";
 import type { TUserDto } from "../types/TUserDto";
-import "./../css/AccountLayout.css"; // Clean decoupled SCSS bundle target
+import './../css/AccountLayout.css';
 import Admin from "./Admin";
 import User from "./User";
 
