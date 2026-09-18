@@ -159,7 +159,7 @@ export function sanitizeBackendKey(rawString:string) {
   
   return rawString
     .trim()
-    .toUpperCase()
+    .toLowerCase()
       .replace(/[']+/g, '') // remove apostrophy
     .replace(/\//g, '_')     // CRUCIAL: Converts forward slashes (/) to underscores (_)
     .replace(/[-\s]+/g, '_') // Converts spaces and dashes directly to underscores

@@ -1,20 +1,20 @@
 {
   "landing": {
     "hero": {
-      "eyebrow": "USED, IN A WHOLE NEW WAY",
+      "eyebrow": "USED, IN A COMPLETELY NEW EDITION",
       "title_line1": "Good things.",
-      "title_line2": "SECOND CHANCES.",
-      "description": "Discover quality pre-owned products in one trusted place. Better finds, better prices, less waste.",
+      "title_line2": "A SECOND CHANCE.",
+      "description": "Discover quality second-hand products in one trusted place. Better finds, better prices, less waste.",
       "cta_shop": "Start shopping",
       "cta_sell": "I have something to sell",
       "floating_badge": "Verified sellers",
-      "floating_sub": "Buy with confidence"
+      "floating_sub": "Safe shopping"
     },
     "trust_bar": {
       "verified_title": "Verified sellers",
-      "verified_sub": "Sellers are checked",
-      "delivery_title": "Secure delivery",
-      "delivery_sub": "Tracked shipping",
+      "verified_sub": "Sellers are verified",
+      "delivery_title": "Safe delivery",
+      "delivery_sub": "Shipment tracking",
       "prices_title": "Better prices",
       "prices_sub": "Great products, less waste",
       "protection_title": "Buyer protection",
@@ -27,34 +27,34 @@
     },
     "new_arrivals": {
       "eyebrow": "NEW ARRIVALS",
-      "title": "Just added",
+      "title": "Recently added",
       "view_all": "View all",
       "conditions": {
-        "very_good": "Very Good",
+        "very_good": "Very good",
         "excellent": "Excellent",
         "good": "Good"
       }
     },
     "seller_cta": {
-      "eyebrow": "HAVE THINGS YOU NO LONGER USE OR BOUGHT SOMETHING BY MISTAKE AND CAN'T RETURN IT?",
+      "eyebrow": "DO YOU HAVE THINGS YOU NO LONGER USE, OR SOMETHING YOU DON'T NEED THAT YOU CAN'T RETURN?",
       "title_line1": "You list it.",
       "title_line2": "We sell it.",
-      "description": "List your items in minutes. Set the amount you want to receive and let us take care of the selling.",
+      "description": "List your items in just a few minutes. Set the amount you want to receive, and we'll take care of the rest.",
       "cta": "Start selling",
-      "step1_title": "List your item",
-      "step1_desc": "Add photos, condition and the amount you want to receive.",
-      "step2_title": "We find the buyer",
-      "step2_desc": "Your item becomes part of the DrugaRęka store.",
-      "step3_title": "Ship and get paid",
-      "step3_desc": "When it sells, we give you everything you need to ship it."
+      "step1_title": "List an item",
+      "step1_desc": "Add photos, specify the condition and the amount you want to receive.",
+      "step2_title": "We'll find a buyer",
+      "step2_desc": "Your item will be added to the DrugaRęka store offering.",
+      "step3_title": "Ship it and get paid",
+      "step3_desc": "After the sale, we'll provide everything you need for shipping."
     },
     "final_cta": {
-      "title_line1": "Shop better.",
-      "title_line2": "Give things another life.",
-      "cta": "Explore the store"
+      "title_line1": "Shop smarter.",
+      "title_line2": "Give things a second life.",
+      "cta": "Browse the store"
     },
     "footer": {
-      "tagline": "A better way to buy and sell pre-owned products.",
+      "tagline": "A better way to buy and sell second-hand products.",
       "heading_shop": "Shop",
       "heading_sell": "Sell",
       "heading_help": "Help",
@@ -64,13 +64,33 @@
       "link_how_it_works": "How it works",
       "link_start_selling": "Start selling",
       "link_help_centre": "Help centre",
-      "link_contact": "Contact us"
+      "link_contact": "Contact"
     }
+  },
+  "category_names": {
+    "mens_fashion": "Men's fashion",
+    "womens_fashion": "Women's fashion",
+    "electronics": "Electronics",
+    "home_living": "Home & garden",
+    "shoes": "Footwear",
+    "home_equipment": "Home equipment",
+    "machines_spare_parts": "Machinery & spare parts",
+    "books_media": "Books & media",
+    "sport_outdoor": "Sports & recreation",
+    "kids": "Kids",
+    "beauty_health": "Beauty & health"
+  },
+  "product_conditions": {
+    "good": "Good",
+    "new": "New",
+    "excellent_condition": "Excellent",
+    "used": "Used",
+    "very_good": "Very good"
   },
   "shop": {
     "header": {
-      "title": "Find something special",
-      "description": "Verified pre-owned products at attractive prices.",
+      "title": "Find something exceptional",
+      "description": "Verified second-hand products at attractive prices.",
       "search_placeholder": "Search products, brands..."
     },
     "categories": {
@@ -85,23 +105,23 @@
         "oldest": "Oldest",
         "price_low": "Price: low to high",
         "price_high": "Price: high to low",
-        "discount": "Biggest discount"
+        "discount": "Biggest deal"
       }
     },
     "empty": {
       "title": "No products found",
-      "description": "Try changing your search query or picking a different category.",
+      "description": "Try changing your search or choosing a different category.",
       "clear_btn": "Clear filters"
     },
     "product": {
-      "add_wishlist": "Add to wishlist",
+      "add_wishlist": "Add to favorites",
       "buy_btn": "Buy product",
       "edit_btn": "Edit listing"
     },
     "filter_drawer": {
       "title": "Filters",
       "label": "Category",
-      "all_option": "All categories"
+      "all_option": "All"
     }
   },
   "categories_page": {
@@ -112,57 +132,57 @@
   },
   "sell_page": {
     "hero": {
-      "eyebrow": "SELL WITH DRUGA RĘKA",
-      "title_line1": "Have something",
+      "eyebrow": "SELL WITH US",
+      "title_line1": "You have something,",
       "title_line2": "you no longer need?",
-      "lead": "List your product and let us handle its sale.",
+      "lead": "List your product and let us take care of selling it.",
       "cta_primary": "Start selling",
-      "cta_secondary": "How it works?",
+      "cta_secondary": "How does it work?",
       "composition_label": "Your product",
-      "composition_text": "Can get a second life.",
+      "composition_text": "It can get a second life.",
       "badge_title": "Simple process",
-      "badge_sub": "No complex paperwork"
+      "badge_sub": "No complicated formalities"
     },
     "process": {
       "eyebrow": "SIMPLE PROCESS",
-      "title": "How it works?",
-      "description": "From a product you no longer use, to a successful sale in a few simple steps.",
+      "title": "How does it work?",
+      "description": "From an item you no longer use to a sale in a few simple steps.",
       "step1_title": "Add product",
-      "step1_desc": "Describe the product, add photos, select a category, and specify the price you want to receive.",
-      "step2_title": "We handle the sale",
-      "step2_desc": "The product will appear in our store at the final price determined by Druga Ręka.",
+      "step1_desc": "Describe the product, add photos, choose a category and set the price you want to receive.",
+      "step2_title": "We'll handle the sale",
+      "step2_desc": "The product will appear in our store at the price set by Druga Ręka.",
       "step3_title": "Ship the product",
-      "step3_desc": "When someone buys the product, you will receive information and shipping instructions.",
-      "step4_title": "Receive payout",
-      "step4_desc": "Once the transaction is finalized, you will receive the money due to you."
+      "step3_desc": "When someone buys the product, you'll receive information and shipping instructions.",
+      "step4_title": "Receive your payout",
+      "step4_desc": "After the transaction is completed, you'll receive the amount due to you."
     },
     "benefits": {
-      "eyebrow": "WHY DRUGA RĘKA?",
-      "title": "Want to avoid endless messages and dealing with strangers while earning more?",
-      "description": "Get a premium amount for your item without wasting time on tedious negotiations. We handle everything.",
-      "bullet1": "Zero spam and pushy questions from buyers",
+      "eyebrow": "WHY kasoa.pl?",
+      "title": "Want to avoid endless messages and contact with strangers while earning more?",
+      "description": "Get a premium amount for your item without wasting time on tedious negotiations. We'll take care of everything.",
+      "bullet1": "Zero spam and annoying questions from buyers",
       "bullet2": "Guaranteed premium valuation for unique items",
       "bullet3": "Full privacy – no contact with strangers",
       "bullet4": "Convenient shipping without unnecessary formalities",
       "cta": "Add your first product",
       "shield_title": "Your product.",
-      "shield_bold": "Secure sale.",
-      "shield_desc": "We take over all the operations."
+      "shield_bold": "Safe selling.",
+      "shield_desc": "We take care of the entire process."
     },
     "pricing": {
       "eyebrow": "OUR COMMISSION MODEL",
       "title": "You set your price.",
-      "description": "You receive exactly what you expect. Druga Ręka automatically calculates and displays the margin for the end client.",
+      "description": "You receive exactly what you expect. we calculate and display the margin for the end customer.",
       "seller_card_tag": "YOUR PRICE (PROFIT)",
-      "seller_card_desc": "The net amount you input and want to receive in your bank account after the product is sold.",
-      "store_card_tag": "PRICE IN STORE CATALOG",
+      "seller_card_desc": "The net amount you enter and want to receive in your account after the product is sold.",
+      "store_card_tag": "STORE CATALOG PRICE",
       "store_card_price": "X + margin",
-      "store_card_desc": "The final price displayed to the buyer, increased by processing and logistics cost."
+      "store_card_desc": "The final price shown to the buyer, increased by service and logistics costs."
     },
     "final_cta": {
       "eyebrow": "READY?",
       "title": "Give your things a second life.",
-      "description": "Add a product and start making money.",
+      "description": "Add a product and start earning",
       "cta": "Start selling"
     }
   },
@@ -170,10 +190,10 @@
     "label": "Your Account",
     "menu": {
       "dashboard": "Dashboard",
-      "my_products": "My listings",
+      "my_products": "My products",
       "orders": "Orders",
       "shipments": "Shipments",
-      "wishlist": "Wishlist",
+      "wishlist": "My favorites",
       "payouts": "Payouts"
     },
     "footer": {
@@ -186,23 +206,25 @@
     "header": {
       "eyebrow": "MY ACCOUNT",
       "welcome": "Welcome",
-      "description": "Manage your shopping and selling activity from one place.",
+      "description": "Manage your purchases and sales in one place.",
       "cta_shop": "Continue shopping"
     },
     "stats": {
       "orders": "Orders",
-      "wishlist": "Wishlist",
+      "wishlist": "Your favorites",
       "active_listings": "Active listings"
     },
     "shopping_section": {
       "eyebrow": "SHOPPING",
-      "title": "Your shopping",
+      "title": "Your purchases",
       "view_orders": "View orders",
       "grid": {
         "shop_title": "Continue shopping",
         "shop_desc": "Discover something new",
         "wishlist_title": "Your wishlist",
         "wishlist_desc_one": "{{count}} saved item",
+        "wishlist_desc_few": "{{count}} saved items",
+        "wishlist_desc_many": "{{count}} saved items",
         "wishlist_desc_other": "{{count}} saved items",
         "orders_title": "Your orders",
         "orders_desc": "Track your purchases"
@@ -210,36 +232,36 @@
     },
     "selling_section": {
       "eyebrow": "SELLING",
-      "title": "Your selling",
+      "title": "Your sales",
       "view_dashboard": "Seller dashboard",
       "metrics": {
         "active": "Active listings",
-        "sold": "Items sold",
-        "cancelled": "Items cancelled",
+        "sold": "Sold items",
+        "cancelled": "Cancelled items",
         "awaiting": "Awaiting shipment",
-        "payout": "Available payout"
+        "payout": "Available funds"
       },
       "activity": {
         "title": "Recent activity",
-        "view_listings": "View listings",
+        "view_listings": "View products",
         "statuses": {
           "active": "Active",
           "sold": "Sold",
-          "shipping": "Shipping",
+          "shipping": "In shipping",
           "cancelled": "Cancelled"
         }
       }
     },
     "upgrade_cta": {
-      "title": "HAVE SOMETHING YOU NO LONGER USE?",
-      "description": "Turn unused things into money. List your item with DrugaRęka and let us handle the selling.",
+      "title": "DO YOU HAVE THINGS YOU NO LONGER USE?",
+      "description": "Turn unwanted items into cash. List an item on DrugaRęka, and we'll take care of the sale.",
       "btn": "Start selling"
     }
   },
   "user_products": {
     "header": {
       "eyebrow": "Products",
-      "title": "All Products",
+      "title": "All products",
       "description": "Manage your products and listings.",
       "add_btn": "Add product"
     },
@@ -250,7 +272,7 @@
     },
     "empty": {
       "title": "No products",
-      "search_desc": "No products found matching your search.",
+      "search_desc": "No products matching your search were found.",
       "default_desc": "No products have been created on this account yet."
     },
     "table": {
@@ -264,8 +286,8 @@
         "brand": "Brand",
         "category": "Category",
         "price": "Price",
-        "product_status": "Product Status",
-        "listing_status": "Listing Status",
+        "product_status": "Product status",
+        "listing_status": "Listing status",
         "actions": "Actions"
       },
       "statuses": {
@@ -285,10 +307,10 @@
   "orders_view": {
     "header": {
       "eyebrow": "Transactions",
-      "title_buying": "Your Purchases",
-      "title_selling": "Your Sales",
-      "description_buying": "Manage the items you have purchased.",
-      "description_selling": "Manage the items you have sold."
+      "title_buying": "Your purchases",
+      "title_selling": "Your sales",
+      "description_buying": "Manage items that you have purchased.",
+      "description_selling": "Manage items that you have sold."
     },
     "tabs": {
       "buying": "Buying",
@@ -304,24 +326,24 @@
     "empty": {
       "title": "No purchases found",
       "search_desc": "No purchases match your search.",
-      "default_desc": "Your purchase records will appear here."
+      "default_desc": "Your purchase history will appear here."
     },
     "table": {
       "loading": "Loading purchases...",
-      "error": "Unable to fetch purchase records.",
+      "error": "Failed to load purchase history.",
       "headers": {
         "order": "Order",
         "seller": "Seller",
-        "subtotal": "Subtotal",
+        "subtotal": "Value",
         "shipping": "Shipping",
         "total": "Total",
         "status": "Status",
-        "ordered_date": "Ordered date",
+        "ordered_date": "Order date",
         "action": "Action"
       },
       "statuses": {
         "pending": "Pending",
-        "awaiting_shipment": "Awaiting Shipment",
+        "awaiting_shipment": "Awaiting shipment",
         "shipped": "Shipped",
         "delivered": "Delivered",
         "cancelled": "Cancelled",
@@ -329,28 +351,28 @@
       }
     },
     "actions": {
-      "view_details": "View Details",
-      "file_dispute": "File Dispute"
+      "view_details": "View details",
+      "file_dispute": "Report a problem / Dispute"
     }
   },
   "seller_view": {
     "toolbar": {
       "search_placeholder": "Search sales...",
       "count_singular": "sale",
-      "count_plural": "sales"
+      "count_plural": "sales transactions"
     },
     "empty": {
-      "title": "No sales found",
+      "title": "No transactions found",
       "search_desc": "No sales match your search.",
-      "default_desc": "Your sales records will appear here."
+      "default_desc": "Your sales history will appear here."
     },
     "table": {
-      "loading": "Loading sales...",
-      "error": "Unable to fetch sales records.",
+      "loading": "Loading data...",
+      "error": "Failed to load sales history.",
       "headers": {
         "order": "Order",
         "buyer": "Buyer",
-        "subtotal": "Subtotal",
+        "subtotal": "Net value",
         "shipping": "Shipping",
         "total": "Total",
         "status": "Status",
@@ -359,34 +381,34 @@
       }
     },
     "actions": {
-      "file_dispute": "File Dispute"
+      "file_dispute": "Report dispute / Problem"
     }
   },
   "shipments": {
     "header": {
       "eyebrow": "Shipments",
-      "title": "Order Shipments",
+      "title": "Order shipments",
       "description": "Manage Deliveries and Logistics."
     },
     "toolbar": {
       "search_placeholder": "Search delivery address...",
-      "count_singular": "record",
-      "count_plural": "records"
+      "count_singular": "entry",
+      "count_plural": "entries"
     },
     "empty": {
-      "title": "No results",
-      "search_desc": "No shipments found matching your search criteria.",
-      "default_desc": "No active shipment records in the system."
+      "title": "No Results",
+      "search_desc": "No shipments matching the search criteria were found.",
+      "default_desc": "There are no active shipment records in the system."
     },
     "table": {
       "loading": "Loading shipments...",
-      "error": "Unable to load shipments data payload.",
+      "error": "Failed to load shipment data.",
       "headers": {
         "order": "Order",
         "seller": "Seller",
-        "address": "Delivery Address",
-        "shipped_at": "Shipped At",
-        "delivered_at": "Delivered At",
+        "address": "Delivery address",
+        "shipped_at": "Sent",
+        "delivered_at": "Delivered",
         "status": "Status",
         "action": "Action"
       }
@@ -397,15 +419,15 @@
   },
   "wishlist": {
     "header": {
-      "title": "Saved Items",
-      "description": "Manage your pre-loved favorites list",
+      "title": "Saved items",
+      "description": "Manage your list of favorite products",
       "count_singular": "Item",
       "count_plural": "Items"
     },
     "empty": {
       "title": "Your wishlist is empty",
-      "description": "Save items you like to track them and purchase later.",
-      "explore_btn": "Explore Shop"
+      "description": "Save products you like to track them and buy them later.",
+      "explore_btn": "Browse the store"
     },
     "card": {
       "remove_hint": "Remove from wishlist",
@@ -415,7 +437,7 @@
   },
   "payouts": {
     "header": {
-      "eyebrow": "Listing payout",
+      "eyebrow": "Listing settlements",
       "title": "Payouts",
       "description": "Manage your payouts and balance settlements."
     },
@@ -425,8 +447,8 @@
       "count_plural": "payouts"
     },
     "empty": {
-      "title": "No payouts found",
-      "search_desc": "No settlements found matching your search query.",
+      "title": "No payouts",
+      "search_desc": "No settlements matching your search were found.",
       "default_desc": "No payouts have been recorded on your account yet."
     },
     "table": {
@@ -436,12 +458,12 @@
         "order": "Order",
         "status": "Status",
         "currency": "Currency",
-        "total": "Total"
+        "total": "Amount"
       },
       "statuses": {
         "pending": "Pending",
-        "pending_payout": "Pending Payout",
-        "paid": "Paid",
+        "pending_payout": "Awaiting payout",
+        "paid": "Paid out",
         "completed": "Completed",
         "failed": "Failed",
         "cancelled": "Cancelled"
@@ -453,19 +475,19 @@
   },
   "DiscoverFeed": {
     "NETWORK_ERROR": "Network connection error. Please try again later.",
-    "real_moments": "Real items.",
+    "real_moments": "Real products.",
     "real_connections": "Real savings."
   },
   "REGISTER_PAGE": {
-    "TITLE": "Create an Account",
-    "SUBTITLE": "Join our trust-verified second-hand marketplace platform today."
+    "TITLE": "Create an account",
+    "SUBTITLE": "Join our verified second-hand product platform today."
   },
   "LoginPage": {
-    "brand_name": "DrugaRęka",
-    "title": "Welcome Back",
+    "brand_name": "KASOA",
+    "title": "Welcome back",
     "email": {
-      "placeholder": "Email Address",
-      "email_error": "No account associated with this email address."
+      "placeholder": "Email address",
+      "email_error": "No account was found for this email address."
     },
     "password": {
       "placeholder": "Password",
@@ -476,47 +498,332 @@
     "forgot_password_link": "Forgot your password?",
     "signup_prompt": {
       "text": "Don't have an account yet?",
-      "link": "Sign up here"
+      "link": "Register here"
     }
   },
   "RegisterPage": {
     "fields": {
       "firstName": {
-        "placeholder": "First Name",
+        "placeholder": "First name",
         "firstname_error": "Please enter a valid first name."
       },
       "lastName": {
-        "placeholder": "Last Name",
+        "placeholder": "Last name",
         "lastname_error": "Please enter a valid last name."
       },
       "Other": {
-        "date_of_birth": "Date of Birth"
+        "date_of_birth": "Date of birth"
       },
-      "dob_error": "You must be over legal minimum age requirements to register.",
+      "dob_error": "You must meet the minimum age requirements to create an account.",
       "email": {
-        "placeholder": "Email Address",
-        "email_error": "Please enter a valid email address structure.",
-        "email_taken": "This email address is already registered to another account."
+        "placeholder": "Email address",
+        "email_error": "Please enter a valid email address format.",
+        "email_taken": "This email address is already associated with another account."
       },
       "password": {
         "placeholder": "Password",
-        "password_error": "Password must be at least 8 characters long and contain symbols."
+        "password_error": "Password must be at least 8 characters long and contain special characters."
       },
       "terms_and_privacy": {
-        "link": "I agree to the",
-        "terms": "Terms of Service",
+        "link": "I declare that I accept",
+        "terms": "Terms of service",
         "and": "and",
-        "privacy_policy": "Privacy Policy",
-        "brand_name": "of DrugaRęka store."
+        "privacy_policy": "Privacy policy",
+        "brand_name": "of the DrugaRęka store."
       },
       "validation": {
-        "terms_required": "Please accept the terms and conditions to proceed."
+        "terms_required": "Accept the terms and privacy policy to continue."
       },
-      "submit_btn": "Create account",
+      "submit_btn": "Register",
       "login_prompt": {
         "text": "Already have an account?",
         "link": "Log in here"
       }
+    }
+  },
+  "navigation": {
+    "menu": {
+      "shop": "Shop",
+      "categories": "categories",
+      "sell": "Sell with us"
+    },
+    "actions": {
+      "account": "Account",
+      "login": "Log in / Register",
+      "logout": "Log out"
+    },
+    "accessibility": {
+      "view_cart": "View cart",
+      "view_wishlist": "View wishlist",
+      "view_account": "View account dashboard",
+      "menu_open": "Open navigation menu",
+      "menu_close": "Close navigation menu"
+    }
+  },
+  "cart": {
+    "page": {
+      "empty": {
+        "title": "Your cart is empty",
+        "description": "You haven't added any exceptional clothing or second-hand products to your cart yet.",
+        "continue_btn": "Continue shopping"
+      }
+    },
+    "header": {
+      "title": "Cart"
+    },
+    "summary": {
+      "title": "Order summary",
+      "subtotal": "Product value",
+      "shipping": "Shipping cost",
+      "total": "Total",
+      "checkout_btn": "Secure payment",
+      "address_warning": "Please add a delivery address to unlock payment options."
+    },
+    "item": {
+      "remove_hint": "Remove item from cart",
+      "item_price_label": "Item price",
+      "shipping_cost_label": "Shipping cost"
+    },
+    "address": {
+      "title": "Delivery address",
+      "actions": {
+        "edit_hint": "Edit address",
+        "cancel_hint": "Cancel editing",
+        "save_btn": "Save delivery address",
+        "saving": "Saving details..."
+      },
+      "fields": {
+        "street": {
+          "label": "Street and house number",
+          "placeholder": "e.g. Piotrkowska 12"
+        },
+        "contact": {
+          "label": "Contact phone",
+          "placeholder": "e.g. +48 500 600 700"
+        },
+        "city": {
+          "label": "City",
+          "placeholder": "e.g. Łódź"
+        },
+        "postal_code": {
+          "label": "Postal code",
+          "placeholder": "e.g. 90-001"
+        }
+      }
+    },
+    "timer": {
+      "expired": "Reservation time expired",
+      "holding": "Reservation: {{time}}"
+    }
+  },
+  "product_details": {
+    "loading": "Loading product details...",
+    "nav": {
+      "back": "Back",
+      "shop_crumb": "Shop"
+    },
+    "info": {
+      "condition": "Condition",
+      "availability": "Availability"
+    },
+    "pricing": {
+      "savings": "You save {{amount}} zł ({{percent}}%)"
+    },
+    "safety": {
+      "return_assurance": "Safe purchase with a 14-day right to return the product"
+    },
+    "actions": {
+      "buy_now": "Buy now",
+      "wishlist_add": "Add to watchlist",
+      "wishlist_active": "Watching"
+    },
+    "trust": {
+      "verified_sub": "All users go through an authorization process",
+      "delivery_title": "Insured delivery",
+      "delivery_sub": "Full courier shipment tracking",
+      "prices_title": "Great market prices",
+      "prices_sub": "Great products, fewer wasted resources",
+      "protection_title": "Buyer Protection Program",
+      "protection_sub": "Shop with complete peace of mind"
+    },
+    "error": {
+      "generic": "Something went wrong while loading this product.",
+      "return_btn": "Back"
+    }
+  },
+  "add_listing": {
+    "header": {
+      "title_add": "Add product",
+      "title_edit": "Edit product",
+      "subtitle": "Create a product and make it available to buyers.",
+      "actions": {
+        "save_draft": "Save draft",
+        "publish": "Publish product"
+      }
+    },
+    "sections": {
+      "images": {
+        "title": "Product photos",
+        "subtitle": "Add clear photos of your product.",
+        "main_label": "Main",
+        "add_btn": "Add photos",
+        "hint": "JPG, PNG or WEBP"
+      },
+      "info": {
+        "title": "Product information",
+        "subtitle": "Give buyers the most important details."
+      },
+      "pricing": {
+        "title": "Price and inventory",
+        "subtitle": "Set the price and available quantity of the product."
+      },
+      "shipping": {
+        "title": "Shipping",
+        "subtitle": "Within how many days can the product be delivered to the buyer?"
+      }
+    },
+    "fields": {
+      "name": {
+        "label": "Product name",
+        "placeholder": "e.g. Vintage leather jacket"
+      },
+      "category": {
+        "label": "Category",
+        "placeholder": "Choose a category"
+      },
+      "condition": {
+        "label": "Condition",
+        "placeholder": "Choose product condition"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Describe the product, its condition, features and everything the buyer should know...",
+        "hint": "Describe the product accurately and clearly."
+      },
+      "price": {
+        "label": "Price"
+      },
+      "quantity": {
+        "label": "Quantity"
+      },
+      "brand": {
+        "label": "Brand"
+      },
+      "sku": {
+        "label": "SKU (Inventory code)",
+        "placeholder": "Optional"
+      },
+      "shipping_method": {
+        "label": "Shipping method",
+        "placeholder": "Choose a shipping method"
+      },
+      "shipping_info": {
+        "label": "Shipping information",
+        "placeholder": "e.g. Shipping within 2-3 business days. Shipping costs are covered by the buyer."
+      }
+    },
+    "sidebar": {
+      "status": {
+        "title": "Product status",
+        "publish_label": "Publish",
+        "publish_desc": "Buyers will be able to see and purchase this product."
+      },
+      "tips": {
+        "title": "Tips",
+        "tip1": "Use bright, clear product photos.",
+        "tip2": "Write an accurate and reliable description.",
+        "tip3": "Mention any defects or signs of use.",
+        "tip4": "Use a competitive price."
+      },
+      "preview": {
+        "title": "Preview",
+        "fallback_category": "Category",
+        "fallback_name": "Your product name"
+      }
+    }
+  },
+  "order_details": {
+    "toolbar": {
+      "count_singular": "purchase",
+      "count_plural": "purchases",
+      "total_label": "Total"
+    },
+    "empty": {
+      "title": "No purchases found"
+    },
+    "table": {
+      "loading": "Loading purchases...",
+      "error": "Unable to fetch purchase records.",
+      "headers": {
+        "order": "Order",
+        "seller": "Seller",
+        "subtotal": "Subtotal",
+        "shipping": "Shipping",
+        "total": "Total",
+        "order_status": "Status",
+        "tracking_number": "Tracking Number",
+        "delivery_status": "Delivery Status"
+      }
+    }
+  },
+  "payment_confirmation": {
+    "success": {
+      "eyebrow": "Payment Approved",
+      "title": "Thank you for your order!",
+      "description": "We appreciate your business! A confirmation email along with Escrow protection details will be sent to your address.",
+      "session_label": "Session ID",
+      "next_steps_title": "What happens next?",
+      "next_steps_desc": "We have already notified the sellers to pack your pre-loved items. As soon as they dispatch them, you will receive another update containing your tracking number.",
+      "support_hint": "Have any questions or concerns? Reach out to us at:",
+      "cta_continue": "Continue shopping"
+    },
+    "error": {
+      "title": "Verification Error",
+      "description": "We were unable to verify your payment status. If funds were deducted, please check your email inbox.",
+      "cta_back": "Back to shop"
+    }
+  },
+  "cart_page": {
+    "empty": {
+      "title": "Your cart is empty",
+      "description": "You don't have any items in your cart yet. Since we offer unique, 1-of-1 pre-loved items, don't wait too long when you find something you love!",
+      "continue_btn": "Continue shopping"
+    }
+  },
+  "delivery_confirmation": {
+    "success": {
+      "title": "Delivery confirmed!",
+      "description": "Thank you! The funds from the Escrow protection system have been successfully released to the seller's balance. The order has been closed."
+    },
+    "invalid_token": {
+      "title": "Verification error",
+      "description": "Invalid or missing verification token in the URL. Unable to confirm delivery."
+    },
+    "action": {
+      "eyebrow": "Secure Escrow",
+      "title": "Confirm delivery",
+      "description": "Please click the button below if the package has reached you and its contents are fully consistent with your order.",
+      "processing": "Processing...",
+      "confirm_btn": "I confirm receipt of the item"
+    },
+    "error": {
+      "fallback": "An error occurred. Please try again later."
+    }
+  },
+  "admin_sidebar": {
+    "label": "Administration",
+    "menu": {
+      "dashboard": "Dashboard",
+      "products": "Products",
+      "categories": "Categories",
+      "brands": "Brands",
+      "orders": "Orders",
+      "shipments": "Shipments",
+      "users": "Users",
+      "conditions": "Conditions",
+      "reports": "Reports",
+      "analytics": "Analytics",
+      "payouts": "Payouts"
     }
   }
 }

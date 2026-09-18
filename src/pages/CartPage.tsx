@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { FiShoppingBag } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { Cart } from "../components/index";
@@ -8,15 +9,14 @@ import './../css/Cart.css';
 
 const CartPage = () => {
   const { data: cart, isLoading: cartLoading } = useGetBuyerCartQuery();
-
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
- 
+  // user language preference 
+  const locale = localStorage.getItem('i18nextLng') || "en";
 
   const [deleteItem] = useRemoveCartItemMutation();
   const [checkout] = useCheckoutBuyerMutation();
-
-
 
   const handleRemoveItem = async (listingId: number) => {
     try {
@@ -28,7 +28,7 @@ const CartPage = () => {
 
   const handleCheckout = async () => {
     try {
-      const response = await checkout().unwrap();
+      const response = await checkout(locale).unwrap();
       const clientSecret = response?.data; // Adjusted to match generic API wrappers safely
 
       if (clientSecret) {
@@ -53,11 +53,13 @@ const CartPage = () => {
         <div className="cart-empty-icon-wrap">
           <FiShoppingBag />
         </div>
-        <h2 className="cart-empty-title">Your shopping cart is empty</h2>
+        <h2 className="cart-empty-title">{t("cart_page.empty.title")}</h2>
         <p className="cart-empty-text">
-          You haven't added any one-of-a-kind pre-loved pieces to your bag yet.
+          {t("cart_page.empty.description")}
         </p>
-        <Link to="/shop" className="cart-empty-link">Continue Shopping</Link>
+        <Link to="/shop" className="cart-empty-link">
+          {t("cart_page.empty.continue_btn")}
+        </Link>
       </div>
     );
   }

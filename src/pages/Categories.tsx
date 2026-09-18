@@ -3,6 +3,7 @@ import { FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { Loading } from "../components";
 import { useGetAllCategoriesQuery } from "../features/api/storeApi";
+import { sanitizeBackendKey } from "../util/util";
 import "./../css/Categories.css"; // Imports the new isolated layout module cleanly
 
 const Categories = () => {
@@ -41,7 +42,7 @@ const Categories = () => {
             </div>
 
             <div className="ct-card__overlay">
-              <h3 className="ct-card__name">{category.name}</h3>
+              <h3 className="ct-card__name"> {t(`category_names.${sanitizeBackendKey(category.slug)}`)}</h3>
               <FiArrowRight className="ct-card__icon" />
             </div>
           </Link>

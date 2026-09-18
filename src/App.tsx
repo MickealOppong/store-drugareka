@@ -5,9 +5,10 @@ import {
   AdminDashboard,
   CartPage,
   Categories,
-  Checkout, // Resolved duplicate checkout strategies cleanly
+  CheckoutForm,
   Complaint,
   Dashboard,
+  DeliveryConfirmation,
   ErrorPage,
   Landing,
   Login,
@@ -94,7 +95,7 @@ function App() {
           path: "checkout", 
           element: (
             <ProtectedRoute>
-              <Checkout />
+              <CheckoutForm />
             </ProtectedRoute>
           ),
         },
@@ -226,6 +227,14 @@ function App() {
           element: <EditBrand />,
         },
       ],
+    },
+    {
+        path:'checkout/success',
+        element:<PaymentConfirmation/>
+    },
+     {
+        path:'confirmation',
+        element:<DeliveryConfirmation/>
     },
     {
       path: "/login",

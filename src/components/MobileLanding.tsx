@@ -1,117 +1,57 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FiArrowRight,
-  FiHeart,
+  FiEdit,
   FiRefreshCw,
   FiShield,
+  FiShoppingBag,
   FiTag,
   FiTruck
 } from "react-icons/fi";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { appName } from "../data/data";
-import { useLogoutMutation } from "../features/api/authApi";
-import { useGetTop6ProductCategoriesQuery } from "../features/api/storeApi";
-import { logoutUser } from "../features/slice/userSlice";
+import { useGetLandingListingQuery, useGetTop6ProductCategoriesQuery } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
+import { formatPrice, sanitizeBackendKey } from "../util/util";
+import hero from './../assets/hero-large.png';
 import heroSmall from './../assets/hero-small.png';
-import hero from './../assets/hero.png';
 import './../css/MobileLanding.css';
 import LanguageSwitcher from "./LanguageSwitcher";
 import Loading from "./Loading";
 
-const products = [
-  {
-    id: 1,
-    name: "Nike Air Max",
-    condition: "Very Good",
-    price: "€69",
-    image:
-      "https://muvio.pl/images/sv270/126000-127000/Buty-Nike-Air-Force-1-07-Czarne-DZ4514-001_%5B126078%5D_480.jpg",
-  },
-  {
-    id: 2,
-    name: "The North Face Jacket",
-    condition: "Excellent",
-    price: "€79",
-    image:
-      "https://img01.ztat.net/article/spp-media-p1/7c9ba579a8d44553b07a1c5b098ecf5f/30d9a7787af0407d8f0af9c5e5428a30.jpg?imwidth=762",
-  },
-  {
-    id: 3,
-    name: "BabyBjörn Bliss",
-    condition: "Very Good",
-    price: "€65",
-    image:
-      "https://img.smyk.com/pl/pl/760x/https://bin.smyk.com/pl/pl/media/product/1600/1/babybjrn-bliss-mesh-lezaczek-szary-bez-7657413.jpg",
-  },
-  {
-    id: 4,
-    name: "Apple Watch",
-    condition: "Good",
-    price: "€139",
-    image:
-      "https://prod-api.mediaexpert.pl/api/images/gallery_500_500/thumbnails/images/81/8128821/Apple_Watch_Series_11_42mm_GPS_Jet_Black_Aluminum_Sport_Band_Black_PDP_Image_Position_1__pl-PL.jpg",
-  },
-];
-// Helper function to dynamically map status strings into matching JSON keys
-const getConditionKey = (condition:string) => {
-  if (!condition) return "good";
-  return condition.toLowerCase().replace(/\s+/g, '_');
-};
+
 
 
 const MobileLanding = () => {
   const {data:topCategories=[],isLoading:isCategoriesLoading} = useGetTop6ProductCategoriesQuery()
   
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState<boolean>(false);
-    const username = useAppSelector((state)=>state.userSlice.username)
 
 //
 const {t}=useTranslation()
-     //dispatcher
-      const dispatch = useDispatch()
-  
-      //nivaget hook
-      const navigate = useNavigate();
-  
-      //refresh token
-      const refreshToken = localStorage.getItem('rtk') as string;
-  
-      //logout hook
-      const [logout,{isLoading}]= useLogoutMutation()
-    
-      const handleAccountLogout =async ()=>{
-  
-      const response=  await logout(refreshToken)
-  
-        if(response.data===true){
-            dispatch(logoutUser())
-            navigate('/')
-        }
-  
-        
-      }
 
-        if(isLoading || isCategoriesLoading){
+
+
+/**
+ *  selected products
+ */
+const {data:listings=[]} = useGetLandingListingQuery()
+    
+
+
+  //user id
+  const userId = useAppSelector((state) => state.userSlice.userId);
+    
+
+        if(isCategoriesLoading){
             return <Loading/>
           }
           
 
   return (
     <main className="mobile-landing">
-      {/* =====================================================
-          MOBILE HEADER
-      ====================================================== */}
+    
 
 
-
-
-      {/* =====================================================
-          HERO
-      ====================================================== */}
 
  <section className="mobile-hero">
         <div className="mobile-hero__content">
@@ -224,7 +164,7 @@ const {t}=useTranslation()
             >
               <img src={category.image} alt={category.name} />
               <div className="mobile-category-card__overlay">
-                <h3>{category.name}</h3>
+                <h3> {t(`category_names.${sanitizeBackendKey(category.slug)}`)}</h3>
                 <FiArrowRight />
               </div>
             </Link>
@@ -249,30 +189,40 @@ const {t}=useTranslation()
           </Link>
         </div>
 
-        <div className="mobile-product-grid">
-          {products.map((product) => (
-            <article key={product.id} className="mobile-product-card">
-              <Link to={`/product/${product.id}`} className="mobile-product-card__media">
-                <img src={product.image} alt={product.name} />
+        <div className="mobile-product-grid" style={{display:listings.length===0?'none':'grid'}}>
+          {listings.map((product) => (
+            <article key={product.listingId} className="mobile-product-card">
+              <Link to={`/product/${product.listingId}`} className="mobile-product-card__media">
+                <img src={product.media[0].image} alt={product.productName} />
               </Link>
 
-              <button
+              {!userId || userId!==product.sellerId?<button
                 type="button"
                 className="mobile-product-card__favorite"
-                aria-label={`Add ${product.name} to wishlist`}
+                aria-label={`Add ${product.productName} to wishlist`}
                 onClick={() => {
                   // Add wishlist logic here
                 }}
               >
-                <FiHeart />
+                  <FiShoppingBag />
+              </button>:<button
+                type="button"
+                className="mobile-product-card__favorite"
+                aria-label={`Add ${product.productName} to wishlist`}
+                onClick={() => {
+                  // Add wishlist logic here
+                }}
+              >
+                  <FiEdit />
               </button>
+              }
 
-              <Link to={`/product/${product.id}`} className="mobile-product-card__info">
+              <Link to={`/listing/${product.listingId}`} className="mobile-product-card__info">
                 <span className="mobile-product-card__condition">
-                  {t(`landing.new_arrivals.conditions.${getConditionKey(product.condition)}`)}
+                  {t(`product_conditions.${product.productCondition.toLowerCase()}`)}
                 </span>
-                <h3>{product.name}</h3>
-                <strong>{product.price}</strong>
+                <h3>{product.productName}</h3>
+                <strong>{formatPrice(product.priceDto.sellerNewPrice)} zl</strong>
               </Link>
             </article>
           ))}

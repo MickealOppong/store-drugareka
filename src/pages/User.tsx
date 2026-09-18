@@ -46,7 +46,7 @@ const User: React.FC<UserSidebarProps> = ({ onNavigate }) => {
 
   return (
     <div className="al-sidebar">
-      <div className="al-sidebar__label">{t("user_sidebar.label")}</div>
+      <div className="al-sidebar__label"  >{t("user_sidebar.label")}</div>
 
       <nav className="al-sidebar__menu">
         <NavLink to="/account/user" end className="al-nav-link" onClick={onNavigate}>

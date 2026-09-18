@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { FiArrowRight } from "react-icons/fi";
 import type { TCart } from "../types/TCart";
 import { formatPrice } from "../util/util";
@@ -12,8 +13,9 @@ interface CartProps {
   onRemoveItem: (listingId: number) => void;
 }
 
-// Named export directly mapping into index files cleanly
- const Cart: React.FC<CartProps> = ({ cart, onRemoveItem, onCheckout }) => {
+const Cart: React.FC<CartProps> = ({ cart, onRemoveItem, onCheckout }) => {
+  const { t } = useTranslation();
+  
   // Memoize summary computations locally to maintain rendering frame accuracy
   const itemTotal = cart.cartItemList.reduce((sum, item) => sum + item.price, 0);
   const shippingCost = cart.cartItemList.reduce((sum, item) => sum + item.shipping, 0);
@@ -22,7 +24,7 @@ interface CartProps {
   return (
     <main className="cart-page">
       <header className="cart-header">
-        <h1 className="cart-title">Shopping Bag</h1>
+        <h1 className="cart-title">{t("cart.header.title")}</h1>
       </header>
 
       <section className="cart-workspace">
@@ -31,7 +33,7 @@ interface CartProps {
           {cart.cartItemList.map((item) => (
             <CartItemCard 
               key={item.cartItemId} 
-             item={item}
+              item={item}
               onRemove={onRemoveItem} 
             />
           ))}
@@ -42,19 +44,19 @@ interface CartProps {
 
         {/* RIGHT SIDEBAR: TRANSACTION BILLING CALCULATORS CARD */}
         <aside className="cart-summary-sidebar">
-          <h2 className="cart-summary-title">Order Summary</h2>
+          <h2 className="cart-summary-title">{t("cart.summary.title")}</h2>
           
           <dl className="cart-summary-ledger">
             <div className="cart-summary-row">
-              <dt>Subtotal</dt>
+              <dt>{t("cart.summary.subtotal")}</dt>
               <dd>{formatPrice(itemTotal)} zł</dd>
             </div>
             <div className="cart-summary-row">
-              <dt>Shipping cost</dt>
+              <dt>{t("cart.summary.shipping")}</dt>
               <dd>{formatPrice(shippingCost)} zł</dd>
             </div>
             <div className="cart-summary-row cart-summary-total-row">
-              <dt>Total</dt>
+              <dt>{t("cart.summary.total")}</dt>
               <dd>{formatPrice(finalOrderTotal)} zł</dd>
             </div>
           </dl>
@@ -65,13 +67,13 @@ interface CartProps {
             onClick={onCheckout}
             disabled={!cart.address}
           >
-            <span>Secure Checkout</span>
+            <span>{t("cart.summary.checkout_btn")}</span>
             <FiArrowRight />
           </button>
           
           {!cart.address && (
             <p className="cart-checkout-warning">
-              Please add a delivery address to unlock checkout options.
+              {t("cart.summary.address_warning")}
             </p>
           )}
         </aside>

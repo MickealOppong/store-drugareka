@@ -1,16 +1,20 @@
 import { useEffect, useState, type ChangeEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { SHIPPING_METHOD } from "../data/data";
 import { useEditListingMutation } from "../features/api/itemApi";
 import {
-    useGetAllCategoriesQuery,
-    useLazyGetListingQuery
+  useGetAllCategoriesQuery,
+  useLazyGetListingQuery
 } from "../features/api/storeApi";
-import { useGetAllConditionsQuery } from "../features/api/transApi";
+import { useAllBrandsQuery, useGetAllConditionsQuery } from "../features/api/transApi";
+import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TListTrans } from "../types/TListTrans";
 import type { TProductData } from "../types/TProductData";
+import { sanitizeBackendKey } from "../util/util";
 import "./../css/AddListing.css";
+import SearchSelect from "./SearchSelect";
 
 type TFile = {
   file: Blob;
@@ -24,6 +28,17 @@ const EditListing = () => {
   const {data:conditions} = useGetAllConditionsQuery()
 const [getListing] = useLazyGetListingQuery()
 
+
+  /**
+   * Brand query
+   */
+  const { data: brands = [] } = useAllBrandsQuery();
+  
+  /**
+   * 
+   * TRANSLATION
+   */
+  const {t} = useTranslation()
 
 
 async function fetchListing(){
@@ -97,6 +112,7 @@ fetchListing()
   const [conditionError, setConditionError] = useState<string>("");
   const [imageError, setImageError] = useState<string>("");
   const [shippingError, setShippingError] = useState<string>("");
+  const [shippingMethodError, setShippingMethodError] = useState<string>("");
 
   /**
    * * crud hooks
@@ -272,25 +288,20 @@ fetchListing()
     } catch (error: any) {}
   };
 
-
   return (
-    <main className="add-product">
+ <main className="add-product">
       {/* =====================================================
                 HEADER
             ====================================================== */}
-
       <header className="add-product__header">
         <div className="add-product__header-left">
-          <Link
-            to="/account/listings/me"
-            className="add-product__back"
-          >
+          <Link to="/account/listings/me" className="add-product__back">
             <FiArrowLeft />
           </Link>
 
           <div>
-            <h1>Edit product</h1>
-            <p>Update a product and make it available to buyers.</p>
+            <h1>{t("add_listing.header.title_edit")}</h1>
+            <p>{t("add_listing.header.subtitle")}</p>
           </div>
         </div>
 
@@ -300,7 +311,7 @@ fetchListing()
             className="add-product__draft-btn"
             onClick={() => handleButtonClick("DRAFT")}
           >
-            Save draft
+            {t("add_listing.header.actions.save_draft")}
           </button>
 
           <button
@@ -309,7 +320,7 @@ fetchListing()
             className="add-product__publish-btn"
             onClick={() => handleButtonClick("PUBLISH")}
           >
-            Publish update
+            {t("add_listing.header.actions.publish")}
           </button>
         </div>
       </header>
@@ -326,15 +337,13 @@ fetchListing()
           {/* =================================================
                         LEFT COLUMN
                     ================================================== */}
-
           <div className="add-product__main">
             {/* Product Images */}
-
             <section className="product-section">
               <div className="product-section__header">
                 <div>
-                  <h2>Product images</h2>
-                  <p>Add clear images of your product.</p>
+                  <h2>{t("add_listing.sections.images.title")}</h2>
+                  <p>{t("add_listing.sections.images.subtitle")}</p>
                 </div>
 
                 <span>{images.length}/8</span>
@@ -342,14 +351,8 @@ fetchListing()
 
               <div className="product-images">
                 {images.map((image, index) => (
-                  <div
-                    className="product-image"
-                    key={index}
-                  >
-                    <img
-                      src={image.preview}
-                      alt={`Product ${index + 1}`}
-                    />
+                  <div className="product-image" key={index}>
+                    <img src={image.preview} alt={`Product ${index + 1}`} />
 
                     <button
                       type="button"
@@ -360,7 +363,9 @@ fetchListing()
                     </button>
 
                     {index === 0 && (
-                      <span className="product-image__primary">Main</span>
+                      <span className="product-image__primary">
+                        {t("add_listing.sections.images.main_label")}
+                      </span>
                     )}
                   </div>
                 ))}
@@ -376,9 +381,9 @@ fetchListing()
 
                     <FiImage />
 
-                    <span>Add images</span>
+                    <span>{t("add_listing.sections.images.add_btn")}</span>
 
-                    <small>JPG, PNG or WEBP</small>
+                    <small>{t("add_listing.sections.images.hint")}</small>
                   </label>
                 )}
               </div>
@@ -388,25 +393,24 @@ fetchListing()
             </section>
 
             {/* Basic Information */}
-
             <section className="product-section">
               <div className="product-section__header">
                 <div>
-                  <h2>Product information</h2>
-                  <p>Give buyers the important details.</p>
+                  <h2>{t("add_listing.sections.info.title")}</h2>
+                  <p>{t("add_listing.sections.info.subtitle")}</p>
                 </div>
               </div>
 
               <div className="form-grid">
                 <div>
                   <div className="form-field form-field--full">
-                    <label htmlFor="name">Product name</label>
+                    <label htmlFor="name">{t("add_listing.fields.name.label")}</label>
 
                     <input
                       id="name"
                       name="name"
                       type="text"
-                      placeholder="e.g. Vintage leather jacket"
+                      placeholder={t("add_listing.fields.name.placeholder")}
                       value={formData.name}
                       onChange={handleInputChange}
                       required
@@ -419,7 +423,7 @@ fetchListing()
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="category">Category</label>
+                  <label htmlFor="category">{t("add_listing.fields.category.label")}</label>
 
                   <select
                     id="category"
@@ -431,16 +435,16 @@ fetchListing()
                       value=""
                       disabled
                     >
-                      Select category
+                 {t("add_listing.fields.category.placeholder")}
                     </option>
 
                     {categories?.map((category) => {
                       return (
                         <option
                           key={category.id}
-                          value={category.slug}
+                          value={category.name}
                         >
-                          {category.name}
+                        {t(`category_names.${sanitizeBackendKey(category.slug.toLowerCase())}`)}
                         </option>
                       );
                     })}
@@ -454,7 +458,7 @@ fetchListing()
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="condition">Condition</label>
+                  <label htmlFor="condition">{t("add_listing.fields.condition.label")}</label>
 
                   <select
                     id="condition"
@@ -466,7 +470,7 @@ fetchListing()
                       value=""
                       disabled
                     >
-                      Select condition
+                 {t("add_listing.fields.condition.placeholder")}
                     </option>
 
                     {conditions?.map((condition) => {
@@ -475,7 +479,7 @@ fetchListing()
                           key={condition.id}
                           value={condition.name}
                         >
-                          {condition.name}
+                       {t(`product_conditions.${sanitizeBackendKey(condition.name.toLowerCase())}`)}
                         </option>
                       );
                     })}
@@ -489,19 +493,19 @@ fetchListing()
 
                 <div>
                   <div className="form-field form-field--full">
-                    <label htmlFor="description">Description</label>
+                    <label htmlFor="description">{t("add_listing.fields.description.label")}</label>
 
                     <textarea
                       id="description"
                       name="description"
                       rows={7}
-                      placeholder="Describe the product, its condition, features and anything buyers should know..."
+                      placeholder={t("add_listing.fields.description.placeholder")}
                       value={formData.description}
                       onChange={handleTextInputChange}
                     />
 
                     <span className="form-field__hint">
-                      Be clear and honest about the product.
+                    {t("add_listing.fields.description.hint")}
                     </span>
                   </div>
                   {descriptionError && (
@@ -513,22 +517,21 @@ fetchListing()
               </div>
             </section>
 
-            {/* Pricing & Inventory */}
-
+                    {/* Pricing & Inventory */}
             <section className="product-section">
               <div className="product-section__header">
                 <div>
-                  <h2>Pricing & inventory</h2>
-                  <p>Set your price and available quantity.</p>
+                  <h2>{t("add_listing.sections.pricing.title")}</h2>
+                  <p>{t("add_listing.sections.pricing.subtitle")}</p>
                 </div>
               </div>
 
               <div className="form-grid">
                 <div className="form-field">
-                  <label htmlFor="price">Price</label>
+                  <label htmlFor="price">{t("add_listing.fields.price.label")}</label>
 
                   <div className="input-with-prefix">
-                    <span>€</span>
+                    <span>zł</span>
 
                     <input
                       id="price"
@@ -548,7 +551,7 @@ fetchListing()
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="quantity">Quantity</label>
+                  <label htmlFor="quantity">{t("add_listing.fields.quantity.label")}</label>
 
                   <input
                     id="quantity"
@@ -562,31 +565,25 @@ fetchListing()
                 </div>
 
                 <div>
-                  <div className="form-field">
-                    <label htmlFor="brand">Brand</label>
-
-                    <input
-                      id="brand"
-                      name="brand"
-                      type="text"
-                      placeholder="e.g. Nike"
-                      value={formData.brand}
-                      onChange={handleInputChange}
-                    />
-                  </div>
+                  <label htmlFor="brand">{t("add_listing.fields.brand.label")}</label>
+                  <SearchSelect 
+                    brands={brands as TbrandResponse[]} 
+                    value={formData.brand} 
+                    onChange={handleSelectChange}  
+                  />
                   {brandError && (
                     <span className="form-field__error-msg">{brandError}</span>
                   )}
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="sku">SKU</label>
+                  <label htmlFor="sku">{t("add_listing.fields.sku.label")}</label>
 
                   <input
                     id="sku"
                     name="sku"
                     type="text"
-                    placeholder="Optional"
+                    placeholder={t("add_listing.fields.sku.placeholder")}
                     value={formData.sku}
                     onChange={handleInputChange}
                   />
@@ -595,21 +592,16 @@ fetchListing()
             </section>
 
             {/* Shipping */}
-
             <section className="product-section">
               <div className="product-section__header">
                 <div>
-                  <h2>Shipping</h2>
-                  <p>
-                    Within how many days can this product be delivery to buyer?
-                  </p>
+                  <h2>{t("add_listing.sections.shipping.title")}</h2>
+                  <p>{t("add_listing.sections.shipping.subtitle")}</p>
                 </div>
-                {shippingError && (
-                  <span className="form-field__error-msg">{shippingError}</span>
-                )}
               </div>
+              
               <div className="form-field">
-                <label htmlFor="condition">Shipping method</label>
+                <label htmlFor="shippingMethod">{t("add_listing.fields.shipping_method.label")}</label>
 
                 <select
                   id="shippingMethod"
@@ -617,56 +609,51 @@ fetchListing()
                   value={formData.shippingMethod}
                   onChange={handleSelectChange}
                 >
-                  <option
-                    value=""
-                    disabled
-                  >
-                    Select shiping method
+                  <option value="" disabled>
+                    {t("add_listing.fields.shipping_method.placeholder")}
                   </option>
 
                   {SHIPPING_METHOD.map((method) => {
                     return (
-                      <option
-                        key={method.id}
-                        value={method.value}
-                      >
+                      <option key={method.id} value={method.value}>
                         {method.method}
                       </option>
                     );
                   })}
                 </select>
-                {conditionError && (
+                {shippingMethodError && (
                   <span className="form-field__error-msg">
-                    {conditionError}
+                    {shippingMethodError}
                   </span>
                 )}
               </div>
 
-              <div className="form-field">
-                <label htmlFor="shipping">Shipping information</label>
+              <div className="form-field shippingInfo">
+                <label htmlFor="shippingInfo">{t("add_listing.fields.shipping_info.label")}</label>
 
                 <textarea
                   id="shippingInfo"
                   name="shippingInfo"
                   rows={4}
-                  placeholder="e.g. Ships within 2–3 business days. Buyer pays shipping."
-                  value={formData.shippingInfo|| ""}
+                  placeholder={t("add_listing.fields.shipping_info.placeholder")}
+                  value={formData.shippingInfo}
                   onChange={handleTextInputChange}
                 />
               </div>
+              {shippingError && (
+                <span className="form-field__error-msg">{shippingError}</span>
+              )}
             </section>
           </div>
 
           {/* =================================================
                         RIGHT SIDEBAR
                     ================================================== */}
-
           <aside className="add-product__sidebar">
             {/* Publish */}
-
             <section className="product-card">
               <div className="product-card__header">
-                <h3>Product status</h3>
+                <h3>{t("add_listing.sidebar.status.title")}</h3>
               </div>
 
               <div className="status-option">
@@ -676,61 +663,51 @@ fetchListing()
 
                 <div className="status-option__message">
                   <div>
-                    <strong>Publish</strong>
-
-                    <p>Buyers can see and purchase this product.</p>
+                    <strong>{t("add_listing.sidebar.status.publish_label")}</strong>
+                    <p>{t("add_listing.sidebar.status.publish_desc")}</p>
                   </div>
                 </div>
               </div>
             </section>
 
             {/* Tips */}
-
             <section className="product-card">
               <div className="product-card__header">
-                <h3>Product tips</h3>
+                <h3>{t("add_listing.sidebar.tips.title")}</h3>
               </div>
 
               <ul className="product-tips">
-                <li>Use bright, clear product images.</li>
-
-                <li>Write an accurate description.</li>
-
-                <li>Mention any defects or signs of use.</li>
-
-                <li>Use a competitive price.</li>
+                <li>{t("add_listing.sidebar.tips.tip1")}</li>
+                <li>{t("add_listing.sidebar.tips.tip2")}</li>
+                <li>{t("add_listing.sidebar.tips.tip3")}</li>
+                <li>{t("add_listing.sidebar.tips.tip4")}</li>
               </ul>
             </section>
 
             {/* Preview */}
-
             <section className="product-card product-card--preview">
               <div className="product-card__header">
-                <h3>Preview</h3>
+                <h3>{t("add_listing.sidebar.preview.title")}</h3>
               </div>
 
               <div className="product-preview">
                 <div className="product-preview__image">
                   {images.length > 0 ? (
-                    <img
-                      src={images[0].preview}
-                      alt="Product preview"
-                    />
+                    <img src={images[0].preview} alt="Product preview" />
                   ) : (
                     <FiImage />
                   )}
                 </div>
 
                 <div className="product-preview__content">
-                  <span>{formData.category || "Category"}</span>
-
-                  <h4>{formData.name || "Your product name"}</h4>
-
-                  <strong>€{formData.price || "0.00"}</strong>
+                  <span>{formData.category || t("add_listing.sidebar.preview.fallback_category")}</span>
+                  <h4>{formData.name || t("add_listing.sidebar.preview.fallback_name")}</h4>
+                  <strong>{formData.price || "0.00"} zł</strong>
                 </div>
               </div>
             </section>
           </aside>
+
         </div>
       </form>
     </main>

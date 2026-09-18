@@ -6,7 +6,7 @@ import {
   FiSearch,
   FiShoppingBag,
   FiSliders,
-  FiX
+  FiX,
 } from "react-icons/fi";
 
 import { useTranslation } from "react-i18next";
@@ -16,70 +16,64 @@ import {
   useAddWishListMutation,
   useGetWishListsQuery,
 } from "../features/api/itemApi";
-import { useGetAllCategoriesQuery, useGetStoreListingsFeedQuery } from "../features/api/storeApi";
+import {
+  useGetAllCategoriesQuery,
+  useGetStoreListingsFeedQuery,
+} from "../features/api/storeApi";
 import { useAddToCart } from "../hooks/useAddTocart";
 import { useRecentViews } from "../hooks/useRecentViews";
 import { useAppSelector } from "../store";
-import { formatPrice } from "../util/util";
+import { formatPrice, sanitizeBackendKey } from "../util/util";
 import "./../css/Shop.css";
 
-// Helper function to safely translate backend data conditions to local strings
-const getConditionKey = (condition: string) => {
-  if (!condition) return "good";
-  return condition.toLowerCase().replace(/\s+/g, '_');
-};
+
 
 const Shop = () => {
   //translation hook
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
-//user id
-const userId = useAppSelector((state)=>state.userSlice.userId)  
+  //user id
+  const userId = useAppSelector((state) => state.userSlice.userId);
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { addItemToCart} = useAddToCart();
+  const { addItemToCart } = useAddToCart();
   const { addView } = useRecentViews();
 
   // 1. Core State Trackers synchronized natively with standard parameters
   const [search, setSearch] = useState<string>("");
   const [sort, setSort] = useState<string>("newest");
   const [showFilters, setShowFilters] = useState<boolean>(false);
-  //const [wishlist, setWishlist] = useState<number[]>([]);
 
-// Safely extract the default active category from URL line, falling back to global state
+
+  // Safely extract the default active category from URL line, falling back to global state
   const selectedCategory = searchParams.get("category") || "all";
 
-  
-  const request ={
-    queryCategory:selectedCategory,
+  const request = {
+    queryCategory: selectedCategory,
     page: 0,
-    size: 50}
+    size: 50,
+  };
 
-  // Replaced useLazy Query hooks entirely. These automatically trigger an optimized 
+  // Replaced useLazy Query hooks entirely. These automatically trigger an optimized
   // backend network fetch pass the split second a user mounts or lands on this route path!
-  const {  data, isLoading: isProductsLoading  } =useGetStoreListingsFeedQuery(request,{refetchOnFocus:true,refetchOnMountOrArgChange:true})
-  const products = data?.listings || []
-  
-  
-  console.log(products);
+  const { data, isLoading: isProductsLoading } = useGetStoreListingsFeedQuery(
+    request,
+    { refetchOnFocus: true, refetchOnMountOrArgChange: true },
+  );
+  const products = data?.listings || [];
+
+  console.log(products[0]);
   console.log(userId);
-  
-  
-  const { 
-    data: categories = [] } =useGetAllCategoriesQuery();
 
-  
-    
+  const { data: categories = [] } = useGetAllCategoriesQuery();
 
-  const {data:wishlist=[]} = useGetWishListsQuery();
-     const wishlists = wishlist.map((item) => item.listingId);
+  const { data: wishlist = [] } = useGetWishListsQuery();
+  const wishlists = wishlist.map((item) => item.listingId);
 
   const [addToWish] = useAddWishListMutation();
   const username = useAppSelector((state) => state.userSlice.username);
 
-
-  
   // ==========================================================================
   // HIGH-PERFORMANCE CLIENT FILTERS MEMOIZATION MATRIX
   // ==========================================================================
@@ -92,38 +86,50 @@ const navigate = useNavigate();
       result = result.filter(
         (product) =>
           product.brand.toLowerCase().includes(query) ||
-          product.productName.toLowerCase().includes(query)
+          product.productName.toLowerCase().includes(query),
       );
     }
 
     // Chronological and Pricing Sorting Configurations
     switch (sort) {
       case "price-low":
-        result.sort((a, b) => a.priceDto.storeNewPrice - b.priceDto.storeNewPrice);
+        result.sort(
+          (a, b) => a.priceDto.storeNewPrice - b.priceDto.storeNewPrice,
+        );
         break;
 
       case "price-high":
-        result.sort((a, b) => b.priceDto.storeNewPrice - a.priceDto.storeNewPrice);
+        result.sort(
+          (a, b) => b.priceDto.storeNewPrice - a.priceDto.storeNewPrice,
+        );
         break;
 
       case "discount":
         result.sort((a, b) => {
-          const discountA = ((a.priceDto.storeNewPrice - a.priceDto.storeOldPrice) / a.priceDto.storeNewPrice) * 100;
-          const discountB = ((b.priceDto.storeNewPrice - b.priceDto.storeOldPrice) / b.priceDto.storeOldPrice) * 100;
+          const discountA =
+            ((a.priceDto.storeNewPrice - a.priceDto.storeOldPrice) /
+              a.priceDto.storeNewPrice) *
+            100;
+          const discountB =
+            ((b.priceDto.storeNewPrice - b.priceDto.storeOldPrice) /
+              b.priceDto.storeOldPrice) *
+            100;
           return discountB - discountA;
         });
         break;
 
       case "oldest":
         result.sort((a, b) => {
-          const dateDiff = new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+          const dateDiff =
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
           return dateDiff !== 0 ? dateDiff : a.listingId - b.listingId;
         });
         break;
 
       default: // Newest (Chronological Summary Snapshot Sort)
         result.sort((a, b) => {
-          const dateDiff = new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          const dateDiff =
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
           return dateDiff !== 0 ? dateDiff : b.listingId - a.listingId;
         });
         break;
@@ -143,19 +149,16 @@ const navigate = useNavigate();
 
   const toggleWishlist = async (listingId: number) => {
     if (!username) return navigate("/login");
-   await addToWish(listingId);
-    
+    await addToWish(listingId);
   };
 
-
-  
   return (
     <main className="shop-page">
       {/* =====================================================
                 SHOP HEADER
             ====================================================== */}
 
-  <section className="shop-page__header">
+      <section className="shop-page__header">
         <div className="shop-page__heading">
           <span className="shop-page__eyebrow">Druga Ręka</span>
           <h1>{t("shop.header.title")}</h1>
@@ -172,7 +175,10 @@ const navigate = useNavigate();
             placeholder={t("shop.header.search_placeholder")}
           />
           {search && (
-            <button type="button" onClick={() => setSearch("")}>
+            <button
+              type="button"
+              onClick={() => setSearch("")}
+            >
               <FiX />
             </button>
           )}
@@ -183,7 +189,7 @@ const navigate = useNavigate();
                 CATEGORY NAVIGATION
             ====================================================== */}
 
-   <section className="shop-page__categories">
+      <section className="shop-page__categories">
         <button
           className={selectedCategory === "all" ? "active" : ""}
           onClick={() => handleCategoryButtonClick("all")}
@@ -197,7 +203,7 @@ const navigate = useNavigate();
             className={selectedCategory === category.slug ? "active" : ""}
             onClick={() => handleCategoryButtonClick(category.slug)}
           >
-            {category.name}
+            {t(`category_names.${sanitizeBackendKey(category.slug)}`)}
           </button>
         ))}
       </section>
@@ -206,7 +212,7 @@ const navigate = useNavigate();
                 TOOLBAR
             ====================================================== */}
 
-  <section className="shop-page__toolbar">
+      <section className="shop-page__toolbar">
         <div className="shop-page__result-count">
           <strong>{filteredProducts.length}</strong>
           <span> {t("shop.toolbar.products_count")}</span>
@@ -226,12 +232,25 @@ const navigate = useNavigate();
           <div className="shop-page__sort">
             <span>{t("shop.toolbar.sort_label")}</span>
             <div>
-              <select value={sort} onChange={(e) => setSort(e.target.value)}>
-                <option value="newest">{t("shop.toolbar.sort_options.newest")}</option>
-                <option value="oldest">{t("shop.toolbar.sort_options.oldest")}</option>
-                <option value="price-low">{t("shop.toolbar.sort_options.price_low")}</option>
-                <option value="price-high">{t("shop.toolbar.sort_options.price_high")}</option>
-                <option value="discount">{t("shop.toolbar.sort_options.discount")}</option>
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+              >
+                <option value="newest">
+                  {t("shop.toolbar.sort_options.newest")}
+                </option>
+                <option value="oldest">
+                  {t("shop.toolbar.sort_options.oldest")}
+                </option>
+                <option value="price-low">
+                  {t("shop.toolbar.sort_options.price_low")}
+                </option>
+                <option value="price-high">
+                  {t("shop.toolbar.sort_options.price_high")}
+                </option>
+                <option value="discount">
+                  {t("shop.toolbar.sort_options.discount")}
+                </option>
               </select>
               <FiChevronDown />
             </div>
@@ -243,7 +262,7 @@ const navigate = useNavigate();
                 PRODUCTS
             ====================================================== */}
 
-       {isProductsLoading ? (
+      {isProductsLoading ? (
         <Loading />
       ) : (
         <section className="shop-page__products">
@@ -265,12 +284,17 @@ const navigate = useNavigate();
             filteredProducts.map((product) => {
               const isWishlisted = wishlists.includes(product.listingId);
               const discount = Math.round(
-                ((product.priceDto.storeNewPrice - product.priceDto.storeOldPrice) /
-                  product.priceDto.storeOldPrice) * 100
+                ((product.priceDto.storeNewPrice -
+                  product.priceDto.storeOldPrice) /
+                  product.priceDto.storeOldPrice) *
+                  100,
               );
 
               return (
-                <article className="shop-product-card" key={product.listingId}>
+                <article
+                  className="shop-product-card"
+                  key={product.listingId}
+                >
                   {/* IMAGE */}
                   <div className="shop-product-card__media">
                     <Link
@@ -293,7 +317,9 @@ const navigate = useNavigate();
                       className={`shop-product-card__wishlist ${isWishlisted ? "active" : ""}`}
                       onClick={() => toggleWishlist(product.listingId)}
                       aria-label={t("shop.product.add_wishlist")}
-                      style={{ display: product.sellerId === userId ? 'none' : 'flex' }}
+                      style={{
+                        display: product.sellerId === userId ? "none" : "flex",
+                      }}
                     >
                       <FiHeart />
                     </button>
@@ -308,46 +334,56 @@ const navigate = useNavigate();
                     <h2>{product.productName}</h2>
 
                     <div className="shop-product-card__condition">
-                    <span>{t(`landing.new_arrivals.conditions.${getConditionKey(product.productCondition)}`)}</span>
-                  </div>
-
-                  <div className="shop-product-card__bottom">
-                    <div>
-                      <strong>
-                        {formatPrice(product.priceDto.storeNewPrice)||0} zł
-                      </strong>
-
-                      <del>
-                        {formatPrice(product.priceDto.storeOldPrice)||0} zł
-                      </del>
+                      <span>
+                     {t(`product_conditions.${product.productCondition.toLowerCase()}`)}
+                      </span>
                     </div>
 
-                    {
-                      !userId || product.sellerId!==userId?<button
-                      className="shop-product-card__buy"
-                      aria-label="Kup produkt"
-                      onClick={()=>addItemToCart(product.listingId)}
-              
-                    >
-                      <FiShoppingBag />
-                    </button>:<button
-                      className="shop-product-card__buy"
-                      aria-label="Kup produkt"
-                      onClick={()=>navigate(`/account/listings/${product.listingId}/edit`)}
-  
-                    >
-                      <FiEdit />
-                    </button>
-                    }
+                    <div className="shop-product-card__bottom">
+                      <div>
+                        <strong>
+                          {formatPrice(product.priceDto.storeNewPrice) || 0} zł
+                        </strong>
+
+                        <del>
+                          {formatPrice(product.priceDto.storeOldPrice) || 0} zł
+                        </del>
+                      </div>
+
+                      {!userId || product.sellerId !== userId ? (
+                        <button
+                          className="shop-product-card__buy"
+                          aria-label="Kup produkt"
+                          onClick={() => addItemToCart(product.listingId)}
+                        >
+                          <FiShoppingBag />
+                        </button>
+                      ) : (
+                        <button
+                          className="shop-product-card__buy"
+                          aria-label="Kup produkt"
+                          onClick={() =>
+                            navigate(
+                              `/account/listings/${product.listingId}/edit`,
+                            )
+                          }
+                        >
+                          <FiEdit />
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </article>
-            );
-          })
-        )}
-      </section>)
-          }
-          <Pagination page={data?.page as number} totalPage={data?.totalPages as number} size={data?.pageSize as number}/>
+                </article>
+              );
+            })
+          )}
+        </section>
+      )}
+      <Pagination
+        page={data?.page as number}
+        totalPage={data?.totalPages as number}
+        size={data?.pageSize as number}
+      />
 
       {/* =====================================================
                 MOBILE FILTER DRAWER
@@ -374,20 +410,22 @@ const navigate = useNavigate();
 
               <select
                 value={selectedCategory}
-                onChange={() => {
-                  //setSelectedCategory(selectedCategory);
+                onChange={(e) => {
+               handleCategoryButtonClick(e.target.value);
 
                   setShowFilters(false);
                 }}
               >
-                <option value="all">{t("shop.filter_drawer.all_option")}</option>
+                <option value="all">
+                  {t("shop.filter_drawer.all_option")}
+                </option>
 
                 {categories.map((category) => (
                   <option
                     key={category.id}
-                    value={category.name}
+                    value={category.slug}
                   >
-                    {category.name}
+                    {t(`category_names.${sanitizeBackendKey(category.slug)}`)}
                   </option>
                 ))}
               </select>
@@ -399,7 +437,4 @@ const navigate = useNavigate();
   );
 };
 
-
-export default Shop
-
-
+export default Shop;

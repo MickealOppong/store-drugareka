@@ -1,59 +1,43 @@
 import { useTranslation } from "react-i18next";
 import {
   FiArrowRight,
-  FiHeart,
+  FiEdit,
   FiRefreshCw,
   FiShield,
+  FiShoppingBag,
   FiTag,
   FiTruck
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { appName } from "../data/data";
-import { useGetTop6ProductCategoriesQuery } from "../features/api/storeApi";
+import { useGetLandingListingQuery, useGetTop6ProductCategoriesQuery } from "../features/api/storeApi";
+import { useAddToCart } from "../hooks/useAddTocart";
+import { useAppSelector } from "../store";
+import { formatPrice, sanitizeBackendKey } from "../util/util";
+import hero from './../assets/hero-large.png';
 import heroSmall from './../assets/hero-small.png';
-import hero from './../assets/hero.png';
 import './../css/DesktopLanding.css';
 import LanguageSwitcher from "./LanguageSwitcher";
 import Loading from "./Loading";
 
-const products = [
-  {
-    id: 1,
-    name: "Nike Air Max",
-    condition: "Very Good",
-    price: "€69",
-    image: "https://muvio.pl/images/sv270/126000-127000/Buty-Nike-Air-Force-1-07-Czarne-DZ4514-001_%5B126078%5D_480.jpg",
-  },
-  {
-    id: 2,
-    name: "The North Face Jacket",
-    condition: "Excellent",
-    price: "€79",
-    image: "https://img01.ztat.net/article/spp-media-p1/7c9ba579a8d44553b07a1c5b098ecf5f/30d9a7787af0407d8f0af9c5e5428a30.jpg?imwidth=762",
-  },
-  {
-    id: 3,
-    name: "BabyBjörn Bliss",
-    condition: "Very Good",
-    price: "€65",
-    image: "https://img.smyk.com/pl/pl/760x/https://bin.smyk.com/pl/pl/media/product/1600/1/babybjrn-bliss-mesh-lezaczek-szary-bez-7657413.jpg",
-  },
-  {
-    id: 4,
-    name: "Apple Watch",
-    condition: "Good",
-    price: "€139",
-    image: "https://prod-api.mediaexpert.pl/api/images/gallery_500_500/thumbnails/images/81/8128821/Apple_Watch_Series_11_42mm_GPS_Jet_Black_Aluminum_Sport_Band_Black_PDP_Image_Position_1__pl-PL.jpg",
-  },
-];
-// Helper function to dynamically map status strings into matching JSON keys
-const getConditionKey = (condition:string) => {
-  if (!condition) return "good";
-  return condition.toLowerCase().replace(/\s+/g, '_');
-};
 
 export default function DesktopLanding() {
 const {data:topCategories=[],isLoading} = useGetTop6ProductCategoriesQuery()
+
+/**
+ *  selected products
+ */
+const {data:listings=[]} = useGetLandingListingQuery()
+
+/**
+ *  ADD TO CART
+ */
+const {addItemToCart} = useAddToCart()
+
+
+  //user id
+  const userId = useAppSelector((state) => state.userSlice.userId);
+  
 
 /**
  * Translation
@@ -181,7 +165,7 @@ if(isLoading){
               >
                 <img src={category.image} alt={category.name} />
                 <div className="category-card__overlay">
-                  <h3>{category.name}</h3>
+                  <h3> {t(`category_names.${sanitizeBackendKey(category.slug)}`)}</h3>
                   <FiArrowRight />
                 </div>
               </Link>
@@ -193,7 +177,7 @@ if(isLoading){
                 NEW ARRIVALS
             ====================================================== */}
 
-<section className="products section">
+<section className="products section" style={{display:listings.length===0?'none':'grid'}}>
           <div className="section-heading">
             <div>
               <span className="section-eyebrow">{t("landing.new_arrivals.eyebrow")}</span>
@@ -207,31 +191,45 @@ if(isLoading){
           </div>
 
           <div className="product-grid">
-            {products.map((product) => (
+            {listings.map((product) => (
               <Link
-                key={product.id}
-                to={`/product/${product.id}`}
+                key={product.listingId}
+                to={`/shop/listing/${product.listingId}`}
                 className="product-card"
               >
                 <div className="product-card__media">
-                  <img src={product.image} alt={product.name} />
-                  <button
+                  <img src={product.media[0].image} alt={product.productName} />
+                 {
+                  !userId || userId!==product.sellerId? <button
                     className="product-card__favorite"
-                    aria-label={`Add ${product.name} to wishlist`}
+                    aria-label={`Add ${product.productName} to wishlist`}
                     onClick={(event) => {
                       event.preventDefault();
+                      addItemToCart(product.listingId)
                     }}
                   >
-                    <FiHeart />
+                  
+          <FiShoppingBag/>
+                  </button>: <button
+                    className="product-card__favorite"
+                    aria-label={`Add ${product.productName} to wishlist`}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      addItemToCart(product.listingId)
+                    }}
+                  >
+                  
+          <FiEdit />
                   </button>
+                 }
                 </div>
 
                 <div className="product-card__info">
                   <span className="product-card__condition">
-                    {t(`landing.new_arrivals.conditions.${getConditionKey(product.condition)}`)}
+                    {t(`product_conditions.${product.productCondition.toLowerCase()}`)}
                   </span>
-                  <h3>{product.name}</h3>
-                  <strong>{product.price}</strong>
+                  <h3>{product.productName}</h3>
+                  <strong>{formatPrice(product.priceDto.sellerNewPrice)} zl</strong>
                 </div>
               </Link>
             ))}

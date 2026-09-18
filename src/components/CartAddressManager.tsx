@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FiCheckCircle, FiEdit, FiMapPin, FiX } from "react-icons/fi";
 import { useAddAddressMutation } from "../features/api/cartApi";
 
@@ -11,8 +12,6 @@ export interface TAddress {
   contact: string;
 }
 
-
-
 interface CartAddressManagerProps {
   savedAddress: TAddress | null;
 }
@@ -20,6 +19,7 @@ interface CartAddressManagerProps {
 const CartAddressManager: React.FC<CartAddressManagerProps> = ({ savedAddress }) => {
   const [createAddress, { isLoading: isSaving }] = useAddAddressMutation();
   const [editMode, setEditMode] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   // 1. ISOLATED FORM STATE HOOK
   const [addressForm, setAddressForm] = useState<TAddress>({
@@ -58,9 +58,7 @@ const CartAddressManager: React.FC<CartAddressManagerProps> = ({ savedAddress })
 
     try {
       await createAddress(addressForm).unwrap();
-
-        setEditMode(false);
-      
+      setEditMode(false);
     } catch (err: any) {
       console.error("Address validation constraint block caught:", err);
       // Capture Spring Boot MethodArgumentNotValidException structured map payloads
@@ -81,13 +79,13 @@ const CartAddressManager: React.FC<CartAddressManagerProps> = ({ savedAddress })
     <div className="cart-address-block">
       <div className="cart-address-block-header">
         <h3 className="cart-address-heading">
-          <FiMapPin /> <span>Delivery Address</span>
+          <FiMapPin /> <span>{t("cart.address.title")}</span>
         </h3>
         <button 
           type="button" 
           className={editMode ? "cancel" : "edit"} 
           onClick={toggleEditMode}
-          title={editMode ? "Cancel modification" : "Edit address info"}
+          title={editMode ? t("cart.address.actions.cancel_hint") : t("cart.address.actions.edit_hint")}
         >
           {editMode ? <FiX /> : <FiEdit />}
         </button>
@@ -108,11 +106,11 @@ const CartAddressManager: React.FC<CartAddressManagerProps> = ({ savedAddress })
           <div className="cart-form-row">
             <div className="cart-form-container">
               <div className="cart-form-group">
-                <label htmlFor="street">Ulica i nr domu</label>
+                <label htmlFor="street">{t("cart.address.fields.street.label")}</label>
                 <input
                   id="street"
                   type="text"
-                  placeholder="np. Piotrkowska 12"
+                  placeholder={t("cart.address.fields.street.placeholder")}
                   value={addressForm.street}
                   onChange={(e) => handleInputChange("street", e.target.value)}
                   required
@@ -123,11 +121,11 @@ const CartAddressManager: React.FC<CartAddressManagerProps> = ({ savedAddress })
 
             <div className="cart-form-container">
               <div className="cart-form-group">
-                <label htmlFor="contact">Telefon kontaktowy</label>
+                <label htmlFor="contact">{t("cart.address.fields.contact.label")}</label>
                 <input
                   id="contact"
                   type="tel"
-                  placeholder="np. +48 500 600 700"
+                  placeholder={t("cart.address.fields.contact.placeholder")}
                   value={addressForm.contact}
                   onChange={(e) => handleInputChange("contact", e.target.value)}
                   required
@@ -140,11 +138,11 @@ const CartAddressManager: React.FC<CartAddressManagerProps> = ({ savedAddress })
           <div className="cart-form-row">
             <div className="cart-form-container">
               <div className="cart-form-group">
-                <label htmlFor="city">Miejscowość</label>
+                <label htmlFor="city">{t("cart.address.fields.city.label")}</label>
                 <input
                   id="city"
                   type="text"
-                  placeholder="np. Łódź"
+                  placeholder={t("cart.address.fields.city.placeholder")}
                   value={addressForm.city}
                   onChange={(e) => handleInputChange("city", e.target.value)}
                   required
@@ -155,11 +153,11 @@ const CartAddressManager: React.FC<CartAddressManagerProps> = ({ savedAddress })
 
             <div className="cart-form-container">
               <div className="cart-form-group">
-                <label htmlFor="postalCode">Kod pocztowy</label>
+                <label htmlFor="postalCode">{t("cart.address.fields.postal_code.label")}</label>
                 <input
                   id="postalCode"
                   type="text"
-                  placeholder="np. 90-001"
+                  placeholder={t("cart.address.fields.postal_code.placeholder")}
                   value={addressForm.postalCode}
                   onChange={(e) => handleInputChange("postalCode", e.target.value)}
                   required
@@ -174,7 +172,7 @@ const CartAddressManager: React.FC<CartAddressManagerProps> = ({ savedAddress })
             className="cart-address-save-btn" 
             disabled={isSaving}
           >
-            {isSaving ? "Saving details..." : "Save Address Location"}
+            {isSaving ? t("cart.address.actions.saving") : t("cart.address.actions.save_btn")}
           </button>
         </form>
       )}

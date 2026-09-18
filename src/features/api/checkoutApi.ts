@@ -20,9 +20,12 @@ export const checkoutApi = createApi({
   }),
   tagTypes: ['checkout'],
   endpoints: (build) => ({
-    checkoutBuyer: build.mutation<TResponseDto, void>({
-      query: () => ({
+    checkoutBuyer: build.mutation<TResponseDto,string>({
+      query: (locale) => ({
         url: "/api/checkout",
+        params:{
+          locale
+        },
         method:"POST",
       }),
       invalidatesTags:['checkout']

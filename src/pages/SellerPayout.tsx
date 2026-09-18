@@ -9,8 +9,11 @@ const SellerPayout = () => {
   const { t } = useTranslation();
 
   // Read data stream array from user API query injection
-  const { data: payouts = [] } = useGetMyPayoutsQuery();
+  const { data: payouts = [] ,error} = useGetMyPayoutsQuery();
 
+  
+  console.log(error);
+  
   /*
    * Filter calculation stream based on search criteria
    */

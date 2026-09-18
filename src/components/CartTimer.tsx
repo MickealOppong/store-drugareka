@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FiAlertCircle } from "react-icons/fi";
 
 interface CartTimerProps {
   expiryTimestamp: string;
 }
 
- const CartTimer: React.FC<CartTimerProps> = ({ expiryTimestamp}) => {
+const CartTimer: React.FC<CartTimerProps> = ({ expiryTimestamp }) => {
+  const { t } = useTranslation();
+
   const calculateTimeLeft = () => {
     const difference = +new Date(expiryTimestamp) - +new Date();
     if (difference <= 0) return 0;
@@ -16,7 +19,6 @@ interface CartTimerProps {
 
   useEffect(() => {
     if (timeLeft <= 0) {
-    // onExpire();
       return;
     }
 
@@ -26,7 +28,6 @@ interface CartTimerProps {
       
       if (currentDifference <= 0) {
         clearInterval(interval);
-       // onExpire();
       }
     }, 1000);
 
@@ -34,7 +35,7 @@ interface CartTimerProps {
   }, [expiryTimestamp, timeLeft]);
 
   if (timeLeft <= 0) {
-    return <span role="status">Holding window expired</span>;
+    return <span role="status">{t("cart.timer.expired")}</span>;
   }
 
   const minutes = Math.floor(timeLeft / 60);
@@ -44,8 +45,11 @@ interface CartTimerProps {
   return (
     <div role="status">
       <FiAlertCircle />
-      <span>Holding for {minutes}:{formattedSeconds}</span>
+      <span>
+        {t("cart.timer.holding", { time: `${minutes}:${formattedSeconds}` })}
+      </span>
     </div>
   );
 };
-export default CartTimer
+
+export default CartTimer;

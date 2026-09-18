@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FiArrowRight, FiHeart, FiMenu, FiShoppingBag, FiUser, FiX } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -15,6 +16,7 @@ import Search from "./Search";
 const MobileNav = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const { t } = useTranslation();
   
   const { username, roles } = useAppSelector((state) => state.userSlice);
   const { guestCartCount } = useAppSelector((state) => state.cartSlice);
@@ -29,12 +31,10 @@ const MobileNav = () => {
   const [logout, { isLoading }] = useLogoutMutation();
   const refreshToken = localStorage.getItem("rtk") as string;
 
-  // 🚀 FIXED: Automatically collapse the navigation panel if the user changes routes
   useEffect(() => {
     setMenuOpen(false);
   }, [location]);
 
-  // 🚀 FIXED: Prevent background viewport body scrolling when mobile navigation panel is open
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
@@ -60,6 +60,9 @@ const MobileNav = () => {
 
   const onUserButtonClick = () => {
     setMenuOpen(false);
+    if (!username) {
+      return navigate('/login');
+    }
     roles.includes("ROLE_ADMIN") ? navigate('/account/admin') : navigate('/account/user');
   };
 
@@ -79,47 +82,44 @@ const MobileNav = () => {
     <header className="mn-header">
       <div className="mn-header__inner">
         
-        {/* 1. BRAND LOGO */}
-        <Link to="/" className="mn-brand" onClick={() => setMenuOpen(false)}>
+        <Link to="/" className="mn-brand" onClick={() => setMenuOpen(false)}  style={{textTransform:'uppercase'}}>
           {appName}<span className="mn-brand__light">.pl</span>
         </Link>
 
-        {/* 2. ACTIONS TOOLBAR PANEL */}
         <div className="mn-header__actions">
           <button
             type="button"
             className="mn-header__action-btn"
-            aria-label="View Shopping Bag"
+            aria-label={t("navigation.accessibility.view_cart")}
             onClick={() => navigate("/cart")}
           >
             <FiShoppingBag />
-            <span className="mn-header__counter-badge">{isUserLoggedIn ? cartCounter : 0}</span>
+            <span className="mn-header__counter-badge">{isUserLoggedIn ? cartCounter : guestCartCount}</span>
           </button>
 
           <button
             type="button"
             className="mn-header__action-btn"
             onClick={onWishlistButtonClick}
-            aria-label="View Wishlist"
+            aria-label={t("navigation.accessibility.view_wishlist")}
           >
             <FiHeart />
-            <span className="mn-header__counter-badge">{isUserLoggedIn ? wishlistCounter : guestCartCount}</span>
+            <span className="mn-header__counter-badge">{isUserLoggedIn ? wishlistCounter : 0}</span>
           </button>
 
           <button 
             type="button"
             className="mn-header__action-btn"
             onClick={onUserButtonClick}
-            aria-label="View Profile Dashboard"
+            aria-label={t("navigation.accessibility.view_account")}
           >
             <FiUser />
           </button>
 
-          {/* HAMBURGER TOGGLE */}
           <button
             type="button"
             className="mn-header__menu-toggle"
-            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={menuOpen ? t("navigation.accessibility.menu_close") : t("navigation.accessibility.menu_open")}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen(!menuOpen)}
           >
@@ -134,39 +134,32 @@ const MobileNav = () => {
         />
       </div>
 
-      {/* ==========================================================================
-         3. HARDWARE-ACCELERATED MOBILE MENU DRAWER OVERLAY
-         ========================================================================== */}
       {menuOpen && (
         <div className="mn-drawer">
           <nav className="mn-drawer__nav">
             
             <Link to="/shop" className="mn-drawer__nav-link">
-              <span className="mn-drawer__link-text">Shop All Listings</span>
+              <span className="mn-drawer__link-text">{t("navigation.menu.shop")}</span>
               <FiArrowRight className="mn-drawer__link-icon" />
             </Link>
 
             <Link to="/shop/categories" className="mn-drawer__nav-link">
-              <span className="mn-drawer__link-text">Browse Categories</span>
+              <span className="mn-drawer__link-text">{t("navigation.menu.categories")}</span>
               <FiArrowRight className="mn-drawer__link-icon" />
             </Link>
 
             <Link to="/sell" className="mn-drawer__nav-link">
-              <span className="mn-drawer__link-text">Sell With Us</span>
+              <span className="mn-drawer__link-text">{t("navigation.menu.sell")}</span>
               <FiArrowRight className="mn-drawer__link-icon" />
             </Link>
 
             {username ? (
-              <button
-                type="button"
-                className="mn-drawer__logout-btn"
-                onClick={handleAccountLogout}
-              >
-                Log Out Account
+              <button type="button" className="mn-drawer__logout-btn" onClick={handleAccountLogout}>
+                {t("navigation.actions.logout")}
               </button>
             ) : (
               <Link to="/login" className="mn-drawer__nav-link mn-drawer__nav-link--login">
-                <span className="mn-drawer__link-text">Sign In / Register</span>
+                <span className="mn-drawer__link-text">{t("navigation.actions.login")}</span>
                 <FiArrowRight className="mn-drawer__link-icon" />
               </Link>
             )}

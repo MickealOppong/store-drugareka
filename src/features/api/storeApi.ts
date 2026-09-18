@@ -4,7 +4,8 @@ import type { TCategoryReponse } from "../../types/TCategoryResponse";
 import type { TListPageDto } from "../../types/TListPageDto";
 import type { TListTrans } from "../../types/TListTrans";
 import type { TResponseDto } from "../../types/TResponseDto";
-import type { TSellingActivity } from "../../types/TsellingActivity";
+
+import type { TSellingActivity } from "../../types/TSellingActivity";
 import { baseUrl } from "./baseUrl";
 
 export const storeApi = createApi({
@@ -29,10 +30,7 @@ export const storeApi = createApi({
         url: "/api/store/listings",
       }),
     }),
-    getStoreListingsFeed: build.query<
-      TListPageDto,
-      { queryCategory: string; page: number; size: number }
-    >({
+    getStoreListingsFeed: build.query<TListPageDto,{ queryCategory: string; page: number; size: number }>({
       query: ({ queryCategory, page, size }) => ({
         url: `/api/store/store-listing`,
         params: {
@@ -71,6 +69,12 @@ export const storeApi = createApi({
       }),
       providesTags: ["categories"],
     }),
+        getLandingListing: build.query<TListTrans[], void>({
+      query: () => ({
+        url: `/api/store/landing-listing`,
+      }),
+      providesTags: ["listings"],
+    }),
 
     getRecentSellerActivity: build.query<TSellingActivity[], void>({
       query: () => ({
@@ -78,7 +82,17 @@ export const storeApi = createApi({
       }),
       providesTags: ["listings"],
     }),
+        confirmDelivery: build.mutation<boolean, string>({
+      query: (token) => ({
+        url: "/api/store/confirm-delivery",
+        params:{
+          token
+        },
+        method:'put'
+      }),
+    }),
   }),
+  
 });
 export const {
   useGetStoreListingsFeedQuery,
@@ -88,4 +102,6 @@ export const {
   useGetTop6ProductCategoriesQuery,
   useLazyGetListingQuery,
   useGetRecentSellerActivityQuery,
+  useGetLandingListingQuery,
+  useConfirmDeliveryMutation
 } = storeApi;

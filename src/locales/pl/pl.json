@@ -55,8 +55,8 @@
     },
     "footer": {
       "tagline": "Lepszy sposób na kupno i sprzedaż produktów z drugiej ręki.",
-      "heading_shop": "Kupuj",
-      "heading_sell": "Sprzedawaj",
+      "heading_shop": "Sklep",
+      "heading_sell": "Sprzedać",
       "heading_help": "Pomoc",
       "link_all_products": "Wszystkie produkty",
       "link_categories": "Kategorie",
@@ -66,6 +66,26 @@
       "link_help_centre": "Centrum pomocy",
       "link_contact": "Kontakt"
     }
+  },
+  "category_names": {
+    "mens_fashion": "Moda męska",
+    "womens_fashion": "Moda damska",
+    "electronics": "Elektronika",
+    "home_living": "Dom i ogród",
+    "shoes": "Obuwie",
+    "home_equipment": "Wyposażenie domu",
+    "machines_spare_parts": "Maszyny i części zamienne",
+    "books_media": "Książki i media",
+    "sport_outdoor": "Sport i rekreacja",
+    "kids": "Dla dzieci",
+    "beauty_health": "Uroda i zdrowie"
+  },
+  "product_conditions": {
+    "good": "Dobry",
+    "new": "Nowy",
+    "excellent_condition": "Idealny",
+    "used": "Używany",
+    "very_good": "Bardzo dobry"
   },
   "shop": {
     "header": {
@@ -112,7 +132,7 @@
   },
   "sell_page": {
     "hero": {
-      "eyebrow": "SPRZEDAJ Z DRUGĄ RĘKĄ",
+      "eyebrow": "SPRZEDAJ Z nami",
       "title_line1": "Masz coś,",
       "title_line2": "czego już nie potrzebujesz?",
       "lead": "Wystaw swój produkt i pozwól nam zająć się jego sprzedażą.",
@@ -137,7 +157,7 @@
       "step4_desc": "Po zakończeniu transakcji otrzymasz należną Ci kwotę."
     },
     "benefits": {
-      "eyebrow": "DLACZEGO DRUGA RĘKA?",
+      "eyebrow": "DLACZEGO kasoa.pl?",
       "title": "Chcesz uniknąć niekończących się wiadomości i kontaktu z obcymi, a jednocześnie zarobić więcej?",
       "description": "Zyskaj kwotę premium za swój przedmiot bez marnowania czasu na uciążliwe negocjacje. My zajmiemy się wszystkim.",
       "bullet1": "Zero spamu i natrętnych pytań od kupujących",
@@ -152,7 +172,7 @@
     "pricing": {
       "eyebrow": "NASZ MODEL PROWIZJI",
       "title": "Ty ustalasz swoją cenę.",
-      "description": "Otrzymujesz dokładnie tyle, ile oczekujesz. Druga Ręka automatycznie kalkuluje i wyświetla marżę dla klienta końcowego.",
+      "description": "Otrzymujesz dokładnie tyle, ile oczekujesz. automatycznie obliczamy i wyświetlamy marżę dla klienta końcowego.",
       "seller_card_tag": "TWOJA CENA (ZYSK)",
       "seller_card_desc": "Kwota netto, którą wpisujesz i chcesz otrzymać na swoje konto po sprzedaży produktu.",
       "store_card_tag": "CENA W KATALOGU SKLEPU",
@@ -463,7 +483,7 @@
     "SUBTITLE": "Dołącz do naszej zweryfikowanej platformy produktów z drugiej ręki już dziś."
   },
   "LoginPage": {
-    "brand_name": "DrugaRęka",
+    "brand_name": "KASOA",
     "title": "Witaj ponownie",
     "email": {
       "placeholder": "Adres e-mail",
@@ -519,6 +539,291 @@
         "text": "Masz już konto?",
         "link": "Zaloguj się tutaj"
       }
+    }
+  },
+  "navigation": {
+    "menu": {
+      "shop": "Sklep",
+      "categories": "kategorii",
+      "sell": "Sprzedaj z nami"
+    },
+    "actions": {
+      "account": "Konto",
+      "login": "Zaloguj się / Zarejestruj",
+      "logout": "Wyloguj się"
+    },
+    "accessibility": {
+      "view_cart": "Zobacz koszyk",
+      "view_wishlist": "Zobacz listę życzeń",
+      "view_account": "Zobacz panel konta",
+      "menu_open": "Otwórz menu nawigacji",
+      "menu_close": "Zamknij menu nawigacji"
+    }
+  },
+ "cart": {
+    "page": {
+      "empty": {
+        "title": "Twój koszyk jest pusty",
+        "description": "Nie dodałeś jeszcze do swojego koszyka żadnych wyjątkowych ubrań i produktów z drugiej ręki.",
+        "continue_btn": "Kontynuuj zakupy"
+      }
+    },
+    "header": {
+      "title": "Koszyk"
+    },
+    "summary": {
+      "title": "Podsumowanie zamówienia",
+      "subtotal": "Wartość produktów",
+      "shipping": "Koszt dostawy",
+      "total": "Razem",
+      "checkout_btn": "Bezpieczna płatność",
+      "address_warning": "Proszę dodać adres dostawy, aby odblokować opcje płatności."
+    },
+    "item": {
+      "remove_hint": "Usuń przedmiot z koszyka",
+      "item_price_label": "Cena przedmiotu",
+      "shipping_cost_label": "Koszt dostawy"
+    },
+    "address": {
+      "title": "Adres dostawy",
+      "actions": {
+        "edit_hint": "Edytuj adres",
+        "cancel_hint": "Anuluj edycję",
+        "save_btn": "Zapisz adres dostawy",
+        "saving": "Zapisywanie szczegółów..."
+      },
+      "fields": {
+        "street": {
+          "label": "Ulica i nr domu",
+          "placeholder": "np. Piotrkowska 12"
+        },
+        "contact": {
+          "label": "Telefon kontaktowy",
+          "placeholder": "np. +48 500 600 700"
+        },
+        "city": {
+          "label": "Miejscowość",
+          "placeholder": "np. Łódź"
+        },
+        "postal_code": {
+          "label": "Kod pocztowy",
+          "placeholder": "np. 90-001"
+        }
+      }
+    },
+    "timer": {
+      "expired": "Czas rezerwacji wygasł",
+      "holding": "Rezerwacja: {{time}}"
+    }
+  },
+  "product_details": {
+    "loading": "Ładowanie szczegółów produktu...",
+    "nav": {
+      "back": "Wróć",
+      "shop_crumb": "Sklep"
+    },
+    "info": {
+      "condition": "Stan",
+      "availability": "Dostępność"
+    },
+    "pricing": {
+      "savings": "Oszczędzasz {{amount}} zł ({{percent}}%)"
+    },
+    "safety": {
+      "return_assurance": "Bezpieczny zakup z 14-dniowym prawem do zwrotu towaru"
+    },
+    "actions": {
+      "buy_now": "Kup teraz",
+      "wishlist_add": "Dodaj do obserwowanych",
+      "wishlist_active": "Obserwujesz"
+    },
+    "trust": {
+      "verified_sub": "Wszyscy użytkownicy przechodzą proces autoryzacji",
+      "delivery_title": "Ubezpieczona dostawa",
+      "delivery_sub": "Pełna możliwość śledzenia przesyłki kurierskiej",
+      "prices_title": "Okazyjne ceny rynkowe",
+      "prices_sub": "Świetne produkty, mniej zmarnowanych zasobów",
+      "protection_title": "Program Ochrony Kupujących",
+      "protection_sub": "Kupuj z poczuciem pełnego bezpieczeństwa"
+    },
+    "error": {
+      "generic": "Coś poszło nie tak podczas ładowania tego produktu.",
+      "return_btn": "Wróć"
+    }
+  },
+  "add_listing": {
+    "header": {
+      "title_add": "Dodaj produkt",
+       "title_edit": "Edytuj produkt",
+      "subtitle": "Utwórz produkt i udostępnij go kupującym.",
+      "actions": {
+        "save_draft": "Zapisz szkic",
+        "publish": "Opublikuj produkt"
+      }
+    },
+    "sections": {
+      "images": {
+        "title": "Zdjęcia produktu",
+        "subtitle": "Dodaj wyraźne zdjęcia swojego produktu.",
+        "main_label": "Główne",
+        "add_btn": "Dodaj zdjęcia",
+        "hint": "JPG, PNG lub WEBP"
+      },
+      "info": {
+        "title": "Informacje o produkcie",
+        "subtitle": "Przekaż kupującym najważniejsze szczegóły."
+      },
+      "pricing": {
+        "title": "Cena i asortyment",
+        "subtitle": "Ustal cenę oraz dostępną ilość produktu."
+      },
+      "shipping": {
+        "title": "Wysyłka",
+        "subtitle": "W ciągu ilu dni produkt może zostać dostarczony do kupującego?"
+      }
+    },
+    "fields": {
+      "name": {
+        "label": "Nazwa produktu",
+        "placeholder": "np. Skórzana kurtka vintage"
+      },
+      "category": {
+        "label": "Kategoria",
+        "placeholder": "Wybierz kategorię"
+      },
+      "condition": {
+        "label": "Stan",
+        "placeholder": "Wybierz stan produktu"
+      },
+      "description": {
+        "label": "Opis",
+        "placeholder": "Opisz produkt, jego stan, cechy i wszystko, co kupujący powinien wiedzieć...",
+        "hint": "Opisz produkt rzetelnie i przejrzyście."
+      },
+      "price": {
+        "label": "Cena"
+      },
+      "quantity": {
+        "label": "Ilość"
+      },
+      "brand": {
+        "label": "Marka"
+      },
+      "sku": {
+        "label": "SKU (Kod magazynowy)",
+        "placeholder": "Opcjonalnie"
+      },
+      "shipping_method": {
+        "label": "Metoda wysyłki",
+        "placeholder": "Wybierz metodę wysyłki"
+      },
+      "shipping_info": {
+        "label": "Informacje o wysyłce",
+        "placeholder": "np. Wysyłka w ciągu 2-3 dni roboczych. Koszt wysyłki pokrywa kupujący."
+      }
+    },
+    "sidebar": {
+      "status": {
+        "title": "Status produktu",
+        "publish_label": "Opublikuj",
+        "publish_desc": "Kupujący będą mogli zobaczyć i zakupić ten produkt."
+      },
+      "tips": {
+        "title": "Wskazówki",
+        "tip1": "Używaj jasnych, wyraźnych zdjęć produktu.",
+        "tip2": "Napisz dokładny i rzetelny opis.",
+        "tip3": "Wspomnij o ewentualnych wadach lub śladach użytkowania.",
+        "tip4": "Zastosuj konkurencyjną cenę."
+      },
+      "preview": {
+        "title": "Podgląd",
+        "fallback_category": "Kategoria",
+        "fallback_name": "Nazwa Twojego produktu"
+      }
+    }
+  },
+  "order_details": {
+    "toolbar": {
+      "count_singular": "zakup",
+      "count_plural": "zakupy",
+      "total_label": "Łącznie"
+    },
+    "empty": {
+      "title": "Nie znaleziono zakupów"
+    },
+    "table": {
+      "loading": "Ładowanie szczegółów zakupów...",
+      "error": "Nie udało się pobrać historii transakcji.",
+      "headers": {
+        "order": "Zamówienie",
+        "seller": "Sprzedawca",
+        "subtotal": "Wartość",
+        "shipping": "Wysyłka",
+        "total": "Razem",
+        "order_status": "Status zamówienia",
+        "tracking_number": "Numer przesyłki",
+        "delivery_status": "Status dostawy"
+      }
+    }
+  },
+  "payment_confirmation": {
+    "success": {
+      "eyebrow": "Płatność zatwierdzona",
+      "title": "Dziękujemy za zamówienie!",
+      "description": "Doceniamy Twoje zaufanie! E-mail z potwierdzeniem zakupu oraz szczegółami ochrony Escrow zostanie wysłany na Twój adres.",
+      "session_label": "Identyfikator sesji",
+      "next_steps_title": "Co dzieje się teraz?",
+      "next_steps_desc": "Powiadomiliśmy już sprzedawców o konieczności spakowania Twoich przedmiotów. Gdy nadadzą paczki, otrzymasz kolejną aktualizację z numerem śledzenia przesyłki.",
+      "support_hint": "Masz pytania lub wątpliwości? Skontaktuj się z nami pod adresem:",
+      "cta_continue": "Kontynuuj zakupy"
+    },
+    "error": {
+      "title": "Błąd weryfikacji",
+      "description": "Nie udało się zweryfikować statusu Twojej płatności. Jeśli środki zostały pobrane, sprawdź swoją skrzynkę e-mail.",
+      "cta_back": "Wróć do sklepu"
+    }
+  },
+  "cart_page": {
+    "empty": {
+      "title": "Twój koszyk jest pusty",
+      "description": "Nie masz jeszcze żadnych przedmiotów w koszyku. Ponieważ oferujemy unikalne, pojedyncze sztuki z drugiej ręki, nie zwlekaj z zakupem, gdy znajdziesz coś dla siebie!",
+      "continue_btn": "Przejdź do sklepu"
+    }
+  },
+  "delivery_confirmation": {
+    "success": {
+      "title": "Odbiór potwierdzony!",
+      "description": "Dziękujemy! Środki z systemu ochrony Escrow zostały pomyślnie przekazane na saldo sprzedawcy. Zamówienie zostało zamknięte."
+    },
+    "invalid_token": {
+      "title": "Błąd weryfikacji",
+      "description": "Nieprawidłowy lub brakujący token weryfikacyjny w adresie URL. Nie można potwierdzić dostawy."
+    },
+    "action": {
+      "eyebrow": "Bezpieczne Escrow",
+      "title": "Potwierdź odbiór",
+      "description": "Kliknij poniższy przycisk, jeśli paczka do Ciebie dotarła, a jej zawartość jest w pełni zgodna z zamówieniem.",
+      "processing": "Przetwarzanie...",
+      "confirm_btn": "Potwierdzam odbiór towaru"
+    },
+    "error": {
+      "fallback": "Wystąpił błąd. Spróbuj ponownie później."
+    }
+  },
+   "admin_sidebar": {
+    "label": "Administracja",
+    "menu": {
+      "dashboard": "Pulpit",
+      "products": "Produkty",
+      "categories": "Kategorie",
+      "brands": "Marki",
+      "orders": "Zamówienia",
+      "shipments": "Wysyłki",
+      "users": "Użytkownicy",
+      "conditions": "Stany produktów",
+      "reports": "Zgłoszenia",
+      "analytics": "Analityka",
+      "payouts": "Wypłaty"
     }
   }
  

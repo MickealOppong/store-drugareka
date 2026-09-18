@@ -48,7 +48,7 @@ export default function SellerLayout() {
           MOBILE STICKY TOP BAR SUB-HEADER
       ========================================================================== */}
       <div className="al-mobile-bar">
-        <div className="al-brand">
+        <div className="al-brand"  style={{textTransform:'uppercase'}}>
           {appName}<span className="al-brand__light">.pl</span>
         </div>
         <button 
@@ -71,7 +71,7 @@ export default function SellerLayout() {
         
         <div className="al-sidebar-container">
           {/* SLIDEOUT WRAPPER BRAND LOGO ANCHOR */}
-          <div className="al-brand al-brand--sidebar">
+          <div className="al-brand al-brand--sidebar" style={{textTransform:'uppercase'}}>
            {appName}<span className="al-brand__light">.pl</span>
           </div>
 

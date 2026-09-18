@@ -1,15 +1,18 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { FiTrash2 } from "react-icons/fi";
 import type { TCartItem } from "../types/TCart";
 import { formatPrice } from "../util/util";
 import { CartTimer } from "./index";
 
 interface CartItemCardProps {
-  item:TCartItem
+  item: TCartItem;
   onRemove: (listingId: number) => void;
 }
 
 const CartItemCard: React.FC<CartItemCardProps> = ({ item, onRemove }) => {
+  const { t } = useTranslation();
+
   return (
     <article className="cart-item-card">
       <figure className="cart-item-thumb">
@@ -26,7 +29,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ item, onRemove }) => {
             type="button" 
             className="cart-item-remove-btn" 
             onClick={() => onRemove(item.listingId)}
-            title="Remove item from bag"
+            title={t("cart.item.remove_hint")}
           >
             <FiTrash2 />
           </button>
@@ -34,11 +37,11 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ item, onRemove }) => {
         
         <footer className="cart-item-footer">
           <div>
-            <p className="cart-item-delivery-label">Cena przedmiotu</p>
+            <p className="cart-item-delivery-label">{t("cart.item.item_price_label")}</p>
             <strong className="cart-item-price">{formatPrice(item.price)} zł</strong>
           </div>
           <div className="text-right">
-            <p className="cart-item-delivery-label">Koszt dostawy</p>
+            <p className="cart-item-delivery-label">{t("cart.item.shipping_cost_label")}</p>
             <span className="cart-item-shipping-fee">+{formatPrice(item.shipping)} zł</span>
           </div>
         </footer>
