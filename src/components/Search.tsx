@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { FiArrowRight, FiClock, FiSearch, FiX } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-import './../css/Search.css';
+import '../css/Search.css';
 
 
 const Search = ({

@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { FiEdit2, FiPlus, FiSearch, FiTrash2 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
+import "../css/GenericViewLayout.css"; // Reuses your unified generic layout styles seamlessly
 import {
   useDeleteUserMutation,
   useLazyGetAllUsersQuery,
 } from "../features/api/userApi";
 import type { TResponseDto } from "../types/TResponseDto";
 import type { TUserDto } from "../types/TUserDto";
-import "./../css/GenericViewLayout.css"; // Reuses your unified generic layout styles seamlessly
 
 const UserView = () => {
   const [users, setUsers] = useState<TUserDto[]>([]);

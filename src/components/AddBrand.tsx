@@ -1,10 +1,10 @@
 import { useState, type ChangeEvent } from "react";
 import { useNavigate, useRevalidator } from "react-router";
+import "../css/View.css";
 import {
   useNewBrandMutation
 } from "../features/api/transApi";
 import type { TbrandRequest } from "../types/TBrandRequest";
-import "./../css/View.css";
 
 const AddBrand = () => {
   const [active, setActive] = useState<boolean>(false);

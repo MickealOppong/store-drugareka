@@ -2,12 +2,12 @@ import { useState } from "react";
 import { FiEdit2, FiPlus, FiSearch, FiTrash2 } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
 
+import "../css/GenericViewLayout.css"; // Universal layout style mapping sheet
 import { useGetStorelistingsQuery } from "../features/api/itemApi";
 import { useDeleteBrandMutation } from "../features/api/transApi";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
 import { isFetchBaseQueryError } from "../util/util";
-import "./../css/GenericViewLayout.css"; // Universal layout style mapping sheet
 import Pagination from "./Pagination";
 
 const ProductView = () => {

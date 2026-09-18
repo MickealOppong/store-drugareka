@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { FiEdit, FiSearch } from "react-icons/fi";
 import { useSearchParams } from "react-router-dom";
+import "../css/GenericViewLayout.css"; // Reuses your unified generic layout styles
 import { useGetComplaintsQuery } from "../features/api/itemApi";
 import "./../css/Complaint.css"; // Layout-specific styling updates
-import "./../css/GenericViewLayout.css"; // Reuses your unified generic layout styles
 
 
 

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import { MobileNav, NavHeader } from "../components";
-import './../css/GenericViewLayout.css';
+import '../css/GenericViewLayout.css';
 
 const SharedLayout = () => {
 

@@ -2,6 +2,7 @@ import { useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
+import "../css/AddListing.css";
 import { SHIPPING_METHOD } from "../data/data";
 import { useAddListingMutation } from "../features/api/itemApi";
 import { useGetAllCategoriesQuery } from "../features/api/storeApi";
@@ -12,7 +13,6 @@ import {
 import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TProductData } from "../types/TProductData";
 import { sanitizeBackendKey } from "../util/util";
-import "./../css/AddListing.css";
 import SearchSelect from "./SearchSelect";
 
 type TFile = {
