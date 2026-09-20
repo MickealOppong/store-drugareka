@@ -21,7 +21,7 @@ const AddCategory = () => {
   const [name, setName] = useState<string>("");
   const [parent, setParent] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
-  const [sortOrder, setSortOrder] = useState<number>(0);
+  const [sortOrder, setSortOrder] = useState<string>("");
 
   const [loading, ] = useState(false);
   const [saving,] = useState(false);
@@ -55,7 +55,7 @@ const AddCategory = () => {
 
     try {
       const response = await newCategory(dataToSend);
-      console.log(response);
+  
 
       if (response.data) {
         const { httpStatus, message } = response.data as {
@@ -248,10 +248,10 @@ const AddCategory = () => {
                 name="sortOrder"
                 type="number"
                 className="add-category__input"
-                min="0"
+                min="1"
                 disabled={saving}
                 value={sortOrder}
-                onChange={(e) => setSortOrder(parseInt(e.target.value))}
+                onChange={(e) => setSortOrder(e.target.value)}
               />
 
               <span className="add-category__hint">

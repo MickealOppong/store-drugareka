@@ -49,6 +49,7 @@ import ContactForm from "./pages/ContactForm";
 import Orders from "./pages/Orders";
 import { store } from "./store";
 
+import EditCondition from "./components/EditCondition";
 import { loader as accountLoader } from "./pages/AccountLayout";
 import { loader as landingLoader } from "./pages/Landing";
 
@@ -214,6 +215,10 @@ function App() {
         {
           path: "admin/condition/new",
           element: <AddCondition />,
+        },
+          {
+          path: "admin/condition/:id/edit",
+          element: <EditCondition/>,
         },
         {
           path: "admin/categories/new",

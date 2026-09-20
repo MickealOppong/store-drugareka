@@ -9,14 +9,14 @@ import {
   useGetAllCategoriesQuery,
   useLazyGetListingQuery
 } from "../features/api/storeApi";
-import { useAllBrandsQuery, useGetAllConditionsQuery } from "../features/api/transApi";
+import { useGetAllConditionsQuery, useGetBrandsQuery } from "../features/api/transApi";
 import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TListTrans } from "../types/TListTrans";
 import type { TProductData } from "../types/TProductData";
 import { sanitizeBackendKey } from "../util/util";
 import SearchSelect from "./SearchSelect";
 
-type TFile = {
+export type TFile = {
   file: Blob;
   preview: string;
 };
@@ -32,7 +32,7 @@ const [getListing] = useLazyGetListingQuery()
   /**
    * Brand query
    */
-  const { data: brands = [] } = useAllBrandsQuery();
+  const { data: brands = [] } = useGetBrandsQuery()
   
   /**
    * 
@@ -46,7 +46,6 @@ async function fetchListing(){
     const response = await getListing(parseInt(listingId as string))
     const listing = response.data as TListTrans
 
-    console.log(listing);
     
 const mediaObj: TFile[] = await Promise.all(
   listing.media.map(async (item) => {

@@ -43,6 +43,7 @@ const ConditionView = () => {
           revalidate();
         }
       }
+
       
       if (response?.error) {
         const { data } = response.error as {
@@ -188,7 +189,7 @@ const ConditionView = () => {
                     <td>
                       <div className="data-table__actions" style={{ gap: "0.5rem" }}>
                         <Link
-                          to={`/account/admin/categories/${condition.id}/edit`}
+                          to={`/account/admin/condition/${condition.id}/edit`}
                           className="data-table__action-link"
                           title="Edytuj stan"
                         >

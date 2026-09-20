@@ -3,5 +3,6 @@ export type TConditionRequest={
     name:string,
     sortOrder:number,
     active:boolean
-    slug:string
+    slug:string,
+    id?:number
 }

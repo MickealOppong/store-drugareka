@@ -7,8 +7,8 @@ import { SHIPPING_METHOD } from "../data/data";
 import { useAddListingMutation } from "../features/api/itemApi";
 import { useGetAllCategoriesQuery } from "../features/api/storeApi";
 import {
-  useAllBrandsQuery,
   useGetAllConditionsQuery,
+  useGetBrandsQuery
 } from "../features/api/transApi";
 import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TProductData } from "../types/TProductData";
@@ -26,7 +26,7 @@ const AddListing = () => {
   /**
    * Brand query
    */
-  const { data: brands = [] } = useAllBrandsQuery();
+  const { data: brands = [] } = useGetBrandsQuery()
 
   /**
    * * navigate hook

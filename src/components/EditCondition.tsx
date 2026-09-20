@@ -1,53 +1,68 @@
-import { useState, type ChangeEvent } from "react";
-import { useNavigate, useRevalidator } from "react-router";
+import { useEffect, useState, type ChangeEvent } from "react";
+import { useNavigate, useParams, useRevalidator } from "react-router";
 import '../css/View.css';
 import {
-  useNewConditionMutation
+    useEditConditionMutation,
+    useLazyGetConditionQuery
 } from "../features/api/transApi";
-import type { TConditionRequest } from "../types/TConditionRequest";
+import type { TConditionResponse } from "../types/TConditionResponse";
 
-const AddCondition= () => {
-  const [active, setActive] = useState<boolean>(false);
-  const {revalidate} = useRevalidator()
-  const navigate = useNavigate()
+const EditCondition = () => {
+ 
+  const [active,setActive]=useState<boolean>(false)
+  const[name,setName] = useState<string>('')
+  const[description,setDescription] = useState<string>('')
+  const[sortOrder,setSortOrder] = useState<number>(0)
+    const [saving,] = useState(false);
 
-
-  const [saving,] = useState(false);
-  const [error, setError] = useState("");
-  const [success, ] = useState("");
-
-
-/**
- * ** crud hooks
- */
-const [createCondition] = useNewConditionMutation()
+    const [error, setError] = useState<string>("");
 
 
+const [editCondition,{isSuccess:success}] = useEditConditionMutation()
 
+  //params
+  const {id} = useParams()
+    const {revalidate} = useRevalidator()
+    const navigate = useNavigate()
+
+
+    const [fetchCondition]=useLazyGetConditionQuery();
+    
+    async function getCondition() {
+    try {
+           const response = await fetchCondition(parseInt(id as string)).unwrap()
+           const condition =response.data as TConditionResponse
+      setName(condition.name)
+      setDescription(condition.description)
+      setSortOrder(condition.sortOrder)
+      setActive(condition.active)
+    } catch (error:any) {
+        setError('Server error')
+    }
+       
+    }
+
+    useEffect(()=>{
+        getCondition();
+        },[id])
 
   const handleFormSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const formValues = Object.fromEntries(formData);
-
-    let name = formValues.name as string;
-    let sortOrder = parseInt(formValues.sortOrder as string);
-    let description = formValues.description as string;
-
-    const dto: TConditionRequest = {
-        name,
-        description,
-        active,
-        sortOrder,
-        slug:name
-    };
-    console.log(dto);
     
+    
+    const formData = new FormData();
+   
+    formData.append('id', String(id))
+    formData.append('name', name)
+    formData.append('description', description)
+    formData.append('slug', name)
+    formData.append('active', active===true?'1':'0')
+    formData.append('sortOrder',String(sortOrder))
 
-    try {
-      const response = await  createCondition(dto);
-      console.log(response);
-      
+       try {
+
+      const response =await editCondition(formData);      
+
       if (response.data) {
 
         const { httpStatus, message } = response.data as {
@@ -57,7 +72,8 @@ const [createCondition] = useNewConditionMutation()
         if (httpStatus === 400) {
           setError(message);
         }
-           if (httpStatus === 403) {
+
+         if (httpStatus === 403) {
           setError(message);
         }
         if(httpStatus===200){
@@ -78,7 +94,10 @@ const [createCondition] = useNewConditionMutation()
     } catch (error: any) {
       console.log(error);
     }
+
   };
+
+
  return (
     <main className="add-category">
       {/* =====================================================
@@ -89,10 +108,10 @@ const [createCondition] = useNewConditionMutation()
         <div>
           <span className="add-category__eyebrow">Catalog</span>
 
-          <h1 className="add-category__title">Add Condition</h1>
+          <h1 className="add-category__title">Edit Condition</h1>
 
           <p className="add-category__description">
-            Create a predefined Condition for the products
+            Edit a predefined Condition for the products
           </p>
         </div>
       </header>
@@ -131,6 +150,8 @@ const [createCondition] = useNewConditionMutation()
                 className="add-category__input"
                 maxLength={100}
                 disabled={saving}
+                value={name}
+                onChange={(e)=>setName(e.target.value)}
               />
 
               <span className="add-category__hint">
@@ -158,6 +179,8 @@ const [createCondition] = useNewConditionMutation()
                 className="add-category__input"
                 maxLength={100}
                 disabled={saving}
+                value={description}
+                  onChange={(e)=>setDescription(e.target.value)}
               />
 
               <span className="add-category__hint">
@@ -182,8 +205,10 @@ const [createCondition] = useNewConditionMutation()
                 name="sortOrder"
                 type="number"
                 className="add-category__input"
-                min="0"
+                min="1"
                 disabled={saving}
+                value={sortOrder}
+                  onChange={(e)=>setSortOrder(parseInt(e.target.value))}
               />
 
               <span className="add-category__hint">
@@ -232,8 +257,9 @@ const [createCondition] = useNewConditionMutation()
                 type="button"
                 className="add-category__cancel"
                 disabled={saving}
+                onClick={()=>navigate(-1)}
               >
-                Clear
+                Cancel
               </button>
 
               <button
@@ -241,7 +267,7 @@ const [createCondition] = useNewConditionMutation()
                 className="add-category__submit"
                 disabled={saving}
               >
-                {"Create condition"}
+                {"Update condition"}
               </button>
             </div>
           </form>
@@ -251,4 +277,4 @@ const [createCondition] = useNewConditionMutation()
   );
 };
 
-export default AddCondition;
+export default EditCondition;

@@ -1,47 +1,31 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FiEdit2, FiPlus, FiSearch, FiTrash2 } from "react-icons/fi";
-import { Link, useRevalidator } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import "../css/GenericViewLayout.css"; // Universal layout style mapping sheet
 import {
   useDeleteBrandMutation,
-  useLazyAllBrandsQuery
+  useGetAllBrandsQuery
 } from "../features/api/transApi";
 import type { TbrandResponse } from "../types/TBrandResponse";
-import type { TResponseDto } from "../types/TResponseDto";
+import Pagination from "./Pagination";
 
 const BrandView = () => {
-  const [brands, setBrands] = useState<TbrandResponse[]>([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
-  const { revalidate } = useRevalidator();
+
+    const [searchParams,] = useSearchParams();
+    
+    // Read active pagination location straight from URL parameters (1-indexed base)
+    const page = parseInt(searchParams.get("page" )as string)||1;
 
   // CRUD RTK mutation/query hooks
   const [deleteBrand] = useDeleteBrandMutation();
-  const [allBrands] = useLazyAllBrandsQuery();
+  const {data,isLoading:loading} = useGetAllBrandsQuery({page,size:7})
 
-  /*
-   * Lifecycle hook to initialize brands payload data
-   */
-  useEffect(() => {
-    fetchBrands();
-  }, []);
-
-  const fetchBrands = async () => {
-    try {
-      setLoading(true);
-      const response = await allBrands();
-      setBrands(() => response.data as TbrandResponse[]);
-    } catch (err) {
-      console.error("Failed to fetch brands payload:", err);
-      setError("Nie udało się załadować marek.");
-    } finally {
-      setLoading(false);
-    }
-  };
+const brands = data?.brands as TbrandResponse[]||[]
 
   /*
    * Delete category/brand row action handler
@@ -58,14 +42,6 @@ const BrandView = () => {
     try {
       setDeletingId(brand.id as number);
       const response: any = await deleteBrand(brand.id as number);
-      
-      if (response?.data) {
-        const { httpStatus } = response.data as TResponseDto;
-        if (httpStatus === 200) {
-          revalidate();
-          fetchBrands(); // Refresh local list after successful elimination
-        }
-      }
 
       if (response?.error) {
         const { data } = response.error as {
@@ -221,6 +197,13 @@ const BrandView = () => {
           </div>
         )}
       </section>
+           {data && (
+                    <Pagination
+                      page={page}
+                      totalPage={data.totalPages}
+                      size={data.pageSize}
+                    />
+                  )}
     </main>
   );
 };

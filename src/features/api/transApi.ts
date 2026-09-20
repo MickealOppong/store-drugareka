@@ -4,6 +4,7 @@ import type { TbrandResponse } from "../../types/TBrandResponse";
 import type { TCategoryReponse } from "../../types/TCategoryResponse";
 import type { TConditionRequest } from "../../types/TConditionRequest";
 import type { TConditionResponse } from "../../types/TConditionResponse";
+import type { TListPageBrand } from "../../types/TListPageBrand";
 import type { TResponseDto } from "../../types/TResponseDto";
 import { baseUrl } from "./baseUrl";
 
@@ -54,7 +55,7 @@ export const transApi = createApi({
             }),
             providesTags:['categories']
         }),
-         editCategory:build.mutation<TResponseDto,TCategoryReponse>({
+         editCategory:build.mutation<TResponseDto,FormData>({
             query:(body)=>({
                 url:'/api/category/edit',
                body,
@@ -78,9 +79,18 @@ export const transApi = createApi({
               }),
               providesTags: ["categories"],
             }),
-          allBrands:build.query<TbrandResponse[],void>({
-            query:()=>({
+          getAllBrands:build.query<TListPageBrand,{page:number,size:number}>({
+            query:({page,size})=>({
                 url:'/api/brands/all',
+                params:{
+                    page,size
+                }
+            }),
+            providesTags:['brands']
+        }),
+           getBrands:build.query<TListPageBrand,void>({
+            query:()=>({
+                url:'/api/brands/list',
             }),
             providesTags:['brands']
         }),
@@ -121,7 +131,7 @@ export const transApi = createApi({
         }),
            deleteCondition:build.mutation<TResponseDto,number>({
             query:(id)=>({
-                url:'/api/condition/delete',
+                url:'/api/conditions/delete',
                params:{
                 id
                },
@@ -137,15 +147,15 @@ export const transApi = createApi({
             }),
             invalidatesTags:['conditions']
         }),
-           editCondition:build.mutation<TResponseDto,TConditionResponse>({
+           editCondition:build.mutation<TResponseDto,FormData>({
             query:(body)=>({
                 url:'/api/conditions/edit',
-                method:'post',
+                method:'PUT',
               body
             }),
             invalidatesTags:['conditions']
         }),
-          fetchCondition:build.query<TResponseDto,number>({
+          getCondition:build.query<TResponseDto,number>({
             query:(id)=>({
                 url:'/api/conditions/${id}',
                 params:{
@@ -163,7 +173,7 @@ export const transApi = createApi({
     })
 })
 export const {useNewCategoryMutation,useLazyAllParentcategoriesQuery,useEditCategoryMutation,useLazyGetCategoryQuery
-    ,useDeleteCategoryMutation,useDeleteBrandMutation,useEditBrandMutation,useNewBrandMutation,useLazyAllBrandsQuery,useLazyFetchBrandQuery,
-    useFetchConditionQuery,useGetAllConditionsQuery,useNewConditionMutation,useDeleteConditionMutation,useAllBrandsQuery,
-    useGetAllCategoriesQuery
+    ,useDeleteCategoryMutation,useDeleteBrandMutation,useEditBrandMutation,useNewBrandMutation,useLazyFetchBrandQuery,
+    useLazyGetConditionQuery,useGetAllConditionsQuery,useNewConditionMutation,useDeleteConditionMutation,useGetAllBrandsQuery,
+    useGetAllCategoriesQuery,useEditConditionMutation,useGetBrandsQuery
 }= transApi
