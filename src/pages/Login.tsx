@@ -157,7 +157,7 @@ const Login = () => {
                     type={`${showText === 'password' ? 'password' : 'text'}`}
                     name="password"
                     autoComplete="current-password"
-                    defaultValue={'Singing@1'}
+                    defaultValue={''}
                     required
                   />
                 </div>

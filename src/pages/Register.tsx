@@ -289,7 +289,7 @@ const Register = () => {
                     autoComplete="new-password"
                     onFocus={handlePasswordInputFocus}
                     required
-                    defaultValue={'Singing@1'}
+                    defaultValue={''}
                   />
                 </div>
               </div>

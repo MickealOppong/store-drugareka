@@ -66,6 +66,8 @@ const EditCategory = () => {
         return;
       }
 
+      console.log(category);
+      
       const imageResponse = await fetch(category.image);
 
       if (!imageResponse.ok) {
