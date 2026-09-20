@@ -10,7 +10,6 @@ import { useGetCartCountQuery } from "../features/api/cartApi";
 import { useGetWishlistCountQuery } from "../features/api/itemApi";
 import { logoutUser } from "../features/slice/userSlice";
 import { useAppSelector } from "../store";
-import logoKasoa from './../assets/logo-kasoa.png';
 import Loading from "./Loading";
 import Search from "./Search";
 const NavHeader = () => {
@@ -60,7 +59,7 @@ const NavHeader = () => {
       <div className="landing-header__inner">
         
         <Link to="/" className="brand" style={{textTransform:'uppercase'}}>
-         <img src={logoKasoa} alt="" style={{width:"30px",height:'30px'}} /> {appName} <span>.pl</span>
+       {appName} <span>.pl</span>
         </Link>
 
         <nav className="landing-nav">

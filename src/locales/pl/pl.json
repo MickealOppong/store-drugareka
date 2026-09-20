@@ -1,52 +1,54 @@
 {
   "landing": {
     "hero": {
-      "eyebrow": "UŻYWANE, W ZUPEŁNIE NOWYM WYDANIU",
+      "eyebrow": "UŻYWANE, W ZUPEŁNIE NOWEJ ODSŁONIE",
       "title_line1": "Dobre rzeczy.",
       "title_line2": "DRUGA SZANSA.",
-      "description": "Odkryj pełnowartościowe produkty z drugiej ręki w jednym zaufanym miejscu. Lepsze znaleziska, lepsze ceny, mniej marnowania.",
+      "description": "Odkrywaj wartościowe produkty w jednym zaufanym miejscu. Lepsze znaleziska, lepsze ceny, mniej marnowania.",
       "cta_shop": "Zacznij zakupy",
-      "cta_sell": "Mam coś sprzedać",
+      "cta_sell": "Mam coś na sprzedaż",
       "floating_badge": "Zweryfikowani sprzedawcy",
       "floating_sub": "Bezpieczne zakupy"
     },
     "trust_bar": {
       "verified_title": "Zweryfikowani sprzedawcy",
-      "verified_sub": "Sprzedawcy są sprawdzani",
+      "verified_sub": "Sprzedawcy są zweryfikowani",
       "delivery_title": "Bezpieczna dostawa",
       "delivery_sub": "Śledzenie przesyłki",
       "prices_title": "Lepsze ceny",
-      "prices_sub": "Świetne produkty, mniej marnowania",
+      "prices_sub": "Dobre produkty, mniej marnowania",
       "protection_title": "Ochrona kupującego",
       "protection_sub": "Kupuj bez obaw"
     },
     "categories": {
-      "eyebrow": "ODKRYJ",
+      "eyebrow": "ODKRYWAJ",
       "title": "Czego szukasz?",
       "view_all": "Wszystkie kategorie"
     },
     "new_arrivals": {
-      "eyebrow": "NOWOŚCI",
+      "eyebrow": "NOWO DODANE",
       "title": "Ostatnio dodane",
       "view_all": "Zobacz wszystkie",
       "conditions": {
         "very_good": "Bardzo dobry",
-        "excellent": "Idealny",
+        "excellent": "Doskonały",
         "good": "Dobry"
       }
     },
     "seller_cta": {
-      "eyebrow": "MASZ RZECZY, KTÓRYCH JUŻ NIE UŻYWASZ, LUB COŚ NIETRAFIONEGO, CZEGO NIE MOŻESZ ZWRÓCIĆ?",
+      "eyebrow": "MASZ COŚ, CZEGO JUŻ NIE POTRZEBUJESZ?",
+      "sub-eyebrow-1": "Może przestałeś tego używać. A może produkt jest zupełnie nowy, ale nie możesz go zwrócić.",
+      "sub-eyebrow-2": "Masz dość wiadomości, negocjowania ceny i pytań od kupujących?",
       "title_line1": "Ty wystawiasz.",
       "title_line2": "My sprzedajemy.",
-      "description": "Wystaw swoje przedmioty w kilka minut. Ustal kwotę, jaką chcesz otrzymać, a my zajmiemy się całą resztą.",
+      "description": "Dodaj przedmiot w kilka minut. Ustal kwotę, którą chcesz otrzymać, a my zajmiemy się resztą.",
       "cta": "Zacznij sprzedawać",
-      "step1_title": "Wystaw przedmiot",
-      "step1_desc": "Dodaj zdjęcia, określ stan i kwotę, którą chcesz otrzymać.",
-      "step2_title": "My znajdziemy kupującego",
-      "step2_desc": "Twój przedmiot trafi do oferty sklepu Kasoa.pl.",
-      "step3_title": "Wyślij i odbierz pieniądze",
-      "step3_desc": "Po sprzedaży przekażemy Ci wszystko, co niezbędne do wysyłki."
+      "step1_title": "Dodaj przedmiot",
+      "step1_desc": "Dodaj zdjęcia, określ stan i podaj kwotę, którą chcesz otrzymać.",
+      "step2_title": "Znajdziemy kupującego",
+      "step2_desc": "Twój przedmiot zostanie dodany do naszej oferty.",
+      "step3_title": "Wyślij i otrzymaj pieniądze",
+      "step3_desc": "Po sprzedaży przekażemy Ci wszystkie informacje potrzebne do wysyłki."
     },
     "final_cta": {
       "title_line1": "Kupuj mądrzej.",
@@ -54,9 +56,9 @@
       "cta": "Przeglądaj sklep"
     },
     "footer": {
-      "tagline": "Lepszy sposób na kupno i sprzedaż produktów z drugiej ręki.",
-      "heading_shop": "Sklep",
-      "heading_sell": "Sprzedać",
+      "tagline": "Lepszy sposób na kupowanie i sprzedawanie rzeczy z drugiej ręki.",
+      "heading_shop": "Kupuj",
+      "heading_sell": "Sprzedawaj",
       "heading_help": "Pomoc",
       "link_all_products": "Wszystkie produkty",
       "link_categories": "Kategorie",
@@ -75,26 +77,26 @@
     "shoes": "Obuwie",
     "home_equipment": "Wyposażenie domu",
     "machines_spare_parts": "Maszyny i części zamienne",
-    "books_media": "Książki i media",
+    "books_media": "Książki i multimedia",
     "sport_outdoor": "Sport i rekreacja",
-    "kids": "Dla dzieci",
+    "kids": "Dzieci",
     "beauty_health": "Uroda i zdrowie"
   },
   "product_conditions": {
     "good": "Dobry",
     "new": "Nowy",
-    "excellent_condition": "Idealny",
+    "excellent_condition": "Doskonały",
     "used": "Używany",
     "very_good": "Bardzo dobry"
   },
   "shop": {
     "header": {
       "title": "Znajdź coś wyjątkowego",
-      "description": "Sprawdzone produkty z drugiej ręki w atrakcyjnych cenach.",
+      "description": "Rzeczy z drugiej ręki w atrakcyjnych cenach.",
       "search_placeholder": "Szukaj produktów, marek..."
     },
     "categories": {
-      "all": "Wszystko"
+      "all": "Wszystkie"
     },
     "toolbar": {
       "products_count": "produktów",
@@ -103,8 +105,8 @@
       "sort_options": {
         "newest": "Najnowsze",
         "oldest": "Najstarsze",
-        "price_low": "Cena: rosnąco",
-        "price_high": "Cena: malejąco",
+        "price_low": "Cena: od najniższej",
+        "price_high": "Cena: od najwyższej",
         "discount": "Największa okazja"
       }
     },
@@ -116,7 +118,7 @@
     "product": {
       "add_wishlist": "Dodaj do ulubionych",
       "buy_btn": "Kup produkt",
-      "edit_btn": "Edytuj ogłoszenie"
+      "edit_btn": "Edytuj ofertę"
     },
     "filter_drawer": {
       "title": "Filtry",
@@ -126,16 +128,16 @@
   },
   "categories_page": {
     "header": {
-      "eyebrow": "ODKRYJ",
+      "eyebrow": "ODKRYWAJ",
       "title": "Czego szukasz?"
     }
   },
   "sell_page": {
     "hero": {
-      "eyebrow": "SPRZEDAJ Z nami",
+      "eyebrow": "SPRZEDAWAJ Z NAMI",
       "title_line1": "Masz coś,",
       "title_line2": "czego już nie potrzebujesz?",
-      "lead": "Wystaw swój produkt i pozwól nam zająć się jego sprzedażą.",
+      "lead": "Dodaj produkt i pozwól nam zająć się jego sprzedażą.",
       "cta_primary": "Zacznij sprzedawać",
       "cta_secondary": "Jak to działa?",
       "composition_label": "Twój produkt",
@@ -146,59 +148,63 @@
     "process": {
       "eyebrow": "PROSTY PROCES",
       "title": "Jak to działa?",
-      "description": "Od produktu, którego już nie używasz, do sprzedaży w kilku prostych krokach.",
+      "description": "Od rzeczy, której już nie używasz, do sprzedaży w kilku prostych krokach.",
       "step1_title": "Dodaj produkt",
-      "step1_desc": "Opisz produkt, dodaj zdjęcia, wybierz kategorię i określ cenę, którą chcesz otrzymać.",
-      "step2_title": "My zajmiemy się sprzedażą",
-      "step2_desc": "Produkt pojawi się w naszym sklepie w cenie ustalonej przez kasoa.pl.",
+      "step1_desc": "Opisz produkt, dodaj zdjęcia, wybierz kategorię i ustal kwotę, którą chcesz otrzymać.",
+      "step2_title": "Zajmiemy się sprzedażą",
+      "step2_desc": "Produkt pojawi się w naszym sklepie w cenie ustalonej przez Kasoa.pl.",
       "step3_title": "Wyślij produkt",
-      "step3_desc": "Gdy ktoś kupi produkt, otrzymasz informację i instrukcję wysyłki.",
+      "step3_desc": "Gdy ktoś kupi produkt, otrzymasz informacje i instrukcje dotyczące wysyłki.",
       "step4_title": "Otrzymaj wypłatę",
       "step4_desc": "Po zakończeniu transakcji otrzymasz należną Ci kwotę."
     },
     "benefits": {
       "eyebrow": "DLACZEGO kasoa.pl?",
-      "title": "Chcesz uniknąć niekończących się wiadomości i kontaktu z obcymi, a jednocześnie zarobić więcej?",
-      "description": "Zyskaj kwotę premium za swój przedmiot bez marnowania czasu na uciążliwe negocjacje. My zajmiemy się wszystkim.",
-      "bullet1": "Zero spamu i natrętnych pytań od kupujących",
-      "bullet2": "Gwarantowana wycena premium za unikalne rzeczy",
-      "bullet3": "Pełna prywatność – brak kontaktu z nieznajomymi",
-      "bullet4": "Wygodna wysyłka bez zbędnych formalności",
-      "cta": "Dodaj pierwszy produkt",
+      "title": "Chcesz coś sprzedać, nie zostając pełnoetatowym sprzedawcą?",
+      "description": "Na większości platform wystawienie przedmiotu oznacza konieczność zaangażowania — sprawdzania wiadomości, odpowiadania na pytania, negocjowania cen i kontaktowania się z kupującymi.",
+      "sub_title-1": "Kasoa działa inaczej.",
+      "sub_title-2": "Po wystawieniu produktu nie musisz zajmować się sprzedażą. Skontaktujemy się z Tobą, gdy pojawi się coś, co wymaga Twojego działania.",
+      "bullet1": "Bez wiadomości od kupujących",
+      "bullet2": "Bez bezpośredniego kontaktu z nieznajomymi",
+      "bullet3": "Bez konieczności aktywnego korzystania z platformy",
+      "bullet4": "Wyślemy Ci e-mail, gdy Twój produkt zostanie sprzedany",
+      "bullet5": "Bez negocjowania ceny — możesz ją dowolnie podnosić lub obniżać",
+      "bullet6": "Proste instrukcje wysyłki, gdy nadejdzie czas",
+      "cta": "Dodaj swój pierwszy produkt",
       "shield_title": "Twój produkt.",
       "shield_bold": "Bezpieczna sprzedaż.",
-      "shield_desc": "My przejmujemy całą obsługę."
+      "shield_desc": "Zajmujemy się całym procesem."
     },
     "pricing": {
-      "eyebrow": "NASZ MODEL PROWIZJI",
+      "eyebrow": "NASZ MODEL PROWIZYJNY",
       "title": "Ty ustalasz swoją cenę.",
-      "description": "Otrzymujesz dokładnie tyle, ile oczekujesz. automatycznie obliczamy i wyświetlamy marżę dla klienta końcowego.",
+      "description": "Otrzymujesz dokładnie tyle, ile oczekujesz. My obliczamy i pokazujemy marżę dla klienta końcowego.",
       "seller_card_tag": "TWOJA CENA (ZYSK)",
-      "seller_card_desc": "Kwota netto, którą wpisujesz i chcesz otrzymać na swoje konto po sprzedaży produktu.",
-      "store_card_tag": "CENA W KATALOGU SKLEPU",
+      "seller_card_desc": "Kwota netto, którą podajesz i którą chcesz otrzymać na swoje konto po sprzedaży produktu.",
+      "store_card_tag": "CENA W SKLEPIE",
       "store_card_price": "X + marża",
-      "store_card_desc": "Cena końcowa wyświetlana kupującemu, powiększona o koszt obsługi i logistyki."
+      "store_card_desc": "Końcowa cena widoczna dla kupującego, powiększona o koszty obsługi i logistyki."
     },
     "final_cta": {
       "eyebrow": "GOTOWY?",
       "title": "Daj swoim rzeczom drugie życie.",
-      "description": "Dodaj produkt i zacznij zarabiac",
+      "description": "Dodaj produkt i zacznij zarabiać",
       "cta": "Zacznij sprzedawać"
     }
   },
   "user_sidebar": {
-    "label": "Twoja Strona",
+    "label": "Twoje konto",
     "menu": {
-      "dashboard": "Pulpit",
+      "dashboard": "Panel",
       "my_products": "Moje produkty",
       "orders": "Zamówienia",
-      "shipments": "Wysyłki",
+      "shipments": "Przesyłki",
       "wishlist": "Moje ulubione",
       "payouts": "Wypłaty"
     },
     "footer": {
       "add_product": "Dodaj produkt",
-      "back_to_shop": "Powrót do sklepu",
+      "back_to_shop": "Wróć do sklepu",
       "logout": "Wyloguj się"
     }
   },
@@ -211,8 +217,8 @@
     },
     "stats": {
       "orders": "Zamówienia",
-      "wishlist": "Twoje ulubione",
-      "active_listings": "Aktywne ogłoszenia"
+      "wishlist": "Ulubione",
+      "active_listings": "Aktywne oferty"
     },
     "shopping_section": {
       "eyebrow": "ZAKUPY",
@@ -221,59 +227,59 @@
       "grid": {
         "shop_title": "Kontynuuj zakupy",
         "shop_desc": "Odkryj coś nowego",
-        "wishlist_title": "Twoja lista życzeń",
-        "wishlist_desc_one": "{{count}} zapisany przedmiot",
-        "wishlist_desc_few": "{{count}} zapisane przedmioty",
-        "wishlist_desc_many": "{{count}} zapisanych przedmiotów",
-        "wishlist_desc_other": "{{count}} zapisanych przedmiotów",
+        "wishlist_title": "Twoje ulubione",
+        "wishlist_desc_one": "{{count}} saved item",
+        "wishlist_desc_few": "{{count}} saved items",
+        "wishlist_desc_many": "{{count}} saved items",
+        "wishlist_desc_other": "{{count}} saved items",
         "orders_title": "Twoje zamówienia",
         "orders_desc": "Śledź swoje zakupy"
       }
     },
     "selling_section": {
       "eyebrow": "SPRZEDAŻ",
-      "title": "Twoja sprzedaż",
+      "title": "Twoje sprzedaże",
       "view_dashboard": "Panel sprzedawcy",
       "metrics": {
-        "active": "Aktywne ogłoszenia",
+        "active": "Aktywne oferty",
         "sold": "Sprzedane przedmioty",
         "cancelled": "Anulowane przedmioty",
-        "awaiting": "Oczekujące na wysyłkę",
+        "awaiting": "Oczekuje na wysyłkę",
         "payout": "Dostępne środki"
       },
       "activity": {
         "title": "Ostatnia aktywność",
         "view_listings": "Zobacz produkty",
         "statuses": {
-          "active": "Aktywne",
-          "sold": "Sprzedane",
+          "active": "Aktywny",
+          "sold": "Sprzedany",
           "shipping": "W wysyłce",
-          "cancelled": "Anulowane"
+          "cancelled": "Anulowany"
         }
       }
     },
     "upgrade_cta": {
       "title": "MASZ RZECZY, KTÓRYCH JUŻ NIE UŻYWASZ?",
-      "description": "Zamień niepotrzebne przedmioty w gotówkę. Wystaw przedmiot w DrugaRęka, a my zajmiemy się sprzedażą.",
+      "description": "Zamień niepotrzebne rzeczy na gotówkę. Dodaj przedmiot na DrugaRęka, a my zajmiemy się jego sprzedażą.",
       "btn": "Zacznij sprzedawać"
     }
   },
   "user_products": {
     "header": {
-      "eyebrow": "Produkty",
+      "eyebrow": "Products",
       "title": "Wszystkie produkty",
-      "description": "Zarządzaj swoimi produktami i ogłoszeniami.",
+      "description": "Zarządzaj swoimi produktami i ofertami.",
       "add_btn": "Dodaj produkt"
     },
     "toolbar": {
       "search_placeholder": "Szukaj produktu...",
       "count_singular": "produkt",
-      "count_plural": "produkty"
+      "count_plural": "produktów"
     },
     "empty": {
       "title": "Brak produktów",
       "search_desc": "Nie znaleziono produktów pasujących do wyszukiwania.",
-      "default_desc": "Nie utworzono jeszcze żadnych produktów na tym koncie."
+      "default_desc": "Na tym koncie nie utworzono jeszcze żadnych produktów."
     },
     "table": {
       "loading": "Ładowanie produktów...",
@@ -287,33 +293,33 @@
         "category": "Kategoria",
         "price": "Cena",
         "product_status": "Status produktu",
-        "listing_status": "Status ogłoszenia",
+        "listing_status": "Status oferty",
         "actions": "Akcje"
       },
       "statuses": {
         "available": "Dostępny",
         "sold": "Sprzedany",
-        "active": "Aktywne",
-        "hidden": "Ukryte",
-        "pending": "Oczekujące"
+        "active": "Aktywny",
+        "hidden": "Ukryty",
+        "pending": "Oczekujący"
       }
     },
     "actions": {
       "edit_hint": "Edytuj produkt",
       "delete_hint": "Usuń produkt",
-      "delete_confirm": "Czy na pewno chcesz usunąć produkt ID: \"{{id}}\"?"
+      "delete_confirm": "Czy na pewno chcesz usunąć produkt o ID: \"{{id}}\"?"
     }
   },
   "orders_view": {
     "header": {
       "eyebrow": "Transakcje",
       "title_buying": "Twoje zakupy",
-      "title_selling": "Twoja sprzedaż",
-      "description_buying": "Zarządzaj przedmiotami, które zostały przez Ciebie kupione.",
-      "description_selling": "Zarządzaj przedmiotami, które zostały przez Ciebie sprzedane."
+      "title_selling": "Twoje sprzedaże",
+      "description_buying": "Zarządzaj zakupionymi przedmiotami.",
+      "description_selling": "Zarządzaj sprzedanymi przedmiotami."
     },
     "tabs": {
-      "buying": "Kupno",
+      "buying": "Zakupy",
       "selling": "Sprzedaż"
     }
   },
@@ -325,8 +331,8 @@
     },
     "empty": {
       "title": "Nie znaleziono zakupów",
-      "search_desc": "Żadne zakupy nie pasują do Twojego wyszukiwania.",
-      "default_desc": "Historia Twoich zakupów pojawi się tutaj."
+      "search_desc": "Nie znaleziono zakupów pasujących do wyszukiwania.",
+      "default_desc": "Historia zakupów pojawi się tutaj."
     },
     "table": {
       "loading": "Ładowanie zakupów...",
@@ -336,35 +342,35 @@
         "seller": "Sprzedawca",
         "subtotal": "Wartość",
         "shipping": "Wysyłka",
-        "total": "Razem",
+        "total": "Suma",
         "status": "Status",
         "ordered_date": "Data zamówienia",
         "action": "Akcja"
       },
       "statuses": {
-        "pending": "Oczekujące",
+        "pending": "Oczekujący",
         "awaiting_shipment": "Oczekuje na wysyłkę",
         "shipped": "Wysłane",
         "delivered": "Dostarczone",
-        "cancelled": "Anulowane",
+        "cancelled": "Anulowany",
         "completed": "Zakończone"
       }
     },
     "actions": {
       "view_details": "Zobacz szczegóły",
-      "file_dispute": "Zgłoś problem / Spór"
+      "file_dispute": "Zgłoś problem / spór"
     }
   },
   "seller_view": {
     "toolbar": {
       "search_placeholder": "Szukaj sprzedaży...",
       "count_singular": "sprzedaż",
-      "count_plural": "transakcje sprzedaży"
+      "count_plural": "transakcji sprzedaży"
     },
     "empty": {
       "title": "Nie znaleziono transakcji",
-      "search_desc": "Żadna sprzedaż nie pasuje do Twojego wyszukiwania.",
-      "default_desc": "Historia Twojej sprzedaży pojawi się tutaj."
+      "search_desc": "Nie znaleziono sprzedaży pasujących do wyszukiwania.",
+      "default_desc": "Your sales history will appear here."
     },
     "table": {
       "loading": "Ładowanie danych...",
@@ -374,100 +380,100 @@
         "buyer": "Kupujący",
         "subtotal": "Wartość netto",
         "shipping": "Wysyłka",
-        "total": "Razem",
+        "total": "Suma",
         "status": "Status",
         "created": "Utworzono",
         "action": "Akcja"
       }
     },
     "actions": {
-      "file_dispute": "Zgłoś spór / Problem"
+      "file_dispute": "Zgłoś spór / problem"
     }
   },
   "shipments": {
     "header": {
       "eyebrow": "Przesyłki",
       "title": "Wysyłki zamówień",
-      "description": "Zarządzaj Dostawami i Logistyką."
+      "description": "Zarządzaj dostawami i logistyką."
     },
     "toolbar": {
       "search_placeholder": "Szukaj adresu dostawy...",
       "count_singular": "wpis",
-      "count_plural": "wpisy"
+      "count_plural": "wpisów"
     },
     "empty": {
-      "title": "Brak Wyników",
-      "search_desc": "Nie znaleziono przesyłek pasujących do kryteriów wyszukiwania.",
-      "default_desc": "Brak aktywnych rekordów przesyłek w systemie."
+      "title": "Brak wyników",
+      "search_desc": "Nie znaleziono przesyłek spełniających kryteria wyszukiwania.",
+      "default_desc": "Brak aktywnych przesyłek w systemie."
     },
     "table": {
-      "loading": "Ładowanie przesyłek...",
-      "error": "Nie udało się załadować danych o przesyłkach.",
+      "loading": "Loading shipments...",
+      "error": "Nie udało się pobrać danych wysyłek.",
       "headers": {
         "order": "Zamówienie",
         "seller": "Sprzedawca",
         "address": "Adres dostawy",
         "shipped_at": "Wysłano",
-        "tracking_number":"Numer przesyłki",
-        "delivered_at": "Dostarczono",
+        "delivered_at": "Dostarczone",
+        "tracking_number": "Numer przesyłki",
         "status": "Status",
         "action": "Akcja"
       }
     },
     "actions": {
-      "edit_hint": "Edytuj status przesyłki"
+      "edit_hint": "Edytuj status wysyłki"
     }
   },
   "wishlist": {
     "header": {
       "title": "Zapisane przedmioty",
-      "description": "Zarządzaj swoją listą ulubionych produktów",
+      "description": "Zarządzaj listą ulubionych produktów",
       "count_singular": "Przedmiot",
       "count_plural": "Przedmioty"
     },
     "empty": {
-      "title": "Twoja lista życzeń jest pusta",
-      "description": "Zapisuj produkty, które Ci się podobają, aby je śledzić i kupić później.",
+      "title": "Twoja lista ulubionych jest pusta",
+      "description": "Zapisuj produkty, które Ci się podobają, aby śledzić je i kupić później.",
       "explore_btn": "Przeglądaj sklep"
     },
     "card": {
-      "remove_hint": "Usuń z listy życzeń",
-      "added_on": "Dodano dnia",
+      "remove_hint": "Usuń z ulubionych",
+      "added_on": "Dodano",
       "buy_btn": "Kup"
     }
   },
   "payouts": {
     "header": {
-      "eyebrow": "Rozliczenia ogłoszeń",
+      "eyebrow": "Rozliczenia ofert",
       "title": "Wypłaty",
-      "description": "Zarządzaj swoimi wypłatami i rozliczeniami salda."
+      "description": "Zarządzaj wypłatami i rozliczeniami salda."
     },
     "toolbar": {
       "search_placeholder": "Szukaj po numerze zamówienia...",
       "count_singular": "wypłata",
-      "count_plural": "wypłaty"
+      "count_plural": "wypłat"
     },
     "empty": {
       "title": "Brak wypłat",
       "search_desc": "Nie znaleziono rozliczeń pasujących do wyszukiwania.",
-      "default_desc": "Nie zarejestrowano jeszcze żadnych wypłat na Twoim koncie."
+      "default_desc": "Nie odnotowano jeszcze żadnych wypłat na Twoim koncie."
     },
     "table": {
       "headers": {
         "seller": "Sprzedawca",
-        "payout_id": "ID Rozliczenia",
+        "payout_id": "ID rozliczenia",
         "order": "Zamówienie",
         "status": "Status",
         "currency": "Waluta",
-        "total": "Suma"
+        "total": "Kwota"
       },
       "statuses": {
-        "pending": "Oczekujące",
+        "pending": "Oczekujący",
         "pending_payout": "Oczekuje na wypłatę",
         "paid": "Wypłacone",
         "completed": "Zakończone",
-        "failed": "Niepowodzenie",
-        "cancelled": "Anulowane"
+        "failed": "Nieudane",
+        "cancelled": "Anulowany"
       }
     }
   },
@@ -475,24 +481,24 @@
     "BRAND_NAME": "KASOA"
   },
   "DiscoverFeed": {
-    "NETWORK_ERROR": "Błąd połączenia sieciowego. Spróbuj ponownie później.",
+    "NETWORK_ERROR": "Błąd połączenia z siecią. Spróbuj ponownie później.",
     "real_moments": "Prawdziwe produkty.",
-    "real_connections": "Prawdziwe oszczędności."
+    "real_connections": "Real savings."
   },
   "REGISTER_PAGE": {
     "TITLE": "Utwórz konto",
-    "SUBTITLE": "Dołącz do naszej zweryfikowanej platformy produktów z drugiej ręki już dziś."
+    "SUBTITLE": "Dołącz już dziś do naszej platformy z produktami z drugiej ręki."
   },
   "LoginPage": {
     "brand_name": "KASOA",
     "title": "Witaj ponownie",
     "email": {
       "placeholder": "Adres e-mail",
-      "email_error": "Nie znaleziono konta przypisanego do tego adresu e-mail."
+      "email_error": "Nie znaleziono konta dla tego adresu e-mail."
     },
     "password": {
       "placeholder": "Hasło",
-      "password_error": "Błędne hasło. Spróbuj ponownie."
+      "password_error": "Nieprawidłowe hasło. Spróbuj ponownie."
     },
     "submit_btn": "Zaloguj się",
     "divider_text": "LUB",
@@ -506,20 +512,20 @@
     "fields": {
       "firstName": {
         "placeholder": "Imię",
-        "firstname_error": "Proszę podać poprawne imię."
+        "firstname_error": "Podaj prawidłowe imię."
       },
       "lastName": {
         "placeholder": "Nazwisko",
-        "lastname_error": "Proszę podać poprawne nazwisko."
+        "lastname_error": "Podaj prawidłowe nazwisko."
       },
       "Other": {
         "date_of_birth": "Data urodzenia"
       },
-      "dob_error": "Musisz spełniać minimalne wymagania wiekowe, aby założyć konto.",
+      "dob_error": "Musisz spełniać minimalne wymagania wiekowe, aby utworzyć konto.",
       "email": {
         "placeholder": "Adres e-mail",
-        "email_error": "Proszę podać poprawny format adresu e-mail.",
-        "email_taken": "Ten adres e-mail jest już przypisany do innego konta."
+        "email_error": "Podaj prawidłowy format adresu e-mail.",
+        "email_taken": "Ten adres e-mail jest już powiązany z innym kontem."
       },
       "password": {
         "placeholder": "Hasło",
@@ -527,7 +533,7 @@
       },
       "terms_and_privacy": {
         "link": "Oświadczam, że akceptuję",
-        "terms": "Regulamin serwisu",
+        "terms": "Regulamin",
         "and": "oraz",
         "privacy_policy": "Politykę prywatności",
         "brand_name": "sklepu DrugaRęka."
@@ -544,28 +550,28 @@
   },
   "navigation": {
     "menu": {
-      "shop": "Sklep",
-      "categories": "kategorii",
-      "sell": "Sprzedaj z nami"
+      "shop": "Kupuj",
+      "categories": "kategorie",
+      "sell": "Sprzedawaj z nami"
     },
     "actions": {
       "account": "Konto",
-      "login": "Zaloguj się / Zarejestruj",
+      "login": "Zaloguj / Zarejestruj",
       "logout": "Wyloguj się"
     },
     "accessibility": {
-      "view_cart": "Zobacz koszyk",
-      "view_wishlist": "Zobacz listę życzeń",
-      "view_account": "Zobacz panel konta",
-      "menu_open": "Otwórz menu nawigacji",
-      "menu_close": "Zamknij menu nawigacji"
+      "view_cart": "Wyświetl koszyk",
+      "view_wishlist": "Wyświetl listę ulubionych",
+      "view_account": "Wyświetl panel konta",
+      "menu_open": "Otwórz nawigację",
+      "menu_close": "Zamknij nawigację"
     }
   },
- "cart": {
+  "cart": {
     "page": {
       "empty": {
         "title": "Twój koszyk jest pusty",
-        "description": "Nie dodałeś jeszcze do swojego koszyka żadnych wyjątkowych ubrań i produktów z drugiej ręki.",
+        "description": "Nie masz jeszcze w koszyku żadnych wyjątkowych ubrań ani produktów z drugiej ręki.",
         "continue_btn": "Kontynuuj zakupy"
       }
     },
@@ -575,15 +581,15 @@
     "summary": {
       "title": "Podsumowanie zamówienia",
       "subtotal": "Wartość produktów",
-      "shipping": "Koszt dostawy",
-      "total": "Razem",
+      "shipping": "Koszt wysyłki",
+      "total": "Suma",
       "checkout_btn": "Bezpieczna płatność",
-      "address_warning": "Proszę dodać adres dostawy, aby odblokować opcje płatności."
+      "address_warning": "Dodaj adres dostawy, aby odblokować opcje płatności."
     },
     "item": {
-      "remove_hint": "Usuń przedmiot z koszyka",
+      "remove_hint": "Remove item from cart",
       "item_price_label": "Cena przedmiotu",
-      "shipping_cost_label": "Koszt dostawy"
+      "shipping_cost_label": "Koszt wysyłki"
     },
     "address": {
       "title": "Adres dostawy",
@@ -591,11 +597,11 @@
         "edit_hint": "Edytuj adres",
         "cancel_hint": "Anuluj edycję",
         "save_btn": "Zapisz adres dostawy",
-        "saving": "Zapisywanie szczegółów..."
+        "saving": "Zapisywanie danych..."
       },
       "fields": {
         "street": {
-          "label": "Ulica i nr domu",
+          "label": "Ulica i numer domu",
           "placeholder": "np. Piotrkowska 12"
         },
         "contact": {
@@ -603,7 +609,7 @@
           "placeholder": "np. +48 500 600 700"
         },
         "city": {
-          "label": "Miejscowość",
+          "label": "Miasto",
           "placeholder": "np. Łódź"
         },
         "postal_code": {
@@ -613,15 +619,15 @@
       }
     },
     "timer": {
-      "expired": "Czas rezerwacji wygasł",
+      "expired": "Czas rezerwacji minął",
       "holding": "Rezerwacja: {{time}}"
     }
   },
   "product_details": {
     "loading": "Ładowanie szczegółów produktu...",
     "nav": {
-      "back": "Wróć",
-      "shop_crumb": "Sklep"
+      "back": "Wstecz",
+      "shop_crumb": "Kupuj"
     },
     "info": {
       "condition": "Stan",
@@ -631,7 +637,7 @@
       "savings": "Oszczędzasz {{amount}} zł ({{percent}}%)"
     },
     "safety": {
-      "return_assurance": "Bezpieczny zakup z 14-dniowym prawem do zwrotu towaru"
+      "return_assurance": "Bezpieczny zakup z 14-dniowym prawem do zwrotu produktu"
     },
     "actions": {
       "buy_now": "Kup teraz",
@@ -639,48 +645,48 @@
       "wishlist_active": "Obserwujesz"
     },
     "trust": {
-      "verified_sub": "Wszyscy użytkownicy przechodzą proces autoryzacji",
+      "verified_sub": "Wszyscy użytkownicy przechodzą proces weryfikacji",
       "delivery_title": "Ubezpieczona dostawa",
-      "delivery_sub": "Pełna możliwość śledzenia przesyłki kurierskiej",
-      "prices_title": "Okazyjne ceny rynkowe",
-      "prices_sub": "Świetne produkty, mniej zmarnowanych zasobów",
-      "protection_title": "Program Ochrony Kupujących",
-      "protection_sub": "Kupuj z poczuciem pełnego bezpieczeństwa"
+      "delivery_sub": "Pełne śledzenie przesyłki kurierskiej",
+      "prices_title": "Atrakcyjne ceny rynkowe",
+      "prices_sub": "Dobre produkty, mniej marnowania zasobów",
+      "protection_title": "Program Ochrony Kupującego",
+      "protection_sub": "Kupuj z pełnym spokojem"
     },
     "error": {
       "generic": "Coś poszło nie tak podczas ładowania tego produktu.",
-      "return_btn": "Wróć"
+      "return_btn": "Wstecz"
     }
   },
   "add_listing": {
     "header": {
       "title_add": "Dodaj produkt",
-       "title_edit": "Edytuj produkt",
+      "title_edit": "Edytuj produkt",
       "subtitle": "Utwórz produkt i udostępnij go kupującym.",
       "actions": {
-        "save_draft": "Zapisz szkic",
+        "save_draft": "Zapisz wersję roboczą",
         "publish": "Opublikuj produkt"
       }
     },
     "sections": {
       "images": {
         "title": "Zdjęcia produktu",
-        "subtitle": "Dodaj wyraźne zdjęcia swojego produktu.",
+        "subtitle": "Dodaj wyraźne zdjęcia produktu.",
         "main_label": "Główne",
         "add_btn": "Dodaj zdjęcia",
-        "hint": "JPG, PNG lub WEBP"
+        "hint": "JPG, PNG or WEBP"
       },
       "info": {
         "title": "Informacje o produkcie",
-        "subtitle": "Przekaż kupującym najważniejsze szczegóły."
+        "subtitle": "Podaj kupującym najważniejsze informacje."
       },
       "pricing": {
-        "title": "Cena i asortyment",
-        "subtitle": "Ustal cenę oraz dostępną ilość produktu."
+        "title": "Cena i stan magazynowy",
+        "subtitle": "Ustal cenę i dostępną ilość produktu."
       },
       "shipping": {
         "title": "Wysyłka",
-        "subtitle": "W ciągu ilu dni produkt może zostać dostarczony do kupującego?"
+        "subtitle": "W ciągu ilu dni produkt może zostać dostarczony kupującemu?"
       }
     },
     "fields": {
@@ -699,7 +705,7 @@
       "description": {
         "label": "Opis",
         "placeholder": "Opisz produkt, jego stan, cechy i wszystko, co kupujący powinien wiedzieć...",
-        "hint": "Opisz produkt rzetelnie i przejrzyście."
+        "hint": "Opisz produkt dokładnie i jasno."
       },
       "price": {
         "label": "Cena"
@@ -711,8 +717,8 @@
         "label": "Marka"
       },
       "sku": {
-        "label": "SKU (Kod magazynowy)",
-        "placeholder": "Opcjonalnie"
+        "label": "SKU (kod produktu)",
+        "placeholder": "Opcjonalne"
       },
       "shipping_method": {
         "label": "Metoda wysyłki",
@@ -720,21 +726,21 @@
       },
       "shipping_info": {
         "label": "Informacje o wysyłce",
-        "placeholder": "np. Wysyłka w ciągu 2-3 dni roboczych. Koszt wysyłki pokrywa kupujący."
+        "placeholder": "np. Wysyłka w ciągu 2–3 dni roboczych. Koszt wysyłki pokrywa kupujący."
       }
     },
     "sidebar": {
       "status": {
         "title": "Status produktu",
         "publish_label": "Opublikuj",
-        "publish_desc": "Kupujący będą mogli zobaczyć i zakupić ten produkt."
+        "publish_desc": "Kupujący będą mogli zobaczyć i kupić ten produkt."
       },
       "tips": {
         "title": "Wskazówki",
-        "tip1": "Używaj jasnych, wyraźnych zdjęć produktu.",
+        "tip1": "Użyj jasnych, wyraźnych zdjęć produktu.",
         "tip2": "Napisz dokładny i rzetelny opis.",
-        "tip3": "Wspomnij o ewentualnych wadach lub śladach użytkowania.",
-        "tip4": "Zastosuj konkurencyjną cenę."
+        "tip3": "Wspomnij o wszelkich wadach lub śladach użytkowania.",
+        "tip4": "Ustal konkurencyjną cenę."
       },
       "preview": {
         "title": "Podgląd",
@@ -747,21 +753,21 @@
     "toolbar": {
       "count_singular": "zakup",
       "count_plural": "zakupy",
-      "total_label": "Łącznie"
+      "total_label": "Suma"
     },
     "empty": {
       "title": "Nie znaleziono zakupów"
     },
     "table": {
-      "loading": "Ładowanie szczegółów zakupów...",
-      "error": "Nie udało się pobrać historii transakcji.",
+      "loading": "Ładowanie zakupów...",
+      "error": "Unable to fetch purchase records.",
       "headers": {
         "order": "Zamówienie",
         "seller": "Sprzedawca",
-        "subtotal": "Wartość",
+        "subtotal": "Suma częściowa",
         "shipping": "Wysyłka",
-        "total": "Razem",
-        "order_status": "Status zamówienia",
+        "total": "Suma",
+        "order_status": "Status",
         "tracking_number": "Numer przesyłki",
         "delivery_status": "Status dostawy"
       }
@@ -771,125 +777,125 @@
     "success": {
       "eyebrow": "Płatność zatwierdzona",
       "title": "Dziękujemy za zamówienie!",
-      "description": "Doceniamy Twoje zaufanie! E-mail z potwierdzeniem zakupu oraz szczegółami ochrony Escrow zostanie wysłany na Twój adres.",
-      "session_label": "Identyfikator sesji",
-      "next_steps_title": "Co dzieje się teraz?",
-      "next_steps_desc": "Powiadomiliśmy już sprzedawców o konieczności spakowania Twoich przedmiotów. Gdy nadadzą paczki, otrzymasz kolejną aktualizację z numerem śledzenia przesyłki.",
-      "support_hint": "Masz pytania lub wątpliwości? Skontaktuj się z nami pod adresem:",
+      "description": "Dziękujemy za zakupy! Na Twój adres e-mail wyślemy potwierdzenie wraz ze szczegółami ochrony Escrow.",
+      "session_label": "ID sesji",
+      "next_steps_title": "Co dalej?",
+      "next_steps_desc": "Powiadomiliśmy już sprzedawców, aby przygotowali Twoje produkty. Gdy tylko je wyślą, otrzymasz kolejną wiadomość z numerem przesyłki.",
+      "support_hint": "Masz pytania lub wątpliwości? Skontaktuj się z nami:",
       "cta_continue": "Kontynuuj zakupy"
     },
     "error": {
       "title": "Błąd weryfikacji",
-      "description": "Nie udało się zweryfikować statusu Twojej płatności. Jeśli środki zostały pobrane, sprawdź swoją skrzynkę e-mail.",
+      "description": "Nie udało się zweryfikować statusu płatności. Jeśli środki zostały pobrane, sprawdź swoją skrzynkę e-mail.",
       "cta_back": "Wróć do sklepu"
     }
   },
   "cart_page": {
     "empty": {
       "title": "Twój koszyk jest pusty",
-      "description": "Nie masz jeszcze żadnych przedmiotów w koszyku. Ponieważ oferujemy unikalne, pojedyncze sztuki z drugiej ręki, nie zwlekaj z zakupem, gdy znajdziesz coś dla siebie!",
-      "continue_btn": "Przejdź do sklepu"
+      "description": "Nie masz jeszcze żadnych produktów w koszyku. Ponieważ oferujemy wyjątkowe, pojedyncze produkty z drugiej ręki, nie czekaj zbyt długo, gdy znajdziesz coś, co Ci się podoba!",
+      "continue_btn": "Kontynuuj zakupy"
     }
   },
   "delivery_confirmation": {
     "success": {
-      "title": "Odbiór potwierdzony!",
-      "description": "Dziękujemy! Środki z systemu ochrony Escrow zostały pomyślnie przekazane na saldo sprzedawcy. Zamówienie zostało zamknięte."
+      "title": "Dostawa potwierdzona!",
+      "description": "Dziękujemy! Środki z systemu ochrony Escrow zostały pomyślnie uwolnione na saldo sprzedawcy. Zamówienie zostało zamknięte."
     },
     "invalid_token": {
-      "title": "Błąd weryfikacji",
+      "title": "Verification error",
       "description": "Nieprawidłowy lub brakujący token weryfikacyjny w adresie URL. Nie można potwierdzić dostawy."
     },
     "action": {
-      "eyebrow": "Bezpieczne Escrow",
-      "title": "Potwierdź odbiór",
-      "description": "Kliknij poniższy przycisk, jeśli paczka do Ciebie dotarła, a jej zawartość jest w pełni zgodna z zamówieniem.",
+      "eyebrow": "Bezpieczny Escrow",
+      "title": "Potwierdź dostawę",
+      "description": "Kliknij przycisk poniżej, jeśli przesyłka dotarła do Ciebie, a jej zawartość jest w pełni zgodna z zamówieniem.",
       "processing": "Przetwarzanie...",
-      "confirm_btn": "Potwierdzam odbiór towaru"
+      "confirm_btn": "Potwierdzam odbiór przedmiotu"
     },
     "error": {
       "fallback": "Wystąpił błąd. Spróbuj ponownie później."
     }
   },
-   "admin_sidebar": {
+  "admin_sidebar": {
     "label": "Administracja",
     "menu": {
-      "dashboard": "Pulpit",
-      "products": "Produkty",
+      "dashboard": "Panel",
+      "products": "Products",
       "categories": "Kategorie",
-      "brands": "Marki",
+      "brands": "Brands",
       "orders": "Zamówienia",
-      "shipments": "Wysyłki",
+      "shipments": "Przesyłki",
       "users": "Użytkownicy",
-      "conditions": "Stany produktów",
-      "reports": "Zgłoszenia",
+      "conditions": "Conditions",
+      "reports": "Raporty",
       "analytics": "Analityka",
       "payouts": "Wypłaty"
     }
-  },"error_page": {
+  },
+  "error_page": {
     "fallbacks": {
-      "generic_title": "Something went wrong",
-      "generic_message": "An unexpected system error occurred on Kasoa.pl. Our technical team has been notified."
+      "generic_title": "Coś poszło nie tak",
+      "generic_message": "Wystąpił nieoczekiwany błąd systemu na Kasoa.pl. Nasz zespół techniczny został powiadomiony."
     },
     "errors": {
       "404": {
-        "title": "Page not found",
-        "message": "Sorry, the page you are looking for does not exist, has been removed, or its URL has changed."
+        "title": "Nie znaleziono strony",
+        "message": "Przepraszamy, ale strona której szukasz nie istnieje, została usunięta lub jej adres URL uległ zmianie."
       }
     },
     "buttons": {
-      "go_home": "Go to home",
-      "go_back": "Go back"
+      "go_home": "Strona główna",
+      "go_back": "Wróć"
     }
   },
   "help": {
     "header": {
-      "eyebrow": "Centrum Pomocy",
+      "eyebrow": "Centrum pomocy",
       "title": "Jak działa Kasoa.pl?",
-      "description": "Znajdź odpowiedzi na najczęściej zadawane pytania dotyczące zakupów, sprzedaży oraz systemu zabezpieczeń escrow."
+      "description": "Znajdź odpowiedzi na najczęściej zadawane pytania dotyczące kupowania, sprzedawania i naszego bezpiecznego systemu ochrony Escrow."
     },
     "tabs": {
-      "buyer": "Jestem Kupującym",
-      "seller": "Jestem Sprzedającym"
+      "buyer": "Jestem kupującym",
+      "seller": "Jestem sprzedawcą"
     },
     "faqs": {
       "buyer": {
         "process": {
-          "question": "Jak kupować unikalne przedmioty na Kasoa.pl?",
-          "answer": "Wybierz interesujący Cię produkt z katalogu i dodaj go do koszyka. Ponieważ oferujemy niepowtarzalne towary 1-of-1, produkt zostanie tymczasowo zarezerwowany. Następnie przejdź do kasy, uzupełnij adres i sfinalizuj transakcję kartą za pośrednictwem bezpiecznego systemu Stripe."
+          "question": "Jak kupić wyjątkowe produkty na Kasoa.pl?",
+          "answer": "Wybierz interesujący Cię produkt z katalogu i dodaj go do koszyka. Ponieważ oferujemy wyjątkowe produkty dostępne w pojedynczych egzemplarzach, produkt zostanie tymczasowo zarezerwowany dla Ciebie. Następnie przejdź do kasy, podaj adres dostawy i bezpiecznie sfinalizuj transakcję kartą za pośrednictwem Stripe."
         },
         "escrow": {
-          "question": "W jaki sposób chronione są moje pieniądze podczas zakupu?",
-          "answer": "Kasoa.pl korzysta z zaawansowanego systemu ochrony Escrow. Po dokonaniu płatności Twoje środki trafiają na niezależny, zamrożony rachunek techniczny. Sprzedawca nie otrzyma zapłaty, dopóki paczka nie zostanie doręczona, a Ty nie potwierdzisz odbioru w panelu."
+          "question": "Jak chronione są moje pieniądze podczas zakupu?",
+          "answer": "Kasoa.pl korzysta z zaawansowanego systemu ochrony Escrow. Po dokonaniu płatności środki są bezpiecznie przechowywane na niezależnym, zablokowanym rachunku technicznym. Sprzedawca nie otrzyma wypłaty, dopóki przesyłka nie zostanie dostarczona, a Ty ręcznie nie potwierdzisz jej odbioru w swoim panelu."
         },
         "shipping": {
-          "question": "Czego potrzebuję, aby odebrać przesyłkę od sprzedawcy?",
-          "answer": "Podczas składania zamówienia podajesz wyłącznie adres dostawy. Sprzedawca wysyła paczkę na wskazany adres, umieszczając na niej naszą etykietę fulfillmentową. Gdy paczka ruszy, otrzymasz powiadomienie e-mail z unikalnym kodem weryfikacyjnym."
+          "question": "Co muszę zrobić, aby otrzymać przesyłkę od sprzedawcy?",
+          "answer": "Podczas finalizacji zakupu musisz podać jedynie adres dostawy. Sprzedawca wyśle przesyłkę na wskazany adres zgodnie z naszymi wytycznymi dotyczącymi realizacji. Gdy przesyłka będzie w drodze, otrzymasz wiadomość e-mail z unikalnym linkiem do śledzenia i weryfikacji."
         }
       },
       "seller": {
         "listing": {
-          "question": "W jaki sposób mogę wystawić produkt na sprzedaż?",
-          "answer": "Zaloguj się na swoje konto, kliknij 'Wystaw przedmiot' i uzupełnij formularz. Dodaj wyraźne zdjęcia oferty, określ stan faktyczny przedmiotu oraz podaj kwotę netto, jaką chcesz zarobić na czysto."
+          "question": "Jak wystawić produkt na sprzedaż?",
+          "answer": "Zaloguj się na swoje konto, kliknij „Sprzedaj przedmiot” i wypełnij formularz oferty. Dodaj jasne zdjęcia produktu, dokładnie określ jego aktualny stan, wybierz kategorię i podaj kwotę netto, którą chcesz otrzymać ze sprzedaży."
         },
         "pricing": {
-          "question": "Czy pobieracie opłaty za wystawianie ofert w katalogu?",
-          "answer": "Wystawianie przedmiotów jest w 100% bezpłatne. Wskazujesz swoją cenę zysku 'X', a wszelkie prowizje operacyjne i koszty transakcyjne doliczane są automatycznie po stronie kupującego przy kasie."
+          "question": "Czy pobieracie opłaty za wystawienie produktów w katalogu?",
+          "answer": "Wystawianie produktów jest w 100% bezpłatne. Podajesz oczekiwaną kwotę wypłaty „X”, a wszelkie prowizje operacyjne platformy lub opłaty za obsługę transakcji są dynamicznie doliczane po stronie kupującego podczas finalizacji zakupu."
         },
         "payout": {
-          "question": "Kiedy środki trafią na moje saldo wypłat (Payouts)?",
-          "answer": "Po wysłaniu paczki uzupełnij jej kod śledzenia w panelu. Pieniądze zostaną automatycznie uwolnione i przelane na Twoje saldo wypłat niezwłocznie po tym, jak kupujący kliknie link potwierdzający odbiór zamówienia."
+          "question": "Kiedy środki trafią na moje dostępne saldo wypłat?",
+          "answer": "Po wysłaniu przesyłki zaloguj się do panelu konta, przejdź do „Wysyłki” i od razu wprowadź numer przesyłki. Środki zostaną automatycznie uwolnione i zaksięgowane na Twoim saldzie wypłat, gdy tylko kupujący kliknie link potwierdzający odbiór."
         }
       }
     },
     "cta": {
-      "buyer_title": "Gotowy na polowanie na okazje?",
-      "buyer_desc": "Przeglądaj tysiące sprawdzonych ofert vintage, elektroniki i wyposażenia domu z bezpieczną ochroną escrow.",
+      "buyer_title": "Gotowy na wyjątkowe okazje?",
+      "buyer_desc": "Przeglądaj tysiące zweryfikowanych ofert vintage, elektroniki i wyposażenia domu z pełną ochroną Escrow.",
       "buyer_btn": "Przejdź do sklepu",
       "seller_title": "Masz rzeczy, których już nie używasz?",
-      "seller_desc": "Zamień nienoszone ubrania lub zalegający sprzęt w szybką gotówkę. Daj przedmiotom drugą szansę.",
+      "seller_desc": "Zamień niepotrzebne ubrania lub dodatkowe wyposażenie na gotówkę. Daj swoim rzeczom drugą szansę już dziś.",
       "seller_btn": "Wystaw produkt na sprzedaż"
     }
   }
- 
 }

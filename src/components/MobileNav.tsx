@@ -10,7 +10,6 @@ import { useGetCartCountQuery } from "../features/api/cartApi";
 import { useGetWishlistCountQuery } from "../features/api/itemApi";
 import { logoutUser } from "../features/slice/userSlice";
 import { useAppSelector } from "../store";
-import logoKasoa from './../assets/logo-kasoa.png';
 import Loading from "./Loading";
 import Search from "./Search";
 const MobileNav = () => {
@@ -83,7 +82,7 @@ const MobileNav = () => {
       <div className="mn-header__inner">
         
         <Link to="/" className="mn-brand" onClick={() => setMenuOpen(false)}  style={{textTransform:'uppercase'}}>
-          <img src={logoKasoa} alt="" style={{width:"30px",height:'30px'}} /> {appName}<span className="mn-brand__light">.pl</span>
+{appName}<span className="mn-brand__light">.pl</span>
         </Link>
 
         <div className="mn-header__actions">
