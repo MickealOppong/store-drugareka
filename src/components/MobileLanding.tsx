@@ -191,7 +191,7 @@ const {data:listings=[]} = useGetLandingListingQuery()
         <div className="mobile-product-grid" style={{display:listings.length===0?'none':'grid'}}>
           {listings.map((product) => (
             <article key={product.listingId} className="mobile-product-card">
-              <Link to={`/product/${product.listingId}`} className="mobile-product-card__media">
+              <Link to={`/shop/listing/${product.listingId}`} className="mobile-product-card__media">
                 <img src={product.media[0].image} alt={product.productName} />
               </Link>
 
