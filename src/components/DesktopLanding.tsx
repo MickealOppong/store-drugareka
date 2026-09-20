@@ -10,14 +10,13 @@ import {
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import '../css/DesktopLanding.css';
-import { appName } from "../data/data";
 import { useGetLandingListingQuery, useGetTop6ProductCategoriesQuery } from "../features/api/storeApi";
 import { useAddToCart } from "../hooks/useAddTocart";
 import { useAppSelector } from "../store";
 import { formatPrice, sanitizeBackendKey } from "../util/util";
 import hero from './../assets/hero-large.png';
 import heroSmall from './../assets/hero-small.png';
-import LanguageSwitcher from "./LanguageSwitcher";
+import Footer from "./Footer";
 import Loading from "./Loading";
 
 
@@ -243,6 +242,8 @@ if(isLoading){
   <section className="seller-section">
           <div className="seller-section__content">
             <span className="section-eyebrow">{t("landing.seller_cta.eyebrow")}</span>
+            <span className="section-eyebrow">{t("landing.seller_cta.sub-eyebrow-1")}</span>
+            <span className="section-eyebrow">{t("landing.seller_cta.sub-eyebrow-2")}</span>
 
             <h2>
               {t("landing.seller_cta.title_line1")}
@@ -312,48 +313,7 @@ if(isLoading){
                 FOOTER
             ====================================================== */}
 
-      <footer className="landing-footer">
-        <div className="landing-footer__brand">
-          <Link
-            to="/"
-            className="brand"
-          >
-            {appName}<span>.pl</span>
-          </Link>
-
-          <p>{t("landing.footer.tagline")}</p>
-        </div>
-
-        <div className="landing-footer__links">
-          <div>
-            <h4>{t("landing.footer.heading_shop")}</h4>
-
-            <Link to="/shop">{t("landing.footer.link_all_products")}</Link>
-
-            <Link to="/shop/categories">{t("landing.footer.link_categories")}</Link>
-
-            <Link to="/shop">{t("landing.footer.link_new_arrivals")}</Link>
-          </div>
-
-          <div>
-            <h4>{t("landing.footer.heading_sell")}</h4>
-
-            <Link to="/sell">{t("landing.footer.link_how_it_works")}</Link>
-
-            <Link to="/sell">{t("landing.footer.link_start_selling")}</Link>
-          </div>
-
-          <div>
-            <h4>{t("landing.footer.heading_help")}</h4>
-
-            <Link to="/sell">{t("landing.footer.link_help_centre")}</Link>
-
-            <Link to="/contact">{t("landing.footer.link_contact")}</Link>
-          </div>
-        </div>
-        <LanguageSwitcher/>
-      </footer>
-
+<Footer/>
       </div>
     </main>
   );

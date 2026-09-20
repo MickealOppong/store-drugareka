@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { FaEye } from "react-icons/fa";
-import { FiHeart, FiLock, FiMail } from "react-icons/fi";
+import { FiLock, FiMail } from "react-icons/fi";
 import { RiEyeOffFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ import { useMergeCartMutation } from "../features/api/cartApi";
 import { setGuestCartCount } from "../features/slice/cartSlice";
 import { loginUser } from "../features/slice/userSlice";
 import type { TUserDto } from "../types/TUserDto";
-
+import logoKasoa from './../assets/logo-kasoa.png';
 const Login = () => {
   const [showText, setShowText] = useState<String>("password");
   const [errorEmail, setErrorEmail] = useState<string>("");
@@ -113,7 +113,7 @@ const Login = () => {
       <div className="login-page">
         <div className="login-card">
           <div className="brand">
-            <FiHeart size={16} className="heart" />
+            <img src={logoKasoa} alt="" style={{width:'30px',height:'30px'}}/>
             <h1>{t("STORE.BRAND_NAME")}</h1>
           </div>
 

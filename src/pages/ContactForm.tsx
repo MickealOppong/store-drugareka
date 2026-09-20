@@ -81,7 +81,7 @@ export const ContactForm: React.FC = () => {
               </div>
               <div className="contact-form-page__text-wrapper">
                 <strong>Email Us</strong>
-                <p>support@drugirynek.pl</p>
+                <p>admin-kasoa.pl@gmail.com</p>
               </div>
             </li>
             
@@ -91,7 +91,7 @@ export const ContactForm: React.FC = () => {
               </div>
               <div className="contact-form-page__text-wrapper">
                 <strong>Call Us</strong>
-                <p>+48 123 456 789</p>
+                <p>+48 722 364 131</p>
               </div>
             </li>
             
@@ -101,14 +101,16 @@ export const ContactForm: React.FC = () => {
               </div>
               <div className="contact-form-page__text-wrapper">
                 <strong>Headquarters</strong>
-                <p>Piotrków Trybunalski, Poland</p>
+                  <p>Focus Mall</p>
+                  <p>ul. slowaskiego 123</p>
+                <p>97-300,Piotrków Trybunalski</p>
               </div>
             </li>
           </ul>
         </aside>
 
         {/* RIGHT COLUMN: CORE INTERACTIVE INPUT CARD */}
-        <form onSubmit={handleFormSubmit} className="contact-form-page__input-card">
+        <form onSubmit={handleFormSubmit} className="contact-form-page__input-card" style={{display:'none'}}>
           
           <div className="contact-input-field">
             <label htmlFor="fullName" className="contact-input-field__label">Full Name</label>

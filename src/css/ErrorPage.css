@@ -1,0 +1,100 @@
+.error-viewport {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F4F7F6;
+  /* Alabaster base grounding */
+  padding: 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.error-viewport__card {
+  max-width: 480px;
+  width: 100%;
+  padding: 3.5rem 2rem;
+  text-align: center;
+  border-radius: 16px;
+  border: 1px solid #E0E7E6;
+  background-color: #FFFFFF;
+  box-shadow: 0 12px 32px rgba(13, 19, 19, 0.04);
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.error-viewport__icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background-color: #FFF8E7;
+  /* Soft Terracotta/Amber accent warning frame */
+  color: #D97706;
+  font-size: 2rem;
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+}
+
+.error-viewport__status-badge {
+  display: inline-block;
+  background-color: #F4F7F6;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #5E6C6A;
+  margin-bottom: 1.25rem;
+}
+
+.error-viewport__status-badge code {
+  font-family: monospace;
+  color: #1E3A3A;
+  /* Spruce code token marker text */
+}
+
+.error-viewport__title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0D1313;
+  /* Ink core entity color */
+  margin: 0 0 0.75rem 0;
+  line-height: 1.3;
+}
+
+.error-viewport__message {
+  font-size: 14px;
+  color: #42504F;
+  /* Granite description text */
+  line-height: 1.6;
+  margin: 0 0 2.5rem 0;
+}
+
+.error-viewport__actions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.error-viewport__btn {
+  width: 100%;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+@media (min-width: 480px) {
+  .error-viewport__actions-grid {
+    flex-direction: row;
+  }
+}

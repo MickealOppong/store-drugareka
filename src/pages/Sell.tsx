@@ -142,11 +142,21 @@ const Sell = () => {
             {t("sell_page.benefits.description")}
           </p>
 
+            <h1 className="sl-section-desc">
+            {t("sell_page.benefits.sub_title-1")}
+          </h1>
+
+              <p className="sl-section-desc">
+            {t("sell_page.benefits.sub_title-2")}
+          </p>
+
           <ul className="sl-benefits__list">
             <li><FiCheck /> <span>{t("sell_page.benefits.bullet1")}</span></li>
             <li><FiCheck /> <span>{t("sell_page.benefits.bullet2")}</span></li>
             <li><FiCheck /> <span>{t("sell_page.benefits.bullet3")}</span></li>
             <li><FiCheck /> <span>{t("sell_page.benefits.bullet4")}</span></li>
+            <li><FiCheck /> <span>{t("sell_page.benefits.bullet5")}</span></li>
+            <li><FiCheck /> <span>{t("sell_page.benefits.bullet6")}</span></li>
           </ul>
 
           <Link to={buttonRedirectPath} className="sl-btn sl-btn--primary">

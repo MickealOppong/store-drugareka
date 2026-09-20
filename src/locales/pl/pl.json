@@ -44,7 +44,7 @@
       "step1_title": "Wystaw przedmiot",
       "step1_desc": "Dodaj zdjęcia, określ stan i kwotę, którą chcesz otrzymać.",
       "step2_title": "My znajdziemy kupującego",
-      "step2_desc": "Twój przedmiot trafi do oferty sklepu DrugaRęka.",
+      "step2_desc": "Twój przedmiot trafi do oferty sklepu Kasoa.pl.",
       "step3_title": "Wyślij i odbierz pieniądze",
       "step3_desc": "Po sprzedaży przekażemy Ci wszystko, co niezbędne do wysyłki."
     },
@@ -150,7 +150,7 @@
       "step1_title": "Dodaj produkt",
       "step1_desc": "Opisz produkt, dodaj zdjęcia, wybierz kategorię i określ cenę, którą chcesz otrzymać.",
       "step2_title": "My zajmiemy się sprzedażą",
-      "step2_desc": "Produkt pojawi się w naszym sklepie w cenie ustalonej przez Druga Ręka.",
+      "step2_desc": "Produkt pojawi się w naszym sklepie w cenie ustalonej przez kasoa.pl.",
       "step3_title": "Wyślij produkt",
       "step3_desc": "Gdy ktoś kupi produkt, otrzymasz informację i instrukcję wysyłki.",
       "step4_title": "Otrzymaj wypłatę",
@@ -408,6 +408,7 @@
         "seller": "Sprzedawca",
         "address": "Adres dostawy",
         "shipped_at": "Wysłano",
+        "tracking_number":"Numer przesyłki",
         "delivered_at": "Dostarczono",
         "status": "Status",
         "action": "Akcja"
@@ -824,6 +825,70 @@
       "reports": "Zgłoszenia",
       "analytics": "Analityka",
       "payouts": "Wypłaty"
+    }
+  },"error_page": {
+    "fallbacks": {
+      "generic_title": "Something went wrong",
+      "generic_message": "An unexpected system error occurred on Kasoa.pl. Our technical team has been notified."
+    },
+    "errors": {
+      "404": {
+        "title": "Page not found",
+        "message": "Sorry, the page you are looking for does not exist, has been removed, or its URL has changed."
+      }
+    },
+    "buttons": {
+      "go_home": "Go to home",
+      "go_back": "Go back"
+    }
+  },
+  "help": {
+    "header": {
+      "eyebrow": "Centrum Pomocy",
+      "title": "Jak działa Kasoa.pl?",
+      "description": "Znajdź odpowiedzi na najczęściej zadawane pytania dotyczące zakupów, sprzedaży oraz systemu zabezpieczeń escrow."
+    },
+    "tabs": {
+      "buyer": "Jestem Kupującym",
+      "seller": "Jestem Sprzedającym"
+    },
+    "faqs": {
+      "buyer": {
+        "process": {
+          "question": "Jak kupować unikalne przedmioty na Kasoa.pl?",
+          "answer": "Wybierz interesujący Cię produkt z katalogu i dodaj go do koszyka. Ponieważ oferujemy niepowtarzalne towary 1-of-1, produkt zostanie tymczasowo zarezerwowany. Następnie przejdź do kasy, uzupełnij adres i sfinalizuj transakcję kartą za pośrednictwem bezpiecznego systemu Stripe."
+        },
+        "escrow": {
+          "question": "W jaki sposób chronione są moje pieniądze podczas zakupu?",
+          "answer": "Kasoa.pl korzysta z zaawansowanego systemu ochrony Escrow. Po dokonaniu płatności Twoje środki trafiają na niezależny, zamrożony rachunek techniczny. Sprzedawca nie otrzyma zapłaty, dopóki paczka nie zostanie doręczona, a Ty nie potwierdzisz odbioru w panelu."
+        },
+        "shipping": {
+          "question": "Czego potrzebuję, aby odebrać przesyłkę od sprzedawcy?",
+          "answer": "Podczas składania zamówienia podajesz wyłącznie adres dostawy. Sprzedawca wysyła paczkę na wskazany adres, umieszczając na niej naszą etykietę fulfillmentową. Gdy paczka ruszy, otrzymasz powiadomienie e-mail z unikalnym kodem weryfikacyjnym."
+        }
+      },
+      "seller": {
+        "listing": {
+          "question": "W jaki sposób mogę wystawić produkt na sprzedaż?",
+          "answer": "Zaloguj się na swoje konto, kliknij 'Wystaw przedmiot' i uzupełnij formularz. Dodaj wyraźne zdjęcia oferty, określ stan faktyczny przedmiotu oraz podaj kwotę netto, jaką chcesz zarobić na czysto."
+        },
+        "pricing": {
+          "question": "Czy pobieracie opłaty za wystawianie ofert w katalogu?",
+          "answer": "Wystawianie przedmiotów jest w 100% bezpłatne. Wskazujesz swoją cenę zysku 'X', a wszelkie prowizje operacyjne i koszty transakcyjne doliczane są automatycznie po stronie kupującego przy kasie."
+        },
+        "payout": {
+          "question": "Kiedy środki trafią na moje saldo wypłat (Payouts)?",
+          "answer": "Po wysłaniu paczki uzupełnij jej kod śledzenia w panelu. Pieniądze zostaną automatycznie uwolnione i przelane na Twoje saldo wypłat niezwłocznie po tym, jak kupujący kliknie link potwierdzający odbiór zamówienia."
+        }
+      }
+    },
+    "cta": {
+      "buyer_title": "Gotowy na polowanie na okazje?",
+      "buyer_desc": "Przeglądaj tysiące sprawdzonych ofert vintage, elektroniki i wyposażenia domu z bezpieczną ochroną escrow.",
+      "buyer_btn": "Przejdź do sklepu",
+      "seller_title": "Masz rzeczy, których już nie używasz?",
+      "seller_desc": "Zamień nienoszone ubrania lub zalegający sprzęt w szybką gotówkę. Daj przedmiotom drugą szansę.",
+      "seller_btn": "Wystaw produkt na sprzedaż"
     }
   }
  

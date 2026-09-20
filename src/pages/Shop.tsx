@@ -45,13 +45,14 @@ const Shop = () => {
   const [sort, setSort] = useState<string>("newest");
   const [showFilters, setShowFilters] = useState<boolean>(false);
 
+    const page = parseInt(searchParams.get("page") || "1");
 
   // Safely extract the default active category from URL line, falling back to global state
   const selectedCategory = searchParams.get("category") || "all";
 
   const request = {
     queryCategory: selectedCategory,
-    page: 0,
+    page,
     size: 50,
   };
 
@@ -63,8 +64,6 @@ const Shop = () => {
   );
   const products = data?.listings || [];
 
-  console.log(products[0]);
-  console.log(userId);
 
   const { data: categories = [] } = useGetAllCategoriesQuery();
 
@@ -380,7 +379,7 @@ const Shop = () => {
         </section>
       )}
       <Pagination
-        page={data?.page as number}
+        page={page as number}
         totalPage={data?.totalPages as number}
         size={data?.pageSize as number}
       />

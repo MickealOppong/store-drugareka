@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { TPayout } from "../../types/TPayout";
+import type { TListPagePayout } from "../../types/TListPagePayouts";
 import type { TResponseDto } from "../../types/TResponseDto";
 import type { TListShipmentPage } from "../../types/TShipment";
 import type { TUserDto } from "../../types/TUserDto";
@@ -80,9 +80,12 @@ export const userApi = createApi({
                 url:`/api/users/roles`,
             }),
         }),
-           getMyPayouts: build.query<TPayout[],void>({
-              query: () => ({
+           getMyPayouts: build.query<TListPagePayout,{page:number,size:number}>({
+              query: ({page,size}) => ({
                 url: "/api/users/payouts",
+                params:{
+                  page,size
+                }
               }),
 
             }),

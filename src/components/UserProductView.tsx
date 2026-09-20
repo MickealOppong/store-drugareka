@@ -4,18 +4,23 @@ import { Link, useSearchParams } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 import '../css/GenericViewLayout.css';
-import { useGetMylistingsQuery } from "../features/api/itemApi";
+import { useDeleteListingMutation, useGetMylistingsQuery } from "../features/api/itemApi";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
 import { isFetchBaseQueryError } from "../util/util";
+import Pagination from "./Pagination";
 
 const UserProductView = () => {
     const [searchParams,] = useSearchParams();
   // Read active pagination location straight from URL parameters (1-indexed base)
   const page = parseInt(searchParams.get("page" )as string)||1;
-  const size = 30;
-  const { data, isLoading: productsLoading, error } = useGetMylistingsQuery({ page, size });
-  console.log(data);
+  const { data, isLoading: productsLoading, error } = useGetMylistingsQuery({ page, size:10 });
+
+
+  /**
+   * DELETE LISITNG
+   */
+  const [deleteProduct]=useDeleteListingMutation();
   
   const productListings = data?.listings as TListTrans[];
   const [search, setSearch] = useState("");
@@ -43,6 +48,13 @@ const UserProductView = () => {
       return;
     }
     // Handle actual deletion hook logic here if needed
+    try {
+      const deleteResponse = await deleteProduct(product.listingId).unwrap()
+      console.log(deleteResponse);
+      
+    } catch (error) {
+      
+    }
   };
 
   if (!productListings) {
@@ -149,7 +161,7 @@ const UserProductView = () => {
 
               <tbody>
                 {filteredList.map((product) => (
-                  <tr key={product.productId}>
+                  <tr key={product.listingId}>
                     {/* AVATAR ICON + PRODUCT NAME */}
                     <td>
                       <div className="data-table__user-profile">
@@ -163,7 +175,7 @@ const UserProductView = () => {
                     {/* PRODUCT ID */}
                     <td>
                       <span className="data-table__text text-muted">
-                        #{product.productId}
+                        #{product.listingId}
                       </span>
                     </td>
 
@@ -256,6 +268,13 @@ const UserProductView = () => {
           </div>
         )}
       </section>
+          {data && (
+              <Pagination
+                page={page}
+                totalPage={data.totalPages}
+                size={data.pageSize}
+              />
+            )}
     </main>
   );
 };

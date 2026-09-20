@@ -10,6 +10,7 @@ import {
   Dashboard,
   DeliveryConfirmation,
   ErrorPage,
+  Help,
   Landing,
   Login,
   PaymentConfirmation,
@@ -247,6 +248,10 @@ function App() {
     {
       path: "/register",
       element: <Register />,
+    },
+      {
+      path: "/help",
+      element: <Help/>,
     },
   ]);
   return <RouterProvider router={router} />;

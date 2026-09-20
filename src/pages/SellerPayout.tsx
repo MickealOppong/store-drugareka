@@ -1,19 +1,23 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiSearch } from "react-icons/fi";
+import { useSearchParams } from "react-router";
+import { Pagination } from "../components";
 import '../css/GenericViewLayout.css';
 import { useGetMyPayoutsQuery } from "../features/api/userApi";
 
 const SellerPayout = () => {
   const [search, setSearch] = useState("");
+    const [searchParams] = useSearchParams();
   const { t } = useTranslation();
 
-  // Read data stream array from user API query injection
-  const { data: payouts = [] ,error} = useGetMyPayoutsQuery();
 
-  
-  console.log(error);
-  
+  const page = parseInt(searchParams.get("page") || "1");
+
+  // Read data stream array from user API query injection
+  const { data} = useGetMyPayoutsQuery({page,size:5});
+
+  const payouts = data?.payouts || []
   /*
    * Filter calculation stream based on search criteria
    */
@@ -138,6 +142,13 @@ const SellerPayout = () => {
           </div>
         )}
       </section>
+    {data && (
+        <Pagination
+          page={page}
+          totalPage={data.totalPages}
+          size={data.pageSize}
+        />
+      )}
     </main>
   );
 };

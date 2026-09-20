@@ -15,7 +15,6 @@ const ProductView = () => {
   
   // Read active pagination location straight from URL parameters (1-indexed base)
   const page = parseInt(searchParams.get("page" )as string)||1;
-  const size = 30;
 
   //delete mutation hook
     const [deleteListing] = useDeleteBrandMutation()
@@ -23,15 +22,17 @@ const ProductView = () => {
 
   const { data, isLoading: productsLoading, error } = useGetStorelistingsQuery({
     page, 
-    size
+    size:5
   });
 
-console.log(data);
 
   const productListings = data?.listings as TListTrans[];
   const [search, setSearch] = useState("");
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
+
+  console.log(productListings);
+  
   /**
    * ROLE AUTH CHECK
    */
@@ -159,7 +160,7 @@ console.log(data);
 
               <tbody>
                 {filteredList.map((product) => (
-                  <tr key={product.productId}>
+                  <tr key={product.listingId}>
                     {/* AVATAR + PRODUCT TITLE */}
                     <td>
                       <div className="data-table__user-profile">
@@ -173,7 +174,7 @@ console.log(data);
                     {/* PRODUCT ID INDEX */}
                     <td>
                       <span className="data-table__text text-muted">
-                        #{product.productId}
+                        #{product.listingId}
                       </span>
                     </td>
 
@@ -265,7 +266,7 @@ console.log(data);
           </div>
         )}
       </section>
-      <Pagination page={data?.page as number} totalPage={data?.totalPages as number} size={10} />
+      <Pagination page={page as number} totalPage={data?.totalPages as number} size={data?.pageSize as number} />
       </main> 
   )     
 

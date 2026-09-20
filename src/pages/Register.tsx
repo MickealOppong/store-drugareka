@@ -9,9 +9,9 @@ import {
 
 import { Link, useNavigate } from "react-router-dom";
 import "../css/Register.css";
+import logoKasoa from './../assets/logo-kasoa.png';
 
 import { useTranslation } from "react-i18next";
-import { RiHand } from "react-icons/ri";
 import { useAddUserMutation } from "../features/api/authApi";
 import type { TErrorResponse } from "../types/TErrorResponse";
 import type { TValidationErrors } from "../types/TVallidationErrors";
@@ -158,7 +158,7 @@ const Register = () => {
         <div className="register-card">
           {/* BRAND */}
           <div className="brand">
-            <RiHand className="register-heart" />
+               <img src={logoKasoa} alt="" style={{width:'30px',height:'30px'}}/>
             <h1>{t("STORE.BRAND_NAME")}</h1>
           </div>
 

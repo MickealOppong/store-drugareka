@@ -17,12 +17,13 @@ const Shipment = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedShipment, setSelectedShipment] = useState<TShipment | null>(null);
 
-  const page = parseInt(searchParams.get("page") || "1", 10);
-  const size = 10;
+  const page = parseInt(searchParams.get("page") || "1");
 
   // 2. DISPATCH MAIN DATA PIPELINE DATA STREAM
-  const { data, isLoading, isError, refetch } = useGetShipmentsQuery({ page, size });
+  const { data, isLoading, isError, refetch } = useGetShipmentsQuery({ page, size:5 });
   const shipments = (data?.shipments as TShipment[]) || [];
+  
+  
 
   // 3. LOGISTICAL SEARCH FILTER ENGINE
   const filteredList = shipments.filter((item) =>
@@ -101,6 +102,7 @@ const Shipment = () => {
                   <th>{t("shipments.table.headers.order")}</th>
                   <th>{t("shipments.table.headers.seller")}</th>
                   <th>{t("shipments.table.headers.address")}</th>
+                   <th>{t("shipments.table.headers.tracking_number")}</th>
                   <th>{t("shipments.table.headers.shipped_at")}</th>
                   <th>{t("shipments.table.headers.delivered_at")}</th>
                   <th>{t("shipments.table.headers.status")}</th>
@@ -132,7 +134,14 @@ const Shipment = () => {
                           {item.deliveryAddress}
                         </span>
                       </td>
-
+    <td>
+                        <span
+                          className="data-table__text"
+                          style={{ whiteSpace: "normal", wordBreak: "break-word", minWidth: "180px", display: "inline-block" }}
+                        >
+                          {item.trackingNumber}
+                        </span>
+                      </td>
                       <td>
                         <span className="data-table__text text-muted">
                           {item.shippedAt ? new Date(item.shippedAt).toLocaleDateString("pl-PL") : "-"}
@@ -175,7 +184,7 @@ const Shipment = () => {
 
       {data && (
         <Pagination
-          page={data.page}
+          page={page}
           totalPage={data.totalPages}
           size={data.pageSize}
         />

@@ -37,11 +37,11 @@ export const itemApi = createApi({
       invalidatesTags:['products']
     }),
       deleteListing: build.mutation<void, number>({
-      query: (listing) => ({
+      query: (listingId) => ({
         url: "/api/item/listing/delete",
         method: "delete",
         params:{
-          listing
+          listingId
         }
       }),
       invalidatesTags:['products']

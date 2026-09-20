@@ -4,7 +4,7 @@
       "eyebrow": "USED, IN A COMPLETELY NEW EDITION",
       "title_line1": "Good things.",
       "title_line2": "A SECOND CHANCE.",
-      "description": "Discover quality second-hand products in one trusted place. Better finds, better prices, less waste.",
+      "description": "Discover quality products in one trusted place. Better finds, better prices, less waste.",
       "cta_shop": "Start shopping",
       "cta_sell": "I have something to sell",
       "floating_badge": "Verified sellers",
@@ -36,7 +36,9 @@
       }
     },
     "seller_cta": {
-      "eyebrow": "DO YOU HAVE THINGS YOU NO LONGER USE, OR SOMETHING YOU DON'T NEED THAT YOU CAN'T RETURN?",
+      "eyebrow": "HAVE SOMETHING YOU NO LONGER NEED?",
+            "sub-eyebrow-1": "Maybe it's something you've stopped using. Maybe it's brand new but you can't return it.",
+            "sub-eyebrow-2": "Tired of messages, price negotiations and buyers asking questions?",
       "title_line1": "You list it.",
       "title_line2": "We sell it.",
       "description": "List your items in just a few minutes. Set the amount you want to receive, and we'll take care of the rest.",
@@ -44,7 +46,7 @@
       "step1_title": "List an item",
       "step1_desc": "Add photos, specify the condition and the amount you want to receive.",
       "step2_title": "We'll find a buyer",
-      "step2_desc": "Your item will be added to the DrugaRęka store offering.",
+      "step2_desc": "Your item will be added to our offering.",
       "step3_title": "Ship it and get paid",
       "step3_desc": "After the sale, we'll provide everything you need for shipping."
     },
@@ -90,7 +92,7 @@
   "shop": {
     "header": {
       "title": "Find something exceptional",
-      "description": "Verified second-hand products at attractive prices.",
+      "description": "Second-hand at attractive prices.",
       "search_placeholder": "Search products, brands..."
     },
     "categories": {
@@ -150,7 +152,7 @@
       "step1_title": "Add product",
       "step1_desc": "Describe the product, add photos, choose a category and set the price you want to receive.",
       "step2_title": "We'll handle the sale",
-      "step2_desc": "The product will appear in our store at the price set by Druga Ręka.",
+      "step2_desc": "The product will appear in our store at the price set by Kasoa.pl.",
       "step3_title": "Ship the product",
       "step3_desc": "When someone buys the product, you'll receive information and shipping instructions.",
       "step4_title": "Receive your payout",
@@ -158,12 +160,16 @@
     },
     "benefits": {
       "eyebrow": "WHY kasoa.pl?",
-      "title": "Want to avoid endless messages and contact with strangers while earning more?",
-      "description": "Get a premium amount for your item without wasting time on tedious negotiations. We'll take care of everything.",
-      "bullet1": "Zero spam and annoying questions from buyers",
-      "bullet2": "Guaranteed premium valuation for unique items",
-      "bullet3": "Full privacy – no contact with strangers",
-      "bullet4": "Convenient shipping without unnecessary formalities",
+      "title": "Want to sell something without becoming a full-time seller?",
+      "description": "On most marketplaces, listing an item means staying involved — checking messages, answering questions, negotiating prices and dealing with buyers.",
+      "sub_title-1":"Kasoa works differently.",
+      "sub_title-2":"Once your item is listed, you don't need to manage the sale. We'll contact you when there's something you need to do.",
+      "bullet1": "No buyer messages",
+      "bullet2": "No direct contact with strangers",
+      "bullet3": "No need to stay active on the marketplace",
+      "bullet4": "We'll email you when your item sells",
+      "bullet5": "No price negotiations, mark up or mark down as you wish",
+      "bullet6": "Simple shipping instructions when it's time to ship",
       "cta": "Add your first product",
       "shield_title": "Your product.",
       "shield_bold": "Safe selling.",
@@ -409,6 +415,7 @@
         "address": "Delivery address",
         "shipped_at": "Sent",
         "delivered_at": "Delivered",
+        "tracking_number":"Tracking Number",
         "status": "Status",
         "action": "Action"
       }
@@ -824,6 +831,71 @@
       "reports": "Reports",
       "analytics": "Analytics",
       "payouts": "Payouts"
+    }
+  },
+  "error_page": {
+    "fallbacks": {
+      "generic_title": "Coś poszło nie tak",
+      "generic_message": "Wystąpił nieoczekiwany błąd systemu na Kasoa.pl. Nasz zespół techniczny został powiadomiony."
+    },
+    "errors": {
+      "404": {
+        "title": "Nie znaleziono strony",
+        "message": "Przepraszamy, ale strona której szukasz nie istnieje, została usunięta lub jej adres URL uległ zmianie."
+      }
+    },
+    "buttons": {
+      "go_home": "Strona główna",
+      "go_back": "Wróć"
+    }
+  },
+  "help": {
+    "header": {
+      "eyebrow": "Help Center",
+      "title": "How does Kasoa.pl work?",
+      "description": "Find answers to the most frequently asked questions regarding buying, selling, and our secure escrow protection system."
+    },
+    "tabs": {
+      "buyer": "I am a Buyer",
+      "seller": "I am a Seller"
+    },
+    "faqs": {
+      "buyer": {
+        "process": {
+          "question": "How do I buy unique items on Kasoa.pl?",
+          "answer": "Select the item you are interested in from the catalog and add it to your shopping cart. Since we offer unique 1-of-1 items, the product will be temporarily reserved for you. Then proceed to checkout, fill in your delivery address, and complete the transaction securely with your card via Stripe."
+        },
+        "escrow": {
+          "question": "How is my money protected during a purchase?",
+          "answer": "Kasoa.pl utilizes an advanced Escrow protection system. After making a payment, your funds are securely held in an independent, frozen technical account. The seller will not receive the payout until the package is delivered and you manually confirm receipt in your dashboard."
+        },
+        "shipping": {
+          "question": "What do I need to receive a package from a seller?",
+          "answer": "During checkout, you only need to provide your fulfillment delivery address. The seller will ship the package to that specific address using our platform fulfillment guidelines. Once the parcel is in transit, you will receive an email update containing a unique verification tracking link."
+        }
+      },
+      "seller": {
+        "listing": {
+          "question": "How can I list a product for sale?",
+          "answer": "Log into your account, click 'Sell an Item', and fill out the listing form. Upload bright, clear images of your item, accurately select its current product condition, choose a category, and specify the net payout amount you want to earn from the sale."
+        },
+        "pricing": {
+          "question": "Do you charge any fees for listing items in the catalog?",
+          "answer": "Listing items is 100% free. You declare your desired payout amount 'X', and any platform operational commissions or transaction handling fees are dynamically appended on the buyer's side during checkout."
+        },
+        "payout": {
+          "question": "When will the funds reach my active Payout balance?",
+          "answer": "After shipping the package, log into your account dashboard, navigate to 'Shipments', and enter the tracking number right away. The funds will automatically be released and credited to your Payout balance as soon as the buyer clicks the confirmation link."
+        }
+      }
+    },
+    "cta": {
+      "buyer_title": "Ready to hunt for unique deals?",
+      "buyer_desc": "Browse thousands of verified vintage pieces, electronics, and home equipment listings with complete escrow protection.",
+      "buyer_btn": "Go to shop",
+      "seller_title": "Have items you no longer use?",
+      "seller_desc": "Turn unneeded wardrobe pieces or extra equipment into fast cash. Give your pre-loved items a second chance today.",
+      "seller_btn": "List a product for sale"
     }
   }
 }

@@ -13,13 +13,11 @@ const SellerView: React.FC = () => {
   const [searchParams] = useSearchParams();
   const { t } = useTranslation();
   
-  const page = parseInt(searchParams.get("page") || "1", 10);
-  const size = 10;
-
+  const page = parseInt(searchParams.get("page") || "1");
   // ISOLATED API COMPONENT FETCH
   const { data, isLoading, isError} = useGetPurchaseOrdersQuery({
     page,
-    size,
+    size:5,
   });
 
   const orders = (data?.orders as TOrdersDto[]) || [];
@@ -135,7 +133,7 @@ const SellerView: React.FC = () => {
       </section>
 
       {/* LOCALIZED PACING HOOKS */}
-      {data && <Pagination page={data.page} totalPage={data.totalPages} size={data.pageSize} />}
+      {data && <Pagination page={page} totalPage={data.totalPages} size={data.pageSize} />}
     </>
   );
 };

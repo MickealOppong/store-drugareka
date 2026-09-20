@@ -12,18 +12,17 @@ const AdminOrderView: React.FC = () => {
   const [search, setSearch] = useState("");
   const [searchParams] = useSearchParams();
   
-  const page = parseInt(searchParams.get("page") || "1", 10);
-  const size = 10;
+  const page = parseInt(searchParams.get("page") || "1");
 
   // ISOLATED API COMPONENT FETCH
   const { data, isLoading, isError } = useGetStoreOrdersQuery({
     page,
-    size,
+    size:5,
   });
 
   const orders = (data?.orders as TOrdersDto[]) || [];
 
-  console.log(orders);
+
   
 
   // ISOLATED SEARCH FILTER ENGINE
@@ -34,7 +33,8 @@ const AdminOrderView: React.FC = () => {
       String(order.orderNumber || order.id).includes(query) ||
       order.buyer?.toLowerCase().includes(query)
     );
-  });
+  })
+  
 
   return (
     <>
@@ -93,8 +93,8 @@ const AdminOrderView: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredList.map((order) => (
-                  <tr key={order.id}>
+                {filteredList.map((order,index) => (
+                  <tr key={index}>
                     <td>
                       <span className="data-table__text font-semibold text-main">
                         #{order.orderNumber || order.id}
@@ -156,7 +156,7 @@ const AdminOrderView: React.FC = () => {
       </section>
 
       {/* LOCALIZED PACING HOOKS */}
-      {data && <Pagination page={data.page} totalPage={data.totalPages} size={data.pageSize} />}
+      {data && <Pagination page={page} totalPage={data.totalPages} size={data.pageSize} />}
     </>
   );
 };
