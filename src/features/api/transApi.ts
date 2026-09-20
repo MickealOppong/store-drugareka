@@ -72,6 +72,12 @@ export const transApi = createApi({
             }),
             invalidatesTags:['categories']
         }),
+          getAllCategories: build.query<TCategoryReponse[], void>({
+              query: () => ({
+                url: "/api/store/all-categories",
+              }),
+              providesTags: ["categories"],
+            }),
           allBrands:build.query<TbrandResponse[],void>({
             query:()=>({
                 url:'/api/brands/all',
@@ -158,5 +164,6 @@ export const transApi = createApi({
 })
 export const {useNewCategoryMutation,useLazyAllParentcategoriesQuery,useEditCategoryMutation,useLazyGetCategoryQuery
     ,useDeleteCategoryMutation,useDeleteBrandMutation,useEditBrandMutation,useNewBrandMutation,useLazyAllBrandsQuery,useLazyFetchBrandQuery,
-    useFetchConditionQuery,useGetAllConditionsQuery,useNewConditionMutation,useDeleteConditionMutation,useAllBrandsQuery
+    useFetchConditionQuery,useGetAllConditionsQuery,useNewConditionMutation,useDeleteConditionMutation,useAllBrandsQuery,
+    useGetAllCategoriesQuery
 }= transApi

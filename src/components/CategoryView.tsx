@@ -3,8 +3,7 @@ import { FiEdit2, FiPlus, FiSearch, FiTrash2 } from "react-icons/fi";
 import { Link, useRevalidator } from "react-router-dom";
 
 import '../css/GenericViewLayout.css'; // Reuses your unified generic layout styles seamlessly
-import { useGetAllCategoriesQuery } from "../features/api/storeApi";
-import { useDeleteCategoryMutation } from "../features/api/transApi";
+import { useDeleteCategoryMutation, useGetAllCategoriesQuery } from "../features/api/transApi";
 import type { TCategoryReponse } from "../types/TCategoryResponse";
 import type { TResponseDto } from "../types/TResponseDto";
 
@@ -31,8 +30,8 @@ const CategoryView = () => {
 
     try {
       setDeletingId(category.id as number);
-      const response: any = await deleteCategory(category.id as number);
-
+      const response:any = await deleteCategory(category.id as number);
+      
       if (response?.data) {
         const { httpStatus } = response.data as TResponseDto;
         if (httpStatus === 200) {
