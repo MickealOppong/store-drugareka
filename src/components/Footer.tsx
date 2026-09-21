@@ -35,7 +35,7 @@ const Footer = ()=>{
 
             <Link to="/sell">{t("landing.footer.link_how_it_works")}</Link>
 
-            <Link to="/account">{t("landing.footer.link_start_selling")}</Link>
+            <Link to="/account/user">{t("landing.footer.link_start_selling")}</Link>
           </div>
 
           <div>

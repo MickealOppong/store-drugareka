@@ -218,7 +218,7 @@ const {data:listings=[]} = useGetLandingListingQuery()
 
               <Link to={`/listing/${product.listingId}`} className="mobile-product-card__info">
                 <span className="mobile-product-card__condition">
-                  {t(`product_conditions.${product.productCondition.toLowerCase()}`)}
+                  {t(`product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`)}
                 </span>
                 <h3>{product.productName}</h3>
                 <strong>{formatPrice(product.priceDto.sellerNewPrice)} zl</strong>

@@ -17,6 +17,7 @@
   border-bottom: 1px solid $color-border;
   box-sizing: border-box;
 
+
   @media (min-width: $breakpoint-md) {
     display: none !important; // Completely unmounts the mobile framework layout on desktop grids
   }

@@ -233,7 +233,7 @@ const AddListing = () => {
             ====================================================== */}
       <header className="add-product__header">
         <div className="add-product__header-left">
-          <Link to="/dashboard/products" className="add-product__back">
+          <Link to={'/account/listings/me'} className="add-product__back">
             <FiArrowLeft />
           </Link>
 

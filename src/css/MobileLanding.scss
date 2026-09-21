@@ -8,8 +8,6 @@
 // 2. MIXINS & UTILITIES
 // ==========================================================================
 
-
-
 // ==========================================================================
 // 3. CORE & SHARED ELEMENT STYLING
 // ==========================================================================
@@ -88,7 +86,7 @@
   border-radius: 6px;
   box-sizing: border-box;
   text-align: center;
-  transition:$transition-default;
+  transition: $transition-default;
 
   &--primary {
     background-color: $color-primary;
@@ -101,8 +99,6 @@
     //color: $color-primary;
     color: olivedrab;
     border: 1px solid $color-border;
-
-
   }
 
   &--light {
@@ -127,9 +123,6 @@
 // ==========================================================================
 // 4. HEADER & NAVIGATION OVERLAY (`.mobile-header`, `.mobile-menu`)
 // ==========================================================================
-
-
-
 
 // ==========================================================================
 // 5. HERO BLOCK (`.mobile-hero`)
@@ -329,7 +322,6 @@
 // 8. PRODUCT FLUID MAPPING (`.mobile-products`)
 // ==========================================================================
 
-
 .mobile-product-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -349,7 +341,12 @@
     border-radius: 6px;
     overflow: hidden;
     margin-bottom: 0.65rem;
-
+  
+    img {
+      width: 100%;
+      height: 14rem;
+      object-fit: cover;
+    }
   }
 
   &__favorite {
@@ -414,8 +411,6 @@
     .mobile-section-eyebrow {
       color: rgba(255, 255, 255, 0.45);
       margin-bottom: 0.75rem;
-
-    
     }
     h2 {
       font-size: 2rem;
@@ -436,13 +431,12 @@
       margin-bottom: 1.75rem;
     }
 
-      .mobile-button {
+    .mobile-button {
       align-self: flex-start;
       border-color: transparent;
       background: $color-primary;
       color: $color-text-light;
     }
-      
   }
   &__steps {
     display: flex;
@@ -546,7 +540,7 @@
     }
   }
 }
-@media (min-width:768px) {
+@media (min-width: 768px) {
   // Graceful degradation layout guard if responsive layer breaks down
   .mobile-landing {
     display: none !important;
