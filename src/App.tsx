@@ -37,7 +37,6 @@ import {
   EditBrand,
   EditCategory,
   EditListing,
-  EditUser,
   OrderDetails,
   ProductDetails,
   ProductView,
@@ -187,10 +186,7 @@ function App() {
           path: "admin/user/new",
           element: <AddUser />,
         },
-        {
-          path: "admin/user/:userId/edit",
-          element: <EditUser />,
-        },
+  
         {
           path: "admin/brands",
           element: <BrandView />,
