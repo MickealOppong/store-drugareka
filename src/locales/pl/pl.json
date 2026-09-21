@@ -466,7 +466,8 @@
         "order": "Zamówienie",
         "status": "Status",
         "currency": "Waluta",
-        "total": "Kwota"
+        "total": "Kwota",
+          "actions":"Ackje"
       },
       "statuses": {
         "pending": "Oczekujący",
@@ -990,6 +991,37 @@
         "too_short": "Nowe hasło musi zawierać co najmniej 8 znaków.",
         "failed": "Nie udało się zmienić hasła."
       }
+    }
+  },
+  "payout_status_modal": {
+    "header": {
+      "badge": "Rozliczenie Finansowe"
+    },
+    "body": {
+      "title": "Zatwierdź Wypłatę",
+      "description": "Uzupełnij poniższe parametry księgowe dopiero po fizycznym zrealizowaniu zewnętrznego przelewu bankowego na konto sprzedawcy."
+    },
+    "summary": {
+      "order_label": "Numer Zamówienia:",
+      "amount_label": "Kwota do Rozliczenia:"
+    },
+    "fields": {
+      "checkbox_label": "Oznacz wypłatę jako opłaconą (Paid)",
+      "date_label": "Data Realizacji Przelewu (paidAt)"
+    },
+    "warning": {
+      "bold": "Zasada księgowości:",
+      "text": " Zapisanie formularza spowoduje natychmiastową zmianę stanu rekordu w bazie Kasoa.pl. Sprzedawca otrzyma automatyczne powiadomienie e-mail o przelewie."
+    },
+    "buttons": {
+      "cancel": "Anuluj",
+      "confirm": "Zatwierdź i Zamknij",
+      "processing": "Przetwarzanie..."
+    },
+    "validation": {
+      "checkbox_required": "Musisz zaznaczyć pole potwierdzające wykonanie przelewu.",
+      "date_required": "Proszę wybrać dokładną datę realizacji płatności.",
+      "generic_error": "Wystąpił nieoczekiwany błąd serwera."
     }
   }
 }

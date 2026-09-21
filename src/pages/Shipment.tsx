@@ -6,12 +6,16 @@ import { useSearchParams } from "react-router-dom";
 import { Pagination, ShipmentStatusModal } from "../components";
 import "../css/GenericViewLayout.css"; // Shared layout framework classes
 import { useGetShipmentsQuery } from "../features/api/userApi";
+import { useAppSelector } from "../store";
 import type { TShipment } from "../types/TShipment";
 
 const Shipment = () => {
   const [search, setSearch] = useState("");
   const [searchParams] = useSearchParams();
   const { t } = useTranslation();
+
+  //user role
+  const roles = useAppSelector((state)=>state.userSlice.roles)
 
   // 1. DIALOG STATE ANCHORS
   const [modalOpen, setModalOpen] = useState(false);
@@ -154,12 +158,17 @@ const Shipment = () => {
                         </span>
                       </td>
 
-                      <td>
+                 
+                       <td>
                         <span className={`status-badge status-badge--${normalizedStatusClass}`}>
                           {t(`buyer_view.table.statuses.${item.status?.toLowerCase()}`, { defaultValue: item.status?.replace(/_/g, " ") })}
                         </span>
                       </td>
+                     
 
+                        {
+                      ( roles.includes("ROLE_ADMIN") || item.status !=="DELIVERED") &&
+                     
                       <td>
                         <div className="data-table__actions">
                           <button
@@ -173,6 +182,8 @@ const Shipment = () => {
                           </button>
                         </div>
                       </td>
+                     }
+
                     </tr>
                   );
                 })}

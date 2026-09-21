@@ -286,10 +286,12 @@
   flex-direction: column;
   position: relative;
   margin-top: 12px;
+  height: 100%;
 }
 
 .mobile-product-card__media {
   display: block;
+  width: 100%;
   aspect-ratio: 1 / 1;
   background-color: #f9f9f9;
   border-radius: 6px;
@@ -299,8 +301,9 @@
 
 .mobile-product-card__media img {
   width: 100%;
-  height: 14rem;
+  height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .mobile-product-card__favorite {

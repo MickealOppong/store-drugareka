@@ -96,6 +96,16 @@ export const userApi = createApi({
               }),
 
             }),
+             updatePayoutStatus: build.mutation<TResponseDto,{payoutId:number,paidAt:string}>({
+              query: ({paidAt,payoutId}) => ({
+                url: "/api/users/settle-order",
+                params:{
+               paidAt,payoutId
+                },
+                method:"PUT"
+              }),
+
+            }),
              getShipments: build.query<TListShipmentPage,{page:number,size:number}>({
               query: ({page,size}) => ({
                 url: "/api/shipment/shipments",
@@ -110,5 +120,6 @@ export const userApi = createApi({
  
 })
 export const {useNewUserMutation,useEditUserMutation,useDeleteUserMutation,useLazyGetUserQuery,useLazyGetAllUsersQuery
-    ,useLazyAllRolesQuery,useGetMyPayoutsQuery,useGetShipmentsQuery,useChangePasswordMutation
+    ,useLazyAllRolesQuery,useGetMyPayoutsQuery,useGetShipmentsQuery,useChangePasswordMutation,
+    useUpdatePayoutStatusMutation
 }=userApi

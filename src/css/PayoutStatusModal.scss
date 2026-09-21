@@ -1,0 +1,344 @@
+@import './Variables.scss'; // Hooks premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and Ink (#0D1313)
+
+/* ==========================================================================
+   ADMINISTRATIVE INTERACTIVE LEDGER FORMS (BEM MATRIX DESIGN SYSTEM)
+   ========================================================================== */
+
+.po-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(13, 19, 19, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 1rem;
+  box-sizing: border-box;
+  animation: poModalFadeIn 0.2s ease-out forwards;
+}
+
+.po-modal {
+  width: 100%;
+  max-width: 460px;
+  background-color: #ffffff;
+  border: 1px solid $color-border;
+  border-radius: 14px;
+  box-shadow: 0 20px 48px rgba(13, 19, 19, 0.12);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  animation: poModalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid $color-border;
+    background-color: #ffffff;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: $color-primary;
+    background-color: $color-bg-light;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__close-btn {
+    border: none;
+    background: transparent;
+    font-size: 1.25rem;
+    color: $color-text-muted;
+    display: flex;
+    cursor: pointer;
+    transition: color 0.15s ease;
+
+    &:hover { color: $color-text-main; }
+  }
+
+  &__form {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__body {
+    padding: 24px 20px 16px 20px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    gap: 1.25rem; // Explicit rhythmic grid gaps layout
+  }
+
+  &__title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: $color-text-main;
+    text-align: center;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  &__description {
+    font-size: 13px;
+    line-height: 1.5;
+    color: $color-text-muted;
+    text-align: center;
+    margin: 0 0 4px 0;
+  }
+
+  /* Ledger Metadata Box Card */
+  &__summary-box {
+    background-color: $color-bg-light;
+    border: 1px solid $color-border;
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-sizing: border-box;
+  }
+
+  &__summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+
+    &--total {
+      border-top: 1px dashed lighten($color-text-muted, 20%);
+      padding-top: 8px;
+      margin-top: 2px;
+    }
+  }
+
+  &__summary-label { color: $color-text-muted; }
+  &__summary-value {
+    color: $color-text-main;
+    font-weight: 700;
+
+    &--price {
+      color: $color-success;
+      font-size: 15px;
+      font-weight: 800;
+    }
+  }
+
+  /* Interactive Elements Structuring Base Slots */
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* 🚀 MIXED INTERACTION FIELDS ANIMATION WRAPPERS */
+  &__field--transition {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    opacity: 1;
+    transform: translateY(0);
+
+    &.is-locked {
+      opacity: 0.45;
+      transform: translateY(-2px);
+      pointer-events: none; // Disables clicking tabs while unchecked
+    }
+  }
+
+  &__label {
+    font-size: 12px;
+    font-weight: 700;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__input-icon {
+    position: absolute;
+    left: 12px;
+    color: $color-text-muted;
+    font-size: 1rem;
+    pointer-events: none;
+  }
+
+  &__input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px 0 36px; // Adjusts text fields layout safely behind the vector calendar icon
+    box-sizing: border-box;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    outline: none;
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 13.5px;
+    color: $color-text-main;
+    font-weight: 600;
+    transition: all 0.2s $transition-default;
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.08);
+    }
+  }
+
+  /* Custom Checkbox Form Field Alignments */
+  &__checkbox-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    width: fit-content;
+    padding: 4px 0;
+  }
+
+  &__checkbox-input {
+    width: 18px;
+    height: 18px;
+    border: 1px solid $color-border;
+    border-radius: 4px;
+    accent-color: $color-primary; // Flagship Spruce highlight maps instantly
+    cursor: pointer;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  &__checkbox-label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: $color-text-main;
+  }
+
+  /* Info/Warning Container Card */
+  &__warning-box {
+    background-color: #fff8e7;
+    border: 1px solid #f4e4b7;
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    box-sizing: border-box;
+
+    svg {
+      color: #b45309;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.4;
+      color: #78350f;
+    }
+  }
+
+  /* Validation Error Logs Layout Box */
+  &__alert {
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    background-color: #fee2e2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+    text-align: center;
+    box-sizing: border-box;
+    line-height: 1.4;
+  }
+
+  /* Footer Section Rows Alignment Controls */
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 14px 20px;
+    border-top: 1px solid $color-border;
+    background-color: $color-bg-light;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    padding: 0 16px;
+    font-size: 13.5px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.15s $transition-default;
+    white-space: nowrap;
+    border: 1px solid transparent;
+
+    &--cancel {
+      background-color: #ffffff;
+      border-color: $color-border;
+      color: $color-text-main;
+
+      &:hover {
+        background-color: $color-bg-light;
+        border-color: $color-text-muted;
+      }
+    }
+
+    &--confirm {
+      background-color: $color-success;
+      color: #ffffff;
+
+      &:hover:not(:disabled) {
+        background-color: lighten($color-success, 4%);
+      }
+
+      &:disabled {
+        background-color: #e1e5de;
+        border-color: #edf0eb;
+        color: #81887d;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+/* Keyframes */
+@keyframes poModalFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes poModalSlideUp {
+  from { transform: translateY(10px) scale(0.99); }
+  to { transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 480px) {
+  .po-modal {
+    &__actions {
+      flex-direction: column-reverse;
+      gap: 8px;
+      padding: 12px;
+    }
+    &__btn { width: 100%; }
+  }
+}

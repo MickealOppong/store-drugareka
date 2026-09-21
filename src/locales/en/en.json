@@ -466,7 +466,8 @@
         "order": "Order",
         "status": "Status",
         "currency": "Currency",
-        "total": "Amount"
+        "total": "Amount",
+        "actions":"Actions"
       },
       "statuses": {
         "pending": "Pending",
@@ -977,6 +978,37 @@
         "mismatch": "New passwords do not match.",
         "failed": "Failed to change password."
       }
+    }
+  },
+  "payout_status_modal": {
+    "header": {
+      "badge": "Financial Ledger"
+    },
+    "body": {
+      "title": "Settle Seller Payout",
+      "description": "Fill in the accounting parameters below only after processing the external bank transfer to the merchant."
+    },
+    "summary": {
+      "order_label": "Order Number:",
+      "amount_label": "Settlement Amount:"
+    },
+    "fields": {
+      "checkbox_label": "Mark payout as paid",
+      "date_label": "Payment Execution Date (paidAt)"
+    },
+    "warning": {
+      "bold": "Accounting rule:",
+      "text": " Saving this form changes the record state in the Kasoa.pl database instantly. The seller will receive an automated email notification about the transfer."
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "confirm": "Confirm & Close",
+      "processing": "Processing..."
+    },
+    "validation": {
+      "checkbox_required": "You must check the box to confirm that the transfer has been executed.",
+      "date_required": "Please select the exact payment execution date.",
+      "generic_error": "An unexpected server error occurred."
     }
   }
 }

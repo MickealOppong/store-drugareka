@@ -30,6 +30,7 @@ export { default as EditListing } from "./EditListing";
 export { default as NavHeader } from "./NavHeader";
 export { default as OrderDetails } from "./OrderDetails";
 export { default as Pagination } from "./Pagination";
+export { default as PayoutStatusModal } from "./PayoutStatusModal";
 export { default as SearchSelect } from "./SearchSelect";
 export { default as SellerView } from "./SellerView";
 export { default as ShipmentStatusModal } from "./ShipmentStatusModal";

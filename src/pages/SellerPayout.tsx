@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FiSearch } from "react-icons/fi";
+import { FiEdit, FiSearch } from "react-icons/fi";
 import { useSearchParams } from "react-router";
-import { Pagination } from "../components";
+import { Pagination, PayoutStatusModal } from "../components";
 import '../css/GenericViewLayout.css';
 import { useGetMyPayoutsQuery } from "../features/api/userApi";
+import { useAppSelector } from "../store";
+import type { TPayout } from "../types/TPayout";
 
 const SellerPayout = () => {
+  const roles = useAppSelector((state)=>state.userSlice.roles)
   const [search, setSearch] = useState("");
     const [searchParams] = useSearchParams();
   const { t } = useTranslation();
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const[payout,setPayout] =useState<TPayout|null>(null)
 
   const page = parseInt(searchParams.get("page") || "1");
 
@@ -25,6 +30,16 @@ const SellerPayout = () => {
     payout.orderNumber?.toLowerCase().includes(search.toLowerCase())
   );
 
+  
+
+  const openStatusModal = (payout:TPayout)=>{
+    setModalOpen(true)
+      setPayout(payout)
+  } 
+
+  const closeModal = ()=>{
+    setModalOpen(false)
+  }
   return (
     <main className="panel-view">
       {/* =====================================================
@@ -86,6 +101,10 @@ const SellerPayout = () => {
                   <th>{t("payouts.table.headers.status")}</th>
                   <th>{t("payouts.table.headers.currency")}</th>
                   <th>{t("payouts.table.headers.total")}</th>
+                  {
+                    roles.includes('ROLE_ADMIN') &&
+                    <th>{t("payouts.table.headers.actions")}</th>
+                  }
                 </tr>
               </thead>
 
@@ -93,8 +112,12 @@ const SellerPayout = () => {
                 {filteredPayouts.map((payout) => {
                   // Standardizes status tokens (e.g., PENDING_PAYOUT -> pending-payout) to load correct style sheets
                   const normalizedStatusClass = payout.status?.toLowerCase().replace(/_/g, "-");
-
+                     {/* =================================================
+                      ISOLATED DECOUPLED INLINE DIALOG SUB-PANEL
+                  ================================================== */}
+          
                   return (
+                    
                     <tr key={payout.id}>
                       <td>
                         <div className="data-table__user-profile">
@@ -134,6 +157,22 @@ const SellerPayout = () => {
                           {payout.amount}
                         </span>
                       </td>
+                      {
+                        roles.includes('ROLE_ADMIN')&&
+                          <td>
+                       <div className="data-table__actions">
+                          <button
+                            type="button"
+                            className="data-table__action-link"
+                            style={{ background: "none", border: "none", cursor: "pointer" }}
+                            title={t("shipments.actions.edit_hint")}
+                            onClick={() => openStatusModal(payout)}
+                          >
+                            <FiEdit />
+                          </button>
+                        </div>
+                      </td>
+                      }
                     </tr>
                   );
                 })}
@@ -149,7 +188,12 @@ const SellerPayout = () => {
           size={data.pageSize} totalElements={data.totalElements}          
         />
       )}
+      {
+        modalOpen && <PayoutStatusModal data={payout as TPayout} isOpen={modalOpen} onButtonClick={closeModal}/>
+      }
+    
     </main>
+    
   );
 };
 
