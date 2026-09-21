@@ -43,7 +43,7 @@ const ProductView = () => {
    */
   const handleDelete = async (listing:number) => {
     const confirmed = window.confirm(
-      `Czy na pewno chcesz usunąć kategorię "${listing}"?`,
+      `Do you want to delete listing "${listing}"?`,
     );
 
     if (!confirmed) {
@@ -77,9 +77,9 @@ const ProductView = () => {
             ====================================================== */}
       <header className="panel-view__header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
-          <span className="panel-view__eyebrow">Products</span>
+          <span className="panel-view__eyebrow">Catelog</span>
           <h1 className="panel-view__title">All Products</h1>
-          <p className="panel-view__description">Zarządzaj Produktami.</p>
+          <p className="panel-view__description">Manage products.</p>
         </div>
 
         {/* Dynamic add link using your standard Sage Green styling elements */}
@@ -90,7 +90,7 @@ const ProductView = () => {
             style={{ display: "flex", gap: "0.5rem", padding: "0 1rem", width: "auto", minWidth: "130px", height: "40px", backgroundColor: "#66704A", color: "#ffffff", borderColor: "#66704A", borderRadius: "12px", textDecoration: "none", fontWeight: 600, fontSize: "14px" }}
           >
             <FiPlus />
-            Dodaj produkt
+           Add produkt
           </Link>
         )}
       </header>
@@ -103,7 +103,7 @@ const ProductView = () => {
           <FiSearch />
           <input
             type="text"
-            placeholder="Szukaj produktu..."
+            placeholder="Search products..."
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
@@ -129,10 +129,10 @@ const ProductView = () => {
             ====================================================== */}
       <section className="panel-view__content-card">
         {productsLoading ? (
-          <div className="panel-view__loading-overlay">Ładowanie produktów...</div>
+          <div className="panel-view__loading-overlay">loading products...</div>
         ) : filteredList.length === 0 ? (
           <div className="panel-view__empty-state">
-            <div className="panel-view__empty-title">Brak produktów</div>
+            <div className="panel-view__empty-title">No products</div>
             <p>
               {search
                 ? "Nie znaleziono produktów pasujących do wyszukiwania."
@@ -154,7 +154,7 @@ const ProductView = () => {
                   <th>Price</th>
                   <th>Product Status</th>
                   <th>Listing Status</th>
-                  <th className="data-table__actions-header">Akcje</th>
+                  <th className="data-table__actions-header">Actions</th>
                 </tr>
               </thead>
 
@@ -266,7 +266,10 @@ const ProductView = () => {
           </div>
         )}
       </section>
-      <Pagination page={page as number} totalPage={data?.totalPages as number} size={data?.pageSize as number} />
+     {
+      data &&  <Pagination page={page} totalPage={data?.totalPages}
+       size={data?.pageSize}    totalElements={data?.totalElements}/>
+     }
       </main> 
   )     
 

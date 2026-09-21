@@ -23,6 +23,7 @@ export { default as SellerPayout } from "./SellerPayout"
 export { default as SharedLayout } from "./SharedLayout"
 export { default as Shipment } from "./Shipment"
 export { default as Shop } from "./Shop"
+export { default as UserProfile } from "./UserProfile"
 export { default as WishList } from "./WishList"
 
 

@@ -17,9 +17,9 @@ const MobileNav = () => {
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const { t } = useTranslation();
   
-  const { username, roles } = useAppSelector((state) => state.userSlice);
+  const { email, roles } = useAppSelector((state) => state.userSlice);
   const { guestCartCount } = useAppSelector((state) => state.cartSlice);
-  const isUserLoggedIn = Boolean(username);
+  const isUserLoggedIn = Boolean(email);
 
   const { data: cartCounter } = useGetCartCountQuery();
   const { data: wishlistCounter } = useGetWishlistCountQuery();
@@ -59,7 +59,7 @@ const MobileNav = () => {
 
   const onUserButtonClick = () => {
     setMenuOpen(false);
-    if (!username) {
+    if (!email) {
       return navigate('/login');
     }
     roles.includes("ROLE_ADMIN") ? navigate('/account/admin') : navigate('/account/user');
@@ -67,7 +67,7 @@ const MobileNav = () => {
 
   const onWishlistButtonClick = () => {
     setMenuOpen(false);
-    if (!username) {
+    if (!email) {
       return navigate('/login');
     }
     navigate('/account/wishlist');
@@ -152,7 +152,7 @@ const MobileNav = () => {
               <FiArrowRight className="mn-drawer__link-icon" />
             </Link>
 
-            {username ? (
+            {email ? (
               <button type="button" className="mn-drawer__logout-btn" onClick={handleAccountLogout}>
                 {t("navigation.actions.logout")}
               </button>

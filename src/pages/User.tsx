@@ -8,6 +8,7 @@ import {
   FiPlus,
   FiShoppingBag,
   FiTruck,
+  FiUser,
 } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -77,6 +78,10 @@ const User: React.FC<UserSidebarProps> = ({ onNavigate }) => {
         <NavLink to="/account/payouts" className="al-nav-link" onClick={onNavigate}>
           <FiCreditCard className="al-nav-link__icon" />
           <span>{t("user_sidebar.menu.payouts")}</span>
+        </NavLink>
+           <NavLink to="/account/me" className="al-nav-link" onClick={onNavigate}>
+          <FiUser className="al-nav-link__icon" />
+          <span>{t("user_sidebar.menu.my_profile")}</span>
         </NavLink>
        
       </nav>

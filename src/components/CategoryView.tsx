@@ -69,9 +69,9 @@ const CategoryView = () => {
             ====================================================== */}
       <header className="panel-view__header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
-          <span className="panel-view__eyebrow">Product Categories</span>
-          <h1 className="panel-view__title">Kategorie</h1>
-          <p className="panel-view__description">Zarządzaj kategoriami produktów w panelu administracyjnym.</p>
+          <span className="panel-view__eyebrow">Catalog</span>
+          <h1 className="panel-view__title">Categories</h1>
+          <p className="panel-view__description">Manage product categories</p>
         </div>
 
         <Link
@@ -80,7 +80,7 @@ const CategoryView = () => {
           style={{ display: "flex", gap: "0.5rem", padding: "0 1rem", width: "auto", minWidth: "140px", height: "40px", backgroundColor: "#66704A", color: "#ffffff", borderColor: "#66704A", borderRadius: "12px", textDecoration: "none", fontWeight: 600, fontSize: "14px" }}
         >
           <FiPlus />
-          Dodaj kategorię
+Add category
         </Link>
       </header>
 
@@ -92,7 +92,7 @@ const CategoryView = () => {
           <FiSearch />
           <input
             type="text"
-            placeholder="Szukaj kategorii..."
+            placeholder="Search cayegories..."
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
@@ -114,10 +114,10 @@ const CategoryView = () => {
             ====================================================== */}
       <section className="panel-view__content-card">
         {isLoading ? (
-          <div className="panel-view__loading-overlay">Ładowanie kategorii...</div>
+          <div className="panel-view__loading-overlay">Loading categories...</div>
         ) : filteredCategories.length === 0 ? (
           <div className="panel-view__empty-state">
-            <div className="panel-view__empty-title">Brak kategorii</div>
+            <div className="panel-view__empty-title">No category</div>
             <p>
               {search
                 ? "Nie znaleziono kategorii pasujących do kryteriów wyszukiwania."
@@ -129,12 +129,12 @@ const CategoryView = () => {
             <table className="data-table">
               <thead>
                 <tr>
-                  <th>Nazwa</th>
-                  <th>Kolejność</th>
+                  <th>Name</th>
+                  <th>Sort order</th>
                   <th>Status</th>
                   <th>Parent</th>
                   <th>Slug</th>
-                  <th className="data-table__actions-header">Akcje</th>
+                  <th className="data-table__actions-header">Actions</th>
                 </tr>
               </thead>
 

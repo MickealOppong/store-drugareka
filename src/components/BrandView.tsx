@@ -23,9 +23,13 @@ const BrandView = () => {
 
   // CRUD RTK mutation/query hooks
   const [deleteBrand] = useDeleteBrandMutation();
-  const {data,isLoading:loading} = useGetAllBrandsQuery({page,size:7})
+  const {data,isLoading:loading} = useGetAllBrandsQuery({page,size:5})
 
 const brands = data?.brands as TbrandResponse[]||[]
+
+
+
+
 
   /*
    * Delete category/brand row action handler
@@ -67,15 +71,16 @@ const brands = data?.brands as TbrandResponse[]||[]
   );
 
   return (
+   <>
     <main className="panel-view">
       {/* =====================================================
                 GENERIC HEADER BLOCK
             ====================================================== */}
       <header className="panel-view__header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
-          <span className="panel-view__eyebrow">Product Brands</span>
-          <h1 className="panel-view__title">Marki</h1>
-          <p className="panel-view__description">Zarządzaj markami produktów w systemie.</p>
+          <span className="panel-view__eyebrow">Catalog</span>
+          <h1 className="panel-view__title">Brand</h1>
+          <p className="panel-view__description">Manage brands.</p>
         </div>
 
         <Link
@@ -84,7 +89,7 @@ const brands = data?.brands as TbrandResponse[]||[]
           style={{ display: "flex", gap: "0.5rem", padding: "0 1rem", width: "auto", minWidth: "130px", height: "40px", backgroundColor: "#66704A", color: "#ffffff", borderColor: "#66704A", borderRadius: "12px", textDecoration: "none", fontWeight: 600, fontSize: "14px" }}
         >
           <FiPlus />
-          Dodaj markę
+        Add brand
         </Link>
       </header>
 
@@ -96,7 +101,7 @@ const brands = data?.brands as TbrandResponse[]||[]
           <FiSearch />
           <input
             type="text"
-            placeholder="Szukaj marki..."
+            placeholder="Search brands..."
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
@@ -118,10 +123,10 @@ const brands = data?.brands as TbrandResponse[]||[]
             ====================================================== */}
       <section className="panel-view__content-card">
         {loading ? (
-          <div className="panel-view__loading-overlay">Ładowanie marek...</div>
+          <div className="panel-view__loading-overlay">Loading brands...</div>
         ) : filteredBrands.length === 0 ? (
           <div className="panel-view__empty-state">
-            <div className="panel-view__empty-title">Brak marek</div>
+            <div className="panel-view__empty-title">No brand</div>
             <p>
               {search
                 ? "Nie znaleziono marek pasujących do wyszukiwania."
@@ -136,7 +141,7 @@ const brands = data?.brands as TbrandResponse[]||[]
                   <th>Nazwa</th>
                   <th>Slug</th>
                   <th>Sort Order</th>
-                  <th className="data-table__actions-header">Akcje</th>
+                  <th className="data-table__actions-header">Actions</th>
                 </tr>
               </thead>
 
@@ -197,14 +202,16 @@ const brands = data?.brands as TbrandResponse[]||[]
           </div>
         )}
       </section>
-           {data && (
+           {data?.brands && (
                     <Pagination
                       page={page}
                       totalPage={data.totalPages}
                       size={data.pageSize}
+                      totalElements={data.totalElements}
                     />
                   )}
     </main>
+   </>
   );
 };
 

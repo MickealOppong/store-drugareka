@@ -200,7 +200,8 @@
       "orders": "Orders",
       "shipments": "Shipments",
       "wishlist": "My favorites",
-      "payouts": "Payouts"
+      "payouts": "Payouts",
+      "my_profile":"My profile"
     },
     "footer": {
       "add_product": "Add product",
@@ -896,6 +897,86 @@
       "seller_title": "Have items you no longer use?",
       "seller_desc": "Turn unneeded wardrobe pieces or extra equipment into fast cash. Give your pre-loved items a second chance today.",
       "seller_btn": "List a product for sale"
+    }
+  },
+"user_profile": {
+    "header": {
+      "badge": "User Profile",
+      "title": "Your Profile",
+      "desc": "Manage your personal information and shipping details."
+    },
+    "sections": {
+      "personal": "Personal Information",
+      "address": "Shipping Address",
+      "password": "Change Password"
+    },
+    "fields": {
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email Address",
+      "account": "Bank Account",
+      "street": "Street Address",
+      "postal_code": "Postal Code",
+      "city": "City",
+      "country": "Country",
+      "contact": "Phone Number"
+    },
+    "placeholders": {
+      "account": "account#...",
+      "street": "e.g. xx ",
+      "postal_code": "e.g. XX-XXX",
+      "city": "e.g. Gliwice"
+    },
+    "privacy": {
+      "title": "Privacy",
+      "desc": "Your personal information is used only to process your account, orders, payments, and deliveries."
+    },
+    "messages": {
+      "success": "Profile updated successfully."
+    },
+    "errors": {
+      "required_fields": "Please fill in all mandatory fields.",
+      "save_failed": "Failed to save profile changes.",
+      "load_failed": "Failed to load your profile.",
+      "street_required": "Street is required.",
+      "city_required": "City is required."
+    },
+    "buttons": {
+      "edit": "Edit Profile",
+      "cancel": "Cancel",
+      "save": "Save Changes",
+      "saving": "Saving..."
+    },
+    "email_locked": "Email cannot be changed",
+    "password": {
+      "title": "Change Password",
+      "description": "Change your account password separately from your personal information.",
+      "fields": {
+        "current": "Current Password",
+        "new": "New Password",
+        "confirm": "Confirm New Password"
+      },
+      "placeholders": {
+        "current": "Enter your current password",
+        "new": "Enter a new password",
+        "confirm": "Confirm your new password"
+      },
+      "hint": "Minimum 8 characters.",
+      "buttons": {
+        "change": "Change Password",
+        "changing": "Changing Password..."
+      },
+      "messages": {
+        "success": "Password changed successfully."
+      },
+      "errors": {
+        "current_required": "Please enter your current password.",
+        "new_required": "Please enter a new password.",
+        "too_short": "New password must contain at least 8 characters.",
+        "confirm_required": "Please confirm your new password.",
+        "mismatch": "New passwords do not match.",
+        "failed": "Failed to change password."
+      }
     }
   }
 }

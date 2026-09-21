@@ -77,7 +77,7 @@ const ConditionView = () => {
         <div>
           <span className="panel-view__eyebrow">Product Condition</span>
           <h1 className="panel-view__title">Conditions</h1>
-          <p className="panel-view__description">Zarządzaj klasyfikacją stanu technicznego i wizualnego produktów.</p>
+          <p className="panel-view__description">Manage product conditions</p>
         </div>
 
         <Link
@@ -98,7 +98,7 @@ const ConditionView = () => {
           <FiSearch />
           <input
             type="text"
-            placeholder="Szukaj stanu..."
+            placeholder="Search product conditions..."
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
@@ -120,10 +120,10 @@ const ConditionView = () => {
             ====================================================== */}
       <section className="panel-view__content-card">
         {loading && conditions.length === 0 ? (
-          <div className="panel-view__loading-overlay">Ładowanie stanów produktów...</div>
+          <div className="panel-view__loading-overlay">Loading product conditioms...</div>
         ) : filteredConditions.length === 0 ? (
           <div className="panel-view__empty-state">
-            <div className="panel-view__empty-title">Brak stanów produktów</div>
+            <div className="panel-view__empty-title">No product condition</div>
             <p>
               {search
                 ? "Nie znaleziono pozycji pasujących do wpisanego hasła."
@@ -135,12 +135,12 @@ const ConditionView = () => {
             <table className="data-table">
               <thead>
                 <tr>
-                  <th>Nazwa</th>
-                  <th>Opis</th>
+                  <th>name</th>
+                  <th>description</th>
                   <th>ID</th>
-                  <th>Kolejność</th>
+                  <th>sort order</th>
                   <th>Status</th>
-                  <th className="data-table__actions-header">Akcje</th>
+                  <th className="data-table__actions-header">Actions</th>
                 </tr>
               </thead>
 

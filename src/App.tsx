@@ -20,6 +20,7 @@ import {
   SharedLayout,
   Shipment,
   Shop,
+  UserProfile,
   WishList,
 } from "./pages/index";
 
@@ -50,7 +51,6 @@ import Orders from "./pages/Orders";
 import { store } from "./store";
 
 import EditCondition from "./components/EditCondition";
-import { loader as accountLoader } from "./pages/AccountLayout";
 import { loader as landingLoader } from "./pages/Landing";
 
 function App() {
@@ -113,7 +113,6 @@ function App() {
     },
     {
       path: "/account",
-      loader: accountLoader(store),
       element: (
         <ProtectedRoute>
           <AccountLayout />
@@ -131,6 +130,10 @@ function App() {
         {
           path: "wishlist",
           element: <WishList />,
+        },
+          {
+          path: "me",
+          element: <UserProfile/>,
         },
         {
           path: "listings/new",

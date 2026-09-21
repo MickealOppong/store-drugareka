@@ -200,7 +200,8 @@
       "orders": "Zamówienia",
       "shipments": "Przesyłki",
       "wishlist": "Moje ulubione",
-      "payouts": "Wypłaty"
+      "payouts": "Wypłaty",
+        "my_profile":"Mój profil"
     },
     "footer": {
       "add_product": "Dodaj produkt",
@@ -896,6 +897,99 @@
       "seller_title": "Masz rzeczy, których już nie używasz?",
       "seller_desc": "Zamień niepotrzebne ubrania lub dodatkowe wyposażenie na gotówkę. Daj swoim rzeczom drugą szansę już dziś.",
       "seller_btn": "Wystaw produkt na sprzedaż"
+    }
+  },
+"user_profile": {
+    "header": {
+      "badge": "Profil użytkownika",
+      "title": "Twój profil",
+      "desc": "Zarządzaj swoimi danymi osobowymi i adresem wysyłkowym."
+    },
+    "sections": {
+      "personal": "Dane osobowe",
+      "address": "Adres wysyłkowy",
+      "password": "Zmiana hasła"
+    },
+    "fields": {
+      "first_name": "Imię",
+      "last_name": "Nazwisko",
+      "email": "Adres e-mail",
+      "account": "Numer rachunku bankowego",
+      "street": "Ulica i numer",
+      "postal_code": "Kod pocztowy",
+      "city": "Miasto",
+      "country": "Kraj",
+      "contact": "Numer telefonu",
+      "current_password": "Obecne hasło",
+      "new_password": "Nowe hasło",
+      "confirm_password": "Potwierdź nowe hasło"
+    },
+    "placeholders": {
+      "account": "nr rachunku...",
+      "street": "np. Kostromska 120",
+      "postal_code": "np. 97-300",
+      "city": "np. Piotrków Trybunalski",
+      "current_password": "Wpisz obecne hasło",
+      "new_password": "Wpisz nowe hasło",
+      "confirm_password": "Potwierdź nowe hasło"
+    },
+    "privacy": {
+      "title": "Prywatność",
+      "desc": "Twoje dane osobowe są wykorzystywane wyłącznie do obsługi konta, zamówień, płatności i dostaw."
+    },
+    "messages": {
+      "success": "Twój profil został pomyślnie zaktualizowany.",
+      "password_success": "Twoje hasło zostało pomyślnie zmienione."
+    },
+    "errors": {
+      "required_fields": "Uzupełnij wszystkie wymagane pola.",
+      "save_failed": "Nie udało się zapisać zmian profilu.",
+      "password_change_failed": "Nie udało się zmienić hasła.",
+      "current_password_required": "Wpisz obecne hasło.",
+      "new_password_required": "Wpisz nowe hasło.",
+      "confirm_password_required": "Potwierdź nowe hasło.",
+      "password_mismatch": "Nowe hasła nie są takie same.",
+      "password_too_short": "Nowe hasło musi zawierać co najmniej 8 znaków."
+    },
+    "buttons": {
+      "edit": "Edytuj profil",
+      "cancel": "Anuluj",
+      "save": "Zapisz zmiany",
+      "saving": "Zapisywanie...",
+      "change_password": "Zmień hasło",
+      "changing_password": "Zmiana hasła...",
+      "update_password": "Zaktualizuj hasło"
+    },
+    "email_locked": "Adres e-mail nie może być zmieniony",
+    "password": {
+      "title": "Zmiana hasła",
+      "description": "Zmień hasło, aby zwiększyć bezpieczeństwo swojego konta.",
+      "fields": {
+        "current": "Obecne hasło",
+        "new": "Nowe hasło",
+        "confirm": "Potwierdź nowe hasło"
+      },
+      "placeholders": {
+        "current": "Wpisz obecne hasło",
+        "new": "Wpisz nowe hasło",
+        "confirm": "Potwierdź nowe hasło"
+      },
+      "buttons": {
+        "change": "Zmień hasło",
+        "schanging": "Zmiana hasła...",
+        "cancel": "Anuluj"
+      },
+      "messages": {
+        "success": "Hasło zostało pomyślnie zmienione."
+      },
+      "errors": {
+        "current_required": "Wpisz obecne hasło.",
+        "new_required": "Wpisz nowe hasło.",
+        "confirm_required": "Potwierdź nowe hasło.",
+        "mismatch": "Nowe hasła nie są takie same.",
+        "too_short": "Nowe hasło musi zawierać co najmniej 8 znaków.",
+        "failed": "Nie udało się zmienić hasła."
+      }
     }
   }
 }

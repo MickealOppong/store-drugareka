@@ -1,13 +1,14 @@
 // ============================================================
-// WISHLIST PAGE
+// KASOA.PL WISHLIST PAGE LAYOUT MODULE
 // ============================================================
-@import './Variables.scss';
+@import './Variables.scss'; // Binds high-performance Spruce (#1E3A3A) and Alabaster (#F4F7F6) tokens
 
 .wishlist-page {
   width: 100%;
-  max-width: max-content;
+  max-width: 1200px; // 🚀 FIXED: Replaced layout breaking 'max-content' with a solid viewport metric
   margin: 0 auto;
   padding: 40px 24px 64px;
+  box-sizing: border-box;
 
   // ----------------------------------------------------------
   // HEADER
@@ -22,21 +23,20 @@
   }
 
   &__header-content {
-
     h2 {
       margin: 0;
       font-size: 30px;
-      font-weight: 700;
+      font-weight: 800;
       line-height: 1.2;
       letter-spacing: -0.02em;
-      color: #24271f;
+      color: $color-text-main; // Deep Matte Ink #0D1313
     }
 
     p {
       margin: 8px 0 0;
       font-size: 14px;
       line-height: 1.5;
-      color: #777b70;
+      color: $color-text-muted; // Granite Grey #42504F
     }
   }
 
@@ -44,61 +44,67 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     min-height: 36px;
     padding: 0 14px;
-
-    border: 1px solid #dfe2d8;
+    border: 1px solid $color-border;
     border-radius: 999px;
-
-    background: #f7f8f4;
-
+    background: $color-bg-light;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     color: $color-primary;
     white-space: nowrap;
   }
 
   // ----------------------------------------------------------
-  // GRID
+  // GRID ARRAY
   // ----------------------------------------------------------
 
   &__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
+    width: 100%;
   }
 
   // ----------------------------------------------------------
-  // EMPTY STATE
+  // EMPTY FALLBACK INTERFACE
   // ----------------------------------------------------------
 
   &__empty {
     min-height: 460px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     padding: 48px 24px;
-
     text-align: center;
+    width: 100%;
+
+    h3 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+      color: $color-text-main;
+    }
+
+    p {
+      max-width: 420px;
+      margin: 10px 0 24px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: $color-text-muted;
+    }
   }
 
   &__empty-icon {
     width: 76px;
     height: 76px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     margin-bottom: 20px;
-
     border-radius: 50%;
-
-    background: #f0f2e9;
+    background: $color-bg-light;
     color: $color-primary;
 
     svg {
@@ -108,171 +114,107 @@
     }
   }
 
-  &__empty {
-
-    h3 {
-      margin: 0;
-
-      font-size: 22px;
-      font-weight: 700;
-      color: #292c25;
-    }
-
-    p {
-      max-width: 420px;
-      margin: 10px 0 24px;
-
-      font-size: 14px;
-      line-height: 1.6;
-      color: #777b70;
-    }
-  }
-
   &__empty-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     min-height: 44px;
     padding: 0 22px;
-
     border-radius: 8px;
-
     background: $color-primary;
     color: #fff;
-
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
-
-    transition:
-      background .2s ease,
-      transform .2s ease;
+    transition: background .2s ease, transform .2s ease;
 
     &:hover {
-      background:$color-primary;
+      background: lighten($color-primary, 5%);
       transform: translateY(-1px);
     }
   }
 
   // ----------------------------------------------------------
-  // LOADING
+  // ASYNC PENDING LOADING STATE
   // ----------------------------------------------------------
 
   &__loading {
     min-height: 460px;
-
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
   }
 
   &__spinner {
     width: 38px;
     height: 38px;
-
-    border: 3px solid #e1e4da;
+    border: 3px solid $color-border;
     border-top-color: $color-primary;
-
     border-radius: 50%;
-
     animation: wishlist-spin .7s linear infinite;
   }
 }
 
-
 // ============================================================
-// WISHLIST CARD
+// ITEM DISPLAY HOVER CARDS
 // ============================================================
 
 .wishlist-card {
   min-width: 0;
-
   overflow: hidden;
-
   background: #fff;
-
-  border: 1px solid #e4e6df;
+  border: 1px solid $color-border;
   border-radius: 14px;
-
-  transition:
-    transform .2s ease,
-    box-shadow .2s ease,
-    border-color .2s ease;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 
   &:hover {
     transform: translateY(-3px);
-
-    border-color: #d8dccf;
-
-    box-shadow:
-      0 10px 30px rgba(35, 39, 28, .08);
+    border-color: $color-text-muted;
+    box-shadow: 0 10px 30px rgba(13, 19, 19, .06);
   }
-
-  // ----------------------------------------------------------
-  // MEDIA
-  // ----------------------------------------------------------
 
   &__media {
     position: relative;
-
     width: 100%;
     aspect-ratio: 1 / 1;
-
     margin: 0;
-
     overflow: hidden;
-
-    background: #f3f4ef;
+    background: $color-bg-light;
 
     img {
       display: block;
-
       width: 100%;
       height: 100%;
-
       object-fit: cover;
-
       transition: transform .35s ease;
     }
   }
 
   &:hover &__media img {
-    transform: scale(1.035);
+    transform: scale(1.03);
   }
-
-  // ----------------------------------------------------------
-  // REMOVE BUTTON
-  // ----------------------------------------------------------
 
   &__remove {
     position: absolute;
     top: 12px;
     right: 12px;
-
     width: 36px;
     height: 36px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border: 0;
     border-radius: 50%;
-
-    background: rgba(255, 255, 255, .94);
-
-    color: #6c7067;
-
+    background: rgba(255, 255, 255, .95);
+    color: $color-text-muted;
     cursor: pointer;
-
-    box-shadow:
-      0 3px 12px rgba(0, 0, 0, .08);
-
-    transition:
-      color .2s ease,
-      background .2s ease,
-      transform .2s ease;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .06);
+    transition: color .2s ease, background .2s ease, transform .2s ease;
+    z-index: 2;
 
     svg {
       width: 16px;
@@ -280,8 +222,8 @@
     }
 
     &:hover {
-      background: #fff;
-      color: #b34d4d;
+      background: #fff1ef;
+      color: #a05a53;
       transform: scale(1.05);
     }
 
@@ -290,139 +232,100 @@
     }
   }
 
-  // ----------------------------------------------------------
-  // STATUS
-  // ----------------------------------------------------------
-
   &__status {
     position: absolute;
     left: 12px;
     bottom: 12px;
-
     display: inline-flex;
     align-items: center;
-
     min-height: 28px;
     padding: 0 10px;
-
     border: 0;
     border-radius: 6px;
-
-    background: rgba(40, 43, 35, .88);
-
+    background: rgba(13, 19, 19, .85); // Matches deep Ink core transparency rules
     color: #fff;
-
     font-size: 11px;
     font-weight: 700;
     line-height: 1;
-
     text-transform: capitalize;
+    z-index: 2;
   }
-
-  // ----------------------------------------------------------
-  // CONTENT
-  // ----------------------------------------------------------
 
   &__content {
     display: flex;
     flex-direction: column;
-
-    min-height: 148px;
-
+    flex: 1;
     padding: 16px;
+    box-sizing: border-box;
   }
 
   &__info {
     min-width: 0;
+    margin-bottom: 1rem;
 
     h4 {
       margin: 0;
-
       overflow: hidden;
-
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
       line-height: 1.4;
-
-      color: #292c25;
-
+      color: $color-text-main;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
     p {
-      margin: 7px 0 0;
-
+      margin: 6px 0 0;
       font-size: 12px;
       line-height: 1.4;
-
-      color: #898d83;
+      color: $color-text-muted;
     }
   }
 
   &__product-link {
     display: block;
-
     color: inherit;
     text-decoration: none;
 
-    &:hover {
-      h4 {
-        color: $color-primary;
-      }
+    &:hover h4 {
+      color: $color-primary;
     }
   }
-
-  // ----------------------------------------------------------
-  // FOOTER
-  // ----------------------------------------------------------
 
   &__footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-
     margin-top: auto;
-    padding-top: 18px;
+    padding-top: 14px;
+    border-top: 1px dashed rgba($color-border, 0.6);
 
     strong {
       font-size: 18px;
-      font-weight: 700;
-      color: #292c25;
+      font-weight: 800;
+      color: $color-text-main;
       white-space: nowrap;
     }
   }
-
-  // ----------------------------------------------------------
-  // BUY BUTTON
-  // ----------------------------------------------------------
 
   &__buy {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 7px;
-
     min-height: 38px;
     padding: 0 14px;
-
     border: 1px solid $color-primary;
-    border-radius: 7px;
-
+    border-radius: 6px;
     background: $color-primary;
     color: #fff;
-
     font-family: inherit;
     font-size: 12px;
-    font-weight: 600;
-
+    font-weight: 700;
     cursor: pointer;
-
-    transition:
-      background .2s ease,
-      border-color .2s ease,
-      transform .2s ease;
+    box-sizing: border-box;
+    transition: background .2s ease, border-color .2s ease, transform .2s ease;
 
     svg {
       width: 15px;
@@ -431,13 +334,9 @@
     }
 
     &:hover:not(:disabled) {
-      background: $color-primary;
-      border-color: $color-primary;
+      background: lighten($color-primary, 5%);
+      border-color: lighten($color-primary, 5%);
       transform: translateY(-1px);
-    }
-
-    &:active:not(:disabled) {
-      transform: translateY(0);
     }
 
     &:disabled {
@@ -449,39 +348,26 @@
   }
 }
 
-
 // ============================================================
-// LOADING ANIMATION
+// ANIMATION KEYFRAMES HOOK
 // ============================================================
-
 @keyframes wishlist-spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
-
 // ============================================================
-// TABLET
+// TABLET RESPONSIVENESS CAP
 // ============================================================
-
 @media (max-width: $breakpoint-lg) {
-
-  .wishlist-page {
-
-    &__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .wishlist-page__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-
 // ============================================================
-// MOBILE
+// MOBILE TARGET BOUNDARIES
 // ============================================================
-
 @media (max-width: $breakpoint-md) {
-
   .wishlist-page {
     padding: 28px 18px 48px;
 
@@ -491,14 +377,8 @@
     }
 
     &__header-content {
-
-      h2 {
-        font-size: 25px;
-      }
-
-      p {
-        font-size: 13px;
-      }
+      h2 { font-size: 25px; }
+      p { font-size: 13px; }
     }
 
     &__count {
@@ -507,126 +387,65 @@
       font-size: 12px;
     }
 
-    &__grid {
-      gap: 16px;
-    }
+    &__grid { gap: 16px; }
   }
 
   .wishlist-card {
-
-    &__content {
-      min-height: 140px;
-      padding: 14px;
-    }
-
+    &__content { padding: 14px; }
     &__footer {
       padding-top: 14px;
-
-      strong {
-        font-size: 16px;
-      }
+      strong { font-size: 16px; }
     }
-
-    &__buy {
-      min-height: 36px;
-      padding: 0 11px;
-    }
+    &__buy { min-height: 36px; padding: 0 11px; }
   }
 }
 
-
 // ============================================================
-// SMALL MOBILE
+// SMALL MOBILE ROW RENDERING OVERHAUL
 // ============================================================
-
 @media (max-width: $breakpoint-sm) {
-
   .wishlist-page {
     padding: 24px 14px 40px;
 
-    &__header {
-      align-items: center;
-    }
-
+    &__header { align-items: center; }
     &__header-content {
-
-      h2 {
-        font-size: 22px;
-      }
-
-      p {
-        display: none;
-      }
+      h2 { font-size: 22px; }
+      p { display: none; }
     }
-
     &__grid {
       grid-template-columns: 1fr;
       gap: 18px;
     }
-
     &__empty {
       min-height: 400px;
       padding: 32px 18px;
     }
-
     &__empty-icon {
       width: 68px;
       height: 68px;
-
-      svg {
-        width: 28px;
-        height: 28px;
-      }
+      svg { width: 28px; height: 28px; }
     }
   }
 
   .wishlist-card {
     display: grid;
-    grid-template-columns: 130px minmax(0, 1fr);
+    grid-template-columns: 120px minmax(0, 1fr);
 
     &__media {
       aspect-ratio: 1 / 1;
       height: 100%;
     }
-
-    &__content {
-      min-height: 0;
-      padding: 14px;
+    &__content { padding: 12px; }
+    &__remove { top: 8px; right: 8px; width: 32px; height: 32px; }
+    &__status { left: 8px; bottom: 8px; min-height: 24px; padding: 0 8px; font-size: 10px; }
+    &__footer { 
+      padding-top: 10px;
+      strong { font-size: 15px; }
     }
-
-    &__remove {
-      top: 8px;
-      right: 8px;
-
-      width: 32px;
-      height: 32px;
-    }
-
-    &__status {
-      left: 8px;
-      bottom: 8px;
-
-      min-height: 24px;
-      padding: 0 8px;
-
-      font-size: 10px;
-    }
-
-    &__footer {
-      align-items: flex-end;
-
-      strong {
-        font-size: 16px;
-      }
-    }
-
     &__buy {
-
-      span {
-        display: none;
-      }
-
+      span { display: none; }
       width: 36px;
+      min-width: 36px;
       padding: 0;
     }
   }

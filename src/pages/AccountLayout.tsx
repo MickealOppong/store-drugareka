@@ -4,31 +4,17 @@ import { Outlet, redirect } from "react-router-dom";
 import type { Store } from "redux";
 import '../css/AccountLayout.css';
 import { appName } from "../data/data";
-import { userApi } from "../features/api/userApi";
-import { updateUser } from "../features/slice/userSlice";
-import { useAppSelector, type AppDispatch, type RootState } from "../store";
+import { useAppSelector, type RootState } from "../store";
 import type { TUserDto } from "../types/TUserDto";
 import Admin from "./Admin";
 import User from "./User";
 
 export const loader = (store: Store<RootState>) => async () => {
-  const { username } = store.getState().userSlice;
+  const { email } = store.getState().userSlice;
 
-  if (!username) {
+  if (!email) {
     return redirect('/login');
   }
-
-  const dispatch = store.dispatch as AppDispatch;
-  const response = await dispatch(userApi.endpoints.getUser.initiate(username, { forceRefetch: true }));
-  
-  if (response.error) {
-    const { status } = response.error as { status: number; data: any };
-    if (status === 401) {
-      return redirect("/login");
-    }
-  }
-  
-  store.dispatch(updateUser(response.data?.data));
   return null;
 };
 
@@ -36,7 +22,7 @@ export default function SellerLayout() {
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
   const user: TUserDto = useAppSelector((state) => state.userSlice);
 
-  // 🚀 FIXED: Fallback protection logic avoiding runtime trace failures on unauthenticated arrays
+ 
   const userRolesList = user?.roles || [];
   const isAdminUser = userRolesList.includes("ROLE_ADMIN");
 

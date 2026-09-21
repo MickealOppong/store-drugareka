@@ -158,7 +158,7 @@ const {data:listings=[]} = useGetLandingListingQuery()
           {topCategories.map((category) => (
             <Link
               key={category.id}
-              to={`/shop/${category.name}`}
+              to={`/shop?category=${category.slug}`}
               className="mobile-category-card"
             >
               <img src={category.image} alt={category.name} />

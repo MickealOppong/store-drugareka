@@ -5,9 +5,10 @@ interface PaginationProps {
   page: number;        // 1-indexed current page from URL
   totalPage: number;   // 1-indexed total pages from Spring Boot payload
   size: number;        // Elements in current view
+  totalElements:number
 }
 
-export const Pagination = ({ page, totalPage, size }: PaginationProps) => {
+export const Pagination = ({ page, totalPage, size,totalElements }: PaginationProps) => {
   const navigate = useNavigate();
   const { search, pathname } = useLocation();
 
@@ -70,7 +71,7 @@ export const Pagination = ({ page, totalPage, size }: PaginationProps) => {
       <div className="ks-pagination__info">
         <span>showing</span>
         <strong className="ks-pagination__badge">{size}</strong>
-        <span>entries</span>
+        <span>{`/ ${totalElements} entries`}</span>
       </div>
 
       {/* Navigation Element Control Group */}
@@ -101,7 +102,7 @@ export const Pagination = ({ page, totalPage, size }: PaginationProps) => {
 
           return (
             <button
-              key={`page-${pageNumber}`}
+              key={index}
               type="button"
               className={`ks-pagination__btn ks-pagination__btn--number ${isActive ? "is-active" : ""}`}
               onClick={() => handlePageChange(pageNumber)}

@@ -187,6 +187,7 @@ const Shipment = () => {
           page={page}
           totalPage={data.totalPages}
           size={data.pageSize}
+          totalElements={data?.totalElements}
         />
       )}
 

@@ -29,17 +29,24 @@ export const userApi = createApi({
     }),
     tagTypes:['users','user','roles'],
     endpoints:(build)=>({
-        getUser:build.query<TResponseDto,string>({
-            query:(username)=>({
+        getUser:build.query<TResponseDto,void>({
+            query:()=>({
                 url:`/api/users/user`,
-                params:{
-                    username
-                },
             }),
               providesTags:['user'],
           
         }),
-
+  changePassword:build.mutation<TResponseDto,{currentPassword:string,newPassword:string}>({
+            query:({currentPassword,newPassword})=>({
+                url:`/api/users/change-password`,
+              params:{
+                currentPassword,newPassword
+              },
+              method:'PUT'
+            }),
+            invalidatesTags:['user']
+          
+        }),
          getAllUsers:build.query<TUserDto[],void>({
             query:()=>({
                 url:`/api/users/all`,
@@ -56,7 +63,7 @@ export const userApi = createApi({
               invalidatesTags:['user','users']
           
         }),
-          editUser:build.mutation<TResponseDto,TUserUpdateRequest>({
+          editUser:build.mutation<TResponseDto,FormData>({
             query:(body)=>({
                 url:`/api/users/edit`,
                 method:"PUT",
@@ -102,6 +109,6 @@ export const userApi = createApi({
     }),
  
 })
-export const {useGetUserQuery,useNewUserMutation,useEditUserMutation,useDeleteUserMutation,useLazyGetUserQuery,useLazyGetAllUsersQuery
-    ,useLazyAllRolesQuery,useGetMyPayoutsQuery,useGetShipmentsQuery
+export const {useNewUserMutation,useEditUserMutation,useDeleteUserMutation,useLazyGetUserQuery,useLazyGetAllUsersQuery
+    ,useLazyAllRolesQuery,useGetMyPayoutsQuery,useGetShipmentsQuery,useChangePasswordMutation
 }=userApi

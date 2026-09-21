@@ -14,11 +14,11 @@ import Loading from "./Loading";
 import Search from "./Search";
 const NavHeader = () => {
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
-  const { username, roles } = useAppSelector((state) => state.userSlice);
+  const { email, roles } = useAppSelector((state) => state.userSlice);
   const { guestCartCount } = useAppSelector((state) => state.cartSlice);
   const { t } = useTranslation();
 
-  const isUserLoggedIn = Boolean(username);
+  const isUserLoggedIn = Boolean(email);
 
   const { data: cartCounter } = useGetCartCountQuery();
   const { data: wishlistCounter } = useGetWishlistCountQuery();
@@ -37,14 +37,14 @@ const NavHeader = () => {
   };
 
   const onUserButtonClick = () => {
-    if (!username) {
+    if (!email) {
       return navigate('/login');
     }
     roles.includes("ROLE_ADMIN") ? navigate('/account/admin') : navigate('/account/user');
   };
 
   const onWishlistButtonClick = () => {
-    if (!username) {
+    if (!email) {
       return navigate('/login');
     }
     navigate('/account/wishlist');
@@ -101,7 +101,7 @@ const NavHeader = () => {
             <span>{t("navigation.actions.account")}</span>
           </button>
 
-          {username ? (
+          {email ? (
             <button type="button" className="login-button" onClick={handleAccountLogout}>
               {t("navigation.actions.logout")}
             </button>

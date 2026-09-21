@@ -146,7 +146,7 @@ const SellerPayout = () => {
         <Pagination
           page={page}
           totalPage={data.totalPages}
-          size={data.pageSize}
+          size={data.pageSize} totalElements={data.totalElements}          
         />
       )}
     </main>

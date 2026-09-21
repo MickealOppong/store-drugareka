@@ -71,7 +71,7 @@ const Shop = () => {
   const wishlists = wishlist.map((item) => item.listingId);
 
   const [addToWish] = useAddWishListMutation();
-  const username = useAppSelector((state) => state.userSlice.username);
+  const username = useAppSelector((state) => state.userSlice.email);
 
   // ==========================================================================
   // HIGH-PERFORMANCE CLIENT FILTERS MEMOIZATION MATRIX
@@ -378,11 +378,14 @@ const Shop = () => {
           )}
         </section>
       )}
-      <Pagination
-        page={page as number}
-        totalPage={data?.totalPages as number}
-        size={data?.pageSize as number}
+     {
+      data &&  <Pagination
+        page={page }
+        totalPage={data?.totalPages}
+        size={data?.pageSize }
+        totalElements={data?.totalElements}
       />
+     }
 
       {/* =====================================================
                 MOBILE FILTER DRAWER

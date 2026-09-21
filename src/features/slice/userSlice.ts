@@ -6,20 +6,30 @@ import { removeFromLocalStorage, storeToLocalStorage } from "../../util/util";
 let initialState:TUserDto = {
   firstName: localStorage.getItem('fname') || "",
   lastName: localStorage.getItem('lname') || "",
-  userId: parseInt(localStorage.getItem('id')as string),
-  username: localStorage.getItem('username') || '',
+  userId: parseInt(localStorage.getItem('id') as string),
+  email: localStorage.getItem('email') || '',
   roles: JSON.parse(localStorage.getItem('roles') as string) || [],
-
+  address: {
+    street: "",
+    city: "",
+    postalCode: "",
+    country: "",
+    contact: ""
+  },
+  accountNumber:''
 }
 const userSlice = createSlice({
   name: 'userSlice',
   initialState,
   reducers: {
     loginUser: (state,{payload}) => {
+
+      console.log(payload);
+      
       const {email,userId,tokenDto,firstName,lastName,roles,
       } = payload;
       const{token,refreshToken} = tokenDto;
-     state.username = email;
+     state.email = email;
      state.roles=roles;
      state.userId = userId;
      state.firstName = firstName;
@@ -27,7 +37,7 @@ const userSlice = createSlice({
   
 
      //store to local storage
-     storeToLocalStorage('username',email)
+     storeToLocalStorage('email',email)
      storeToLocalStorage('id',userId)
      storeToLocalStorage('fname',firstName)
      storeToLocalStorage('lname',lastName)
@@ -39,11 +49,11 @@ const userSlice = createSlice({
     },  
     logoutUser: (state) => {
         state.userId = 0,
-     state.username =''
+     state.email =''
      state.roles=[]
      state.firstName = ''
      state.lastName = ''
-     removeFromLocalStorage('username')
+     removeFromLocalStorage('email')
         removeFromLocalStorage('id')
      removeFromLocalStorage('fname')
      removeFromLocalStorage('lname')
@@ -56,12 +66,12 @@ const userSlice = createSlice({
       const {email,roles,
       } = payload;
 
-     state.username =email;
+     state.email=email;
      state.roles=roles;
   
 
      //store to local storage
-     storeToLocalStorage('username',email)
+     storeToLocalStorage('email',email)
      storeToLocalStorage('roles',JSON.stringify(roles))
 
 

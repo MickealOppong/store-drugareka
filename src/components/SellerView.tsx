@@ -133,7 +133,7 @@ const SellerView: React.FC = () => {
       </section>
 
       {/* LOCALIZED PACING HOOKS */}
-      {data && <Pagination page={page} totalPage={data.totalPages} size={data.pageSize} />}
+      {data && <Pagination page={page} totalPage={data.totalPages} size={data.pageSize} totalElements={data?.totalElements} />}
     </>
   );
 };

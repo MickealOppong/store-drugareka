@@ -43,9 +43,9 @@ const AdminOrderView: React.FC = () => {
             ================================================== */}
      <header className="panel-view__header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
            <div>
-             <span className="panel-view__eyebrow">Users</span>
-             <h1 className="panel-view__title">Użytkownicy</h1>
-             <p className="panel-view__description">Zarządzaj kontami użytkowników i uprawnieniami systemowymi.</p>
+             <span className="panel-view__eyebrow">Orders</span>
+             <h1 className="panel-view__title">All Orders</h1>
+             <p className="panel-view__description">Manage listing orders.</p>
            </div>
          </header>
       {/* LOCALIZED INDEPENDENT TOOLBAR */}
@@ -54,7 +54,7 @@ const AdminOrderView: React.FC = () => {
           <FiSearch />
           <input
             type="text"
-            placeholder="Search sales..."
+            placeholder="Search orders..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -70,10 +70,10 @@ const AdminOrderView: React.FC = () => {
 
       <section className="panel-view__content-card">
         {isLoading ? (
-          <div className="panel-view__loading-overlay">Loading sales...</div>
+          <div className="panel-view__loading-overlay">Loading orders...</div>
         ) : filteredList.length === 0 ? (
           <div className="panel-view__empty-state">
-            <div className="panel-view__empty-title">No sales found</div>
+            <div className="panel-view__empty-title">No order found</div>
             <p>{search ? "No sales match your search." : "Your sales records will appear here."}</p>
           </div>
         ) : (
@@ -89,7 +89,7 @@ const AdminOrderView: React.FC = () => {
                   <th>Total</th>
                   <th>Status</th>
                   <th>Created</th>
-                  <th className="data-table__actions-header">Action</th>
+                  <th className="data-table__actions-header">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -156,7 +156,7 @@ const AdminOrderView: React.FC = () => {
       </section>
 
       {/* LOCALIZED PACING HOOKS */}
-      {data && <Pagination page={page} totalPage={data.totalPages} size={data.pageSize} />}
+      {data && <Pagination page={page} totalPage={data.totalPages} size={data.pageSize} totalElements={data?.totalElements}/>}
     </>
   );
 };

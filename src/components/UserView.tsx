@@ -94,8 +94,8 @@ const UserView = () => {
       <header className="panel-view__header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
           <span className="panel-view__eyebrow">Users</span>
-          <h1 className="panel-view__title">Użytkownicy</h1>
-          <p className="panel-view__description">Zarządzaj kontami użytkowników i uprawnieniami systemowymi.</p>
+          <h1 className="panel-view__title">All Users</h1>
+          <p className="panel-view__description">Manage users.</p>
         </div>
 
         <Link
@@ -104,7 +104,7 @@ const UserView = () => {
           style={{ display: "flex", gap: "0.5rem", padding: "0 1rem", width: "auto", minWidth: "150px", height: "40px", backgroundColor: "#66704A", color: "#ffffff", borderColor: "#66704A", borderRadius: "12px", textDecoration: "none", fontWeight: 600, fontSize: "14px" }}
         >
           <FiPlus />
-          Dodaj użytkownika
+         Add user
         </Link>
       </header>
 
@@ -116,7 +116,7 @@ const UserView = () => {
           <FiSearch />
           <input
             type="text"
-            placeholder="Szukaj użytkownika po imieniu lub nazwisku..."
+            placeholder="Search users..."
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
@@ -137,10 +137,10 @@ const UserView = () => {
             ====================================================== */}
       <section className="panel-view__content-card">
         {loading && users.length === 0 ? (
-          <div className="panel-view__loading-overlay">Ładowanie użytkowników...</div>
+          <div className="panel-view__loading-overlay">Loading users...</div>
         ) : filteredList.length === 0 ? (
           <div className="panel-view__empty-state">
-            <div className="panel-view__empty-title">Brak użytkowników</div>
+            <div className="panel-view__empty-title">No user</div>
             <p>
               {search
                 ? "Nie znaleziono kont pasujących do kryteriów wyszukiwania."
@@ -152,12 +152,12 @@ const UserView = () => {
             <table className="data-table">
               <thead>
                 <tr>
-                  <th>Imię</th>
-                  <th>Nazwisko</th>
-                  <th>ID Konta</th>
+                  <th>first name</th>
+                  <th>last name</th>
+                  <th>ID</th>
                   <th>Email / Login</th>
-                  <th>Rola systemowa</th>
-                  <th className="data-table__actions-header">Akcje</th>
+                  <th>Role</th>
+                  <th className="data-table__actions-header">Actions</th>
                 </tr>
               </thead>
 
@@ -200,7 +200,7 @@ const UserView = () => {
                       {/* MASTER USERNAME KEY */}
                       <td>
                         <span className="data-table__text">
-                          {user.username ?? "—"}
+                          {user.email ?? "—"}
                         </span>
                       </td>
 
