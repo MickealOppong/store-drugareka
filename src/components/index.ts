@@ -27,7 +27,6 @@ export { default as CartTimer } from "./CartTimer";
 export { default as ConditionView } from "./ConditionView";
 export { default as EditBrand } from "./EditBrand";
 export { default as EditListing } from "./EditListing";
-export { default as EditUser } from "./EditUser";
 export { default as NavHeader } from "./NavHeader";
 export { default as OrderDetails } from "./OrderDetails";
 export { default as Pagination } from "./Pagination";
