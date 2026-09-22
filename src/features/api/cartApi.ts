@@ -82,5 +82,6 @@ export const {
   useAddAddressMutation,
   useGetBuyerCartQuery,
   useLazyGetBuyerCartQuery,
-  useMergeCartMutation
+  useMergeCartMutation,
+  useLazyGetCartCountQuery
 } = cartApi;

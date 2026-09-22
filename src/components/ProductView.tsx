@@ -26,10 +26,10 @@ const ProductView = () => {
   });
 
 
+
   const productListings = data?.listings as TListTrans[];
   const [search, setSearch] = useState("");
   const [deletingId, setDeletingId] = useState<number | null>(null);
-
 
 
   
@@ -56,6 +56,8 @@ const ProductView = () => {
       
     }
   };
+
+
 
 
 

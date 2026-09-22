@@ -177,5 +177,5 @@ export const { useAddListingMutation,useGetMylistingsQuery,
   useGetWishlistCountQuery,useGetWishListsQuery,useGetStoreOrdersQuery,useGetStorelistingsQuery,
   useAddComplaintMutation,useGetComplaintsQuery,useEditListingMutation,
   useGetPurchaseOrdersQuery,useGetSaleOrdersQuery,useGetPurchaseDetailsQuery,useUpdateShipmentStatusMutation,
-  useDeleteListingMutation
+  useDeleteListingMutation,useLazyGetWishListsQuery,useLazyGetWishlistCountQuery
 } = itemApi;

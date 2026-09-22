@@ -20,8 +20,8 @@ const NavHeader = () => {
 
   const isUserLoggedIn = Boolean(email);
 
-  const { data: cartCounter } = useGetCartCountQuery();
-  const { data: wishlistCounter } = useGetWishlistCountQuery();
+  const { data: cartCounter } = useGetCartCountQuery(undefined,{skip:!email});
+  const { data: wishlistCounter } = useGetWishlistCountQuery(undefined,{skip:!email});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -270,12 +270,15 @@
 // ==========================================================================
 
 .product-details__action-row {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 0.75rem;
 
-  @media (min-width: 480px) {
-    grid-template-columns: 1.2fr 0.8fr; // Grid split on larger handheld sets
+  @media (min-width: 768px) {
+
+  display: flex;
+  flex-direction: row !important;
+  gap: 0.75rem;
   }
 }
 
@@ -294,6 +297,7 @@
   box-sizing: border-box;
   transition: $transition-default;
   outline: none;
+  width: 100%;
 
   svg {
     font-size: 1.15rem;

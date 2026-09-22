@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineSafety } from "react-icons/ai";
 import {
@@ -12,11 +12,14 @@ import {
 } from "react-icons/fi";
 import { useNavigate, useParams } from "react-router-dom";
 import "../css/ProductDetails.css";
-import { useAddWishListMutation, useGetWishListsQuery } from "../features/api/itemApi";
+import { useBuyNowMutation } from "../features/api/checkoutApi";
+import { useAddWishListMutation, useLazyGetWishListsQuery } from "../features/api/itemApi";
 import { useGetListingQuery } from "../features/api/storeApi";
-import { useAddToCart } from "../hooks/useAddTocart";
 import { useAppSelector } from "../store";
+import type { TResponseDto } from "../types/TResponseDto";
+import type { TWishLists } from "../types/TWishLists";
 import { formatPrice } from "../util/util";
+import Loading from "./Loading";
 
 // Helper function to safely translate backend condition data strings to localized dictionary keys
 const getConditionSlug = (condition: string) => {
@@ -26,20 +29,27 @@ const getConditionSlug = (condition: string) => {
 
 const ProductDetails = () => {
   const { listingId } = useParams<string>();
+  const isLoggin = useAppSelector((state)=>state.userSlice.email);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   //userId to prevent seller buying own product
   const userId = useAppSelector((state)=>state.userSlice.userId)
 
-  // add to cart
-  const {addItemToCart} = useAddToCart()
-  const [addToWish] = useAddWishListMutation();
-  const { data: wishlist = [] } = useGetWishListsQuery();
-  const Wishlists = wishlist.map((item) => item.listingId);
 
+  const [addToWish] = useAddWishListMutation();
+  const [fetchWishLists]= useLazyGetWishListsQuery()
+
+const [isLoading,setIsLoading] = useState<boolean>(false)
+const[wishlists,setWishlists]= useState<TWishLists[]>([])
+  const Wishlists = wishlists.map((item) => item.listingId);
   // error
   const [error] = useState<string>('');
+
+  const locale = localStorage.getItem('i18nextLng') as string
+
+  //buy now hook
+    const[buyNow] = useBuyNowMutation()
 
   // Local interface states for media interactions
   const [activeImageIdx, setActiveImageIdx] = useState<number>(0);
@@ -47,8 +57,69 @@ const ProductDetails = () => {
   /**
    * fetch product
    */
-  const { data: product, isLoading } = useGetListingQuery(parseInt(listingId as string));
+  const { data: product,isLoading:productLoading } = useGetListingQuery(parseInt(listingId as string));
 
+  /**
+   * TOGGLE WISHLIST
+   */
+
+  const toggleWishlist = async(listingId:number)=>{
+     setIsLoading(true)
+      if(!isLoggin || isLoggin===''){
+        setIsLoading(false)
+       return navigate('/login')
+
+      }
+      try {
+          addToWish(listingId)
+               setIsLoading(false)
+      } catch (error) {
+           setIsLoading(false)
+      }
+  }
+
+    /**
+   * BUY NOW
+   */
+    const quickCheckout =async(listingId:number)=>{
+      setIsLoading(true)
+      if(!isLoggin || isLoggin===''){
+        navigate('/login')
+      }
+        try {
+               
+   const response= await buyNow({listingId,locale}).unwrap();
+
+   const {data:clientSecret}= response as TResponseDto
+
+    if(clientSecret){
+      navigate("/checkout", { state: { clientSecret } });
+      setIsLoading(false)
+    }
+        } catch (error) {
+              setIsLoading(false)
+        }
+  }
+
+  /**
+   *  FETCH WISHLISTS
+   */
+
+  const getWishlists = async()=>{
+     if(!isLoggin || isLoggin===''){
+        return ;
+      }
+    const response =await fetchWishLists();
+    setWishlists(response.data as TWishLists[])
+  }
+
+
+  useEffect(()=>{
+    getWishlists()
+  },[listingId])
+  if(isLoading || productLoading ){
+    return <Loading/>
+  }
 
 
   if (error) {
@@ -175,7 +246,7 @@ const ProductDetails = () => {
               <button
                 type="button"
                 className="product-details__buy-now-btn"
-                onClick={()=>addItemToCart(product.listingId)}
+                onClick={()=>quickCheckout(product.listingId)}
               
               >
                 <FiShoppingBag /> <span>{t("product_details.actions.buy_now")}</span>
@@ -184,7 +255,7 @@ const ProductDetails = () => {
               <button
                 type="button"
                 className={`product-details__wishlist-btn ${Wishlists.includes(product.listingId) ? "product-details__wishlist-btn--active" : ""}`}
-                onClick={() => addToWish(product.listingId)}
+                onClick={() => toggleWishlist(product.listingId)}
               >
                 <FiHeart />
                 <span>

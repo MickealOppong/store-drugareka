@@ -23,7 +23,8 @@ import Loading from "./Loading";
 
 const MobileLanding = () => {
   const {data:topCategories=[],isLoading:isCategoriesLoading} = useGetTop6ProductCategoriesQuery()
-  
+    //user id
+  const {userId }= useAppSelector((state) => state.userSlice);
 
 //
 const {t}=useTranslation()
@@ -37,8 +38,6 @@ const {data:listings=[]} = useGetLandingListingQuery()
     
 
 
-  //user id
-  const userId = useAppSelector((state) => state.userSlice.userId);
     
 
         if(isCategoriesLoading){
@@ -195,7 +194,7 @@ const {data:listings=[]} = useGetLandingListingQuery()
                 <img src={product.media[0].image} alt={product.productName} />
               </Link>
 
-              {!userId || userId!==product.sellerId?<button
+              {String(userId)!=='NaN' || userId!==product.sellerId?<button
                 type="button"
                 className="mobile-product-card__favorite"
                 aria-label={`Add ${product.productName} to wishlist`}

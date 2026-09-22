@@ -30,10 +30,18 @@ export const checkoutApi = createApi({
       }),
       invalidatesTags:['checkout']
     }),
-
+buyNow: build.mutation<TResponseDto,{listingId:number,locale:string}>({
+      query: ({listingId,locale}) => ({
+        url: "/api/checkout/buy-now",
+        params:{
+          listingId,locale
+        },
+        method:"POST",
+      }),
+      invalidatesTags:['checkout']
+    }),
   }),
-  
 });
 export const { 
-    useCheckoutBuyerMutation
+    useCheckoutBuyerMutation,useBuyNowMutation
 } = checkoutApi;

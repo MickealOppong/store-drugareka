@@ -1,5 +1,5 @@
 .product-details {
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #111111;
   max-width: 1200px;
   margin: 0 auto;
@@ -244,14 +244,16 @@
 }
 
 .product-details__action-row {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 0.75rem;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 768px) {
   .product-details__action-row {
-    grid-template-columns: 1.2fr 0.8fr;
+    display: flex;
+    flex-direction: row !important;
+    gap: 0.75rem;
   }
 }
 
@@ -270,6 +272,7 @@
   box-sizing: border-box;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
+  width: 100%;
 }
 
 .product-details__buy-now-btn svg,
@@ -284,8 +287,8 @@
 }
 
 .product-details__buy-now-btn:hover {
-  background-color: #111111;
-  border-color: #111111;
+  background-color: #393c2e;
+  border-color: #393c2e;
 }
 
 .product-details__buy-now-btn:active {
