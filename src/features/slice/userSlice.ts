@@ -23,8 +23,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     loginUser: (state,{payload}) => {
-
-      console.log(payload);
       
       const {email,userId,tokenDto,firstName,lastName,roles,
       } = payload;

@@ -31,7 +31,7 @@ const ProductView = () => {
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
 
-  console.log(productListings);
+
   
   /**
    * ROLE AUTH CHECK

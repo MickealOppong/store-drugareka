@@ -823,13 +823,13 @@
     "label": "Administracja",
     "menu": {
       "dashboard": "Panel",
-      "products": "Products",
+      "products": "Produktów",
       "categories": "Kategorie",
-      "brands": "Brands",
+      "brands": "Marki",
       "orders": "Zamówienia",
       "shipments": "Przesyłki",
       "users": "Użytkownicy",
-      "conditions": "Conditions",
+      "conditions": "Stan produktu",
       "reports": "Raporty",
       "analytics": "Analityka",
       "payouts": "Wypłaty"
