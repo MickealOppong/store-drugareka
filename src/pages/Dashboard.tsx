@@ -272,8 +272,8 @@ const {data:sellingActivity=[]} = useGetRecentSellerActivityQuery()
                 ================================================= */
         <section className="db-sell-cta">
           <div className="db-sell-cta__content">
-           <span>t("dashboard.upgrade_cta.title")</span>
-           <span>t("dashboard.upgrade_cta.description")</span>
+           <span>{t("dashboard.upgrade_cta.title")}</span>
+           <span>{t("dashboard.upgrade_cta.description")}</span>
           </div>
         </section>
       )}
