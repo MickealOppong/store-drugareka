@@ -272,8 +272,8 @@ const {data:sellingActivity=[]} = useGetRecentSellerActivityQuery()
                 ================================================= */
         <section className="db-sell-cta">
           <div className="db-sell-cta__content">
-            HAVE SOMETHING YOU NO LONGER USE?Turn unused thingsinto money.List
-            your item with DrugaRęka and let us handle the selling.
+           <span>t("dashboard.upgrade_cta.title")</span>
+           <span>t("dashboard.upgrade_cta.description")</span>
           </div>
         </section>
       )}

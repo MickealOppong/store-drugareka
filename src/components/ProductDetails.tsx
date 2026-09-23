@@ -13,7 +13,10 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import "../css/ProductDetails.css";
 import { useBuyNowMutation } from "../features/api/checkoutApi";
-import { useAddWishListMutation, useLazyGetWishListsQuery } from "../features/api/itemApi";
+import {
+  useAddWishListMutation,
+  useLazyGetWishListsQuery,
+} from "../features/api/itemApi";
 import { useGetListingQuery } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
 import type { TResponseDto } from "../types/TResponseDto";
@@ -24,32 +27,31 @@ import Loading from "./Loading";
 // Helper function to safely translate backend condition data strings to localized dictionary keys
 const getConditionSlug = (condition: string) => {
   if (!condition) return "good";
-  return condition.trim().toLowerCase().replace(/\s+/g, '_');
+  return condition.trim().toLowerCase().replace(/\s+/g, "_");
 };
 
 const ProductDetails = () => {
   const { listingId } = useParams<string>();
-  const isLoggin = useAppSelector((state)=>state.userSlice.email);
+  const isLoggin = useAppSelector((state) => state.userSlice.email);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   //userId to prevent seller buying own product
-  const userId = useAppSelector((state)=>state.userSlice.userId)
-
+  const userId = useAppSelector((state) => state.userSlice.userId);
 
   const [addToWish] = useAddWishListMutation();
-  const [fetchWishLists]= useLazyGetWishListsQuery()
+  const [fetchWishLists] = useLazyGetWishListsQuery();
 
-const [isLoading,setIsLoading] = useState<boolean>(false)
-const[wishlists,setWishlists]= useState<TWishLists[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [wishlists, setWishlists] = useState<TWishLists[]>([]);
   const Wishlists = wishlists.map((item) => item.listingId);
   // error
-  const [error] = useState<string>('');
+  const [error,setError] = useState<string>("");
 
-  const locale = localStorage.getItem('i18nextLng') as string
+  const locale = localStorage.getItem("i18nextLng") as string;
 
   //buy now hook
-    const[buyNow] = useBuyNowMutation()
+  const [buyNow] = useBuyNowMutation();
 
   // Local interface states for media interactions
   const [activeImageIdx, setActiveImageIdx] = useState<number>(0);
@@ -57,90 +59,108 @@ const[wishlists,setWishlists]= useState<TWishLists[]>([])
   /**
    * fetch product
    */
-  const { data: product,isLoading:productLoading } = useGetListingQuery(parseInt(listingId as string));
+  const { data: product, isLoading: productLoading } = useGetListingQuery(
+    parseInt(listingId as string),
+  );
 
   /**
    * TOGGLE WISHLIST
    */
 
-  const toggleWishlist = async(listingId:number)=>{
-     setIsLoading(true)
-      if(!isLoggin || isLoggin===''){
-        setIsLoading(false)
-       return navigate('/login')
+  const toggleWishlist = async (listingId: number) => {
+    setIsLoading(true);
+    if (!isLoggin || isLoggin === "") {
+      setIsLoading(false);
+      return navigate("/login");
+    }
+    try {
+      addToWish(listingId);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
 
-      }
-      try {
-          addToWish(listingId)
-               setIsLoading(false)
-      } catch (error) {
-           setIsLoading(false)
-      }
-  }
-
-    /**
+  /**
    * BUY NOW
    */
-    const quickCheckout =async(listingId:number)=>{
-      setIsLoading(true)
-      if(!isLoggin || isLoggin===''){
-        navigate('/login')
-      }
-        try {
-               
-   const response= await buyNow({listingId,locale}).unwrap();
-
-   const {data:clientSecret}= response as TResponseDto
-
-    if(clientSecret){
-      navigate("/checkout", { state: { clientSecret } });
-      setIsLoading(false)
+  const quickCheckout = async (listingId: number) => {
+    setIsLoading(true);
+    if (!isLoggin || isLoggin === "") {
+      navigate("/login");
     }
-        } catch (error) {
-              setIsLoading(false)
+    try {
+      const response = await buyNow({ listingId, locale });
+
+      const {data,message,httpStatus} = response.data as TResponseDto;
+
+      if(httpStatus==400 ||httpStatus==500 ||httpStatus==403){
+        setIsLoading(false)
+        setError(message)
+        return;
+      }
+      if (httpStatus==200) {
+        const clientSecret = data;
+
+        if (clientSecret) {
+             setIsLoading(false);
+          navigate("/checkout", { state: { clientSecret } });
+       
         }
-  }
+      }
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
 
   /**
    *  FETCH WISHLISTS
    */
 
-  const getWishlists = async()=>{
-     if(!isLoggin || isLoggin===''){
-        return ;
-      }
-    const response =await fetchWishLists();
-    setWishlists(response.data as TWishLists[])
+  const getWishlists = async () => {
+    if (!isLoggin || isLoggin === "") {
+      return;
+    }
+    const response = await fetchWishLists();
+    setWishlists(response.data as TWishLists[]);
+  };
+
+  useEffect(() => {
+    getWishlists();
+  }, [listingId]);
+  if (isLoading || productLoading) {
+    return <Loading />;
   }
-
-
-  useEffect(()=>{
-    getWishlists()
-  },[listingId])
-  if(isLoading || productLoading ){
-    return <Loading/>
-  }
-
 
   if (error) {
     return (
-      <div className="product-details__error-state">
-        <p>{error}</p>
-        <button onClick={() => navigate(-1)}>
-          {t("product_details.error.return_btn")}
-        </button>
-      </div>
+   <div className="product-details__error-state">
+  <p className="product-details__error-message">{error}</p>
+  <button 
+    type="button" 
+    className="product-details__error-btn" 
+    onClick={() => navigate(0)}
+  >
+    {t("product_details.error.return_btn")}
+  </button>
+</div>
+
     );
   }
 
   if (isLoading) {
-    return <p className="product-details__loading">{t("product_details.loading")}</p>;
+    return (
+      <Loading/>
+    );
   }
 
   if (product) {
     // Dynamic values derivation layer
-    const savingsAmount = product?.priceDto.storeNewPrice - product?.priceDto.storeOldPrice;
-    const savingsPercent = Math.round((savingsAmount / product?.priceDto.storeOldPrice) * 100);
+    const savingsAmount =
+      product?.priceDto.storeNewPrice - product?.priceDto.storeOldPrice;
+    const savingsPercent = Math.round(
+      (savingsAmount / product?.priceDto.storeOldPrice) * 100,
+    );
 
     return (
       <section className="product-details">
@@ -193,17 +213,33 @@ const[wishlists,setWishlists]= useState<TWishLists[]>([])
 
           {/* INTERACTIVE INFORMATION DESCRIPTIONS METRICS COLUMN */}
           <div className="product-details__content-panel">
-            <span className="product-details__brand-label">{product.brand}</span>
-            <h1 className="product-details__product-title">{product.productName}</h1>
+            <span className="product-details__brand-label">
+              {product.brand}
+            </span>
+            <h1 className="product-details__product-title">
+              {product.productName}
+            </h1>
 
             <div className="product-details__condition-badge">
               <span>
-                {t("product_details.info.condition")}: <strong>{t(`product_conditions.${getConditionSlug(product.productCondition)}`, { defaultValue: product.productCondition })}</strong>
+                {t("product_details.info.condition")}:{" "}
+                <strong>
+                  {t(
+                    `product_conditions.${getConditionSlug(product.productCondition)}`,
+                    { defaultValue: product.productCondition },
+                  )}
+                </strong>
               </span>
             </div>
             <div className="product-details__condition-badge">
               <span>
-                {t("product_details.info.availability")}: <strong>{t(`user_products.table.statuses.${product.inventoryStatus?.toLowerCase()}`, { defaultValue: product.inventoryStatus })}</strong>
+                {t("product_details.info.availability")}:{" "}
+                <strong>
+                  {t(
+                    `user_products.table.statuses.${product.inventoryStatus?.toLowerCase()}`,
+                    { defaultValue: product.inventoryStatus },
+                  )}
+                </strong>
               </span>
             </div>
 
@@ -217,17 +253,19 @@ const[wishlists,setWishlists]= useState<TWishLists[]>([])
                 <strong className="product-details__deal-price">
                   {formatPrice(product.priceDto.storeNewPrice)} zł
                 </strong>
-                {product.priceDto.storeOldPrice > product.priceDto.storeNewPrice && (
+                {product.priceDto.storeOldPrice >
+                  product.priceDto.storeNewPrice && (
                   <del className="product-details__strike-price">
                     {formatPrice(product.priceDto.storeOldPrice)} zł
                   </del>
                 )}
               </div>
-              {product.priceDto.storeOldPrice > product.priceDto.storeNewPrice && (
+              {product.priceDto.storeOldPrice >
+                product.priceDto.storeNewPrice && (
                 <p className="product-details__savings-banner">
-                  {t("product_details.pricing.savings", { 
-                    amount: formatPrice(savingsAmount), 
-                    percent: savingsPercent 
+                  {t("product_details.pricing.savings", {
+                    amount: formatPrice(savingsAmount),
+                    percent: savingsPercent,
                   })}
                 </p>
               )}
@@ -242,14 +280,17 @@ const[wishlists,setWishlists]= useState<TWishLists[]>([])
             </div>
 
             {/* ACTION BUTTON TRANSACTIONS CONSOLE */}
-            <div className="product-details__action-row" style={{display:userId===product.sellerId?'none':'flex'}}>
+            <div
+              className="product-details__action-row"
+              style={{ display: userId === product.sellerId ? "none" : "flex" }}
+            >
               <button
                 type="button"
                 className="product-details__buy-now-btn"
-                onClick={()=>quickCheckout(product.listingId)}
-              
+                onClick={() => quickCheckout(product.listingId)}
               >
-                <FiShoppingBag /> <span>{t("product_details.actions.buy_now")}</span>
+                <FiShoppingBag />{" "}
+                <span>{t("product_details.actions.buy_now")}</span>
               </button>
 
               <button
@@ -259,8 +300,8 @@ const[wishlists,setWishlists]= useState<TWishLists[]>([])
               >
                 <FiHeart />
                 <span>
-                  {Wishlists.includes(product.listingId) 
-                    ? t("product_details.actions.wishlist_active") 
+                  {Wishlists.includes(product.listingId)
+                    ? t("product_details.actions.wishlist_active")
                     : t("product_details.actions.wishlist_add")}
                 </span>
               </button>
@@ -314,7 +355,11 @@ const[wishlists,setWishlists]= useState<TWishLists[]>([])
       </section>
     );
   } else {
-    return <p className="product-details__error">{t("product_details.error.generic")}</p>;
+    return (
+      <p className="product-details__error">
+        {t("product_details.error.generic")}
+      </p>
+    );
   }
 };
 

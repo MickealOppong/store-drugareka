@@ -19,6 +19,62 @@
   @media (min-width: $breakpoint-md) {
     padding: 2rem 1.5rem;
   }
+  &__error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 1.5rem;
+    background-color: #fff4f2; // Soft warning crimson grounding backdrop tint
+    border: 1px solid #efd1ce; // Subtle contrast layout safety line
+    border-radius: 12px;
+    max-width: 420px;
+    margin: 2rem auto;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  &__error-message {
+    margin: 0 0 1.5rem 0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    color:$color-accent;
+    white-space: pre-line; 
+  }
+
+  /* Tactile Refresh Action Controls Trigger */
+  &__error-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 1.25rem;
+    background-color: $color-primary; // Flagship Obsidian Spruce
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid $color-primary;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+    white-space: nowrap;
+    box-sizing: border-box;
+    user-select: none;
+    transition: all 0.2s $transition-default;
+
+    &:hover {
+      background-color: lighten($color-primary, 5%);
+      border-color: lighten($color-primary, 5%);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
 
   &__nav-header {
     display: flex;
