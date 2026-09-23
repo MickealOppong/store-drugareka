@@ -657,7 +657,8 @@
     },
     "error": {
       "generic": "Coś poszło nie tak podczas ładowania tego produktu.",
-      "return_btn": "Wstecz"
+      "return_btn": "Wstecz",
+      "add_btn":"Dodaj adres"
     }
   },
   "add_listing": {

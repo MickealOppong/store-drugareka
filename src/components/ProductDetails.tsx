@@ -46,7 +46,7 @@ const ProductDetails = () => {
   const [wishlists, setWishlists] = useState<TWishLists[]>([]);
   const Wishlists = wishlists.map((item) => item.listingId);
   // error
-  const [error,setError] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const locale = localStorage.getItem("i18nextLng") as string;
 
@@ -92,20 +92,19 @@ const ProductDetails = () => {
     try {
       const response = await buyNow({ listingId, locale });
 
-      const {data,message,httpStatus} = response.data as TResponseDto;
+      const { data, message, httpStatus } = response.data as TResponseDto;
 
-      if(httpStatus==400 ||httpStatus==500 ||httpStatus==403){
-        setIsLoading(false)
-        setError(message)
+      if (httpStatus == 400 || httpStatus == 500 || httpStatus == 403) {
+        setIsLoading(false);
+        setError(message);
         return;
       }
-      if (httpStatus==200) {
+      if (httpStatus == 200) {
         const clientSecret = data;
 
         if (clientSecret) {
-             setIsLoading(false);
+          setIsLoading(false);
           navigate("/checkout", { state: { clientSecret } });
-       
         }
       }
     } catch (error) {
@@ -134,24 +133,29 @@ const ProductDetails = () => {
 
   if (error) {
     return (
-   <div className="product-details__error-state">
-  <p className="product-details__error-message">{error}</p>
-  <button 
-    type="button" 
-    className="product-details__error-btn" 
-    onClick={() => navigate(0)}
-  >
-    {t("product_details.error.return_btn")}
-  </button>
-</div>
-
+      <div className="product-details__error-state">
+        <p className="product-details__error-message">{error}</p>
+        <div className="product-details_error-row">
+          <button
+            type="button"
+            className="product-details__error-btn"
+            onClick={() => navigate(0)}
+          >
+            {t("product_details.error.return_btn")}
+          </button>
+          <button
+            className="product-details__address-btn"
+            onClick={() => navigate("/account/me")}
+          >
+         {t("product_details.error.add_btn")}
+          </button>
+        </div>
+      </div>
     );
   }
 
   if (isLoading) {
-    return (
-      <Loading/>
-    );
+    return <Loading />;
   }
 
   if (product) {

@@ -657,7 +657,8 @@
     },
     "error": {
       "generic": "Something went wrong while loading this product.",
-      "return_btn": "Back"
+      "return_btn": "Back",
+      "add_btn":"Add address"
     }
   },
   "add_listing": {

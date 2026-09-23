@@ -299,6 +299,7 @@ export const UserProfile = () => {
           newPassword
       }
       const response =await changePassword(changePasswordDto).unwrap();
+      
       const {httpStatus,message} = response as TResponseDto
 
       if(httpStatus===200){

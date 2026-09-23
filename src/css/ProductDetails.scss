@@ -19,6 +19,8 @@
   @media (min-width: $breakpoint-md) {
     padding: 2rem 1.5rem;
   }
+
+
   &__error-state {
     display: flex;
     flex-direction: column;
@@ -33,6 +35,16 @@
     margin: 2rem auto;
     box-sizing: border-box;
     width: 100%;
+
+
+      .product-details_error-row{
+    display: flex;
+    gap:1rem;
+    width: 100%;
+  
+  }
+
+
   }
 
   &__error-message {
@@ -49,6 +61,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+        width: 100%;
     height: 40px;
     padding: 0 1.25rem;
     background-color: $color-primary; // Flagship Obsidian Spruce
@@ -68,6 +81,37 @@
     &:hover {
       background-color: lighten($color-primary, 5%);
       border-color: lighten($color-primary, 5%);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  &__address-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    padding: 0 1.25rem;
+    background-color: $color-primary;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid $color-primary;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+    white-space: nowrap;
+    box-sizing: border-box;
+    user-select: none;
+    transition: all 0.2s $transition-default;
+
+    &:hover {
+      background-color: lighten($color-bg-dark, 5%);
+      border-color: lighten($color-bg-dark, 5%);
       transform: translateY(-1px);
     }
 
