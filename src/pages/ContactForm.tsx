@@ -45,7 +45,7 @@ export const ContactForm: React.FC = () => {
                   href={mailtoUri} 
                   className="contact-form-page__action-anchor"
                 >
-                  <span>Launch Email App</span>
+                  <span>{t("contact_form.buttons.launch_email")}p</span>
                   <FiExternalLink />
                 </a>
               </div>
@@ -59,7 +59,7 @@ export const ContactForm: React.FC = () => {
                 <strong>{t("contact_form.info_card.call_title")}</strong>
                 <p>+48 722 364 131</p>
                 <a href="tel:+48722364131" className="contact-form-page__action-anchor">
-                  <span>Call Directly</span>
+                  <span>{t("contact_form.buttons.call_now")}</span>
                 </a>
               </div>
             </li>
