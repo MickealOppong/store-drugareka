@@ -225,7 +225,7 @@ if(isLoading){
 
                 <div className="product-card__info">
                   <span className="product-card__condition">
-                    {t(`product_conditions.${product.productCondition.toLowerCase()}`)}
+                     {t(`product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`)}
                   </span>
                   <h3>{product.productName}</h3>
                   <strong>{formatPrice(product.priceDto.storeNewPrice)} zl</strong>
