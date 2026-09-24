@@ -101,7 +101,10 @@ function App() {
       path: "/contact",
       element: <ContactForm />,
     },
- 
+    {
+      path: "/register",
+      element: <Register />,
+    },
       {
       path: "/help",
       element: <Help/>,
@@ -260,10 +263,6 @@ function App() {
       {
       path: "/terms",
       element: <TermsAndConditions/>,
-    },
-       {
-      path: "/register",
-      element: <Register />,
     },
  
   ]);

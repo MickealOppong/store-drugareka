@@ -49,9 +49,9 @@
   font-family: $font-sans;
   color: $color-text-main;
   background-color: $background-2;
-  min-height: 100vh;
+  height: fit-content;
   display: flex;
-  align-items: center;
+  height: 100vh;
   justify-content: center;
   padding: 2rem 1.25rem;
   box-sizing: border-box;
@@ -70,7 +70,8 @@
 
 .register-card {
   width: 100%;
-  max-width: 480px; // Optimized width to keep side-by-side inputs cleanly proportioned
+  max-width: 480px; 
+  height: fit-content;
   display: flex;
   flex-direction: column;
   background: #ffffff;
@@ -79,6 +80,7 @@
     border-radius: 12px;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.03);
  
+    margin-top: 2rem;
 
   // Brand Header Block
   .brand {

@@ -53,14 +53,14 @@
   font-family: $font-sans;
   color: $color-text-main;
   background-color: $background-2;
-  min-height: 100vh;
+ height: 100vh;
   display: flex;
-  align-items: center;
+
   justify-content: center;
   padding: 1.5rem 1.25rem;
   box-sizing: border-box;
 
-  position: fixed;
+position: fixed;
 left: 0;
 right: 0;
 
@@ -80,6 +80,7 @@ right: 0;
 .login-card {
   width: 100%;
   max-width: 420px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
 
@@ -89,7 +90,7 @@ right: 0;
     border-radius: 12px;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.03);
 
-
+    margin-top: 4rem;
 
   // Brand Header
   .brand {
