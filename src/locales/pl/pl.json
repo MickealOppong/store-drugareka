@@ -248,16 +248,24 @@
         "awaiting": "Oczekuje na wysyłkę",
         "payout": "Dostępne środki"
       },
-      "activity": {
-        "title": "Ostatnia aktywność",
-        "view_listings": "Zobacz produkty",
-        "statuses": {
-          "active": "Aktywny",
-          "sold": "Sprzedany",
-          "shipping": "W wysyłce",
-          "cancelled": "Anulowany"
-        }
-      }
+    "activity": {
+    "title": "Ostatnia aktywność",
+    "view_listings": "Zobacz produkty",
+    "statuses": {
+      "active": "Aktywne",
+      "sold": "Sprzedane",
+      "shipping": "W wysyłce",
+      "cancelled": "Anulowane",
+      "awaiting_shipment": "Oczekuje na wysyłkę",
+      "published": "Opublikowane",
+      "returned": "Zwrócone",
+      "delivered": "Dostarczone",
+      "shipped": "Wysłane",
+      "draft": "Szkic",
+      "available": "Dostępne",
+      "reserved": "Zarezerwowane"
+    }
+  }
     },
     "upgrade_cta": {
       "title": "MASZ RZECZY, KTÓRYCH JUŻ NIE UŻYWASZ?",
@@ -298,11 +306,11 @@
         "actions": "Akcje"
       },
       "statuses": {
-        "available": "Dostępny",
-        "sold": "Sprzedany",
-        "active": "Aktywny",
-        "hidden": "Ukryty",
-        "pending": "Oczekujący"
+       "published":"Opublikowane",
+       "draft":"Szkic",
+       "available": "Dostępne",
+"sold": "Sprzedane",
+"reserved": "Zarezerwowane"
       }
     },
     "actions": {
@@ -349,12 +357,12 @@
         "action": "Akcja"
       },
       "statuses": {
-        "pending": "Oczekujący",
-        "awaiting_shipment": "Oczekuje na wysyłkę",
-        "shipped": "Wysłane",
-        "delivered": "Dostarczone",
-        "cancelled": "Anulowany",
-        "completed": "Zakończone"
+    "paid": "Opłacone",
+"awaiting_shipment": "Oczekuje na wysyłkę",
+"shipped": "Wysłane",
+"delivered": "Dostarczone",
+"cancelled": "Anulowane",
+"processing": "W trakcie przetwarzania"
       }
     },
     "actions": {
@@ -470,12 +478,13 @@
           "actions":"Ackje"
       },
       "statuses": {
-        "pending": "Oczekujący",
-        "pending_payout": "Oczekuje na wypłatę",
-        "paid": "Wypłacone",
-        "completed": "Zakończone",
-        "failed": "Nieudane",
-        "cancelled": "Anulowany"
+    "pending": "Oczekujące",
+"pending_payout": "Oczekuje na wypłatę",
+"paid": "Opłacone",
+"completed": "Zakończone",
+"failed": "Nieudane",
+"cancelled": "Anulowane",
+"created": "Utworzone"
       }
     }
   },
@@ -1023,6 +1032,27 @@
       "checkbox_required": "Musisz zaznaczyć pole potwierdzające wykonanie przelewu.",
       "date_required": "Proszę wybrać dokładną datę realizacji płatności.",
       "generic_error": "Wystąpił nieoczekiwany błąd serwera."
+    }
+  },
+"contact_form": {
+    "header": {
+      "eyebrow": "Pomoc",
+      "title": "Skontaktuj się z nami",
+      "description": "Masz pytania dotyczące Kasoa.pl? Napisz do nas."
+    },
+    "info_card": {
+      "title": "Informacje kontaktowe",
+      "description": "Skontaktuj się bezpośrednio z naszym zespołem wsparcia.",
+      "email_title": "Napisz do nas",
+      "call_title": "Zadzwoń do nas",
+      "address_title": "Główna siedziba",
+      "address_building": "Focus Mall",
+      "address_street": "ul. Słowackiego 123",
+      "address_city": "97-300 Piotrków Trybunalski"
+    },
+    "buttons": {
+      "launch_email": "Uruchom aplikację pocztową",
+      "call_now": "Zadzwoń bezpośrednio"
     }
   }
 }

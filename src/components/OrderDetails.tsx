@@ -117,7 +117,7 @@ const OrderDetails: React.FC = () => {
                       <span
                         className={`status-badge status-badge--${order.deliveryStatus?.toLowerCase().replace(/_/g, "-")}`}
                       >
-                        {t(`buyer_view.table.statuses.${order.deliveryStatus?.toLowerCase()}`, { defaultValue: order.deliveryStatus?.replace(/_/g, " ") })}
+                       {t(`buyer_view.table.statuses.${order.orderStatus.toLowerCase()}`)}
                       </span>
                     </td>
                   </tr>

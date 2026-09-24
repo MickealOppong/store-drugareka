@@ -233,7 +233,7 @@ const UserProductView = () => {
                     {/* PUBLIC LISTING FEED DISPLAY BADGE */}
                     <td>
                       <span className={`status-badge status-badge--${product.listingStatus?.toLowerCase().replace(/_/g, "-")}`}>
-                        {t(`user_products.table.statuses.${product.listingStatus?.toLowerCase()}`, { defaultValue: product.listingStatus?.replace(/_/g, " ") })}
+                        {t(`user_products.table.statuses.${product.listingStatus.toLowerCase()}`)}
                       </span>
                     </td>
 

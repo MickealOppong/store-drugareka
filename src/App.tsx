@@ -20,6 +20,7 @@ import {
   SharedLayout,
   Shipment,
   Shop,
+  TermsAndConditions,
   UserProfile,
   WishList,
 } from "./pages/index";
@@ -84,6 +85,31 @@ function App() {
           path: "category/:slug",
           element: <Categories />,
         },
+           {
+        path:'checkout/success',
+        element:<PaymentConfirmation/>
+    },
+     {
+        path:'confirmation',
+        element:<DeliveryConfirmation/>
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/contact",
+      element: <ContactForm />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
+    },
+      {
+      path: "/help",
+      element: <Help/>,
+    },
+    
         {
           path: "cart",
           element: (
@@ -232,31 +258,13 @@ function App() {
           element: <EditBrand />,
         },
       ],
-    },
-    {
-        path:'checkout/success',
-        element:<PaymentConfirmation/>
-    },
-     {
-        path:'confirmation',
-        element:<DeliveryConfirmation/>
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/contact",
-      element: <ContactForm />,
-    },
-    {
-      path: "/register",
-      element: <Register />,
+      
     },
       {
-      path: "/help",
-      element: <Help/>,
+      path: "/terms",
+      element: <TermsAndConditions/>,
     },
+ 
   ]);
   return <RouterProvider router={router} />;
 }

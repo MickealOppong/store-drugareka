@@ -17,7 +17,7 @@ import {
 import { useGetRecentSellerActivityQuery } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
 import type { TDashboard } from "../types/TDashboard";
-import { formatPrice } from "../util/util";
+import { formatPrice, sanitizeBackendKey } from "../util/util";
 
 const dashboardDef: TDashboard = {
   ordersCount: 0,
@@ -253,7 +253,7 @@ const {data:sellingActivity=[]} = useGetRecentSellerActivityQuery()
                     {item.type === "sold" && <FiCheckCircle />}
                     {item.type === "shipping" && <FiTruck />}
                     {item.type === "active" && <FiClock />}
-                    <span>{item.status}</span>
+                    <span> {t(`dashboard.selling_section.activity.statuses.${sanitizeBackendKey(item.status)}`)}</span>
                   </div>
                   <Link
                     to={item.path}

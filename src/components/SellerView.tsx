@@ -109,7 +109,7 @@ const SellerView: React.FC = () => {
                     </td>
                     <td>
                       <span className={`status-badge status-badge--${order.orderStatus?.toLowerCase().replace(/_/g, "-")}`}>
-                        {t(`buyer_view.table.statuses.${order.orderStatus?.toLowerCase()}`, { defaultValue: order.orderStatus?.replace(/_/g, " ") })}
+                        {t(`buyer_view.table.statuses.${order.orderStatus.toLowerCase()}`)}
                       </span>
                     </td>
                     <td>

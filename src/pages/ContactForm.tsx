@@ -1,87 +1,53 @@
-import React, { useState, type ChangeEvent, type FormEvent } from "react";
-import { FiMail, FiMapPin, FiPhone, FiSend } from "react-icons/fi";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { FiExternalLink, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 import '../css/ContactForm.css';
 
-interface ContactFormData {
-  fullName: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
 export const ContactForm: React.FC = () => {
-  const [formData, setFormData] = useState<ContactFormData>({
-    fullName: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-  
-  const [status, setStatus] = useState<{ success: boolean; message: string } | null>(null);
+  const { t } = useTranslation();
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setStatus(null);
-
-    try {
-      console.log("Submitting contact request payload:", formData);
-      setStatus({ success: true, message: "Dziękujemy! Twoja wiadomość została wysłana pomyślnie." });
-      setFormData({ fullName: "", email: "", subject: "", message: "" });
-    } catch (error) {
-      setStatus({ success: false, message: "Coś poszło nie tak. Spróbuj ponownie później." });
-    }
-  };
+  // Build a pre-formatted subject line template loop
+  const mailtoUri = "mailto:admin.kasoa.pl@gmail.com";
 
   return (
     <main className="contact-form-page">
       {/* =====================================================
-                HEADER BLOCK
-            ====================================================== */}
+          HEADER TITLE BLOCK
+          ====================================================== */}
       <header className="contact-form-page__header">
         <div>
-          <span className="contact-form-page__eyebrow">Pomoc</span>
-          <h1 className="contact-form-page__title">Get in Touch</h1>
-          <p className="contact-form-page__description">Masz pytania dotyczące drugirynek.pl? Napisz do nas.</p>
+          <span className="contact-form-page__eyebrow">{t("contact_form.header.eyebrow")}</span>
+          <h1 className="contact-form-page__title">{t("contact_form.header.title")}</h1>
+          <p className="contact-form-page__description">{t("contact_form.header.description")}</p>
         </div>
       </header>
 
       {/* =====================================================
-                STATUS FEEDBACK BANNER
-            ====================================================== */}
-      {status && (
-        <output 
-          className={`contact-form-page__feedback-banner ${
-            status.success ? "contact-form-page__feedback-banner--success" : "contact-form-page__feedback-banner--error"
-          }`} 
-          aria-live="polite"
-        >
-          {status.message}
-        </output>
-      )}
-
-      {/* =====================================================
-                TWO-COLUMN LAYOUT BODY SPLIT
-            ====================================================== */}
-      <section className="contact-form-page__layout-grid">
+          SUPPORT CHANNELS BOARD SELECTION VIEW
+          ====================================================== */}
+      <section className="contact-form-page__layout-grid contact-form-page__layout-grid--center">
         
-        {/* LEFT COLUMN: CHANNELS DESCRIPTOR INFO ASIDE */}
-        <aside className="contact-form-page__info-card">
-          <h2 className="contact-form-page__info-title">Contact Information</h2>
-          <p className="contact-form-page__info-description">Skontaktuj się bezpośrednio z naszym zespołem wsparcia.</p>
+        <div className="contact-form-page__info-card contact-form-page__info-card--full">
+          <h2 className="contact-form-page__info-title">{t("contact_form.info_card.title")}</h2>
+          <p className="contact-form-page__info-description">{t("contact_form.info_card.description")}</p>
 
           <ul className="contact-form-page__channels-list">
+            
+            {/* 🚀 THE DIRECT EMAIL HUB TRIGGER */}
             <li className="contact-form-page__channel-item">
               <div className="contact-form-page__icon-wrapper">
                 <FiMail />
               </div>
               <div className="contact-form-page__text-wrapper">
-                <strong>Email Us</strong>
-                <p>admin-kasoa.pl@gmail.com</p>
+                <strong>{t("contact_form.info_card.email_title")}</strong>
+                <p>admin.kasoa.pl@gmail.com</p>
+                <a 
+                  href={mailtoUri} 
+                  className="contact-form-page__action-anchor"
+                >
+                  <span>Launch Email App</span>
+                  <FiExternalLink />
+                </a>
               </div>
             </li>
             
@@ -90,8 +56,11 @@ export const ContactForm: React.FC = () => {
                 <FiPhone />
               </div>
               <div className="contact-form-page__text-wrapper">
-                <strong>Call Us</strong>
+                <strong>{t("contact_form.info_card.call_title")}</strong>
                 <p>+48 722 364 131</p>
+                <a href="tel:+48722364131" className="contact-form-page__action-anchor">
+                  <span>Call Directly</span>
+                </a>
               </div>
             </li>
             
@@ -100,81 +69,14 @@ export const ContactForm: React.FC = () => {
                 <FiMapPin />
               </div>
               <div className="contact-form-page__text-wrapper">
-                <strong>Headquarters</strong>
-                  <p>Focus Mall</p>
-                  <p>ul. slowaskiego 123</p>
-                <p>97-300,Piotrków Trybunalski</p>
+                <strong>{t("contact_form.info_card.address_title")}</strong>
+                <p>{t("contact_form.info_card.address_building")}</p>
+                <p>{t("contact_form.info_card.address_street")}</p>
+                <p>{t("contact_form.info_card.address_city")}</p>
               </div>
             </li>
           </ul>
-        </aside>
-
-        {/* RIGHT COLUMN: CORE INTERACTIVE INPUT CARD */}
-        <form onSubmit={handleFormSubmit} className="contact-form-page__input-card" style={{display:'none'}}>
-          
-          <div className="contact-input-field">
-            <label htmlFor="fullName" className="contact-input-field__label">Full Name</label>
-            <input
-              id="fullName"
-              name="fullName"
-              type="text"
-              className="contact-input-field__input"
-              placeholder="e.g. Jan Kowalski"
-              value={formData.fullName}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-
-          <div className="contact-input-field">
-            <label htmlFor="email" className="contact-input-field__label">Email Address</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              className="contact-input-field__input"
-              placeholder="you@example.com"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-
-          <div className="contact-input-field">
-            <label htmlFor="subject" className="contact-input-field__label">Subject</label>
-            <input
-              id="subject"
-              name="subject"
-              type="text"
-              className="contact-input-field__input"
-              placeholder="How can we help you?"
-              value={formData.subject}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-
-          <div className="contact-input-field">
-            <label htmlFor="message" className="contact-input-field__label">Message</label>
-            <textarea
-              id="message"
-              name="message"
-              rows={6}
-              className="contact-input-field__textarea"
-              placeholder="Wpisz tutaj treść swojej wiadomości..."
-              value={formData.message}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-
-          <footer className="contact-form-page__footer">
-            <button type="submit" className="contact-form-page__submit-btn">
-              <FiSend />
-              <span>Send Message</span>
-            </button>
-          </footer>
-        </form>
+        </div>
 
       </section>
     </main>

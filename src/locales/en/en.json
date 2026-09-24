@@ -255,7 +255,15 @@
           "active": "Active",
           "sold": "Sold",
           "shipping": "In shipping",
-          "cancelled": "Cancelled"
+          "cancelled": "Cancelled",
+          "awaiting_shipment":"Awaiting shipment",
+          "published":"Published",
+          "returned":"Returned",
+          "delivered":"Delivered",
+          "shipped":"Shipped",
+          "draft":"Draft",
+          "available":"Available",
+          "reserved":"Reserved"
         }
       }
     },
@@ -265,6 +273,8 @@
       "btn": "Start selling"
     }
   },
+
+
   "user_products": {
     "header": {
       "eyebrow": "Products",
@@ -298,11 +308,11 @@
         "actions": "Actions"
       },
       "statuses": {
-        "available": "Available",
-        "sold": "Sold",
-        "active": "Active",
-        "hidden": "Hidden",
-        "pending": "Pending"
+    "published":"Published",
+    "draft":"Draft",
+    "available":"Available",
+    "sold":"Sold",
+    "reserved":"Reserved"
       }
     },
     "actions": {
@@ -349,12 +359,12 @@
         "action": "Action"
       },
       "statuses": {
-        "pending": "Pending",
+        "paid": "Paid",
         "awaiting_shipment": "Awaiting shipment",
         "shipped": "Shipped",
         "delivered": "Delivered",
         "cancelled": "Cancelled",
-        "completed": "Completed"
+        "processing": "Processing"
       }
     },
     "actions": {
@@ -389,6 +399,14 @@
     },
     "actions": {
       "file_dispute": "Report dispute / Problem"
+    },
+    "statuses":{
+        "paid": "Paid",
+        "awaiting_shipment": "Awaiting shipment",
+        "shipped": "Shipped",
+        "delivered": "Delivered",
+        "cancelled": "Cancelled",
+        "processing": "Processing"
     }
   },
   "shipments": {
@@ -471,11 +489,12 @@
       },
       "statuses": {
         "pending": "Pending",
-        "pending_payout": "Awaiting payout",
-        "paid": "Paid out",
+        "pending_payout": "Awaiting payment",
+        "paid": "Paid",
         "completed": "Completed",
         "failed": "Failed",
-        "cancelled": "Cancelled"
+        "cancelled": "Cancelled",
+        "created":"Created"
       }
     }
   },
@@ -1010,6 +1029,27 @@
       "checkbox_required": "You must check the box to confirm that the transfer has been executed.",
       "date_required": "Please select the exact payment execution date.",
       "generic_error": "An unexpected server error occurred."
+    }
+  },
+"contact_form": {
+    "header": {
+      "eyebrow": "Help Center",
+      "title": "Get in Touch",
+      "description": "Have questions about Kasoa.pl? Write to us."
+    },
+    "info_card": {
+      "title": "Contact Information",
+      "description": "Get in touch directly with our support team.",
+      "email_title": "Email Us",
+      "call_title": "Call Us",
+      "address_title": "Headquarters",
+      "address_building": "Focus Mall",
+      "address_street": "123 Slowackiego St.",
+      "address_city": "97-300 Piotrkow Trybunalski"
+    },
+    "buttons": {
+      "launch_email": "Launch Email App",
+      "call_now": "Call Directly"
     }
   }
 }

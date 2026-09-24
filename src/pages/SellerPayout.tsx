@@ -142,7 +142,7 @@ const SellerPayout = () => {
                       
                       <td>
                         <span className={`status-badge status-badge--${normalizedStatusClass}`}>
-                          {t(`payouts.table.statuses.${payout.status?.toLowerCase()}`, { defaultValue: payout.status?.replace(/_/g, " ") })}
+                         {t(`payouts.table.statuses.${payout.status.toLowerCase()}`)}
                         </span>
                       </td>
                       

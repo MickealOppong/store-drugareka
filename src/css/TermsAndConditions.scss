@@ -1,0 +1,150 @@
+@import './Variables.scss'; // 🚀 Binds premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and Ink (#0D1313)
+
+/* ==========================================================================
+   ARKUSZ STYLÓW REGULAMINU KASOA.PL (STRUKTURA BEM)
+   ========================================================================== */
+
+.terms-page {
+  width: 100%;
+  max-width: 760px; // Optymalna długość linii tekstu dla ludzkiego oka
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+  box-sizing: border-box;
+  font-family: $font-sans;
+
+  // =========================================================
+  // NAGŁÓWEK
+  // =========================================================
+
+  &__header {
+    margin-bottom: 40px;
+    border-bottom: 1px solid $color-border;
+    padding-bottom: 24px;
+    text-align: left;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: $color-primary;
+    background-color: $color-bg-light;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 12px;
+  }
+
+  &__title {
+    margin: 0 0 8px 0;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: $color-text-main;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: $color-text-muted;
+  }
+
+  // =========================================================
+  // KONTENER TREŚCI
+  // =========================================================
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__section-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: $color-text-main;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 4px 0;
+    letter-spacing: -0.01em;
+
+    svg {
+      color: $color-primary;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+  }
+
+  &__text {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: lighten($color-text-main, 10%);
+    margin: 0;
+    text-align: justify;
+  }
+
+  // =========================================================
+  // BANER WYRÓŻNIONY DLA PROCESORA CRON
+  // =========================================================
+
+  &__highlight-box {
+    background-color: #fff8e7; // Ciepłe, bursztynowe tło ostrzegawcze
+    border: 1px solid #f4e4b7;
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    box-sizing: border-box;
+    margin: 8px 0;
+
+    .terms-page__highlight-icon {
+      color: #b45309;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .terms-page__highlight-text {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: #78350f;
+
+      strong {
+        font-weight: 700;
+        color: #451a03;
+      }
+    }
+  }
+
+  // =========================================================
+  // ERGONOMIA RESPONSYWNA (RWD)
+  // =========================================================
+
+  @media (max-width: $breakpoint-md) {
+    padding: 24px 16px 48px;
+
+    &__title {
+      font-size: 26px;
+    }
+
+    &__text {
+      text-align: left; // Wyłączenie wyrównania blokowego (justowania) na smartfonach
+    }
+
+    &__highlight-box {
+      padding: 14px;
+    }
+  }
+}
