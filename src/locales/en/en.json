@@ -87,7 +87,10 @@
     "new": "New",
     "excellent_condition": "Excellent",
     "used": "Used",
-    "very_good": "Very good"
+    "very_good": "Very good",
+  "open_new": "Open but new",
+  "new_other": "New (Other / Long-term storage)",
+  "used_good": "Used — Good condition"
   },
   "shop": {
     "header": {

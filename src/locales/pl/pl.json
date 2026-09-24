@@ -87,7 +87,10 @@
     "new": "Nowy",
     "excellent_condition": "Doskonały",
     "used": "Używany",
-    "very_good": "Bardzo dobry"
+    "very_good": "Bardzo dobry",
+  "open_new": "Otwarte, ale nowe",
+  "new_other": "Nowy (powystawowy, leżak magazynowy)",
+  "used_good": "Używany — w dobrym stanie"
   },
   "shop": {
     "header": {

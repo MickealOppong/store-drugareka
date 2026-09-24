@@ -170,7 +170,7 @@ const AddListing = () => {
       dataToSend.append("imageSortOrder", String(index));
     });
 
-    console.log("Product:", productData);
+
     try {
       const response = await addItem(dataToSend);
 

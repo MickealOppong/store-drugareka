@@ -334,7 +334,7 @@ const Shop = () => {
 
                     <div className="shop-product-card__condition">
                       <span>
-                     {t(`product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`)}
+                         {t(`product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`)}
                       </span>
                     </div>
 
