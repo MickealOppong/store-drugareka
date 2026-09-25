@@ -645,7 +645,8 @@
     },
     "info": {
       "condition": "Stan",
-      "availability": "Dostępność"
+      "availability": "Dostępność",
+        "delivery":"Doręczenie"
     },
     "pricing": {
       "savings": "Oszczędzasz {{amount}} zł ({{percent}}%)"

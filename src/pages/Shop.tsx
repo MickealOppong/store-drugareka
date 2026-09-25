@@ -50,6 +50,7 @@ const Shop = () => {
   // Safely extract the default active category from URL line, falling back to global state
   const selectedCategory = searchParams.get("category") || "all";
 
+
   const request = {
     queryCategory: selectedCategory,
     page,
@@ -145,6 +146,8 @@ const Shop = () => {
     // Navigating automatically shifts the reactive 'selectedCategory' token, re-firing the query
     navigate(`${location.pathname}?${nextParams.toString()}`);
   };
+
+
 
   const toggleWishlist = async (listingId: number) => {
     if (!username) return navigate("/login");
@@ -432,6 +435,7 @@ const Shop = () => {
                 ))}
               </select>
             </div>
+      
           </div>
         </div>
       )}

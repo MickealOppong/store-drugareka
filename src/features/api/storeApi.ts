@@ -36,7 +36,7 @@ export const storeApi = createApi({
         params: {
           queryCategory,
           page,
-          size,
+          size
         },
       }),
       providesTags: ["listing"],

@@ -247,6 +247,15 @@ const ProductDetails = () => {
               </span>
             </div>
 
+             <div className="product-details__condition-badge">
+              <span>
+                {t("product_details.info.delivery")}:{" "}
+                <strong>
+                 {product.shipping}
+                </strong>
+              </span>
+            </div>
+
             <p className="product-details__narrative-description">
               {product.productDescription}
             </p>
