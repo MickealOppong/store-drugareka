@@ -9,7 +9,7 @@ import { formatEnumToString, formatPrice, isFetchBaseQueryError } from "../util/
 
 const ShipmentPriceView = () => {
   const [search, setSearch] = useState("");
-  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [deletingId,] = useState<number | null>(null);
 
   const {data,isLoading:loading,error} = useGetCouriersQuery()
 
