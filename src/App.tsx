@@ -42,8 +42,10 @@ import {
   ProductDetails,
   ProductView,
   ProtectedRoute,
+  ShipmentPriceManager,
+  ShipmentPriceView,
   UserProductView,
-  UserView,
+  UserView
 } from "./components";
 import AdminOrderView from "./pages/AdminOrderView";
 import ContactForm from "./pages/ContactForm";
@@ -51,7 +53,9 @@ import Orders from "./pages/Orders";
 import { store } from "./store";
 
 import EditCondition from "./components/EditCondition";
+import ConfirmShipment from "./pages/ConfirmShipment";
 import { loader as landingLoader } from "./pages/Landing";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 function App() {
   const router = createBrowserRouter([
@@ -100,6 +104,10 @@ function App() {
     {
       path: "/contact",
       element: <ContactForm />,
+    },
+     {
+      path: "/seller/shipment/create",
+      element: <ConfirmShipment />,
     },
     {
       path: "/register",
@@ -156,6 +164,7 @@ function App() {
           path: "wishlist",
           element: <WishList />,
         },
+         
           {
           path: "me",
           element: <UserProfile/>,
@@ -237,6 +246,14 @@ function App() {
           path: "admin/conditions",
           element: <ConditionView />,
         },
+          {
+          path: "admin/courier",
+          element: <ShipmentPriceView/>,
+        },
+           {
+          path: "admin/courier/new",
+          element: <ShipmentPriceManager/>,
+        },
         {
           path: "admin/condition/new",
           element: <AddCondition />,
@@ -263,6 +280,10 @@ function App() {
       {
       path: "/terms",
       element: <TermsAndConditions/>,
+    },
+      {
+      path: "/privacy",
+      element: <PrivacyPolicy/>,
     },
  
   ]);

@@ -45,7 +45,6 @@ export const UserProfile = () => {
   const [changePassword, { isLoading: isPasswordChanging }] =
     useChangePasswordMutation();
 
-
   /*
    * =========================================================
    * PROFILE STATE
@@ -58,7 +57,7 @@ export const UserProfile = () => {
 
   const [profileSuccess, setProfileSuccess] = useState<string | null>(null);
 
-  const[id,setId] = useState<number>(0)
+  const [id, setId] = useState<number>(0);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
@@ -108,7 +107,7 @@ export const UserProfile = () => {
         setProfileError("Unable to load profile.");
         return;
       }
-      setId(profile.userId)
+      setId(profile.userId);
       setFirstName(profile.firstName ?? "");
       setLastName(profile.lastName ?? "");
       setAccountNumber(profile.accountNumber ?? "");
@@ -194,7 +193,7 @@ export const UserProfile = () => {
       formData.append("firstName", firstName.trim());
 
       formData.append("lastName", lastName.trim());
-      formData.append('id',String(id))
+      formData.append("id", String(id));
 
       /*
        * Address
@@ -227,23 +226,33 @@ export const UserProfile = () => {
        * confirmPassword
        */
 
-      await updateProfile(formData).unwrap();
+      const res = await updateProfile(formData).unwrap();
+
+      console.log(res);
 
       setProfileSuccess(
         t("user_profile.messages.success") || "Profile updated successfully.",
       );
 
-      setIsEditing(false);
+       setIsEditing(false);
 
       await getUser();
     } catch (err: any) {
       console.error(err);
 
-      setProfileError(
-        err?.data?.message ||
-          t("user_profile.errors.save_failed") ||
-          "Failed to save profile changes.",
-      );
+      if (err?.status === 403 && err?.data?.error) {
+        const backendErrors = err.data.error;
+        setProfileError(
+          [
+            backendErrors.street,
+            backendErrors.city,
+            backendErrors.postalCode,
+            backendErrors.contact,
+          ]
+            .filter(Boolean)
+            .join("\n"),
+        );
+      }
     }
   };
 
@@ -259,34 +268,34 @@ export const UserProfile = () => {
     setConfirmPassword("");
   };
 
-  const handlePasswordSubmit = async (event:ChangeEvent<HTMLFormElement>) => {
+  const handlePasswordSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setPasswordError(null);
     setPasswordSuccess(null);
 
     if (!currentPassword) {
-      setPasswordError(t('user_profile.password.errors.current_required'));
+      setPasswordError(t("user_profile.password.errors.current_required"));
       return;
     }
 
     if (!newPassword) {
-      setPasswordError(t('user_profile.password.errors.new_required'));
+      setPasswordError(t("user_profile.password.errors.new_required"));
       return;
     }
 
     if (newPassword.length < 8) {
-      setPasswordError(t('user_profile.password.errors.too_short'));
+      setPasswordError(t("user_profile.password.errors.too_short"));
       return;
     }
 
     if (!confirmPassword) {
-      setPasswordError(t('user_profile.password.errors.confirm_required'));
+      setPasswordError(t("user_profile.password.errors.confirm_required"));
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      setPasswordError(t('user_profile.password.errors.mismatch'));
+      setPasswordError(t("user_profile.password.errors.mismatch"));
       return;
     }
 
@@ -295,20 +304,20 @@ export const UserProfile = () => {
        * ONLY password data goes to the password endpoint.
        */
       const changePasswordDto = {
-          currentPassword,
-          newPassword
-      }
-      const response =await changePassword(changePasswordDto).unwrap();
-      
-      const {httpStatus,message} = response as TResponseDto
+        currentPassword,
+        newPassword,
+      };
+      const response = await changePassword(changePasswordDto).unwrap();
 
-      if(httpStatus===200){
+      const { httpStatus, message } = response as TResponseDto;
+
+      if (httpStatus === 200) {
         clearPasswordFields();
 
-      setPasswordSuccess(t('user_profile.password.messages'));
+        setPasswordSuccess(t("user_profile.password.messages"));
       }
-      if(httpStatus==400){
-          setPasswordError(message)
+      if (httpStatus == 400) {
+        setPasswordError(message);
       }
     } catch (err: any) {
       console.error(err);
@@ -316,7 +325,6 @@ export const UserProfile = () => {
       setPasswordError(err?.data?.message || "Failed to change password.");
     }
   };
-
 
   /*
    * =========================================================
@@ -538,49 +546,49 @@ export const UserProfile = () => {
               </div>
             </div>
 
-         <div className="usr-profile__grid">
-             {/* PHONE */}
+            <div className="usr-profile__grid">
+              {/* PHONE */}
 
-            <div className="usr-profile__field usr-profile__field--full">
-              <label className="usr-profile__label">
-                {t("user_profile.fields.contact")}
-              </label>
+              <div className="usr-profile__field usr-profile__field--full">
+                <label className="usr-profile__label">
+                  {t("user_profile.fields.contact")}
+                </label>
 
-              {isEditing ? (
-                <input
-                  type="tel"
-                  className="usr-profile__input"
-                  value={telephone}
-                  onChange={(e) => setTelephone(e.target.value)}
-                  disabled={isProfileUpdating}
-                  autoComplete="tel"
-                />
-              ) : (
-                <p className="usr-profile__value">{telephone || "—"}</p>
-              )}
+                {isEditing ? (
+                  <input
+                    type="tel"
+                    className="usr-profile__input"
+                    value={telephone}
+                    onChange={(e) => setTelephone(e.target.value)}
+                    disabled={isProfileUpdating}
+                    autoComplete="tel"
+                  />
+                ) : (
+                  <p className="usr-profile__value">{telephone || "—"}</p>
+                )}
+              </div>
+
+              {/* COUNTRY */}
+
+              <div className="usr-profile__field usr-profile__field--full">
+                <label className="usr-profile__label">
+                  {t("user_profile.fields.country")}
+                </label>
+
+                {isEditing ? (
+                  <input
+                    type="text"
+                    className="usr-profile__input"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    disabled={isProfileUpdating}
+                    autoComplete="country-name"
+                  />
+                ) : (
+                  <p className="usr-profile__value">{country || "—"}</p>
+                )}
+              </div>
             </div>
-
-            {/* COUNTRY */}
-
-            <div className="usr-profile__field usr-profile__field--full">
-              <label className="usr-profile__label">
-                {t("user_profile.fields.country")}
-              </label>
-
-              {isEditing ? (
-                <input
-                  type="text"
-                  className="usr-profile__input"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  disabled={isProfileUpdating}
-                  autoComplete="country-name"
-                />
-              ) : (
-                <p className="usr-profile__value">{country || "—"}</p>
-              )}
-            </div>
-         </div>
 
             {/* PRIVACY */}
 
@@ -666,11 +674,11 @@ export const UserProfile = () => {
             <h2 className="usr-profile__section-title">
               <FiLock />
 
-              <span>{t('user_profile.password.title')}</span>
+              <span>{t("user_profile.password.title")}</span>
             </h2>
 
             <p className="usr-profile__description">
-             {t('user_profile.password.description')}
+              {t("user_profile.password.description")}
             </p>
 
             {/* CURRENT PASSWORD */}
@@ -680,7 +688,7 @@ export const UserProfile = () => {
                 htmlFor="current-password"
                 className="usr-profile__label"
               >
-               {t('user_profile.password.fields.current')}
+                {t("user_profile.password.fields.current")}
               </label>
 
               <input
@@ -702,7 +710,7 @@ export const UserProfile = () => {
                   htmlFor="new-password"
                   className="usr-profile__label"
                 >
-                      {t('user_profile.password.fields.new')}
+                  {t("user_profile.password.fields.new")}
                 </label>
 
                 <input
@@ -716,7 +724,7 @@ export const UserProfile = () => {
                 />
 
                 <small className="usr-profile__hint">
-                      {t('user_profile.password.errors.too_short')}
+                  {t("user_profile.password.errors.too_short")}
                 </small>
               </div>
 
@@ -727,7 +735,7 @@ export const UserProfile = () => {
                   htmlFor="confirm-password"
                   className="usr-profile__label"
                 >
-                      {t('user_profile.password.fields.confirm')}
+                  {t("user_profile.password.fields.confirm")}
                 </label>
 
                 <input
@@ -739,7 +747,6 @@ export const UserProfile = () => {
                   disabled={isPasswordChanging}
                   autoComplete="new-password"
                 />
-    
               </div>
             </div>
           </div>
@@ -772,9 +779,8 @@ export const UserProfile = () => {
 
               <span>
                 {isPasswordChanging
-                  ? t('user_profile.password.buttons.changing')
-                  :t('user_profile.password.buttons.change')
-                }
+                  ? t("user_profile.password.buttons.changing")
+                  : t("user_profile.password.buttons.change")}
               </span>
             </button>
           </div>

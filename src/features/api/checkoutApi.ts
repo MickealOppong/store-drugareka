@@ -15,24 +15,41 @@ export const checkoutApi = createApi({
         headers.set("Authorization", `Bearer ${token}`);
         //  headers.set('Content-Type','application/json')
       }
+                  // user preferred langauge selected
+      const currentLanguage = localStorage.getItem('i18nextLng') as string
+      headers.set("Accept-Language", currentLanguage);
       return headers;
     },
   }),
   tagTypes: ['checkout'],
   endpoints: (build) => ({
-    checkoutBuyer: build.mutation<TResponseDto,string>({
-      query: (locale) => ({
-        url: "/api/checkout",
+    checkoutBuyerPayU: build.mutation<TResponseDto,void>({
+      query: () => ({
+        url: "/api/checkout/payU",
+        method:"POST",
+      }),
+      invalidatesTags:['checkout']
+    }),
+       checkoutBuyerStripe: build.mutation<TResponseDto,void>({
+      query: () => ({
+        url: "/api/checkout/stripe",
+        method:"POST",
+      }),
+      invalidatesTags:['checkout']
+    }),
+stripeBuyNow: build.mutation<TResponseDto,number>({
+      query: (listingId) => ({
+        url: "/api/checkout/stripe-buy-now",
         params:{
-          locale
+          listingId,
         },
         method:"POST",
       }),
       invalidatesTags:['checkout']
     }),
-buyNow: build.mutation<TResponseDto,{listingId:number,locale:string}>({
+    payUbuyNow: build.mutation<TResponseDto,{listingId:number,locale:string}>({
       query: ({listingId,locale}) => ({
-        url: "/api/checkout/buy-now",
+        url: "/api/checkout/payU-buy-now",
         params:{
           listingId,locale
         },
@@ -43,5 +60,5 @@ buyNow: build.mutation<TResponseDto,{listingId:number,locale:string}>({
   }),
 });
 export const { 
-    useCheckoutBuyerMutation,useBuyNowMutation
+    useCheckoutBuyerStripeMutation,useStripeBuyNowMutation,usePayUbuyNowMutation,useCheckoutBuyerPayUMutation
 } = checkoutApi;

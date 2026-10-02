@@ -83,6 +83,10 @@ const User: React.FC<UserSidebarProps> = ({ onNavigate }) => {
           <FiUser className="al-nav-link__icon" />
           <span>{t("user_sidebar.menu.my_profile")}</span>
         </NavLink>
+            <NavLink to="/shop" className="al-nav-link" onClick={onNavigate}>
+          <FiShoppingBag className="al-nav-link__icon" />
+          <span>{t("user_sidebar.menu.shop")}</span>
+        </NavLink>
        
       </nav>
 

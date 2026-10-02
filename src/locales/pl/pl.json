@@ -66,21 +66,25 @@
       "link_how_it_works": "Jak to działa",
       "link_start_selling": "Zacznij sprzedawać",
       "link_help_centre": "Centrum pomocy",
-      "link_contact": "Kontakt"
+      "link_contact": "Kontakt",
+      "terms":"Regulamin",
+         "privacy":"Polityka prywatności"
     }
   },
   "category_names": {
     "mens_fashion": "Moda męska",
     "womens_fashion": "Moda damska",
     "electronics": "Elektronika",
-    "home_living": "Dom i ogród",
+    "home_living": "Dom i wnętrza",
+    "garden_tools":"Ogród i narzędzia",
     "shoes": "Obuwie",
-    "home_equipment": "Wyposażenie domu",
+    "home_equipment": "sprzęt AGD",
     "machines_spare_parts": "Maszyny i części zamienne",
     "books_media": "Książki i multimedia",
     "sport_outdoor": "Sport i rekreacja",
     "kids": "Dzieci",
-    "beauty_health": "Uroda i zdrowie"
+    "beauty_health": "Uroda i zdrowie",
+    "furniture":"Meble"
   },
   "product_conditions": {
     "good": "Dobry",
@@ -204,7 +208,8 @@
       "shipments": "Przesyłki",
       "wishlist": "Moje ulubione",
       "payouts": "Wypłaty",
-        "my_profile":"Mój profil"
+        "my_profile":"Mój profil",
+        "shop":"Sklep"
     },
     "footer": {
       "add_product": "Dodaj produkt",
@@ -424,6 +429,7 @@
       "headers": {
         "order": "Zamówienie",
         "seller": "Sprzedawca",
+        "size":"Rozmair paczki",
         "address": "Adres dostawy",
         "shipped_at": "Wysłano",
         "delivered_at": "Dostarczone",
@@ -487,7 +493,8 @@
 "completed": "Zakończone",
 "failed": "Nieudane",
 "cancelled": "Anulowane",
-"created": "Utworzone"
+"created": "Utworzone",
+"refund":"Zwrot pieniężny"
       }
     }
   },
@@ -652,7 +659,7 @@
       "savings": "Oszczędzasz {{amount}} zł ({{percent}}%)"
     },
     "safety": {
-      "return_assurance": "Bezpieczny zakup z 14-dniowym prawem do zwrotu produktu"
+  "return_assurance": "24 godziny na odrzucenie produktu po dostawie i na jego zwrot."
     },
     "actions": {
       "buy_now": "Kup teraz",
@@ -738,12 +745,29 @@
       },
       "shipping_method": {
         "label": "Metoda wysyłki",
-        "placeholder": "Wybierz metodę wysyłki"
+        "placeholder": "Wybierz metodę wysyłki",
+          "options": {
+    "standard": "Kurier Standard",
+    "locker": "Paczkomat® / Automat Paczkowy",
+    "bulky": "Przesyłka Gabarytowa (Niestandardowa)",
+    "palette": "Przesyłka Paletowa (Ciężka)"
+  }
       },
       "shipping_info": {
         "label": "Informacje o wysyłce",
         "placeholder": "np. Wysyłka w ciągu 2–3 dni roboczych. Koszt wysyłki pokrywa kupujący."
-      }
+      },
+      "cargo_sizes": {
+        "label":"Rozmiar paczki",
+        "placeholder":"Wybierz gabaryt przedmiotu (Rozmiar paczki)",
+ "item_size": {
+    "small": "Mała - do 10kg",
+    "medium": "Średnia - do 20kg",
+    "large": "Duża - do 50kg",
+    "heavy": "Ciężka - powyżej 50kg"
+  }
+
+  }
     },
     "sidebar": {
       "status": {
@@ -846,7 +870,8 @@
       "conditions": "Stan produktu",
       "reports": "Raporty",
       "analytics": "Analityka",
-      "payouts": "Wypłaty"
+      "payouts": "Wypłaty",
+"courier":"Opłaty kurierskie"
     }
   },
   "error_page": {
@@ -1057,6 +1082,104 @@
     "buttons": {
       "launch_email": "Uruchom aplikację pocztową",
       "call_now": "Zadzwoń bezpośrednio"
+    }
+  },
+   "order_return_modal": {
+    "header": {
+      "badge": "Proces Zwrotu Konsumenckiego"
+    },
+    "body": {
+      "title": "Czy chcesz zatwierdzić zwrot towaru?",
+      "description": "Potwierdzenie tej akcji zarejestruje zwrot środków dla kupującego i wygeneruje ujemny bilans wyrównawczy w księdze finansowej platformy.",
+      "order_number": "Numer Zamówienia:",
+      "refund_amount": "Kwota Korekty (Zwrotu):",
+      "reason_label": "Powód Zwrotu",
+      "problem_description": "Opis problemu",
+      "placeholder": "Opisz krótko szczegóły zwrotu dla celów weryfikacji...",
+"warning_title": "Rygorystyczny Termin 3 Dni:",
+      "warning_text": "Zwrot musi zostać zgłoszony w ciągu 3 dni od doręczenia paczki. Po tym terminie środki są automatycznie przekazywane sprzedawcy i natychmiastowy zwrot przez platformę nie będzie możliwy. Jeśli napotkasz problemy po tym czasie, musisz otworzyć oficjalny spór w celu weryfikacji przez administratora."
+    },
+    "reasons": {
+      "damaged_goods": "Przedmiot dotarł uszkodzony / wadliwy",
+      "wrong_item": "Otrzymano zupełnie inny produkt",
+      "not_as_described": "Towar niezgodny ze specyfikacją lub opisem",
+      "other": "Inny powód (Wymaga uzasadnienia)"
+    },
+    "validation": {
+      "required_reason": "Proszę wpisać uzasadnienie zwrotu.",
+      "server_error": "Wystąpił błąd serwera podczas rejestracji zwrotu.",
+      "processing": "Przetwarzanie..."
+    },
+    "actions": {
+      "cancel": "Anuluj",
+      "confirm": "Zatwierdź Zwrot"
+    }
+  },
+  "logistics_modal": {
+    "header": {
+      "title": "Aktualizacja Przesyłki #{{id}}",
+      "seller": "Sprzedawca: {{name}}"
+    },
+    "fields": {
+      "status_label": "Status logistyczny paczki",
+      "select_placeholder": "Wybierz status",
+      "date_label": "Data powiązana ze statusem (Wysyłka/Doręczenie)",
+      "tracking_label": "Numer śledzenia przesyłki",
+      "tracking_placeholder": "np. 612345678901234567890123 (InPost Waybill)",
+      "comment_label": "Komentarz logistyczny sprzedawcy",
+      "comment_placeholder": "Dodaj wewnętrzną notatkę lub status kurierski..."
+    },
+    "statuses": {
+      "awaiting_shipment": "Oczekiwanie na wysyłkę",
+      "shipped": "Wysłane",
+      "delivered": "Dostarczone",
+      "returned": "Zwrócone",
+      "created": "Utworzone"
+    },
+    "validation": {
+      "tracking_required": "Wymagane jest podanie numeru śledzenia przesyłki (np. InPost) przed oznaczeniem paczki jako wysłana.",
+      "date_required": "Proszę wskazać prawidłową datę powiązaną z wybranym statusem przesyłki.",
+      "server_error": "Nie udało się zaktualizować statusu przesyłki.",
+      "network_error": "Wystąpił nieoczekiwany błąd sieciowy po stronie serwera.",
+      "saving": "Zapisywanie..."
+    },
+    "actions": {
+      "cancel": "Anuluj",
+      "save": "Zapisz Status"
+    }
+  },
+  "confirm_shipment": {
+    "title_step_1": "1. Potwierdzenie wysyłki",
+    "title_step_2": "2. Adres odbioru przesyłki przez kuriera",
+    "banner_title": "Brak konieczności drukowania etykiety!",
+    "banner_desc": "Po zatwierdzeniu zlecenia, kurier DPD przyjedzie pod Twój adres z już wydrukowanym listem przewozowym w celu dostawy do kupującego.",
+    "select_products": "Wybierz przedmioty do spakowania",
+    "product_label": "Produkt",
+    "verified_status": "Zweryfikowany do wysyłki",
+    "loading_items": "Ładowanie danych przesyłki...",
+    "fields": {
+      "sender_name": "Imię i Nazwisko nadawcy *",
+      "street": "Ulica i numer domu / mieszkania *",
+      "postal_code": "Kod pocztowy *",
+      "city": "Miasto *",
+      "phone": "Twój telefon kontaktowy dla kuriera *",
+      "country": "Kraj *",
+      "notes": "Wskazówki podjazdu dla kierowcy (Opcjonalnie)"
+    },
+    "placeholders": {
+      "street": "np. ul. Piotrkowska 45 m. 12",
+      "postal_code": "np. 90-001",
+      "city": "np. Łódź",
+      "phone": "np. +48 500 600 700"
+    },
+    "buttons": {
+      "submit_ready": "Potwierdzam Gotowość - Zamów Kuriera",
+      "submit_loading": "Zamawianie Kuriera DPD..."
+    },
+    "errors": {
+      "missing_fields": "Proszę uzupełnić wszystkie wymagane pola adresu odbioru paczki.",
+      "no_items": "Proszę wybrać co najmniej jeden produkt do nadania przesyłki.",
+      "network_fallback": "Wystąpił nieoczekiwany błąd sieciowy podczas komunikacji z systemem logistycznym DPD."
     }
   }
 }

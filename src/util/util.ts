@@ -204,3 +204,10 @@ export function sanitizeCategoryKey(rawString:string) {
 
 
   
+
+  export const formatEnumToString = (value: string): string => {
+  return value
+    .toLowerCase()
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+};

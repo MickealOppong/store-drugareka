@@ -23,6 +23,9 @@ export const userApi = createApi({
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
+                  // user preferred langauge selected
+      const currentLanguage = localStorage.getItem('i18nextLng') as string
+      headers.set("Accept-Language", currentLanguage);
       return headers;
     },
     
@@ -106,11 +109,11 @@ export const userApi = createApi({
               }),
 
             }),
-             getShipments: build.query<TListShipmentPage,{page:number,size:number}>({
-              query: ({page,size}) => ({
+             getShipments: build.query<TListShipmentPage,{page:number,size:number,type:string}>({
+              query: ({page,size,type}) => ({
                 url: "/api/shipment/shipments",
                 params:{
-                    page,size
+                    page,size,type
                 }
               }),
 

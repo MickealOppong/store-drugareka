@@ -1,0 +1,211 @@
+@import './Variables.scss'; // 🚀 Binds premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and Ink (#0D1313)
+
+/* ==========================================================================
+   KASOA LOGISTICS TIMELINE GRAPHICAL OVERVIEW TRACKER (BEM MODEL)
+   ========================================================================== */
+
+.order-timeline {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid $color-border;
+  border-radius: 12px;
+  padding: 24px;
+  box-sizing: border-box;
+  margin: 16px 0;
+  font-family: $font-sans;
+
+  &__grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  // =========================================================
+  // CORE TIMELINE NODES
+  // =========================================================
+
+  &__node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+    text-align: center;
+    z-index: 2;
+
+    // Line segments connecting individual circular milestones
+    .order-timeline__line-segment {
+      position: absolute;
+      top: 18px;
+      left: -50%;
+      right: 50%;
+      height: 3px;
+      background-color: $color-border;
+      z-index: -1;
+      transition: background-color 0.3s ease;
+
+      &--filled {
+        background-color: $color-primary; // Spruce fill coloring
+      }
+    }
+  }
+
+  &__circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid $color-border;
+    background-color: #ffffff;
+    color: $color-text-muted;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+
+  &__label-box {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__title-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: $color-text-muted;
+    transition: color 0.3s ease;
+  }
+
+  &__status-subtext {
+    font-size: 11px;
+    font-weight: 600;
+    color: $color-text-muted;
+    height: 14px;
+  }
+
+  // =========================================================
+  // STATE MODIFIERS (COMPLETED, ACTIVE, UPCOMING)
+  // =========================================================
+
+  &__node--completed {
+    .order-timeline__circle {
+      background-color: $color-primary;
+      border-color: $color-primary;
+      color: #ffffff;
+    }
+    .order-timeline__title-text {
+      color: $color-text-main;
+    }
+    .order-timeline__status-subtext {
+      color: lighten($color-primary, 10%);
+    }
+  }
+
+  &__node--active {
+    .order-timeline__circle {
+      border-color: $color-primary;
+      color: $color-primary;
+      box-shadow: 0 0 0 4px rgba($color-primary, 0.12);
+      transform: scale(1.05);
+    }
+    .order-timeline__title-text {
+      color: $color-primary;
+    }
+    .order-timeline__status-subtext {
+      color: $color-primary;
+    }
+  }
+
+  // =========================================================
+  // 🟥 CANCELLED VIEW OVERRIDES
+  // =========================================================
+
+  &--cancelled {
+    border-color: #fee2e2;
+    background-color: #fff5f5; // Warm warning red tint card
+  }
+
+  &__alert-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 4px;
+  }
+
+  &__alert-icon {
+    color: #dc2626;
+    font-size: 2.25rem;
+    flex-shrink: 0;
+  }
+
+  &__alert-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 800;
+      color: #991b1b;
+    }
+
+    p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: #7f1d1d;
+    }
+  }
+
+  &__timestamp {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #b91c1c;
+    letter-spacing: 0.02em;
+  }
+
+  // =========================================================
+  // RESPONSIVE INTERFACE LAYOUT WRAPPERS (RWD)
+  // =========================================================
+
+  @media (max-width: $breakpoint-md) {
+    padding: 16px;
+
+    &__grid {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding-left: 20px;
+    }
+
+    &__node {
+      flex-direction: row;
+      align-items: center;
+      text-align: left;
+      gap: 14px;
+      width: 100%;
+
+      .order-timeline__line-segment {
+        top: auto;
+        bottom: -22px;
+        left: 18px;
+        right: auto;
+        width: 3px;
+        height: 24px;
+      }
+    }
+
+    &__label-box {
+      margin-top: 0;
+    }
+  }
+}

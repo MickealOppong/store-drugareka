@@ -1,0 +1,269 @@
+@import './Variables.scss'; 
+
+.cart-address-block {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+  padding: 24px;
+  margin-top: 24px;
+  box-sizing: border-box;
+  font-family: $font-sans;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  // =========================================================
+  // CONTROL HEADER TRACK
+  // =========================================================
+
+  .cart-address-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .cart-address-heading {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -0.01em;
+
+    svg {
+      color: $color-primary; // Flagship Spruce accent color (#1E3A3A)
+      font-size: 18px;
+    }
+  }
+
+  // Smooth micro-interaction circular operational keys
+  .edit, .cancel {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    svg {
+      font-size: 15px;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      background-color: #ffffff;
+      color: #0f172a;
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 8px -1px rgba(15, 23, 42, 0.08);
+
+      svg {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .cancel:hover {
+    background-color: #fef2f2;
+    color: #ef4444;
+    border-color: #fee2e2;
+  }
+
+  // =========================================================
+  // 🏢 VERIFIED / SAVED DESTINATION ADDRESS BADGE CARD
+  // =========================================================
+
+  .cart-address-saved {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background-color: #f8fafc; // Clean slate backdrop
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-sizing: border-box;
+    animation: addressPaneSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .cart-address-check-icon {
+      color: #10b981; // High contrast emerald verification indicator
+      font-size: 22px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .cart-address-details {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #475569;
+
+      .text-main {
+        font-size: 16px;
+        color: #0f172a;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+
+      .text-muted {
+        color: #94a3b8;
+        font-weight: 500;
+      }
+
+      .cart-address-phone-text {
+        margin-top: 6px;
+        padding: 4px 10px;
+        background-color: #ffffff;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+        font-weight: 600;
+        color: #334155;
+        display: flex-start;
+        font-size: 13px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+      }
+    }
+  }
+
+  // =========================================================
+  // 📝 REGISTRATION FLOW INPUT INPUT FRAMES
+  // =========================================================
+
+  .cart-address-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    animation: addressPaneSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .cart-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr; // Perfectly synchronized double column spans
+      gap: 20px;
+    }
+
+    .cart-form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cart-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+
+      label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #64748b;
+      }
+
+      input {
+        height: 44px;
+        padding: 0 14px;
+        background-color: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #0f172a;
+        box-sizing: border-box;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &::placeholder {
+          color: #94a3b8;
+        }
+
+        &:focus {
+          outline: none;
+          background-color: #ffffff;
+          border-color: $color-primary; // Spruce deep focus rings
+          box-shadow: 0 0 0 1px $color-primary;
+        }
+      }
+    }
+
+    // Constraint validation feedback strings
+    .error {
+      font-size: 12px;
+      font-weight: 600;
+      color: #ef4444;
+      margin-top: 2px;
+      display: block;
+    }
+
+    // Modern Primary Save Button Action Rule
+    .cart-address-save-btn {
+      width: 100%;
+      height: 46px;
+      background-color: $color-primary;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 10px;
+      box-shadow: 0 2px 4px rgba(15, 23, 42, 0.08);
+
+      &:hover {
+        background-color: lighten($color-bg-dark, 10%);
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16);
+      }
+
+      &:active {
+        transform: scale(0.99);
+      }
+
+      &:disabled {
+        background-color: #cbd5e1;
+        color: #94a3b8;
+        box-shadow: none;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// ==========================================================================
+// 📱 MOBILE VIEW RESPONSIVE TRANSITIONS
+// ==========================================================================
+
+@keyframes addressPaneSlideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 576px) {
+  .cart-address-block {
+    padding: 16px;
+
+    .cart-address-form {
+      .cart-form-row {
+        grid-template-columns: 1fr; // Collapse gracefully into a stacked grid stream on mobile rows
+        gap: 16px;
+      }
+    }
+    
+    .cart-address-saved {
+      padding: 16px;
+      flex-direction: column;
+      gap: 12px;
+      
+      .cart-address-check-icon {
+        margin-top: 0;
+      }
+    }
+  }
+}

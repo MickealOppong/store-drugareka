@@ -26,5 +26,6 @@ sku:string
 
   inventoryStatus: string;
   listingStatus: string;
-  createdAt:Date
+  createdAt:Date,
+  itemSize:string
 };

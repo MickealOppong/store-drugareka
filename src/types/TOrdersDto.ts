@@ -2,6 +2,7 @@ export type TOrdersDto = {
   id: number;
   buyer: string;
   orderStatus: string;
+    orderItemStatus: string;
   currency: string;
   createdAt: Date;
   paidAt: Date;
@@ -11,4 +12,5 @@ export type TOrdersDto = {
   shipping:number
   deliveryStatus?:string
   trackingNumber?:string
+  deliveryUpdatedAt:Date
 };

@@ -117,7 +117,7 @@ const AdminDashboard = () => {
           ====================================================== */}
       <header className="admin-dashboard__header">
         <div>
-          <span className="admin-dashboard__eyebrow">Administracja</span>
+          <span className="admin-dashboard__eyebrow">Administration</span>
           <h1 className="admin-dashboard__title">Dashboard</h1>
           <p className="admin-dashboard__description">
             Przegląd najważniejszych danych Twojego marketplace.

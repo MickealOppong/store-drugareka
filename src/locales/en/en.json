@@ -66,21 +66,25 @@
       "link_how_it_works": "How it works",
       "link_start_selling": "Start selling",
       "link_help_centre": "Help centre",
-      "link_contact": "Contact"
+      "link_contact": "Contact",
+      "terms":"Terms of service",
+      "privacy":"Privacy policy"
     }
   },
   "category_names": {
     "mens_fashion": "Men's fashion",
     "womens_fashion": "Women's fashion",
     "electronics": "Electronics",
-    "home_living": "Home & garden",
+    "home_living": "Home & Living",
     "shoes": "Footwear",
-    "home_equipment": "Home equipment",
+    "home_equipment": "Home applainces",
     "machines_spare_parts": "Machinery & spare parts",
     "books_media": "Books & media",
     "sport_outdoor": "Sports & recreation",
     "kids": "Kids",
-    "beauty_health": "Beauty & health"
+    "beauty_health": "Beauty & health",
+    "furniture":"furniture",
+    "gardebn_tools":"Garden & tools"
   },
   "product_conditions": {
     "good": "Good",
@@ -204,7 +208,8 @@
       "shipments": "Shipments",
       "wishlist": "My favorites",
       "payouts": "Payouts",
-      "my_profile":"My profile"
+      "my_profile":"My profile",
+      "shop":"Shop"
     },
     "footer": {
       "add_product": "Add product",
@@ -434,6 +439,7 @@
       "headers": {
         "order": "Order",
         "seller": "Seller",
+        "size":"Package size",
         "address": "Delivery address",
         "shipped_at": "Sent",
         "delivered_at": "Delivered",
@@ -497,7 +503,8 @@
         "completed": "Completed",
         "failed": "Failed",
         "cancelled": "Cancelled",
-        "created":"Created"
+        "created":"Created",
+        "refund":"Refund"
       }
     }
   },
@@ -662,7 +669,7 @@
       "savings": "You save {{amount}} zł ({{percent}}%)"
     },
     "safety": {
-      "return_assurance": "Safe purchase with a 14-day right to return the product"
+   "return_assurance": "Safe purchase with 24 hours to reject and 3 days to return the product"
     },
     "actions": {
       "buy_now": "Buy now",
@@ -748,12 +755,29 @@
       },
       "shipping_method": {
         "label": "Shipping method",
-        "placeholder": "Choose a shipping method"
+        "placeholder": "Choose a shipping method",
+          "shipping_method": {
+    "standard": "Courier Standard",
+    "locker": "Parcel Locker",
+    "bulky": "Oversized Cargo / Bulky",
+    "palette": "Freight / Pallet Delivery"
+  }
       },
       "shipping_info": {
         "label": "Shipping information",
         "placeholder": "e.g. Shipping within 2-3 business days. Shipping costs are covered by the buyer."
-      }
+      },
+      "cargo_sizes": {
+        "label":"Item size",
+        "placeholder":"Select item size",
+   "item_size": {
+    "small": "Small - up to 10kg",
+    "medium": "Medium - up to 20kg",
+    "large": "Large - up to 50kg",
+    "heavy": "Heavy - over 50kg"
+  }
+
+  }
     },
     "sidebar": {
       "status": {
@@ -856,7 +880,8 @@
       "conditions": "Conditions",
       "reports": "Reports",
       "analytics": "Analytics",
-      "payouts": "Payouts"
+      "payouts": "Payouts",
+      "courier":"Courier charges"
     }
   },
   "error_page": {
@@ -1054,6 +1079,103 @@
     "buttons": {
       "launch_email": "Launch Email App",
       "call_now": "Call Directly"
+    }
+  },
+  "order_return_modal": {
+    "header": {
+      "badge": "Consumer Return Process"
+    },
+    "body": {
+      "title": "Are you sure you want to approve this item return?",
+      "description": "Confirming this action will register the refund for the buyer and generate a negative balancing entry in the platform's financial ledger.",
+      "order_number": "Order Number:",
+      "refund_amount": "Adjustment Amount (Refund):",
+      "reason_label": "Reason for Return",
+      "problem_description": "Problem description",
+      "placeholder": "Briefly describe the return details for verification...",
+      "warning_title": "Strict 3-Day Escrow Deadline:",
+      "warning_text": "Returns must be filed within 3 days of delivery. After 3 days, funds are automatically released to the seller and an immediate platform refund can no longer be processed. If you face an issue after this window, you must open a formal dispute ticket for administrative review."    },
+    "reasons": {
+      "damaged_goods": "Item arrived damaged / defective",
+      "wrong_item": "Received a completely different product",
+      "not_as_described": "Item not as described or specified",
+      "other": "Other reason (Requires justification)"
+    },
+    "validation": {
+      "required_reason": "Please provide a reason for the return.",
+      "server_error": "A server error occurred while registering the return.",
+      "processing": "Processing..."
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "confirm": "Approve Return"
+    }
+  },
+  "logistics_modal": {
+    "header": {
+      "title": "Update Shipment #{{id}}",
+      "seller": "Seller: {{name}}"
+    },
+    "fields": {
+      "status_label": "Package Logistics Status",
+      "select_placeholder": "Select status",
+      "date_label": "Date associated with status (Shipping/Delivery)",
+      "tracking_label": "Shipment tracking number",
+      "tracking_placeholder": "e.g., 612345678901234567890123 (InPost Waybill)",
+      "comment_label": "Seller's log notes / commentary",
+      "comment_placeholder": "Add an internal note or courier processing status update..."
+    },
+    "statuses": {
+      "awaiting_shipment": "Awaiting Shipment",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "returned": "Returned",
+      "created": "Created"
+    },
+    "validation": {
+      "tracking_required": "A shipment tracking number (e.g., InPost) is strictly mandatory before marking a parcel as shipped.",
+      "date_required": "Please provide a valid calendar date associated with the chosen shipment status.",
+      "server_error": "Failed to update shipment tracking status on the database.",
+      "network_error": "An unexpected server network error occurred.",
+      "saving": "Saving..."
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save Status"
+    }
+  },
+  "confirm_shipment": {
+    "title_step_1": "1. Shipment Confirmation",
+    "title_step_2": "2. Courier Pickup Collection Address",
+    "banner_title": "No need to print a label!",
+    "banner_desc": "Once the order is confirmed, the DPD courier will arrive at your address with a pre-printed waybill for delivery to the buyer.",
+    "select_products": "Select items to pack",
+    "product_label": "Product",
+    "verified_status": "Verified for shipping",
+    "loading_items": "Loading shipment details...",
+    "fields": {
+      "sender_name": "Sender First and Last Name *",
+      "street": "Street and house / apartment number *",
+      "postal_code": "Postal code *",
+      "city": "City *",
+      "phone": "Your contact phone number for the courier *",
+      "country": "Country *",
+      "notes": "Pickup instructions for the driver (Optional)"
+    },
+    "placeholders": {
+      "street": "e.g., ul. Piotrkowska 45 m. 12",
+      "postal_code": "e.g., 90-001",
+      "city": "e.g., Łódź",
+      "phone": "e.g., +48 500 600 700"
+    },
+    "buttons": {
+      "submit_ready": "Confirm Readiness - Order Courier",
+      "submit_loading": "Ordering DPD Courier..."
+    },
+    "errors": {
+      "missing_fields": "Please fill in all required pickup address fields.",
+      "no_items": "Please select at least one product to dispatch.",
+      "network_fallback": "An unexpected network error occurred while communicating with the DPD logistics engine."
     }
   }
 }

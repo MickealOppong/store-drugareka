@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/AddListing.css";
-import { SHIPPING_METHOD } from "../data/data";
+import { ITEM_SIZE } from "../data/data";
 import { useAddListingMutation } from "../features/api/itemApi";
 import { useGetAllCategoriesQuery } from "../features/api/storeApi";
 import {
@@ -44,7 +44,7 @@ const AddListing = () => {
   const [conditionError, setConditionError] = useState<string>("");
   const [imageError, setImageError] = useState<string>("");
   const [shippingError, setShippingError] = useState<string>("");
-  const [shippingMethodError, setShippingMethodError] = useState<string>("");
+  const [itemSizeError, setItemSizeError] = useState<string>("");
 
   /**
    * * crud hooks
@@ -68,6 +68,7 @@ const AddListing = () => {
     images: [],
     imageSortOrder: [],
     shippingMethod: "",
+    itemSize:''
   });
 
   /**
@@ -142,6 +143,7 @@ const AddListing = () => {
    *
    */
 
+
   const handleButtonClick = (action: string) => {
     handleSubmit(action);
   };
@@ -163,7 +165,7 @@ const AddListing = () => {
     dataToSend.append("category", productData.category);
     dataToSend.append("price", productData.price);
     dataToSend.append("sku", productData.sku);
-    dataToSend.append("shippingMethod", productData.shippingMethod);
+    dataToSend.append("itemSize", productData.itemSize);
 
     images.forEach((file, index) => {
       dataToSend.append("images", file.file);
@@ -171,8 +173,14 @@ const AddListing = () => {
     });
 
 
+   // console.log(Object.fromEntries(dataToSend));
+    
+
     try {
       const response = await addItem(dataToSend);
+
+
+
 
       if (response.data?.httpStatus === 200) {
         navigate("/account/listings/me");
@@ -189,6 +197,7 @@ const AddListing = () => {
           condition: string;
           shipping: string;
           shippingMethod: string;
+          itemSize:string
         };
 
         const { data, status } = response?.error as {
@@ -212,7 +221,7 @@ const AddListing = () => {
           condition,
           shipping,
           price,
-          shippingMethod,
+          itemSize
         } = data.error as TError;
         setNameError(name);
         setConditionError(condition);
@@ -221,7 +230,7 @@ const AddListing = () => {
         setBrandError(brand);
         setShippingError(shipping);
         setPriceError(price);
-        setShippingMethodError(shippingMethod);
+        setItemSizeError(itemSize)
       }
     } catch (error: any) {}
   };
@@ -537,31 +546,33 @@ const AddListing = () => {
                   <p>{t("add_listing.sections.shipping.subtitle")}</p>
                 </div>
               </div>
-              
+    
+
+                {/** ITEM SIZE */}
               <div className="form-field">
-                <label htmlFor="shippingMethod">{t("add_listing.fields.shipping_method.label")}</label>
+                <label htmlFor="shippingMethod">{t("add_listing.fields.cargo_sizes.label")}</label>
 
                 <select
-                  id="shippingMethod"
-                  name="shippingMethod"
-                  value={formData.shippingMethod}
+                  id="itemSize"
+                  name="itemSize"
+                  value={formData.itemSize}
                   onChange={handleSelectChange}
                 >
                   <option value="" disabled>
-                    {t("add_listing.fields.shipping_method.placeholder")}
+                    {t("add_listing.fields.cargo_sizes.placeholder")}
                   </option>
 
-                  {SHIPPING_METHOD.map((method) => {
+                  {ITEM_SIZE.map((size) => {
                     return (
-                      <option key={method.id} value={method.value}>
-                        {method.method}
+                      <option key={size.id} value={size.value}>
+                       {t(`add_listing.fields.cargo_sizes.item_size.${size.value}`)}
                       </option>
                     );
                   })}
                 </select>
-                {shippingMethodError && (
+                {itemSizeError && (
                   <span className="form-field__error-msg">
-                    {shippingMethodError}
+                    {itemSizeError}
                   </span>
                 )}
               </div>

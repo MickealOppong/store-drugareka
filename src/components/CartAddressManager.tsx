@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiCheckCircle, FiEdit, FiMapPin, FiX } from "react-icons/fi";
+import '../css/CartAddress.css';
 import { useAddAddressMutation } from "../features/api/cartApi";
 
 export interface TAddress {
@@ -57,10 +58,11 @@ const CartAddressManager: React.FC<CartAddressManagerProps> = ({ savedAddress })
     setErrors({ street: "", city: "", postalCode: "", contact: "" });
 
     try {
-      await createAddress(addressForm).unwrap();
+   await createAddress(addressForm).unwrap();
       setEditMode(false);
     } catch (err: any) {
       console.error("Address validation constraint block caught:", err);
+      
       // Capture Spring Boot MethodArgumentNotValidException structured map payloads
       if (err?.status === 403 && err?.data?.error) {
         const backendErrors = err.data.error;

@@ -135,6 +135,55 @@
     &__scroll-table-container { overflow-x: auto; width: 100%; }
 }
 
+
+.data-table__cell {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: $color-text-main;
+  vertical-align: middle;
+  text-align: left;
+  box-sizing: border-box;
+
+  // 🚀 NESTED BUTTON HOOK CONTROLS
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    background-color: #ffffff;
+    border: 1px solid $color-border;
+    color: lighten($color-text-main, 15%);
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.15s $transition-default;
+
+    svg {
+      font-size: 16px;
+      transition: transform 0.15s ease;
+    }
+
+    // High-visibility hover micro-interaction for return/cancellation actions
+    &:hover {
+      background-color: #fef2f2; // Soft crimson tint alert hue backing
+      border-color: #fca5a5;
+      color: #dc2626; // Vivid threat alert crimson
+
+      svg {
+        transform: translate(-1px, -1px); // Subtle dynamic shift following the FiArrowUpLeft vector direction
+      }
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+
 // --------------------------------------------------
 // REUSABLE MASTER LAYOUT DATA TABLE MODULE
 // --------------------------------------------------

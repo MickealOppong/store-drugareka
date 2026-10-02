@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { Loading } from "../components";
+import Footer from "../components/Footer";
 import "../css/Categories.css"; // Imports the new isolated layout module cleanly
 import { useGetAllCategoriesQuery } from "../features/api/storeApi";
 import { sanitizeBackendKey } from "../util/util";
@@ -16,6 +17,7 @@ const Categories = () => {
   }
 
   return (
+  <>
     <section className="ct-panel">
       {/* SCOPED PANEL HEADER SEGMENT */}
       <div className="ct-panel__header">
@@ -49,6 +51,8 @@ const Categories = () => {
         ))}
       </div>
     </section>
+    <Footer/>
+  </>
   );
 };
 

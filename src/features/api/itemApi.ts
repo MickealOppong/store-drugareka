@@ -1,12 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { ShipmentRequest } from "../../components/ShipmentStatusModal";
 import type { TListComplaintPage } from "../../types/TComplaints";
+import type { TCourierResponse } from "../../types/TCourierResponse";
 import type { TDashboard } from "../../types/TDashboard";
 import type { TListPageDto } from "../../types/TListPageDto";
 import type { TListTrans } from "../../types/TListTrans";
 import type { TOrderPageDto } from "../../types/TOrderPageDto";
 import type { TOrdersDto } from "../../types/TOrdersDto";
 import type { TResponseDto } from "../../types/TResponseDto";
+import type { TShipmentPriceInput } from "../../types/TShipmentPriceInput";
 import type { TWishLists } from "../../types/TWishLists";
 import { baseUrl } from "./baseUrl";
 
@@ -23,10 +25,14 @@ export const itemApi = createApi({
         headers.set("Authorization", `Bearer ${token}`);
         //  headers.set('Content-Type','application/json')
       }
+            // user preferred langauge selected
+      const currentLanguage = localStorage.getItem('i18nextLng') as string
+      headers.set("Accept-Language", currentLanguage);
+
       return headers;
     },
   }),
-  tagTypes: ["categories",'wishlists','products','orders','complaints','shipment'],
+  tagTypes: ["categories",'wishlists','products','orders','complaints','shipment','shipments'],
   endpoints: (build) => ({
     addListing: build.mutation<TResponseDto, FormData>({
       query: (body) => ({
@@ -89,6 +95,14 @@ export const itemApi = createApi({
       }),
       invalidatesTags:['wishlists']
     }),
+        addCourierPrice: build.mutation<TResponseDto,TShipmentPriceInput>({
+      query: (body) => ({
+        url: "/api/courier/courier-charge",
+       body,
+        method:"POST"
+      }),
+      invalidatesTags:['shipments']
+    }),
      getUserDashboard: build.query<TDashboard, void>({
       query: () => ({
         url: "/api/analytics/dashboard",
@@ -145,6 +159,24 @@ export const itemApi = createApi({
       }),
       providesTags:['orders']
     }),
+      cancelOrder: build.mutation<TResponseDto,number>({
+      query: (orderId) => ({
+        url: "/api/orders/cancel-order",
+        params:{
+         orderId
+        },
+        method:"POST"
+      }),
+     invalidatesTags:['orders']
+    }),
+      returnItem: build.mutation<TResponseDto,FormData>({
+      query: (body) => ({
+        url: "/api/orders/return-intent",
+        body,
+        method:"POST"
+      }),
+     invalidatesTags:['orders']
+    }),
       addComplaint: build.mutation<void,FormData>({
       query: (body) => ({
         url: "/api/orders/complaints/new",
@@ -164,11 +196,25 @@ export const itemApi = createApi({
     }),
         updateShipmentStatus: build.mutation<void,ShipmentRequest>({
       query: ({shipmentId,trackingNumber,comment,status,createdAt}) => ({
-        url: "/api/shipment/update-status",
+        url: "/api/shipment/shipment-status",
         params:{shipmentId,trackingNumber,comment,status,createdAt},
         method:'PUT'
       }),
     invalidatesTags:['shipment']
+    }),
+         updateReturnShipmentStatus: build.mutation<void,ShipmentRequest>({
+      query: ({shipmentId,trackingNumber,comment,status,createdAt}) => ({
+        url: "/api/shipment/return-status",
+        params:{shipmentId,trackingNumber,comment,status,createdAt},
+        method:'PUT'
+      }),
+    invalidatesTags:['shipment']
+    }),
+           getCouriers: build.query<TCourierResponse[],void>({
+      query: () => ({
+        url: "/api/courier/options",
+      }),
+ providesTags:['shipments']
     }),
   }),
 });
@@ -177,5 +223,7 @@ export const { useAddListingMutation,useGetMylistingsQuery,
   useGetWishlistCountQuery,useGetWishListsQuery,useGetStoreOrdersQuery,useGetStorelistingsQuery,
   useAddComplaintMutation,useGetComplaintsQuery,useEditListingMutation,
   useGetPurchaseOrdersQuery,useGetSaleOrdersQuery,useGetPurchaseDetailsQuery,useUpdateShipmentStatusMutation,
-  useDeleteListingMutation,useLazyGetWishListsQuery,useLazyGetWishlistCountQuery
+  useDeleteListingMutation,useLazyGetWishListsQuery,useLazyGetWishlistCountQuery,
+  useCancelOrderMutation,useReturnItemMutation,useUpdateReturnShipmentStatusMutation,useAddCourierPriceMutation
+  ,useGetCouriersQuery
 } = itemApi;

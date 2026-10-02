@@ -59,11 +59,12 @@ const Shop = () => {
 
   // Replaced useLazy Query hooks entirely. These automatically trigger an optimized
   // backend network fetch pass the split second a user mounts or lands on this route path!
-  const { data, isLoading: isProductsLoading } = useGetStoreListingsFeedQuery(
+  const { data, isLoading: isProductsLoading,error } = useGetStoreListingsFeedQuery(
     request,
     { refetchOnFocus: true, refetchOnMountOrArgChange: true },
   );
   const products = data?.listings || [];
+console.log(products,error);
 
 
   const { data: categories = [] } = useGetAllCategoriesQuery();

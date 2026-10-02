@@ -105,6 +105,10 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onNavigate }) => {
           <FiCreditCard className="al-nav-link__icon" />
           <span>{t("admin_sidebar.menu.payouts")}</span>
         </NavLink>
+         <NavLink to="/account/admin/courier" className="al-nav-link" onClick={onNavigate}>
+          <FiCreditCard className="al-nav-link__icon" />
+          <span>{t("admin_sidebar.menu.courier")}</span>
+        </NavLink>
       </nav>
 
       <div className="al-sidebar-footer">

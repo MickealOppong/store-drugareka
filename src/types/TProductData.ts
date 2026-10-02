@@ -14,5 +14,6 @@ export type TProductData={
     shippingInfo: string;
     status:string;
     imageSortOrder:number[],
-    shippingMethod:string
+    shippingMethod:string,
+    itemSize:string
 }

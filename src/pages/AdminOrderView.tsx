@@ -27,11 +27,13 @@ const AdminOrderView: React.FC = () => {
 
   // ISOLATED SEARCH FILTER ENGINE
   const filteredList = orders.filter((order) => {
-    const query = search.toLowerCase().trim();
+    const query = search;
+
+  
     if (!query) return true;
     return (
       String(order.orderNumber || order.id).includes(query) ||
-      order.buyer?.toLowerCase().includes(query)
+      order.buyer?.toLowerCase().includes(query.toLowerCase())
     );
   })
   

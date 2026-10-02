@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FiEye, FiFlag, FiSearch } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
 
-import { useGetSaleOrdersQuery } from "../features/api/itemApi";
+import { useGetPurchaseOrdersQuery } from "../features/api/itemApi";
 import type { TOrdersDto } from "../types/TOrdersDto";
 import { formatPrice } from "../util/util";
 import Pagination from "./Pagination";
@@ -12,14 +12,17 @@ const BuyerView: React.FC = () => {
   const [search, setSearch] = useState("");
   const [searchParams] = useSearchParams();
   const { t } = useTranslation();
+
+  
   
   const page = parseInt(searchParams.get("page") || "1");
 
   // ISOLATED API COMPONENT FETCH
-  const { data, isLoading, isError } = useGetSaleOrdersQuery({
+  const { data, isLoading, isError } = useGetPurchaseOrdersQuery({
     page,
     size:5,
   });
+
 
   const orders = (data?.orders as TOrdersDto[]) || [];
 

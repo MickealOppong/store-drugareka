@@ -1,32 +1,48 @@
+/* ==========================================================================
+   GLOBAL GLASSMORPHISM PAGE LOADER BACKDROP & APP SPINNER
+   ========================================================================== */
 .page-loader-backdrop {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: fixed;
+  inset: 0;
   width: 100vw;
   height: 100vh;
+  background-color: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(8px);
-  /* Smooth hardware-accelerated frosted glass */
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 9999;
-  /* Higher than fixed headers and sidebars */
+  animation: fadeIn veilsFade 0.25s all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Elegant, seamless dual-ring infinity spinner */
 .app-spinner {
-  width: 50px;
-  height: 50px;
-  border: 3px solid #e5e5e5;
+  width: 48px;
+  height: 48px;
+  border: 4px solid #f9f9f9;
   border-top-color: #66704A;
-  /* Spotkac accent signature */
   border-radius: 50%;
-  animation: spin 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) infinite;
+  box-sizing: border-box;
+  animation: spin infinite 0.75s linear;
+  will-change: transform;
 }
 
-@media (min-width: 768px) {
-  .page-loader-backdrop {
-    width: 90%;
-    right: 0;
+/* ==========================================================================
+   KEYFRAME ANIMATIONS GRAPHICS ENGINE
+   ========================================================================== */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

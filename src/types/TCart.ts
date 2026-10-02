@@ -17,5 +17,6 @@ export type TCartItem = {
   reservedUntil: Date;
   price:number,
   shipping:number,
-  shippingMethod:string
+  shippingMethod:string,
+  sellerId:number
 };

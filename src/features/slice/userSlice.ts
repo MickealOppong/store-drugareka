@@ -6,7 +6,7 @@ import { removeFromLocalStorage, storeToLocalStorage } from "../../util/util";
 let initialState:TUserDto = {
   firstName: localStorage.getItem('fname') || "",
   lastName: localStorage.getItem('lname') || "",
-  userId: parseInt(localStorage.getItem('id') as string),
+  userId: parseInt(localStorage.getItem('id') as string)||-1,
   email: localStorage.getItem('email') || '',
   roles: JSON.parse(localStorage.getItem('roles') as string) || [],
   address: {

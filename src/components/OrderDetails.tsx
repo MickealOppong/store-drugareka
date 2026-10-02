@@ -1,25 +1,42 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
+import { useState } from "react";
+import { FiArrowUpLeft } from "react-icons/fi";
 import { useGetPurchaseDetailsQuery } from "../features/api/itemApi";
 import type { TOrdersDto } from "../types/TOrdersDto";
 import { formatPrice } from "../util/util";
+import OrderReturnModal from "./OrderReturnModal";
+import OrderTimeline from "./OrderTimeline";
 
-const OrderDetails: React.FC = () => {
+const OrderDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
+const[selectedOrder,setSelectedOrder]=useState<TOrdersDto>()
+
+const[modalOpen,setModalOpen] = useState<boolean>(false)
 
   // ISOLATED API COMPONENT FETCH
   const { data, isLoading, isError } = useGetPurchaseDetailsQuery(
     parseInt(id as string),
   );
 
+
   const orders = (data as TOrdersDto[]) || [];
 
   const totalCost = orders.reduce((accumulator, currentOrder) => {
     return accumulator + (currentOrder.orderTotal + currentOrder.shipping);
   }, 0);
+
+
+  const openModal = (order: TOrdersDto) => {
+      setSelectedOrder(order);
+      setModalOpen(true);
+    };
+  
+    const closeModal = () => {
+      setModalOpen(false);
+    };
 
   return (
     <>
@@ -32,7 +49,10 @@ const OrderDetails: React.FC = () => {
             : t("order_details.toolbar.count_plural")}
         </div>
         <div className="panel-view__metrics-counter">
-          <span>{t("order_details.toolbar.total_label")}{": "}</span>
+          <span>
+            {t("order_details.toolbar.total_label")}
+            {": "}
+          </span>
           <span>{` ${formatPrice(totalCost)} zł`}</span>
         </div>
       </div>
@@ -105,7 +125,12 @@ const OrderDetails: React.FC = () => {
                       <span
                         className={`status-badge status-badge--${order.orderStatus?.toLowerCase().replace(/_/g, "-")}`}
                       >
-                        {t(`buyer_view.table.statuses.${order.orderStatus?.toLowerCase()}`, { defaultValue: order.orderStatus?.replace(/_/g, " ") })}
+                        {t(
+                          `buyer_view.table.statuses.${order.orderItemStatus?.toLowerCase()}`,
+                          {
+                            defaultValue: order.orderStatus?.replace(/_/g, " "),
+                          },
+                        )}
                       </span>
                     </td>
                     <td>
@@ -117,9 +142,24 @@ const OrderDetails: React.FC = () => {
                       <span
                         className={`status-badge status-badge--${order.deliveryStatus?.toLowerCase().replace(/_/g, "-")}`}
                       >
-                       {t(`buyer_view.table.statuses.${order.orderStatus.toLowerCase()}`)}
+                        {t(
+                          `buyer_view.table.statuses.${order?.deliveryStatus?.toLowerCase()}`,
+                          { defaultValue: "" },
+                        )}
                       </span>
                     </td>
+                    {order.orderItemStatus !== "CANCELLED" && (
+                      <td className="data-table__cell">
+                        <button
+                          type="button"
+                          className="data-table__action-trigger"
+                          title="Anuluj i zwróć zamówienie"
+                          onClick={()=>openModal(order)}
+                        >
+                          <FiArrowUpLeft />
+                        </button>
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -127,6 +167,24 @@ const OrderDetails: React.FC = () => {
           </div>
         )}
       </section>
+      {data?.map((order) => {
+        return (
+          <OrderTimeline
+            key={order.id}
+            currentStatus={
+              order.deliveryStatus ? order.deliveryStatus : order.orderStatus
+            }
+            updatedAtString={new Date(
+              order.deliveryUpdatedAt,
+            ).toLocaleDateString()}
+          />
+        );
+      })}
+
+      {
+        modalOpen && 
+        <OrderReturnModal orderData={selectedOrder as TOrdersDto} isOpen={modalOpen} onButtonClick={closeModal}/>
+      }
     </>
   );
 };

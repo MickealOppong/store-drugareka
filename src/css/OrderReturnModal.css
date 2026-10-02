@@ -1,0 +1,99 @@
+/* ==========================================================================
+   KASOA ADMINISTRATIVE ORDER RETURN MANAGEMENT CARD OVERRIDES
+   ========================================================================== */
+.po-modal--warning {
+  border-top: 4px solid #d97706;
+}
+
+.po-modal__badge--warning {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #b45309;
+  background-color: #fef3c7;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid #fde68a;
+}
+
+.po-modal__badge--warning svg {
+  font-size: 13px;
+}
+
+.po-modal__summary-value--warning {
+  color: #d97706;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.po-modal__select {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #111111;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.po-modal__select:focus {
+  border-color: #d97706;
+}
+
+.po-modal__textarea {
+  width: 100%;
+  padding: 12px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #111111;
+  outline: none;
+  box-sizing: border-box;
+  resize: none;
+  transition: border-color 0.2s ease;
+}
+
+.po-modal__textarea:focus {
+  border-color: #d97706;
+}
+
+.po-modal__btn--warning {
+  background-color: #d97706 !important;
+  border-color: #d97706 !important;
+  color: #ffffff !important;
+}
+
+.po-modal__btn--warning:hover {
+  background-color: #b45309 !important;
+  border-color: #b45309 !important;
+}
+
+.po-modal__btn--warning:active {
+  transform: scale(0.98);
+}
+
+.po-modal__field--transition {
+  animation: poReturnFadeIn 0.25s all 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes poReturnFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

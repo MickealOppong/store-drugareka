@@ -10,6 +10,7 @@ import {
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
+import Footer from "../components/Footer";
 import "../css/Sell.css"; // Imports the newly structured, isolated styles cleanly
 import { useAppSelector } from "../store";
 
@@ -23,6 +24,7 @@ const Sell = () => {
     : "/account/user/";
 
   return (
+ <>
     <main className="sl-view">
 
       {/* =====================================================
@@ -221,6 +223,8 @@ const Sell = () => {
         </Link>
       </section>
     </main>
+    <Footer/>
+ </>
   );
 };
 

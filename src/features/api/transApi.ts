@@ -25,6 +25,9 @@ export const transApi = createApi({
        headers.set('Authorization', `Bearer ${token}`);
      //  headers.set('Content-Type','application/json')
       }
+                  // user preferred langauge selected
+      const currentLanguage = localStorage.getItem('i18nextLng') as string
+      headers.set("Accept-Language", currentLanguage);
       return headers;
     },
     

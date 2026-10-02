@@ -12,7 +12,8 @@ import {
 } from "react-icons/fi";
 import { useNavigate, useParams } from "react-router-dom";
 import "../css/ProductDetails.css";
-import { useBuyNowMutation } from "../features/api/checkoutApi";
+
+import { usePayUbuyNowMutation } from "../features/api/checkoutApi";
 import {
   useAddWishListMutation,
   useLazyGetWishListsQuery,
@@ -22,6 +23,7 @@ import { useAppSelector } from "../store";
 import type { TResponseDto } from "../types/TResponseDto";
 import type { TWishLists } from "../types/TWishLists";
 import { formatPrice } from "../util/util";
+import Footer from "./Footer";
 import Loading from "./Loading";
 
 // Helper function to safely translate backend condition data strings to localized dictionary keys
@@ -51,7 +53,7 @@ const ProductDetails = () => {
   const locale = localStorage.getItem("i18nextLng") as string;
 
   //buy now hook
-  const [buyNow] = useBuyNowMutation();
+  const [buyNow] = usePayUbuyNowMutation()
 
   // Local interface states for media interactions
   const [activeImageIdx, setActiveImageIdx] = useState<number>(0);
@@ -94,18 +96,19 @@ const ProductDetails = () => {
 
       const { data, message, httpStatus } = response.data as TResponseDto;
 
+      console.log(data);
+      
       if (httpStatus == 400 || httpStatus == 500 || httpStatus == 403) {
         setIsLoading(false);
         setError(message);
         return;
       }
       if (httpStatus == 200) {
-        const clientSecret = data;
-
-        if (clientSecret) {
-          setIsLoading(false);
-          navigate("/checkout", { state: { clientSecret } });
-        }
+       const  checkoutUrl = data;
+      if (checkoutUrl) {
+       // navigate("/checkout", { state: { clientSecret } });
+     window.location.href=checkoutUrl;
+      }
       }
     } catch (error) {
       setIsLoading(false);
@@ -365,6 +368,7 @@ const ProductDetails = () => {
         <section className="product-details__featured-carousel">
           {/* Related item cards map injections insert loop blocks mount layer */}
         </section>
+        <Footer/>
       </section>
     );
   } else {

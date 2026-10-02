@@ -238,7 +238,7 @@ const {data:sellingActivity=[]} = useGetRecentSellerActivityQuery()
             <div className="db-activity-panel__list">
               {sellingActivity.map((item) => (
                 <div
-                  key={item.id}
+                  key={item.type}
                   className="db-item-row"
                 >
                   <div className="db-item-row__media">

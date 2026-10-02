@@ -3,13 +3,16 @@ import { useTranslation } from "react-i18next";
 import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "../css/AddListing.css";
-import { SHIPPING_METHOD } from "../data/data";
+import { ITEM_SIZE, SHIPPING_METHOD } from "../data/data";
 import { useEditListingMutation } from "../features/api/itemApi";
 import {
   useGetAllCategoriesQuery,
-  useLazyGetListingQuery
+  useLazyGetListingQuery,
 } from "../features/api/storeApi";
-import { useGetAllConditionsQuery, useGetBrandsQuery } from "../features/api/transApi";
+import {
+  useGetAllConditionsQuery,
+  useGetBrandsQuery,
+} from "../features/api/transApi";
 import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TListTrans } from "../types/TListTrans";
 import type { TProductData } from "../types/TProductData";
@@ -21,80 +24,75 @@ export type TFile = {
   preview: string;
 };
 
-
 const EditListing = () => {
-    const {listingId} = useParams<{listingId:string}>()
+  const { listingId } = useParams<{ listingId: string }>();
   const [images, setImages] = useState<TFile[]>([]);
-  const {data:conditions} = useGetAllConditionsQuery()
-const [getListing] = useLazyGetListingQuery()
-
+  const { data: conditions } = useGetAllConditionsQuery();
+  const [getListing] = useLazyGetListingQuery();
 
   /**
    * Brand query
    */
-  const { data: brands = [] } = useGetBrandsQuery()
-  
+  const { data: brands = [] } = useGetBrandsQuery();
+
   /**
-   * 
+   *
    * TRANSLATION
    */
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
+  async function fetchListing() {
+    const response = await getListing(parseInt(listingId as string));
+    const listing = response.data as TListTrans;
 
-async function fetchListing(){
+    const mediaObj: TFile[] = await Promise.all(
+      listing.media.map(async (item) => {
+        const res = await fetch(item.image);
+        if (!res.ok)
+          throw new Error(`Failed to download binary asset payload.`);
 
-    const response = await getListing(parseInt(listingId as string))
-    const listing = response.data as TListTrans
+        const rawBlob = await res.blob();
 
-    
-const mediaObj: TFile[] = await Promise.all(
-  listing.media.map(async (item) => {
-    const res = await fetch(item.image);
-    if (!res.ok) throw new Error(`Failed to download binary asset payload.`);
-    
-    const rawBlob = await res.blob();
-    
-    // --- EXTRACT YOUR ACTUAL EXTRACTED FILENAME ---
-    const extractedFileName = new URL(item.image).pathname.split('/').pop() || "image.jpg";
-    
-    // Instantiate the file object using its real system storage filename parameters
-    const nativeFile = new File([rawBlob], extractedFileName, { type: rawBlob.type });
-    
-    return {
-      file: nativeFile,
-      preview: item.image
-    };
-  })
-);
+        // --- EXTRACT YOUR ACTUAL EXTRACTED FILENAME ---
+        const extractedFileName =
+          new URL(item.image).pathname.split("/").pop() || "image.jpg";
 
+        // Instantiate the file object using its real system storage filename parameters
+        const nativeFile = new File([rawBlob], extractedFileName, {
+          type: rawBlob.type,
+        });
 
+        return {
+          file: nativeFile,
+          preview: item.image,
+        };
+      }),
+    );
 
+    setImages(mediaObj);
 
-setImages(mediaObj)
+    setFormData({
+      id: listing.listingId,
+      name: listing.productName,
+      category: listing.category,
+      description: listing.productDescription,
+      price: String(listing.priceDto.sellerNewPrice),
+      quantity: "1",
+      condition: listing.productCondition,
+      brand: listing.brand,
+      sku: listing.sku || "EA",
+      shippingInfo: listing.shipping,
+      status: listing.inventoryStatus,
+      images: [],
+      imageSortOrder: [],
+      shippingMethod: listing.shippingMethod,
+      itemSize: listing.itemSize,
+    });
+  }
 
-     setFormData({
-    id:listing.listingId,
-    name: listing.productName,
-    category: listing.category,
-    description: listing.productDescription,
-    price:String(listing.priceDto.sellerNewPrice),
-    quantity: "1",
-    condition: listing.productCondition,
-    brand: listing.brand,
-    sku: listing.sku||"EA",
-    shippingInfo: listing.shipping,
-    status:listing.inventoryStatus,
-    images:[],
-    imageSortOrder: [],
-    shippingMethod: listing.shippingMethod,
-  })
-    
-
-}
-
-useEffect(()=>{
-fetchListing()
-},[listingId])
+  useEffect(() => {
+    fetchListing();
+  }, [listingId]);
   /**
    * * navigate hook
    */
@@ -112,28 +110,29 @@ fetchListing()
   const [imageError, setImageError] = useState<string>("");
   const [shippingError, setShippingError] = useState<string>("");
   const [shippingMethodError, setShippingMethodError] = useState<string>("");
-
+  const [itemSizeError, setItemSizeError] = useState<string>("");
   /**
    * * crud hooks
    */
   const { data: categories = [] } = useGetAllCategoriesQuery();
-  const [editLisitng] = useEditListingMutation()
+  const [editLisitng] = useEditListingMutation();
 
   const [formData, setFormData] = useState<TProductData>({
     id: -1,
     name: "",
-    category:  "",
-    description:  "",
-    price:"",
+    category: "",
+    description: "",
+    price: "",
     quantity: "1",
     condition: "",
     brand: "",
     sku: "",
-    shippingInfo:  "",
+    shippingInfo: "",
     status: "",
     images: [],
     imageSortOrder: [],
-    shippingMethod:  "",
+    shippingMethod: "",
+    itemSize: "",
   });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -155,6 +154,8 @@ fetchListing()
     // Dynamic clean up based on field names
     if (name === "condition" && conditionError) setConditionError("");
     if (name === "category" && categoryError) setCategoryError("");
+        if (name === "itemSize" && itemSizeError) setItemSizeError("");
+        if (name === "shippingMethod" &&  shippingMethodError) setShippingError("");
 
     setFormData((prev) => ({
       ...prev,
@@ -214,7 +215,7 @@ fetchListing()
     productData.status = action;
 
     const dataToSend = new FormData();
-     dataToSend.append("id", String(productData.id));
+    dataToSend.append("id", String(productData.id));
     dataToSend.append("name", productData.name);
     dataToSend.append("description", productData.description);
     dataToSend.append("condition", productData.condition);
@@ -223,6 +224,7 @@ fetchListing()
     dataToSend.append("category", productData.category);
     dataToSend.append("price", productData.price);
     dataToSend.append("sku", productData.sku);
+    dataToSend.append("itemSize", productData.itemSize);
     dataToSend.append("shippingInfo", productData.shippingInfo);
     dataToSend.append("shippingMethod", productData.shippingMethod);
 
@@ -231,11 +233,11 @@ fetchListing()
       dataToSend.append("imageSortOrder", String(index));
     });
 
-    console.log("Product:", productData);
+    
     try {
-        
       const response = await editLisitng(dataToSend);
-      console.log(response);
+
+      
 
       if (response.data?.httpStatus === 200) {
         navigate("/account/listings/me");
@@ -250,8 +252,9 @@ fetchListing()
           category: string;
           brand: string;
           condition: string;
-          shipping: string;
-          shippingMethod:string
+          shippingInfo: string;
+          shippingMethod: string;
+          itemSize: string;
         };
 
         const { data, status } = response?.error as {
@@ -273,32 +276,35 @@ fetchListing()
           category,
           brand,
           condition,
-          shipping,
+          shippingInfo,
           price,
-shippingMethod
+          shippingMethod,
+          itemSize,
         } = data.error as TError;
         setNameError(name);
         setConditionError(condition);
         setCategoryError(category);
         setDescriptionError(description);
         setBrandError(brand);
-        setShippingError(shipping);
+        setShippingError(shippingInfo);
         setPriceError(price);
-        setShippingMethodError(shippingMethod)
+        setShippingMethodError(shippingMethod);
+        setItemSizeError(itemSize);
       }
-
-        
     } catch (error: any) {}
   };
 
   return (
- <main className="add-product">
+    <main className="add-product">
       {/* =====================================================
                 HEADER
             ====================================================== */}
       <header className="add-product__header">
         <div className="add-product__header-left">
-          <Link to="/account/listings/me" className="add-product__back">
+          <Link
+            to="/account/listings/me"
+            className="add-product__back"
+          >
             <FiArrowLeft />
           </Link>
 
@@ -354,8 +360,14 @@ shippingMethod
 
               <div className="product-images">
                 {images.map((image, index) => (
-                  <div className="product-image" key={index}>
-                    <img src={image.preview} alt={`Product ${index + 1}`} />
+                  <div
+                    className="product-image"
+                    key={index}
+                  >
+                    <img
+                      src={image.preview}
+                      alt={`Product ${index + 1}`}
+                    />
 
                     <button
                       type="button"
@@ -407,7 +419,9 @@ shippingMethod
               <div className="form-grid">
                 <div>
                   <div className="form-field form-field--full">
-                    <label htmlFor="name">{t("add_listing.fields.name.label")}</label>
+                    <label htmlFor="name">
+                      {t("add_listing.fields.name.label")}
+                    </label>
 
                     <input
                       id="name"
@@ -426,7 +440,9 @@ shippingMethod
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="category">{t("add_listing.fields.category.label")}</label>
+                  <label htmlFor="category">
+                    {t("add_listing.fields.category.label")}
+                  </label>
 
                   <select
                     id="category"
@@ -438,7 +454,7 @@ shippingMethod
                       value=""
                       disabled
                     >
-                 {t("add_listing.fields.category.placeholder")}
+                      {t("add_listing.fields.category.placeholder")}
                     </option>
 
                     {categories?.map((category) => {
@@ -447,7 +463,9 @@ shippingMethod
                           key={category.id}
                           value={category.name}
                         >
-                        {t(`category_names.${sanitizeBackendKey(category.slug.toLowerCase())}`)}
+                          {t(
+                            `category_names.${sanitizeBackendKey(category.slug.toLowerCase())}`,
+                          )}
                         </option>
                       );
                     })}
@@ -461,7 +479,9 @@ shippingMethod
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="condition">{t("add_listing.fields.condition.label")}</label>
+                  <label htmlFor="condition">
+                    {t("add_listing.fields.condition.label")}
+                  </label>
 
                   <select
                     id="condition"
@@ -473,7 +493,7 @@ shippingMethod
                       value=""
                       disabled
                     >
-                 {t("add_listing.fields.condition.placeholder")}
+                      {t("add_listing.fields.condition.placeholder")}
                     </option>
 
                     {conditions?.map((condition) => {
@@ -482,7 +502,9 @@ shippingMethod
                           key={condition.id}
                           value={condition.name}
                         >
-                       {t(`product_conditions.${sanitizeBackendKey(condition.name.toLowerCase())}`)}
+                          {t(
+                            `product_conditions.${sanitizeBackendKey(condition.name.toLowerCase())}`,
+                          )}
                         </option>
                       );
                     })}
@@ -496,19 +518,23 @@ shippingMethod
 
                 <div>
                   <div className="form-field form-field--full">
-                    <label htmlFor="description">{t("add_listing.fields.description.label")}</label>
+                    <label htmlFor="description">
+                      {t("add_listing.fields.description.label")}
+                    </label>
 
                     <textarea
                       id="description"
                       name="description"
                       rows={7}
-                      placeholder={t("add_listing.fields.description.placeholder")}
+                      placeholder={t(
+                        "add_listing.fields.description.placeholder",
+                      )}
                       value={formData.description}
                       onChange={handleTextInputChange}
                     />
 
                     <span className="form-field__hint">
-                    {t("add_listing.fields.description.hint")}
+                      {t("add_listing.fields.description.hint")}
                     </span>
                   </div>
                   {descriptionError && (
@@ -520,7 +546,7 @@ shippingMethod
               </div>
             </section>
 
-                    {/* Pricing & Inventory */}
+            {/* Pricing & Inventory */}
             <section className="product-section">
               <div className="product-section__header">
                 <div>
@@ -531,7 +557,9 @@ shippingMethod
 
               <div className="form-grid">
                 <div className="form-field">
-                  <label htmlFor="price">{t("add_listing.fields.price.label")}</label>
+                  <label htmlFor="price">
+                    {t("add_listing.fields.price.label")}
+                  </label>
 
                   <div className="input-with-prefix">
                     <span>zł</span>
@@ -554,7 +582,9 @@ shippingMethod
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="quantity">{t("add_listing.fields.quantity.label")}</label>
+                  <label htmlFor="quantity">
+                    {t("add_listing.fields.quantity.label")}
+                  </label>
 
                   <input
                     id="quantity"
@@ -568,11 +598,13 @@ shippingMethod
                 </div>
 
                 <div>
-                  <label htmlFor="brand">{t("add_listing.fields.brand.label")}</label>
-                  <SearchSelect 
-                    brands={brands as TbrandResponse[]} 
-                    value={formData.brand} 
-                    onChange={handleSelectChange}  
+                  <label htmlFor="brand">
+                    {t("add_listing.fields.brand.label")}
+                  </label>
+                  <SearchSelect
+                    brands={brands as TbrandResponse[]}
+                    value={formData.brand}
+                    onChange={handleSelectChange}
                   />
                   {brandError && (
                     <span className="form-field__error-msg">{brandError}</span>
@@ -580,7 +612,9 @@ shippingMethod
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="sku">{t("add_listing.fields.sku.label")}</label>
+                  <label htmlFor="sku">
+                    {t("add_listing.fields.sku.label")}
+                  </label>
 
                   <input
                     id="sku"
@@ -602,9 +636,11 @@ shippingMethod
                   <p>{t("add_listing.sections.shipping.subtitle")}</p>
                 </div>
               </div>
-              
+
               <div className="form-field">
-                <label htmlFor="shippingMethod">{t("add_listing.fields.shipping_method.label")}</label>
+                <label htmlFor="shippingMethod">
+                  {t("add_listing.fields.shipping_method.label")}
+                </label>
 
                 <select
                   id="shippingMethod"
@@ -612,13 +648,19 @@ shippingMethod
                   value={formData.shippingMethod}
                   onChange={handleSelectChange}
                 >
-                  <option value="" disabled>
+                  <option
+                    value=""
+                    disabled
+                  >
                     {t("add_listing.fields.shipping_method.placeholder")}
                   </option>
 
                   {SHIPPING_METHOD.map((method) => {
                     return (
-                      <option key={method.id} value={method.value}>
+                      <option
+                        key={method.id}
+                        value={method.value}
+                      >
                         {method.method}
                       </option>
                     );
@@ -631,14 +673,55 @@ shippingMethod
                 )}
               </div>
 
+                 {/** ITEM SIZE */}
+                  <div className="form-field">
+                    <label htmlFor="shippingMethod">
+                      {t("add_listing.fields.cargo_sizes.label")}
+                    </label>
+
+                    <select
+                      id="itemSize"
+                      name="itemSize"
+                      value={formData.itemSize}
+                      onChange={handleSelectChange}
+                    >
+                      <option
+                        value=""
+                        disabled
+                      >
+                        {t("add_listing.fields.cargo_sizes.placeholder")}
+                      </option>
+
+                      {ITEM_SIZE.map((size) => {
+                        return (
+                          <option
+                            key={size.id}
+                            value={size.value}
+                          >
+                            {t(`add_listing.fields.cargo_sizes.${size.value}`)}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    {itemSizeError && (
+                      <span className="form-field__error-msg">
+                        {itemSizeError}
+                      </span>
+                    )}
+                  </div>
+
               <div className="form-field shippingInfo">
-                <label htmlFor="shippingInfo">{t("add_listing.fields.shipping_info.label")}</label>
+                <label htmlFor="shippingInfo">
+                  {t("add_listing.fields.shipping_info.label")}
+                </label>
 
                 <textarea
                   id="shippingInfo"
                   name="shippingInfo"
                   rows={4}
-                  placeholder={t("add_listing.fields.shipping_info.placeholder")}
+                  placeholder={t(
+                    "add_listing.fields.shipping_info.placeholder",
+                  )}
                   value={formData.shippingInfo}
                   onChange={handleTextInputChange}
                 />
@@ -666,7 +749,9 @@ shippingMethod
 
                 <div className="status-option__message">
                   <div>
-                    <strong>{t("add_listing.sidebar.status.publish_label")}</strong>
+                    <strong>
+                      {t("add_listing.sidebar.status.publish_label")}
+                    </strong>
                     <p>{t("add_listing.sidebar.status.publish_desc")}</p>
                   </div>
                 </div>
@@ -696,21 +781,29 @@ shippingMethod
               <div className="product-preview">
                 <div className="product-preview__image">
                   {images.length > 0 ? (
-                    <img src={images[0].preview} alt="Product preview" />
+                    <img
+                      src={images[0].preview}
+                      alt="Product preview"
+                    />
                   ) : (
                     <FiImage />
                   )}
                 </div>
 
                 <div className="product-preview__content">
-                  <span>{formData.category || t("add_listing.sidebar.preview.fallback_category")}</span>
-                  <h4>{formData.name || t("add_listing.sidebar.preview.fallback_name")}</h4>
+                  <span>
+                    {formData.category ||
+                      t("add_listing.sidebar.preview.fallback_category")}
+                  </span>
+                  <h4>
+                    {formData.name ||
+                      t("add_listing.sidebar.preview.fallback_name")}
+                  </h4>
                   <strong>{formData.price || "0.00"} zł</strong>
                 </div>
               </div>
             </section>
           </aside>
-
         </div>
       </form>
     </main>

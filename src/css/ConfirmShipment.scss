@@ -1,0 +1,319 @@
+@import './Variables.scss'; // Hooks into Spruce forest green (#1E3A3A) and layout tokens
+
+/* ==========================================================================
+   KASOA LOGISTICS COURIER PICKUP COORDINATION MESH (HORIZONTAL PIPELINE MODEL)
+   ========================================================================== */
+
+.al-confirm-shipment {
+  display: flex;
+  flex-direction: column; // Stack layers down the viewport framework pages
+  gap: 24px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+  font-family: $font-sans;
+
+  &__section-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 800;
+    color: $color-text-main;
+    margin: 0 0 14px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+
+    svg {
+      color: $color-primary; // Forest green Spruce accents
+      font-size: 17px;
+    }
+  }
+
+  // =========================================================
+  // TOP ROW CONTAINER: BANNERS & NOTICES
+  // =========================================================
+
+  &__summary-pane {
+    display: grid;
+    grid-template-columns: 1fr 2.5fr; // Wide split parameter fields
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__info-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    background-color: #f0fdf4; // Eco soft green banner hue
+    border: 1px solid #bbf7d0;
+    padding: 18px;
+    border-radius: 8px;
+    box-sizing: border-box;
+
+    .al-confirm-shipment__banner-icon {
+      color: #16a34a;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    h4 {
+      margin: 0 0 4px 0;
+      font-size: 14px;
+      font-weight: 800;
+      color: #14532d;
+    }
+
+    p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #166534;
+    }
+  }
+
+  // =========================================================
+  // BOTTOM WORKSPACE ROW CONTAINER (PRODUCTS + FORM PANELS)
+  // =========================================================
+
+  &__workspace-pane {
+    display: flex;
+    flex-direction: column; // Stack products list on top of address panel vertically
+    gap: 24px;
+    width: 100%;
+  }
+
+  // New Products Card Structural BEM Block
+  &__products-card {
+    background-color: #ffffff;
+    border: 1px solid $color-border;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba($color-text-main, 0.01);
+    box-sizing: border-box;
+  }
+
+  &__products-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); // Adaptive grid columns for multiple products
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  &__product-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background-color: $color-bg-light;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    box-sizing: border-box;
+    transition: all 0.2s $transition-default;
+
+    &:hover {
+      background-color: darken($color-bg-light, 2%);
+      border-color: darken($color-border, 10%);
+    }
+
+    // Interactive selected modifier layout rule
+    &--selected {
+      background-color: #f0fdf4; 
+      border-color: #16a34a;
+      
+      .al-confirm-shipment__product-name {
+        color: #14532d;
+      }
+    }
+  }
+
+  &__product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__product-name {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: $color-text-main;
+  }
+
+  &__product-sub {
+    font-size: 12px;
+    color: $color-text-muted;
+  }
+
+  &__checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: $color-text-muted;
+
+    .checkbox-icon.active {
+      color: #16a34a; // Turn active checks vibrant green
+    }
+  }
+
+  // Address Inputs Entry Panel Box Bounding Layout
+  &__form-pane {
+    background-color: #ffffff;
+    border: 1px solid $color-border;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 24px rgba($color-text-main, 0.02);
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr; // Split postal code and city 50/50 inline rows safely
+    gap: 16px;
+    width: 100%;
+  }
+
+  &__submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: auto;
+    min-width: 260px;
+    height: 44px;
+    margin-top: 24px;
+    padding: 0 20px;
+    align-self: flex-end; // Right align submit button for clean page design metrics
+    background-color: $color-primary;
+    border: 1px solid $color-primary;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.2s $transition-default;
+
+    svg {
+      font-size: 16px;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: darken($color-primary, 5%);
+      border-color: darken($color-primary, 5%);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  // =========================================================
+  // REUSABLE SUB-COMPONENT FIELDS LAYER
+  // =========================================================
+
+  .logistics-modal__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .logistics-modal__label {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: lighten($color-text-main, 12%);
+  }
+
+  .logistics-modal__input {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    background-color: #ffffff;
+    border: 1px solid $color-border;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    color: $color-text-main;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.15s ease;
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.06);
+    }
+  }
+
+  .logistics-modal__textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: #ffffff;
+    border: 1px solid $color-border;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    color: $color-text-main;
+    outline: none;
+    box-sizing: border-box;
+    resize: none;
+    transition: all 0.15s ease;
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.06);
+    }
+  }
+}
+
+.style-alert-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fef2f2;
+  border: 1px solid #fee2e2;
+  color: #b91c1c;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
+// Tablet and smartphone layout optimization
+@media (max-width: $breakpoint-md) {
+  .al-confirm-shipment {
+    &__summary-pane {
+      grid-template-columns: 1fr;
+    }
+    &__products-list {
+      grid-template-columns: 1fr;
+    }
+    &__form-row {
+      grid-template-columns: 1fr;
+    }
+    &__submit-btn {
+      width: 100%;
+    }
+  }
+}

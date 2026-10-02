@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import '../css/Footer.css';
 import { appName } from "../data/data";
 import LanguageSwitcher from "./LanguageSwitcher";
 
@@ -44,6 +45,8 @@ const Footer = ()=>{
             <Link to="/help">{t("landing.footer.link_help_centre")}</Link>
 
             <Link to="/contact">{t("landing.footer.link_contact")}</Link>
+            <Link to="/terms">{t("landing.footer.terms")}</Link>
+            <Link to="/privacy">{t("landing.footer.privacy")}</Link>
           </div>
         </div>
         <LanguageSwitcher/>

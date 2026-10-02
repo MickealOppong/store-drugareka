@@ -9,6 +9,7 @@ export type TShipment={
       id:number,
       comment:string,
       trackingNumber:string
+      itemSize:string
 }
 
 export type TListShipmentPage={

@@ -1,250 +1,265 @@
-@import './Variables.scss'; // Hooks strict Spruce (#1E3A3A), Alabaster (#F4F7F6), Ink (#0D1313)
+@import './Variables.scss'; // 🚀 Hooks into Kasoa premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and layout variables
 
-// Scoped local layout tokens definitions
-$al-sidebar-width-desktop: 320px;
-$al-sidebar-width-mobile:  300px;
-$al-physics-cubic:         cubic-bezier(0.16, 1, 0.3, 1);
+/* ==========================================================================
+   KASOA ADMINISTRATIVE WORKSPACE ACCOUNT LAYOUT (BEM SPECIFICATION)
+   ========================================================================== */
 
-// ==========================================================================
-// MAIN COMPONENT PACKET SHELL GRID LAYOUT
-// ==========================================================================
-
+// 1. Core Framework Container Bounding Box
 .al-layout {
-  font-family: $font-sans;
-  color: $color-text-main;
-  background-color: $background;
-  min-height: 100vh;
-  max-width: 100vw;
   display: flex;
-  flex-direction: column;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: $color-bg-light; // Standard pristine Alabaster background base
+  color: $color-text-main;
+  font-family: $font-sans;
+  overflow-x: hidden;
   box-sizing: border-box;
-
-  @include media-up($breakpoint-lg) {
-    flex-direction: row !important;
-  }
 }
 
-// ==========================================================================
-// MOBILE RESPONSIVE TOP BAR ELEMENT BAR
-// ==========================================================================
-
-.al-mobile-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1.25rem;
-  border-bottom: 1px solid $color-border;
-  background-color: $background;
+// 2. Core Left-Hand Sidebar Column Wrapper (Desktop Perspective)
+.al-sidebar-wrapper {
   position: sticky;
   top: 0;
-  z-index: 101;
-  height: $header-height-mobile;
+  height: 100vh;
+  width: 260px; // Constant wide structural column map
+  flex-shrink: 0;
+  z-index: 1000;
   box-sizing: border-box;
-  width: 100%;
-
-  @include media-up($breakpoint-lg) {
-    display: none !important; // Extinguish entirely from desktop view ports
-  }
 }
 
-.al-mobile-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  color: $color-text-main;
-  font-size: 1.4rem;
-  cursor: pointer;
-  padding: 0.5rem;
-  min-height: $touch-target-min;
-  min-width: $touch-target-min;
-  border-radius: 6px;
-  transition: $transition-default;
-  outline: none;
-
-  &:hover {
-    background-color: $color-bg-light;
-    color: $color-primary;
-  }
-  
-  &:active {
-    transform: scale(0.95);
-  }
-}
-
-// ==========================================================================
-// RESPONSIVE CONTROL SUB-DRAWER SYSTEM WRAPPERS
-// ==========================================================================
-
-.al-sidebar-wrapper {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  display: flex;
-  pointer-events: none;
-  visibility: hidden;
-  transition: visibility 0.3s $al-physics-cubic;
-
-  @include media-up($breakpoint-lg) {
-    position: sticky;
-    top: 0;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    height: 100vh;
-    width: $al-sidebar-width-desktop;
-    flex-shrink: 0;
-  }
-
-  &--open {
-    visibility: visible;
-    pointer-events: auto;
-
-    .al-sidebar-overlay {
-      opacity: 1;
-    }
-
-    .al-sidebar-container {
-      transform: translateX(0);
-    }
-  }
-}
-
-// Scrim backdrop masking with advanced glassmorphism blurs
-.al-sidebar-overlay {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(13, 19, 19, 0.4); // Scoped via custom Charcoal Ink tokens
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-
-  @include media-up($breakpoint-lg) {
-    display: none !important;
-  }
-}
-
-// Core inner navigation wrapper housing elements
+// Left side layout tracking panel container skin bounds
 .al-sidebar-container {
-  position: relative;
-  width: $al-sidebar-width-mobile;
-  max-width: 85vw;
-  height: 100%;
-  background-color: $background;
-  box-shadow: 10px 0 30px rgba(13, 19, 19, 0.05);
-  transform: translateX(-100%);
-  transition: transform 0.4s $al-physics-cubic;
   display: flex;
   flex-direction: column;
-  padding: 1.5rem 1.25rem;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border-right: 1px solid $color-border;
+  padding: 24px 16px;
   box-sizing: border-box;
-  overflow-y: auto;
-  z-index: 2;
 
-  @include media-up($breakpoint-lg) {
-    width: 100%;
-    max-width: 100%;
-    box-shadow: none;
-    transform: none !important;
-    transition: none;
-    padding: 2.5rem 1.5rem;
-    border-right: 1px solid $color-border;
-  }
-}
+  // Typographic Brand Logo Overwrite Hook integrations
+  .al-brand {
+    display: inline-flex;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: $color-text-main;
+    text-decoration: none;
+    text-transform: uppercase; // Enforces branding rules cleanly without inline styles
+    margin-bottom: 32px;
+    padding-left: 8px;
+    user-select: none;
+    transition: opacity 0.2s $transition-default;
 
-.al-sidebar-close {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  color: $color-text-muted; // Grey Zinc token #5E6C6A
-  font-size: 1.35rem;
-  cursor: pointer;
-  padding: 0.5rem;
-  min-height: $touch-target-min;
-  min-width: $touch-target-min;
-  border-radius: 50%;
-  transition: $transition-default;
-  outline: none;
+    &__light {
+      font-weight: 400;
+      color: $color-primary; // Accented with trademark forest Spruce
+      margin-left: 1px;
+    }
 
-  &:hover {
-    color: $color-primary;
-    background-color: $color-bg-light;
-  }
-
-  &:active {
-    transform: scale(0.92);
-  }
-
-  @include media-up($breakpoint-lg) {
-    display: none !important;
-  }
-}
-
-// ==========================================================================
-// UNIFIED BRAND DESIGN ATOMS
-// ==========================================================================
-
-.al-brand {
-  font-size: 1.35rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: $color-primary; // Matte Spruce #1E3A3A
-  display: flex;
-  align-items: center;
-  user-select: none;
-
-  &__light {
-    font-weight: 400;
-    color: $color-text-muted;
-    margin-left: 1px;
-  }
-
-  &--sidebar {
-    margin-bottom: 2.5rem;
-    height: 40px;
-
-    @include media-up($breakpoint-lg) {
-      margin-bottom: 3rem;
+    &:hover {
+      opacity: 0.85;
     }
   }
 }
 
-// Embedded children routing parameters adjustments
+// Internal Navigation Sub-Menu Router Links Wrappers
 .al-sidebar-nav {
-  width: 100%;
-  flex: 1;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  gap: 6px;
+  width: 100%;
+  overflow-y: auto;
+  flex: 1;
+
+  // Custom sleek hidden scrollbar profiles for side navigation matrices
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 4px;
+  }
+  &:hover::-webkit-scrollbar-thumb {
+    background-color: darken($color-bg-light, 10%);
+  }
 }
 
-// ==========================================================================
-// DYNAMIC VIEWPORT CORE STAGING SURFACE FRAMEWORK
-// ==========================================================================
+// Mobile-only hidden close control button hooks
+.al-sidebar-close {
+  display: none;
+}
 
+// Scrim Overlay Layer Shadow Mask
+.al-sidebar-overlay {
+  display: none;
+}
+
+// 3. Desktop Hidden Mobile Header Bar
+.al-mobile-bar {
+  display: none;
+}
+
+// 4. Core Viewport Inner Sub-Router Right Hand Target Workspace Area
 .al-content {
   flex: 1;
-  max-width: 100%;
-  padding: 1.5rem 1.25rem;
+  width: 100%;
+  min-width: 0; // Essential CSS flexbox clip bug override safeguard
+  padding: 40px;
   box-sizing: border-box;
-  background-color: $background;
-  min-height: calc(100vh - #{$header-height-mobile});
+  overflow-y: auto;
+}
 
-  @include media-up($breakpoint-md) {
-    padding: 2.5rem 2rem;
+/* ==========================================================================
+   🎯 HANDSHAKE RESPONSIVE MEDIA QUERIES (TABLETS & SMARTPHONES BREAKPOINTS)
+   ========================================================================== */
+
+@media (max-width: $breakpoint-md) {
+  .al-layout {
+    flex-direction: column; // Pivot page layout to a vertical block stack structure cleanly
   }
 
-  @include media-up($breakpoint-lg) {
-    padding: 3rem 3.5rem;
-    height: 100vh;
-    overflow-y: auto;
+  // Mobile Top Header Bar Configuration
+  .al-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #ffffff;
+    border-bottom: 1px solid $color-border;
+    padding: 0 20px;
+    z-index: 900;
     box-sizing: border-box;
+
+    .al-brand {
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: $color-text-main;
+      text-decoration: none;
+      text-transform: uppercase;
+
+      &__light {
+        font-weight: 400;
+        color: $color-primary;
+      }
+    }
+  }
+
+  // Interactive Open Button Switch Drawer Trigger
+  .al-mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    color: $color-text-main;
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: $color-bg-light;
+    }
+  }
+
+  // Pivot the layout sidebar into a sliding off-canvas mobile drawer panel loop
+  .al-sidebar-wrapper {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none; // Disables input event trapping when the drawer state is closed
+    visibility: hidden;
+    transition: visibility 0.3s ease;
+    z-index: 2000;
+
+    // 🚀 Hardware-accelerated sliding drawer action modifier hook
+    &--open {
+      pointer-events: auto;
+      visibility: visible;
+
+      .al-sidebar-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .al-sidebar-container {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  // Glassmorphism background active backdrop transition overlay matrix mesh
+  .al-sidebar-overlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background-color: rgba($color-text-main, 0.4);
+    backdrop-filter: blur(4px); // Premium native digital hardware blur look
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
+    z-index: 1;
+  }
+
+  // The actual sliding panel drawer card wrapper skin structure layout boundary
+  .al-sidebar-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    height: 100%;
+    max-width: 85vw;
+    transform: translateX(-100%); // Direct displacement off-screen grid vectors leftwards
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 12px 0 32px rgba($color-text-main, 0.15);
+    z-index: 2;
+    padding-top: 20px;
+
+    .al-brand {
+      margin-bottom: 24px;
+    }
+  }
+
+  // Mobile drawer interior retract close cross button triggers
+  .al-sidebar-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    background-color: $color-bg-light;
+    border: none;
+    color: lighten($color-text-main, 15%);
+    font-size: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background-color: darken($color-bg-light, 4%);
+      color: $color-text-main;
+    }
+  }
+
+  // Offset main screen workspace padding downward to prevent layout clipping underneath sticky mobile taskbar headers
+  .al-content {
+    padding: 24px 16px;
+    margin-top: 60px;
+    height: calc(100vh - 60px);
   }
 }
