@@ -1,63 +1,123 @@
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { FiCheckCircle, FiShoppingBag } from "react-icons/fi";
+import { FiAlertCircle, FiCheckCircle, FiShoppingBag, FiXCircle } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
-import '../css/PaymentConfirmation.css';
+import { Loading } from "../components";
+import '../css/PaymentConfirmation.scss';
+import { useGetPaymentStatusQuery } from "../features/api/authApi";
 
-export const PaymentConfirmation = () => {
+export const PaymentConfirmation: React.FC = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   
-  // Extracted session token to display on screen for support cross-references if needed
-  const sessionId = searchParams.get("session_id");
+  const orderNumber = searchParams.get("orderNumber") as string;
+  const { data: status, isLoading, error } = useGetPaymentStatusQuery(orderNumber);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  //  STATE 1: RUNTIME LOADING SPINNER
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  // ❌ STATE 2: DATABASE SERVER / API NETWORK EXCEPTION FETCH FAILURE
+  if (error) {
+    return (
+      <main className="payment-status payment-status--error">
+        <section className="payment-status__card">
+          <div className="payment-status__icon-wrapper payment-status__icon-wrapper--error">
+            <FiAlertCircle />
+          </div>
+          <h1 className="payment-status__title">
+            {t("payment_confirmation.error.title")}
+          </h1>
+          <p className="payment-status__description">
+            {t("payment_confirmation.error.description")}
+          </p>
+          <Link to="/cart" className="payment-status__cta-btn payment-status__cta-btn--secondary">
+            {t("payment_confirmation.error.cta_back")}
+          </Link>
+        </section>
+      </main>
+    );
+  }
+
+ 
+
+  // ❌ STATE 3: PAYMENT CANCELED / REJECTED STATUS
+  if (status === "CANCELLED" ||status === "FAILED") {
+    return (
+      <main className="payment-status payment-status--cancelled">
+        <section className="payment-status__card">
+          <div className="payment-status__icon-wrapper payment-status__icon-wrapper--cancelled">
+            <FiXCircle />
+          </div>
+          
+          <span className="payment-status__eyebrow">
+            {t("payment_confirmation.cancelled.eyebrow")}
+          </span>
+          <h1 className="payment-status__title">
+            {t("payment_confirmation.cancelled.title")}
+          </h1>
+          <p className="payment-status__description">
+            {t("payment_confirmation.cancelled.description")}
+          </p>
+          
+          <Link to="/cart" className="payment-status__cta-btn payment-status__cta-btn--secondary">
+            {t("payment_confirmation.cancelled.cta_retry")}
+          </Link>
+        </section>
+      </main>
+    );
+  }
+
+  //  STATE 4: SUCCESSFUL TRANSACTIONS VERIFIED (PAID / COMPLETED)
   return (
-    <main className="success-receipt">
-      {/* ==========================================================================
-          SUCCESS TRANSACTION RECEIPT EMBED CARD
-          ========================================================================== */}
-      <section className="success-receipt__card">
+    <main className="payment-status payment-status--success">
+      <section className="payment-status__card">
         
-        {/* Animated Check Vector Hub Icon */}
-        <div className="success-receipt__icon-wrapper">
+        <div className="payment-status__icon-wrapper payment-status__icon-wrapper--success">
           <FiCheckCircle />
         </div>
 
-        <span className="success-receipt__eyebrow">
+        <span className="payment-status__eyebrow">
           {t("payment_confirmation.success.eyebrow")}
         </span>
 
-        <h1 className="success-receipt__title">
+        <h1 className="payment-status__title">
           {t("payment_confirmation.success.title")}
         </h1>
 
-        <p className="success-receipt__description">
+        <p className="payment-status__description">
           {t("payment_confirmation.success.description")}
         </p>
 
-        {sessionId && (
-          <div className="success-receipt__session-badge">
+        {orderNumber && (
+          <div className="payment-status__session-badge">
             <span>{t("payment_confirmation.success.session_label")}: </span>
-            <code>#{sessionId.substring(0, 12)}...</code>
+            <code>#{orderNumber}</code>
           </div>
         )}
 
-        <div className="success-receipt__hint-box">
-          <strong className="success-receipt__hint-title">
+        <div className="payment-status__hint-box">
+          <strong className="payment-status__hint-title">
             {t("payment_confirmation.success.next_steps_title")}
           </strong> 
-          <p className="success-receipt__hint-desc">
+          <p className="payment-status__hint-desc">
             {t("payment_confirmation.success.next_steps_desc")}
           </p>
         </div>
 
-        <p className="success-receipt__support-text">
+        <p className="payment-status__support-text">
           {t("payment_confirmation.success.support_hint")}{" "}
-          <a href="mailto:kontakt@kasoa.pl" className="success-receipt__link">
+          <a href="mailto:kontakt@kasoa.pl" className="payment-status__link">
             kontakt@kasoa.pl
           </a>
         </p>
 
-        <Link to="/shop" className="sl-btn sl-btn--primary success-receipt__cta-btn">
+        <Link to="/shop" className="payment-status__cta-btn">
           <FiShoppingBag /> {t("payment_confirmation.success.cta_continue")}
         </Link>
       </section>

@@ -823,21 +823,27 @@
       }
     }
   },
-  "payment_confirmation": {
+"payment_confirmation": {
     "success": {
-      "eyebrow": "Payment Approved",
-      "title": "Thank you for your order!",
-      "description": "We appreciate your business! A confirmation email along with Escrow protection details will be sent to your address.",
-      "session_label": "Session ID",
+      "eyebrow": "Transaction Confirmed",
+      "title": "Payment Successful!",
+      "description": "Thank you for your purchase. Your payment has been securely processed and funds are now safely held in our protected escrow pool.",
+      "session_label": "Order Reference",
       "next_steps_title": "What happens next?",
-      "next_steps_desc": "We have already notified the sellers to pack your pre-loved items. As soon as they dispatch them, you will receive another update containing your tracking number.",
-      "support_hint": "Have any questions or concerns? Reach out to us at:",
-      "cta_continue": "Continue shopping"
+      "next_steps_desc": "The seller has been notified via private server manifest to package your items. Your escrow protection clock will run for 72 hours following courier delivery confirmation.",
+      "support_hint": "If you experience any complications or logistics delays, contact our team immediately at",
+      "cta_continue": "Continue to Dashboard"
+    },
+    "cancelled": {
+      "eyebrow": "Transaction Aborted",
+      "title": "Payment Not Successful",
+      "description": "Your payment transaction was cancelled or rejected. Please verify your banking account balance, contact your financial institution, or choose a different payment method.",
+      "cta_retry": "Return to Shopping Cart"
     },
     "error": {
       "title": "Verification Error",
-      "description": "We were unable to verify your payment status. If funds were deducted, please check your email inbox.",
-      "cta_back": "Back to shop"
+      "description": "We encountered an exception while retrieving your checkout transaction status records from the server database tier.",
+      "cta_back": "Return to Shopping Cart"
     }
   },
   "cart_page": {

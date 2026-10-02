@@ -93,6 +93,8 @@ const ProductDetails = () => {
     }
     try {
       const response = await buyNow({ listingId, locale });
+      console.log(response);
+      
 
       const { data, message, httpStatus } = response.data as TResponseDto;
 

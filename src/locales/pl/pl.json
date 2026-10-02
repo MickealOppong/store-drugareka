@@ -813,21 +813,27 @@
       }
     }
   },
-  "payment_confirmation": {
+"payment_confirmation": {
     "success": {
-      "eyebrow": "Płatność zatwierdzona",
-      "title": "Dziękujemy za zamówienie!",
-      "description": "Dziękujemy za zakupy! Na Twój adres e-mail wyślemy potwierdzenie wraz ze szczegółami ochrony Escrow.",
-      "session_label": "ID sesji",
-      "next_steps_title": "Co dalej?",
-      "next_steps_desc": "Powiadomiliśmy już sprzedawców, aby przygotowali Twoje produkty. Gdy tylko je wyślą, otrzymasz kolejną wiadomość z numerem przesyłki.",
-      "support_hint": "Masz pytania lub wątpliwości? Skontaktuj się z nami:",
-      "cta_continue": "Kontynuuj zakupy"
+      "eyebrow": "Transakcja Sfinalizowana",
+      "title": "Płatność Zakończona Sukcesem!",
+      "description": "Dziękujemy za zakupy. Twoja płatność została pomyślnie autoryzowana, a środki finansowe zostały bezpiecznie ulokowane na chronionym rachunku depozytowym escrow.",
+      "session_label": "Numer zamówienia",
+      "next_steps_title": "Co dzieje się teraz?",
+      "next_steps_desc": "Sprzedawca został niezwłocznie powiadomiony systemowo o konieczności przygotowania przesyłki gabarytowej. Twój zegar ochrony transakcji będzie odliczał 72 godziny od momentu doręczenia paczki przez kuriera.",
+      "support_hint": "W przypadku jakichkolwiek problemów technicznych lub opóźnień logistycznych, prosimy o natychmiastowy kontakt z zespołem pod adresem",
+      "cta_continue": "Przejdź do Panelu Głównego"
+    },
+    "cancelled": {
+      "eyebrow": "Transakcja Przerwana",
+      "title": "Płatność Niepowiodła Się",
+      "description": "Transakcja płatnicza została anulowana lub odrzucona przez operatora. Proszę zweryfikować stan konta bankowego, skontaktować się ze swoją instytucją finansową lub wybrać inną metodę płatności.",
+      "cta_retry": "Wróć do Koszyka"
     },
     "error": {
-      "title": "Błąd weryfikacji",
-      "description": "Nie udało się zweryfikować statusu płatności. Jeśli środki zostały pobrane, sprawdź swoją skrzynkę e-mail.",
-      "cta_back": "Wróć do sklepu"
+      "title": "Błąd Weryfikacji",
+      "description": "Wystąpił błąd krytyczny podczas próby pobrania aktualnego statusu płatności i zamówienia z bazy danych serwera.",
+      "cta_back": "Wróć do Koszyka"
     }
   },
   "cart_page": {
