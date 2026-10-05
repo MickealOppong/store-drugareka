@@ -9,7 +9,6 @@ import {
   FiShoppingBag,
   FiX,
 } from "react-icons/fi";
-import type { IconType } from "react-icons/lib";
 import { Link, useNavigate, useSearchParams } from "react-router";
 import { Loading } from "../components";
 import "../css/Categories.scss";
@@ -141,13 +140,6 @@ export const Categories: React.FC = () => {
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
   };
 
-  const getCategoryIcon = (categoryName: string): IconType | null => {
-    return (
-      CATEGORY_HEADERS.find(
-        (item) => item.key === sanitizeCategoryKey(categoryName),
-      )?.icon ?? null
-    );
-  };
 
   if (isLoading) {
     return (
