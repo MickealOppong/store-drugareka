@@ -213,7 +213,7 @@ const ProductView = () => {
                     {/* CATEGORY DECORATOR */}
                     <td>
                       <span className="data-table__text">
-                        {product.category}
+                        {product.category.name}
                       </span>
                     </td>
 

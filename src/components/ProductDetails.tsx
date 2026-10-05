@@ -93,12 +93,11 @@ const ProductDetails = () => {
     }
     try {
       const response = await buyNow({ listingId, locale });
-      console.log(response);
       
 
       const { data, message, httpStatus } = response.data as TResponseDto;
 
-      console.log(data);
+     // console.log(data);
       
       if (httpStatus == 400 || httpStatus == 500 || httpStatus == 403) {
         setIsLoading(false);
@@ -183,7 +182,7 @@ const ProductDetails = () => {
             <FiArrowLeft /> {t("product_details.nav.back")}
           </button>
           <span className="product-details__category-crumb">
-            {t("product_details.nav.shop_crumb")} / {product.category}
+            {t("product_details.nav.shop_crumb")} / {product.category.name}
           </span>
         </header>
 
