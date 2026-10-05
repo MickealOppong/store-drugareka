@@ -107,6 +107,31 @@
         "accessories": "Akcesoria"
       }
     },
+    "sports_outdoor": {
+"name": "Sport i rekreacja",
+"subcategories":{
+    "bicycles": "Rowery",
+  "gym_equipment": "Sprzęt do ćwiczeń",
+  "running_shoes": "Buty do biegania",
+  "hiking_camping": "Turystyka piesza i kemping",
+  "sportswear": "Odzież sportowa",
+  "football": "Piłka nożna",
+  "basketball": "Koszykówka",
+  "tennis": "Tenis",
+  "swimming": "Pływanie",
+  "winter_sports": "Sporty zimowe",
+  "water_sports": "Sporty wodne",
+  "fishing": "Wędkarstwo",
+  "fitness_accessories": "Akcesoria fitness",
+  "sports_equipment": "Sprzęt sportowy",
+  "outdoor_equipment": "Sprzęt turystyczny i outdoorowy",
+  "skateboards_rollers": "Deskorolki i rolki",
+  "scooters": "Hulajnogi",
+  "camping_equipment": "Sprzęt kempingowy",
+  "cycling_accessories": "Akcesoria rowerowe",
+  "team_sports": "Sporty zespołowe"
+}
+},
     "women": {
       "name": "Kobiety",
       "subcategories": {

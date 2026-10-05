@@ -55,6 +55,7 @@ export const Categories: React.FC = () => {
   const page = parseInt(searchParams.get("page") || "1", 10);
   const selectedCategory = searchParams.get("category") || "all";
 
+
   const request = {
     queryCategory: selectedCategory,
     page,
@@ -263,7 +264,7 @@ export const Categories: React.FC = () => {
                   `categories.${sanitizeCategoryKey(selectedNode?.parent as string)}.subcategories.${sanitizeCategoryKey(selectedNode?.slug as string)}`,
                 )
               : expandedMainCat
-                ? t(`categories.${sanitizeCategoryKey(selectedCategory)}.name`)
+                ? t(`categories.${selectedCategory}.name`)
                 : t("categories.feed.all_listing", {
                     defaultValue: "All Available Listings",
                   })}

@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import '../css/MobileLanding.css';
 import { useGetLandingListingQuery, useGetTop6ProductCategoriesQuery } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
-import { formatPrice, sanitizeBackendKey } from "../util/util";
+import { formatPrice, sanitizeBackendKey, sanitizeCategoryKey } from "../util/util";
 import hero from './../assets/hero-large.png';
 import heroSmall from './../assets/hero-small.png';
 import Footer from "./Footer";
@@ -162,7 +162,7 @@ const {data:listings=[]} = useGetLandingListingQuery()
             >
               <img src={category.image} alt={category.name} />
               <div className="mobile-category-card__overlay">
-                <h3> {t(`category_names.${sanitizeBackendKey(category.slug)}`)}</h3>
+               <h3> {t(`categories.${sanitizeCategoryKey(category.name)}.name`)}</h3>
                 <FiArrowRight />
               </div>
             </Link>

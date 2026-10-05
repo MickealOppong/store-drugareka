@@ -49,6 +49,7 @@ export const ITEM_SIZE = [
 
 
 
+import { FaRunning } from "react-icons/fa";
 import {
   FaBook,
   FaBriefcase,
@@ -130,6 +131,11 @@ export const CATEGORY_HEADERS = [
     key: "travel_luggage",
     icon: FaSuitcase,
     color: "#059669" // Sage Mint
+  },
+   {
+    key: "sports_outdoor",
+    icon: FaRunning,
+    color: "#d00e7c" // Sage Mint
   }
 ];
 

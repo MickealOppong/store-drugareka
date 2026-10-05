@@ -15,6 +15,8 @@ const CategoryView = () => {
   const { revalidate } = useRevalidator();
   const { data: categories = [], isLoading } = useGetAllCategoriesQuery();
   const [deleteCategory] = useDeleteCategoryMutation();
+  
+
 
   /*
    * Delete category item row action handler

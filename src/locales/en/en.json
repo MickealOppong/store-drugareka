@@ -306,7 +306,32 @@
         "travel_accessories": "Travel Accessories",
         "luggage_organizers": "Luggage Organizers"
       }
-    }
+    },
+ "sports_outdoor": {
+ "name":"Sports & outdoor",
+ "subcategories":{
+   "bicycles": "Bicycles",
+  "gym_equipment": "Gym equipment",
+  "running_shoes": "Running shoes",
+  "hiking_camping": "Hiking and camping",
+  "sportswear": "Sportswear",
+  "football": "Football",
+  "basketball": "Basketball",
+  "tennis": "Tennis",
+  "swimming": "Swimming",
+  "winter_sports": "Winter sports",
+  "water_sports": "Water sports",
+  "fishing": "Fishing",
+  "fitness_accessories": "Fitness accessories",
+  "sports_equipment": "Sports equipment",
+  "outdoor_equipment": "Outdoor equipment",
+  "skateboards_rollers": "Skateboards and rollerblades",
+  "scooters": "Scooters",
+  "camping_equipment": "Camping equipment",
+  "cycling_accessories": "Cycling accessories",
+  "team_sports": "Team sports"
+ }
+}
   },
   "product_conditions": {
     "good": "Good",

@@ -49,7 +49,11 @@ const EditListing = () => {
 
   async function fetchListing() {
     const response = await getListing(parseInt(listingId as string));
+
+    
     const listing = response.data as TListTrans;
+
+    
 
     const mediaObj: TFile[] = await Promise.all(
       listing.media.map(async (item) => {
@@ -81,8 +85,8 @@ const EditListing = () => {
       id: listing.listingId,
       name: listing.productName,
       category: {
-        name:listing.category.name,
-        path:listing.category.path
+        name:listing?.category.name,
+        path:listing?.category.path
       },
       description: listing.productDescription,
       price: String(listing.priceDto.sellerNewPrice),
@@ -97,7 +101,8 @@ const EditListing = () => {
       shippingMethod: listing.shippingMethod,
       itemSize: listing.itemSize,
     });
-    setCategory(listing.category.name)
+
+    setCategory(formData.category.name)
   }
 
 
@@ -150,6 +155,8 @@ const EditListing = () => {
     shippingMethod: "",
     itemSize: "",
   });
+
+
 
 
   
@@ -246,16 +253,17 @@ const EditListing = () => {
     dataToSend.append("shippingInfo", productData.shippingInfo);
     //dataToSend.append("shippingMethod", productData.shippingMethod);
 
+
     images.forEach((file, index) => {
       dataToSend.append("images", file.file);
       dataToSend.append("imageSortOrder", String(index));
     });
 
-     console.log(Object.fromEntries(dataToSend));
+
      
     try {
       const response = await editLisitng(dataToSend);
-
+      console.log(response);
       
 
       if (response.data?.httpStatus === 200) {
@@ -319,7 +327,7 @@ const EditListing = () => {
     setCategory(category)
     setCategoryPath(path)
   }
-console.log(categoryPath);
+
 
 
   
