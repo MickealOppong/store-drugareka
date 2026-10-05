@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../css/AddListing.css";
 import { ITEM_SIZE } from "../data/data";
 import { useAddListingMutation } from "../features/api/itemApi";
-import { useGetAllCategoriesQuery } from "../features/api/storeApi";
+import { useGetCategoryTreeQuery } from "../features/api/storeApi";
 import {
   useGetAllConditionsQuery,
   useGetBrandsQuery
@@ -13,6 +13,7 @@ import {
 import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TProductData } from "../types/TProductData";
 import { sanitizeBackendKey } from "../util/util";
+import { CategoryDropdownSelect } from "./CategoryDropdownSelect";
 import SearchSelect from "./SearchSelect";
 
 type TFile = {
@@ -26,7 +27,7 @@ const AddListing = () => {
   /**
    * Brand query
    */
-  const { data: brands = [] } = useGetBrandsQuery()
+  const { data: brands = [] } = useGetBrandsQuery();
 
   /**
    * * navigate hook
@@ -45,18 +46,24 @@ const AddListing = () => {
   const [imageError, setImageError] = useState<string>("");
   const [shippingError, setShippingError] = useState<string>("");
   const [itemSizeError, setItemSizeError] = useState<string>("");
+  
 
   /**
    * * crud hooks
    */
-  const { data: categories = [] } = useGetAllCategoriesQuery();
+  const { data: categories = [] } = useGetCategoryTreeQuery()
   const { data: conditions = [] } = useGetAllConditionsQuery();
   const [addItem] = useAddListingMutation();
+  const [category,setCategory]=useState<string>('')
+  const [categoryPath,setCategoryPath]=useState<string>('')
 
   const [formData, setFormData] = useState<TProductData>({
     id: 1,
     name: "",
-    category: "",
+    category:{
+      name:'',
+      path:''
+    },
     description: "",
     price: "2",
     quantity: "1",
@@ -68,14 +75,14 @@ const AddListing = () => {
     images: [],
     imageSortOrder: [],
     shippingMethod: "",
-    itemSize:''
+    itemSize: "",
   });
 
   /**
-   * 
+   *
    * TRANSLATION
    */
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -143,7 +150,6 @@ const AddListing = () => {
    *
    */
 
-
   const handleButtonClick = (action: string) => {
     handleSubmit(action);
   };
@@ -162,7 +168,7 @@ const AddListing = () => {
     dataToSend.append("shippingInfo", productData.shippingInfo);
     dataToSend.append("brand", productData.brand);
     dataToSend.append("status", productData.status);
-    dataToSend.append("category", productData.category);
+    dataToSend.append("categoryPath", categoryPath);
     dataToSend.append("price", productData.price);
     dataToSend.append("sku", productData.sku);
     dataToSend.append("itemSize", productData.itemSize);
@@ -172,15 +178,11 @@ const AddListing = () => {
       dataToSend.append("imageSortOrder", String(index));
     });
 
+     console.log(Object.fromEntries(dataToSend));
 
-   // console.log(Object.fromEntries(dataToSend));
     
-
     try {
       const response = await addItem(dataToSend);
-
-
-
 
       if (response.data?.httpStatus === 200) {
         navigate("/account/listings/me");
@@ -197,7 +199,7 @@ const AddListing = () => {
           condition: string;
           shipping: string;
           shippingMethod: string;
-          itemSize:string
+          itemSize: string;
         };
 
         const { data, status } = response?.error as {
@@ -221,7 +223,7 @@ const AddListing = () => {
           condition,
           shipping,
           price,
-          itemSize
+          itemSize,
         } = data.error as TError;
         setNameError(name);
         setConditionError(condition);
@@ -230,19 +232,30 @@ const AddListing = () => {
         setBrandError(brand);
         setShippingError(shipping);
         setPriceError(price);
-        setItemSizeError(itemSize)
+        setItemSizeError(itemSize);
       }
     } catch (error: any) {}
+     
   };
 
+  
+
+  const handleCategoryChange =(category:string,path:string)=>{
+    setCategory(category)
+    setCategoryPath(path)
+  }
+  
   return (
- <main className="add-product">
+    <main className="add-product">
       {/* =====================================================
                 HEADER
             ====================================================== */}
       <header className="add-product__header">
         <div className="add-product__header-left">
-          <Link to={'/account/listings/me'} className="add-product__back">
+          <Link
+            to={"/account/listings/me"}
+            className="add-product__back"
+          >
             <FiArrowLeft />
           </Link>
 
@@ -298,8 +311,14 @@ const AddListing = () => {
 
               <div className="product-images">
                 {images.map((image, index) => (
-                  <div className="product-image" key={index}>
-                    <img src={image.preview} alt={`Product ${index + 1}`} />
+                  <div
+                    className="product-image"
+                    key={index}
+                  >
+                    <img
+                      src={image.preview}
+                      alt={`Product ${index + 1}`}
+                    />
 
                     <button
                       type="button"
@@ -351,7 +370,9 @@ const AddListing = () => {
               <div className="form-grid">
                 <div>
                   <div className="form-field form-field--full">
-                    <label htmlFor="name">{t("add_listing.fields.name.label")}</label>
+                    <label htmlFor="name">
+                      {t("add_listing.fields.name.label")}
+                    </label>
 
                     <input
                       id="name"
@@ -369,20 +390,25 @@ const AddListing = () => {
                   )}
                 </div>
 
-                <div className="form-field">
-                  <label htmlFor="category">{t("add_listing.fields.category.label")}</label>
+                <div
+                  className="form-field"
+                  style={{ display: "none" }}
+                >
+                  <label htmlFor="category">
+                    {t("add_listing.fields.category.label")}
+                  </label>
 
                   <select
                     id="category"
                     name="category"
-                    value={formData.category}
+                    value={category}
                     onChange={handleSelectChange}
                   >
                     <option
                       value=""
                       disabled
                     >
-                 {t("add_listing.fields.category.placeholder")}
+                      {t("add_listing.fields.category.placeholder")}
                     </option>
 
                     {categories?.map((category) => {
@@ -391,7 +417,9 @@ const AddListing = () => {
                           key={category.id}
                           value={category.name}
                         >
-                        {t(`category_names.${sanitizeBackendKey(category.slug.toLowerCase())}`)}
+                          {t(
+                            `category_names.${sanitizeBackendKey(category.slug.toLowerCase())}`,
+                          )}
                         </option>
                       );
                     })}
@@ -404,8 +432,18 @@ const AddListing = () => {
                   )}
                 </div>
 
+                {/** CATEGORY */}
+
+                <CategoryDropdownSelect 
+                 onChange={handleCategoryChange}
+                 name={'category'}
+                 value={category}
+                />
+
                 <div className="form-field">
-                  <label htmlFor="condition">{t("add_listing.fields.condition.label")}</label>
+                  <label htmlFor="condition">
+                    {t("add_listing.fields.condition.label")}
+                  </label>
 
                   <select
                     id="condition"
@@ -417,7 +455,7 @@ const AddListing = () => {
                       value=""
                       disabled
                     >
-                 {t("add_listing.fields.condition.placeholder")}
+                      {t("add_listing.fields.condition.placeholder")}
                     </option>
 
                     {conditions?.map((condition) => {
@@ -426,7 +464,9 @@ const AddListing = () => {
                           key={condition.id}
                           value={condition.name}
                         >
-                          {t(`product_conditions.${sanitizeBackendKey(condition.name.toLowerCase())}`)}
+                          {t(
+                            `product_conditions.${sanitizeBackendKey(condition.name.toLowerCase())}`,
+                          )}
                         </option>
                       );
                     })}
@@ -440,19 +480,23 @@ const AddListing = () => {
 
                 <div>
                   <div className="form-field form-field--full">
-                    <label htmlFor="description">{t("add_listing.fields.description.label")}</label>
+                    <label htmlFor="description">
+                      {t("add_listing.fields.description.label")}
+                    </label>
 
                     <textarea
                       id="description"
                       name="description"
                       rows={7}
-                      placeholder={t("add_listing.fields.description.placeholder")}
+                      placeholder={t(
+                        "add_listing.fields.description.placeholder",
+                      )}
                       value={formData.description}
                       onChange={handleTextInputChange}
                     />
 
                     <span className="form-field__hint">
-                    {t("add_listing.fields.description.hint")}
+                      {t("add_listing.fields.description.hint")}
                     </span>
                   </div>
                   {descriptionError && (
@@ -464,7 +508,7 @@ const AddListing = () => {
               </div>
             </section>
 
-                    {/* Pricing & Inventory */}
+            {/* Pricing & Inventory */}
             <section className="product-section">
               <div className="product-section__header">
                 <div>
@@ -475,7 +519,9 @@ const AddListing = () => {
 
               <div className="form-grid">
                 <div className="form-field">
-                  <label htmlFor="price">{t("add_listing.fields.price.label")}</label>
+                  <label htmlFor="price">
+                    {t("add_listing.fields.price.label")}
+                  </label>
 
                   <div className="input-with-prefix">
                     <span>zł</span>
@@ -498,7 +544,9 @@ const AddListing = () => {
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="quantity">{t("add_listing.fields.quantity.label")}</label>
+                  <label htmlFor="quantity">
+                    {t("add_listing.fields.quantity.label")}
+                  </label>
 
                   <input
                     id="quantity"
@@ -512,11 +560,13 @@ const AddListing = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="brand">{t("add_listing.fields.brand.label")}</label>
-                  <SearchSelect 
-                    brands={brands as TbrandResponse[]} 
-                    value={formData.brand} 
-                    onChange={handleSelectChange}  
+                  <label htmlFor="brand">
+                    {t("add_listing.fields.brand.label")}
+                  </label>
+                  <SearchSelect
+                    brands={brands as TbrandResponse[]}
+                    value={formData.brand}
+                    onChange={handleSelectChange}
                   />
                   {brandError && (
                     <span className="form-field__error-msg">{brandError}</span>
@@ -524,7 +574,9 @@ const AddListing = () => {
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="sku">{t("add_listing.fields.sku.label")}</label>
+                  <label htmlFor="sku">
+                    {t("add_listing.fields.sku.label")}
+                  </label>
 
                   <input
                     id="sku"
@@ -546,11 +598,12 @@ const AddListing = () => {
                   <p>{t("add_listing.sections.shipping.subtitle")}</p>
                 </div>
               </div>
-    
 
-                {/** ITEM SIZE */}
+              {/** ITEM SIZE */}
               <div className="form-field">
-                <label htmlFor="shippingMethod">{t("add_listing.fields.cargo_sizes.label")}</label>
+                <label htmlFor="shippingMethod">
+                  {t("add_listing.fields.cargo_sizes.label")}
+                </label>
 
                 <select
                   id="itemSize"
@@ -558,33 +611,43 @@ const AddListing = () => {
                   value={formData.itemSize}
                   onChange={handleSelectChange}
                 >
-                  <option value="" disabled>
+                  <option
+                    value=""
+                    disabled
+                  >
                     {t("add_listing.fields.cargo_sizes.placeholder")}
                   </option>
 
                   {ITEM_SIZE.map((size) => {
                     return (
-                      <option key={size.id} value={size.value}>
-                       {t(`add_listing.fields.cargo_sizes.item_size.${size.value}`)}
+                      <option
+                        key={size.id}
+                        value={size.value}
+                      >
+                        {t(
+                          `add_listing.fields.cargo_sizes.item_size.${size.value}`,
+                        )}
                       </option>
                     );
                   })}
                 </select>
                 {itemSizeError && (
-                  <span className="form-field__error-msg">
-                    {itemSizeError}
-                  </span>
+                  <span className="form-field__error-msg">{itemSizeError}</span>
                 )}
               </div>
 
               <div className="form-field shippingInfo">
-                <label htmlFor="shippingInfo">{t("add_listing.fields.shipping_info.label")}</label>
+                <label htmlFor="shippingInfo">
+                  {t("add_listing.fields.shipping_info.label")}
+                </label>
 
                 <textarea
                   id="shippingInfo"
                   name="shippingInfo"
                   rows={4}
-                  placeholder={t("add_listing.fields.shipping_info.placeholder")}
+                  placeholder={t(
+                    "add_listing.fields.shipping_info.placeholder",
+                  )}
                   value={formData.shippingInfo}
                   onChange={handleTextInputChange}
                 />
@@ -612,7 +675,9 @@ const AddListing = () => {
 
                 <div className="status-option__message">
                   <div>
-                    <strong>{t("add_listing.sidebar.status.publish_label")}</strong>
+                    <strong>
+                      {t("add_listing.sidebar.status.publish_label")}
+                    </strong>
                     <p>{t("add_listing.sidebar.status.publish_desc")}</p>
                   </div>
                 </div>
@@ -642,21 +707,29 @@ const AddListing = () => {
               <div className="product-preview">
                 <div className="product-preview__image">
                   {images.length > 0 ? (
-                    <img src={images[0].preview} alt="Product preview" />
+                    <img
+                      src={images[0].preview}
+                      alt="Product preview"
+                    />
                   ) : (
                     <FiImage />
                   )}
                 </div>
 
                 <div className="product-preview__content">
-                  <span>{formData.category || t("add_listing.sidebar.preview.fallback_category")}</span>
-                  <h4>{formData.name || t("add_listing.sidebar.preview.fallback_name")}</h4>
+                  <span>
+                    {formData.category.name ||
+                      t("add_listing.sidebar.preview.fallback_category")}
+                  </span>
+                  <h4>
+                    {formData.name ||
+                      t("add_listing.sidebar.preview.fallback_name")}
+                  </h4>
                   <strong>{formData.price || "0.00"} zł</strong>
                 </div>
               </div>
             </section>
           </aside>
-
         </div>
       </form>
     </main>

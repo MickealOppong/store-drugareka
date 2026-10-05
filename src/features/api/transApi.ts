@@ -42,9 +42,9 @@ export const transApi = createApi({
             }),
             invalidatesTags:['categories']
         }), 
-          allParentcategories:build.query<string[],void>({
+          allParentcategories:build.query<TCategoryReponse[],void>({
             query:()=>({
-                url:'/api/category/parent-categories',
+                url:'/api/store/parent-categories',
             }),
             providesTags:['categories']
         }),
@@ -78,7 +78,7 @@ export const transApi = createApi({
         }),
           getAllCategories: build.query<TCategoryReponse[], void>({
               query: () => ({
-                url: "/api/store/all-categories",
+                url: "/api/store/categories",
               }),
               providesTags: ["categories"],
             }),

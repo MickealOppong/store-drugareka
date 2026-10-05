@@ -67,34 +67,257 @@
       "link_start_selling": "Zacznij sprzedawać",
       "link_help_centre": "Centrum pomocy",
       "link_contact": "Kontakt",
-      "terms":"Regulamin",
-         "privacy":"Polityka prywatności"
+      "terms": "Regulamin",
+      "privacy": "Polityka prywatności"
     }
   },
-  "category_names": {
-    "mens_fashion": "Moda męska",
-    "womens_fashion": "Moda damska",
-    "electronics": "Elektronika",
-    "home_living": "Dom i wnętrza",
-    "garden_tools":"Ogród i narzędzia",
-    "shoes": "Obuwie",
-    "home_equipment": "sprzęt AGD",
-    "machines_spare_parts": "Maszyny i części zamienne",
-    "books_media": "Książki i multimedia",
-    "sport_outdoor": "Sport i rekreacja",
-    "kids": "Dzieci",
-    "beauty_health": "Uroda i zdrowie",
-    "furniture":"Meble"
+  "categories": {
+    "feed": {
+      "filtered_view": "Filtrowane ogłoszenia",
+      "all_listing": "Wszystkie dostępne ogłoszenia",
+      "loading": "Ładowanie drzewa katalogu...",
+      "error": "Nie udało się załadować pól układu kategorii."
+    },
+    "empty_search": {
+      "title": "",
+      "message": "Nie mogliśmy znaleźć żadnych przedmiotów pasujących do Twojego aktywnego profilu kategorii. Spróbuj rozszerzyć zapytania lub zresetować aktywne parametry.",
+      "clear_btn": "Wyczyść aktywne filtry"
+    },
+    "header": {
+      "title": "Kategorie",
+      "placeholder_text": "Wybierz kategorię",
+       "text_label": "Kategoria produktu"
+    },
+    "electronics": {
+      "name": "Elektronika",
+      "subcategories": {
+        "phones": "Telefony i smartfony",
+        "tablets": "Tablety",
+        "laptops_computers": "Laptopy i komputery",
+        "monitors": "Monitory",
+        "televisions": "Telewizory",
+        "consoles_games": "Konsole i gry",
+        "headphones_speakers": "Słuchawki i głośniki",
+        "cameras": "Aparaty i kamery",
+        "computers": "Komputery",
+        "smartwatches_watches": "Smartwatche i zegarki",
+        "electronic_accessories": "Akcesoria elektroniczne",
+        "audio_equipment": "Sprzęt audio",
+        "small_appliances": "Małe AGD",
+        "accessories": "Akcesoria"
+      }
+    },
+    "women": {
+      "name": "Kobiety",
+      "subcategories": {
+        "clothings": "Odzież",
+        "dresses": "Sukienki",
+        "tops_t_shirts": "Topy i T-shirty",
+        "shirts_blouses": "Koszule i bluzki",
+        "sweaters_cardigans": "Swetry i kardigany",
+        "jackets_coats": "Kurtki i płaszcze",
+        "trousers_jeans": "Spodnie i jeansy",
+        "skirts_shorts": "Spódnice i szorty",
+        "sportswear": "Odzież sportowa",
+        "underwear_sleepwear": "Bielizna i piżamy",
+        "shoes": "Buty",
+        "sneakers_trainers": "Sneakersy i buty sportowe",
+        "boots_ankle_boots": "Kozaki i botki",
+        "heels": "Szpilki i buty na obcasie",
+        "sandals_flip_flops": "Sandały i klapki",
+        "handbags": "Torebki",
+        "backpacks": "Plecaki",
+        "wallets_purses": "Portfele",
+        "watches": "Zegarki",
+        "jewelry": "Biżuteria",
+        "fashion_accessories": "Akcesoria modowe",
+        "maternity_clothing": "Odzież ciążowa",
+        "vintage_clothing": "Odzież vintage"
+      }
+    },
+    "men": {
+      "name": "Mężczyźni",
+      "subcategories": {
+        "clothing": "Odzież",
+        "t_shirts": "T-shirty",
+        "shirts": "Koszule",
+        "sweaters_hoodies": "Swetry i bluzy z kapturem",
+        "jackets_coats": "Kurtki i płaszcze",
+        "trousers_jeans": "Spodnie i jeansy",
+        "shorts": "Szorty",
+        "suits_blazers": "Garnitury i marynarki",
+        "sportswear": "Odzież sportowa",
+        "underwear_sleepwear": "Bielizna i piżamy",
+        "shoes": "Buty",
+        "sneakers_trainers": "Sneakersy i buty sportowe",
+        "boots": "Botki i kozaki",
+        "formal_shoes": "Buty eleganckie",
+        "sandals_flip_flops": "Sandały i klapki",
+        "bags_backpacks": "Torby i plecaki",
+        "wallets": "Portfele",
+        "watches": "Zegarki",
+        "jewelry": "Biżuteria",
+        "belts_ties": "Paski i krawaty",
+        "fashion_accessories": "Akcesoria modowe",
+        "vintage_clothing": "Odzież vintage"
+      }
+    },
+    "kids": {
+      "name": "Dzieci",
+      "subcategories": {
+        "baby_clothing": "Ubranka dla niemowląt",
+        "girls_clothing": "Odzież dziewczęca",
+        "boys_clothing": "Odzież chłopięca",
+        "baby_shoes": "Buty dla niemowląt",
+        "girls_shoes": "Buty dziewczęce",
+        "boys_shoes": "Buty chłopięce",
+        "strollers_pushchairs": "Wózki dziecięce",
+        "car_seats": "Foteliki samochodowe",
+        "toys": "Zabawki",
+        "building_blocks": "Klocki i zestawy konstrukcyjne",
+        "games_puzzles": "Gry i puzzle",
+        "baby_accessories": "Akcesoria dla niemowląt",
+        "kids_furniture": "Meble dziecięce",
+        "school_supplies": "Artykuły szkolne",
+        "kids_bicycles": "Rowery dziecięce",
+        "scooters_ride_ons": "Hulajnogi i pojazdy dziecięce"
+      }
+    },
+    "home_garden": {
+      "name": "Dom i ogród",
+      "subcategories": {
+        "furniture": "Meble",
+        "home_decor": "Dekoracje",
+        "lighting": "Oświetlenie",
+        "bedroom":"Sypialnia",
+        "kitchen_dining": "Kuchnia i jadalnia",
+        "tableware": "Naczynia i zastawa",
+        "home_textiles": "Tekstylia domowe",
+        "tools": "Narzędzia",
+        "garden_terrace": "Ogród i taras",
+        "bathroom_accessories": "Akcesoria łazienkowe",
+        "storage_organization": "Przechowywanie i organizacja",
+        "home_appliances": "Sprzęt AGD",
+        "home_office": "Wyposażenie biura domowego"
+      }
+    },
+    "sports_recreation": {
+      "name": "Sport i rekreacja",
+      "subcategories": {
+        "bicycles_accessories": "Rowery i akcesoria",
+        "fitness_gym": "Fitness i siłownia",
+        "running": "Bieganie",
+        "hiking_camping": "Turystyka i camping",
+        "winter_sports": "Sporty zimowe",
+        "water_sports": "Sporty wodne",
+        "football": "Piłka nożna",
+        "racket_sports": "Sporty rakietowe",
+        "outdoor_equipment": "Sprzęt outdoorowy",
+        "games_play": "Gry i zabawy",
+        "sports_equipment": "Sprzęt sportowy"
+      }
+    },
+    "automotive": {
+      "name": "Motoryzacja",
+      "subcategories": {
+        "car_parts": "Części samochodowe",
+        "motorcycle_parts": "Części motocyklowe",
+        "tires_wheels": "Opony i felgi",
+        "car_accessories": "Akcesoria samochodowe",
+        "car_electronics": "Elektronika samochodowa",
+        "workshop_tools": "Narzędzia warsztatowe",
+        "garage_equipment": "Wyposażenie garażu",
+        "motorcycle_accessories": "Akcesoria motocyklowe",
+        "bicycle_parts": "Części rowerowe",
+        "car_audio": "Car audio"
+      }
+    },
+    "books_media": {
+      "name": "Książki i media",
+      "subcategories": {
+        "books": "Książki",
+        "textbooks": "Podręczniki",
+        "childrens_books": "Książki dla dzieci",
+        "comics_manga": "Komiksy i manga",
+        "board_games": "Gry planszowe",
+        "video_games": "Gry komputerowe",
+        "vinyl_records": "Płyty winylowe",
+        "cds_dvds": "Płyty CD i DVD",
+        "movies": "Filmy",
+        "musical_instruments": "Instrumenty muzyczne"
+      }
+    },
+    "beauty_health": {
+      "name": "Uroda i zdrowie",
+      "subcategories": {
+        "skincare": "Pielęgnacja skóry",
+        "hair_care": "Pielęgnacja włosów",
+        "hair_styling": "Suszarki i urządzenia do stylizacji włosów",
+        "shavers_trimmers": "Golarki i trymery",
+        "makeup_accessories": "Makijaż i akcesoria",
+        "perfumes": "Perfumy",
+        "manicure_pedicure": "Manicure i pedicure",
+        "massage_relaxation": "Masaż i relaks",
+        "beauty_devices": "Urządzenia pielęgnacyjne"
+      }
+    },
+    "office_business": {
+      "name": "Biuro i firma",
+      "subcategories": {
+        "desks_chairs": "Biurka i krzesła",
+        "computer_accessories": "Akcesoria komputerowe",
+        "printers_scanners": "Drukarki i skanery",
+        "office_supplies": "Materiały biurowe",
+        "conference_equipment": "Sprzęt konferencyjny",
+        "retail_equipment": "Wyposażenie sklepu",
+        "professional_equipment": "Sprzęt profesjonalny"
+      }
+    },
+    "hobbies_collectibles": {
+      "name": "Hobby i kolekcje",
+      "subcategories": {
+        "collectibles": "Kolekcjonerstwo",
+        "figures_models": "Figurki i modele",
+        "antiques": "Antyki",
+        "art_paintings": "Sztuka i obrazy",
+        "handicrafts": "Rękodzieło",
+        "photography": "Fotografia",
+        "model_making": "Modelarstwo",
+        "hobby_accessories": "Akcesoria hobbystyczne"
+      }
+    },
+    "pets": {
+      "name": "Zwierzęta",
+      "subcategories": {
+        "dog_accessories": "Akcesoria dla psów",
+        "cat_accessories": "Akcesoria dla kotów",
+        "pet_beds_carriers": "Legowiska i transportery",
+        "aquariums_accessories": "Akwaria i akcesoria",
+        "cages_equipment": "Klatki i wyposażenie",
+        "pet_toys": "Zabawki dla zwierząt"
+      }
+    },
+    "travel_luggage": {
+      "name": "Podróże i bagaż",
+      "subcategories": {
+        "suitcases": "Walizki",
+        "travel_bags": "Torby podróżne",
+        "hiking_backpacks": "Plecaki turystyczne",
+        "travel_accessories": "Akcesoria podróżne",
+        "luggage_organizers": "Organizery bagażowe"
+      }
+    }
   },
+
   "product_conditions": {
     "good": "Dobry",
     "new": "Nowy",
     "excellent_condition": "Doskonały",
     "used": "Używany",
     "very_good": "Bardzo dobry",
-  "open_new": "Otwarte, ale nowe",
-  "new_other": "Nowy (powystawowy, leżak magazynowy)",
-  "used_good": "Używany — w dobrym stanie"
+    "open_new": "Otwarte, ale nowe",
+    "new_other": "Nowy (powystawowy, leżak magazynowy)",
+    "used_good": "Używany — w dobrym stanie"
   },
   "shop": {
     "header": {
@@ -208,8 +431,8 @@
       "shipments": "Przesyłki",
       "wishlist": "Moje ulubione",
       "payouts": "Wypłaty",
-        "my_profile":"Mój profil",
-        "shop":"Sklep"
+      "my_profile": "Mój profil",
+      "shop": "Sklep"
     },
     "footer": {
       "add_product": "Dodaj produkt",
@@ -256,24 +479,24 @@
         "awaiting": "Oczekuje na wysyłkę",
         "payout": "Dostępne środki"
       },
-    "activity": {
-    "title": "Ostatnia aktywność",
-    "view_listings": "Zobacz produkty",
-    "statuses": {
-      "active": "Aktywne",
-      "sold": "Sprzedane",
-      "shipping": "W wysyłce",
-      "cancelled": "Anulowane",
-      "awaiting_shipment": "Oczekuje na wysyłkę",
-      "published": "Opublikowane",
-      "returned": "Zwrócone",
-      "delivered": "Dostarczone",
-      "shipped": "Wysłane",
-      "draft": "Szkic",
-      "available": "Dostępne",
-      "reserved": "Zarezerwowane"
-    }
-  }
+      "activity": {
+        "title": "Ostatnia aktywność",
+        "view_listings": "Zobacz produkty",
+        "statuses": {
+          "active": "Aktywne",
+          "sold": "Sprzedane",
+          "shipping": "W wysyłce",
+          "cancelled": "Anulowane",
+          "awaiting_shipment": "Oczekuje na wysyłkę",
+          "published": "Opublikowane",
+          "returned": "Zwrócone",
+          "delivered": "Dostarczone",
+          "shipped": "Wysłane",
+          "draft": "Szkic",
+          "available": "Dostępne",
+          "reserved": "Zarezerwowane"
+        }
+      }
     },
     "upgrade_cta": {
       "title": "MASZ RZECZY, KTÓRYCH JUŻ NIE UŻYWASZ?",
@@ -314,11 +537,11 @@
         "actions": "Akcje"
       },
       "statuses": {
-       "published":"Opublikowane",
-       "draft":"Szkic",
-       "available": "Dostępne",
-"sold": "Sprzedane",
-"reserved": "Zarezerwowane"
+        "published": "Opublikowane",
+        "draft": "Szkic",
+        "available": "Dostępne",
+        "sold": "Sprzedane",
+        "reserved": "Zarezerwowane"
       }
     },
     "actions": {
@@ -365,12 +588,12 @@
         "action": "Akcja"
       },
       "statuses": {
-    "paid": "Opłacone",
-"awaiting_shipment": "Oczekuje na wysyłkę",
-"shipped": "Wysłane",
-"delivered": "Dostarczone",
-"cancelled": "Anulowane",
-"processing": "W trakcie przetwarzania"
+        "paid": "Opłacone",
+        "awaiting_shipment": "Oczekuje na wysyłkę",
+        "shipped": "Wysłane",
+        "delivered": "Dostarczone",
+        "cancelled": "Anulowane",
+        "processing": "W trakcie przetwarzania"
       }
     },
     "actions": {
@@ -429,7 +652,7 @@
       "headers": {
         "order": "Zamówienie",
         "seller": "Sprzedawca",
-        "size":"Rozmair paczki",
+        "size": "Rozmair paczki",
         "address": "Adres dostawy",
         "shipped_at": "Wysłano",
         "delivered_at": "Dostarczone",
@@ -484,17 +707,17 @@
         "status": "Status",
         "currency": "Waluta",
         "total": "Kwota",
-          "actions":"Ackje"
+        "actions": "Ackje"
       },
       "statuses": {
-    "pending": "Oczekujące",
-"pending_payout": "Oczekuje na wypłatę",
-"paid": "Opłacone",
-"completed": "Zakończone",
-"failed": "Nieudane",
-"cancelled": "Anulowane",
-"created": "Utworzone",
-"refund":"Zwrot pieniężny"
+        "pending": "Oczekujące",
+        "pending_payout": "Oczekuje na wypłatę",
+        "paid": "Opłacone",
+        "completed": "Zakończone",
+        "failed": "Nieudane",
+        "cancelled": "Anulowane",
+        "created": "Utworzone",
+        "refund": "Zwrot pieniężny"
       }
     }
   },
@@ -572,7 +795,7 @@
   "navigation": {
     "menu": {
       "shop": "Kupuj",
-      "categories": "kategorie",
+      "categories": "Kategorie",
       "sell": "Sprzedawaj z nami"
     },
     "actions": {
@@ -653,13 +876,13 @@
     "info": {
       "condition": "Stan",
       "availability": "Dostępność",
-        "delivery":"Doręczenie"
+      "delivery": "Doręczenie"
     },
     "pricing": {
       "savings": "Oszczędzasz {{amount}} zł ({{percent}}%)"
     },
     "safety": {
-  "return_assurance": "24 godziny na odrzucenie produktu po dostawie i na jego zwrot."
+      "return_assurance": "24 godziny na odrzucenie produktu po dostawie i na jego zwrot."
     },
     "actions": {
       "buy_now": "Kup teraz",
@@ -678,7 +901,7 @@
     "error": {
       "generic": "Coś poszło nie tak podczas ładowania tego produktu.",
       "return_btn": "Wstecz",
-      "add_btn":"Dodaj adres"
+      "add_btn": "Dodaj adres"
     }
   },
   "add_listing": {
@@ -737,7 +960,10 @@
         "label": "Ilość"
       },
       "brand": {
-        "label": "Marka"
+        "label": "Marka",
+         "placeholder": "Wpisz lub szukaj...",
+      "clear_hint": "Wyczyść wybór",
+         "no_results": "Nie znaleźliśmy marki \"{{value}}\", Marka zostanie automatycznie dodana do listy"
       },
       "sku": {
         "label": "SKU (kod produktu)",
@@ -746,28 +972,27 @@
       "shipping_method": {
         "label": "Metoda wysyłki",
         "placeholder": "Wybierz metodę wysyłki",
-          "options": {
-    "standard": "Kurier Standard",
-    "locker": "Paczkomat® / Automat Paczkowy",
-    "bulky": "Przesyłka Gabarytowa (Niestandardowa)",
-    "palette": "Przesyłka Paletowa (Ciężka)"
-  }
+        "options": {
+          "standard": "Kurier Standard",
+          "locker": "Paczkomat® / Automat Paczkowy",
+          "bulky": "Przesyłka Gabarytowa (Niestandardowa)",
+          "palette": "Przesyłka Paletowa (Ciężka)"
+        }
       },
       "shipping_info": {
         "label": "Informacje o wysyłce",
         "placeholder": "np. Wysyłka w ciągu 2–3 dni roboczych. Koszt wysyłki pokrywa kupujący."
       },
       "cargo_sizes": {
-        "label":"Rozmiar paczki",
-        "placeholder":"Wybierz gabaryt przedmiotu (Rozmiar paczki)",
- "item_size": {
-    "small": "Mała - do 10kg",
-    "medium": "Średnia - do 20kg",
-    "large": "Duża - do 50kg",
-    "heavy": "Ciężka - powyżej 50kg"
-  }
-
-  }
+        "label": "Rozmiar paczki",
+        "placeholder": "Wybierz gabaryt przedmiotu (Rozmiar paczki)",
+        "item_size": {
+          "small": "Mała - do 10kg",
+          "medium": "Średnia - do 20kg",
+          "large": "Duża - do 50kg",
+          "heavy": "Ciężka - powyżej 50kg"
+        }
+      }
     },
     "sidebar": {
       "status": {
@@ -813,7 +1038,7 @@
       }
     }
   },
-"payment_confirmation": {
+  "payment_confirmation": {
     "success": {
       "eyebrow": "Transakcja Sfinalizowana",
       "title": "Płatność Zakończona Sukcesem!",
@@ -877,7 +1102,7 @@
       "reports": "Raporty",
       "analytics": "Analityka",
       "payouts": "Wypłaty",
-"courier":"Opłaty kurierskie"
+      "courier": "Opłaty kurierskie"
     }
   },
   "error_page": {
@@ -945,7 +1170,7 @@
       "seller_btn": "Wystaw produkt na sprzedaż"
     }
   },
-"user_profile": {
+  "user_profile": {
     "header": {
       "badge": "Profil użytkownika",
       "title": "Twój profil",
@@ -1069,7 +1294,7 @@
       "generic_error": "Wystąpił nieoczekiwany błąd serwera."
     }
   },
-"contact_form": {
+  "contact_form": {
     "header": {
       "eyebrow": "Pomoc",
       "title": "Skontaktuj się z nami",
@@ -1090,7 +1315,7 @@
       "call_now": "Zadzwoń bezpośrednio"
     }
   },
-   "order_return_modal": {
+  "order_return_modal": {
     "header": {
       "badge": "Proces Zwrotu Konsumenckiego"
     },
@@ -1102,7 +1327,7 @@
       "reason_label": "Powód Zwrotu",
       "problem_description": "Opis problemu",
       "placeholder": "Opisz krótko szczegóły zwrotu dla celów weryfikacji...",
-"warning_title": "Rygorystyczny Termin 3 Dni:",
+      "warning_title": "Rygorystyczny Termin 3 Dni:",
       "warning_text": "Zwrot musi zostać zgłoszony w ciągu 3 dni od doręczenia paczki. Po tym terminie środki są automatycznie przekazywane sprzedawcy i natychmiastowy zwrot przez platformę nie będzie możliwy. Jeśli napotkasz problemy po tym czasie, musisz otworzyć oficjalny spór w celu weryfikacji przez administratora."
     },
     "reasons": {

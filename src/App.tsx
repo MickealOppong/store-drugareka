@@ -83,7 +83,7 @@ function App() {
         },
         {
           path: "shop/categories",
-          element: <Categories />,
+          element: <Categories/>,
         },
         {
           path: "category/:slug",

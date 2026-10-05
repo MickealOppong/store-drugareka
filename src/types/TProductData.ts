@@ -4,7 +4,7 @@ export type TProductData={
     images: TFile[];
     id: number;
     name: string;
-    category: string;
+    category:{name:string,path:string}
     description: string;
     price: string;
     quantity: string;

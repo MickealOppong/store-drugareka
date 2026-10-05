@@ -32,14 +32,14 @@ const EditCategory = () => {
   const [parent, setParent] = useState("");
   const [image, setImage] = useState<TFile | null>(null);
   const [sortOrder, setSortOrder] = useState(0);
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<TCategoryReponse[]>([]);
   const [error, setError] = useState("");
 
   const loadParentCategories = useCallback(async () => {
     try {
       const response = await fetchParentCategories().unwrap();
       const data = response
-      setCategories(Array.isArray(data) ? (data as string[]) : []);
+      setCategories(data as TCategoryReponse[]);
     } catch (err) {
       console.error(err);
       setError("Server error when loading parent categories.");
@@ -66,7 +66,7 @@ const EditCategory = () => {
         return;
       }
 
-      console.log(category);
+
       
       const imageResponse = await fetch(category.image);
 
@@ -320,8 +320,8 @@ const EditCategory = () => {
                 <option value="">No parent — Root category</option>
 
                 {categories.map((category) => (
-                  <option value={category} key={category}>
-                    {category}
+                  <option value={category.name} key={category.id}>
+                    {category.name}
                   </option>
                 ))}
               </select>

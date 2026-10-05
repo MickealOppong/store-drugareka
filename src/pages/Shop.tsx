@@ -18,13 +18,13 @@ import {
   useGetWishListsQuery,
 } from "../features/api/itemApi";
 import {
-  useGetAllCategoriesQuery,
-  useGetStoreListingsFeedQuery,
+  useGetAllParentCategoriesQuery,
+  useGetStoreListingsFeedQuery
 } from "../features/api/storeApi";
 import { useAddToCart } from "../hooks/useAddTocart";
 import { useRecentViews } from "../hooks/useRecentViews";
 import { useAppSelector } from "../store";
-import { formatPrice, sanitizeBackendKey } from "../util/util";
+import { formatPrice, sanitizeBackendKey, sanitizeCategoryKey } from "../util/util";
 
 
 
@@ -59,15 +59,16 @@ const Shop = () => {
 
   // Replaced useLazy Query hooks entirely. These automatically trigger an optimized
   // backend network fetch pass the split second a user mounts or lands on this route path!
-  const { data, isLoading: isProductsLoading,error } = useGetStoreListingsFeedQuery(
+  const { data, isLoading: isProductsLoading} = useGetStoreListingsFeedQuery(
     request,
     { refetchOnFocus: true, refetchOnMountOrArgChange: true },
   );
   const products = data?.listings || [];
-console.log(products,error);
 
 
-  const { data: categories = [] } = useGetAllCategoriesQuery();
+  const { data: categories = [] } = useGetAllParentCategoriesQuery();
+
+  
 
   const { data: wishlist = [] } = useGetWishListsQuery();
   const wishlists = wishlist.map((item) => item.listingId);
@@ -206,7 +207,7 @@ console.log(products,error);
             className={selectedCategory === category.slug ? "active" : ""}
             onClick={() => handleCategoryButtonClick(category.slug)}
           >
-            {t(`category_names.${sanitizeBackendKey(category.slug)}`)}
+  {t(`categories.${sanitizeCategoryKey(category.name)}.name`)}
           </button>
         ))}
       </section>

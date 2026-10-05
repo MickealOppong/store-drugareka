@@ -314,7 +314,7 @@ const Register = () => {
                   {t("RegisterPage.fields.terms_and_privacy.terms")}{" "}
                 </Link>{" "}
                 {t("RegisterPage.fields.terms_and_privacy.and")}{" "}
-                <Link to="/terms" className="legal-link" target="_blank">
+                <Link to="/privacy" className="legal-link" target="_blank">
                   {t("RegisterPage.fields.terms_and_privacy.privacy_policy")}{" "}
                 </Link>
                 {t("RegisterPage.fields.terms_and_privacy.brand_name")}

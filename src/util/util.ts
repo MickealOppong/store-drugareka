@@ -180,13 +180,16 @@ export function sanitizeKey(rawString:string) {
 }
 
 export function sanitizeCategoryKey(rawString:string) {
-  if (!rawString) return 'any_city';
-  
-  return rawString
+if (!rawString) return 'all'; // Default fallback value string
+
+ return rawString
     .trim()
     .toLowerCase()
-    .replace( /_/g,'')
-    .replace(' ','_');
+    .normalize("NFD")
+    .replace(/\b(i|and|or)\b/g, "") // REMOVES FILLER WORDS: Strips standalone joining words "i", "and", "or"
+    .replace(/[^a-z0-9\s-]/g, "") // Remove all remaining non-alphanumeric special characters
+    .trim() // Trim again to catch any spaces left behind by stripped words
+    .replace(/[\s-]+/g, "_");
  
 }
 

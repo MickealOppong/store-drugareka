@@ -1,5 +1,5 @@
 export type TCategoryReponse={
-    id:number,
+    id?:number,
     name:string,
     slug:string,
     parent:string,

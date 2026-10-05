@@ -1,15 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FiCheck, FiSearch, FiTag, FiX } from "react-icons/fi";
-import "../css/SearchSelect.css";
+import "../css/SearchSelect.scss"; // 🚀 Linked up safely to a modern modular SCSS pathway
 import type { TbrandResponse } from "../types/TBrandResponse";
 
 interface SearchSelectProps {
   brands: TbrandResponse[];
-  value: string; // 
+  value: string; 
   onChange: (e: any) => void; 
 }
 
 const SearchSelect: React.FC<SearchSelectProps> = ({ brands, value, onChange }) => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -64,7 +66,8 @@ const SearchSelect: React.FC<SearchSelectProps> = ({ brands, value, onChange }) 
           type="text"
           name="brand"
           className="brand-select__input"
-          placeholder="Wpisz lub szukaj..."
+   
+          placeholder={t("add_listing.fields.brand.placeholder", { defaultValue: "Type or search brand..." })}
           value={value} 
           onChange={onChange} 
           onClick={(e) => {
@@ -76,7 +79,13 @@ const SearchSelect: React.FC<SearchSelectProps> = ({ brands, value, onChange }) 
         />
 
         {value && !isOpen ? (
-          <button type="button" className="brand-select__clear-btn" onClick={handleClear} aria-label="Wyczyść wybór">
+          <button 
+            type="button" 
+            className="brand-select__clear-btn" 
+            onClick={handleClear} 
+        
+            aria-label={t("add_listing.fields.brand.clear_hint", { defaultValue: "Clear selection" })}
+          >
             <FiX />
           </button>
         ) : (
@@ -101,7 +110,13 @@ const SearchSelect: React.FC<SearchSelectProps> = ({ brands, value, onChange }) 
               ))
             ) : (
               <li className="brand-select__empty-state">
-                <p className="brand-select__empty-text">Nie znaleźliśmy "{value}"</p>
+             
+                <p className="brand-select__empty-text">
+                  {t("add_listing.fields.brand.no_results", { 
+                    defaultValue: `We couldn't find matches for "${value} Brand will be added"`,
+                    value: value 
+                  })}
+                </p>
               </li>
             )}
           </ul>

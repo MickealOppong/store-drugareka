@@ -1,218 +1,233 @@
-@import "./Variables.scss"; // Imports $color-primary, $color-border, $background, $color-bg-light, etc.
+@import './Variables.scss'; 
+
+/* ==========================================================================
+   MODERN BRAND AUTOCOMPLETE DROPDOWN DROPDOWN (.brand-select)
+   ========================================================================== */
 
 .brand-select {
   position: relative;
   width: 100%;
+  max-width: $max-width-content; 
   font-family: $font-sans;
   box-sizing: border-box;
 
-  &__label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color:$color-secondary;
-    margin-bottom: 0.5rem;
-  }
+  // =========================================================
+  // CONTROL INPUT WRAPPER FRAME CONTAINER
+  // =========================================================
 
   &__control {
-    width: 100%;
-    height: 44px;
-    background-color: $background;
-    border: 1px solid $color-border;
-    border-radius: 8px;
-    padding: 0 12px;
     display: flex;
     align-items: center;
-    position: relative;
-    cursor: pointer;
+    width: 100%;
+    height: 48px; // Ergonomic, premium touch target touch bounds
+    background-color: $background; 
+    border: 1px solid $color-border; // Clean minimal framing lines
+    border-radius: 12px;
+    padding: 0 16px;
     box-sizing: border-box;
     transition: $transition-default;
+    cursor: text;
 
+    &:hover {
+      border-color: $color-primary; // Sage green boundary lock on hover
+      background-color: $background;
+    }
+
+    // Active state ring when open/focused
     &--focused {
-      border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba(30, 58, 58, 0.08); // Spruce shadow focus ring
+      background-color: $background !important;
+      border-color: $color-primary !important;
+      box-shadow: 0 0 0 1px $color-primary; // Focused premium highlight halo
     }
   }
 
+  // Preceding descriptive iconography
   &__meta-icon {
+    color: lighten($color-text-muted, 15%);
     font-size: 16px;
-    color: $color-text-muted; // Grey Zinc #5E6C6A
-    margin-right: 10px;
+    margin-right: 12px;
     flex-shrink: 0;
+    transition: color 0.2s ease;
   }
 
-  &__search-icon {
-    font-size: 16px;
-    color: $color-text-muted;
-    margin-left: auto;
-    flex-shrink: 0;
+  &__control--focused &__meta-icon {
+    color: $color-primary; // Flips label tag color to Sage when writing
   }
+
+  // =========================================================
+  // THE ACTIVE RAW INTERIOR INPUT ELEMENT
+  // =========================================================
 
   &__input {
+    flex-grow: 1;
     width: 100%;
     height: 100%;
     background: transparent;
     border: none;
     outline: none;
-    font-family: inherit;
-    font-size: 14px;
-    color: $color-text-main; // Deep Matte Ink #0D1313
+    font-size: 14.5px;
+    font-weight: 500;
+    color: $color-text-main; // Solid #111111 high readability
     padding: 0;
+    font-family: inherit;
     box-sizing: border-box;
 
     &::placeholder {
-      color: lighten($color-text-muted, 10%);
+      color: rgba($color-text-muted, 0.5);
     }
   }
 
-  &__placeholder {
-    font-size: 14px;
-    color: lighten($color-text-muted, 10%);
-    user-select: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-right: 24px;
-
-    &--selected {
-      color: $color-text-main;
-      font-weight: 500;
-    }
-  }
-
+  // Action Reset cross marker btn
   &__clear-btn {
     background: none;
     border: none;
+    padding: 6px;
     color: $color-text-muted;
-    font-size: 16px;
     cursor: pointer;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
-    position: absolute;
-    right: 12px;
-    border-radius: 50%;
     transition: $transition-default;
+    margin-left: 8px;
+    flex-shrink: 0;
+
+    svg {
+      font-size: 14px;
+    }
 
     &:hover {
-      background-color: $color-bg-light; // Pure Cool Alabaster
-      color: $color-error; // Radiant Crimson fallback alert highlight
+      color: $color-accent; // Crimson hover notification accent (#e11d48)
+      background-color: $color-error-bg; // Soft crimson container backdrop tint
     }
   }
 
-  // Floating selection drop-down matrix box configuration
+  &__search-icon {
+    color: lighten($color-text-muted, 20%);
+    font-size: 15px;
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+
+  // =========================================================
+  // FLOATING SEARCH OPTIONS SELECTOR MATRIX OVERLAY
+  // =========================================================
+
   &__dropdown {
     position: absolute;
-    top: calc(100% + 4px);
+    top: calc(100% + 8px); // Safely gaps drawer beneath the primary input row
     left: 0;
     width: 100%;
-    background-color: $background;
+    background-color: $background; // Crisp white matrix canvas card
     border: 1px solid $color-border;
-    border-radius: 8px;
-    box-shadow: 0 10px 24px rgba(13, 19, 19, 0.08); // Balanced elevation drops
-    z-index: 1000;
-    max-height: 260px;
-    overflow-y: auto;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px -5px rgba(102, 112, 74, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+    z-index: 1000; // Floats securely on top of surrounding form tags
+    overflow: hidden;
     box-sizing: border-box;
+    animation: searchDropdownSlideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   &__list {
     list-style: none;
-    padding: 0;
     margin: 0;
-    width: 100%;
+    padding: 6px; // Internal padding prevents options from overlapping card edges
+    max-height: 260px; // Standard layout scroll height barrier
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    box-sizing: border-box;
+
+    // Custom stylized scrollbar tracker paths
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-border;
+      border-radius: 20px;
+    }
   }
 
   &__option {
-    padding: 10px 14px;
-    font-size: 14px;
-    color: $color-text-main; 
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: $background; 
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: $color-text-main;
+    border-radius: 8px;
+    cursor: pointer;
     transition: $transition-default;
-
+    user-select: none;
+    box-sizing: border-box;
 
     &:hover {
-      background-color: $color-success-bg;
-      color: $color-primary; 
+      background-color: $color-bg-light; // Clean light grey hover trace (#f9f9f9)
+      color: $color-primary; // Sage green text trigger
     }
-
 
     &--active {
-      background-color: $color-success-bg !important;
-      color: $color-success !important;      
-      font-weight: 700; 
-      
-      &:hover {
-        background-color: darken($color-success-bg, 2%) !important; 
-        color: $color-success !important;
-      }
+      background-color: $color-success-bg !important; // Premium mint backdrop (#EDF7F3)
+      color: $color-success !important; // Clear dark green option text (#2A6B4E)
+      font-weight: 700;
+    }
+
+    .brand-select__check-icon {
+      font-size: 15px;
+      color: $color-success;
+      flex-shrink: 0;
     }
   }
 
+  // =========================================================
+  // ➕ MISSING LOOKUP RE-REGISTRATION BANNER CONTAINER
+  // =========================================================
 
-  &__check-icon {
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-
-  &__state-text {
-    padding: 16px;
-    text-align: center;
-    font-size: 13px;
-    color: $color-text-muted;
-  }
-
-  // Inline Quick Creation Layout Configuration Slots
   &__empty-state {
+    list-style: none;
     padding: 16px;
     text-align: center;
+    background-color: $color-success-bg; // Soft mint reassurance shade
+    border: 1px dashed rgba(102, 112, 74, 0.25);
+    border-radius: 10px;
+    margin: 4px;
     box-sizing: border-box;
   }
 
   &__empty-text {
-    margin: 0 0 12px 0;
+    margin: 0;
     font-size: 13px;
-    color: $color-text-muted;
-    word-break: break-word;
+    line-height: 1.5;
+    font-weight: 600;
+    color: $color-success; // Uses deep jade readable copy text color to reassure vendors
   }
+}
 
-  &__add-new-btn {
-    width: 100%;
-    height: 36px;
-    background-color: $color-primary-light; // Crisp Glacial Mint #D1E5E3
-    color: $color-primary; // Deep Spruce #1E3A3A
-    border: none;
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 0 12px;
-    transition: $transition-default;
+// Entrance acceleration lifecycle
+@keyframes searchDropdownSlideUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    svg {
+/* COMPACT SMARTPHONE PORTRAIT RESPONSIVENESS */
+@media (max-width: $breakpoint-sm) {
+  .brand-select {
+    &__control {
+      height: 46px; // Adapts to compact mobile heights
+      padding: 0 12px;
+    }
+    
+    &__input {
       font-size: 14px;
-      stroke-width: 2.5;
     }
-
-    &:hover:not(:disabled) {
-      background-color: $color-primary;
-      color: $color-text-light;
-      box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
-    }
-
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
+    
+    &__option {
+      padding: 11px 12px; // Increases internal touch targets slightly for mobile screens
     }
   }
 }

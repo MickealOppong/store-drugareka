@@ -71,20 +71,242 @@
       "privacy":"Privacy policy"
     }
   },
-  "category_names": {
-    "mens_fashion": "Men's fashion",
-    "womens_fashion": "Women's fashion",
-    "electronics": "Electronics",
-    "home_living": "Home & Living",
-    "shoes": "Footwear",
-    "home_equipment": "Home applainces",
-    "machines_spare_parts": "Machinery & spare parts",
-    "books_media": "Books & media",
-    "sport_outdoor": "Sports & recreation",
-    "kids": "Kids",
-    "beauty_health": "Beauty & health",
-    "furniture":"furniture",
-    "gardebn_tools":"Garden & tools"
+  "categories": {
+    "feed":{
+      "filtered_view":"Filtered Listings",
+      "all_listing":"All Available Listing",
+      "loading":"Loading Catalog Tree...",
+      "error":"Failed to load category layout fields."
+    },
+        "empty_search":{
+        "title":"",
+        "message":"We couldn't find any items matching your active category profile. Try expanding your search queries or resetting the active parameters.",
+        "clear_btn":"Clear Active filters"
+      },
+     "header": {
+      "title":"Categories",
+      "text_label":"Product category",
+      "placeholder_text": "Select category"
+    },
+    "electronics": {
+      "name": "Electronics",
+      "subcategories": {
+        "phones": "Phones & Smartphones",
+        "tablets": "Tablets",
+        "laptops_computers": "Laptops & Computers",
+        "monitors": "Monitors",
+        "computers":"Computers",
+        "televisions": "TVs",
+        "consoles_games": "Consoles & Video Games",
+        "headphones_speakers": "Headphones & Speakers",
+        "cameras": "Cameras & Camcorders",
+        "smartwatches_watches": "Smartwatches & Watches",
+        "electronic_accessories": "Electronic Accessories",
+        "audio_equipment": "Audio Equipment",
+        "small_appliances": "Small Home Appliances",
+        "accessories":"Accessories"
+      }
+    },
+    "women": {
+      "name": "Women",
+      "subcategories": {
+        "clothings": "Clothing",
+        "dresses": "Dresses",
+        "tops_t_shirts": "Tops & T-Shirts",
+        "shirts_blouses": "Shirts & Blouses",
+        "sweaters_cardigans": "Sweaters & Cardigans",
+        "jackets_coats": "Jackets & Coats",
+        "trousers_jeans": "Trousers & Jeans",
+        "skirts_shorts": "Skirts & Shorts",
+        "sportswear": "Sportswear",
+        "underwear_sleepwear": "Underwear & Sleepwear",
+        "shoes": "Shoes",
+        "sneakers_trainers": "Sneakers & Trainers",
+        "boots_ankle_boots": "Boots & Ankle Boots",
+        "heels": "Heels",
+        "sandals_flip_flops": "Sandals & Flip-Flops",
+        "handbags": "Handbags",
+        "backpacks": "Backpacks",
+        "wallets_purses": "Wallets & Purses",
+        "watches": "Watches",
+        "jewelry": "Jewelry",
+        "fashion_accessories": "Fashion Accessories",
+        "maternity_clothing": "Maternity Clothing",
+        "vintage_clothing": "Vintage Clothing"
+      }
+    },
+    "men": {
+      "name": "Men",
+      "subcategories": {
+        "clothing": "Clothing",
+        "t_shirts": "T-Shirts",
+        "shirts": "Shirts",
+        "sweaters_hoodies": "Sweaters & Hoodies",
+        "jackets_coats": "Jackets & Coats",
+        "trousers_jeans": "Trousers & Jeans",
+        "shorts": "Shorts",
+        "suits_blazers": "Suits & Blazers",
+        "sportswear": "Sportswear",
+        "underwear_sleepwear": "Underwear & Sleepwear",
+        "shoes": "Shoes",
+        "sneakers_trainers": "Sneakers & Trainers",
+        "boots": "Boots",
+        "formal_shoes": "Formal Shoes",
+        "sandals_flip_flops": "Sandals & Flip-Flops",
+        "bags_backpacks": "Bags & Backpacks",
+        "wallets": "Wallets",
+        "watches": "Watches",
+        "jewelry": "Jewelry",
+        "belts_ties": "Belts & Ties",
+        "fashion_accessories": "Fashion Accessories",
+        "vintage_clothing": "Vintage Clothing"
+      }
+    },
+    "kids": {
+      "name": "Kids",
+      "subcategories": {
+        "baby_clothing": "Baby Clothing",
+        "girls_clothing": "Girls' Clothing",
+        "boys_clothing": "Boys' Clothing",
+        "baby_shoes": "Baby Shoes",
+        "girls_shoes": "Girls' Shoes",
+        "boys_shoes": "Boys' Shoes",
+        "strollers_pushchairs": "Strollers & Pushchairs",
+        "car_seats": "Car Seats",
+        "toys": "Toys",
+        "building_blocks": "Building Blocks & Sets",
+        "games_puzzles": "Games & Puzzles",
+        "baby_accessories": "Baby Accessories",
+        "kids_furniture": "Kids' Furniture",
+        "school_supplies": "School Supplies",
+        "kids_bicycles": "Kids' Bicycles",
+        "scooters_ride_ons": "Scooters & Ride-On Toys"
+      }
+    },
+    "home_garden": {
+      "name": "Home & Garden",
+      "subcategories": {
+        "furniture": "Furniture",
+        "home_decor": "Home Decor",
+        "bedroom":"Bedroom",
+        "lighting": "Lighting",
+        "kitchen_dining": "Kitchen & Dining",
+        "tableware": "Tableware & Dinnerware",
+        "home_textiles": "Home Textiles",
+        "tools": "Tools",
+        "garden_terrace": "Garden & Patio",
+        "bathroom_accessories": "Bathroom Accessories",
+        "storage_organization": "Storage & Organization",
+        "home_appliances": "Home Appliances",
+        "home_office": "Home Office"
+      }
+    },
+    "sports_recreation": {
+      "name": "Sports & Recreation",
+      "subcategories": {
+        "bicycles_accessories": "Bicycles & Accessories",
+        "fitness_gym": "Fitness & Gym",
+        "running": "Running",
+        "hiking_camping": "Hiking & Camping",
+        "winter_sports": "Winter Sports",
+        "water_sports": "Water Sports",
+        "football": "Football",
+        "racket_sports": "Racket Sports",
+        "outdoor_equipment": "Outdoor Equipment",
+        "games_play": "Games & Play",
+        "sports_equipment": "Sports Equipment"
+      }
+    },
+    "automotive": {
+      "name": "Automotive",
+      "subcategories": {
+        "car_parts": "Car Parts",
+        "motorcycle_parts": "Motorcycle Parts",
+        "tires_wheels": "Tires & Wheels",
+        "car_accessories": "Car Accessories",
+        "car_electronics": "Car Electronics",
+        "workshop_tools": "Workshop Tools",
+        "garage_equipment": "Garage Equipment",
+        "motorcycle_accessories": "Motorcycle Accessories",
+        "bicycle_parts": "Bicycle Parts",
+        "car_audio": "Car Audio"
+      }
+    },
+    "books_media": {
+      "name": "Books & Media",
+      "subcategories": {
+        "books": "Books",
+        "textbooks": "Textbooks",
+        "childrens_books": "Children's Books",
+        "comics_manga": "Comics & Manga",
+        "board_games": "Board Games",
+        "video_games": "Video Games",
+        "vinyl_records": "Vinyl Records",
+        "cds_dvds": "CDs & DVDs",
+        "movies": "Movies",
+        "musical_instruments": "Musical Instruments"
+      }
+    },
+    "beauty_health": {
+      "name": "Beauty & Health",
+      "subcategories": {
+        "skincare": "Skincare",
+        "hair_care": "Hair Care",
+        "hair_styling": "Hair Dryers & Styling Tools",
+        "shavers_trimmers": "Shavers & Trimmers",
+        "makeup_accessories": "Makeup & Accessories",
+        "perfumes": "Perfumes",
+        "manicure_pedicure": "Manicure & Pedicure",
+        "massage_relaxation": "Massage & Relaxation",
+        "beauty_devices": "Beauty Devices"
+      }
+    },
+    "office_business": {
+      "name": "Office & Business",
+      "subcategories": {
+        "desks_chairs": "Desks & Chairs",
+        "computer_accessories": "Computer Accessories",
+        "printers_scanners": "Printers & Scanners",
+        "office_supplies": "Office Supplies",
+        "conference_equipment": "Conference Equipment",
+        "retail_equipment": "Retail Equipment",
+        "professional_equipment": "Professional Equipment"
+      }
+    },
+    "hobbies_collectibles": {
+      "name": "Hobbies & Collectibles",
+      "subcategories": {
+        "collectibles": "Collectibles",
+        "figures_models": "Figures & Models",
+        "antiques": "Antiques",
+        "art_paintings": "Art & Paintings",
+        "handicrafts": "Handicrafts",
+        "photography": "Photography",
+        "model_making": "Model Making",
+        "hobby_accessories": "Hobby Accessories"
+      }
+    },
+    "pets": {
+      "name": "Pets",
+      "subcategories": {
+        "dog_accessories": "Dog Accessories",
+        "cat_accessories": "Cat Accessories",
+        "pet_beds_carriers": "Pet Beds & Carriers",
+        "aquariums_accessories": "Aquariums & Accessories",
+        "cages_equipment": "Cages & Equipment",
+        "pet_toys": "Pet Toys"
+      }
+    },
+    "travel_luggage": {
+      "name": "Travel & Luggage",
+      "subcategories": {
+        "suitcases": "Suitcases",
+        "travel_bags": "Travel Bags",
+        "hiking_backpacks": "Hiking Backpacks",
+        "travel_accessories": "Travel Accessories",
+        "luggage_organizers": "Luggage Organizers"
+      }
+    }
   },
   "product_conditions": {
     "good": "Good",
@@ -582,7 +804,7 @@
   "navigation": {
     "menu": {
       "shop": "Shop",
-      "categories": "categories",
+      "categories": "Categories",
       "sell": "Sell with us"
     },
     "actions": {
@@ -747,8 +969,12 @@
         "label": "Quantity"
       },
       "brand": {
-        "label": "Brand"
+        "label": "Brand",
+         "placeholder": "Type or search brand...",
+      "clear_hint": "Clear selection",
+      "no_results": "We couldn't find matches for \"{{value}}\", Brand will be added to list"
       },
+
       "sku": {
         "label": "SKU (Inventory code)",
         "placeholder": "Optional"

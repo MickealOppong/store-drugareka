@@ -6,7 +6,7 @@ import "../css/AddListing.css";
 import { ITEM_SIZE, SHIPPING_METHOD } from "../data/data";
 import { useEditListingMutation } from "../features/api/itemApi";
 import {
-  useGetAllCategoriesQuery,
+  useGetAllParentCategoriesQuery,
   useLazyGetListingQuery,
 } from "../features/api/storeApi";
 import {
@@ -17,6 +17,7 @@ import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TListTrans } from "../types/TListTrans";
 import type { TProductData } from "../types/TProductData";
 import { sanitizeBackendKey } from "../util/util";
+import CategoryDropdownSelect from "./CategoryDropdownSelect";
 import SearchSelect from "./SearchSelect";
 
 export type TFile = {
@@ -30,6 +31,11 @@ const EditListing = () => {
   const { data: conditions } = useGetAllConditionsQuery();
   const [getListing] = useLazyGetListingQuery();
 
+    const [category,setCategory]=useState<string>('')
+      const [categoryPath,setCategoryPath]=useState<string>('')
+
+  
+      
   /**
    * Brand query
    */
@@ -74,7 +80,10 @@ const EditListing = () => {
     setFormData({
       id: listing.listingId,
       name: listing.productName,
-      category: listing.category,
+      category: {
+        name:listing.category.name,
+        path:listing.category.path
+      },
       description: listing.productDescription,
       price: String(listing.priceDto.sellerNewPrice),
       quantity: "1",
@@ -88,7 +97,11 @@ const EditListing = () => {
       shippingMethod: listing.shippingMethod,
       itemSize: listing.itemSize,
     });
+    setCategory(listing.category.name)
   }
+
+
+  
 
   useEffect(() => {
     fetchListing();
@@ -114,13 +127,16 @@ const EditListing = () => {
   /**
    * * crud hooks
    */
-  const { data: categories = [] } = useGetAllCategoriesQuery();
+  const { data: categories = [] } = useGetAllParentCategoriesQuery();
   const [editLisitng] = useEditListingMutation();
 
   const [formData, setFormData] = useState<TProductData>({
     id: -1,
     name: "",
-    category: "",
+    category:{
+      name:'' ,
+      path:''
+       },
     description: "",
     price: "",
     quantity: "1",
@@ -135,6 +151,8 @@ const EditListing = () => {
     itemSize: "",
   });
 
+
+  
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -221,19 +239,20 @@ const EditListing = () => {
     dataToSend.append("condition", productData.condition);
     dataToSend.append("brand", productData.brand);
     dataToSend.append("status", productData.status);
-    dataToSend.append("category", productData.category);
+    dataToSend.append("categoryPath", categoryPath || formData.category.path);
     dataToSend.append("price", productData.price);
     dataToSend.append("sku", productData.sku);
     dataToSend.append("itemSize", productData.itemSize);
     dataToSend.append("shippingInfo", productData.shippingInfo);
-    dataToSend.append("shippingMethod", productData.shippingMethod);
+    //dataToSend.append("shippingMethod", productData.shippingMethod);
 
     images.forEach((file, index) => {
       dataToSend.append("images", file.file);
       dataToSend.append("imageSortOrder", String(index));
     });
 
-    
+     console.log(Object.fromEntries(dataToSend));
+     
     try {
       const response = await editLisitng(dataToSend);
 
@@ -292,7 +311,18 @@ const EditListing = () => {
         setItemSizeError(itemSize);
       }
     } catch (error: any) {}
+     
   };
+
+
+  const handleCategoryChange =(category:string,path:string)=>{
+    setCategory(category)
+    setCategoryPath(path)
+  }
+console.log(categoryPath);
+
+
+  
 
   return (
     <main className="add-product">
@@ -439,7 +469,7 @@ const EditListing = () => {
                   )}
                 </div>
 
-                <div className="form-field">
+                <div className="form-field" style={{display:'none'}}>
                   <label htmlFor="category">
                     {t("add_listing.fields.category.label")}
                   </label>
@@ -447,7 +477,7 @@ const EditListing = () => {
                   <select
                     id="category"
                     name="category"
-                    value={formData.category}
+                    value={formData.category.name}
                     onChange={handleSelectChange}
                   >
                     <option
@@ -477,6 +507,8 @@ const EditListing = () => {
                     </span>
                   )}
                 </div>
+                {/** CATEGORY */}
+                <CategoryDropdownSelect value={category} name="category"   onChange={handleCategoryChange}/>
 
                 <div className="form-field">
                   <label htmlFor="condition">
@@ -637,7 +669,7 @@ const EditListing = () => {
                 </div>
               </div>
 
-              <div className="form-field">
+              <div className="form-field" style={{display:'none'}}>
                 <label htmlFor="shippingMethod">
                   {t("add_listing.fields.shipping_method.label")}
                 </label>
@@ -698,7 +730,7 @@ const EditListing = () => {
                             key={size.id}
                             value={size.value}
                           >
-                            {t(`add_listing.fields.cargo_sizes.${size.value}`)}
+                            {t(`add_listing.fields.cargo_sizes.item_size.${size.value}`)}
                           </option>
                         );
                       })}
@@ -792,7 +824,7 @@ const EditListing = () => {
 
                 <div className="product-preview__content">
                   <span>
-                    {formData.category ||
+                    {formData.category.name ||
                       t("add_listing.sidebar.preview.fallback_category")}
                   </span>
                   <h4>

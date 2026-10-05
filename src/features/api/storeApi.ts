@@ -5,6 +5,7 @@ import type { TListPageDto } from "../../types/TListPageDto";
 import type { TListTrans } from "../../types/TListTrans";
 import type { TResponseDto } from "../../types/TResponseDto";
 
+import type { TCategoryTreeDto } from "../../types/TCategoryTreeDto";
 import type { TSellingActivity } from "../../types/TSellingActivity";
 import { baseUrl } from "./baseUrl";
 
@@ -44,9 +45,15 @@ export const storeApi = createApi({
       }),
       providesTags: ["listing"],
     }),
-    getAllCategories: build.query<TCategoryReponse[], void>({
+    getAllParentCategories: build.query<TCategoryReponse[], void>({
       query: () => ({
-        url: "/api/store/all-categories",
+        url: "/api/store/parent-categories",
+      }),
+      providesTags: ["categories"],
+    }),
+      getCategoryTree: build.query<TCategoryTreeDto[], void>({
+      query: () => ({
+        url: "/api/store/category-tree",
       }),
       providesTags: ["categories"],
     }),
@@ -99,12 +106,13 @@ export const storeApi = createApi({
 });
 export const {
   useGetStoreListingsFeedQuery,
-  useGetAllCategoriesQuery,
+  useGetAllParentCategoriesQuery,
   useGetListingQuery,
   useGetProductCategoriesQuery,
   useGetTop6ProductCategoriesQuery,
   useLazyGetListingQuery,
   useGetRecentSellerActivityQuery,
   useGetLandingListingQuery,
-  useConfirmDeliveryMutation
+  useConfirmDeliveryMutation,
+  useGetCategoryTreeQuery
 } = storeApi;

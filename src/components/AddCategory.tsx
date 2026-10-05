@@ -5,9 +5,10 @@ import {
   useLazyAllParentcategoriesQuery,
   useNewCategoryMutation,
 } from "../features/api/transApi";
+import type { TCategoryReponse } from "../types/TCategoryResponse";
 
 const AddCategory = () => {
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<TCategoryReponse[]>([]);
   const [newCategory] = useNewCategoryMutation();
   const [getParentCategories] = useLazyAllParentcategoriesQuery({
     refetchOnFocus: true,
@@ -19,7 +20,7 @@ const AddCategory = () => {
   //Form data inputs
   const [active, setActive] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
-  const [parent, setParent] = useState<string>("");
+  const [parent, setParent] = useState<string>('');
   const [image, setImage] = useState<File | null>(null);
   const [sortOrder, setSortOrder] = useState<string>("");
 
@@ -30,7 +31,7 @@ const AddCategory = () => {
 
   async function parentCategories() {
     const response = await getParentCategories();
-    setCategories(() => (response.data as string[]) || []);
+    setCategories(response.data as TCategoryReponse[]);
   }
 
   useEffect(() => {
@@ -83,9 +84,9 @@ const AddCategory = () => {
           status: number;
         };
         if (status === 400) {
-          const { error } = data as { error: string };
+          const { error ,message} = data as { error: string,message:string };
 
-          setError(error);
+          setError(`${error?error:''}\n${message?message:''}`);
         }
         if (status === 403) {
           const { error} = data as { error:{name: string }};
@@ -181,10 +182,10 @@ const AddCategory = () => {
                 {categories.map((category) => {
                   return (
                     <option
-                      value={category}
-                      key={category}
+                      value={category.name}
+                      key={category.id}
                     >
-                      {category}
+                      {category.name}
                     </option>
                   );
                 })}

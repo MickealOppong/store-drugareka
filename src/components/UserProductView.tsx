@@ -212,7 +212,7 @@ const UserProductView = () => {
                     {/* CATEGORY */}
                     <td>
                       <span className="data-table__text">
-                        {product.category}
+                        {product.category? product.category.name:''}
                       </span>
                     </td>
 

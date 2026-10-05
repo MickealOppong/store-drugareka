@@ -10,7 +10,10 @@ export type TListTrans = {
   brand: string;
   sellerId: number;
 
-  category: string;
+  category:{
+    name:string,
+    path:string
+  }
 
   productName: string;
 

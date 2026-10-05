@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import {
-    FiClock,
-    FiEye,
-    FiFileText,
-    FiLock,
-    FiMail,
-    FiShare2,
-    FiShield,
-    FiUserCheck,
+  FiClock,
+  FiEye,
+  FiFileText,
+  FiLock,
+  FiMail,
+  FiShare2,
+  FiShield,
+  FiUserCheck,
 } from 'react-icons/fi';
 
 import '../css/TermsAndConditions.scss';
@@ -190,7 +190,7 @@ const PrivacyPolicy: React.FC = () => {
                 <strong>
                   PayU S.A. z siedzibą w Poznaniu przy ul. Grunwaldzkiej 186,
                   60-166 Poznań, wpisanej do Rejestru Przedsiębiorców
-                  Krajowego Rejestru Sądowego pod numerem KRS 0000274399.
+                  Krajowego Rejestru Sądowego pod numerem KRS:0000274399 | NIP:792308495 | REGON:300523444.
                 </strong>
               </p>
 

@@ -4,7 +4,7 @@
 .language-component-wrapper {
   position: fixed;
   bottom: 0;
-  right: 0;
+  right: 2%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
