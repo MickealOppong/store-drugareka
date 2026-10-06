@@ -261,7 +261,7 @@ export const Categories: React.FC = () => {
           <h1 className="catalog-browser__feed-title">
             {selectedSubCat
               ? t(
-                  `categories.${sanitizeCategoryKey(selectedNode?.parent as string)}.subcategories.${sanitizeCategoryKey(selectedNode?.slug as string)}`,
+                  `categories.${sanitizeCategoryKey(selectedNode?.parent as string)}.subcategories.${sanitizeCategoryKey(selectedNode?.name as string)}`,
                 )
               : expandedMainCat
                 ? t(`categories.${selectedCategory}.name`)
