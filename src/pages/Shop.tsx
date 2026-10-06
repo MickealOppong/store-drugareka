@@ -432,7 +432,7 @@ const Shop = () => {
                     key={category.id}
                     value={category.slug}
                   >
-                    {t(`category_names.${sanitizeBackendKey(category.slug)}`)}
+                    {t(`categories.${sanitizeCategoryKey(category.name)}.name`)}
                   </option>
                 ))}
               </select>

@@ -94,7 +94,7 @@ Add category
           <FiSearch />
           <input
             type="text"
-            placeholder="Search cayegories..."
+            placeholder="Search categories..."
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
