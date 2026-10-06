@@ -163,7 +163,7 @@
     "men": {
       "name": "Mężczyźni",
       "subcategories": {
-        "clothing": "Odzież",
+        "clothings": "Odzież",
         "t_shirts": "T-shirty",
         "shirts": "Koszule",
         "sweaters_hoodies": "Swetry i bluzy z kapturem",

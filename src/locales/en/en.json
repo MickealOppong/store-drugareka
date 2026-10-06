@@ -110,7 +110,7 @@
     "women": {
       "name": "Women",
       "subcategories": {
-        "clothings": "Clothing",
+        "clothings": "Clothings",
         "dresses": "Dresses",
         "tops_t_shirts": "Tops & T-Shirts",
         "shirts_blouses": "Shirts & Blouses",
@@ -138,7 +138,7 @@
     "men": {
       "name": "Men",
       "subcategories": {
-        "clothing": "Clothing",
+        "clothings": "Clothings",
         "t_shirts": "T-Shirts",
         "shirts": "Shirts",
         "sweaters_hoodies": "Sweaters & Hoodies",
