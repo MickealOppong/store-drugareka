@@ -1434,5 +1434,11 @@
       "no_items": "Please select at least one product to dispatch.",
       "network_fallback": "An unexpected network error occurred while communicating with the DPD logistics engine."
     }
+  },
+  "cookie_banner": {
+    "title": "We Value Your Privacy",
+    "description": "Kasoa.pl uses cookies to keep you safely logged in, maintain your shopping cart, and optimize marketplace performance. You can decline optional tracking or customize your preferences at any time.",
+    "btn_reject": "Essential Only",
+    "btn_accept": "Accept All"
   }
 }

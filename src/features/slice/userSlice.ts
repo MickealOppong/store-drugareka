@@ -1,14 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { TUserDto } from "../../types/TUserDto";
-import { removeFromLocalStorage, storeToLocalStorage } from "../../util/util";
+import { CookieService } from "../../util/util";
 
+// Helper safe parser wrapper for array nodes (e.g. roles) stored inside string-serialized fields
+const safelyParseCookieJSON = (key: string): any => {
+  const cookieValue = CookieService.get(key);
+  if (!cookieValue) return null;
+  try {
+    return JSON.parse(cookieValue);
+  } catch (e) {
+    console.error(`Cookie Parsing Exception: Failed to decode serialized JSON layout for key: ${key}`, e);
+    return null;
+  }
+};
 
-let initialState:TUserDto = {
-  firstName: localStorage.getItem('fname') || "",
-  lastName: localStorage.getItem('lname') || "",
-  userId: parseInt(localStorage.getItem('id') as string)||-1,
-  email: localStorage.getItem('email') || '',
-  roles: JSON.parse(localStorage.getItem('roles') as string) || [],
+//  All initial state hydration lookups map cleanly through browser cookies!
+const initialState: TUserDto = {
+  firstName: CookieService.get('fname') || "",
+  lastName: CookieService.get('lname') || "",
+  userId: parseInt(CookieService.get('id') as string, 10) || -1,
+  email: CookieService.get('email') || '',
+  roles: safelyParseCookieJSON('roles') || [],
   address: {
     street: "",
     city: "",
@@ -16,66 +28,60 @@ let initialState:TUserDto = {
     country: "",
     contact: ""
   },
-  accountNumber:''
-}
+  accountNumber: ''
+};
+
 const userSlice = createSlice({
   name: 'userSlice',
   initialState,
   reducers: {
-    loginUser: (state,{payload}) => {
-      
-      const {email,userId,tokenDto,firstName,lastName,roles,
-      } = payload;
-      const{token,refreshToken} = tokenDto;
-     state.email = email;
-     state.roles=roles;
-     state.userId = userId;
-     state.firstName = firstName;
-     state.lastName = lastName;
-  
+    loginUser: (state, { payload }) => {
+      const { email, userId, tokenDto, firstName, lastName, roles } = payload;
+      const { token, refreshToken } = tokenDto;
 
-     //store to local storage
-     storeToLocalStorage('email',email)
-     storeToLocalStorage('id',userId)
-     storeToLocalStorage('fname',firstName)
-     storeToLocalStorage('lname',lastName)
-     storeToLocalStorage('tk',token)
-     storeToLocalStorage('rtk',refreshToken)
-     storeToLocalStorage('roles',JSON.stringify(roles))
+      state.email = email;
+      state.roles = roles;
+      state.userId = userId;
+      state.firstName = firstName;
+      state.lastName = lastName;
 
-
+      //  Persistent for 7 days
+      CookieService.set('email', email, 7);
+      CookieService.set('id', String(userId), 7);
+      CookieService.set('fname', firstName, 7);
+      CookieService.set('lname', lastName, 7);
+      CookieService.set('tk', token, 7);
+      CookieService.set('rtk', refreshToken, 7);
+      CookieService.set('roles', JSON.stringify(roles), 7);
     },  
     logoutUser: (state) => {
-        state.userId = 0,
-     state.email =''
-     state.roles=[]
-     state.firstName = ''
-     state.lastName = ''
-     removeFromLocalStorage('email')
-        removeFromLocalStorage('id')
-     removeFromLocalStorage('fname')
-     removeFromLocalStorage('lname')
-     removeFromLocalStorage('tk')
-     removeFromLocalStorage('rtk')
-     removeFromLocalStorage('roles')
+      state.userId = -1; // Aligns with initial default values configuration rules
+      state.email = '';
+      state.roles = [];
+      state.firstName = '';
+      state.lastName = '';
+
+      //Clear the cookie references on user sign-out
+      CookieService.remove('email');
+      CookieService.remove('id');
+      CookieService.remove('fname');
+      CookieService.remove('lname');
+      CookieService.remove('tk');
+      CookieService.remove('rtk');
+      CookieService.remove('roles');
     },
+    updateUser: (state, { payload }) => {
+      const { email, roles } = payload;
 
-     updateUser: (state,{payload}) => {
-      const {email,roles,
-      } = payload;
+      state.email = email;
+      state.roles = roles;
 
-     state.email=email;
-     state.roles=roles;
-  
-
-     //store to local storage
-     storeToLocalStorage('email',email)
-     storeToLocalStorage('roles',JSON.stringify(roles))
-
-
+      // Update values dynamically inside cookie tracking chains
+      CookieService.set('email', email, 7);
+      CookieService.set('roles', JSON.stringify(roles), 7);
     },  
-
   }
-})
-export const { loginUser, logoutUser,updateUser} = userSlice.actions
-export default userSlice.reducer
+});
+
+export const { loginUser, logoutUser, updateUser } = userSlice.actions;
+export default userSlice.reducer;

@@ -31,7 +31,7 @@ const UserView = () => {
   const fetchUsers = async () => {
     try {
       const response = await getUsers();
-      setUsers(() => response.data as TUserDto[]);
+      setUsers(() => response.data as TUserDto[]||[]);
     } catch (err) {
       console.error("Failed to fetch platform users dataset:", err);
       setError("Nie udało się załadować listy użytkowników.");

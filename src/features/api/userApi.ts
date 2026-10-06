@@ -4,6 +4,7 @@ import type { TResponseDto } from "../../types/TResponseDto";
 import type { TListShipmentPage } from "../../types/TShipment";
 import type { TUserDto } from "../../types/TUserDto";
 import type { TUserUpdateRequest } from "../../types/TUserUpdatRequest";
+import { CookieService } from "../../util/util";
 import { baseUrl } from "./baseUrl";
 
 
@@ -18,7 +19,7 @@ export const userApi = createApi({
     baseUrl,
                   prepareHeaders: (headers) => {
       // RTK Query runs this function EVERY time you make a request
-     const token = localStorage.getItem('tk')??'';
+      const token = CookieService.get("tk") ?? "";
 
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);

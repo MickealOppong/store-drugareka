@@ -6,6 +6,7 @@ import type { TConditionRequest } from "../../types/TConditionRequest";
 import type { TConditionResponse } from "../../types/TConditionResponse";
 import type { TListPageBrand } from "../../types/TListPageBrand";
 import type { TResponseDto } from "../../types/TResponseDto";
+import { CookieService } from "../../util/util";
 import { baseUrl } from "./baseUrl";
 
 
@@ -18,8 +19,8 @@ export const transApi = createApi({
         baseUrl,
         
             prepareHeaders: (headers) => {
-      // RTK Query runs this function EVERY time you make a request
-      const token = localStorage.getItem('tk')??'';
+    // RTK Query runs this function EVERY time you make a request
+     const token = CookieService.get("tk") ?? "";
 
       if (token) {
        headers.set('Authorization', `Bearer ${token}`);

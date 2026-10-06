@@ -1437,5 +1437,11 @@
       "no_items": "Proszę wybrać co najmniej jeden produkt do nadania przesyłki.",
       "network_fallback": "Wystąpił nieoczekiwany błąd sieciowy podczas komunikacji z systemem logistycznym DPD."
     }
+  },
+  "cookie_banner": {
+    "title": "Szanujemy Twoją Prywatność",
+    "description": "Kasoa.pl używa plików cookies, aby zapewnić bezpieczne logowanie, utrzymać koszyk zakupowy oraz zoptymalizować prędkość działania platformy. W każdej chwili możesz odrzucić opcjonalne śledzenie lub dostosować swoje preferencje.",
+    "btn_reject": "Tylko Niezbędne",
+    "btn_accept": "Zaakceptuj Wszystkie"
   }
 }

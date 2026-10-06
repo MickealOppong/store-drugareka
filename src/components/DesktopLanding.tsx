@@ -16,6 +16,7 @@ import { useAppSelector } from "../store";
 import { formatPrice, sanitizeBackendKey, sanitizeCategoryKey } from "../util/util";
 import hero from './../assets/hero-large.png';
 import heroSmall from './../assets/hero-small.png';
+import CookieBanner from "./CoolieBanner";
 import Footer from "./Footer";
 import Loading from "./Loading";
 
@@ -314,6 +315,7 @@ if(isLoading){
             ====================================================== */}
 
 <Footer/>
+<CookieBanner/>
       </div>
     </main>
   );

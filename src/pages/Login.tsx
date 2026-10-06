@@ -50,6 +50,8 @@ const Login = () => {
 
     try {
       const response = await login({ username, password }).unwrap();
+
+      
       const { httpStatus, data } = response as { httpStatus: number, data: TUserDto, message: string };
 
       if (httpStatus === 200) {
@@ -58,6 +60,7 @@ const Login = () => {
 
         // Wrap with a strict container guard to prevent JSON parsing crashes
         const rawGuestCart = localStorage.getItem('guest_cart');
+        
         
         if (rawGuestCart) {
           try {

@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { TAddress } from "../../components/CartAddressManager";
 import type { TCart } from "../../types/TCart";
 import type { TResponseDto } from "../../types/TResponseDto";
+import { CookieService } from "../../util/util";
 import { baseUrl } from "./baseUrl";
 
 export const cartApi = createApi({
@@ -12,7 +13,7 @@ export const cartApi = createApi({
 
     prepareHeaders: (headers) => {
       // RTK Query runs this function EVERY time you make a request
-      const token = localStorage.getItem("tk") ?? "";
+         const token = CookieService.get("tk") ?? "";
 
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);

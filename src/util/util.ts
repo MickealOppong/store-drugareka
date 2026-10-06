@@ -214,3 +214,48 @@ if (!rawString) return 'all'; // Default fallback value string
     .replace(/_/g, " ")
     .replace(/\b\w/g, (char) => char.toUpperCase());
 };
+
+/**
+ *  KASOA PLATFORM - FRONTEND CLIENT COOKIE STORAGE WRAPPER
+ * Replaces legacy LocalStorage tracking blocks with browser cookies.
+ */
+export const CookieService = {
+  /**
+   * 🟢 REPLACES: localStorage.setItem(key, value)
+   * Saves data into a cookie. Enforces safe cross-site policies automatically.
+   * @param days longevity duration of the data (defaults to 7 days persistent tracking)
+   */
+  set: (key: string, value: string, days: number = 7): void => {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+    
+    // Secure, Lax cross-site flag isolates the cookie from cross-domain tracking leaks
+    document.cookie = `${encodeURIComponent(key)}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/; SameSite=Lax; Secure`;
+  },
+
+  /**
+   * 🟢 REPLACES: localStorage.getItem(key)
+   * Extracts data variables matching the specific key string out of browser arrays.
+   * Returns null if the target configuration node is missing.
+   */
+  get: (key: string): string | null => {
+    const nameEQ = encodeURIComponent(key) + "=";
+    const cookieArray = document.cookie.split(";");
+
+    for (let i = 0; i < cookieArray.length; i++) {
+      let cookieNode = cookieArray[i].trim();
+      if (cookieNode.indexOf(nameEQ) === 0) {
+        return decodeURIComponent(cookieNode.substring(nameEQ.length, cookieNode.length));
+      }
+    }
+    return null;
+  },
+
+  /**
+   * 🟢 REPLACES: localStorage.removeItem(key)
+   * Forces the browser to flush out the data key by setting its expiration date to the past.
+   */
+  remove: (key: string): void => {
+    document.cookie = `${encodeURIComponent(key)}=; max-age=-1; path=/; SameSite=Lax; Secure`;
+  }
+};

@@ -1,0 +1,141 @@
+@import "./Variables.scss"; // Inherits Sage green (#66704A) and responsive layout breakpoints
+
+.cookie-consent-banner {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 800px;
+  background-color: $background; // #FFFFFF
+  border: 1px solid $color-border;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(102, 112, 74, 0.04);
+  z-index: 999999; // Elevates depth layering safely to stay visible over taskbars
+  box-sizing: border-box;
+  animation: cookieBannerSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &__container {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    box-sizing: border-box;
+
+    @media (min-width: $breakpoint-md) {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 32px;
+    }
+  }
+
+  &__content {
+    display: flex;
+    align-items: start;
+    gap: 16px;
+    flex: 1;
+  }
+
+  &__icon-box {
+    width: 40px;
+    height: 40px;
+    background-color: $color-success-bg; // Soft mint background tint
+    color: $color-success; // Safe readable text green
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  &__text-frame {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: $color-text-main;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: $color-text-muted;
+  }
+
+  // =========================================================
+  // INTERACTIVE ACTION SELECTION CTA BUTTONS
+  // =========================================================
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    flex-shrink: 0;
+
+    @media (min-width: $breakpoint-sm) {
+      width: auto;
+    }
+  }
+
+  &__btn {
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: $transition-default;
+    flex: 1;
+
+    @media (min-width: $breakpoint-sm) {
+      flex: none;
+    }
+
+    svg {
+      font-size: 14px;
+    }
+
+    &--reject {
+      background-color: transparent;
+      border: 1px solid $color-border;
+      color: $color-text-muted;
+
+      &:hover {
+        background-color: $color-bg-light;
+        color: $color-text-main;
+        border-color: darken($color-border, 10%);
+      }
+    }
+
+    &--accept {
+      background-color: $color-primary; // Flagship Brand Sage Green (#66704A)
+      border: none;
+      color: $color-text-light;
+      box-shadow: 0 4px 12px rgba(102, 112, 74, 0.15);
+
+      &:hover {
+        background-color: $color-primary-light; // #393c2e
+        box-shadow: 0 6px 16px rgba(102, 112, 74, 0.25);
+      }
+    }
+  }
+}
+
+@keyframes cookieBannerSlideUp {
+  from { opacity: 0; transform: translate(-50%, 24px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
