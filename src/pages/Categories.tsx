@@ -224,7 +224,7 @@ export const Categories: React.FC = () => {
                       const localizedSubName = t(
                         `categories.${sanitizeCategoryKey(
                           mainCat.name,
-                        )}.subcategories.${sanitizeCategoryKey(subCat.slug)}`,
+                        )}.subcategories.${sanitizeCategoryKey(subCat.name)}`,
                       );
 
                       return (
