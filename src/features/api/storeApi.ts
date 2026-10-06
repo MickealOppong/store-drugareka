@@ -74,6 +74,12 @@ export const storeApi = createApi({
       }),
       providesTags: ["categories"],
     }),
+        getTop12ProductCategories: build.query<TCategoryReponse[], void>({
+      query: () => ({
+        url: `/api/store/top12-categories`,
+      }),
+      providesTags: ["categories"],
+    }),
     getProductCategories: build.query<TResponseDto, void>({
       query: () => ({
         url: `/api/store/all-categories`,
@@ -115,5 +121,6 @@ export const {
   useGetRecentSellerActivityQuery,
   useGetLandingListingQuery,
   useConfirmDeliveryMutation,
-  useGetCategoryTreeQuery
+  useGetCategoryTreeQuery,
+  useGetTop12ProductCategoriesQuery
 } = storeApi;

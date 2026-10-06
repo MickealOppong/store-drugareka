@@ -73,6 +73,7 @@
   },
   "categories": {
     "feed": {
+      "title":"Popularne kategorie",
       "filtered_view": "Filtrowane ogłoszenia",
       "all_listing": "Wszystkie dostępne ogłoszenia",
       "loading": "Ładowanie drzewa katalogu...",

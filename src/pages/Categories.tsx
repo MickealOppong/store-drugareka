@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  FiArrowRight,
   FiChevronDown,
   FiChevronRight,
   FiEdit,
@@ -20,6 +21,7 @@ import {
 import {
   useGetCategoryTreeQuery,
   useGetStoreListingsFeedQuery,
+  useGetTop12ProductCategoriesQuery,
 } from "../features/api/storeApi";
 import { useAddToCart } from "../hooks/useAddTocart";
 import { useAppSelector } from "../store";
@@ -56,11 +58,17 @@ export const Categories: React.FC = () => {
   const selectedCategory = searchParams.get("category") || "all";
 
 
+ 
   const request = {
     queryCategory: selectedCategory,
     page,
     size: 50,
   };
+
+   //top categories
+  const {data:topCategories=[]} = useGetTop12ProductCategoriesQuery()
+
+  
 
   const [addToWish] = useAddWishListMutation();
 
@@ -163,8 +171,9 @@ export const Categories: React.FC = () => {
   }
 
   return (
-    <section className="catalog-browser">
-      {/* SIDEBAR NAVIGATION */}
+    <section className="catalog-page">
+   <div className="catalog-browser">
+       {/* SIDEBAR NAVIGATION */}
       <aside className="catalog-browser__sidebar">
         <h2 className="catalog-browser__sidebar-title"    onClick={() => navigate('/shop/categories')}
                   role="button">
@@ -257,18 +266,49 @@ export const Categories: React.FC = () => {
 
       {/* PRODUCT FEED */}
       <div className="catalog-browser__feed">
+           {/* =====================================================
+                        CATEGORIES
+                    ====================================================== */}
+        
+         <section className="catalog-top-categories top-categories">
+                  <div className="top-categories-heading">
+                    <div>
+                      <h2>{t('categories.feed.title')}</h2>
+                    </div>
+                  </div>
+        
+                  <div className="top-categories-grid">
+                    {topCategories.map((category) => (
+                      <Link
+                        key={category.id}
+                        to={`/shop/categories?category=${category.slug}`}
+                        className="category-card"
+                      >
+                        <img src={category.image} alt={category.name} />
+                        <div className="top-categories-card__overlay">
+                          <h3> {t(`categories.${sanitizeCategoryKey(category.name)}.name`)}</h3>
+                          <FiArrowRight />
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
         <header className="catalog-browser__feed-header">
-          <h1 className="catalog-browser__feed-title">
-            {selectedSubCat
-              ? t(
-                  `categories.${sanitizeCategoryKey(selectedNode?.parent as string)}.subcategories.${sanitizeCategoryKey(selectedNode?.name as string)}`,
-                )
-              : expandedMainCat
-                ? t(`categories.${selectedCategory}.name`)
-                : t("categories.feed.all_listing", {
-                    defaultValue: "All Available Listings",
-                  })}
-          </h1>
+     <h1 className="catalog-browser__feed-title">
+              {selectedSubCat && selectedNode
+                ? t(
+                    `categories.${sanitizeCategoryKey(selectedNode.parent as string)}.subcategories.${sanitizeCategoryKey(selectedNode.name as string)}`,
+                    { defaultValue: selectedNode.name }
+                  )
+                : expandedMainCat
+                  ? t(`categories.${sanitizeCategoryKey(catalogTree.find(c => c.id === expandedMainCat)?.name as string)}.name`, { 
+                      defaultValue: selectedCategory 
+                    })
+                  : t("categories.feed.all_listing", {
+                      defaultValue: "All Available Listings",
+                    })}
+            </h1>
+
         </header>
 
         {isProductsLoading ? (
@@ -309,7 +349,7 @@ export const Categories: React.FC = () => {
           </div>
         ) : (
           /* PRODUCT GRID */
-          <div className="shop-page__products">
+          <div className="category-page__products">
             {products.map((product) => {
               const isWishlisted = wishlists.includes(product.listingId);
               const oldPrice = product.priceDto.storeOldPrice;
@@ -326,16 +366,16 @@ export const Categories: React.FC = () => {
 
               return (
                 <article
-                  className="shop-product-card"
+                  className="category-product-card"
                   key={product.listingId}
                 >
                   {/* ==========================================================================
             MEDIA REGION: THUMBNAILS, DISCOUNTS & WISHLIST OVERLAYS
             ========================================================================== */}
-                  <div className="shop-product-card__media">
+                  <div className="category-product-card__media">
                     <Link
                       to={`/shop/listing/${product.listingId}`}
-                      className="shop-product-card__image-link"
+                      className="category-product-card__image-link"
                     >
                       <img
                         src={product?.media?.[0]?.image}
@@ -345,14 +385,14 @@ export const Categories: React.FC = () => {
                     </Link>
 
                     {discount > 0 && (
-                      <span className="shop-product-card__discount">
+                      <span className="category-product-card__discount">
                         -{discount}%
                       </span>
                     )}
 
                     <button
                       type="button"
-                      className={`shop-product-card__wishlist ${isWishlisted ? "active" : ""}`}
+                      className={`category-product-card__wishlist ${isWishlisted ? "active" : ""}`}
                       onClick={() => toggleWishlist(product.listingId)}
                       aria-label={t("shop.product.add_wishlist", {
                         defaultValue: "Add to wishlist",
@@ -369,8 +409,8 @@ export const Categories: React.FC = () => {
                   {/* ==========================================================================
             CONTENT REGION: METADATA & TYPOGRAPHY INFO HIERARCHIES
             ========================================================================== */}
-                  <div className="shop-product-card__content">
-                    <span className="shop-product-card__brand">
+                  <div className="category-product-card__content">
+                    <span className="category-product-card__brand">
                       {product.brand}
                     </span>
 
@@ -380,7 +420,7 @@ export const Categories: React.FC = () => {
                       </Link>
                     </h2>
 
-                    <div className="shop-product-card__condition">
+                    <div className="category-product-card__condition">
                       <span>
                         {t(`product_conditions.${conditionKey}`, {
                           defaultValue: product.productCondition,
@@ -391,7 +431,7 @@ export const Categories: React.FC = () => {
                     {/* ==========================================================================
               BOTTOM REGION: PRICE MARKERS & INTERACTIVE ACTION BUTTONCTAS
               ========================================================================== */}
-                    <div className="shop-product-card__bottom">
+                    <div className="category-product-card__bottom">
                       <div>
                         <strong>{formatPrice(newPrice) || 0} zł</strong>
                         {oldPrice > 0 && (
@@ -402,7 +442,7 @@ export const Categories: React.FC = () => {
                       {product.sellerId !== userId ? (
                         <button
                           type="button"
-                          className="shop-product-card__buy"
+                          className="category-product-card__buy"
                           aria-label={t("shop.product.add_to_cart", {
                             defaultValue: "Add to cart",
                           })}
@@ -413,7 +453,7 @@ export const Categories: React.FC = () => {
                       ) : (
                         <button
                           type="button"
-                          className="shop-product-card__buy"
+                          className="category-product-card__buy"
                           aria-label={t("shop.product.edit_listing", {
                             defaultValue: "Edit listing",
                           })}
@@ -434,6 +474,7 @@ export const Categories: React.FC = () => {
           </div>
         )}
       </div>
+   </div>
     </section>
   );
 };

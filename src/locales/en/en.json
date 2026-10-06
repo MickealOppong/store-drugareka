@@ -73,6 +73,7 @@
   },
   "categories": {
     "feed":{
+      "title":"Popular categories",
       "filtered_view":"Filtered Listings",
       "all_listing":"All Available Listing",
       "loading":"Loading Catalog Tree...",
