@@ -74,9 +74,9 @@ export const storeApi = createApi({
       }),
       providesTags: ["categories"],
     }),
-        getTop12ProductCategories: build.query<TCategoryReponse[], void>({
+        getTop8ProductCategories: build.query<TCategoryReponse[], void>({
       query: () => ({
-        url: `/api/store/top12-categories`,
+        url: `/api/store/top8-categories`,
       }),
       providesTags: ["categories"],
     }),
@@ -122,5 +122,5 @@ export const {
   useGetLandingListingQuery,
   useConfirmDeliveryMutation,
   useGetCategoryTreeQuery,
-  useGetTop12ProductCategoriesQuery
+  useGetTop8ProductCategoriesQuery
 } = storeApi;

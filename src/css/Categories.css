@@ -60,7 +60,7 @@
   align-self: start;
   position: sticky;
   top: 1rem;
-  z-index: 100;
+  z-index: 10;
   max-height: 220px;
   overflow-y: auto;
   margin-bottom: 0.5rem;
@@ -343,7 +343,7 @@
 
 @media (min-width: 1024px) {
   .top-categories .top-categories-grid {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 

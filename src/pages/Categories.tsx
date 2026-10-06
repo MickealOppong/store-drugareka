@@ -21,7 +21,7 @@ import {
 import {
   useGetCategoryTreeQuery,
   useGetStoreListingsFeedQuery,
-  useGetTop12ProductCategoriesQuery,
+  useGetTop8ProductCategoriesQuery,
 } from "../features/api/storeApi";
 import { useAddToCart } from "../hooks/useAddTocart";
 import { useAppSelector } from "../store";
@@ -66,7 +66,7 @@ export const Categories: React.FC = () => {
   };
 
    //top categories
-  const {data:topCategories=[]} = useGetTop12ProductCategoriesQuery()
+  const {data:topCategories=[]} = useGetTop8ProductCategoriesQuery()
 
   
 
