@@ -1,4 +1,5 @@
-@import './Variables.scss'; // 🚀 Binds premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and Ink (#0D1313)
+@use "sass:color";
+@use 'Variables.scss'; // 🚀 Binds premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and Ink (#0D1313)
 
 /* ==========================================================================
    KASOA ADMINISTRATIVE SUPPORT PORTAL & CHANNELS BOARD
@@ -10,7 +11,7 @@
   margin: 0 auto;
   padding: 32px 24px 64px;
   box-sizing: border-box;
-  font-family: $font-sans;
+  font-family: Variables.$font-sans;
  
 
   // =========================================================
@@ -19,7 +20,7 @@
 
   &__header {
     margin-bottom: 32px;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid Variables.$color-border;
     padding-bottom: 20px;
     text-align: center;
   }
@@ -29,8 +30,8 @@
     align-items: center;
     font-size: 11px;
     font-weight: 700;
-    color: $color-primary;
-    background-color: $color-bg-light;
+    color: Variables.$color-primary;
+    background-color: Variables.$color-bg-light;
     padding: 4px 12px;
     border-radius: 20px;
     text-transform: uppercase;
@@ -43,14 +44,14 @@
     font-size: 32px;
     font-weight: 800;
     letter-spacing: -0.03em;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
   }
 
   &__description {
     margin: 0;
     font-size: 15px;
     line-height: 1.5;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
   }
 
   // =========================================================
@@ -67,14 +68,14 @@
 
   &__info-card {
     background: #ffffff;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 14px;
     padding: 24px;
     width: 100%;
-    box-shadow: 0 4px 24px rgba($color-text-main, 0.01);
+    box-shadow: 0 4px 24px rgba(Variables.$color-text-main, 0.01);
     box-sizing: border-box;
 
-    @include media-up($breakpoint-sm) {
+    @include Variables.media-up(Variables.$breakpoint-sm) {
       padding: 36px;
     }
 
@@ -88,7 +89,7 @@
     font-size: 20px;
     font-weight: 800;
     letter-spacing: -0.01em;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     text-align: center;
   }
 
@@ -96,7 +97,7 @@
     margin: 0 0 32px 0;
     font-size: 14px;
     line-height: 1.5;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     text-align: center;
   }
 
@@ -118,14 +119,14 @@
     align-items: flex-start;
     gap: 16px;
     padding: 16px;
-    background-color: $color-bg-light; // Premium Alabaster backing card matrix
-    border: 1px solid rgba($color-border, 0.5);
+    background-color: Variables.$color-bg-light; // Premium Alabaster backing card matrix
+    border: 1px solid rgba(Variables.$color-border, 0.5);
     border-radius: 10px;
     box-sizing: border-box;
     transition: border-color 0.2s ease;
 
     &:hover {
-      border-color: $color-primary;
+      border-color: Variables.$color-primary;
     }
   }
 
@@ -136,8 +137,8 @@
     width: 40px;
     height: 40px;
     background-color: #ffffff;
-    border: 1px solid $color-border;
-    color: $color-primary;
+    border: 1px solid Variables.$color-border;
+    color: Variables.$color-primary;
     font-size: 1.25rem;
     border-radius: 8px;
     flex-shrink: 0;
@@ -152,14 +153,14 @@
     strong {
       font-size: 15px;
       font-weight: 700;
-      color: $color-text-main;
+      color: Variables.$color-text-main;
       margin-bottom: 4px;
     }
 
     p {
       margin: 0 0 2px 0;
       font-size: 14px;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
       line-height: 1.4;
       word-break: break-all;
     }
@@ -177,7 +178,7 @@
     margin-top: 10px;
     height: 34px;
     padding: 0 14px;
-    background-color: $color-primary; // Matte Spruce anchor footprint
+    background-color: Variables.$color-primary; // Matte Spruce anchor footprint
     color: #ffffff !important;
     font-size: 12px;
     font-weight: 700;
@@ -186,7 +187,7 @@
     width: fit-content;
     box-sizing: border-box;
     user-select: none;
-    transition: background-color 0.15s $transition-default, transform 0.15s $transition-default;
+    transition: background-color 0.15s Variables.$transition-default, transform 0.15s Variables.$transition-default;
 
     svg {
       font-size: 11px;
@@ -194,7 +195,7 @@
     }
 
     &:hover {
-      background-color: lighten($color-primary, 5%);
+      background-color: color.adjust(Variables.$color-primary, $lightness: 5%);
       
       svg {
         transform: translate(1px, -1px); // Subtle dynamic outward click interaction movement
@@ -210,7 +211,7 @@
   // RESPONSIVE INTERFACE ERGONOMICS
   // =========================================================
 
-  @media (max-width: $breakpoint-md) {
+  @media (max-width: Variables.$breakpoint-md) {
     padding: 24px 16px 48px;
 
     &__title {

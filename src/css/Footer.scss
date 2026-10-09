@@ -1,17 +1,17 @@
-@import './Variables.scss';
+@use 'Variables.scss';
 
   .landing-footer {
 a{
     text-decoration: none;
 }
-  @include container;
-  border-top: 1px solid $color-border;
+  @include Variables.container;
+  border-top: 1px solid Variables.$color-border;
   padding-top: 4rem;
   padding-bottom: 4rem;
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
-  @include media-up($breakpoint-md) {
+  @include Variables.media-up(Variables.$breakpoint-md) {
     grid-template-columns: 1fr 2fr;
   }
   &__brand {
@@ -20,14 +20,14 @@ a{
       margin-top: 1rem;
       font-size: 0.95rem;
       line-height: 1.5;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
     }
   }
   &__links {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
-    @include media-up($breakpoint-sm) {
+    @include Variables.media-up(Variables.$breakpoint-sm) {
       grid-template-columns: repeat(3, 1fr);
     }
     h4 {
@@ -44,9 +44,9 @@ a{
     }
     a {
       font-size: 0.95rem;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
       &:hover {
-        color: $color-text-main;
+        color: Variables.$color-text-main;
       }
     }
   }

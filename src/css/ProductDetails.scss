@@ -2,21 +2,22 @@
 // 1. DESIGN TOKENS & RESPONSIVE GEOMETRY
 // ==========================================================================
 
-@import './Variables.scss';
+@use "sass:color";
+@use 'Variables.scss';
 
 // ==========================================================================
 // 2. MAIN BLOCK CONTAINER & HEADER (`.product-details`)
 // ==========================================================================
 
 .product-details {
-  font-family: $font-sans;
-  color: $color-text-main;
+  font-family: Variables.$font-sans;
+  color: Variables.$color-text-main;
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
   box-sizing: border-box;
 
-  @media (min-width: $breakpoint-md) {
+  @media (min-width: Variables.$breakpoint-md) {
     padding: 2rem 1.5rem;
   }
 
@@ -52,7 +53,7 @@
     font-size: 14px;
     font-weight: 600;
     line-height: 1.5;
-    color:$color-accent;
+    color:Variables.$color-accent;
     white-space: pre-line; 
   }
 
@@ -64,23 +65,23 @@
         width: 100%;
     height: 40px;
     padding: 0 1.25rem;
-    background-color: $color-primary; // Flagship Obsidian Spruce
+    background-color: Variables.$color-primary; // Flagship Obsidian Spruce
     color: #ffffff;
     font-family: inherit;
     font-size: 13px;
     font-weight: 700;
-    border: 1px solid $color-primary;
+    border: 1px solid Variables.$color-primary;
     border-radius: 6px;
     cursor: pointer;
     outline: none;
     white-space: nowrap;
     box-sizing: border-box;
     user-select: none;
-    transition: all 0.2s $transition-default;
+    transition: all 0.2s Variables.$transition-default;
 
     &:hover {
-      background-color: lighten($color-primary, 5%);
-      border-color: lighten($color-primary, 5%);
+      background-color: color.adjust(Variables.$color-primary, $lightness: 5%);
+      border-color: color.adjust(Variables.$color-primary, $lightness: 5%);
       transform: translateY(-1px);
     }
 
@@ -95,23 +96,23 @@
     width: 100%;
     height: 40px;
     padding: 0 1.25rem;
-    background-color: $color-primary;
+    background-color: Variables.$color-primary;
     color: #ffffff;
     font-family: inherit;
     font-size: 13px;
     font-weight: 700;
-    border: 1px solid $color-primary;
+    border: 1px solid Variables.$color-primary;
     border-radius: 6px;
     cursor: pointer;
     outline: none;
     white-space: nowrap;
     box-sizing: border-box;
     user-select: none;
-    transition: all 0.2s $transition-default;
+    transition: all 0.2s Variables.$transition-default;
 
     &:hover {
-      background-color: lighten($color-bg-dark, 5%);
-      border-color: lighten($color-bg-dark, 5%);
+      background-color: color.adjust(Variables.$color-bg-dark, $lightness: 5%);
+      border-color: color.adjust(Variables.$color-bg-dark, $lightness: 5%);
       transform: translateY(-1px);
     }
 
@@ -124,7 +125,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid Variables.$color-border;
     padding-bottom: 1rem;
     margin-bottom: 2rem;
   }
@@ -135,7 +136,7 @@
     gap: 0.5rem;
     background: transparent;
     border: none;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
@@ -148,13 +149,13 @@
     }
 
     &:hover {
-      color: $color-primary;
+      color: Variables.$color-primary;
     }
   }
 
   &__category-crumb {
     font-size: 0.85rem;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     font-weight: 500;
   }
 }
@@ -169,7 +170,7 @@
   gap: 2.5rem;
   margin-bottom: 4rem;
 
-  @media (min-width: $breakpoint-lg) {
+  @media (min-width: Variables.$breakpoint-lg) {
     grid-template-columns: 1.1fr 0.9fr; // Distinct two-column grid split balance
     gap: 4rem;
   }
@@ -189,10 +190,10 @@
 .product-details__primary-viewport {
   position: relative;
   aspect-ratio: 1 / 1;
-  background-color: $color-bg-light;
+  background-color: Variables.$color-bg-light;
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
 
   img {
     width: 100%;
@@ -218,12 +219,12 @@
   height: 72px;
   border-radius: 6px;
   border: 2px solid transparent;
-  background-color: $color-bg-light;
+  background-color: Variables.$color-bg-light;
   padding: 0;
   overflow: hidden;
   cursor: pointer;
   flex-shrink: 0;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
 
   img {
     width: 100%;
@@ -232,7 +233,7 @@
   }
 
   &--active {
-    border-color: $color-primary;
+    border-color: Variables.$color-primary;
   }
 }
 
@@ -250,7 +251,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: $color-text-muted;
+  color: Variables.$color-text-muted;
   display: block;
   margin-bottom: 0.5rem;
 }
@@ -262,7 +263,7 @@
   line-height: 1.25;
   margin: 0 0 1rem;
 
-  @media (min-width: $breakpoint-md) {
+  @media (min-width: Variables.$breakpoint-md) {
     font-size: 2.25rem;
   }
 }
@@ -274,9 +275,9 @@
   span {
     font-size: 0.8rem;
     font-weight: 500;
-    background-color: $color-bg-light;
-    border: 1px solid $color-border;
-    color: $color-text-main;
+    background-color: Variables.$color-bg-light;
+    border: 1px solid Variables.$color-border;
+    color: Variables.$color-text-main;
     padding: 0.35rem 0.75rem;
     border-radius: 4px;
 
@@ -289,7 +290,7 @@
 .product-details__narrative-description {
   font-size: 0.95rem;
   line-height: 1.6;
-  color: rgba($color-text-main, 0.85);
+  color: rgba(Variables.$color-text-main, 0.85);
   margin: 0 0 2rem;
 }
 
@@ -298,7 +299,7 @@
 // ==========================================================================
 
 .product-details__pricing-matrix {
-  background-color: $color-bg-light;
+  background-color: Variables.$color-bg-light;
   border-radius: 8px;
   padding: 1.25rem 1.5rem;
   margin-bottom: 1.5rem;
@@ -317,23 +318,23 @@
 .product-details__deal-price {
   font-size: 1.75rem;
   font-weight: 800;
-  color: $color-text-main;
+  color: Variables.$color-text-main;
   line-height: 1.1;
 
-  @media (min-width: $breakpoint-md) {
+  @media (min-width: Variables.$breakpoint-md) {
     font-size: 2rem;
   }
 }
 
 .product-details__strike-price {
   font-size: 1.15rem;
-  color: $color-text-muted;
+  color: Variables.$color-text-muted;
 }
 
 .product-details__savings-banner {
   font-size: 0.85rem;
   font-weight: 700;
-  color: $color-accent;
+  color: Variables.$color-accent;
   margin: 0;
 }
 
@@ -345,12 +346,12 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background-color: $color-safety-bg;
-  color: $color-safety-text;
+  background-color: Variables.$color-safety-bg;
+  color: Variables.$color-safety-text;
   padding: 0.85rem 1.25rem;
   border-radius: 6px;
   margin-bottom: 2rem;
-  border: 1px solid rgba($color-safety-text, 0.1);
+  border: 1px solid rgba(Variables.$color-safety-text, 0.1);
 
   .product-details__safety-icon {
     font-size: 1.4rem;
@@ -395,7 +396,7 @@
   cursor: pointer;
   min-height: 52px;
   box-sizing: border-box;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
   outline: none;
   width: 100%;
 
@@ -405,13 +406,13 @@
 }
 
 .product-details__buy-now-btn {
-  background-color: $color-primary;
-  border: 1px solid $color-primary;
-  color: $color-text-light;
+  background-color: Variables.$color-primary;
+  border: 1px solid Variables.$color-primary;
+  color: Variables.$color-text-light;
 
   &:hover {
-    background-color: $color-primary-light;
-    border-color: $color-primary-light;
+    background-color: Variables.$color-primary-light;
+    border-color: Variables.$color-primary-light;
   }
 
   &:active {
@@ -421,32 +422,32 @@
 
 .product-details__wishlist-btn {
   background-color: #ffffff;
-  border: 1px solid $color-border;
-  color: $color-text-main;
+  border: 1px solid Variables.$color-border;
+  color: Variables.$color-text-main;
 
   svg {
     transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), fill 0.2s ease;
   }
 
   &:hover {
-    border-color: $color-primary;
-    background-color: $color-bg-light;
+    border-color: Variables.$color-primary;
+    background-color: Variables.$color-bg-light;
   }
 
   // Active micro state changes when user favorites an listing
   &--active {
-    color: $color-accent;
-    border-color: rgba($color-accent, 0.2);
+    color: Variables.$color-accent;
+    border-color: rgba(Variables.$color-accent, 0.2);
     background-color: #fff1f2;
 
     svg {
-      fill: $color-accent;
+      fill: Variables.$color-accent;
       transform: scale(1.08);
     }
 
     &:hover {
       background-color: #ffe4e6;
-      border-color: rgba($color-accent, 0.3);
+      border-color: rgba(Variables.$color-accent, 0.3);
     }
   }
 
@@ -460,7 +461,7 @@
 // ==========================================================================
 
 .product-details__trust-bar {
-  border-top: 1px solid $color-border;
+  border-top: 1px solid Variables.$color-border;
   padding-top: 3rem;
   margin-top: 1rem;
   display: grid;
@@ -471,7 +472,7 @@
     grid-template-columns: repeat(2, 1fr); // 2-columns grid alignment for tablets
   }
 
-  @media (min-width: $breakpoint-lg) {
+  @media (min-width: Variables.$breakpoint-lg) {
     grid-template-columns: repeat(4, 1fr); // Seamless 4-columns baseline configuration for desktops
   }
 }
@@ -483,7 +484,7 @@
 
   .product-details__trust-icon {
     font-size: 1.35rem;
-    color: $color-primary;
+    color: Variables.$color-primary;
     margin-top: 0.15rem;
     flex-shrink: 0;
   }
@@ -497,12 +498,12 @@
   strong {
     font-size: 0.95rem;
     font-weight: 700;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
   }
 
   span {
     font-size: 0.85rem;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     line-height: 1.4;
   }
 }

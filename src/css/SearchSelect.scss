@@ -1,4 +1,5 @@
-@import './Variables.scss'; 
+@use "sass:color";
+@use 'Variables.scss'; 
 
 /* ==========================================================================
    MODERN BRAND AUTOCOMPLETE DROPDOWN DROPDOWN (.brand-select)
@@ -7,8 +8,8 @@
 .brand-select {
   position: relative;
   width: 100%;
-  max-width: $max-width-content; 
-  font-family: $font-sans;
+  max-width: Variables.$max-width-content; 
+  font-family: Variables.$font-sans;
   box-sizing: border-box;
 
   // =========================================================
@@ -20,30 +21,30 @@
     align-items: center;
     width: 100%;
     height: 48px; // Ergonomic, premium touch target touch bounds
-    background-color: $background; 
-    border: 1px solid $color-border; // Clean minimal framing lines
+    background-color: Variables.$background; 
+    border: 1px solid Variables.$color-border; // Clean minimal framing lines
     border-radius: 12px;
     padding: 0 16px;
     box-sizing: border-box;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     cursor: text;
 
     &:hover {
-      border-color: $color-primary; // Sage green boundary lock on hover
-      background-color: $background;
+      border-color: Variables.$color-primary; // Sage green boundary lock on hover
+      background-color: Variables.$background;
     }
 
     // Active state ring when open/focused
     &--focused {
-      background-color: $background !important;
-      border-color: $color-primary !important;
-      box-shadow: 0 0 0 1px $color-primary; // Focused premium highlight halo
+      background-color: Variables.$background !important;
+      border-color: Variables.$color-primary !important;
+      box-shadow: 0 0 0 1px Variables.$color-primary; // Focused premium highlight halo
     }
   }
 
   // Preceding descriptive iconography
   &__meta-icon {
-    color: lighten($color-text-muted, 15%);
+    color: color.adjust(Variables.$color-text-muted, $lightness: 15%);
     font-size: 16px;
     margin-right: 12px;
     flex-shrink: 0;
@@ -51,7 +52,7 @@
   }
 
   &__control--focused &__meta-icon {
-    color: $color-primary; // Flips label tag color to Sage when writing
+    color: Variables.$color-primary; // Flips label tag color to Sage when writing
   }
 
   // =========================================================
@@ -67,13 +68,13 @@
     outline: none;
     font-size: 14.5px;
     font-weight: 500;
-    color: $color-text-main; // Solid #111111 high readability
+    color: Variables.$color-text-main; // Solid #111111 high readability
     padding: 0;
     font-family: inherit;
     box-sizing: border-box;
 
     &::placeholder {
-      color: rgba($color-text-muted, 0.5);
+      color: rgba(Variables.$color-text-muted, 0.5);
     }
   }
 
@@ -82,13 +83,13 @@
     background: none;
     border: none;
     padding: 6px;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     cursor: pointer;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     margin-left: 8px;
     flex-shrink: 0;
 
@@ -97,13 +98,13 @@
     }
 
     &:hover {
-      color: $color-accent; // Crimson hover notification accent (#e11d48)
-      background-color: $color-error-bg; // Soft crimson container backdrop tint
+      color: Variables.$color-accent; // Crimson hover notification accent (#e11d48)
+      background-color: Variables.$color-error-bg; // Soft crimson container backdrop tint
     }
   }
 
   &__search-icon {
-    color: lighten($color-text-muted, 20%);
+    color: color.adjust(Variables.$color-text-muted, $lightness: 20%);
     font-size: 15px;
     margin-left: 8px;
     flex-shrink: 0;
@@ -118,8 +119,8 @@
     top: calc(100% + 8px); // Safely gaps drawer beneath the primary input row
     left: 0;
     width: 100%;
-    background-color: $background; // Crisp white matrix canvas card
-    border: 1px solid $color-border;
+    background-color: Variables.$background; // Crisp white matrix canvas card
+    border: 1px solid Variables.$color-border;
     border-radius: 14px;
     box-shadow: 0 10px 30px -5px rgba(102, 112, 74, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
     z-index: 1000; // Floats securely on top of surrounding form tags
@@ -147,7 +148,7 @@
       background: transparent;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: $color-border;
+      background-color: Variables.$color-border;
       border-radius: 20px;
     }
   }
@@ -159,27 +160,27 @@
     padding: 10px 14px;
     font-size: 14px;
     font-weight: 500;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     border-radius: 8px;
     cursor: pointer;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     user-select: none;
     box-sizing: border-box;
 
     &:hover {
-      background-color: $color-bg-light; // Clean light grey hover trace (#f9f9f9)
-      color: $color-primary; // Sage green text trigger
+      background-color: Variables.$color-bg-light; // Clean light grey hover trace (#f9f9f9)
+      color: Variables.$color-primary; // Sage green text trigger
     }
 
     &--active {
-      background-color: $color-success-bg !important; // Premium mint backdrop (#EDF7F3)
-      color: $color-success !important; // Clear dark green option text (#2A6B4E)
+      background-color: Variables.$color-success-bg !important; // Premium mint backdrop (#EDF7F3)
+      color: Variables.$color-success !important; // Clear dark green option text (#2A6B4E)
       font-weight: 700;
     }
 
     .brand-select__check-icon {
       font-size: 15px;
-      color: $color-success;
+      color: Variables.$color-success;
       flex-shrink: 0;
     }
   }
@@ -192,7 +193,7 @@
     list-style: none;
     padding: 16px;
     text-align: center;
-    background-color: $color-success-bg; // Soft mint reassurance shade
+    background-color: Variables.$color-success-bg; // Soft mint reassurance shade
     border: 1px dashed rgba(102, 112, 74, 0.25);
     border-radius: 10px;
     margin: 4px;
@@ -204,7 +205,7 @@
     font-size: 13px;
     line-height: 1.5;
     font-weight: 600;
-    color: $color-success; // Uses deep jade readable copy text color to reassure vendors
+    color: Variables.$color-success; // Uses deep jade readable copy text color to reassure vendors
   }
 }
 
@@ -215,7 +216,7 @@
 }
 
 /* COMPACT SMARTPHONE PORTRAIT RESPONSIVENESS */
-@media (max-width: $breakpoint-sm) {
+@media (max-width: Variables.$breakpoint-sm) {
   .brand-select {
     &__control {
       height: 46px; // Adapts to compact mobile heights

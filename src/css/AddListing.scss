@@ -1,4 +1,5 @@
-@import "./Variables.scss"; // Imports Spruce, Mint, Alabaster, and Ink design tokens
+@use "sass:color";
+@use "Variables.scss"; // Imports Spruce, Mint, Alabaster, and Ink design tokens
 
 // Local design parameters synchronized with your marketplace dashboard theme
 $ap-radius-large: 12px;
@@ -8,12 +9,12 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
 .add-product {
   min-height: 100%;
   padding: 1.5rem 1.25rem;
-  background-color: $color-bg-light; // Cool Alabaster background
-  color: $color-text-main; // Deep Matte Ink text
-  font-family: $font-sans;
+  background-color: Variables.$color-bg-light; // Cool Alabaster background
+  color: Variables.$color-text-main; // Deep Matte Ink text
+  font-family: Variables.$font-sans;
   box-sizing: border-box;
 
-  @include media-up($breakpoint-md) {
+  @include Variables.media-up(Variables.$breakpoint-md) {
     padding: 2rem;
   }
 
@@ -25,10 +26,10 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     flex-direction: column;
     gap: 1.25rem;
     margin-bottom: 2rem;
-    max-width: $max-width-content;
+    max-width: Variables.$max-width-content;
     width: 100%;
 
-    @include media-up($breakpoint-sm) {
+    @include Variables.media-up(Variables.$breakpoint-sm) {
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
@@ -47,13 +48,13 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
       font-weight: 800;
       letter-spacing: -0.03em;
       line-height: 1.2;
-      color: $color-text-main;
+      color: Variables.$color-text-main;
     }
 
     p {
       margin: 0;
       font-size: 13px;
-      color: $color-text-muted; // Muted Zinc Grey
+      color: Variables.$color-text-muted; // Muted Zinc Grey
     }
   }
 
@@ -63,13 +64,13 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: $ap-radius-small;
-    background: $background;
-    color: $color-secondary; // Granite grey tracking accent
+    background: Variables.$background;
+    color: Variables.$color-secondary; // Granite grey tracking accent
     text-decoration: none;
     box-shadow: 0 1px 2px rgba(13, 19, 19, 0.02);
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     flex-shrink: 0;
 
     svg {
@@ -78,9 +79,9 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     &:hover {
-      border-color: $color-primary;
-      background: $color-primary-light; // Soft Mint Tint
-      color: $color-primary; // Deep Spruce
+      border-color: Variables.$color-primary;
+      background: Variables.$color-primary-light; // Soft Mint Tint
+      color: Variables.$color-primary; // Deep Spruce
       transform: translateX(-1px);
     }
   }
@@ -91,7 +92,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     gap: 10px;
     width: 100%;
 
-    @include media-up($breakpoint-sm) {
+    @include Variables.media-up(Variables.$breakpoint-sm) {
       width: auto;
     }
   }
@@ -107,10 +108,10 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     font-weight: 700;
     cursor: pointer;
     white-space: nowrap;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     outline: none;
 
-    @include media-up($breakpoint-sm) {
+    @include Variables.media-up(Variables.$breakpoint-sm) {
       flex: 0 0 auto;
     }
 
@@ -120,24 +121,24 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   &__draft-btn {
-    border: 1px solid $color-border;
-    background: $background;
-    color: $color-secondary;
+    border: 1px solid Variables.$color-border;
+    background: Variables.$background;
+    color: Variables.$color-secondary;
 
     &:hover {
-      border-color: darken($color-border, 12%);
-      background-color: $color-bg-light;
+      border-color: color.adjust(Variables.$color-border, $lightness: -12%);
+      background-color: Variables.$color-bg-light;
     }
   }
 
   &__publish-btn {
     border: none;
-    background: $color-primary;
-    color: $color-text-light;
+    background: Variables.$color-primary;
+    color: Variables.$color-text-light;
     box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
 
     &:hover {
-      background: $color-primary-dark;
+      background: Variables.$color-primary-dark;
       box-shadow: 0 6px 16px rgba(15, 31, 31, 0.22);
     }
   }
@@ -149,10 +150,10 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    max-width: $max-width-content;
+    max-width: Variables.$max-width-content;
     width: 100%;
 
-    @include media-up($breakpoint-lg) {
+    @include Variables.media-up(Variables.$breakpoint-lg) {
       grid-template-columns: minmax(0, 1fr) 300px;
     }
   }
@@ -170,12 +171,12 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     gap: 1.25rem;
     width: 100%;
 
-    @include media-up($breakpoint-md) {
+    @include Variables.media-up(Variables.$breakpoint-md) {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    @include media-up($breakpoint-lg) {
+    @include Variables.media-up(Variables.$breakpoint-lg) {
       display: flex;
       flex-direction: column;
       position: sticky;
@@ -188,8 +189,8 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
      ========================================================================== */
   .product-section,
   .product-card {
-    background: $background;
-    border: 1px solid $color-border;
+    background: Variables.$background;
+    border: 1px solid Variables.$color-border;
     border-radius: $ap-radius-large;
     box-shadow: 0 2px 8px rgba(13, 19, 19, 0.01);
     box-sizing: border-box;
@@ -208,7 +209,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        color: $color-text-main;
+        color: Variables.$color-text-main;
       }
     }
   }
@@ -229,21 +230,21 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
         font-size: 16px;
         font-weight: 800;
         letter-spacing: -0.01em;
-        color: $color-text-main;
+        color: Variables.$color-text-main;
       }
 
       p {
         margin: 0;
         font-size: 12.5px;
-        color: $color-text-muted;
+        color: Variables.$color-text-muted;
         line-height: 1.5;
       }
 
       > span {
         padding: 4px 8px;
         border-radius: 10px;
-        background: $color-bg-light;
-        color: $color-text-muted;
+        background: Variables.$color-bg-light;
+        color: Variables.$color-text-muted;
         font-size: 11px;
         font-weight: 700;
       }
@@ -262,7 +263,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 
-    @include media-up($breakpoint-sm) {
+    @include Variables.media-up(Variables.$breakpoint-sm) {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
@@ -277,8 +278,8 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .product-image {
-    border: 1px solid $color-border;
-    background: $color-bg-light;
+    border: 1px solid Variables.$color-border;
+    background: Variables.$color-bg-light;
 
     img {
       width: 100%;
@@ -299,13 +300,13 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
       border: none;
       border-radius: 50%;
       background: rgba(13, 19, 19, 0.75);
-      color: $color-text-light;
+      color: Variables.$color-text-light;
       cursor: pointer;
       backdrop-filter: blur(4px);
-      transition: $transition-default;
+      transition: Variables.$transition-default;
 
       &:hover {
-        background: $color-text-muted;
+        background: Variables.$color-text-muted;
         transform: scale(1.05);
       }
     }
@@ -317,7 +318,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
       padding: 4px 8px;
       border-radius: 4px;
       background: rgba(255, 255, 255, 0.9);
-      color: $color-primary;
+      color: Variables.$color-primary;
       font-size: 10px;
       font-weight: 700;
       line-height: 1;
@@ -332,15 +333,15 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     align-items: center;
     justify-content: center;
     gap: 4px;
-    border: 1.5px dashed darken($color-border, 5%);
-    background: $background;
-    color: $color-text-muted;
+    border: 1.5px dashed color.adjust(Variables.$color-border, $lightness: -5%);
+    background: Variables.$background;
+    color: Variables.$color-text-muted;
     cursor: pointer;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &:hover {
-      border-color: $color-secondary;
-      background: $color-success-bg;
+      border-color: Variables.$color-secondary;
+      background: Variables.$color-success-bg;
     }
 
     input[type="file"] {
@@ -353,19 +354,19 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
 
     svg {
       font-size: 20px;
-      color: $color-primary;
+      color: Variables.$color-primary;
       margin-bottom: 2px;
     }
 
     span {
       font-size: 12px;
       font-weight: 700;
-      color: $color-secondary;
+      color: Variables.$color-secondary;
     }
 
     small {
       font-size: 10px;
-      color: lighten($color-text-muted, 10%);
+      color: color.adjust(Variables.$color-text-muted, $lightness: 10%);
     }
   }
 
@@ -377,7 +378,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     grid-template-columns: 1fr;
     gap: 1.25rem;
 
-    @include media-up($breakpoint-sm) {
+    @include Variables.media-up(Variables.$breakpoint-sm) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
@@ -390,7 +391,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     box-sizing: border-box;
 
     &--full {
-      @include media-up($breakpoint-sm) {
+      @include Variables.media-up(Variables.$breakpoint-sm) {
         grid-column: 1 / -1;
       }
     }
@@ -398,7 +399,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     label {
       font-size: 13px;
       font-weight: 600;
-      color: $color-secondary;
+      color: Variables.$color-secondary;
     }
 
     input,
@@ -406,25 +407,25 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     textarea {
       width: 100%;
       box-sizing: border-box;
-      border: 1px solid $color-border;
+      border: 1px solid Variables.$color-border;
       border-radius: 8px;
       outline: none;
-      background: $background;
-      color: $color-text-main;
+      background: Variables.$background;
+      color: Variables.$color-text-main;
       font: inherit;
       font-size: 13px;
-      transition: $transition-default;
+      transition: Variables.$transition-default;
 
       &::placeholder {
-        color: lighten($color-text-muted, 15%);
+        color: color.adjust(Variables.$color-text-muted, $lightness: 15%);
       }
 
       &:hover {
-        border-color: darken($color-border, 10%);
+        border-color: color.adjust(Variables.$color-border, $lightness: -10%);
       }
 
       &:focus {
-        border-color: $color-primary;
+        border-color: Variables.$color-primary;
         box-shadow: 0 0 0 3px rgba(30, 58, 58, 0.08);
       }
     }
@@ -437,7 +438,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
 
     select {
       cursor: pointer;
-      background-color: $background;
+      background-color: Variables.$background;
     }
 
     textarea {
@@ -449,13 +450,13 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
 
     &__hint {
       font-size: 11px;
-      color: lighten($color-text-muted, 10%);
+      color: color.adjust(Variables.$color-text-muted, $lightness: 10%);
       margin-top: -2px;
     }
 
     &__error-msg {
       display: block;
-      color: $color-error; // Radiant Crimson error channel
+      color: Variables.$color-error; // Radiant Crimson error channel
       font-size: 11px;
       font-weight: 600;
       margin-top: 1px;
@@ -469,7 +470,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
       top: 50%;
       left: 12px;
       transform: translateY(-50%);
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
       font-size: 13px;
       font-weight: 700;
       pointer-events: none;
@@ -485,14 +486,14 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     align-items: flex-start;
     gap: 10px;
     padding: 10px;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
-    background: $color-bg-light;
+    background: Variables.$color-bg-light;
     &__icon {
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: $color-safety-text;
+      background: Variables.$color-safety-text;
       // Glacial Mint Accent Ring
       display: flex;
       align-items: center;
@@ -504,7 +505,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
         height: 6px;
         display: block;
         border-radius: 50%;
-        background: $color-bg-light;
+        background: Variables.$color-bg-light;
       }
     }
     &__message {
@@ -513,13 +514,13 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
         display: block;
         font-size: 12px;
         font-weight: 700;
-        color: $color-text-main;
+        color: Variables.$color-text-main;
         margin-bottom: 2px;
       }
       p {
         margin: 0;
         font-size: 11px;
-        color: $color-text-muted;
+        color: Variables.$color-text-muted;
         line-height: 1.4;
       }
     }
@@ -536,7 +537,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
       padding-left: 14px;
       font-size: 11.5px;
       line-height: 1.45;
-      color: $color-secondary;
+      color: Variables.$color-secondary;
       &::before {
         content: "";
         position: absolute;
@@ -545,22 +546,22 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
         width: 4px;
         height: 4px;
         border-radius: 50%;
-        background: $color-accent; // High-conversion radiant pop key
+        background: Variables.$color-accent; // High-conversion radiant pop key
       }
     }
   }
   .product-preview {
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
-    background: $background;
+    background: Variables.$background;
     overflow: hidden;
     &__image {
       aspect-ratio: 16 / 13;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: $color-bg-light;
-      color: lighten($color-text-muted, 15%);
+      background: Variables.$color-bg-light;
+      color: color.adjust(Variables.$color-text-muted, $lightness: 15%);
       font-size: 28px;
       overflow: hidden;
       img {
@@ -578,7 +579,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
         font-size: 10px;
         font-weight: 700;
         text-transform: uppercase;
-        color: $color-text-muted;
+        color: Variables.$color-text-muted;
         letter-spacing: 0.5px;
         margin-bottom: 4px;
       }
@@ -586,7 +587,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
         margin: 0 0 6px 0;
         font-size: 13px;
         font-weight: 600;
-        color: $color-text-main;
+        color: Variables.$color-text-main;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -594,7 +595,7 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
       strong {
         font-size: 15px;
         font-weight: 800;
-        color: $color-primary;
+        color: Variables.$color-primary;
       }
     }
   }

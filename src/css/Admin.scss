@@ -1,4 +1,5 @@
-@import './Variables.scss'; // Hooks core Spruce, Mint, Alabaster, and Ink layout variables
+@use "sass:color";
+@use 'Variables.scss'; // Hooks core Spruce, Mint, Alabaster, and Ink layout variables
 
 // ==========================================================================
 // CENTRAL CONTENT HOUSING MIXINS
@@ -15,7 +16,7 @@
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.12em;
-    color: $color-text-muted; // Muted Zinc Grey #5E6C6A
+    color: Variables.$color-text-muted; // Muted Zinc Grey #5E6C6A
     text-transform: uppercase;
     margin-bottom: 1.25rem;
     padding-left: 0.5rem;
@@ -42,43 +43,43 @@
   padding: 0.75rem 1rem;
   font-size: 0.95rem;
   font-weight: 500;
-  color: $color-text-muted;
+  color: Variables.$color-text-muted;
   border-radius: 8px;
   text-decoration: none;
-  min-height: $touch-target-min;
+  min-height: Variables.$touch-target-min;
   box-sizing: border-box;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
   outline: none;
 
   &__icon {
     font-size: 1.15rem;
-    color: $color-secondary; // Granite grey tracking accents
+    color: Variables.$color-secondary; // Granite grey tracking accents
     transition: color 0.2s ease, transform 0.2s ease;
     flex-shrink: 0;
   }
 
   &:hover {
-    background-color: $color-bg-light; // Pure Cool Alabaster #F4F7F6
-    color: $color-text-main; // Deep Matte Ink #0D1313
+    background-color: Variables.$color-bg-light; // Pure Cool Alabaster #F4F7F6
+    color: Variables.$color-text-main; // Deep Matte Ink #0D1313
 
     .al-nav-link__icon {
-      color: $color-text-main;
+      color: Variables.$color-text-main;
       transform: scale(1.05);
     }
   }
 
   // Active react-router-dom focus engine locks
   &.active {
-    background-color: $color-primary; // Deep Spruce Obsidian #1E3A3A
-    color: $color-text-light;
+    background-color: Variables.$color-primary; // Deep Spruce Obsidian #1E3A3A
+    color: Variables.$color-text-light;
     font-weight: 600;
 
     .al-nav-link__icon {
-      color: $color-text-light;
+      color: Variables.$color-text-light;
     }
     
     &:hover {
-      background-color: darken($color-primary, 4%);
+      background-color: color.adjust(Variables.$color-primary, $lightness: -4%);
     }
   }
 }
@@ -91,7 +92,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  border-top: 1px solid $color-border;
+  border-top: 1px solid Variables.$color-border;
   padding-top: 1.5rem;
   margin-top: auto; // Forces footers down to baseline bounds natively
   width: 100%;
@@ -101,15 +102,15 @@
     align-self: center;
     font-size: 0.85rem;
     font-weight: 700;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     text-decoration: none;
     padding: 0.5rem;
     border-bottom: 2px solid transparent;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &:hover {
-      color: $color-accent; // Radiant Terracotta Coral #E36B53 Action Key
-      border-color: $color-accent;
+      color: Variables.$color-accent; // Radiant Terracotta Coral #E36B53 Action Key
+      border-color: Variables.$color-accent;
     }
   }
 
@@ -119,8 +120,8 @@
     justify-content: center;
     gap: 0.5rem;
     background-color: transparent;
-    border: 1px solid $color-border;
-    color: $color-accent;
+    border: 1px solid Variables.$color-border;
+    color: Variables.$color-accent;
     font-family: inherit;
     font-size: 0.9rem;
     font-weight: 700;
@@ -129,7 +130,7 @@
     cursor: pointer;
     width: 100%;
     box-sizing: border-box;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     outline: none;
 
     svg {
@@ -139,7 +140,7 @@
 
     &:hover:not(:disabled) {
       background-color: #fff1f2;
-      border-color: lighten($color-accent, 15%);
+      border-color: color.adjust(Variables.$color-accent, $lightness: 15%);
       
       svg {
         transform: translateX(-2px);
@@ -158,8 +159,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: $color-primary;
-  color: $color-text-light !important;
+  background-color: Variables.$color-primary;
+  color: Variables.$color-text-light !important;
   border: none;
   border-radius: 8px;
   font-weight: 600;
@@ -169,7 +170,7 @@
   text-decoration: none;
   box-sizing: border-box;
   box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
-  transition: $transition-default;
+  transition: Variables.$transition-default;
   outline: none;
 
   svg {
@@ -179,7 +180,7 @@
   }
 
   &:hover {
-    background-color: lighten($color-primary, 5%);
+    background-color: color.adjust(Variables.$color-primary, $lightness: 5%);
     box-shadow: 0 6px 16px rgba(30, 58, 58, 0.22);
 
     svg {

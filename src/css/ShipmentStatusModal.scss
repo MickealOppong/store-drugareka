@@ -1,4 +1,5 @@
-@import "./Variables.scss"; // Hooks core design tokens ($color-primary, $color-border, $background, etc.)
+@use "sass:color";
+@use "Variables.scss"; // Hooks core design tokens ($color-primary, $color-border, $background, etc.)
 
 // ==========================================================================
 // 1. DYNAMIC FULL-SCREEN BLUR BACKDROP SCRIM LAYER OVERRIDES
@@ -26,14 +27,14 @@
   transform: translate(-50%, -50%); // Perfectly aligns to true window dead-center grids
   width: calc(100% - 24px); // Clean padding constraint boundary safety lock on mobile devices
   max-width: 520px;
-  background-color: $background;
+  background-color: Variables.$background;
   border-radius: 12px;
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
   box-shadow: 0 20px 48px rgba(13, 19, 19, 0.15); // Deep, modern architectural elevation drop shadows
   box-sizing: border-box;
   overflow: hidden;
   display: block;
-  font-family: $font-sans;
+  font-family: Variables.$font-sans;
 
   // Append this entry configuration inside your .logistics-modal container definition rules:
 .logistics-modal {
@@ -43,23 +44,23 @@
     width: 100%;
     height: 40px;
     border-radius: 8px;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     padding: 0 12px;
     outline: none;
     font-size: 14px;
     font-family: inherit;
-    color: $color-text-main;
-    background-color: $background;
+    color: Variables.$color-text-main;
+    background-color: Variables.$background;
     box-sizing: border-box;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &:focus {
-      border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba($color-primary, 0.08); // Focus ring highlight halo
+      border-color: Variables.$color-primary;
+      box-shadow: 0 0 0 3px rgba(Variables.$color-primary, 0.08); // Focus ring highlight halo
     }
 
     &::placeholder {
-      color: lighten($color-text-muted, 10%);
+      color: color.adjust(Variables.$color-text-muted, $lightness: 10%);
     }
   }
 }
@@ -71,8 +72,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid $color-border;
-    background-color: $color-bg-light; // Cool Alabaster tint matching brand tokens
+    border-bottom: 1px solid Variables.$color-border;
+    background-color: Variables.$color-bg-light; // Cool Alabaster tint matching brand tokens
     box-sizing: border-box;
   }
 
@@ -86,13 +87,13 @@
     margin: 0;
     font-size: 16px;
     font-weight: 800; // Aligns with platform master header token rules
-    color: $color-text-main; // Matte Ink
+    color: Variables.$color-text-main; // Matte Ink
     letter-spacing: -0.01em;
   }
 
   &__subtitle {
     font-size: 12px;
-    color: $color-text-muted; // Cool grey zinc profile
+    color: Variables.$color-text-muted; // Cool grey zinc profile
     font-weight: 500;
   }
 
@@ -100,17 +101,17 @@
     background: none;
     border: none;
     font-size: 18px;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     cursor: pointer;
     display: flex;
     padding: 4px;
     border-radius: 6px;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     outline: none;
 
     &:hover:not(:disabled) {
-      color: $color-text-main;
-      background-color: lighten($color-border, 5%);
+      color: Variables.$color-text-main;
+      background-color: color.adjust(Variables.$color-border, $lightness: 5%);
     }
 
     &:active {
@@ -148,7 +149,7 @@
   &__label {
     font-size: 13px;
     font-weight: 600;
-    color: $color-secondary; // Mid-tone granite tracker
+    color: Variables.$color-secondary; // Mid-tone granite tracker
 
     &--icon {
       display: inline-flex;
@@ -157,7 +158,7 @@
 
       svg {
         font-size: 14px;
-        color: $color-primary; // Deep Spruce
+        color: Variables.$color-primary; // Deep Spruce
       }
     }
   }
@@ -166,39 +167,39 @@
     width: 100%;
     height: 42px;
     border-radius: 8px;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     padding: 0 12px;
     outline: none;
     font-size: 14px;
     font-family: inherit;
-    color: $color-text-main;
-    background-color: $background;
+    color: Variables.$color-text-main;
+    background-color: Variables.$background;
     box-sizing: border-box;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &:focus {
-      border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba($color-primary, 0.08); // Interactive focus state halo
+      border-color: Variables.$color-primary;
+      box-shadow: 0 0 0 3px rgba(Variables.$color-primary, 0.08); // Interactive focus state halo
     }
   }
 
   &__textarea {
     width: 100%;
     border-radius: 8px;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     padding: 12px;
     outline: none;
     font-size: 14px;
     font-family: inherit;
-    color: $color-text-main;
-    background-color: $background;
+    color: Variables.$color-text-main;
+    background-color: Variables.$background;
     box-sizing: border-box;
     resize: none; // Locked to prevent interface layout degradation on runs
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &:focus {
-      border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba($color-primary, 0.08);
+      border-color: Variables.$color-primary;
+      box-shadow: 0 0 0 3px rgba(Variables.$color-primary, 0.08);
     }
   }
 
@@ -209,7 +210,7 @@
     align-items: center;
     gap: 0.75rem;
     margin-top: 1.75rem;
-    border-top: 1px solid $color-border;
+    border-top: 1px solid Variables.$color-border;
     padding-top: 1.25rem;
     width: 100%;
     box-sizing: border-box;
@@ -235,7 +236,7 @@
     padding: 0 1.25rem !important;
     font-size: 13px !important;
     font-weight: 600 !important;
-    background-color: $color-primary !important;
+    background-color: Variables.$color-primary !important;
     border-radius: 8px !important; // Matches clean corner metrics of buttons
   }
 }

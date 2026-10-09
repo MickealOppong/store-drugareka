@@ -1,7 +1,8 @@
 // ============================================================
 // KASOA.PL WISHLIST PAGE LAYOUT MODULE
 // ============================================================
-@import './Variables.scss'; // Binds high-performance Spruce (#1E3A3A) and Alabaster (#F4F7F6) tokens
+@use "sass:color";
+@use 'Variables.scss'; // Binds high-performance Spruce (#1E3A3A) and Alabaster (#F4F7F6) tokens
 
 .wishlist-page {
   width: 100%;
@@ -29,14 +30,14 @@
       font-weight: 800;
       line-height: 1.2;
       letter-spacing: -0.02em;
-      color: $color-text-main; // Deep Matte Ink #0D1313
+      color: Variables.$color-text-main; // Deep Matte Ink #0D1313
     }
 
     p {
       margin: 8px 0 0;
       font-size: 14px;
       line-height: 1.5;
-      color: $color-text-muted; // Granite Grey #42504F
+      color: Variables.$color-text-muted; // Granite Grey #42504F
     }
   }
 
@@ -46,12 +47,12 @@
     justify-content: center;
     min-height: 36px;
     padding: 0 14px;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 999px;
-    background: $color-bg-light;
+    background: Variables.$color-bg-light;
     font-size: 13px;
     font-weight: 700;
-    color: $color-primary;
+    color: Variables.$color-primary;
     white-space: nowrap;
   }
 
@@ -84,7 +85,7 @@
       margin: 0;
       font-size: 22px;
       font-weight: 800;
-      color: $color-text-main;
+      color: Variables.$color-text-main;
     }
 
     p {
@@ -92,7 +93,7 @@
       margin: 10px 0 24px;
       font-size: 14px;
       line-height: 1.6;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
     }
   }
 
@@ -104,8 +105,8 @@
     justify-content: center;
     margin-bottom: 20px;
     border-radius: 50%;
-    background: $color-bg-light;
-    color: $color-primary;
+    background: Variables.$color-bg-light;
+    color: Variables.$color-primary;
 
     svg {
       width: 32px;
@@ -121,7 +122,7 @@
     min-height: 44px;
     padding: 0 22px;
     border-radius: 8px;
-    background: $color-primary;
+    background: Variables.$color-primary;
     color: #fff;
     font-size: 14px;
     font-weight: 700;
@@ -129,7 +130,7 @@
     transition: background .2s ease, transform .2s ease;
 
     &:hover {
-      background: lighten($color-primary, 5%);
+      background: color.adjust(Variables.$color-primary, $lightness: 5%);
       transform: translateY(-1px);
     }
   }
@@ -149,8 +150,8 @@
   &__spinner {
     width: 38px;
     height: 38px;
-    border: 3px solid $color-border;
-    border-top-color: $color-primary;
+    border: 3px solid Variables.$color-border;
+    border-top-color: Variables.$color-primary;
     border-radius: 50%;
     animation: wishlist-spin .7s linear infinite;
   }
@@ -164,7 +165,7 @@
   min-width: 0;
   overflow: hidden;
   background: #fff;
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
   border-radius: 14px;
   display: flex;
   flex-direction: column;
@@ -173,7 +174,7 @@
 
   &:hover {
     transform: translateY(-3px);
-    border-color: $color-text-muted;
+    border-color: Variables.$color-text-muted;
     box-shadow: 0 10px 30px rgba(13, 19, 19, .06);
   }
 
@@ -183,7 +184,7 @@
     aspect-ratio: 1 / 1;
     margin: 0;
     overflow: hidden;
-    background: $color-bg-light;
+    background: Variables.$color-bg-light;
 
     img {
       display: block;
@@ -210,7 +211,7 @@
     border: 0;
     border-radius: 50%;
     background: rgba(255, 255, 255, .95);
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     cursor: pointer;
     box-shadow: 0 3px 12px rgba(0, 0, 0, .06);
     transition: color .2s ease, background .2s ease, transform .2s ease;
@@ -269,7 +270,7 @@
       font-size: 15px;
       font-weight: 700;
       line-height: 1.4;
-      color: $color-text-main;
+      color: Variables.$color-text-main;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
@@ -278,7 +279,7 @@
       margin: 6px 0 0;
       font-size: 12px;
       line-height: 1.4;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
     }
   }
 
@@ -288,7 +289,7 @@
     text-decoration: none;
 
     &:hover h4 {
-      color: $color-primary;
+      color: Variables.$color-primary;
     }
   }
 
@@ -299,12 +300,12 @@
     gap: 12px;
     margin-top: auto;
     padding-top: 14px;
-    border-top: 1px dashed rgba($color-border, 0.6);
+    border-top: 1px dashed rgba(Variables.$color-border, 0.6);
 
     strong {
       font-size: 18px;
       font-weight: 800;
-      color: $color-text-main;
+      color: Variables.$color-text-main;
       white-space: nowrap;
     }
   }
@@ -316,9 +317,9 @@
     gap: 7px;
     min-height: 38px;
     padding: 0 14px;
-    border: 1px solid $color-primary;
+    border: 1px solid Variables.$color-primary;
     border-radius: 6px;
-    background: $color-primary;
+    background: Variables.$color-primary;
     color: #fff;
     font-family: inherit;
     font-size: 12px;
@@ -334,8 +335,8 @@
     }
 
     &:hover:not(:disabled) {
-      background: lighten($color-primary, 5%);
-      border-color: lighten($color-primary, 5%);
+      background: color.adjust(Variables.$color-primary, $lightness: 5%);
+      border-color: color.adjust(Variables.$color-primary, $lightness: 5%);
       transform: translateY(-1px);
     }
 
@@ -358,7 +359,7 @@
 // ============================================================
 // TABLET RESPONSIVENESS CAP
 // ============================================================
-@media (max-width: $breakpoint-lg) {
+@media (max-width: Variables.$breakpoint-lg) {
   .wishlist-page__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -367,7 +368,7 @@
 // ============================================================
 // MOBILE TARGET BOUNDARIES
 // ============================================================
-@media (max-width: $breakpoint-md) {
+@media (max-width: Variables.$breakpoint-md) {
   .wishlist-page {
     padding: 28px 18px 48px;
 
@@ -403,7 +404,7 @@
 // ============================================================
 // SMALL MOBILE ROW RENDERING OVERHAUL
 // ============================================================
-@media (max-width: $breakpoint-sm) {
+@media (max-width: Variables.$breakpoint-sm) {
   .wishlist-page {
     padding: 24px 14px 40px;
 

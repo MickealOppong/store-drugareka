@@ -2,7 +2,7 @@
 // 1. CONFIGURATION (VARIABLES & TOKENS)
 // ==========================================================================
 
-@import './Variables.scss';
+@use 'Variables.scss';
 
 // ==========================================================================
 // 2. MIXINS
@@ -22,8 +22,8 @@
   z-index: 200;
   width: calc(100% - 2.5rem);
   max-width: 480px;
-  background-color:$background;
-  border: 1px solid rgba($color-accent, 0.2);
+  background-color:Variables.$background;
+  border: 1px solid rgba(Variables.$color-accent, 0.2);
   border-radius: 8px;
   padding: 1rem 1.25rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
@@ -33,7 +33,7 @@
     margin: 0;
     font-size: 0.9rem;
     font-weight: 600;
-    color: $color-accent;
+    color: Variables.$color-accent;
     text-align: center;
     line-height: 1.4;
   }
@@ -50,9 +50,9 @@
 // ==========================================================================
 
 .login-page {
-  font-family: $font-sans;
-  color: $color-text-main;
-  background-color: $background-2;
+  font-family: Variables.$font-sans;
+  color: Variables.$color-text-main;
+  background-color: Variables.$background-2;
  height: 100vh;
   display: flex;
 
@@ -68,7 +68,7 @@ right: 0;
   a {
     text-decoration: none;
     color: inherit;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
   }
 }
 
@@ -84,8 +84,8 @@ right: 0;
   display: flex;
   flex-direction: column;
 
-   background: $background;
-    border: 1px solid $color-border;
+   background: Variables.$background;
+    border: 1px solid Variables.$color-border;
     padding: 3rem 2.5rem;
     border-radius: 12px;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.03);
@@ -100,7 +100,7 @@ right: 0;
     margin-bottom: 2rem;
 
     .heart {
-      color: $color-accent;
+      color: Variables.$color-accent;
       flex-shrink: 0;
     }
 
@@ -123,7 +123,7 @@ right: 0;
   p {
     font-size: 0.95rem;
     line-height: 1.5;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     margin: 0 0 2rem;
   }
 
@@ -145,21 +145,21 @@ right: 0;
   align-items: center;
   position: relative;
   background-color: #ffffff;
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
   border-radius: 6px;
   padding: 0.5rem 1rem;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
 
   // Highlights input border elegantly on interaction
   &:focus-within {
-    border-color: $color-primary;
-    box-shadow: 0 0 0 1px $color-primary;
+    border-color: Variables.$color-primary;
+    box-shadow: 0 0 0 1px Variables.$color-primary;
   }
 
   // Left Vector Icons
   .input-icon {
     font-size: 1.1rem;
-    color: $color-secondary;
+    color: Variables.$color-secondary;
     margin-right: 0.85rem;
     flex-shrink: 0;
   }
@@ -175,7 +175,7 @@ right: 0;
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
       margin-bottom: 0.15rem;
     }
 
@@ -183,9 +183,9 @@ right: 0;
       border: none;
       background: transparent;
       padding: 0.2rem 0;
-      font-family: $font-sans;
+      font-family: Variables.$font-sans;
       font-size: 0.95rem;
-      color: $color-text-main;
+      color: Variables.$color-text-main;
       width: 100%;
       box-sizing: border-box;
 
@@ -201,15 +201,15 @@ right: 0;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    min-width: $touch-target-min;
-    min-height: $touch-target-min;
+    min-width: Variables.$touch-target-min;
+    min-height: Variables.$touch-target-min;
     margin-right: -0.5rem;
-    color: $color-secondary;
+    color: Variables.$color-secondary;
     font-size: 1.1rem;
     transition: color 0.15s ease;
 
     &:hover {
-      color: $color-text-main;
+      color: Variables.$color-text-main;
     }
   }
 }
@@ -219,7 +219,7 @@ right: 0;
   display: block;
   font-size: 0.8rem;
   font-weight: 500;
-  color: $color-accent;
+  color: Variables.$color-accent;
   margin-top: 0.4rem;
   padding-left: 0.25rem;
 }
@@ -231,23 +231,23 @@ right: 0;
 
 // Primary Submit Action
 .login-btn {
-  font-family: $font-sans;
-  background-color: $color-primary;
-  color: $color-text-light;
-  border: 1px solid $color-primary;
+  font-family: Variables.$font-sans;
+  background-color: Variables.$color-primary;
+  color: Variables.$color-text-light;
+  border: 1px solid Variables.$color-primary;
   border-radius: 6px;
   font-weight: 600;
   font-size: 0.95rem;
   padding: 0.85rem 1.25rem;
-  min-height: $touch-target-min;
+  min-height: Variables.$touch-target-min;
   cursor: pointer;
   width: 100%;
   margin-top: 0.5rem;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
 
   &:hover {
-    background-color: $color-primary-light;
-    border-color: $color-primary-light;
+    background-color: Variables.$color-primary-light;
+    border-color: Variables.$color-primary-light;
   }
 }
 
@@ -257,35 +257,35 @@ right: 0;
   align-self: center;
   font-size: 0.9rem;
   font-weight: 500;
-  color: $color-text-muted;
+  color: Variables.$color-text-muted;
   margin-top: 1.5rem;
   border-bottom: 1px solid transparent;
 
   &:hover {
-    color: $color-text-main;
-    border-color: $color-text-main;
+    color: Variables.$color-text-main;
+    border-color: Variables.$color-text-main;
   }
 }
 
 // Hidden Social Authentication Elements (Styled cleanly for eventual activation)
 .social-btn {
-  font-family: $font-sans;
+  font-family: Variables.$font-sans;
   background-color: transparent;
-  color: $color-text-main;
-  border: 1px solid $color-border;
+  color: Variables.$color-text-main;
+  border: 1px solid Variables.$color-border;
   border-radius: 6px;
   font-weight: 600;
   font-size: 0.95rem;
   padding: 0.85rem 1.25rem;
-  min-height: $touch-target-min;
+  min-height: Variables.$touch-target-min;
   cursor: pointer;
   width: 100%;
   margin-top: 0.75rem;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
 
   &:hover {
-    background-color: $color-bg-light;
-    border-color: $color-primary;
+    background-color: Variables.$color-bg-light;
+    border-color: Variables.$color-primary;
   }
 }
 
@@ -295,13 +295,13 @@ right: 0;
   align-items: center;
   text-align: center;
   margin-top: 1.75rem;
-  color: $color-border;
+  color: Variables.$color-border;
 
   &::before,
   &::after {
     content: '';
     flex: 1;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid Variables.$color-border;
   }
 
   span {
@@ -318,16 +318,16 @@ right: 0;
 .signup-link {
   text-align: center;
   font-size: 0.9rem;
-  color: $color-text-muted;
+  color: Variables.$color-text-muted;
   margin-top: 2rem;
 
   a {
     font-weight: 700;
-    color: $color-primary;
+    color: Variables.$color-primary;
     margin-left: 0.25rem;
 
     &:hover {
-      color: $color-accent;
+      color: Variables.$color-accent;
     }
   }
 }

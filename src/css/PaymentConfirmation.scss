@@ -1,4 +1,5 @@
-@import './Variables.scss'; 
+@use "sass:color";
+@use 'Variables.scss'; 
 
 /* ==========================================================================
    TRANSACTION PAYMENT CONFIGURATION MAIN CANVAS (.payment-status)
@@ -6,20 +7,20 @@
 
 .payment-status {
   width: 100%;
-  min-height: calc(100vh - #{$header-height}); // Deducts header heights perfectly
-  background-color: $background-2; // Consumes #f6f6fb template layout backdrops
+  min-height: calc(100vh - #{Variables.$header-height}); // Deducts header heights perfectly
+  background-color: Variables.$background-2; // Consumes #f6f6fb template layout backdrops
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px 16px;
   box-sizing: border-box;
-  font-family: $font-sans;
+  font-family: Variables.$font-sans;
 
   &__card {
     width: 100%;
     max-width: 520px;
-    background-color: $background; // #FFFFFF
-    border: 1px solid $color-border;
+    background-color: Variables.$background; // #FFFFFF
+    border: 1px solid Variables.$color-border;
     border-radius: 20px;
     padding: 40px 32px;
     box-shadow: 0 10px 30px -5px rgba(102, 112, 74, 0.05); // Branded subtle shadow signature
@@ -47,14 +48,14 @@
     }
 
     &--success {
-      background-color: $color-success-bg; // #EDF7F3 Soft Mint Tint
-      color: $color-success; // #2A6B4E Deep Jade Sage Text
+      background-color: Variables.$color-success-bg; // #EDF7F3 Soft Mint Tint
+      color: Variables.$color-success; // #2A6B4E Deep Jade Sage Text
       box-shadow: 0 4px 12px rgba(42, 107, 78, 0.1);
     }
 
     &--cancelled {
-      background-color: $color-error-bg; // #FDF2F2 Soft Red Tint
-      color: $color-error; // #C24B4B Alert Crimson
+      background-color: Variables.$color-error-bg; // #FDF2F2 Soft Red Tint
+      color: Variables.$color-error; // #C24B4B Alert Crimson
       box-shadow: 0 4px 12px rgba(194, 75, 75, 0.1);
     }
 
@@ -75,7 +76,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: $color-text-muted; // #666666
+    color: Variables.$color-text-muted; // #666666
     margin-bottom: 8px;
   }
 
@@ -83,7 +84,7 @@
     margin: 0 0 12px 0;
     font-size: 26px;
     font-weight: 800;
-    color: $color-text-main; // #111111
+    color: Variables.$color-text-main; // #111111
     letter-spacing: -0.025em;
     line-height: 1.25;
   }
@@ -92,35 +93,35 @@
     margin: 0 0 24px 0;
     font-size: 14.5px;
     line-height: 1.6;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
   }
 
   &__session-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background-color: $color-bg-light; // #f9f9f9
-    border: 1px solid $color-border;
+    background-color: Variables.$color-bg-light; // #f9f9f9
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
     padding: 6px 14px;
     font-size: 13px;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     margin-bottom: 24px;
 
     span {
       font-weight: 500;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
     }
 
     code {
       font-family: monospace;
       font-weight: 700;
-      color: $color-primary-dark; // #2a2e1c
+      color: Variables.$color-primary-dark; // #2a2e1c
     }
   }
 
   &__hint-box {
-    background-color: $color-success-bg; // #EDF7F3 Soft Mint Tint
+    background-color: Variables.$color-success-bg; // #EDF7F3 Soft Mint Tint
     border: 1px solid rgba(102, 112, 74, 0.15);
     border-radius: 12px;
     padding: 16px;
@@ -133,7 +134,7 @@
     display: block;
     font-size: 13.5px;
     font-weight: 700;
-    color: $color-success; // #2A6B4E Deep Jade Sage
+    color: Variables.$color-success; // #2A6B4E Deep Jade Sage
     margin-bottom: 4px;
   }
 
@@ -141,23 +142,23 @@
     margin: 0;
     font-size: 13px;
     line-height: 1.5;
-    color: lighten($color-success, 8%);
+    color: color.adjust(Variables.$color-success, $lightness: 8%);
   }
 
   &__support-text {
     font-size: 12.5px;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     margin: 0 0 32px 0;
   }
 
   &__link {
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     font-weight: 600;
     text-decoration: underline;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &:hover {
-      color: $color-primary; // #66704A
+      color: Variables.$color-primary; // #66704A
     }
   }
 
@@ -168,8 +169,8 @@
   &__cta-btn {
     width: 100%;
     height: 46px;
-    background-color: $color-primary; // Flagship Sage theme green #66704A
-    color: $color-text-light; // #ffffff
+    background-color: Variables.$color-primary; // Flagship Sage theme green #66704A
+    color: Variables.$color-text-light; // #ffffff
     border: none;
     border-radius: 10px;
     font-size: 14px;
@@ -181,7 +182,7 @@
     gap: 8px;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(102, 112, 74, 0.15);
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     box-sizing: border-box;
 
     svg {
@@ -189,7 +190,7 @@
     }
 
     &:hover {
-      background-color: $color-primary-light; // #393c2e dark shadow map mapping
+      background-color: Variables.$color-primary-light; // #393c2e dark shadow map mapping
       box-shadow: 0 6px 16px rgba(102, 112, 74, 0.25);
       transform: translateY(-1px);
     }
@@ -200,7 +201,7 @@
     }
 
     &--secondary {
-      background-color: $color-text-main; // Contrasted dark slate button fallbacks (#111111)
+      background-color: Variables.$color-text-main; // Contrasted dark slate button fallbacks (#111111)
       box-shadow: 0 4px 12px rgba(17, 17, 17, 0.1);
 
       &:hover {
@@ -214,17 +215,17 @@
 // Stateful thematic adjustments triggered via parent modifiers
 .payment-status--success {
   .payment-status__cta-btn {
-    background-color: $color-primary;
+    background-color: Variables.$color-primary;
   }
 }
 
 .payment-status--cancelled {
   .payment-status__cta-btn {
-    background-color: $color-error; // Forces crimson color directly onto error CTA frames
+    background-color: Variables.$color-error; // Forces crimson color directly onto error CTA frames
     box-shadow: 0 4px 12px rgba(194, 75, 75, 0.15);
 
     &:hover {
-      background-color: darken($color-error, 8%);
+      background-color: color.adjust(Variables.$color-error, $lightness: -8%);
       box-shadow: 0 6px 16px rgba(194, 75, 75, 0.25);
     }
   }
@@ -236,10 +237,10 @@
 }
 
 /* RESPONSIVE LAYOUT THRESHOLDS */
-@media (max-width: $breakpoint-sm) {
+@media (max-width: Variables.$breakpoint-sm) {
   .payment-status {
     padding: 16px;
-    min-height: calc(100vh - #{$header-height-mobile});
+    min-height: calc(100vh - #{Variables.$header-height-mobile});
     
     &__card {
       padding: 32px 20px;

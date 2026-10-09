@@ -1,4 +1,4 @@
-@import './variables.scss';
+@use 'variables.scss';
 
 // Utility helper variables mapped to supplement your text transforms
 .capital-first {
@@ -8,8 +8,8 @@
 // Target adjustments for specific status modifiers used exclusively in the reports panel view
 .status-badge {
     &--open {
-        background-color: rgba($color-accent, 0.08); // Soft red background alert box frame
-        color: $color-accent; // Crimson text alert indicator
+        background-color: rgba(variables.$color-accent, 0.08); // Soft red background alert box frame
+        color: variables.$color-accent; // Crimson text alert indicator
     }
 
     &--under-review {

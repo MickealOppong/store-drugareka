@@ -1,5 +1,5 @@
 
-@import './Variables.scss';
+@use 'Variables.scss';
 
 
 .add-category {
@@ -87,7 +87,7 @@
     gap: 12px;
     
    
-  @media (min-width: $breakpoint-md) {
+  @media (min-width: Variables.$breakpoint-md) {
     flex-direction: row !important;
   }
   }

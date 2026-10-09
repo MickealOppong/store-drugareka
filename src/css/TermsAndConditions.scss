@@ -1,4 +1,5 @@
-@import './Variables.scss'; // 🚀 Binds flagship Spruce (#1E3A3A), Alabaster (#F4F7F6), and typography maps
+@use "sass:color";
+@use 'Variables.scss'; // 🚀 Binds flagship Spruce (#1E3A3A), Alabaster (#F4F7F6), and typography maps
 
 /* ==========================================================================
    ARKUSZ STYLÓW REGULAMINU KASOA.PL (STRUKTURA BEM)
@@ -10,7 +11,7 @@
   margin: 0 auto;
   padding: 32px 24px 64px; // Structural padding meshes
   box-sizing: border-box;
-  font-family: $font-sans; //
+  font-family: Variables.$font-sans; //
 
   // =========================================================
   // 🏛️ HEADER BLOCK & METADATA OVERLAYS
@@ -18,7 +19,7 @@
 
   &__header {
     margin-bottom: 40px; //
-    border-bottom: 1px solid $color-border; //
+    border-bottom: 1px solid Variables.$color-border; //
     padding-bottom: 32px;
     text-align: left; //
   }
@@ -29,8 +30,8 @@
     gap: 6px; //
     font-size: 11px; //
     font-weight: 700; //
-    color: $color-primary; //
-    background-color: $color-bg-light; //
+    color: Variables.$color-primary; //
+    background-color: Variables.$color-bg-light; //
     padding: 4px 12px; //
     border-radius: 20px; //
     text-transform: uppercase; //
@@ -48,22 +49,22 @@
     font-size: 32px; //
     font-weight: 800; //
     letter-spacing: -0.03em; //
-    color: $color-text-main; //
+    color: Variables.$color-text-main; //
     line-height: 1.25;
   }
 
   &__lead {
     font-size: 16px;
     line-height: 1.6;
-    color: darken($color-text-muted, 10%);
+    color: color.adjust(Variables.$color-text-muted, $lightness: -10%);
     margin: 0 0 24px 0;
     font-weight: 500;
   }
 
   // Bounded Registration Company Metrics Block
   &__company-box {
-    background-color: lighten($color-bg-light, 2%);
-    border: 1px solid $color-border;
+    background-color: color.adjust(Variables.$color-bg-light, $lightness: 2%);
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 24px;
@@ -76,10 +77,10 @@
       margin: 0;
       font-size: 13.5px;
       line-height: 1.6;
-      color: lighten($color-text-main, 8%);
+      color: color.adjust(Variables.$color-text-main, $lightness: 8%);
 
       strong {
-        color: $color-text-main;
+        color: Variables.$color-text-main;
         font-weight: 700;
       }
     }
@@ -87,8 +88,8 @@
 
   // Info Context Top Layer Banner
   &__info-banner {
-    background-color: rgba($color-primary, 0.05); // Spruce translucent veil background
-    border: 1px solid rgba($color-primary, 0.15);
+    background-color: rgba(Variables.$color-primary, 0.05); // Spruce translucent veil background
+    border: 1px solid rgba(Variables.$color-primary, 0.15);
     border-radius: 8px;
     padding: 16px;
     display: flex;
@@ -97,7 +98,7 @@
     box-sizing: border-box;
 
     svg {
-      color: $color-primary;
+      color: Variables.$color-primary;
       font-size: 18px;
       flex-shrink: 0;
       margin-top: 2px;
@@ -107,7 +108,7 @@
       margin: 0;
       font-size: 13px;
       line-height: 1.55;
-      color: darken($color-primary, 15%);
+      color: color.adjust(Variables.$color-primary, $lightness: -15%);
     }
   }
 
@@ -130,7 +131,7 @@
   &__section-title {
     font-size: 18px; //
     font-weight: 800; //
-    color: $color-text-main; //
+    color: Variables.$color-text-main; //
     display: flex; //
     align-items: center; //
     gap: 10px; //
@@ -138,7 +139,7 @@
     letter-spacing: -0.01em; //
 
     svg {
-      color: $color-primary; //
+      color: Variables.$color-primary; //
       font-size: 1.2rem;
       flex-shrink: 0; //
     }
@@ -151,12 +152,12 @@
   &__text {
     font-size: 14.5px; //
     line-height: 1.65; //
-    color: lighten($color-text-main, 10%); //
+    color: color.adjust(Variables.$color-text-main, $lightness: 10%); //
     margin: 0; //
     text-align: justify; //
 
     strong {
-      color: $color-text-main;
+      color: Variables.$color-text-main;
       font-weight: 700;
     }
   }
@@ -172,10 +173,10 @@
     li {
       font-size: 14px;
       line-height: 1.6;
-      color: lighten($color-text-main, 12%);
+      color: color.adjust(Variables.$color-text-main, $lightness: 12%);
 
       strong {
-        color: $color-text-main;
+        color: Variables.$color-text-main;
         font-weight: 700;
       }
     }
@@ -232,7 +233,7 @@
   // 📱 MOBILE ERGONOMICS RESPONSIVE VIEWPORT BREAKS
   // =========================================================
 
-  @media (max-width: $breakpoint-md) {
+  @media (max-width: Variables.$breakpoint-md) {
     padding: 24px 16px 48px; //
 
     &__title {

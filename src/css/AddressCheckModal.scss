@@ -1,4 +1,4 @@
-@import "./Variables.scss";
+@use "Variables.scss";
 
 .address-modal-overlay {
   position: fixed;
@@ -19,13 +19,13 @@
   max-width: 480px;
   background-color: #ffffff;
   border-radius: 16px;
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
   box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.16);
   padding: 1.5rem;
   box-sizing: border-box;
   animation: addrScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
-  @include media-up($breakpoint-sm) {
+  @include Variables.media-up(Variables.$breakpoint-sm) {
     padding: 2rem;
   }
 
@@ -54,7 +54,7 @@
     margin: 0;
     font-size: 1.2rem;
     font-weight: 800;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     letter-spacing: -0.01em;
   }
 
@@ -67,7 +67,7 @@
     margin: 0;
     font-size: 0.92rem;
     line-height: 1.6;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
   }
 
   // =========================================================
@@ -92,23 +92,23 @@
     gap: 0.5rem;
     cursor: pointer;
     font-family: inherit;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     flex: 1;
     box-sizing: border-box;
 
     &--cancel {
       background-color: transparent;
-      border: 1px solid $color-border;
-      color: $color-text-muted;
+      border: 1px solid Variables.$color-border;
+      color: Variables.$color-text-muted;
 
       &:hover {
-        background-color: $color-bg-light;
-        color: $color-text-main;
+        background-color: Variables.$color-bg-light;
+        color: Variables.$color-text-main;
       }
     }
 
     &--action {
-      background-color: $color-primary; // Flagship Sage Green (#66704A)
+      background-color: Variables.$color-primary; // Flagship Sage Green (#66704A)
       border: none;
       color: #ffffff;
       box-shadow: 0 4px 12px rgba(102, 112, 74, 0.15);

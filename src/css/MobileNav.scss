@@ -1,24 +1,24 @@
-@import "./Variables.scss"; // Imports $color-primary, $color-bg-light, $background, etc.
+@use "Variables.scss"; // Imports $color-primary, $color-bg-light, $background, etc.
 
 // ==========================================================================
 // 1. MOBILE NAVBAR CONTROLLER WRAPPER GRID
 // ==========================================================================
 
 .mn-header {
-  font-family: $font-sans;
+  font-family: Variables.$font-sans;
   position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 99999; // Enforces a solid stacking layer above any database grids or cards
-  background-color: $background-3;
+  background-color: Variables.$background-3;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid $color-border;
+  border-bottom: 1px solid Variables.$color-border;
   box-sizing: border-box;
 
 
-  @media (min-width: $breakpoint-md) {
+  @media (min-width: Variables.$breakpoint-md) {
     display: none !important; // Completely unmounts the mobile framework layout on desktop grids
   }
 
@@ -27,10 +27,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: $header-height-mobile; // Securely hard-locked to 60px
+    height: Variables.$header-height-mobile; // Securely hard-locked to 60px
     position: relative;
     z-index: 100001;
-    background-color: $background;
+    background-color: Variables.$background;
     box-sizing: border-box;
   }
 
@@ -43,7 +43,7 @@
   &__action-btn {
     background: transparent;
     border: none;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -51,9 +51,9 @@
     position: relative;
     padding: 0.5rem;
     border-radius: 8px;
-    min-height: $touch-target-min;
-    min-width: $touch-target-min;
-    transition: $transition-default;
+    min-height: Variables.$touch-target-min;
+    min-width: Variables.$touch-target-min;
+    transition: Variables.$transition-default;
     outline: none;
     box-sizing: border-box;
 
@@ -63,8 +63,8 @@
     }
 
     &:hover {
-      background-color: $color-bg-light;
-      color: $color-primary;
+      background-color: Variables.$color-bg-light;
+      color: Variables.$color-primary;
     }
 
     &:active {
@@ -77,8 +77,8 @@
     position: absolute;
     top: 2px;
     right: 2px;
-    background-color: $color-accent; // High-conversion radiant highlight indicator
-    color: $color-text-light;
+    background-color: Variables.$color-accent; // High-conversion radiant highlight indicator
+    color: Variables.$color-text-light;
     font-size: 10px;
     font-weight: 700;
     min-width: 16px;
@@ -98,13 +98,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: $touch-target-min;
-    min-width: $touch-target-min;
+    min-height: Variables.$touch-target-min;
+    min-width: Variables.$touch-target-min;
     outline: none;
-    transition: $transition-default;
-    color: $color-primary;
+    transition: Variables.$transition-default;
+    color: Variables.$color-primary;
     margin-left: 0.25rem;
-    border-left: 1px solid $color-border;
+    border-left: 1px solid Variables.$color-border;
     border-radius: 0;
     padding-left: 0.5rem;
     box-sizing: border-box;
@@ -128,16 +128,16 @@
   font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: $color-primary;
+  color: Variables.$color-primary;
   text-decoration: none;
   display: flex;
   align-items: center;
   user-select: none;
-  min-height: $touch-target-min;
+  min-height: Variables.$touch-target-min;
 
   &__light {
     font-weight: 400;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     margin-right: 1px;
   }
 }
@@ -148,13 +148,13 @@
 
 .mn-drawer {
   position: fixed;
-  top: $header-height-mobile; // Locks exactly at 60px down from viewport ceiling
+  top: Variables.$header-height-mobile; // Locks exactly at 60px down from viewport ceiling
   left: 0;
   width: 100vw;
   
   // 🚀 HIGHLY CRITICAL FIX: Forces explicit container viewport layout bounds to prevent hidden overflows
-  height: calc(100vh - #{$header-height-mobile}); 
-  background-color: $background;
+  height: calc(100vh - #{Variables.$header-height-mobile}); 
+  background-color: Variables.$background;
   z-index: 100000; // Sits right underneath the nav inner top-bar row frame element
   box-sizing: border-box;
   overflow-y: auto;
@@ -179,29 +179,29 @@
     align-items: center;
     justify-content: space-between;
     text-decoration: none;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     font-size: 1.05rem;
     font-weight: 600;
     padding: 1rem 1.25rem;
     border-radius: 10px;
-    background-color: $color-bg-light;
+    background-color: Variables.$color-bg-light;
     min-height: 52px;
     box-sizing: border-box;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &--login {
       background-color: transparent;
-      border: 1px solid $color-border;
-      color: $color-primary;
+      border: 1px solid Variables.$color-border;
+      color: Variables.$color-primary;
     }
 
     &:active {
-      background-color: $color-primary-light;
-      color: $color-primary-light;
+      background-color: Variables.$color-primary-light;
+      color: Variables.$color-primary-light;
       
       .mn-drawer__link-icon {
         transform: translateX(4px);
-        color: $color-primary-light;
+        color: Variables.$color-primary-light;
       }
     }
   }
@@ -212,7 +212,7 @@
 
   &__link-icon {
     font-size: 1.1rem;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -221,8 +221,8 @@
     font-family: inherit;
     font-size: 1rem;
     font-weight: 700;
-    background-color: $color-primary;
-    color: $color-text-light;
+    background-color: Variables.$color-primary;
+    color: Variables.$color-text-light;
     border: none;
     border-radius: 10px;
     padding: 1rem;
@@ -232,10 +232,10 @@
     box-sizing: border-box;
     margin-top: 1rem;
     box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &:active {
-      background-color: $color-primary-light;
+      background-color: Variables.$color-primary-light;
       transform: scale(0.97);
     }
   }

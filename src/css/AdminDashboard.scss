@@ -1,17 +1,18 @@
-@import "./Variables.scss"; // Hooks core Spruce, Mint, Alabaster, and Ink platform layout tokens
+@use "sass:color";
+@use "Variables.scss"; // Hooks core Spruce, Mint, Alabaster, and Ink platform layout tokens
 
 .admin-dashboard {
   width: 100%;
   box-sizing: border-box;
-  color: $color-text-main;
-  font-family: $font-sans;
+  color: Variables.$color-text-main;
+  font-family: Variables.$font-sans;
 
   // =========================================================
   // HEADER PROFILE BAR
   // =========================================================
   &__header {
     margin-bottom: 2rem;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid Variables.$color-border;
     padding-bottom: 1.25rem;
   }
 
@@ -19,14 +20,14 @@
     margin: 0;
     font-size: 2.25rem;
     font-weight: 800;
-    color: $color-text-main; // Deep Matte Ink #0D1313
+    color: Variables.$color-text-main; // Deep Matte Ink #0D1313
     letter-spacing: -0.03em;
   }
 
   &__description {
     margin: 0.5rem 0 0 0;
     font-size: 14px;
-    color: $color-text-muted; // Grey Zinc #5E6C6A
+    color: Variables.$color-text-muted; // Grey Zinc #5E6C6A
     line-height: 1.5;
   }
 
@@ -37,7 +38,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: $color-primary; // Deep Spruce #1E3A3A
+    color: Variables.$color-primary; // Deep Spruce #1E3A3A
   }
 
   // =========================================================
@@ -51,7 +52,7 @@
     box-sizing: border-box;
 
     // Converted hardcoded breakpoints down to standard responsive system tokens
-    @include media-up($breakpoint-xl) {
+    @include Variables.media-up(Variables.$breakpoint-xl) {
       grid-template-columns: 1fr 360px; // Pinned asymmetric distribution grid
       gap: 2rem;
     }
@@ -81,23 +82,23 @@
     gap: 1rem;
     width: 100%;
 
-    @include media-up($breakpoint-sm) {
+    @include Variables.media-up(Variables.$breakpoint-sm) {
       grid-template-columns: repeat(4, 1fr);
     }
   }
 
   &__stat {
     padding: 1.25rem;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
-    background: $background;
+    background: Variables.$background;
     text-decoration: none;
     box-sizing: border-box;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &:hover {
       transform: translateY(-2px);
-      border-color: darken($color-border, 10%);
+      border-color: color.adjust(Variables.$color-border, $lightness: -10%);
       box-shadow: 0 8px 24px rgba(13, 19, 19, 0.04);
     }
   }
@@ -116,8 +117,8 @@
     width: 38px;
     height: 38px;
     border-radius: 6px;
-    background: $color-bg-light; // Pure Cool Alabaster
-    color: $color-primary;
+    background: Variables.$color-bg-light; // Pure Cool Alabaster
+    color: Variables.$color-primary;
 
     svg {
       width: 18px;
@@ -129,8 +130,8 @@
   &__stat-change {
     padding: 4px 8px;
     border-radius: 4px;
-    background: $color-success-bg;
-    color: $color-success; // Jade Sage Green
+    background: Variables.$color-success-bg;
+    color: Variables.$color-success; // Jade Sage Green
     font-size: 11px;
     font-weight: 700;
   }
@@ -139,13 +140,13 @@
     margin-bottom: 2px;
     font-size: 1.5rem;
     font-weight: 800;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     letter-spacing: -0.02em;
   }
 
   &__stat-label {
     font-size: 13px;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     font-weight: 500;
   }
 
@@ -154,9 +155,9 @@
   // =========================================================
   &__panel {
     min-width: 0;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
-    background: $background;
+    background: Variables.$background;
     box-sizing: border-box;
     width: 100%;
   }
@@ -165,14 +166,14 @@
     margin: 0;
     font-size: 15px;
     font-weight: 800;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     letter-spacing: -0.01em;
   }
 
   &__panel-subtitle {
     margin: 4px 0 0;
     font-size: 12px;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
   }
 
   &__panel-link {
@@ -181,9 +182,9 @@
     gap: 4px;
     font-size: 12px;
     font-weight: 700;
-    color: $color-primary;
+    color: Variables.$color-primary;
     text-decoration: none;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     flex-shrink: 0;
 
     svg {
@@ -193,7 +194,7 @@
     }
 
     &:hover {
-      color: darken($color-primary, 10%);
+      color: color.adjust(Variables.$color-primary, $lightness: -10%);
       svg {
         transform: translateX(2px);
       }
@@ -206,7 +207,7 @@
     justify-content: space-between;
     gap: 1rem;
     padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid Variables.$color-border;
     box-sizing: border-box;
   }
 
@@ -215,9 +216,9 @@
   // =========================================================
   &__overview {
     padding: 1.25rem 1.5rem;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
-    background: $background;
+    background: Variables.$background;
     box-sizing: border-box;
     width: 100%;
   }
@@ -231,25 +232,25 @@
     .admin-dashboard__overview-trend-icon {
       width: 20px;
       height: 20px;
-      color: $color-primary;
+      color: Variables.$color-primary;
     }
   }
 
   &__overview-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    border-top: 1px solid $color-border;
+    border-top: 1px solid Variables.$color-border;
     width: 100%;
 
-    @include media-up($breakpoint-sm) {
+    @include Variables.media-up(Variables.$breakpoint-sm) {
       grid-template-columns: repeat(4, 1fr);
     }
   }
 
   &__metric {
     padding: 1.25rem 1rem 0.5rem 1rem;
-    border-right: 1px solid $color-border;
-    border-bottom: 1px solid $color-border;
+    border-right: 1px solid Variables.$color-border;
+    border-bottom: 1px solid Variables.$color-border;
     box-sizing: border-box;
 
     &:nth-child(2n),
@@ -257,9 +258,9 @@
       border-right: none;
     }
 
-    @include media-up($breakpoint-sm) {
+    @include Variables.media-up(Variables.$breakpoint-sm) {
       border-bottom: none;
-      border-right: 1px solid $color-border;
+      border-right: 1px solid Variables.$color-border;
       padding: 1.25rem 1.25rem 0.5rem 1.25rem;
 
       &:last-child {
@@ -272,7 +273,7 @@
     display: block;
     margin-bottom: 6px;
     font-size: 12px;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     font-weight: 500;
   }
 
@@ -280,13 +281,13 @@
     display: block;
     margin-bottom: 4px;
     font-size: 1.2rem;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     font-weight: 800;
   }
 
   &__metric-trend {
     font-size: 11px;
-    color: $color-primary;
+    color: Variables.$color-primary;
     font-weight: 600;
   }
 
@@ -308,18 +309,18 @@
     td {
       padding: 1rem 1.5rem;
       font-size: 13px;
-      border-bottom: 1px solid $color-border;
+      border-bottom: 1px solid Variables.$color-border;
       box-sizing: border-box;
       text-align: left;
     }
 
     th {
-      background: $color-bg-light;
+      background: Variables.$color-bg-light;
       font-weight: 700;
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
       height: 44px;
     }
 
@@ -329,12 +330,12 @@
   }
 
   &__product-name {
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     font-weight: 600;
   }
 
   &__text-regular {
-    color: $color-secondary;
+    color: Variables.$color-secondary;
   }
 
   // =========================================================
@@ -349,8 +350,8 @@
     letter-spacing: 0.2px;
 
     &--success {
-      background: $color-success-bg;
-      color: $color-success;
+      background: Variables.$color-success-bg;
+      color: Variables.$color-success;
     }
 
     &--pending {
@@ -374,7 +375,7 @@
     align-items: center;
     gap: 0.75rem;
     padding: 1rem 0;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid Variables.$color-border;
     width: 100%;
     box-sizing: border-box;
 
@@ -390,8 +391,8 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: $color-error; // Glacial Mint
-    color: $color-bg-light;
+    background: Variables.$color-error; // Glacial Mint
+    color: Variables.$color-bg-light;
     font-size: 13px;
     font-weight: 700;
     flex-shrink: 0;
@@ -410,7 +411,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 13px;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     font-weight: 600;
   }
 
@@ -420,7 +421,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 11px;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     margin-top: 1px;
   }
 
@@ -438,13 +439,13 @@
     }
 
     &--seller {
-      background: $color-success-bg;
-      color: $color-primary;
+      background: Variables.$color-success-bg;
+      color: Variables.$color-primary;
     }
 
     &--admin {
       background: #ffe4e6;
-      color: $color-accent; // Radiant Terracotta Coral Alert Anchor
+      color: Variables.$color-accent; // Radiant Terracotta Coral Alert Anchor
     }
   }
 
@@ -453,9 +454,9 @@
   // =========================================================
   &__quick {
     padding: 1.25rem 1.5rem;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
-    background: $background;
+    background: Variables.$background;
     box-sizing: border-box;
     width: 100%;
     h2 {
@@ -476,32 +477,32 @@
     gap: 0.85rem;
     width: 100%;
     padding: 0.85rem 1rem;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
     text-decoration: none;
     box-sizing: border-box;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     outline: none;
     &:hover {
-      border-color: darken($color-border, 10%);
-      background: $color-bg-light;
+      border-color: color.adjust(Variables.$color-border, $lightness: -10%);
+      background: Variables.$color-bg-light;
       svg:last-child {
         transform: translateX(2px);
-        color: $color-text-main;
+        color: Variables.$color-text-main;
       }
     }
     svg:first-child {
       width: 18px;
       height: 18px;
       flex-shrink: 0;
-      color: $color-primary;
+      color: Variables.$color-primary;
     }
     svg:last-child {
       width: 14px;
       height: 14px;
       flex-shrink: 0;
       margin-left: auto;
-      color: lighten($color-text-muted, 15%);
+      color: color.adjust(Variables.$color-text-muted, $lightness: 15%);
       transition:
         transform 0.2s ease,
         color 0.2s ease;
@@ -513,12 +514,12 @@
       gap: 1px;
       strong {
         font-size: 12px;
-        color: $color-text-main;
+        color: Variables.$color-text-main;
         font-weight: 700;
       }
       span {
         font-size: 11px;
-        color: $color-text-muted;
+        color: Variables.$color-text-muted;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

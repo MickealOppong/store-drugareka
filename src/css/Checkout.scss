@@ -1,4 +1,4 @@
-@import './Variables.scss'; // Hooks premium Spruce (#1E3A3A), Alabaster (#F4F7F6), Ink (#0D1313)
+@use 'Variables.scss'; // Hooks premium Spruce (#1E3A3A), Alabaster (#F4F7F6), Ink (#0D1313)
 
 
 
@@ -8,15 +8,15 @@
 
   margin: 2rem auto;
   padding: 1.5rem;
-  background-color: $background; 
+  background-color: Variables.$background; 
   border-radius: 12px;
   box-sizing: border-box;
-  font-family: $font-sans;
+  font-family: Variables.$font-sans;
   
   // Animation entrance trigger smoothing page loads
-  animation: checkoutFadeUp 0.5s $transition-default forwards;
+  animation: checkoutFadeUp 0.5s Variables.$transition-default forwards;
 
-  @include media-up($breakpoint-md) {
+  @include Variables.media-up(Variables.$breakpoint-md) {
     margin: 4rem auto;
     padding: 2.5rem;
   }
@@ -33,7 +33,7 @@
   box-sizing: border-box;
   min-height: 250px;
   background-color: transparent !important;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
 }
 
 // Refreshes breathing space adjustments inside checkout row loops
@@ -50,7 +50,7 @@ iframe {
 #checkout:empty {
   min-height: 400px;
   position: relative;
-  background-color: $color-bg-light; // #F4F7F6 Cool Alabaster shimmer fallback Ground
+  background-color: Variables.$color-bg-light; // #F4F7F6 Cool Alabaster shimmer fallback Ground
   border-style: dashed;
   
   &::before {
@@ -62,8 +62,8 @@ iframe {
     height: 32px;
     margin-top: -16px;
     margin-left: -16px;
-    border: 3px solid $color-border;
-    border-top-color: $color-primary; // Matte Spruce spinning core
+    border: 3px solid Variables.$color-border;
+    border-top-color: Variables.$color-primary; // Matte Spruce spinning core
     border-radius: 50%;
     animation: checkoutSpinner 0.8s linear infinite;
   }

@@ -1,4 +1,4 @@
-@import './Variables.scss';
+@use 'Variables.scss';
 
 .cookie-consent-banner {
   position: fixed;
@@ -7,8 +7,8 @@
   transform: translateX(-50%);
   width: calc(100% - 32px);
   max-width: 800px;
-  background-color: $background; // #FFFFFF
-  border: 1px solid $color-border;
+  background-color: Variables.$background; // #FFFFFF
+  border: 1px solid Variables.$color-border;
   border-radius: 16px;
   box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(102, 112, 74, 0.04);
   z-index: 999999; // Elevates depth layering safely to stay visible over taskbars
@@ -23,7 +23,7 @@
     align-items: center;
     box-sizing: border-box;
 
-    @media (min-width: $breakpoint-md) {
+    @media (min-width: Variables.$breakpoint-md) {
       flex-direction: row;
       justify-content: space-between;
       gap: 32px;
@@ -40,8 +40,8 @@
   &__icon-box {
     width: 40px;
     height: 40px;
-    background-color: $color-success-bg; // Soft mint background tint
-    color: $color-success; // Safe readable text green
+    background-color: Variables.$color-success-bg; // Soft mint background tint
+    color: Variables.$color-success; // Safe readable text green
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -60,14 +60,14 @@
     margin: 0;
     font-size: 15px;
     font-weight: 800;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
   }
 
   &__description {
     margin: 0;
     font-size: 13.5px;
     line-height: 1.5;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
   }
 
   // =========================================================
@@ -81,7 +81,7 @@
     width: 100%;
     flex-shrink: 0;
 
-    @media (min-width: $breakpoint-sm) {
+    @media (min-width: Variables.$breakpoint-sm) {
       width: auto;
     }
   }
@@ -98,10 +98,10 @@
     gap: 8px;
     cursor: pointer;
     font-family: inherit;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     flex: 1;
 
-    @media (min-width: $breakpoint-sm) {
+    @media (min-width: Variables.$breakpoint-sm) {
       flex: none;
     }
 
@@ -111,24 +111,24 @@
 
     &--reject {
       background-color: transparent;
-      border: 1px solid $color-border;
-      color: $color-text-muted;
+      border: 1px solid Variables.$color-border;
+      color: Variables.$color-text-muted;
 
       &:hover {
-        background-color: $color-bg-light;
-        color: $color-text-main;
+        background-color: Variables.$color-bg-light;
+        color: Variables.$color-text-main;
        // border-color: darken($color-border, 10%);
       }
     }
 
     &--accept {
-      background-color: $color-primary; // Flagship Brand Sage Green (#66704A)
+      background-color: Variables.$color-primary; // Flagship Brand Sage Green (#66704A)
       border: none;
-      color: $color-text-light;
+      color: Variables.$color-text-light;
       box-shadow: 0 4px 12px rgba(102, 112, 74, 0.15);
 
       &:hover {
-        background-color: $color-primary-light; // #393c2e
+        background-color: Variables.$color-primary-light; // #393c2e
         box-shadow: 0 6px 16px rgba(102, 112, 74, 0.25);
       }
     }

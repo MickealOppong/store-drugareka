@@ -1,4 +1,5 @@
-@import './Variables.scss'; // 🚀 Binds your flagship Spruce (#1E3A3A) and font configurations
+@use "sass:color";
+@use 'Variables.scss'; // 🚀 Binds your flagship Spruce (#1E3A3A) and font configurations
 
 /* ==========================================================================
    KASOA LOGISTICS PRICE CONFIGURATOR MODULE - SPECIFIC ENCAPSULATION
@@ -10,7 +11,7 @@
   margin: 0 auto;
   padding: 32px 24px;
   box-sizing: border-box;
-  font-family: $font-sans;
+  font-family: Variables.$font-sans;
 
   &__header {
     margin-bottom: 32px;
@@ -23,7 +24,7 @@
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
-    color: $color-primary; // Flagship Kasoa Spruce
+    color: Variables.$color-primary; // Flagship Kasoa Spruce
     letter-spacing: 0.05em;
     margin-bottom: 6px;
   }
@@ -102,8 +103,8 @@
 
     &:focus {
       outline: none;
-      border-color: $color-primary;
-      box-shadow: 0 0 0 1px $color-primary;
+      border-color: Variables.$color-primary;
+      box-shadow: 0 0 0 1px Variables.$color-primary;
     }
 
     &:disabled {
@@ -147,7 +148,7 @@
     input[type="checkbox"] {
       width: 16px;
       height: 16px;
-      accent-color: $color-primary;
+      accent-color: Variables.$color-primary;
       cursor: pointer;
     }
   }
@@ -185,7 +186,7 @@
   &__submit {
     height: 44px;
     padding: 0 24px;
-    background-color: $color-primary;
+    background-color: Variables.$color-primary;
     color: #ffffff;
     border: none;
     border-radius: 8px;
@@ -200,7 +201,7 @@
     align-self: flex-start;
 
     &:hover {
-      background-color: darken($color-primary, 6%);
+      background-color: color.adjust(Variables.$color-primary, $lightness: -6%);
     }
 
     &:disabled {

@@ -1,4 +1,5 @@
-@import "./Variables.scss"; // Hooks core Spruce (#1E3A3A), Alabaster (#F4F7F6), Ink (#0D1313)
+@use "sass:color";
+@use "Variables.scss"; // Hooks core Spruce (#1E3A3A), Alabaster (#F4F7F6), Ink (#0D1313)
 
 // Scoped layout parameters
 $db-card-bg: #ffffff;
@@ -7,9 +8,9 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
 .db-view {
   width: 100%;
   box-sizing: border-box;
-  font-family: $font-sans;
-  color: $color-text-main;
-  background-color: $background;
+  font-family: Variables.$font-sans;
+  color: Variables.$color-text-main;
+  background-color: Variables.$background;
 
   &__header {
     display: flex;
@@ -18,10 +19,10 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     align-items: flex-start;
     gap: 1.5rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid Variables.$color-border;
     margin-bottom: 2.5rem;
 
-    @include media-up($breakpoint-sm) {
+    @include Variables.media-up(Variables.$breakpoint-sm) {
       flex-direction: row;
       align-items: center;
     }
@@ -32,13 +33,13 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     font-size: 2rem;
     font-weight: 800;
     letter-spacing: -0.03em;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
   }
 
   &__description {
     margin: 0.5rem 0 0 0;
     font-size: 14px;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
   }
 }
 
@@ -48,7 +49,7 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.15em;
-  color: $color-text-muted;
+  color: Variables.$color-text-muted;
   text-transform: uppercase;
 }
 
@@ -60,14 +61,14 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   gap: 0.5rem;
   padding: 0 1.25rem;
   height: 42px;
-  background-color: $color-bg-light;
-  color: $color-primary;
+  background-color: Variables.$color-bg-light;
+  color: Variables.$color-primary;
   border-radius: 8px;
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 700;
-  transition: $transition-default;
-  border: 1px solid $color-border;
+  transition: Variables.$transition-default;
+  border: 1px solid Variables.$color-border;
 
   svg {
     font-size: 1rem;
@@ -75,9 +76,9 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   &:hover {
-    background-color: $color-primary;
-    color: $color-text-light;
-    border-color: $color-primary;
+    background-color: Variables.$color-primary;
+    color: Variables.$color-text-light;
+    border-color: Variables.$color-primary;
     svg {
       transform: translateX(3px);
     }
@@ -93,7 +94,7 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   gap: 1rem;
   margin-bottom: 2.5rem;
 
-  @include media-up($breakpoint-sm) {
+  @include Variables.media-up(Variables.$breakpoint-sm) {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
 }
@@ -103,19 +104,19 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   align-items: center;
   padding: 1.25rem;
   background-color: $db-card-bg;
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
   border-radius: 12px;
   text-decoration: none;
   box-sizing: border-box;
   position: relative;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
 
   &__icon {
     width: 44px;
     height: 44px;
     border-radius: 8px;
-    background-color: $color-bg-light;
-    color: $color-primary;
+    background-color: Variables.$color-bg-light;
+    color: Variables.$color-primary;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -132,13 +133,13 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   &__label {
     font-size: 12px;
     font-weight: 500;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
   }
 
   &__value {
     font-size: 1.5rem;
     font-weight: 800;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     line-height: 1.2;
     margin-top: 2px;
   }
@@ -146,7 +147,7 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   &__arrow {
     margin-left: auto;
     font-size: 1.1rem;
-    color: lighten($color-text-muted, 15%);
+    color: color.adjust(Variables.$color-text-muted, $lightness: 15%);
     transition:
       transform 0.2s ease,
       color 0.2s ease;
@@ -154,11 +155,11 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
     transform: translateY(-2px);
-    border-color: darken($color-border, 10%);
+    border-color: color.adjust(Variables.$color-border, $lightness: -10%);
     box-shadow: 0 10px 24px rgba(13, 19, 19, 0.03);
 
     .db-stat-card__arrow {
-      color: $color-text-main;
+      color: Variables.$color-text-main;
       transform: translateX(2px);
     }
   }
@@ -193,9 +194,9 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     gap: 4px;
     font-size: 13px;
     font-weight: 700;
-    color: $color-primary;
+    color: Variables.$color-primary;
     text-decoration: none;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     svg {
       font-size: 14px;
@@ -203,7 +204,7 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     &:hover {
-      color: darken($color-primary, 10%);
+      color: color.adjust(Variables.$color-primary, $lightness: -10%);
       svg {
         transform: translateX(2px);
       }
@@ -217,7 +218,7 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   grid-template-columns: 1fr;
   gap: 1rem;
 
-  @include media-up($breakpoint-md) {
+  @include Variables.media-up(Variables.$breakpoint-md) {
     grid-template-columns: repeat(3, 1fr);
   }
 }
@@ -228,18 +229,18 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   gap: 1rem;
   padding: 1.25rem;
   background-color: $db-card-bg;
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
   border-radius: 12px;
   text-decoration: none;
   box-sizing: border-box;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
 
   &__icon {
     width: 40px;
     height: 40px;
     border-radius: 8px;
-    background-color: $color-bg-light;
-    color: $color-primary;
+    background-color: Variables.$color-bg-light;
+    color: Variables.$color-primary;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -255,11 +256,11 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     strong {
       font-size: 14px;
       font-weight: 700;
-      color: $color-text-main;
+      color: Variables.$color-text-main;
     }
     span {
       font-size: 12px;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
       margin-top: 1px;
     }
   }
@@ -267,13 +268,13 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   &__arrow {
     margin-left: auto;
     font-size: 1rem;
-    color: lighten($color-text-muted, 15%);
+    color: color.adjust(Variables.$color-text-muted, $lightness: 15%);
     transition: transform 0.2s ease;
   }
 
   &:hover {
-    border-color: darken($color-border, 10%);
-    background-color: $color-bg-light;
+    border-color: color.adjust(Variables.$color-border, $lightness: -10%);
+    background-color: Variables.$color-bg-light;
 
     .db-action-item__arrow {
       transform: translateX(2px);
@@ -281,26 +282,26 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   &--primary {
-    background-color: $color-primary;
-    border-color: $color-primary;
+    background-color: Variables.$color-primary;
+    border-color: Variables.$color-primary;
 
     .db-action-item__icon {
       background-color: rgba(255, 255, 255, 0.15);
-      color: $color-text-light;
+      color: Variables.$color-text-light;
     }
     .db-action-item__body strong {
-      color: $color-text-light;
+      color: Variables.$color-text-light;
     }
     .db-action-item__body span {
       color: rgba(255, 255, 255, 0.7);
     }
     .db-action-item__arrow {
-      color: $color-text-light;
+      color: Variables.$color-text-light;
     }
 
     &:hover {
-      background-color: darken($color-primary, 4%);
-      border-color: darken($color-primary, 4%);
+      background-color: color.adjust(Variables.$color-primary, $lightness: -4%);
+      border-color: color.adjust(Variables.$color-primary, $lightness: -4%);
     }
   }
 }
@@ -312,13 +313,13 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  background-color: $color-bg-light;
+  background-color: Variables.$color-bg-light;
   padding: 1.5rem;
   border-radius: 12px;
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
   margin-bottom: 2rem;
 
-  @include media-up($breakpoint-md) {
+  @include Variables.media-up(Variables.$breakpoint-md) {
     grid-template-columns: repeat(5, 1fr);
     padding: 2rem 1.5rem;
   }
@@ -332,14 +333,14 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
 
   &__label {
     font-size: 12px;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     font-weight: 500;
   }
 
   &__value {
     font-size: 1.35rem;
     font-weight: 800;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     margin-top: 4px;
     letter-spacing: -0.01em;
   }
@@ -347,7 +348,7 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
 
 // Activity Rows Layout Loops
 .db-activity-panel {
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
   background-color: $db-card-bg;
   border-radius: 12px;
   overflow: hidden;
@@ -357,8 +358,8 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     justify-content: space-between;
     align-items: center;
     padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid $color-border;
-    background-color: $color-bg-light;
+    border-bottom: 1px solid Variables.$color-border;
+    background-color: Variables.$color-bg-light;
 
     h3 {
       margin: 0;
@@ -380,7 +381,7 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   align-items: center;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid $color-border;
+  border-bottom: 1px solid Variables.$color-border;
   gap: 1rem;
   width: 100%;
   box-sizing: border-box;
@@ -393,8 +394,8 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     width: 36px;
     height: 36px;
     border-radius: 6px;
-    background-color: $color-bg-light;
-    color: $color-text-muted;
+    background-color: Variables.$color-bg-light;
+    color: Variables.$color-text-muted;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -407,7 +408,7 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     flex: 1;
     strong {
       font-size: 14px;
-      color: $color-text-main;
+      color: Variables.$color-text-main;
       font-weight: 600;
     }
   }
@@ -424,8 +425,8 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     letter-spacing: 0.3px;
 
     &--sold {
-      background-color: $color-success-bg;
-      color: $color-success;
+      background-color: Variables.$color-success-bg;
+      color: Variables.$color-success;
     }
     &--shipping {
       background-color: #fef3c7;
@@ -438,12 +439,12 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   &__action {
-    color: lighten($color-text-muted, 15%);
+    color: color.adjust(Variables.$color-text-muted, $lightness: 15%);
     font-size: 1.1rem;
     display: flex;
     transition: color 0.2s ease;
     &:hover {
-      color: $color-primary;
+      color: Variables.$color-primary;
     }
   }
 }
@@ -452,17 +453,17 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
 // NON-SELLER REGISTRATION PROMO BANNER (`.db-sell-cta`)
 // =========================================================
 .db-sell-cta {
-  background-color: $color-primary;
+  background-color: Variables.$color-primary;
   border-radius: 16px;
   padding: 2.5rem 1.5rem;
   position: relative;
   overflow: hidden;
-  color: $color-text-light;
+  color: Variables.$color-text-light;
   margin-bottom: 3rem;
   width: 100%;
   box-sizing: border-box;
 
-  @include media-up($breakpoint-md) {
+  @include Variables.media-up(Variables.$breakpoint-md) {
     padding: 3.5rem 3rem;
   }
 
@@ -478,9 +479,9 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     line-height: 1.2;
     letter-spacing: -0.03em;
     margin: 0.5rem 0 0.75rem 0;
-    color: $color-text-light;
+    color: Variables.$color-text-light;
 
-    @include media-up($breakpoint-md) {
+    @include Variables.media-up(Variables.$breakpoint-md) {
       font-size: 2.25rem;
     }
   }
@@ -499,18 +500,18 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     gap: 0.5rem;
     height: 46px;
     padding: 0 1.5rem;
-    background-color: $background;
-    color: $color-primary;
+    background-color: Variables.$background;
+    color: Variables.$color-primary;
     border-radius: 8px;
     font-size: 0.9rem;
     font-weight: 700;
     text-decoration: none;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     svg {
       transition: transform 0.2s ease;
     }
     &:hover {
-      background-color: $color-bg-light;
+      background-color: Variables.$color-bg-light;
       svg {
         transform: translateX(3px);
       }
@@ -533,29 +534,29 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   gap: 1rem;
   width: 100%;
   box-sizing: border-box;
-  @include media-up($breakpoint-sm) {
+  @include Variables.media-up(Variables.$breakpoint-sm) {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
   }
-  @include media-up($breakpoint-lg) {
+  @include Variables.media-up(Variables.$breakpoint-lg) {
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
   }
 }
 .db-product-card {
   background-color: $db-card-bg;
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(13, 19, 19, 0.01);
   display: flex;
   flex-direction: column;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
   &__gallery {
     position: relative;
     width: 100%;
     aspect-ratio: 1 / 1;
-    background-color: $color-bg-light;
+    background-color: Variables.$color-bg-light;
     overflow: hidden;
   }
   &__link {
@@ -577,28 +578,28 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background-color: $background;
-    border: 1px solid $color-border;
-    color: $color-text-muted;
+    background-color: Variables.$background;
+    border: 1px solid Variables.$color-border;
+    color: Variables.$color-text-muted;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     font-size: 14px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: $transition-default;
+    transition: Variables.$transition-default;
     outline: none;
     z-index: 3;
     &:hover {
-      color: $color-accent;
+      color: Variables.$color-accent;
       transform: scale(1.05);
     }
     &.is-active {
       background-color: #ffe4e6;
-      color: $color-accent;
+      color: Variables.$color-accent;
       border-color: #fca5a5;
       svg {
-        fill: $color-accent;
+        fill: Variables.$color-accent;
       }
     }
   }
@@ -614,8 +615,8 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: $color-text-muted;
-    background-color: $color-bg-light;
+    color: Variables.$color-text-muted;
+    background-color: Variables.$color-bg-light;
     padding: 2px 6px;
     border-radius: 4px;
     margin-bottom: 0.5rem;
@@ -624,7 +625,7 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     margin: 0 0 0.35rem 0;
     font-size: 14px;
     font-weight: 700;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -632,13 +633,13 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   &__price {
     font-size: 15px;
     font-weight: 800;
-    color: $color-primary;
+    color: Variables.$color-primary;
     margin-top: auto;
   }
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 24px rgba(13, 19, 19, 0.04);
-    border-color: darken($color-border, 10%);
+    border-color: color.adjust(Variables.$color-border, $lightness: -10%);
     .db-product-card__gallery img {
       transform: scale(1.04);
     }

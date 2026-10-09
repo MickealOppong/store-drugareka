@@ -1,12 +1,12 @@
 
 
-@import "./Variables.scss";
+@use "Variables.scss";
 
 
 
 .mobile-landing {
-  font-family: $font-sans;
-  color: $color-text-main;
+  font-family: Variables.$font-sans;
+  color: Variables.$color-text-main;
   background-color: #ffffff;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -26,7 +26,7 @@
 
 // Fluid Mobile Section Layouts
 .mobile-landing > section {
-  @include mobile-container;
+  @include Variables.mobile-container;
   padding-bottom: 3.5rem;
 }
 
@@ -50,8 +50,8 @@
     gap: 0.35rem;
     font-size: 0.9rem;
     font-weight: 600;
-    color: $color-primary;
-    min-height: $touch-target-min;
+    color: Variables.$color-primary;
+    min-height: Variables.$touch-target-min;
   }
 }
 
@@ -60,7 +60,7 @@
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: $color-text-muted;
+  color: Variables.$color-text-muted;
   text-transform: uppercase;
 }
 
@@ -71,32 +71,32 @@
   justify-content: center;
   gap: 0.5rem;
   width: 100%; // Stacked buttons block out full width on mobile viewports
-  min-height: $touch-target-min;
+  min-height: Variables.$touch-target-min;
   padding: 0.85rem 1.25rem;
   font-weight: 600;
   font-size: 0.95rem;
   border-radius: 6px;
   box-sizing: border-box;
   text-align: center;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
 
   &--primary {
-    background-color: $color-primary;
-    color: $color-text-light !important;
-    border: 1px solid $color-primary;
+    background-color: Variables.$color-primary;
+    color: Variables.$color-text-light !important;
+    border: 1px solid Variables.$color-primary;
   }
 
   &--secondary {
     background-color: transparent;
     //color: $color-primary;
     color: olivedrab;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
   }
 
   &--light {
-    background-color: $color-text-light;
-    color: $color-primary;
-    border: 1px solid $color-text-light;
+    background-color: Variables.$color-text-light;
+    color: Variables.$color-primary;
+    border: 1px solid Variables.$color-text-light;
   }
 }
 
@@ -108,7 +108,7 @@
 
   span {
     font-weight: 400;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
   }
 }
 
@@ -150,7 +150,7 @@
   &__description {
     font-size: 1rem;
     line-height: 1.5;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     margin: 0 0 2rem;
   }
 
@@ -208,7 +208,7 @@
     svg {
       font-size: 1.2rem;
       flex-shrink: 0;
-      color: $color-primary;
+      color: Variables.$color-primary;
     }
 
     div {
@@ -224,7 +224,7 @@
 
     span {
       font-size: 0.7rem;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
     }
   }
 }
@@ -234,9 +234,9 @@
 // ==========================================================================
 
 .mobile-trust {
-  border-top: 1px solid $color-border;
-  border-bottom: 1px solid $color-border;
-  background-color: $color-bg-light;
+  border-top: 1px solid Variables.$color-border;
+  border-bottom: 1px solid Variables.$color-border;
+  background-color: Variables.$color-bg-light;
 
   // Implements 2x2 grid layout safe down to 320px
   display: grid;
@@ -250,7 +250,7 @@
 
     svg {
       font-size: 1.25rem;
-      color: $color-primary;
+      color: Variables.$color-primary;
     }
 
     strong {
@@ -261,7 +261,7 @@
 
     span {
       font-size: 0.75rem;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
       line-height: 1.3;
     }
   }
@@ -282,7 +282,7 @@
   aspect-ratio: 1 / 1; // Square blocks maximize imagery on narrow layouts
   border-radius: 6px;
   overflow: hidden;
-  background-color: $color-bg-light;
+  background-color: Variables.$color-bg-light;
 
   &__overlay {
     position: absolute;
@@ -296,7 +296,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    color: $color-text-light;
+    color: Variables.$color-text-light;
 
     h3 {
       font-size: 0.95rem;
@@ -331,7 +331,7 @@
   &__media {
     display: block;
     aspect-ratio: 1 / 1;
-    background-color: $color-bg-light;
+    background-color: Variables.$color-bg-light;
     border-radius: 6px;
     overflow: hidden;
     margin-bottom: 0.65rem;
@@ -352,7 +352,7 @@
     justify-content: center;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     z-index: 10;
   }
 
@@ -366,7 +366,7 @@
       font-size: 0.85rem;
       font-weight: 500;
       margin: 0;
-      color: $color-text-main;
+      color: Variables.$color-text-main;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis; // Keeps title rows on a single line safely
@@ -374,7 +374,7 @@
     strong {
       font-size: 0.95rem;
       font-weight: 700;
-      color: $color-text-main;
+      color: Variables.$color-text-main;
     }
   }
   &__condition {
@@ -383,8 +383,8 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.02em;
-    color: $color-text-muted;
-    background-color: $color-bg-light;
+    color: Variables.$color-text-muted;
+    background-color: Variables.$color-bg-light;
     padding: 0.15rem 0.4rem;
     border-radius: 2px;
     margin-bottom: 0.15rem;
@@ -392,8 +392,8 @@
 }
 
 .mobile-seller {
-  background-color: $color-bg-dark;
-  color: $color-text-light;
+  background-color: Variables.$color-bg-dark;
+  color: Variables.$color-text-light;
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -424,8 +424,8 @@
     .mobile-button {
       align-self: flex-start;
       border-color: transparent;
-      background: $color-primary;
-      color: $color-text-light;
+      background: Variables.$color-primary;
+      color: Variables.$color-text-light;
     }
   }
   &__steps {
@@ -460,7 +460,7 @@
 }
 .mobile-final-cta {
   text-align: center;
-  border-top: 1px solid $color-border;
+  border-top: 1px solid Variables.$color-border;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -480,8 +480,8 @@
 // ==========================================================================
 
 .mobile-footer {
-  @include mobile-container;
-  border-top: 1px solid $color-border;
+  @include Variables.mobile-container;
+  border-top: 1px solid Variables.$color-border;
   padding-top: 3rem;
   padding-bottom: 2.5rem;
   display: flex;
@@ -492,7 +492,7 @@
       margin-top: 0.75rem;
       font-size: 0.9rem;
       line-height: 1.4;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
     }
   }
   &__links {
@@ -513,17 +513,17 @@
     }
     a {
       font-size: 0.9rem;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
     }
   }
   &__bottom {
-    border-top: 1px solid $color-border;
+    border-top: 1px solid Variables.$color-border;
     padding-top: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     font-size: 0.8rem;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     div {
       display: flex;
       gap: 1.25rem;

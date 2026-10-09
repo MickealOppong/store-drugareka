@@ -1,4 +1,4 @@
-@import './Variables.scss';
+@use 'Variables.scss';
 
 .mobile-search {
   position: fixed;
@@ -8,7 +8,7 @@
 
   min-height: 100dvh;
 
-  background-color: $color-bg-light;
+  background-color: Variables.$color-bg-light;
 
   overflow-y: auto;
   
@@ -24,7 +24,7 @@
   align-items: center;
   justify-content: space-between;
 
-  border-bottom: 1px solid $color-border;
+  border-bottom: 1px solid Variables.$color-border;
 }
 
 .mobile-search__close {
@@ -40,7 +40,7 @@
   border: 0;
   background: transparent;
 
-  color:  $color-text-muted;
+  color:  Variables.$color-text-muted;
 
   cursor: pointer;
 
@@ -71,16 +71,16 @@
   display: flex;
   align-items: center;
 
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
 
-  background: $color-bg-light;
+  background: Variables.$color-bg-light;
 
   border-radius: 4px;
 
   transition: border-color 0.2s ease;
 
   &:focus-within {
-    border-color: $color-bg-dark;
+    border-color: Variables.$color-bg-dark;
   }
 
   input {
@@ -96,13 +96,13 @@
 
     background: transparent;
 
-    color: $color-text-main;
+    color: Variables.$color-text-main;
 
     font-family: inherit;
     font-size: 15px;
 
     &::placeholder {
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
     }
 
     &::-webkit-search-cancel-button {
@@ -118,7 +118,7 @@
   width: 19px;
   height: 19px;
 
-  color:  $color-text-muted;
+  color:  Variables.$color-text-muted;
 }
 
 .mobile-search__clear {
@@ -135,7 +135,7 @@
   border: 0;
   background: transparent;
 
-  color:  $color-text-main;
+  color:  Variables.$color-text-main;
 
   svg {
     width: 16px;
@@ -157,8 +157,8 @@
   border: 0;
   border-radius: 3px;
 
-  background:  $color-bg-dark;
-  color: $color-bg-light;
+  background:  Variables.$color-bg-dark;
+  color: Variables.$color-bg-light;
 
   svg {
     width: 17px;
@@ -183,7 +183,7 @@
 
   letter-spacing: 1.5px;
 
-  color: $color-text-light;
+  color: Variables.$color-text-light;
 
 }
 
@@ -199,12 +199,12 @@
 .mobile-search__suggestions button {
   padding: 10px 15px;
 
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
   border-radius: 30px;
 
   background: transparent;
 
-  color: $color-text-muted;
+  color: Variables.$color-text-muted;
 
   font-family: inherit;
   font-size: 11px;
@@ -216,8 +216,8 @@
     color 0.2s ease;
 
   &:active {
-    background: $color-text-light;
-    color: $color-bg-light;
+    background: Variables.$color-text-light;
+    color: Variables.$color-bg-light;
   }
 }
 
@@ -238,7 +238,7 @@
   border: 0;
   background: transparent;
 
-  color:  $color-text-muted;
+  color:  Variables.$color-text-muted;
 
   font-family: inherit;
   font-size: 10px;
@@ -249,7 +249,7 @@
 .mobile-search__recent {
   margin-top: 14px;
 
-  border-top: 1px solid $color-border;
+  border-top: 1px solid Variables.$color-border;
 }
 
 .mobile-search__recent button {
@@ -264,11 +264,11 @@
   gap: 12px;
 
   border: 0;
-  border-bottom: 1px solid $color-border;
+  border-bottom: 1px solid Variables.$color-border;
 
   background: transparent;
 
-  color: $color-text-main;
+  color: Variables.$color-text-main;
 
   font-family: inherit;
 
@@ -280,7 +280,7 @@
     width: 15px;
     height: 15px;
 
-    color:  $color-text-muted;
+    color:  Variables.$color-text-muted;
   }
 
   span {
@@ -293,7 +293,7 @@
     width: 14px;
     height: 14px;
 
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
   }
 }
 
@@ -307,7 +307,7 @@
 
   padding: 28px 22px;
 
-  background: $color-primary;
+  background: Variables.$color-primary;
   border-radius: 4px;
 }
 
@@ -328,7 +328,7 @@
   font-size: 11px;
 
   font-weight: 600;
-  color: $color-text-light;
+  color: Variables.$color-text-light;
   text-decoration: none;
 
 

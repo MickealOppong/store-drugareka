@@ -2,7 +2,7 @@
 // CONFIGURATION: VARIABLES & BREAKPOINTS
 // ==========================================================================
 
-@import './Variables.scss';
+@use 'Variables.scss';
 
 
 
@@ -19,7 +19,7 @@
   width: calc(100% - 2.5rem);
   max-width: 480px;
   background-color: #fef2f2;
-  border: 1px solid rgba($color-accent, 0.2);
+  border: 1px solid rgba(Variables.$color-accent, 0.2);
   border-radius: 8px;
   padding: 1rem 1.25rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
@@ -30,7 +30,7 @@
     margin: 0;
     font-size: 0.9rem;
     font-weight: 600;
-    color: $color-accent;
+    color: Variables.$color-accent;
     text-align: center;
     line-height: 1.4;
   }
@@ -46,9 +46,9 @@
 // ==========================================================================
 
 .register-page {
-  font-family: $font-sans;
-  color: $color-text-main;
-  background-color: $background-2;
+  font-family: Variables.$font-sans;
+  color: Variables.$color-text-main;
+  background-color: Variables.$background-2;
   height: fit-content;
   display: flex;
 
@@ -60,7 +60,7 @@
   a {
     text-decoration: none;
     color: inherit;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
   }
 }
 
@@ -75,7 +75,7 @@
   display: flex;
   flex-direction: column;
   background: #ffffff;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     padding: 3rem 2.5rem;
     border-radius: 12px;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.03);
@@ -90,7 +90,7 @@
     margin-bottom: 2rem;
 
     .register-heart {
-      color: $color-accent;
+      color: Variables.$color-accent;
       font-size: 1.35rem;
       flex-shrink: 0;
     }
@@ -117,7 +117,7 @@
     p {
       font-size: 0.95rem;
       line-height: 1.5;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
       margin: 0;
     }
   }
@@ -139,7 +139,7 @@
   flex-direction: column;
   gap: 1.25rem;
 
-  @include media-up($breakpoint-sm) {
+  @include Variables.media-up(Variables.$breakpoint-sm) {
     flex-direction: row;
     gap: 1rem;
 
@@ -155,34 +155,34 @@
   display: flex;
   align-items: center;
   background-color: #ffffff;
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
   border-radius: 6px;
   padding: 0.5rem 1rem;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
 
   // NEW: Parent Hover State Updates
   &:hover {
-    border-color: $color-secondary;
+    border-color: Variables.$color-secondary;
 
     .input-icon {
-      color: $color-text-main;
+      color: Variables.$color-text-main;
     }
   }
 
   // Active Focus State Updates
   &:focus-within {
-    border-color: $color-primary;
-    box-shadow: 0 0 0 1px $color-primary;
+    border-color: Variables.$color-primary;
+    box-shadow: 0 0 0 1px Variables.$color-primary;
 
     .input-icon {
-      color: $color-primary;
+      color: Variables.$color-primary;
     }
   }
 
   // Left Embedded Input Vectors
   .input-icon {
     font-size: 1.1rem;
-    color: $color-secondary;
+    color: Variables.$color-secondary;
     margin-right: 0.85rem;
     flex-shrink: 0;
     transition: color 0.2s ease;
@@ -199,7 +199,7 @@
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
       margin-bottom: 0.15rem;
     }
 
@@ -208,9 +208,9 @@
       border: none;
       background: transparent;
       padding: 0.2rem 0;
-      font-family: $font-sans;
+      font-family: Variables.$font-sans;
       font-size: 0.95rem;
-      color: $color-text-main;
+      color: Variables.$color-text-main;
       width: 100%;
       box-sizing: border-box;
 
@@ -221,9 +221,9 @@
 
     // Custom configuration safeties for native calendar date rows
     input[type="date"] {
-      color: $color-text-main;
+      color: Variables.$color-text-main;
       cursor: pointer;
-      font-family: $font-sans;
+      font-family: Variables.$font-sans;
       
       &::-webkit-calendar-picker-indicator {
         cursor: pointer;
@@ -243,7 +243,7 @@
   display: block;
   font-size: 0.8rem;
   font-weight: 500;
-  color: $color-accent;
+  color: Variables.$color-accent;
   margin-top: 0.4rem;
   padding-left: 0.25rem;
 }
@@ -263,7 +263,7 @@
   // NEW: Parent Hover updates standard border profiles dynamically
   &:hover {
     input[type="checkbox"] {
-      border-color: $color-primary;
+      border-color: Variables.$color-primary;
     }
   }
 
@@ -273,7 +273,7 @@
     -webkit-appearance: none;
     width: 18px;
     height: 18px;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 4px;
     background-color: #ffffff;
     margin: 0.15rem 0 0 0;
@@ -282,11 +282,11 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &:checked {
-      background-color: $color-primary;
-      border-color: $color-primary;
+      background-color: Variables.$color-primary;
+      border-color: Variables.$color-primary;
 
       &::after {
         content: '';
@@ -300,23 +300,23 @@
     }
 
     &:focus-visible {
-      outline: 2px solid $color-accent;
+      outline: 2px solid Variables.$color-accent;
     }
   }
 
   span {
     font-size: 0.85rem;
     line-height: 1.5;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
 
     .legal-link {
-      color: $color-primary;
+      color: Variables.$color-primary;
       font-weight: 600;
       border-bottom: 1px solid transparent;
 
       &:hover {
-        color: $color-accent;
-        border-color: $color-accent;
+        color: Variables.$color-accent;
+        border-color: Variables.$color-accent;
       }
     }
   }
@@ -328,15 +328,15 @@
 
 // Primary Submit Action Button Layout
 .register-btn {
-  font-family: $font-sans;
-  background-color: $color-primary;
-  color: $color-text-light;
-  border: 1px solid $color-primary;
+  font-family: Variables.$font-sans;
+  background-color: Variables.$color-primary;
+  color: Variables.$color-text-light;
+  border: 1px solid Variables.$color-primary;
   border-radius: 6px;
   font-weight: 600;
   font-size: 0.95rem;
   padding: 0.85rem 1.25rem;
-  min-height: $touch-target-min;
+  min-height: Variables.$touch-target-min;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -344,7 +344,7 @@
   gap: 0.5rem;
   width: 100%;
   margin-top: 0.5rem;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
 
   svg {
     font-size: 1.1rem;
@@ -353,8 +353,8 @@
 
   // NEW: Parent Hover Rule slides vector graphic forward dynamically
   &:hover {
-    background-color: $color-primary-light;
-    border-color: $color-primary-light;
+    background-color: Variables.$color-primary-light;
+    border-color: Variables.$color-primary-light;
 
     svg {
       transform: translateX(4px);
@@ -368,16 +368,16 @@
 .login-link {
   text-align: center;
   font-size: 0.9rem;
-  color: $color-text-muted;
+  color: Variables.$color-text-muted;
   margin-top: 2rem;
 
   a {
     font-weight: 700;
-    color: $color-primary;
+    color: Variables.$color-primary;
     margin-left: 0.25rem;
 
     &:hover {
-      color: $color-accent;
+      color: Variables.$color-accent;
     }
   }
 }

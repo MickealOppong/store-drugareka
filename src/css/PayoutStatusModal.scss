@@ -1,4 +1,5 @@
-@import './Variables.scss'; // Hooks premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and Ink (#0D1313)
+@use "sass:color";
+@use 'Variables.scss'; // Hooks premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and Ink (#0D1313)
 
 /* ==========================================================================
    ADMINISTRATIVE INTERACTIVE LEDGER FORMS (BEM MATRIX DESIGN SYSTEM)
@@ -25,7 +26,7 @@
   width: 100%;
   max-width: 460px;
   background-color: #ffffff;
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
   border-radius: 14px;
   box-shadow: 0 20px 48px rgba(13, 19, 19, 0.12);
   display: flex;
@@ -39,7 +40,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 20px;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid Variables.$color-border;
     background-color: #ffffff;
   }
 
@@ -49,8 +50,8 @@
     gap: 6px;
     font-size: 11px;
     font-weight: 700;
-    color: $color-primary;
-    background-color: $color-bg-light;
+    color: Variables.$color-primary;
+    background-color: Variables.$color-bg-light;
     padding: 4px 10px;
     border-radius: 20px;
     text-transform: uppercase;
@@ -61,12 +62,12 @@
     border: none;
     background: transparent;
     font-size: 1.25rem;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     display: flex;
     cursor: pointer;
     transition: color 0.15s ease;
 
-    &:hover { color: $color-text-main; }
+    &:hover { color: Variables.$color-text-main; }
   }
 
   &__form {
@@ -85,7 +86,7 @@
   &__title {
     font-size: 1.45rem;
     font-weight: 800;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     text-align: center;
     letter-spacing: -0.02em;
     margin: 0;
@@ -94,15 +95,15 @@
   &__description {
     font-size: 13px;
     line-height: 1.5;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     text-align: center;
     margin: 0 0 4px 0;
   }
 
   /* Ledger Metadata Box Card */
   &__summary-box {
-    background-color: $color-bg-light;
-    border: 1px solid $color-border;
+    background-color: Variables.$color-bg-light;
+    border: 1px solid Variables.$color-border;
     border-radius: 10px;
     padding: 12px 14px;
     display: flex;
@@ -118,19 +119,19 @@
     font-size: 13px;
 
     &--total {
-      border-top: 1px dashed lighten($color-text-muted, 20%);
+      border-top: 1px dashed color.adjust(Variables.$color-text-muted, $lightness: 20%);
       padding-top: 8px;
       margin-top: 2px;
     }
   }
 
-  &__summary-label { color: $color-text-muted; }
+  &__summary-label { color: Variables.$color-text-muted; }
   &__summary-value {
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     font-weight: 700;
 
     &--price {
-      color: $color-success;
+      color: Variables.$color-success;
       font-size: 15px;
       font-weight: 800;
     }
@@ -161,7 +162,7 @@
   &__label {
     font-size: 12px;
     font-weight: 700;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
@@ -176,7 +177,7 @@
   &__input-icon {
     position: absolute;
     left: 12px;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     font-size: 1rem;
     pointer-events: none;
   }
@@ -186,19 +187,19 @@
     height: 40px;
     padding: 0 12px 0 36px; // Adjusts text fields layout safely behind the vector calendar icon
     box-sizing: border-box;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
     outline: none;
     background: #ffffff;
     font-family: inherit;
     font-size: 13.5px;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     font-weight: 600;
-    transition: all 0.2s $transition-default;
+    transition: all 0.2s Variables.$transition-default;
 
     &:focus {
-      border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba($color-primary, 0.08);
+      border-color: Variables.$color-primary;
+      box-shadow: 0 0 0 3px rgba(Variables.$color-primary, 0.08);
     }
   }
 
@@ -216,9 +217,9 @@
   &__checkbox-input {
     width: 18px;
     height: 18px;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 4px;
-    accent-color: $color-primary; // Flagship Spruce highlight maps instantly
+    accent-color: Variables.$color-primary; // Flagship Spruce highlight maps instantly
     cursor: pointer;
     margin: 0;
     flex-shrink: 0;
@@ -227,7 +228,7 @@
   &__checkbox-label {
     font-size: 13.5px;
     font-weight: 700;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
   }
 
   /* Info/Warning Container Card */
@@ -277,8 +278,8 @@
     justify-content: flex-end;
     gap: 8px;
     padding: 14px 20px;
-    border-top: 1px solid $color-border;
-    background-color: $color-bg-light;
+    border-top: 1px solid Variables.$color-border;
+    background-color: Variables.$color-bg-light;
   }
 
   &__btn {
@@ -292,27 +293,27 @@
     border-radius: 6px;
     cursor: pointer;
     box-sizing: border-box;
-    transition: all 0.15s $transition-default;
+    transition: all 0.15s Variables.$transition-default;
     white-space: nowrap;
     border: 1px solid transparent;
 
     &--cancel {
       background-color: #ffffff;
-      border-color: $color-border;
-      color: $color-text-main;
+      border-color: Variables.$color-border;
+      color: Variables.$color-text-main;
 
       &:hover {
-        background-color: $color-bg-light;
-        border-color: $color-text-muted;
+        background-color: Variables.$color-bg-light;
+        border-color: Variables.$color-text-muted;
       }
     }
 
     &--confirm {
-      background-color: $color-success;
+      background-color: Variables.$color-success;
       color: #ffffff;
 
       &:hover:not(:disabled) {
-        background-color: lighten($color-success, 4%);
+        background-color: color.adjust(Variables.$color-success, $lightness: 4%);
       }
 
       &:disabled {

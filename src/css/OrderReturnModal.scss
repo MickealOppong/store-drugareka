@@ -1,4 +1,4 @@
-@import './Variables.scss'; // 🚀 Binds premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and Ink (#0D1313)
+@use 'Variables.scss'; // 🚀 Binds premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and Ink (#0D1313)
 
 /* ==========================================================================
    KASOA ADMINISTRATIVE ORDER RETURN MANAGEMENT CARD OVERRIDES
@@ -43,11 +43,11 @@
     height: 42px;
     padding: 0 12px;
     background-color: #ffffff;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 6px;
     font-family: inherit;
     font-size: 14px;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     outline: none;
     box-sizing: border-box;
     transition: border-color 0.2s ease;
@@ -61,11 +61,11 @@
     width: 100%;
     padding: 12px;
     background-color: #ffffff;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 6px;
     font-family: inherit;
     font-size: 14px;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     outline: none;
     box-sizing: border-box;
     resize: none;
@@ -95,7 +95,7 @@
 
   &__field {
     &--transition {
-      animation: poReturnFadeIn 0.25s $transition-default forwards;
+      animation: poReturnFadeIn 0.25s Variables.$transition-default forwards;
     }
   }
 }

@@ -1,5 +1,5 @@
-@import './variables.scss';
-@import "./variables"; // Imports your core app tokens ($primary, $background, etc.)
+@use 'variables.scss';
+ // Imports your core app tokens ($primary, $background, etc.)
 
 /* ==========================================================================
    MASTER CONTAINER INTERFACE MATRIX (.language-component-wrapper)

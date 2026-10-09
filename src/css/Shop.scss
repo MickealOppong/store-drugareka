@@ -1,4 +1,5 @@
-@import "./Variables.scss";
+@use "sass:color";
+@use "Variables.scss";
 
 // ==========================================================================
 // 1. MIXINS & CONFIGURATIONS
@@ -15,8 +16,8 @@
 // ==========================================================================
 
 .shop-page {
-  font-family: $font-sans;
-  color: $color-text-main;
+  font-family: Variables.$font-sans;
+  color: Variables.$color-text-main;
   background-color: #ffffff;
   max-width: 1200px;
   margin: 0 auto;
@@ -28,7 +29,7 @@
   width: 100%;
   overflow-x: hidden; // 🚀 CRITICAL MOBILE FIX: Eradicates structural right-sided horizontal bleed
 
-  @include media-up($breakpoint-md) {
+  @include media-up(Variables.$breakpoint-md) {
     padding: 2.5rem 1.5rem;
     gap: 2.5rem;
   }
@@ -39,7 +40,7 @@
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: $color-text-muted;
+  color: Variables.$color-text-muted;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
@@ -55,7 +56,7 @@
   width: 100%;
   box-sizing: border-box;
 
-  @include media-up($breakpoint-md) {
+  @include media-up(Variables.$breakpoint-md) {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
@@ -71,9 +72,9 @@
     font-weight: 800;
     letter-spacing: -0.03em;
     margin: 0 0 0.5rem;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
 
-    @include media-up($breakpoint-md) {
+    @include media-up(Variables.$breakpoint-md) {
       font-size: 2.5rem;
     }
   }
@@ -81,7 +82,7 @@
   p {
     font-size: 0.9rem;
     line-height: 1.5;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     margin: 0;
   }
 }
@@ -93,7 +94,7 @@
   align-items: center;
   box-sizing: border-box;
 
-  @include media-up($breakpoint-md) {
+  @include media-up(Variables.$breakpoint-md) {
     width: 320px;
   }
 
@@ -101,7 +102,7 @@
     position: absolute;
     left: 1rem;
     font-size: 1.1rem;
-    color: $color-secondary;
+    color: Variables.$color-secondary;
     pointer-events: none;
   }
 
@@ -110,21 +111,21 @@
     font-family: inherit;
     font-size: 0.95rem;
     padding: 0.75rem 2.5rem;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
     background-color: #ffffff;
-    min-height: $touch-target-min;
+    min-height: Variables.$touch-target-min;
     outline: none;
     box-sizing: border-box;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &::placeholder {
-      color: rgba($color-text-muted, 0.6);
+      color: rgba(Variables.$color-text-muted, 0.6);
     }
 
     &:focus {
-      border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba($color-primary, 0.08);
+      border-color: Variables.$color-primary;
+      box-shadow: 0 0 0 3px rgba(Variables.$color-primary, 0.08);
     }
   }
 
@@ -135,7 +136,7 @@
     border: none;
     padding: 0.5rem;
     cursor: pointer;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     font-size: 1.1rem;
     display: flex;
     align-items: center;
@@ -143,7 +144,7 @@
     transition: color 0.2s ease;
 
     &:hover {
-      color: $color-primary;
+      color: Variables.$color-primary;
     }
   }
 }
@@ -171,25 +172,25 @@
     font-size: 0.85rem;
     font-weight: 600;
     white-space: nowrap;
-    background-color: $color-bg-light;
-    color: $color-text-muted;
+    background-color: Variables.$color-bg-light;
+    color: Variables.$color-text-muted;
     border: 1px solid transparent;
     padding: 0.5rem 1.1rem;
     border-radius: 20px;
     cursor: pointer;
     min-height: 36px;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &:hover {
-      background-color: darken($color-bg-light, 3%);
-      color: $color-text-main;
+      background-color: color.adjust(Variables.$color-bg-light, $lightness: -3%);
+      color: Variables.$color-text-main;
     }
 
     &.active {
-      background-color: $color-primary;
-      color: $color-text-light;
+      background-color: Variables.$color-primary;
+      color: Variables.$color-text-light;
       font-weight: 600;
-      border-color: $color-primary;
+      border-color: Variables.$color-primary;
     }
   }
 }
@@ -202,7 +203,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid $color-border;
+  border-bottom: 1px solid Variables.$color-border;
   padding-bottom: 1rem;
   width: 100%;
   box-sizing: border-box;
@@ -213,10 +214,10 @@
   align-items: center;
   gap: 0.35rem;
   font-size: 0.85rem;
-  color: $color-text-muted;
+  color: Variables.$color-text-muted;
 
   strong {
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     font-weight: 700;
   }
 }
@@ -226,7 +227,7 @@
   align-items: center;
   gap: 0.75rem;
 
-  @include media-up($breakpoint-md) {
+  @include media-up(Variables.$breakpoint-md) {
     gap: 1.5rem;
   }
 }
@@ -236,8 +237,8 @@
   align-items: center;
   gap: 0.5rem;
   background-color: #ffffff;
-  border: 1px solid $color-border;
-  color: $color-text-main;
+  border: 1px solid Variables.$color-border;
+  color: Variables.$color-text-main;
   font-family: inherit;
   font-size: 0.85rem;
   font-weight: 700;
@@ -245,18 +246,18 @@
   border-radius: 8px;
   cursor: pointer;
   min-height: 38px;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
 
   svg {
     font-size: 1rem;
   }
 
   &:hover {
-    border-color: $color-primary;
-    background-color: $color-bg-light;
+    border-color: Variables.$color-primary;
+    background-color: Variables.$color-bg-light;
   }
 
-  @include media-up($breakpoint-md) {
+  @include media-up(Variables.$breakpoint-md) {
     display: none; // Unmount completely on stationary monitors
   }
 }
@@ -268,10 +269,10 @@
 
   > span {
     font-size: 0.85rem;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     display: none;
 
-    @include media-up($breakpoint-sm) {
+    @include media-up(Variables.$breakpoint-sm) {
       display: inline;
     }
   }
@@ -287,19 +288,19 @@
       font-family: inherit;
       font-size: 0.85rem;
       font-weight: 700;
-      color: $color-text-main;
+      color: Variables.$color-text-main;
       background-color: #ffffff;
-      border: 1px solid $color-border;
+      border: 1px solid Variables.$color-border;
       border-radius: 8px;
       padding: 0.5rem 2rem 0.5rem 0.75rem;
       min-height: 38px;
       cursor: pointer;
       outline: none;
-      transition: $transition-default;
+      transition: Variables.$transition-default;
 
       &:hover,
       &:focus {
-        border-color: $color-primary;
+        border-color: Variables.$color-primary;
       }
     }
 
@@ -307,7 +308,7 @@
       position: absolute;
       right: 0.65rem;
       font-size: 1rem;
-      color: $color-secondary;
+      color: Variables.$color-secondary;
       pointer-events: none;
     }
   }
@@ -324,12 +325,12 @@
   width: 100%;
   box-sizing: border-box;
 
-  @include media-up($breakpoint-sm) {
+  @include media-up(Variables.$breakpoint-sm) {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
   }
 
-  @include media-up($breakpoint-lg) {
+  @include media-up(Variables.$breakpoint-lg) {
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
   }
@@ -342,14 +343,14 @@
   align-items: center;
   text-align: center;
   padding: 4rem 1.5rem;
-  background-color: $color-bg-light;
+  background-color: Variables.$color-bg-light;
   border-radius: 12px;
   box-sizing: border-box;
   width: 100%;
 
   > svg:first-child {
     font-size: 2.5rem;
-    color: $color-secondary;
+    color: Variables.$color-secondary;
     margin-bottom: 1rem;
   }
 
@@ -361,7 +362,7 @@
 
   p {
     font-size: 0.9rem;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     margin: 0 0 1.5rem;
   }
 
@@ -369,16 +370,16 @@
     font-family: inherit;
     font-size: 0.85rem;
     font-weight: 700;
-    background-color: $color-primary;
-    color: $color-text-light;
+    background-color: Variables.$color-primary;
+    color: Variables.$color-text-light;
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
     cursor: pointer;
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &:hover {
-      background-color: lighten($color-primary, 5%);
+      background-color: color.adjust(Variables.$color-primary, $lightness: 5%);
     }
   }
 }
@@ -404,7 +405,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  background-color: $color-bg-light;
+  background-color: Variables.$color-bg-light;
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 0.75rem;
@@ -422,8 +423,8 @@
   position: absolute;
   top: 0.5rem;
   left: 0.5rem;
-  background-color: $color-accent;
-  color: $color-text-light;
+  background-color: Variables.$color-accent;
+  color: Variables.$color-text-light;
   font-size: 0.7rem;
   font-weight: 700;
   padding: 0.2rem 0.4rem;
@@ -439,15 +440,15 @@
   height: 32px;
   border-radius: 50%;
   background-color: #ffffff;
-  border: 1px solid $color-border;
+  border: 1px solid Variables.$color-border;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(13, 19, 19, 0.06);
-  color: $color-text-main;
+  color: Variables.$color-text-main;
   z-index: 2;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
 
   svg {
     font-size: 1rem;
@@ -455,15 +456,15 @@
 
   &:hover {
     transform: scale(1.05);
-    color: $color-accent;
+    color: Variables.$color-accent;
   }
 
   &.active {
-    color: $color-accent;
+    color: Variables.$color-accent;
     background-color: #ffe4e6;
     border-color: #fca5a5;
     svg {
-      fill: $color-accent;
+      fill: Variables.$color-accent;
     }
   }
 }
@@ -478,7 +479,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     margin-bottom: 0.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -488,7 +489,7 @@
     font-size: 0.9rem;
     font-weight: 600;
     line-height: 1.4;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     margin: 0 0 0.4rem;
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -503,8 +504,8 @@
   span {
     font-size: 0.65rem;
     font-weight: 700;
-    background-color: $color-bg-light;
-    color: $color-text-muted;
+    background-color: Variables.$color-bg-light;
+    color: Variables.$color-text-muted;
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
     text-transform: uppercase;
@@ -525,12 +526,12 @@
     strong {
       font-size: 1.05rem;
       font-weight: 800;
-      color: $color-text-main;
+      color: Variables.$color-text-main;
       line-height: 1.1;
     }
     del {
       font-size: 0.8rem;
-      color: $color-text-muted;
+      color: Variables.$color-text-muted;
       margin-top: 0.15rem;
     }
   }
@@ -539,21 +540,21 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background-color: $color-bg-light;
+  background-color: Variables.$color-bg-light;
   border: none;
-  color: $color-text-main;
+  color: Variables.$color-text-main;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: $transition-default;
+  transition: Variables.$transition-default;
   flex-shrink: 0;
   svg {
     font-size: 1rem;
   }
   &:hover {
-    background-color: $color-primary;
-    color: $color-text-light;
+    background-color: Variables.$color-primary;
+    color: Variables.$color-text-light;
   }
 }
 .shop-product-card:hover {
@@ -602,18 +603,18 @@
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 1rem;
-  border-bottom: 1px solid $color-border;
+  border-bottom: 1px solid Variables.$color-border;
   box-sizing: border-box;
   h2 {
     font-size: 1.1rem;
     font-weight: 800;
     margin: 0;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
   }
   button {
     background: transparent;
     border: none;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     font-size: 1.35rem;
     padding: 0.25rem;
     cursor: pointer;
@@ -622,7 +623,7 @@
     justify-content: center;
     transition: color 0.2s ease;
     &:hover {
-      color: $color-accent;
+      color: Variables.$color-accent;
     }
   }
 }
@@ -639,24 +640,24 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
   }
   select {
     width: 100%;
     font-family: inherit;
     font-size: 0.9rem;
     font-weight: 600;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     background-color: #ffffff;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
     padding: 0.65rem 0.85rem;
-    min-height: $touch-target-min;
+    min-height: Variables.$touch-target-min;
     outline: none;
     cursor: pointer;
     box-sizing: border-box;
     &:focus {
-      border-color: $color-primary;
+      border-color: Variables.$color-primary;
     }
   }
 }

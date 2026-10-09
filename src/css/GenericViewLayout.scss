@@ -1,13 +1,14 @@
-@import './variables.scss';
+@use "sass:color";
+@use 'variables.scss' as Variables;
 
 // --------------------------------------------------
 // GLOBAL WRAPPER GRID PARSING
 // --------------------------------------------------
 .panel-view {
-    @include container; // Adapts directly to your 1280px master layout rules
+    @include Variables.container; // Adapts directly to your 1280px master layout rules
     padding-top: 2rem;
     padding-bottom: 4rem;
-    font-family: $font-sans;
+    font-family: Variables.$font-sans;
    
 
     &__header {
@@ -19,26 +20,26 @@
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1px;
-        color: $color-primary;
+        color: Variables.$color-primary;
     }
 
     &__title {
         font-size: 2.25rem;
         font-weight: 700;
-        color: $color-text-main;
+        color: Variables.$color-text-main;
         margin: 0.25rem 0 0.5rem 0;
     }
 
     &__description {
         font-size: 15px;
-        color: $color-text-muted;
+        color: Variables.$color-text-muted;
         margin: 0;
     }
 
     &__tab-group {
         display: flex;
         gap: 0.5rem;
-        border-bottom: 1px solid $color-border;
+        border-bottom: 1px solid Variables.$color-border;
         margin-bottom: 2rem;
     }
 
@@ -49,15 +50,15 @@
         background: none;
         border: none;
         padding: 0.75rem 1.25rem;
-        color: $color-text-muted;
+        color: Variables.$color-text-muted;
         cursor: pointer;
         position: relative;
-        transition: $transition-default;
+        transition: Variables.$transition-default;
 
-        &:hover { color: $color-primary; }
+        &:hover { color: Variables.$color-primary; }
 
         &.is-active {
-            color: $color-primary;
+            color: Variables.$color-primary;
             font-weight: 600;
 
             &::after {
@@ -67,7 +68,7 @@
                 left: 0;
                 right: 0;
                 height: 2px;
-                background-color: $color-primary; // Sage green emphasis line
+                background-color: Variables.$color-primary; // Sage green emphasis line
             }
         }
     }
@@ -84,8 +85,8 @@
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        background-color: $background;
-        border: 1px solid $color-border;
+        background-color: Variables.$background;
+        border: 1px solid Variables.$color-border;
         border-radius: 12px;
         padding: 0 1rem;
         width: 100%;
@@ -93,24 +94,24 @@
         height: 44px;
         box-sizing: border-box;
 
-        svg { color: $color-secondary; font-size: 18px; flex-shrink: 0; }
+        svg { color: Variables.$color-secondary; font-size: 18px; flex-shrink: 0; }
         input {
             border: none; outline: none; background: none; width: 100%;
-            font-family: inherit; font-size: 14px; color: $color-text-main;
-            &::placeholder { color: $color-text-muted; }
+            font-family: inherit; font-size: 14px; color: Variables.$color-text-main;
+            &::placeholder { color: Variables.$color-text-muted; }
         }
     }
 
     &__metrics-counter {
         font-size: 14px;
-        color: $color-secondary;
+        color: Variables.$color-secondary;
         font-weight: 500;
     }
 
     &__error-box {
-        background-color: rgba($color-accent, 0.07);
-        border: 1px solid $color-accent;
-        color: $color-accent;
+        background-color: rgba(Variables.$color-accent, 0.07);
+        border: 1px solid Variables.$color-accent;
+        color: Variables.$color-accent;
         padding: 1rem;
         border-radius: 12px;
         margin-bottom: 1.5rem;
@@ -118,8 +119,8 @@
     }
 
     &__content-card {
-        background-color: $background;
-        border: 1px solid $color-border;
+        background-color: Variables.$background;
+        border: 1px solid Variables.$color-border;
         border-radius: 16px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
         overflow: hidden;
@@ -127,10 +128,10 @@
     }
 
     &__loading-overlay, &__empty-state {
-        padding: 4rem 2rem; text-align: center; color: $color-text-muted;
+        padding: 4rem 2rem; text-align: center; color: Variables.$color-text-muted;
     }
     &__empty-title {
-        font-size: 18px; font-weight: 600; color: $color-text-main; margin-bottom: 0.5rem;
+        font-size: 18px; font-weight: 600; color: Variables.$color-text-main; margin-bottom: 0.5rem;
     }
     &__scroll-table-container { overflow-x: auto; width: 100%; }
 }
@@ -139,7 +140,7 @@
 .data-table__cell {
   padding: 12px 16px;
   font-size: 14px;
-  color: $color-text-main;
+  color: Variables.$color-text-main;
   vertical-align: middle;
   text-align: left;
   box-sizing: border-box;
@@ -153,13 +154,13 @@
     height: 34px;
     padding: 0;
     background-color: #ffffff;
-    border: 1px solid $color-border;
-    color: lighten($color-text-main, 15%);
+    border: 1px solid Variables.$color-border;
+    color: color.adjust(Variables.$color-text-main, $lightness: 15%);
     border-radius: 6px;
     cursor: pointer;
     outline: none;
     box-sizing: border-box;
-    transition: all 0.15s $transition-default;
+    transition: all 0.15s Variables.$transition-default;
 
     svg {
       font-size: 16px;
@@ -193,8 +194,8 @@
     text-align: left;
 
     thead {
-        background-color: $color-bg-light;
-        border-bottom: 1px solid $color-border;
+        background-color: Variables.$color-bg-light;
+        border-bottom: 1px solid Variables.$color-border;
 
         th {
             padding: 1rem 1.25rem;
@@ -202,26 +203,26 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: $color-text-muted;
+            color: Variables.$color-text-muted;
         }
     }
 
     tbody tr {
-        border-bottom: 1px solid $color-border;
+        border-bottom: 1px solid Variables.$color-border;
         transition: background-color 0.15s ease;
         &:last-child { border-bottom: none; }
-        &:hover { background-color: $background-2; }
+        &:hover { background-color: Variables.$background-2; }
     }
 
     td { padding: 1rem 1.25rem; vertical-align: middle; }
 
     &__text {
-        font-size: 14px; color: $color-text-main; white-space: nowrap;
+        font-size: 14px; color: Variables.$color-text-main; white-space: nowrap;
         &.font-semibold { font-weight: 500; }
         &.font-bold { font-weight: 600; }
-        &.text-main { color: $color-text-main; }
-        &.text-primary { color: $color-primary; }
-        &.text-muted { color: $color-text-muted; }
+        &.text-main { color: Variables.$color-text-main; }
+        &.text-primary { color: Variables.$color-primary; }
+        &.text-muted { color: Variables.$color-text-muted; }
     }
 
     &__user-profile {
@@ -232,7 +233,7 @@
     &__avatar-badge {
         display: flex; align-items: center; justify-content: center;
         width: 28px; height: 28px; border-radius: 50%;
-        background-color: lighten($color-primary, 42%); color: $color-primary;
+        background-color: color.adjust(Variables.$color-primary, $lightness: 42%); color: Variables.$color-primary;
         font-size: 12px; font-weight: 700;
     }
 
@@ -241,13 +242,13 @@
 
     &__action-link {
         display: flex; align-items: center; justify-content: center;
-        width: 36px; height: 36px; border: 1px solid $color-border; border-radius: 8px;
-        background-color: $background; color: $color-secondary; transition: $transition-default;
+        width: 36px; height: 36px; border: 1px solid Variables.$color-border; border-radius: 8px;
+        background-color: Variables.$background; color: Variables.$color-secondary; transition: Variables.$transition-default;
         
         svg { font-size: 16px; }
         &:hover {
-            border-color: $color-primary; color: $color-primary;
-            background-color: lighten($color-primary, 50%); transform: translateY(-1px);
+            border-color: Variables.$color-primary; color: Variables.$color-primary;
+            background-color: color.adjust(Variables.$color-primary, $lightness: 50%); transform: translateY(-1px);
         }
     }
 }
@@ -274,22 +275,22 @@
         background-color: #dbeafe; color: #2563eb;
     }
     &--completed, &--delivered, &--label-ready {
-        background-color: $color-safety-bg; color: $color-safety-text;
+        background-color: Variables.$color-safety-bg; color: Variables.$color-safety-text;
     }
     &--disputed, &--cancelled, &--expired {
-        background-color: rgba($color-accent, 0.08); color: $color-accent;
+        background-color: rgba(Variables.$color-accent, 0.08); color: Variables.$color-accent;
     }
 }
 
 // Media breakout query responsiveness
-@media (max-width: $breakpoint-md) {
+@media (max-width: Variables.$breakpoint-md) {
     .panel-view {
         &__toolbar { flex-direction: column; align-items: flex-start; }
         &__search-wrapper { max-width: 100%; }
     }
 }
 
-@import "./Variables.scss"; // 🚀 Inherits layout transitions and brand design parameters
+ // 🚀 Inherits layout transitions and brand design parameters
 
 /* ==========================================================================
    MULTI-ACTION SELECTION MATRIX COLUMN (.data-table__actions)
@@ -311,9 +312,9 @@
     height: 34px;
     padding: 0;
     background-color: #ffffff;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     font-size: 1.05rem;
     cursor: pointer;
     outline: none;
@@ -325,9 +326,9 @@
     }
 
     &:hover {
-      background-color: $color-bg-light;
-      color: $color-primary; // Flagship Sage Green highlight hover frame
-      border-color: rgba($color-primary, 0.3);
+      background-color: Variables.$color-bg-light;
+      color: Variables.$color-primary; // Flagship Sage Green highlight hover frame
+      border-color: rgba(Variables.$color-primary, 0.3);
 
       svg {
         transform: scale(1.05); // Premium snappy micro-zoom interaction

@@ -1,4 +1,5 @@
-@import './Variables.scss'; // 🚀 Binds premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and Ink (#0D1313)
+@use "sass:color";
+@use 'Variables.scss'; // 🚀 Binds premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and Ink (#0D1313)
 
 /* ==========================================================================
    KASOA ADMINISTRATIVE CATEGORY EDITOR (ALIGNED WITH VIEW.CSS)
@@ -8,7 +9,7 @@
   width: 100%;
   padding: 32px;
   box-sizing: border-box;
-  font-family: $font-sans;
+  font-family: Variables.$font-sans;
 
   // =========================================================
   // HEADER (Symmetrical with View.css Matrix)
@@ -20,7 +21,7 @@
     justify-content: space-between;
     gap: 20px;
     margin-bottom: 28px;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid Variables.$color-border;
     padding-bottom: 1.5rem;
   }
 
@@ -32,8 +33,8 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .08em;
-    color: $color-primary; // Flagship Obsidian Spruce
-    background-color: $color-bg-light;
+    color: Variables.$color-primary; // Flagship Obsidian Spruce
+    background-color: Variables.$color-bg-light;
     padding: 4px 10px;
     border-radius: 20px;
     margin-bottom: 0.75rem;
@@ -44,13 +45,13 @@
     font-size: 28px;
     font-weight: 800;
     letter-spacing: -0.02em;
-    color: $color-text-main; // Deep Matte Ink #0D1313
+    color: Variables.$color-text-main; // Deep Matte Ink #0D1313
   }
 
   &__description {
     margin: 7px 0 0;
     font-size: 14px;
-    color: $color-text-muted; // Granite Grey #42504F
+    color: Variables.$color-text-muted; // Granite Grey #42504F
     line-height: 1.5;
   }
 
@@ -61,13 +62,13 @@
   &__form-card {
     overflow: hidden;
     background: #ffffff;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 14px;
     padding: 24px;
-    box-shadow: 0 4px 24px rgba($color-text-main, 0.01);
+    box-shadow: 0 4px 24px rgba(Variables.$color-text-main, 0.01);
     box-sizing: border-box;
 
-    @include media-up($breakpoint-sm) {
+    @include Variables.media-up(Variables.$breakpoint-sm) {
       padding: 32px;
     }
   }
@@ -88,7 +89,7 @@
   &__label {
     font-size: 13px;
     font-weight: 700;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
   }
 
   /* Structural Field Node Dimensions */
@@ -98,30 +99,30 @@
     height: 42px;
     padding: 0 13px;
     box-sizing: border-box;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 8px;
     outline: none;
     background: #ffffff;
     font-family: inherit;
     font-size: 13px;
-    color: $color-text-main;
-    transition: all 0.2s $transition-default;
+    color: Variables.$color-text-main;
+    transition: all 0.2s Variables.$transition-default;
 
     &:focus {
-      border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba($color-primary, 0.08);
+      border-color: Variables.$color-primary;
+      box-shadow: 0 0 0 3px rgba(Variables.$color-primary, 0.08);
     }
 
     &:disabled {
-      background-color: $color-bg-light;
-      color: lighten($color-text-muted, 10%);
+      background-color: Variables.$color-bg-light;
+      color: color.adjust(Variables.$color-text-muted, $lightness: 10%);
       cursor: not-allowed;
     }
   }
 
   &__hint {
     font-size: 12px;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     line-height: 1.4;
   }
 
@@ -139,8 +140,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 2px dashed $color-border;
-    background-color: $color-bg-light;
+    border: 2px dashed Variables.$color-border;
+    background-color: Variables.$color-bg-light;
     border-radius: 10px;
     padding: 32px 16px;
     cursor: pointer;
@@ -148,8 +149,8 @@
     transition: all 0.2s ease;
 
     &:hover {
-      border-color: $color-primary;
-      background-color: rgba($color-primary, 0.02);
+      border-color: Variables.$color-primary;
+      background-color: rgba(Variables.$color-primary, 0.02);
     }
   }
 
@@ -159,14 +160,14 @@
 
   &__upload-icon {
     font-size: 2rem;
-    color: $color-primary;
+    color: Variables.$color-primary;
     margin-bottom: 8px;
   }
 
   &__upload-text {
     font-size: 14px;
     font-weight: 700;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     margin-bottom: 2px;
   }
 
@@ -178,8 +179,8 @@
     aspect-ratio: 4 / 3;
     border-radius: 8px;
     overflow: hidden;
-    border: 1px solid $color-border;
-    background-color: $color-bg-light;
+    border: 1px solid Variables.$color-border;
+    background-color: Variables.$color-bg-light;
   }
 
   &__image-render {
@@ -196,9 +197,9 @@
     width: 28px;
     height: 28px;
     background-color: #ffffff;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 50%;
-    color: $color-text-main;
+    color: Variables.$color-text-main;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -226,7 +227,7 @@
   &__numeric-icon {
     position: absolute;
     left: 12px;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
     font-size: 1rem;
     pointer-events: none;
   }
@@ -250,9 +251,9 @@
   &__checkbox-input {
     width: 18px;
     height: 18px;
-    border: 1px solid $color-border;
+    border: 1px solid Variables.$color-border;
     border-radius: 4px;
-    accent-color: $color-primary; // Applies Spruce tone dynamically upon activation
+    accent-color: Variables.$color-primary; // Applies Spruce tone dynamically upon activation
     cursor: pointer;
     margin: 0;
   }
@@ -296,7 +297,7 @@
     align-items: center;
     justify-content: flex-end;
     gap: 8px;
-    border-top: 1px solid $color-border;
+    border-top: 1px solid Variables.$color-border;
     padding-top: 20px;
     margin-top: 8px;
   }
@@ -312,27 +313,27 @@
     border-radius: 8px;
     cursor: pointer;
     box-sizing: border-box;
-    transition: all 0.15s $transition-default;
+    transition: all 0.15s Variables.$transition-default;
     white-space: nowrap;
     border: 1px solid transparent;
 
     &--cancel {
       background-color: transparent;
-      border-color: $color-border;
-      color: $color-text-main;
+      border-color: Variables.$color-border;
+      color: Variables.$color-text-main;
 
       &:hover:not(:disabled) {
-        background-color: $color-bg-light;
-        border-color: $color-text-muted;
+        background-color: Variables.$color-bg-light;
+        border-color: Variables.$color-text-muted;
       }
     }
 
     &--submit {
-      background-color: $color-primary;
+      background-color: Variables.$color-primary;
       color: #ffffff;
 
       &:hover:not(:disabled) {
-        background-color: lighten($color-primary, 5%);
+        background-color: color.adjust(Variables.$color-primary, $lightness: 5%);
       }
     }
 

@@ -1,4 +1,5 @@
-@import './Variables.scss'; // 
+@use "sass:color";
+@use 'Variables.scss'; // 
 
 /* ==========================================================================
    MODERN C2C MARKETPLACE SHOPPING CART STYLESHEET (.cart-page)
@@ -10,7 +11,7 @@
   margin: 0 auto;
   padding: 40px 24px 80px;
   box-sizing: border-box;
-  font-family: $font-sans;
+  font-family: Variables.$font-sans;
   background-color: #fafbfc; // Ultra-clean canvas veil
 }
 
@@ -83,7 +84,7 @@
       gap: 8px;
 
       svg {
-        color: $color-primary; // Flagship Spruce icon anchor
+        color: Variables.$color-primary; // Flagship Spruce icon anchor
         font-size: 16px;
       }
     }
@@ -255,7 +256,7 @@
       dd {
         font-size: 20px;
         font-weight: 800;
-        color: $color-primary; // Emphasized premium Spruce total value
+        color: Variables.$color-primary; // Emphasized premium Spruce total value
       }
     }
   }
@@ -264,7 +265,7 @@
   .cart-checkout-btn {
     width: 100%;
     height: 48px;
-    background-color: $color-primary; // #1E3A3A Spruce
+    background-color: Variables.$color-primary; // #1E3A3A Spruce
     color: #ffffff;
     border: none;
     border-radius: 12px;
@@ -279,7 +280,7 @@
     box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
 
     &:hover {
-      background-color: darken($color-bg-dark, 5%);
+      background-color: color.adjust(Variables.$color-bg-dark, $lightness: -5%);
       box-shadow: 0 4px 16px rgba(30, 58, 58, 0.25);
     }
 
@@ -369,13 +370,13 @@
   max-width: 480px;
   margin: 64px auto;
   padding: 40px 24px;
-  background-color: $background; // #FFFFFF
-  border: 1px solid $color-border;
+  background-color: Variables.$background; // #FFFFFF
+  border: 1px solid Variables.$color-border;
   border-radius: 16px;
   box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
   text-align: center;
   box-sizing: border-box;
-  font-family: $font-sans;
+  font-family: Variables.$font-sans;
   animation: emptyCartFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   // Circular Icon Floating Wrapper
@@ -383,14 +384,14 @@
     width: 80px;
     height: 80px;
     margin: 0 auto 24px;
-    background-color: $color-bg-light; // #f9f9f9
-    border: 1px solid $color-border;
+    background-color: Variables.$color-bg-light; // #f9f9f9
+    border: 1px solid Variables.$color-border;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $color-text-muted; // #666666
-    transition: $transition-default;
+    color: Variables.$color-text-muted; // #666666
+    transition: Variables.$transition-default;
 
     svg {
       font-size: 32px;
@@ -401,9 +402,9 @@
   // Interactive pulse effect on hover over the container card
   &:hover {
     .cart-empty-icon-wrap {
-      color: $color-primary; // #66704A Sage Green
-      background-color: $color-success-bg; // #EDF7F3 soft tint
-      border-color: rgba($color-primary, 0.2);
+      color: Variables.$color-primary; // #66704A Sage Green
+      background-color: Variables.$color-success-bg; // #EDF7F3 soft tint
+      border-color: rgba(Variables.$color-primary, 0.2);
       transform: scale(1.05);
     }
   }
@@ -412,7 +413,7 @@
     margin: 0 0 12px 0;
     font-size: 22px;
     font-weight: 800;
-    color: $color-text-main; // #111111
+    color: Variables.$color-text-main; // #111111
     letter-spacing: -0.02em;
   }
 
@@ -420,7 +421,7 @@
     margin: 0 0 28px 0;
     font-size: 14.5px;
     line-height: 1.6;
-    color: $color-text-muted;
+    color: Variables.$color-text-muted;
   }
 
   // Master Continuation CTA Route Button
@@ -430,17 +431,17 @@
     justify-content: center;
     height: 46px;
     padding: 0 28px;
-    background-color: $color-primary; // Flagship Sage Accent
-    color: $color-text-light; // #ffffff
+    background-color: Variables.$color-primary; // Flagship Sage Accent
+    color: Variables.$color-text-light; // #ffffff
     font-size: 14px;
     font-weight: 700;
     text-decoration: none;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(102, 112, 74, 0.12);
-    transition: $transition-default;
+    transition: Variables.$transition-default;
 
     &:hover {
-      background-color: $color-primary-light; // #393c2e
+      background-color: Variables.$color-primary-light; // #393c2e
       box-shadow: 0 4px 12px rgba(102, 112, 74, 0.24);
       transform: translateY(-1px);
     }
@@ -465,7 +466,7 @@
 }
 
 /* RESPONSIVE LAYOUT GUARDRAILS */
-@media (max-width: $breakpoint-sm) {
+@media (max-width: Variables.$breakpoint-sm) {
   .cart-empty-view {
     margin: 40px auto;
     padding: 32px 16px;
