@@ -11,7 +11,8 @@ export const PaymentConfirmation: React.FC = () => {
   const [searchParams] = useSearchParams();
   
   const orderNumber = searchParams.get("orderNumber") as string;
-  const { data: status, isLoading, error } = useGetPaymentStatusQuery(orderNumber);
+  const { data: status, isLoading, error } = useGetPaymentStatusQuery(orderNumber)
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -46,8 +47,8 @@ export const PaymentConfirmation: React.FC = () => {
 
  
 
-  // ❌ STATE 3: PAYMENT CANCELED / REJECTED STATUS
-  if (status === "CANCELLED" ||status === "FAILED") {
+  // ❌ STATE 3: PAYMENT CANCELED / REJECTED /PENDING STATUS
+  if (status === "CANCELLED" || status === "FAILED" || status === "PENDING") {
     return (
       <main className="payment-status payment-status--cancelled">
         <section className="payment-status__card">
@@ -73,7 +74,8 @@ export const PaymentConfirmation: React.FC = () => {
     );
   }
 
-  //  STATE 4: SUCCESSFUL TRANSACTIONS VERIFIED (PAID / COMPLETED)
+ if(status==="PAID"){
+   //  STATE 4: SUCCESSFUL TRANSACTIONS VERIFIED (PAID / COMPLETED)
   return (
     <main className="payment-status payment-status--success">
       <section className="payment-status__card">
@@ -123,6 +125,8 @@ export const PaymentConfirmation: React.FC = () => {
       </section>
     </main>
   );
+ }
+ return null;
 };
 
 export default PaymentConfirmation;

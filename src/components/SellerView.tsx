@@ -45,7 +45,7 @@ const SellerView =() => {
     setModalOpen(false);
   };
 
-  console.log(selectedOrder);
+
   
 
   return (
