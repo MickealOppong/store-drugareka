@@ -18,5 +18,6 @@ export type TCartItem = {
   price:number,
   shipping:number,
   shippingMethod:string,
-  sellerId:number
+  sellerId:number,
+  serviceCharge:number
 };

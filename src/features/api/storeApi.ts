@@ -108,6 +108,32 @@ export const storeApi = createApi({
         method:'put'
       }),
     }),
+           confirmReturn: build.mutation<boolean, string>({
+      query: (token) => ({
+        url: "/api/store/confirm-return",
+        params:{
+          token
+        },
+        method:'put'
+      }),
+    }),
+          isDeliveryConfirmed: build.query<boolean, string>({
+      query: (token) => ({
+        url: "/api/store/verify-confirmation",
+        params:{
+          token
+        },
+      }),
+    }),
+
+              isReturnConfirmed: build.query<boolean, string>({
+      query: (token) => ({
+        url: "/api/store/verify-return",
+        params:{
+          token
+        },
+      }),
+    }),
   }),
   
 });
@@ -122,5 +148,8 @@ export const {
   useGetLandingListingQuery,
   useConfirmDeliveryMutation,
   useGetCategoryTreeQuery,
-  useGetTop8ProductCategoriesQuery
+  useGetTop8ProductCategoriesQuery,
+  useIsDeliveryConfirmedQuery,
+  useIsReturnConfirmedQuery,
+  useConfirmReturnMutation
 } = storeApi;

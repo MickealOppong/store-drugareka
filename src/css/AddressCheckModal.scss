@@ -1,0 +1,135 @@
+@import "./Variables.scss";
+
+.address-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.45); // Dark slate translucent glass
+  backdrop-filter: blur(6px); // Soft premium hardware-accelerated diffusion
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  z-index: 999999; // Stays safely on top of all relative tracking elements
+  animation: addrFadeIn 0.2s ease-out forwards;
+}
+
+.address-modal-card {
+  width: 100%;
+  max-width: 480px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid $color-border;
+  box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.16);
+  padding: 1.5rem;
+  box-sizing: border-box;
+  animation: addrScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @include media-up($breakpoint-sm) {
+    padding: 2rem;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__icon-box {
+    width: 56px;
+    height: 56px;
+    background-color: #fef3c7; // Amber warning soft block tint
+    color: #d97706; // Highly accessible amber warning text
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: $color-text-main;
+    letter-spacing: -0.01em;
+  }
+
+  &__body {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  &__text {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: $color-text-muted;
+  }
+
+  // =========================================================
+  // ACTIONS BUTTONS FOOTER
+  // =========================================================
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  &__btn {
+    height: 44px;
+    padding: 0 1.25rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: $transition-default;
+    flex: 1;
+    box-sizing: border-box;
+
+    &--cancel {
+      background-color: transparent;
+      border: 1px solid $color-border;
+      color: $color-text-muted;
+
+      &:hover {
+        background-color: $color-bg-light;
+        color: $color-text-main;
+      }
+    }
+
+    &--action {
+      background-color: $color-primary; // Flagship Sage Green (#66704A)
+      border: none;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(102, 112, 74, 0.15);
+
+      &:hover {
+      //  background-color: darken($color-primary, 5%);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(102, 112, 74, 0.25);
+      }
+
+      svg:last-child {
+        font-size: 0.8rem;
+        transition: transform 0.2s ease;
+      }
+
+      &:hover svg:last-child {
+        transform: translateX(3px); // Premium responsive slide indicator action
+      }
+    }
+  }
+}
+
+@keyframes addrFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes addrScaleUp { from { opacity: 0; transform: scale(0.96) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }

@@ -10,7 +10,7 @@ import "./../css/OrderCancelModal.scss";
 export const OrderCancelModal= ({orderData,isOpen,onButtonClick}:{orderData:TOrdersDto,isOpen:boolean,onButtonClick:()=>void}) => {
   const [cancelOrder, { isLoading, error}] = useCancelOrderMutation();
 
-
+  console.log(orderData);
   
 
   if (!isOpen || !orderData) return null;
@@ -65,7 +65,7 @@ export const OrderCancelModal= ({orderData,isOpen,onButtonClick}:{orderData:TOrd
               <div className="po-modal__summary-row po-modal__summary-row--total">
                 <span className="po-modal__summary-label">Kwota do Zwrotu:</span>
                 <strong className="po-modal__summary-value po-modal__summary-value--danger">
-                  -{formatPrice(orderData.orderTotal+orderData.shipping)} {orderData.currency.toUpperCase()}
+                  -{formatPrice(orderData.price+orderData.shipping)} {orderData.currency.toUpperCase()}
                 </strong>
               </div>
             </div>

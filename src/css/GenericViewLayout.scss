@@ -288,3 +288,72 @@
         &__search-wrapper { max-width: 100%; }
     }
 }
+
+@import "./Variables.scss"; // 🚀 Inherits layout transitions and brand design parameters
+
+/* ==========================================================================
+   MULTI-ACTION SELECTION MATRIX COLUMN (.data-table__actions)
+   ========================================================================== */
+.data-table__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; // Seamless spacing buffer between button paths
+  width: max-content;
+  box-sizing: border-box;
+
+  // Generic shared base layer styles for all sub-links and button clicks
+  &__action-link,
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    background-color: #ffffff;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    color: $color-text-muted;
+    font-size: 1.05rem;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+    svg {
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      background-color: $color-bg-light;
+      color: $color-primary; // Flagship Sage Green highlight hover frame
+      border-color: rgba($color-primary, 0.3);
+
+      svg {
+        transform: scale(1.05); // Premium snappy micro-zoom interaction
+      }
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
+  }
+
+
+  &__action-link--dispute {
+    &:hover {
+      color: #d97706; // Highly accessible Amber alert tone for complaints
+      background-color: #fef3c7;
+      border-color: rgba(#d97706, 0.2);
+    }
+  }
+
+
+  &__btn--cancel {
+    &:hover {
+      color: #e11d48; // Crisp marketing crimson error alert red
+      background-color: #fff1f2;
+      border-color: rgba(#e11d48, 0.2);
+    }
+  }
+}

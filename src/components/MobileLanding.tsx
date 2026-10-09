@@ -221,7 +221,7 @@ const {data:listings=[]} = useGetLandingListingQuery()
                   {t(`product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`)}
                 </span>
                 <h3>{product.productName}</h3>
-                <strong>{formatPrice(product.priceDto.storeNewPrice)} zl</strong>
+                <strong>{formatPrice(product.priceDto.sellerNewPrice)} zl</strong>
               </Link>
             </article>
           ))}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FiEdit2, FiPlus, FiSearch, FiTrash2 } from "react-icons/fi";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 import '../css/GenericViewLayout.css';
@@ -8,14 +8,17 @@ import { useDeleteListingMutation, useGetMylistingsQuery } from "../features/api
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
 import { isFetchBaseQueryError } from "../util/util";
+import AddressCheckModal from "./AddressCheckModal";
 import Pagination from "./Pagination";
 
 const UserProductView = () => {
     const [searchParams,] = useSearchParams();
   // Read active pagination location straight from URL parameters (1-indexed base)
   const page = parseInt(searchParams.get("page" )as string)||1;
-  const { data, isLoading: productsLoading, error } = useGetMylistingsQuery({ page, size:10 });
+  const { data, isLoading: productsLoading,error:productError} = useGetMylistingsQuery({ page, size:10 },{refetchOnFocus:true,refetchOnMountOrArgChange:true});
 
+
+  const navigate = useNavigate()
 
   /**
    * DELETE LISITNG
@@ -25,11 +28,13 @@ const UserProductView = () => {
   const productListings = data?.listings as TListTrans[];
   const [search, setSearch] = useState("");
   const [deletingId] = useState<number | null>(null);
+  const [error,] = useState('')
+  const [openModal,setOpenModal] = useState<boolean>(false)
 
   /**
    * ROLE AUTH CHECK
    */
-  const roles = useAppSelector((state) => state.userSlice.roles);
+  const {roles,hasAddress} = useAppSelector((state) => state.userSlice);
 
   /**
    *  translation
@@ -49,13 +54,30 @@ const UserProductView = () => {
     }
     // Handle actual deletion hook logic here if needed
     try {
-      const deleteResponse = await deleteProduct(product.listingId).unwrap()
-      console.log(deleteResponse);
+  await deleteProduct(product.listingId).unwrap()
+  
       
     } catch (error) {
       
     }
   };
+
+  const handleAddListing = ()=>{
+
+  
+    if(hasAddress!=='true'){
+     setOpenModal(true)
+     return;
+    }else{
+    navigate('/account/listings/new')
+    }
+
+  
+  }
+
+  const handleModalClose = ()=>{
+    setOpenModal(false)
+  }
 
   if (!productListings) {
     return null;
@@ -80,17 +102,20 @@ const UserProductView = () => {
           <p className="panel-view__description">{t("user_products.header.description")}</p>
         </div>
 
+      <>
+      <AddressCheckModal isOpen={openModal} onClose={handleModalClose}/>
         {/* Dynamic add button using your standard Sage Green styling elements */}
         {!roles.includes("ROLE_ADMIN") && (
-          <Link
-            to="/account/listings/new"
+          <button
+            onClick={()=>handleAddListing()}
             className="data-table__action-link"
             style={{ display: "flex", gap: "0.5rem", padding: "0 1rem", width: "auto", minWidth: "130px", height: "40px", backgroundColor: "#66704A", color: "#ffffff", borderColor: "#66704A", borderRadius: "12px", textDecoration: "none", fontWeight: 600, fontSize: "14px" }}
           >
             <FiPlus />
             {t("user_products.header.add_btn")}
-          </Link>
+          </button>
         )}
+      </>
       </header>
 
 
@@ -119,9 +144,9 @@ const UserProductView = () => {
       {/* =====================================================
                 GENERIC ERROR ROW MAPPER
             ====================================================== */}
-     {error && (
+     {error || productError && (
         <div className="panel-view__error-box">
-          {isFetchBaseQueryError(error)}
+          {isFetchBaseQueryError(error||productError)}
         </div>
       )}
 

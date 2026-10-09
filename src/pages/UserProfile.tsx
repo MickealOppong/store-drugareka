@@ -9,12 +9,14 @@ import {
   FiX,
 } from "react-icons/fi";
 
+import { useDispatch } from "react-redux";
 import { Loading } from "../components";
 import {
   useChangePasswordMutation,
   useEditUserMutation,
   useLazyGetUserQuery,
 } from "../features/api/userApi";
+import { updateUser } from "../features/slice/userSlice";
 import { useAppSelector } from "../store";
 import type { TResponseDto } from "../types/TResponseDto";
 import type { TUserDto } from "../types/TUserDto";
@@ -24,6 +26,7 @@ export const UserProfile = () => {
   const { t } = useTranslation();
 
   const roles = useAppSelector((state) => state.userSlice.roles);
+  const dispatch = useDispatch()
 
   /*
    * =========================================================
@@ -62,6 +65,7 @@ export const UserProfile = () => {
   const [lastName, setLastName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [email, setEmail] = useState("");
+  const [pesel, setPesel] = useState("");
 
   /*
    * =========================================================
@@ -101,17 +105,19 @@ export const UserProfile = () => {
 
       const response = await fetchUser().unwrap();
 
-      const profile = response?.data as TUserDto | undefined;
+      const profile = response?.data as TUserDto | undefined;      
 
       if (!profile) {
         setProfileError("Unable to load profile.");
         return;
       }
+
       setId(profile.userId);
       setFirstName(profile.firstName ?? "");
       setLastName(profile.lastName ?? "");
       setAccountNumber(profile.accountNumber ?? "");
       setEmail(profile.email ?? "");
+      setPesel(profile.pesel)
 
       setStreet(profile.address?.street ?? "");
       setCity(profile.address?.city ?? "");
@@ -207,6 +213,7 @@ export const UserProfile = () => {
       formData.append("country", country.trim());
 
       formData.append("contact", telephone.trim());
+      formData.append("pesel", pesel.trim());
 
       /*
        * Seller information
@@ -226,17 +233,19 @@ export const UserProfile = () => {
        * confirmPassword
        */
 
-      const res = await updateProfile(formData).unwrap();
-
-      console.log(res);
-
+      const response = await updateProfile(formData).unwrap();
+        console.log(response);
+        const {httpStatus,data} = response as TResponseDto
+        
+        if(httpStatus===200 && data){
+            dispatch(updateUser({hasAddress:true}))
+        }
       setProfileSuccess(
         t("user_profile.messages.success") || "Profile updated successfully.",
       );
 
        setIsEditing(false);
 
-      await getUser();
     } catch (err: any) {
       console.error(err);
 
@@ -248,6 +257,7 @@ export const UserProfile = () => {
             backendErrors.city,
             backendErrors.postalCode,
             backendErrors.contact,
+            backendErrors.pesel
           ]
             .filter(Boolean)
             .join("\n"),
@@ -443,6 +453,24 @@ export const UserProfile = () => {
                 </span>
               </div>
             </div>
+             <div className="usr-profile__field">
+                <label className="usr-profile__label">
+                  {t("user_profile.fields.pesel")}
+                </label>
+
+                {isEditing ? (
+                  <input
+                    type="text"
+                    className="usr-profile__input"
+                    value={pesel}
+                    onChange={(e) => setPesel(e.target.value)}
+                    disabled={isProfileUpdating}
+                    autoComplete="family-name"
+                  />
+                ) : (
+                  <p className="usr-profile__value">{pesel?"***********":""}</p>
+                )}
+              </div>
 
             {/* SELLER ACCOUNT */}
 

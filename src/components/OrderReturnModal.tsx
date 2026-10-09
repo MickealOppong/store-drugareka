@@ -91,7 +91,7 @@ export const OrderReturnModal = ({
               <div className="po-modal__summary-row po-modal__summary-row--total">
                 <span className="po-modal__summary-label">{t("order_return_modal.body.refund_amount")}</span>
                 <strong className="po-modal__summary-value po-modal__summary-value--warning">
-                  -{formatPrice(orderData.orderTotal)} {orderData.currency.toUpperCase()}
+                  -{formatPrice(orderData.price)} {orderData.currency.toUpperCase()}
                 </strong>
               </div>
             </div>

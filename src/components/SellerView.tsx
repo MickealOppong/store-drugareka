@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiFlag, FiSearch, FiX } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
@@ -9,7 +9,7 @@ import { formatPrice } from "../util/util";
 import OrderCancelModal from "./OrderCancelModal";
 import Pagination from "./Pagination";
 
-const SellerView: React.FC = () => {
+const SellerView =() => {
   const [search, setSearch] = useState("");
   const [searchParams] = useSearchParams();
   const { t } = useTranslation();
@@ -44,6 +44,9 @@ const SellerView: React.FC = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+
+  console.log(selectedOrder);
+  
 
   return (
     <>
@@ -129,7 +132,7 @@ const SellerView: React.FC = () => {
                     </td>
                     <td>
                       <span className="data-table__text">
-                        {formatPrice(order.orderTotal)} {order.currency}
+                        {formatPrice(order.price)} {order.currency}
                       </span>
                     </td>
                     <td>
@@ -139,7 +142,7 @@ const SellerView: React.FC = () => {
                     </td>
                     <td>
                       <span className="data-table__text font-bold text-primary">
-                        {formatPrice(order.orderTotal + order.shipping)}{" "}
+                        {formatPrice(order.price + order.shipping)}{" "}
                         {order.currency}
                       </span>
                     </td>
@@ -148,7 +151,8 @@ const SellerView: React.FC = () => {
                         className={`status-badge status-badge--${order.orderStatus?.toLowerCase().replace(/_/g, "-")}`}
                       >
                         {t(
-                          `buyer_view.table.statuses.${order.orderItemStatus.toLowerCase()}`,""
+                          `buyer_view.table.statuses.${order.orderItemStatus.toLowerCase()}`,
+                          "",
                         )}
                       </span>
                     </td>
@@ -158,15 +162,23 @@ const SellerView: React.FC = () => {
                       </span>
                     </td>
                     <td>
+            
                       <div className="data-table__actions">
                         <Link
                           to={`/account/complaints/new/${order.id}`}
-                          className="data-table__action-link"
+                      
+                          className="data-table__action-link data-table__actions__action-link--dispute"
                           title={t("seller_view.actions.file_dispute")}
                         >
                           <FiFlag />
                         </Link>
-                        <button onClick={() => openModal(order)}>
+
+                        <button
+                          type="button"
+        
+                          className="data-table__actions__btn data-table__actions__btn--cancel"
+                          onClick={() => openModal(order)}
+                        >
                           <FiX />
                         </button>
                       </div>

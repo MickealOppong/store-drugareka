@@ -120,7 +120,6 @@
 .cookie-consent-banner__btn--reject:hover {
   background-color: #f9f9f9;
   color: #111111;
-  border-color: #cccccc;
 }
 
 .cookie-consent-banner__btn--accept {

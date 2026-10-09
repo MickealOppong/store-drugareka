@@ -78,6 +78,7 @@ const BuyerView: React.FC = () => {
                   <th>{t("buyer_view.table.headers.seller")}</th>
                   <th>{t("buyer_view.table.headers.subtotal")}</th>
                   <th>{t("buyer_view.table.headers.shipping")}</th>
+                     <th>{t("buyer_view.table.headers.service_charge")}</th>
                   <th>{t("buyer_view.table.headers.total")}</th>
                   <th>{t("buyer_view.table.headers.status")}</th>
                   <th>{t("buyer_view.table.headers.ordered_date")}</th>
@@ -101,16 +102,20 @@ const BuyerView: React.FC = () => {
                       </div>
                     </td>
                     <td>
-                      <span className="data-table__text">{formatPrice(order.orderTotal)} {order.currency}</span>
+                      <span className="data-table__text">{formatPrice(order.price)} {order.currency}</span>
                     </td>
                     <td>
                       <span className="data-table__text">{formatPrice(order.shipping)} {order.currency}</span>
                     </td>
+                     <td>
+                      <span className="data-table__text">{formatPrice(order.serviceCharge)} {order.currency}</span>
+                    </td>
                     <td>
                       <span className="data-table__text font-bold text-primary">
-                        {formatPrice(order.orderTotal + order.shipping)} {order.currency}
+                        {formatPrice(order.price + order.shipping+order.serviceCharge)} {order.currency}
                       </span>
                     </td>
+                    
                     <td>
                       <span className={`status-badge status-badge--${order.orderStatus?.toLowerCase().replace(/_/g, "-")}`}>
                         {t(`buyer_view.table.statuses.${order.orderStatus?.toLowerCase()}`, { defaultValue: order.orderStatus?.replace(/_/g, " ") })}

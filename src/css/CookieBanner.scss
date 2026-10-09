@@ -1,4 +1,4 @@
-@import "./Variables.scss"; // Inherits Sage green (#66704A) and responsive layout breakpoints
+@import './Variables.scss';
 
 .cookie-consent-banner {
   position: fixed;
@@ -117,7 +117,7 @@
       &:hover {
         background-color: $color-bg-light;
         color: $color-text-main;
-        border-color: darken($color-border, 10%);
+       // border-color: darken($color-border, 10%);
       }
     }
 

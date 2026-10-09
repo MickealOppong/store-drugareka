@@ -1,0 +1,148 @@
+.address-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  z-index: 999999;
+  animation: addrFadeIn 0.2s ease-out forwards;
+}
+
+.address-modal-card {
+  width: 100%;
+  max-width: 480px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.16);
+  padding: 1.5rem;
+  box-sizing: border-box;
+  animation: addrScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (min-width: 640px) {
+  .address-modal-card {
+    padding: 2rem;
+  }
+}
+
+.address-modal-card__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.address-modal-card__icon-box {
+  width: 56px;
+  height: 56px;
+  background-color: #fef3c7;
+  color: #d97706;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.address-modal-card__title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: -0.01em;
+}
+
+.address-modal-card__body {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.address-modal-card__text {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #666666;
+}
+
+.address-modal-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.address-modal-card__btn {
+  height: 44px;
+  padding: 0 1.25rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.address-modal-card__btn--cancel {
+  background-color: transparent;
+  border: 1px solid #e5e5e5;
+  color: #666666;
+}
+
+.address-modal-card__btn--cancel:hover {
+  background-color: #f9f9f9;
+  color: #111111;
+}
+
+.address-modal-card__btn--action {
+  background-color: #66704A;
+  border: none;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(102, 112, 74, 0.15);
+}
+
+.address-modal-card__btn--action:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(102, 112, 74, 0.25);
+}
+
+.address-modal-card__btn--action svg:last-child {
+  font-size: 0.8rem;
+  transition: transform 0.2s ease;
+}
+
+.address-modal-card__btn--action:hover svg:last-child {
+  transform: translateX(3px);
+}
+
+@keyframes addrFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes addrScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

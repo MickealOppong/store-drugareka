@@ -8,8 +8,9 @@ export type TOrdersDto = {
   paidAt: Date;
   seller: string;
   orderNumber: string;
-  orderTotal: number;
-  shipping:number
+  price: number;
+  shipping:number,
+  serviceCharge:number
   deliveryStatus?:string
   trackingNumber?:string
   deliveryUpdatedAt:Date

@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next";
 import { FiAlertCircle, FiCheckCircle, FiPackage } from "react-icons/fi";
 import { useSearchParams } from "react-router-dom";
 import '../css/DeliveryConfirmation.css';
-import { useConfirmDeliveryMutation, useIsDeliveryConfirmedQuery } from "../features/api/storeApi";
+import { useConfirmReturnMutation, useIsReturnConfirmedQuery } from "../features/api/storeApi";
 
-export const DeliveryConfirmation = () => {
+export const ReturnConfirmation = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token"); 
   const { t } = useTranslation();
 
-  const [confirmDelivery, { isLoading }] = useConfirmDeliveryMutation();
+  const [confirmDelivery, { isLoading }] = useConfirmReturnMutation()
   const [error, setError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   
@@ -18,7 +18,7 @@ export const DeliveryConfirmation = () => {
   const [isTokenInvalid, setIsTokenInvalid] = useState<boolean>(false);
 
   // Check whether confirmation has already been processed by the user or the cron engine
-  const { data: isConfirmed, isLoading: isCheckLoading } = useIsDeliveryConfirmedQuery(
+  const { data: isConfirmed, isLoading: isCheckLoading } = useIsReturnConfirmedQuery(
     token as string,
     { skip: !token, refetchOnMountOrArgChange: true }
   );
@@ -150,4 +150,4 @@ export const DeliveryConfirmation = () => {
   );
 };
 
-export default DeliveryConfirmation;
+export default ReturnConfirmation

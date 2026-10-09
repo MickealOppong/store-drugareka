@@ -129,7 +129,7 @@
     align-items: center;
     justify-content: space-between;
     font-size: 13.5px;
-    color: lighten($color-text-main, 10%);
+   // color: lighten($color-text-main, 10%);
 
     &--total {
       border-top: 1px dashed $color-border;
@@ -197,7 +197,7 @@
     &--cancel {
       background-color: #ffffff;
       border: 1px solid $color-border;
-      color: lighten($color-text-main, 15%);
+     // color: lighten($color-text-main, 15%);
 
       &:hover {
         background-color: $color-bg-light;

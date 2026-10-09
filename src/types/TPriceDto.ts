@@ -4,6 +4,6 @@ export type TPriceDto={
     inventoryId:number
     sellerOldPrice:number,
     sellerNewPrice:number,
-    storeNewPrice:number
-    storeOldPrice:number
+    newServiceCharge:number
+    oldServiceCharge:number
 }

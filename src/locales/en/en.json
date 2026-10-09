@@ -434,12 +434,12 @@
     "pricing": {
       "eyebrow": "OUR COMMISSION MODEL",
       "title": "You set your price.",
-      "description": "You receive exactly what you expect. we calculate and display the margin for the end customer.",
+      "description": "You receive exactly what you expect. we calculate and display the service charge for the end customer at checkout.",
       "seller_card_tag": "YOUR PRICE (PROFIT)",
       "seller_card_desc": "The net amount you enter and want to receive in your account after the product is sold.",
       "store_card_tag": "STORE CATALOG PRICE",
-      "store_card_price": "X + margin",
-      "store_card_desc": "The final price shown to the buyer, increased by service and logistics costs."
+      "store_card_price": "X",
+      "store_card_desc": "The final price shown to the buyer at checkout is your price plus service and logistics charge."
     },
     "final_cta": {
       "eyebrow": "READY?",
@@ -613,7 +613,8 @@
         "total": "Total",
         "status": "Status",
         "ordered_date": "Order date",
-        "action": "Action"
+        "action": "Action",
+          "service_charge":"Service charge"
       },
       "statuses": {
         "paid": "Paid",
@@ -862,6 +863,7 @@
       "title": "Order summary",
       "subtotal": "Product value",
       "shipping": "Shipping cost",
+      "service_charge":"Service charge",
       "total": "Total",
       "checkout_btn": "Secure payment",
       "address_warning": "Please add a delivery address to unlock payment options."
@@ -1072,7 +1074,8 @@
         "total": "Total",
         "order_status": "Status",
         "tracking_number": "Tracking Number",
-        "delivery_status": "Delivery Status"
+        "delivery_status": "Delivery Status",
+        "service_charge":"Service charge"
       }
     }
   },
@@ -1106,7 +1109,7 @@
       "continue_btn": "Continue shopping"
     }
   },
-  "delivery_confirmation": {
+ "delivery_confirmation": {
     "success": {
       "title": "Delivery confirmed!",
       "description": "Thank you! The funds from the Escrow protection system have been successfully released to the seller's balance. The order has been closed."
@@ -1114,6 +1117,14 @@
     "invalid_token": {
       "title": "Verification error",
       "description": "Invalid or missing verification token in the URL. Unable to confirm delivery."
+    },
+    "already_confirmed": {
+      "title": "Delivery Already Confirmed",
+      "description": "This order has already been finalized and the payout funds have been successfully released to the seller."
+    },
+    "expired_token": {
+      "title": "Link Expired or Invalid",
+      "description": "This confirmation link has either expired past its 72-hour window or does not exist in our systems. If the delivery time threshold has passed, this order may have been automatically finalized by the platform background security engines."
     },
     "action": {
       "eyebrow": "Secure Escrow",
@@ -1228,7 +1239,8 @@
       "postal_code": "Postal Code",
       "city": "City",
       "country": "Country",
-      "contact": "Phone Number"
+      "contact": "Phone Number",
+      "pesel":"Pesel"
     },
     "placeholders": {
       "account": "account#...",
@@ -1442,5 +1454,11 @@
     "description": "Kasoa.pl uses cookies to keep you safely logged in, maintain your shopping cart, and optimize marketplace performance. You can decline optional tracking or customize your preferences at any time.",
     "btn_reject": "Essential Only",
     "btn_accept": "Accept All"
+  },
+  "address_modal": {
+    "title": "Shipping Address Required",
+    "message": "To list an item on Kasoa.pl, you must first provide a valid pickup/shipping address inside your seller profile. This ensures buyers can accurately calculate logistics rates.",
+    "btn_close": "Go Back",
+    "btn_profile": "Add Address Now"
   }
 }

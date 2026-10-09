@@ -80,7 +80,7 @@ useEffect(() => {
     page,
     size: 5,
     type: activeTab,
-  });
+  },{refetchOnMountOrArgChange:true});
 
   
 

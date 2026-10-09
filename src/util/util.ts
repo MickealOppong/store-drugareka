@@ -221,7 +221,7 @@ if (!rawString) return 'all'; // Default fallback value string
  */
 export const CookieService = {
   /**
-   * 🟢 REPLACES: localStorage.setItem(key, value)
+   * 
    * Saves data into a cookie. Enforces safe cross-site policies automatically.
    * @param days longevity duration of the data (defaults to 7 days persistent tracking)
    */
@@ -234,7 +234,7 @@ export const CookieService = {
   },
 
   /**
-   * 🟢 REPLACES: localStorage.getItem(key)
+   * 
    * Extracts data variables matching the specific key string out of browser arrays.
    * Returns null if the target configuration node is missing.
    */
@@ -252,10 +252,12 @@ export const CookieService = {
   },
 
   /**
-   * 🟢 REPLACES: localStorage.removeItem(key)
+   * 
    * Forces the browser to flush out the data key by setting its expiration date to the past.
    */
   remove: (key: string): void => {
     document.cookie = `${encodeURIComponent(key)}=; max-age=-1; path=/; SameSite=Lax; Secure`;
   }
 };
+
+

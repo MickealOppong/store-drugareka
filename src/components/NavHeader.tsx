@@ -12,6 +12,7 @@ import { logoutUser } from "../features/slice/userSlice";
 import { useAppSelector } from "../store";
 import Loading from "./Loading";
 import Search from "./Search";
+
 const NavHeader = () => {
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const { email, roles } = useAppSelector((state) => state.userSlice);
@@ -20,8 +21,10 @@ const NavHeader = () => {
 
   const isUserLoggedIn = Boolean(email);
 
-  const { data: cartCounter } = useGetCartCountQuery(undefined,{skip:!email});
-  const { data: wishlistCounter } = useGetWishlistCountQuery(undefined,{skip:!email});
+  const { data: cartCounter } = useGetCartCountQuery(undefined, { skip: !email });
+  const { data: wishlistCounter } = useGetWishlistCountQuery(undefined, { skip: !email });
+
+  console.log('cart ', cartCounter);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,10 +32,14 @@ const NavHeader = () => {
   const [logout, { isLoading }] = useLogoutMutation();
 
   const handleAccountLogout = async () => {
-    const response = await logout(refreshToken);
-    if (response.data === true) {
+    try {
+      await logout(refreshToken).unwrap();
       dispatch(logoutUser());
       navigate("/");
+    } catch (error) {
+      console.error("Logout transaction lifecycle exception:", error);
+      dispatch(logoutUser());
+      navigate("/login");
     }
   };
 
@@ -55,58 +62,71 @@ const NavHeader = () => {
   }
 
   return (
-    <header className="landing-header">
-      <div className="landing-header__inner">
+  
+    <header className="nav-header">
+      <div className="nav-header__inner">
         
-        <Link to="/" className="brand" style={{textTransform:'uppercase'}}>
-       {appName} <span>.pl</span>
+        <Link to="/" className="nav-header__brand" style={{ textTransform: 'uppercase' }}>
+          {appName} <span>.pl</span>
         </Link>
 
-        <nav className="landing-nav">
-          <Link to="/shop">{t("navigation.menu.shop")}</Link>
-          <Link to="/shop/categories">{t("navigation.menu.categories")}</Link>
-          <Link to="/sell" className="sell-link">
+        <nav className="nav-header__navigation">
+          <Link to="/shop" className="nav-header__nav-link">
+            {t("navigation.menu.shop")}
+          </Link>
+          <Link to="/shop/categories" className="nav-header__nav-link">
+            {t("navigation.menu.categories")}
+          </Link>
+          <Link to="/sell" className="nav-header__nav-link nav-header__nav-link--sell">
             {t("navigation.menu.sell")}
           </Link>
         </nav>
 
-        <div className="landing-header__actions">
+        <div className="nav-header__actions">
           <button
             type="button"
-            className="icon-button"
+            className="nav-header__action-btn"
             aria-label={t("navigation.accessibility.view_cart")}
             onClick={() => navigate("/cart")}
           >
             <FiShoppingBag />
-            <span className="cart-counter">{isUserLoggedIn ? cartCounter : guestCartCount}</span>
+            <span className="nav-header__counter-badge">
+              {isUserLoggedIn ? cartCounter : guestCartCount}
+            </span>
           </button>
 
           <button
             type="button"
-            className="icon-button"
+            className="nav-header__action-btn"
             onClick={onWishlistButtonClick}
             aria-label={t("navigation.accessibility.view_wishlist")}
           >
             <FiHeart />
-            <span>{isUserLoggedIn ? wishlistCounter : 0}</span>
+            <span className="nav-header__counter-badge">
+              {isUserLoggedIn ? wishlistCounter : 0}
+            </span>
           </button>
 
           <button 
             type="button"
-            className="icon-button"
+            className="nav-header__action-btn nav-header__action-btn--account"
             onClick={onUserButtonClick}
             aria-label={t("navigation.accessibility.view_account")}
           >
             <FiUser />
-            <span>{t("navigation.actions.account")}</span>
+            <span className="nav-header__btn-text">{t("navigation.actions.account")}</span>
           </button>
 
           {email ? (
-            <button type="button" className="login-button" onClick={handleAccountLogout}>
+            <button 
+              type="button" 
+              className="nav-header__auth-btn nav-header__auth-btn--logout" 
+              onClick={handleAccountLogout}
+            >
               {t("navigation.actions.logout")}
             </button>
           ) : (
-            <Link to="/login" className="login-button">
+            <Link to="/login" className="nav-header__auth-btn nav-header__auth-btn--login">
               {t("navigation.actions.login")}
             </Link>
           )}
@@ -114,7 +134,7 @@ const NavHeader = () => {
         </div>
       </div>
 
-      <div className="landing-header__search-overlay">
+      <div className="nav-header__search-overlay">
         <Search
           isOpen={searchOpen}
           onClose={() => setSearchOpen(false)}

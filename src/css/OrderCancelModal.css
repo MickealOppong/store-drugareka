@@ -114,7 +114,6 @@
   align-items: center;
   justify-content: space-between;
   font-size: 13.5px;
-  color: #2b2b2b;
 }
 
 .po-modal__summary-row--total {
@@ -177,7 +176,6 @@
 .po-modal__btn--cancel {
   background-color: #ffffff;
   border: 1px solid #e5e5e5;
-  color: #373737;
 }
 
 .po-modal__btn--cancel:hover {

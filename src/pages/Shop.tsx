@@ -96,25 +96,25 @@ const Shop = () => {
     switch (sort) {
       case "price-low":
         result.sort(
-          (a, b) => a.priceDto.storeNewPrice - b.priceDto.storeNewPrice,
+          (a, b) => a.priceDto.sellerNewPrice - b.priceDto.sellerNewPrice,
         );
         break;
 
       case "price-high":
         result.sort(
-          (a, b) => b.priceDto.storeNewPrice - a.priceDto.storeNewPrice,
+          (a, b) => b.priceDto.sellerOldPrice- a.priceDto.sellerOldPrice,
         );
         break;
 
       case "discount":
         result.sort((a, b) => {
           const discountA =
-            ((a.priceDto.storeNewPrice - a.priceDto.storeOldPrice) /
-              a.priceDto.storeNewPrice) *
+            ((a.priceDto.sellerOldPrice - a.priceDto.sellerNewPrice) /
+              a.priceDto.sellerNewPrice) *
             100;
           const discountB =
-            ((b.priceDto.storeNewPrice - b.priceDto.storeOldPrice) /
-              b.priceDto.storeOldPrice) *
+            ((b.priceDto.sellerNewPrice - b.priceDto.sellerOldPrice) /
+              b.priceDto.sellerOldPrice) *
             100;
           return discountB - discountA;
         });
@@ -288,9 +288,9 @@ const Shop = () => {
             filteredProducts.map((product) => {
               const isWishlisted = wishlists.includes(product.listingId);
               const discount = Math.round(
-                ((product.priceDto.storeNewPrice -
-                  product.priceDto.storeOldPrice) /
-                  product.priceDto.storeOldPrice) *
+                ((product.priceDto.sellerNewPrice -
+                  product.priceDto.sellerOldPrice) /
+                  product.priceDto.sellerNewPrice) *
                   100,
               );
 
@@ -346,11 +346,11 @@ const Shop = () => {
                     <div className="shop-product-card__bottom">
                       <div>
                         <strong>
-                          {formatPrice(product.priceDto.storeNewPrice) || 0} zł
+                          {formatPrice(product.priceDto.sellerNewPrice) || 0} zł
                         </strong>
 
                         <del>
-                          {formatPrice(product.priceDto.storeOldPrice) || 0} zł
+                          {formatPrice(product.priceDto.sellerNewPrice) || 0} zł
                         </del>
                       </div>
 

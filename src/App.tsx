@@ -56,6 +56,7 @@ import EditCondition from "./components/EditCondition";
 import ConfirmShipment from "./pages/ConfirmShipment";
 import { loader as landingLoader } from "./pages/Landing";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ReturnConfirmation from "./pages/ReturnConfirmation";
 
 function App() {
   const router = createBrowserRouter([
@@ -94,8 +95,12 @@ function App() {
         element:<PaymentConfirmation/>
     },
      {
-        path:'confirmation',
+        path:'/delivery/confirm-receipt',
         element:<DeliveryConfirmation/>
+    },
+     {
+        path:'/return/confirm-receipt',
+        element:<ReturnConfirmation/>
     },
     {
       path: "/login",

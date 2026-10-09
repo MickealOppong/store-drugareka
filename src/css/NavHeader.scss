@@ -1,14 +1,12 @@
-// ==========================================================================
-// 1. CONFIGURATION (VARIABLES & DESIGN SYSTEM BASICS)
-// ==========================================================================
+
 
 @import './Variables.scss';
 
-// ==========================================================================
-// 3. CORE CONTAINER FRAMEWORK (`.landing-header`)
-// ==========================================================================
+/* ==========================================================================
+   ENCAPSULATED STICKY HEADER SHIELD (.nav-header)
+   ========================================================================== */
 
-.landing-header {
+.nav-header {
   font-family: $font-sans;
   position: sticky;
   top: 0;
@@ -18,11 +16,11 @@
   border-bottom: 1px solid $color-border;
   width: 100%;
   box-sizing: border-box;
-  display: none;
+  display: none; // Hidden on mobile views by default
 
-    @include media-up($breakpoint-md) {
-      display: block;
-    }
+  @include media-up($breakpoint-md) {
+    display: block;
+  }
 
   &__inner {
     max-width: 1200px;
@@ -43,43 +41,41 @@
     position: relative;
     z-index: 1000;
   }
-}
 
-// ==========================================================================
-// 4. BRAND PLATFORM LOGO PROFILE (`.brand`)
-// ==========================================================================
-
-.brand {
-  font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: $color-primary;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  user-select: none;
-  min-height: $touch-target-min;
-
-  span {
-    font-weight: 400;
-    color: $color-text-muted;
-  }
-}
-
-// ==========================================================================
-// 5. CENTRAL NAVIGATION PATHWAY (`.landing-nav`)
-// ==========================================================================
-
-.landing-nav {
-  display: none; // Hidden on mobile views; managed separately by MobileHeader layouts
-
-  @include media-up($breakpoint-md) {
+  // ==========================================================
+  // BRAND PLATFORM LOGO PROFILE (.nav-header__brand)
+  // ==========================================================
+  &__brand {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: $color-primary;
+    text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    user-select: none;
+    min-height: $touch-target-min;
+
+    span {
+      font-weight: 400;
+      color: $color-text-muted;
+    }
   }
 
-  a {
+  // ==========================================================
+  // CENTRAL NAVIGATION PATHWAY (.nav-header__navigation)
+  // ==========================================================
+  &__navigation {
+    display: none; // Managed separately by MobileHeader layouts
+
+    @include media-up($breakpoint-md) {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+  }
+
+  &__nav-link {
     text-decoration: none;
     color: $color-text-muted;
     font-size: 0.95rem;
@@ -97,107 +93,120 @@
       font-weight: 600;
       color: $color-primary;
     }
-  }
 
-  // Highlight accent styling custom-tailored for the seller funnel prompt
-  .sell-link {
-    color: $color-accent;
-    font-weight: 600;
+    // Highlight accent styling custom-tailored for the seller funnel prompt
+    &--sell {
+      color: $color-accent;
+      font-weight: 600;
 
-    &:hover {
-      color: scale-color($color-accent, $lightness: -10%);
+      &:hover {
+        color: scale-color($color-accent, $lightness: -10%);
+      }
     }
   }
-}
 
-// ==========================================================================
-// 6. CONTROL UTILITY FLEX GROUPS (`.landing-header__actions`)
-// ==========================================================================
+  // ==========================================================
+  // CONTROL UTILITY FLEX GROUPS (.nav-header__actions)
+  // ==========================================================
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 
-.landing-header__actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-
-  @include media-up($breakpoint-md) {
-    gap: 1rem;
-  }
-}
-
-// Micro Interaction Trigger Action Vectors
-.icon-button {
-  background: transparent;
-  border: none;
-  color: $color-text-main;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  padding: 0.5rem;
-  border-radius: 6px;
-  min-height: $touch-target-min;
-  min-width: $touch-target-min;
-  transition: $transition-default;
-  outline: none;
-
-  svg {
-    font-size: 1.25rem;
-    transition: transform 0.2s ease;
+    @include media-up($breakpoint-md) {
+      gap: 1rem;
+    }
   }
 
-  // Text strings auto-collapse in narrow tablet slots, cleanly emerging on wide viewports
-  span {
+  // Micro Interaction Trigger Action Vectors
+  &__action-btn {
+    background: transparent;
+    border: none;
+    color: $color-text-main;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.5rem;
+    border-radius: 6px;
+    min-height: $touch-target-min;
+    min-width: $touch-target-min;
+    transition: $transition-default;
+    outline: none;
+
+    svg {
+      font-size: 1.25rem;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      background-color: $color-bg-light;
+      color: $color-primary-light;
+
+      svg {
+        transform: scale(1.05);
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  // Text counters and label parameters hide dynamically on narrow screens
+  &__counter-badge,
+  &__btn-text {
     display: none;
     font-family: inherit;
     font-size: 0.85rem;
     font-weight: 600;
 
     @include media-up($breakpoint-lg) {
-      display: inline;
+      display: inline; // Restores structural visibility on desktop displays cleanly
     }
   }
 
-  &:hover {
-    background-color: $color-bg-light;
-    color: $color-primary-light;
+  // ==========================================================
+  // SESSION ACCESS AUTHENTICATION CTAS (.nav-header__auth-btn)
+  // ==========================================================
+  &__auth-btn {
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    background-color: $color-primary;
+    color: $color-text-light;
+    border: 1px solid $color-primary;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    white-space: nowrap;
+    transition: $transition-default;
+    outline: none;
 
-    svg {
-      transform: scale(1.05);
+    &:hover {
+      background-color: $color-primary-light;
+      border-color: $color-primary-light;
     }
-  }
 
-  &:active {
-    transform: scale(0.98);
-  }
-}
+    &:active {
+      transform: scale(0.98);
+    }
 
-// Session Access Authentication CTA Button
-.login-button {
-  font-family: inherit;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-decoration: none;
-  background-color: $color-primary;
-  color: $color-text-light;
-  border: 1px solid $color-primary;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 38px;
-  white-space: nowrap;
-  transition: $transition-default;
-  outline: none;
 
-  &:hover {
-    background-color: $color-primary-light;
-    border-color: $color-primary-light;
-  }
+    .nav-header__auth-text {
+      display: inline-block !important;
+      visibility: visible !important;
+      font-size: inherit;
+      color: inherit;
+      font-family: inherit;
+    }
 
-  &:active {
-    transform: scale(0.98);
+
   }
 }

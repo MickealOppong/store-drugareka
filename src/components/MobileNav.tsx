@@ -47,15 +47,15 @@ const MobileNav = () => {
 
   const handleAccountLogout = async () => {
     try {
-      const response = await logout(refreshToken).unwrap();
-      if (response === true) {
-        dispatch(logoutUser());
-        navigate("/");
-      }
+      await logout(refreshToken).unwrap();
+      dispatch(logoutUser());
+      navigate("/");
     } catch (error) {
-      console.error("Logout execution failure:", error);
+      console.error("Logout transaction lifecycle exception:", error);
+      dispatch(logoutUser());
+      navigate("/login");
     }
-  };
+  };                                                                                                                          
 
   const onUserButtonClick = () => {
     setMenuOpen(false);
@@ -70,7 +70,7 @@ const MobileNav = () => {
     if (!email) {
       return navigate('/login');
     }
-    navigate('/account/wishlist');
+   return navigate('/account/wishlist');
   };
 
   if (isLoading) {

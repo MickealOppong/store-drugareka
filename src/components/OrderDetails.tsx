@@ -25,7 +25,7 @@ const[modalOpen,setModalOpen] = useState<boolean>(false)
   const orders = (data as TOrdersDto[]) || [];
 
   const totalCost = orders.reduce((accumulator, currentOrder) => {
-    return accumulator + (currentOrder.orderTotal + currentOrder.shipping);
+    return accumulator + (currentOrder.price + currentOrder.shipping+currentOrder.serviceCharge);
   }, 0);
 
 
@@ -83,6 +83,7 @@ const[modalOpen,setModalOpen] = useState<boolean>(false)
                   <th>{t("order_details.table.headers.seller")}</th>
                   <th>{t("order_details.table.headers.subtotal")}</th>
                   <th>{t("order_details.table.headers.shipping")}</th>
+                    <th>{t("order_details.table.headers.service_charge")}</th>
                   <th>{t("order_details.table.headers.total")}</th>
                   <th>{t("order_details.table.headers.order_status")}</th>
                   <th>{t("order_details.table.headers.tracking_number")}</th>
@@ -107,7 +108,7 @@ const[modalOpen,setModalOpen] = useState<boolean>(false)
                     </td>
                     <td>
                       <span className="data-table__text">
-                        {formatPrice(order.orderTotal)} {order.currency}
+                        {formatPrice(order.price)} {order.currency}
                       </span>
                     </td>
                     <td>
@@ -115,9 +116,14 @@ const[modalOpen,setModalOpen] = useState<boolean>(false)
                         {formatPrice(order.shipping)} {order.currency}
                       </span>
                     </td>
+                       <td>
+                      <span className="data-table__text">
+                        {formatPrice(order.serviceCharge)} {order.currency}
+                      </span>
+                    </td>
                     <td>
                       <span className="data-table__text font-bold text-primary">
-                        {formatPrice(order.orderTotal + order.shipping)}{" "}
+                        {formatPrice(order.price+order.serviceCharge+order.shipping)}{" "}
                         {order.currency}
                       </span>
                     </td>

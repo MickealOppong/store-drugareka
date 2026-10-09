@@ -165,9 +165,9 @@ const ProductDetails = () => {
   if (product) {
     // Dynamic values derivation layer
     const savingsAmount =
-      product?.priceDto.storeNewPrice - product?.priceDto.storeOldPrice;
+      product?.priceDto.sellerNewPrice - product?.priceDto.sellerOldPrice;
     const savingsPercent = Math.round(
-      (savingsAmount / product?.priceDto.storeOldPrice) * 100,
+      (savingsAmount / product?.priceDto.sellerOldPrice) * 100,
     );
 
     return (
@@ -268,17 +268,17 @@ const ProductDetails = () => {
             <div className="product-details__pricing-matrix">
               <div className="product-details__price-row">
                 <strong className="product-details__deal-price">
-                  {formatPrice(product.priceDto.storeNewPrice)} zł
+                  {formatPrice(product.priceDto.sellerNewPrice)} zł
                 </strong>
-                {product.priceDto.storeOldPrice >
-                  product.priceDto.storeNewPrice && (
+                {product.priceDto.sellerOldPrice >
+                  product.priceDto.sellerNewPrice && (
                   <del className="product-details__strike-price">
-                    {formatPrice(product.priceDto.storeOldPrice)} zł
+                    {formatPrice(product.priceDto.sellerOldPrice)} zł
                   </del>
                 )}
               </div>
-              {product.priceDto.storeOldPrice >
-                product.priceDto.storeNewPrice && (
+              {product.priceDto.sellerOldPrice >
+                product.priceDto.sellerNewPrice && (
                 <p className="product-details__savings-banner">
                   {t("product_details.pricing.savings", {
                     amount: formatPrice(savingsAmount),

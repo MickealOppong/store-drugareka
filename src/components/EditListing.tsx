@@ -13,6 +13,7 @@ import {
   useGetAllConditionsQuery,
   useGetBrandsQuery,
 } from "../features/api/transApi";
+import { useAppSelector } from "../store";
 import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TListTrans } from "../types/TListTrans";
 import type { TProductData } from "../types/TProductData";
@@ -31,11 +32,10 @@ const EditListing = () => {
   const { data: conditions } = useGetAllConditionsQuery();
   const [getListing] = useLazyGetListingQuery();
 
-    const [category,setCategory]=useState<string>('')
-      const [categoryPath,setCategoryPath]=useState<string>('')
+  const [category, setCategory] = useState<string>("");
+  const [categoryPath, setCategoryPath] = useState<string>("");
+  const roles = useAppSelector((state) => state.userSlice.roles);
 
-  
-      
   /**
    * Brand query
    */
@@ -50,10 +50,7 @@ const EditListing = () => {
   async function fetchListing() {
     const response = await getListing(parseInt(listingId as string));
 
-    
     const listing = response.data as TListTrans;
-
-    
 
     const mediaObj: TFile[] = await Promise.all(
       listing.media.map(async (item) => {
@@ -85,8 +82,8 @@ const EditListing = () => {
       id: listing.listingId,
       name: listing.productName,
       category: {
-        name:listing?.category.name,
-        path:listing?.category.path
+        name: listing?.category.name,
+        path: listing?.category.path,
       },
       description: listing.productDescription,
       price: String(listing.priceDto.sellerNewPrice),
@@ -102,11 +99,8 @@ const EditListing = () => {
       itemSize: listing.itemSize,
     });
 
-    setCategory(formData.category.name)
+    setCategory(formData.category.name);
   }
-
-
-  
 
   useEffect(() => {
     fetchListing();
@@ -138,10 +132,10 @@ const EditListing = () => {
   const [formData, setFormData] = useState<TProductData>({
     id: -1,
     name: "",
-    category:{
-      name:'' ,
-      path:''
-       },
+    category: {
+      name: "",
+      path: "",
+    },
     description: "",
     price: "",
     quantity: "1",
@@ -156,10 +150,6 @@ const EditListing = () => {
     itemSize: "",
   });
 
-
-
-
-  
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -179,8 +169,8 @@ const EditListing = () => {
     // Dynamic clean up based on field names
     if (name === "condition" && conditionError) setConditionError("");
     if (name === "category" && categoryError) setCategoryError("");
-        if (name === "itemSize" && itemSizeError) setItemSizeError("");
-        if (name === "shippingMethod" &&  shippingMethodError) setShippingError("");
+    if (name === "itemSize" && itemSizeError) setItemSizeError("");
+    if (name === "shippingMethod" && shippingMethodError) setShippingError("");
 
     setFormData((prev) => ({
       ...prev,
@@ -253,21 +243,21 @@ const EditListing = () => {
     dataToSend.append("shippingInfo", productData.shippingInfo);
     //dataToSend.append("shippingMethod", productData.shippingMethod);
 
-
     images.forEach((file, index) => {
       dataToSend.append("images", file.file);
       dataToSend.append("imageSortOrder", String(index));
     });
 
-
-     
     try {
       const response = await editLisitng(dataToSend);
       console.log(response);
-      
 
       if (response.data?.httpStatus === 200) {
-        navigate("/account/listings/me");
+        if (roles.includes("ROLE_ADMIN")) {
+          navigate("/account/admin/listings");
+        } else {
+          navigate("/account/listings/me");
+        }
       }
 
       if (response.error) {
@@ -319,18 +309,12 @@ const EditListing = () => {
         setItemSizeError(itemSize);
       }
     } catch (error: any) {}
-     
   };
 
-
-  const handleCategoryChange =(category:string,path:string)=>{
-    setCategory(category)
-    setCategoryPath(path)
-  }
-
-
-
-  
+  const handleCategoryChange = (category: string, path: string) => {
+    setCategory(category);
+    setCategoryPath(path);
+  };
 
   return (
     <main className="add-product">
@@ -477,7 +461,10 @@ const EditListing = () => {
                   )}
                 </div>
 
-                <div className="form-field" style={{display:'none'}}>
+                <div
+                  className="form-field"
+                  style={{ display: "none" }}
+                >
                   <label htmlFor="category">
                     {t("add_listing.fields.category.label")}
                   </label>
@@ -516,7 +503,11 @@ const EditListing = () => {
                   )}
                 </div>
                 {/** CATEGORY */}
-                <CategoryDropdownSelect value={category} name="category"   onChange={handleCategoryChange}/>
+                <CategoryDropdownSelect
+                  value={category}
+                  name="category"
+                  onChange={handleCategoryChange}
+                />
 
                 <div className="form-field">
                   <label htmlFor="condition">
@@ -677,7 +668,10 @@ const EditListing = () => {
                 </div>
               </div>
 
-              <div className="form-field" style={{display:'none'}}>
+              <div
+                className="form-field"
+                style={{ display: "none" }}
+              >
                 <label htmlFor="shippingMethod">
                   {t("add_listing.fields.shipping_method.label")}
                 </label>
@@ -713,42 +707,42 @@ const EditListing = () => {
                 )}
               </div>
 
-                 {/** ITEM SIZE */}
-                  <div className="form-field">
-                    <label htmlFor="shippingMethod">
-                      {t("add_listing.fields.cargo_sizes.label")}
-                    </label>
+              {/** ITEM SIZE */}
+              <div className="form-field">
+                <label htmlFor="shippingMethod">
+                  {t("add_listing.fields.cargo_sizes.label")}
+                </label>
 
-                    <select
-                      id="itemSize"
-                      name="itemSize"
-                      value={formData.itemSize}
-                      onChange={handleSelectChange}
-                    >
+                <select
+                  id="itemSize"
+                  name="itemSize"
+                  value={formData.itemSize}
+                  onChange={handleSelectChange}
+                >
+                  <option
+                    value=""
+                    disabled
+                  >
+                    {t("add_listing.fields.cargo_sizes.placeholder")}
+                  </option>
+
+                  {ITEM_SIZE.map((size) => {
+                    return (
                       <option
-                        value=""
-                        disabled
+                        key={size.id}
+                        value={size.value}
                       >
-                        {t("add_listing.fields.cargo_sizes.placeholder")}
+                        {t(
+                          `add_listing.fields.cargo_sizes.item_size.${size.value}`,
+                        )}
                       </option>
-
-                      {ITEM_SIZE.map((size) => {
-                        return (
-                          <option
-                            key={size.id}
-                            value={size.value}
-                          >
-                            {t(`add_listing.fields.cargo_sizes.item_size.${size.value}`)}
-                          </option>
-                        );
-                      })}
-                    </select>
-                    {itemSizeError && (
-                      <span className="form-field__error-msg">
-                        {itemSizeError}
-                      </span>
-                    )}
-                  </div>
+                    );
+                  })}
+                </select>
+                {itemSizeError && (
+                  <span className="form-field__error-msg">{itemSizeError}</span>
+                )}
+              </div>
 
               <div className="form-field shippingInfo">
                 <label htmlFor="shippingInfo">

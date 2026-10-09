@@ -6,6 +6,7 @@ export type TUserDto={
     lastName:string,
     email:string
     roles:string[],
+    pesel:string,
     tokenDto?:{
         expiredAt:string,
         issuedAt:string,
@@ -14,4 +15,5 @@ export type TUserDto={
     },
     address:TAddress,
     accountNumber:string
+    hasAddress:string
 }

@@ -35,7 +35,13 @@ const Cart: React.FC<CartProps> = ({ cart, onRemoveItem, onCheckout }) => {
     (sum, item) => sum + item.shipping,
     0,
   );
-  const finalOrderTotal = itemTotal + shippingCost;
+
+
+    const totalServiceCharge = cart.cartItemList.reduce(
+    (sum, item) => sum + item.serviceCharge,
+    0,
+  );
+    const finalOrderTotal = itemTotal + shippingCost+totalServiceCharge;
 
   return (
     <main className="cart-page">
@@ -99,6 +105,10 @@ const Cart: React.FC<CartProps> = ({ cart, onRemoveItem, onCheckout }) => {
             <div className="cart-summary-row">
               <dt>{t("cart.summary.subtotal")}</dt>
               <dd>{formatPrice(itemTotal)} zł</dd>
+            </div>
+               <div className="cart-summary-row">
+              <dt>{t("cart.summary.service_charge")}</dt>
+              <dd>{formatPrice(totalServiceCharge)} zł</dd>
             </div>
             <div className="cart-summary-row">
               <dt>{t("cart.summary.shipping")}</dt>

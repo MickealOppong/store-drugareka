@@ -11,8 +11,6 @@ const CartPage = () => {
   const { data: cart, isLoading: cartLoading } = useGetBuyerCartQuery();
   const { t } = useTranslation();
 
-  //console.log(cart);
-  
 
 
   const [deleteItem] = useRemoveCartItemMutation();

@@ -308,6 +308,7 @@ export const Categories: React.FC = () => {
                       defaultValue: "All Available Listings",
                     })}
             </h1>
+      
 
         </header>
 

@@ -433,14 +433,14 @@
       "shield_desc": "Zajmujemy się całym procesem."
     },
     "pricing": {
-      "eyebrow": "NASZ MODEL PROWIZYJNY",
+      "eyebrow": "NASZ MODEL PROWIZJI",
       "title": "Ty ustalasz swoją cenę.",
-      "description": "Otrzymujesz dokładnie tyle, ile oczekujesz. My obliczamy i pokazujemy marżę dla klienta końcowego.",
+      "description": "Otrzymujesz dokładnie tyle, ile oczekujesz. My obliczamy i wyświetlamy opłatę serwisową dla klienta końcowego podczas kasy.",
       "seller_card_tag": "TWOJA CENA (ZYSK)",
-      "seller_card_desc": "Kwota netto, którą podajesz i którą chcesz otrzymać na swoje konto po sprzedaży produktu.",
-      "store_card_tag": "CENA W SKLEPIE",
-      "store_card_price": "X + marża",
-      "store_card_desc": "Końcowa cena widoczna dla kupującego, powiększona o koszty obsługi i logistyki."
+      "seller_card_desc": "Kwota netto, którą wpisujesz i chcesz otrzymać na swoje konto po sprzedaży produktu.",
+      "store_card_tag": "CENA W KATALOGU SKLEPU",
+      "store_card_price": "X",
+      "store_card_desc": "Ostateczna cena widoczna dla kupującego podczas kasy to Twoja cena powiększona o opłatę serwisową i logistyczną."
     },
     "final_cta": {
       "eyebrow": "GOTOWY?",
@@ -612,7 +612,8 @@
         "total": "Suma",
         "status": "Status",
         "ordered_date": "Data zamówienia",
-        "action": "Akcja"
+        "action": "Akcja",
+        "service_charge":"Opłata serwisowa"
       },
       "statuses": {
         "paid": "Opłacone",
@@ -854,6 +855,7 @@
       "subtotal": "Wartość produktów",
       "shipping": "Koszt wysyłki",
       "total": "Suma",
+      "service_charge":"Opłata Serwisowa",
       "checkout_btn": "Bezpieczna płatność",
       "address_warning": "Dodaj adres dostawy, aby odblokować opcje płatności."
     },
@@ -1061,7 +1063,8 @@
         "total": "Suma",
         "order_status": "Status",
         "tracking_number": "Numer przesyłki",
-        "delivery_status": "Status dostawy"
+        "delivery_status": "Status dostawy",
+          "service_charge":"Opłata serwisowa"
       }
     }
   },
@@ -1095,19 +1098,27 @@
       "continue_btn": "Kontynuuj zakupy"
     }
   },
-  "delivery_confirmation": {
+"delivery_confirmation": {
     "success": {
       "title": "Dostawa potwierdzona!",
-      "description": "Dziękujemy! Środki z systemu ochrony Escrow zostały pomyślnie uwolnione na saldo sprzedawcy. Zamówienie zostało zamknięte."
+      "description": "Dziękujemy! Środki z systemu ochrony Escrow zostały pomyślnie przekazane na saldo sprzedawcy. Zamówienie zostało zamknięte."
     },
     "invalid_token": {
-      "title": "Verification error",
+      "title": "Błąd weryfikacji",
       "description": "Nieprawidłowy lub brakujący token weryfikacyjny w adresie URL. Nie można potwierdzić dostawy."
+    },
+    "already_confirmed": {
+      "title": "Dostawa już potwierdzona",
+      "description": "To zamówienie zostało już sfinalizowane, a środki z wypłaty zostały bezpiecznie przekazane sprzedawcy."
+    },
+    "expired_token": {
+      "title": "Link wygasł lub jest nieprawidłowy",
+      "description": "Ten link potwierdzający wygasł po upływie 72 godzin lub nie istnieje w naszym systemie. Jeśli czas na potwierdzenie minął, zamówienie mogło zostać automatycznie sfinalizowane przez systemy bezpieczeństwa platformy."
     },
     "action": {
       "eyebrow": "Bezpieczny Escrow",
       "title": "Potwierdź dostawę",
-      "description": "Kliknij przycisk poniżej, jeśli przesyłka dotarła do Ciebie, a jej zawartość jest w pełni zgodna z zamówieniem.",
+      "description": "Kliknij przycisk poniżej, jeśli paczka do Ciebie dotarła, a jej zawartość jest w pełni zgodna z zamówieniem.",
       "processing": "Przetwarzanie...",
       "confirm_btn": "Potwierdzam odbiór przedmiotu"
     },
@@ -1220,7 +1231,8 @@
       "contact": "Numer telefonu",
       "current_password": "Obecne hasło",
       "new_password": "Nowe hasło",
-      "confirm_password": "Potwierdź nowe hasło"
+      "confirm_password": "Potwierdź nowe hasło",
+      "pesel":"Pesel"
     },
     "placeholders": {
       "account": "nr rachunku...",
@@ -1445,5 +1457,11 @@
     "description": "Kasoa.pl używa plików cookies, aby zapewnić bezpieczne logowanie, utrzymać koszyk zakupowy oraz zoptymalizować prędkość działania platformy. W każdej chwili możesz odrzucić opcjonalne śledzenie lub dostosować swoje preferencje.",
     "btn_reject": "Tylko Niezbędne",
     "btn_accept": "Zaakceptuj Wszystkie"
+  },
+  "address_modal": {
+    "title": "Wymagany Adres Wysyłki",
+    "message": "Przed wystawieniem przedmiotu na Kasoa.pl musisz podać prawidłowy adres odbioru/wysyłki w swoim profilu sprzedawcy. Pozwoli to kupującym na dokładne obliczenie kosztów dostawy.",
+    "btn_close": "Wróć",
+    "btn_profile": "Dodaj Adres Teraz"
   }
 }

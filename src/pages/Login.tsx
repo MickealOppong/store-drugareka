@@ -50,7 +50,6 @@ const Login = () => {
 
     try {
       const response = await login({ username, password }).unwrap();
-
       
       const { httpStatus, data } = response as { httpStatus: number, data: TUserDto, message: string };
 

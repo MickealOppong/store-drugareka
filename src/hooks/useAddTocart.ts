@@ -4,7 +4,7 @@ import { setGuestCartCount } from "../features/slice/cartSlice";
 
 export const useAddToCart = () => {
   const [addToCart] = useAddToCartMutation();
-  const token = localStorage.getItem('tk')
+  const token = cookieStore.get('tk')
  const dispatch = useDispatch()
 
 
@@ -22,11 +22,12 @@ export const useAddToCart = () => {
     return;
   }
    
+  
    try {
   
      // dispatch(addGuestItem(listingId));
-     await addToCart(listingId);
-     
+  addToCart(listingId);
+
    } catch (error) {
     
    }
