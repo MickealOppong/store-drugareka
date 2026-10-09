@@ -353,8 +353,8 @@ export const Categories: React.FC = () => {
           <div className="category-page__products">
             {products.map((product) => {
               const isWishlisted = wishlists.includes(product.listingId);
-              const oldPrice = product.priceDto.storeOldPrice;
-              const newPrice = product.priceDto.storeNewPrice;
+              const oldPrice = product.priceDto.sellerOldPrice;
+              const newPrice = product.priceDto.sellerNewPrice;
 
               const discount =
                 oldPrice > 0

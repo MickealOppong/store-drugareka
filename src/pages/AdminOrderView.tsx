@@ -119,14 +119,14 @@ const AdminOrderView: React.FC = () => {
                       </div>
                     </td>
                     <td>
-                      <span className="data-table__text">{formatPrice(order.orderTotal)} {order.currency}</span>
+                      <span className="data-table__text">{formatPrice(order.price)} {order.currency}</span>
                     </td>
                     <td>
                       <span className="data-table__text">{formatPrice(order.shipping)} {order.currency}</span>
                     </td>
                     <td>
                       <span className="data-table__text font-bold text-primary">
-                        {formatPrice(order.orderTotal + order.shipping)} {order.currency}
+                        {formatPrice(order.price+ order.shipping)} {order.currency}
                       </span>
                     </td>
                     <td>
