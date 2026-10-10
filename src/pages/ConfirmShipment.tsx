@@ -1,4 +1,4 @@
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FiAlertCircle,
@@ -15,16 +15,23 @@ import type { TAddress } from "../components/CartAddressManager";
 import "../css/ConfirmShipment.scss";
 import {
   useConfirmShipmentMutation,
-  useLazyGetSellerShipmentsQuery,
+  useGetSellerShipmentsQuery
 } from "../features/api/authApi";
 import type { TShipmentItemResponse } from "../types/TShipmentItemResponse";
 
 const ConfirmShipment = () => {
+
+  // Tracks selected item values explicitly
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
+
+
   const { t } = useTranslation();
-  const [triggerDpdDispatch, { isLoading, error }] =
+  const [triggerDpdDispatch,{error}] =
     useConfirmShipmentMutation();
-  const [getShipments, { isLoading: itemLoading }] =
-    useLazyGetSellerShipmentsQuery();
+  const { isLoading: itemLoading ,data} =useGetSellerShipmentsQuery(token as string)
 
   // Seller Collection Address Form States
   const [name, setName] = useState("");
@@ -35,24 +42,13 @@ const ConfirmShipment = () => {
   const [phone, setPhone] = useState("");
   const [instructions, setInstructions] = useState("");
   const [validationError, setValidationError] = useState<string | null>(null);
-  const [products, setProducts] = useState<TShipmentItemResponse[]>([]);
+  
 
-  // Tracks selected item values explicitly
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  const products = data as TShipmentItemResponse[]|[];
 
-  const [searchParams] = useSearchParams();
-  const token = searchParams.get("token");
-
-  const fetchShipmentList = async () => {
-    if (!token) return;
-
-    const response = await getShipments(String(token));
-    setProducts((response.data as TShipmentItemResponse[]) || []);
-  };
-
-  useEffect(() => {
-    fetchShipmentList();
-  }, [token]);
+  const[isLoading,setIsLoading]=useState<boolean>(false);
+  const[isSuccess,setIsSucess]=useState<boolean>(false)
+  
 
   const handleFormSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -100,9 +96,14 @@ const ConfirmShipment = () => {
     formData.append("shipmentIds", String(selectedItems));
 
     try {
-      await triggerDpdDispatch(formData).unwrap();
+      setIsLoading(true)
+      const response =await triggerDpdDispatch(formData).unwrap();
+      if(response){
+          setIsSucess(response)
+        setIsLoading(false)
+      }
     } catch (err: any) {
-      console.error("Failed to initialize DPD Freight route:", err);
+      setIsLoading(false)
     }
   };
 
@@ -119,6 +120,16 @@ const ConfirmShipment = () => {
       ? (error.data as any)?.message
       : t("confirm_shipment.errors.network_fallback");
 
+
+      if(isLoading){
+        return <Loading/>
+      }
+
+      if(isSuccess){
+        return <div>
+          Kurier request successfull
+        </div>
+      }
   return (
     <div className="al-confirm-shipment">
       {/* LEFT COLUMN: Clean Order Context Banner Elements */}
@@ -157,7 +168,11 @@ const ConfirmShipment = () => {
           <div className="al-confirm-shipment__products-card">
             <h2 className="al-confirm-shipment__section-title">
               <FiBox /> {t("confirm_shipment.select_products")}
+             
             </h2>
+            <div className="al-confirm-shipment_warning" >
+               <span>{'*'}{t("confirm_shipment.warning")}</span>
+            </div>
 
             <div className="al-confirm-shipment__products-list">
               {products.map((item) => {

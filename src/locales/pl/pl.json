@@ -847,6 +847,11 @@
         "continue_btn": "Kontynuuj zakupy"
       }
     },
+    "private_seller": {
+      "title": "Rynek sprzedaży przez osoby prywatne",
+      "description": "Produkty są sprzedawane przez osoby prywatne, a nie przez KASAWA Sp. z o.o. Serwis Kasoa.pl udostępnia platformę ogłoszeniową i pośredniczy w realizacji transakcji. Ochrona konsumenta przysługująca przy zakupach od przedsiębiorców może nie mieć zastosowania do tych transakcji.",
+      "terms_link": "Zapoznaj się z regulaminem serwisu"
+    },
     "header": {
       "title": "Koszyk"
     },
@@ -1424,6 +1429,7 @@
     "banner_title": "Brak konieczności drukowania etykiety!",
     "banner_desc": "Po zatwierdzeniu zlecenia, kurier DPD przyjedzie pod Twój adres z już wydrukowanym listem przewozowym w celu dostawy do kupującego.",
     "select_products": "Wybierz przedmioty do spakowania",
+    "warning": "Niezaznaczone produkty zostaną anulowane, a środki zwrócone kupującemu.",
     "product_label": "Produkt",
     "verified_status": "Zweryfikowany do wysyłki",
     "loading_items": "Ładowanie danych przesyłki...",

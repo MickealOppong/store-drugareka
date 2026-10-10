@@ -856,6 +856,12 @@
         "continue_btn": "Continue shopping"
       }
     },
+
+    "private_seller": {
+      "title": "Private seller marketplace",
+      "description": "Products are sold by private individuals, not by KASAWA Sp. z o.o. Kasoa.pl provides the marketplace platform and facilitates transactions. Consumer protections that specifically apply to purchases from businesses may not apply to these sales.",
+      "terms_link": "Read our marketplace terms"
+    },
     "header": {
       "title": "Cart"
     },
@@ -1421,6 +1427,7 @@
     "banner_title": "No need to print a label!",
     "banner_desc": "Once the order is confirmed, the DPD courier will arrive at your address with a pre-printed waybill for delivery to the buyer.",
     "select_products": "Select items to pack",
+    "warning":"Unselected item will be cancelled and funds returned to buyer",
     "product_label": "Product",
     "verified_status": "Verified for shipping",
     "loading_items": "Loading shipment details...",

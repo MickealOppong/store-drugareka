@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux";
 import { useAddToCartMutation } from "../features/api/cartApi";
 import { setGuestCartCount } from "../features/slice/cartSlice";
+import { CookieService } from "../util/util";
 
 export const useAddToCart = () => {
   const [addToCart] = useAddToCartMutation();
-  const token = cookieStore.get('tk')
+  const token =CookieService.get('tk') || ""
  const dispatch = useDispatch()
 
 

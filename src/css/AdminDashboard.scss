@@ -1,5 +1,5 @@
 @use "sass:color";
-@use "Variables.scss"; // Hooks core Spruce, Mint, Alabaster, and Ink platform layout tokens
+@use "./Variables.scss" ; // Hooks core Spruce, Mint, Alabaster, and Ink platform layout tokens
 
 .admin-dashboard {
   width: 100%;

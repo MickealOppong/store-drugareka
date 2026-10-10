@@ -24,7 +24,7 @@ const NavHeader = () => {
   const { data: cartCounter } = useGetCartCountQuery(undefined, { skip: !email });
   const { data: wishlistCounter } = useGetWishlistCountQuery(undefined, { skip: !email });
 
-  console.log('cart ', cartCounter);
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

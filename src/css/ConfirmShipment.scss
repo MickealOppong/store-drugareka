@@ -31,7 +31,16 @@
       color: Variables.$color-primary; // Forest green Spruce accents
       font-size: 17px;
     }
+
+  
   }
+
+   &_warning{
+     span{
+      font-size:12px;
+      color: Variables.$color-accent;
+    }
+   }
 
   // =========================================================
   // TOP ROW CONTAINER: BANNERS & NOTICES

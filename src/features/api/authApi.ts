@@ -85,5 +85,6 @@ export const {
   useLogoutMutation,
   useConfirmShipmentMutation,
  useLazyGetSellerShipmentsQuery,
+ useGetSellerShipmentsQuery,
 useGetPaymentStatusQuery
 } = authApi;
