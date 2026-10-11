@@ -73,7 +73,7 @@
   },
   "categories": {
     "feed": {
-      "title":"Popularne kategorie",
+      "title": "Popularne kategorie",
       "filtered_view": "Filtrowane ogłoszenia",
       "all_listing": "Wszystkie dostępne ogłoszenia",
       "loading": "Ładowanie drzewa katalogu...",
@@ -87,7 +87,17 @@
     "header": {
       "title": "Kategorie",
       "placeholder_text": "Wybierz kategorię",
-       "text_label": "Kategoria produktu"
+      "text_label": "Kategoria produktu"
+    },
+    "tickets_events": {
+      "name": "Bilety i wydarzenia",
+      "subcategories": {
+        "concerts_festivals": "Koncerty i festiwale",
+        "cinema": "Kino",
+        "theatre_musicals": "Teatr i musicale",
+        "sports": "Sport",
+        "other_events": "Inne wydarzenia"
+      }
     },
     "electronics": {
       "name": "Elektronika",
@@ -109,30 +119,30 @@
       }
     },
     "sports_outdoor": {
-"name": "Sport i rekreacja",
-"subcategories":{
-    "bicycles": "Rowery",
-  "gym_equipment": "Sprzęt do ćwiczeń",
-  "running_shoes": "Buty do biegania",
-  "hiking_camping": "Turystyka piesza i kemping",
-  "sportswear": "Odzież sportowa",
-  "football": "Piłka nożna",
-  "basketball": "Koszykówka",
-  "tennis": "Tenis",
-  "swimming": "Pływanie",
-  "winter_sports": "Sporty zimowe",
-  "water_sports": "Sporty wodne",
-  "fishing": "Wędkarstwo",
-  "fitness_accessories": "Akcesoria fitness",
-  "sports_equipment": "Sprzęt sportowy",
-  "outdoor_equipment": "Sprzęt turystyczny i outdoorowy",
-  "skateboards_rollers": "Deskorolki i rolki",
-  "scooters": "Hulajnogi",
-  "camping_equipment": "Sprzęt kempingowy",
-  "cycling_accessories": "Akcesoria rowerowe",
-  "team_sports": "Sporty zespołowe"
-}
-},
+      "name": "Sport i rekreacja",
+      "subcategories": {
+        "bicycles": "Rowery",
+        "gym_equipment": "Sprzęt do ćwiczeń",
+        "running_shoes": "Buty do biegania",
+        "hiking_camping": "Turystyka piesza i kemping",
+        "sportswear": "Odzież sportowa",
+        "football": "Piłka nożna",
+        "basketball": "Koszykówka",
+        "tennis": "Tenis",
+        "swimming": "Pływanie",
+        "winter_sports": "Sporty zimowe",
+        "water_sports": "Sporty wodne",
+        "fishing": "Wędkarstwo",
+        "fitness_accessories": "Akcesoria fitness",
+        "sports_equipment": "Sprzęt sportowy",
+        "outdoor_equipment": "Sprzęt turystyczny i outdoorowy",
+        "skateboards_rollers": "Deskorolki i rolki",
+        "scooters": "Hulajnogi",
+        "camping_equipment": "Sprzęt kempingowy",
+        "cycling_accessories": "Akcesoria rowerowe",
+        "team_sports": "Sporty zespołowe"
+      }
+    },
     "women": {
       "name": "Kobiety",
       "subcategories": {
@@ -215,7 +225,7 @@
         "furniture": "Meble",
         "home_decor": "Dekoracje",
         "lighting": "Oświetlenie",
-        "bedroom":"Sypialnia",
+        "bedroom": "Sypialnia",
         "kitchen_dining": "Kuchnia i jadalnia",
         "tableware": "Naczynia i zastawa",
         "home_textiles": "Tekstylia domowe",
@@ -285,7 +295,7 @@
         "manicure_pedicure": "Manicure i pedicure",
         "massage_relaxation": "Masaż i relaks",
         "beauty_devices": "Urządzenia pielęgnacyjne",
-        "accessories":"Akcesoria"
+        "accessories": "Akcesoria"
       }
     },
     "office_business": {
@@ -613,7 +623,7 @@
         "status": "Status",
         "ordered_date": "Data zamówienia",
         "action": "Akcja",
-        "service_charge":"Opłata serwisowa"
+        "service_charge": "Opłata serwisowa"
       },
       "statuses": {
         "paid": "Opłacone",
@@ -860,7 +870,7 @@
       "subtotal": "Wartość produktów",
       "shipping": "Koszt wysyłki",
       "total": "Suma",
-      "service_charge":"Opłata Serwisowa",
+      "service_charge": "Opłata Serwisowa",
       "checkout_btn": "Bezpieczna płatność",
       "address_warning": "Dodaj adres dostawy, aby odblokować opcje płatności."
     },
@@ -995,9 +1005,9 @@
       },
       "brand": {
         "label": "Marka",
-         "placeholder": "Wpisz lub szukaj...",
-      "clear_hint": "Wyczyść wybór",
-         "no_results": "Nie znaleźliśmy marki \"{{value}}\", Marka zostanie automatycznie dodana do listy"
+        "placeholder": "Wpisz lub szukaj...",
+        "clear_hint": "Wyczyść wybór",
+        "no_results": "Nie znaleźliśmy marki \"{{value}}\", Marka zostanie automatycznie dodana do listy"
       },
       "sku": {
         "label": "SKU (kod produktu)",
@@ -1069,7 +1079,7 @@
         "order_status": "Status",
         "tracking_number": "Numer przesyłki",
         "delivery_status": "Status dostawy",
-          "service_charge":"Opłata serwisowa"
+        "service_charge": "Opłata serwisowa"
       }
     }
   },
@@ -1103,7 +1113,7 @@
       "continue_btn": "Kontynuuj zakupy"
     }
   },
-"delivery_confirmation": {
+  "delivery_confirmation": {
     "success": {
       "title": "Dostawa potwierdzona!",
       "description": "Dziękujemy! Środki z systemu ochrony Escrow zostały pomyślnie przekazane na saldo sprzedawcy. Zamówienie zostało zamknięte."
@@ -1237,7 +1247,7 @@
       "current_password": "Obecne hasło",
       "new_password": "Nowe hasło",
       "confirm_password": "Potwierdź nowe hasło",
-      "pesel":"Pesel"
+      "pesel": "Pesel"
     },
     "placeholders": {
       "account": "nr rachunku...",

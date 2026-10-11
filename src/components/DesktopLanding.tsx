@@ -20,7 +20,6 @@ import CookieBanner from "./CoolieBanner";
 import Footer from "./Footer";
 import Loading from "./Loading";
 
-
 export default function DesktopLanding() {
 const {data:topCategories=[],isLoading} = useGetTop6ProductCategoriesQuery()
 
@@ -198,7 +197,7 @@ if(isLoading){
                 className="product-card"
               >
                 <div className="product-card__media">
-                  <img src={product.media[0].image} alt={product.productName} />
+              <img src={product?.media[0].image} alt={product.productName} />
                  {
                   !userId || userId!==product.sellerId? <button
                     className="product-card__favorite"

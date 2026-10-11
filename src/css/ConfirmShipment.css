@@ -12,7 +12,6 @@
   box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-
 .al-confirm-shipment__section-title {
   display: inline-flex;
   align-items: center;
@@ -24,12 +23,14 @@
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
-
 .al-confirm-shipment__section-title svg {
   color: #66704A;
   font-size: 17px;
 }
-
+.al-confirm-shipment_warning span {
+  font-size: 12px;
+  color: #e11d48;
+}
 .al-confirm-shipment__summary-pane {
   display: grid;
   grid-template-columns: 1fr 2.5fr;
@@ -37,7 +38,6 @@
   width: 100%;
   box-sizing: border-box;
 }
-
 .al-confirm-shipment__info-banner {
   display: inline-flex;
   align-items: center;
@@ -48,34 +48,29 @@
   border-radius: 8px;
   box-sizing: border-box;
 }
-
 .al-confirm-shipment__info-banner .al-confirm-shipment__banner-icon {
   color: #16a34a;
   font-size: 24px;
   flex-shrink: 0;
 }
-
 .al-confirm-shipment__info-banner h4 {
   margin: 0 0 4px 0;
   font-size: 14px;
   font-weight: 800;
   color: #14532d;
 }
-
 .al-confirm-shipment__info-banner p {
   margin: 0;
   font-size: 13px;
   line-height: 1.5;
   color: #166534;
 }
-
 .al-confirm-shipment__workspace-pane {
   display: flex;
   flex-direction: column;
   gap: 24px;
   width: 100%;
 }
-
 .al-confirm-shipment__products-card {
   background-color: #ffffff;
   border: 1px solid #e5e5e5;
@@ -84,14 +79,12 @@
   box-shadow: 0 4px 20px rgba(17, 17, 17, 0.01);
   box-sizing: border-box;
 }
-
 .al-confirm-shipment__products-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 12px;
   margin-top: 8px;
 }
-
 .al-confirm-shipment__product-row {
   display: flex;
   align-items: center;
@@ -101,43 +94,38 @@
   border: 1px solid #e5e5e5;
   border-radius: 8px;
   cursor: pointer;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   box-sizing: border-box;
   transition: all 0.2s all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .al-confirm-shipment__product-row:hover {
-  background-color: #f4f4f4;
-  border-color: #cccccc;
+  background-color: rgb(243.9, 243.9, 243.9);
+  border-color: rgb(203.5, 203.5, 203.5);
 }
-
 .al-confirm-shipment__product-row--selected {
   background-color: #f0fdf4;
   border-color: #16a34a;
 }
-
 .al-confirm-shipment__product-row--selected .al-confirm-shipment__product-name {
   color: #14532d;
 }
-
 .al-confirm-shipment__product-info {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
-
 .al-confirm-shipment__product-name {
   margin: 0;
   font-size: 14px;
   font-weight: 700;
   color: #111111;
 }
-
 .al-confirm-shipment__product-sub {
   font-size: 12px;
   color: #666666;
 }
-
 .al-confirm-shipment__checkbox-wrapper {
   display: flex;
   align-items: center;
@@ -145,11 +133,9 @@
   font-size: 18px;
   color: #666666;
 }
-
 .al-confirm-shipment__checkbox-wrapper .checkbox-icon.active {
   color: #16a34a;
 }
-
 .al-confirm-shipment__form-pane {
   background-color: #ffffff;
   border: 1px solid #e5e5e5;
@@ -159,25 +145,21 @@
   box-sizing: border-box;
   width: 100%;
 }
-
 .al-confirm-shipment__form {
   display: flex;
   flex-direction: column;
 }
-
 .al-confirm-shipment__form-grid {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-
 .al-confirm-shipment__form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   width: 100%;
 }
-
 .al-confirm-shipment__submit-btn {
   display: inline-flex;
   align-items: center;
@@ -199,21 +181,17 @@
   box-sizing: border-box;
   transition: all 0.2s all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .al-confirm-shipment__submit-btn svg {
   font-size: 16px;
 }
-
 .al-confirm-shipment__submit-btn:hover:not(:disabled) {
-  background-color: #586140;
-  border-color: #586140;
+  background-color: rgb(88.0161290323, 96.6451612903, 63.8548387097);
+  border-color: rgb(88.0161290323, 96.6451612903, 63.8548387097);
 }
-
 .al-confirm-shipment__submit-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
-
 .al-confirm-shipment .logistics-modal__field {
   display: flex;
   flex-direction: column;
@@ -221,13 +199,11 @@
   width: 100%;
   box-sizing: border-box;
 }
-
 .al-confirm-shipment .logistics-modal__label {
   font-size: 12.5px;
   font-weight: 700;
-  color: #303030;
+  color: rgb(47.6, 47.6, 47.6);
 }
-
 .al-confirm-shipment .logistics-modal__input {
   width: 100%;
   height: 42px;
@@ -242,12 +218,10 @@
   box-sizing: border-box;
   transition: all 0.15s ease;
 }
-
 .al-confirm-shipment .logistics-modal__input:focus {
   border-color: #66704A;
   box-shadow: 0 0 0 3px rgba(102, 112, 74, 0.06);
 }
-
 .al-confirm-shipment .logistics-modal__textarea {
   width: 100%;
   padding: 12px;
@@ -262,7 +236,6 @@
   resize: none;
   transition: all 0.15s ease;
 }
-
 .al-confirm-shipment .logistics-modal__textarea:focus {
   border-color: #66704A;
   box-shadow: 0 0 0 3px rgba(102, 112, 74, 0.06);
@@ -295,4 +268,4 @@
   .al-confirm-shipment__submit-btn {
     width: 100%;
   }
-}
+}/*# sourceMappingURL=ConfirmShipment.css.map */

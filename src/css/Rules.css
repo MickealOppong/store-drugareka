@@ -7,7 +7,6 @@
   justify-content: center;
   padding: 1.5rem 1rem;
 }
-
 .rules-onboarding-screen .rules-onboarding-box {
   background-color: #ffffff;
   max-width: 500px;
@@ -24,13 +23,11 @@
 .rules-hero-header {
   text-align: center;
 }
-
 .rules-hero-header .rules-main-shield-icon {
   font-size: 3.75rem;
   color: #4f46e5;
   margin-bottom: 0.75rem;
 }
-
 .rules-hero-header h2 {
   font-size: 1.5rem;
   font-weight: 800;
@@ -38,7 +35,6 @@
   margin: 0 0 0.5rem 0;
   letter-spacing: -0.02em;
 }
-
 .rules-hero-header p {
   font-size: 0.875rem;
   color: #4b5563;
@@ -53,7 +49,6 @@
   overflow-y: auto;
   padding-right: 0.25rem;
 }
-
 .rules-scrollable-stack .rule-card-row {
   display: flex;
   gap: 1.25rem;
@@ -63,32 +58,26 @@
   border: 1px solid #e5e7eb;
   border-radius: 16px;
 }
-
 .rules-scrollable-stack .rule-card-row .rule-row-icon {
   font-size: 1.5rem;
   flex-shrink: 0;
   margin-top: 0.1rem;
 }
-
 .rules-scrollable-stack .rule-card-row .rule-row-icon.color-love {
   color: #ec4899;
 }
-
 .rules-scrollable-stack .rule-card-row .rule-row-icon.color-auth {
   color: #10b981;
 }
-
 .rules-scrollable-stack .rule-card-row .rule-row-icon.color-safe {
   color: #f59e0b;
 }
-
 .rules-scrollable-stack .rule-card-row .rule-row-body h4 {
   font-size: 0.9375rem;
   font-weight: 700;
   color: #111827;
   margin: 0 0 0.25rem 0;
 }
-
 .rules-scrollable-stack .rule-card-row .rule-row-body p {
   font-size: 0.8125rem;
   line-height: 1.45;
@@ -108,14 +97,12 @@
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .rules-submit-confirmation-btn:hover:not(:disabled) {
   background-color: #4338ca;
   transform: translateY(-1px);
   box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
 }
-
 .rules-submit-confirmation-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-}
+}/*# sourceMappingURL=Rules.css.map */

@@ -11,7 +11,6 @@
   margin: 16px 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-
 .order-timeline__grid {
   display: flex;
   align-items: center;
@@ -20,7 +19,6 @@
   width: 100%;
   box-sizing: border-box;
 }
-
 .order-timeline__node {
   display: flex;
   flex-direction: column;
@@ -30,7 +28,6 @@
   text-align: center;
   z-index: 2;
 }
-
 .order-timeline__node .order-timeline__line-segment {
   position: absolute;
   top: 18px;
@@ -41,11 +38,9 @@
   z-index: -1;
   transition: background-color 0.3s ease;
 }
-
 .order-timeline__node .order-timeline__line-segment--filled {
   background-color: #66704A;
 }
-
 .order-timeline__circle {
   display: flex;
   align-items: center;
@@ -59,95 +54,79 @@
   font-size: 16px;
   transition: all 0.3s ease;
 }
-
 .order-timeline__label-box {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
-
 .order-timeline__title-text {
   font-size: 13px;
   font-weight: 700;
   color: #666666;
   transition: color 0.3s ease;
 }
-
 .order-timeline__status-subtext {
   font-size: 11px;
   font-weight: 600;
   color: #666666;
   height: 14px;
 }
-
 .order-timeline__node--completed .order-timeline__circle {
   background-color: #66704A;
   border-color: #66704A;
   color: #ffffff;
 }
-
 .order-timeline__node--completed .order-timeline__title-text {
   color: #111111;
 }
-
 .order-timeline__node--completed .order-timeline__status-subtext {
-  color: #828f5e;
+  color: rgb(129.9677419355, 142.7096774194, 94.2903225806);
 }
-
 .order-timeline__node--active .order-timeline__circle {
   border-color: #66704A;
   color: #66704A;
   box-shadow: 0 0 0 4px rgba(102, 112, 74, 0.12);
   transform: scale(1.05);
 }
-
 .order-timeline__node--active .order-timeline__title-text {
   color: #66704A;
 }
-
 .order-timeline__node--active .order-timeline__status-subtext {
   color: #66704A;
 }
-
 .order-timeline--cancelled {
   border-color: #fee2e2;
   background-color: #fff5f5;
 }
-
 .order-timeline__alert-wrapper {
   display: flex;
   align-items: flex-start;
   gap: 16px;
   padding: 4px;
 }
-
 .order-timeline__alert-icon {
   color: #dc2626;
   font-size: 2.25rem;
   flex-shrink: 0;
 }
-
 .order-timeline__alert-text {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-
 .order-timeline__alert-text h3 {
   margin: 0;
   font-size: 16px;
   font-weight: 800;
   color: #991b1b;
 }
-
 .order-timeline__alert-text p {
   margin: 0;
   font-size: 13.5px;
   line-height: 1.45;
   color: #7f1d1d;
 }
-
 .order-timeline__timestamp {
   display: block;
   margin-top: 6px;
@@ -157,7 +136,6 @@
   color: #b91c1c;
   letter-spacing: 0.02em;
 }
-
 @media (max-width: 768px) {
   .order-timeline {
     padding: 16px;
@@ -186,4 +164,4 @@
   .order-timeline__label-box {
     margin-top: 0;
   }
-}
+}/*# sourceMappingURL=OrderTimeline.css.map */

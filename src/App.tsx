@@ -57,6 +57,7 @@ import ConfirmShipment from "./pages/ConfirmShipment";
 import { loader as landingLoader } from "./pages/Landing";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ReturnConfirmation from "./pages/ReturnConfirmation";
+import StripeReturnKYCHandler from "./pages/StripeReturnKYCHandler";
 
 function App() {
   const router = createBrowserRouter([
@@ -113,6 +114,10 @@ function App() {
      {
       path: "/seller/shipment/create",
       element: <ConfirmShipment />,
+    },
+       {
+      path: "/seller/stripe/return",
+      element: <StripeReturnKYCHandler/>,
     },
     {
       path: "/register",

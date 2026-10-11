@@ -33,7 +33,6 @@
   padding: 24px 16px;
   box-sizing: border-box;
 }
-
 .al-sidebar-container .al-brand {
   display: inline-flex;
   align-items: center;
@@ -45,16 +44,16 @@
   text-transform: uppercase;
   margin-bottom: 32px;
   padding-left: 8px;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   transition: opacity 0.2s all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .al-sidebar-container .al-brand__light {
   font-weight: 400;
   color: #66704A;
   margin-left: 1px;
 }
-
 .al-sidebar-container .al-brand:hover {
   opacity: 0.85;
 }
@@ -67,18 +66,15 @@
   overflow-y: auto;
   flex: 1;
 }
-
 .al-sidebar-nav::-webkit-scrollbar {
   width: 4px;
 }
-
 .al-sidebar-nav::-webkit-scrollbar-thumb {
   background-color: transparent;
   border-radius: 4px;
 }
-
 .al-sidebar-nav:hover::-webkit-scrollbar-thumb {
-  background-color: #e0e0e0;
+  background-color: rgb(223.5, 223.5, 223.5);
 }
 
 .al-sidebar-close {
@@ -213,14 +209,14 @@
     height: 32px;
     background-color: #f9f9f9;
     border: none;
-    color: #373737;
+    color: rgb(55.25, 55.25, 55.25);
     font-size: 18px;
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.15s ease, color 0.15s ease;
   }
   .al-sidebar-close:hover {
-    background-color: #efefef;
+    background-color: rgb(238.8, 238.8, 238.8);
     color: #111111;
   }
   .al-content {
@@ -228,4 +224,4 @@
     margin-top: 60px;
     height: calc(100vh - 60px);
   }
-}
+}/*# sourceMappingURL=AccountLayout.css.map */

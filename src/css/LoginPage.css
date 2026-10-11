@@ -13,7 +13,6 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   animation: slideInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 .fetch_error h2 {
   margin: 0;
   font-size: 0.9rem;
@@ -33,7 +32,6 @@
     opacity: 1;
   }
 }
-
 .login-page {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #111111;
@@ -47,7 +45,6 @@
   left: 0;
   right: 0;
 }
-
 .login-page a {
   text-decoration: none;
   color: inherit;
@@ -57,6 +54,7 @@
 .login-card {
   width: 100%;
   max-width: 420px;
+  height: -moz-fit-content;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -67,40 +65,34 @@
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.03);
   margin-top: 4rem;
 }
-
 .login-card .brand {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 2rem;
 }
-
 .login-card .brand .heart {
   color: #e11d48;
   flex-shrink: 0;
 }
-
 .login-card .brand h1 {
   font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   margin: 0;
 }
-
 .login-card h2 {
   font-size: 1.75rem;
   font-weight: 800;
   letter-spacing: -0.04em;
   margin: 0 0 0.5rem;
 }
-
 .login-card p {
   font-size: 0.95rem;
   line-height: 1.5;
   color: #666666;
   margin: 0 0 2rem;
 }
-
 .login-card form {
   display: flex;
   flex-direction: column;
@@ -117,25 +109,21 @@
   padding: 0.5rem 1rem;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .register-input-group:focus-within {
   border-color: #66704A;
   box-shadow: 0 0 0 1px #66704A;
 }
-
 .register-input-group .input-icon {
   font-size: 1.1rem;
   color: #767676;
   margin-right: 0.85rem;
   flex-shrink: 0;
 }
-
 .register-input-group .input-group_div {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
-
 .register-input-group .input-group_div label {
   font-size: 0.7rem;
   font-weight: 700;
@@ -144,7 +132,6 @@
   color: #666666;
   margin-bottom: 0.15rem;
 }
-
 .register-input-group .input-group_div input {
   border: none;
   background: transparent;
@@ -155,11 +142,9 @@
   width: 100%;
   box-sizing: border-box;
 }
-
 .register-input-group .input-group_div input:focus {
   outline: none;
 }
-
 .register-input-group span {
   display: flex;
   align-items: center;
@@ -172,7 +157,6 @@
   font-size: 1.1rem;
   transition: color 0.15s ease;
 }
-
 .register-input-group span:hover {
   color: #111111;
 }
@@ -201,7 +185,6 @@
   margin-top: 0.5rem;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .login-btn:hover {
   background-color: #393c2e;
   border-color: #393c2e;
@@ -216,7 +199,6 @@
   margin-top: 1.5rem;
   border-bottom: 1px solid transparent;
 }
-
 .reset-password-link:hover {
   color: #111111;
   border-color: #111111;
@@ -237,7 +219,6 @@
   margin-top: 0.75rem;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .social-btn:hover {
   background-color: #f9f9f9;
   border-color: #66704A;
@@ -250,13 +231,11 @@
   margin-top: 1.75rem;
   color: #e5e5e5;
 }
-
 .divider::before, .divider::after {
-  content: '';
+  content: "";
   flex: 1;
   border-bottom: 1px solid #e5e5e5;
 }
-
 .divider span {
   padding: 0 0.85rem;
   font-size: 0.75rem;
@@ -272,13 +251,11 @@
   color: #666666;
   margin-top: 2rem;
 }
-
 .signup-link a {
   font-weight: 700;
   color: #66704A;
   margin-left: 0.25rem;
 }
-
 .signup-link a:hover {
   color: #e11d48;
-}
+}/*# sourceMappingURL=LoginPage.css.map */

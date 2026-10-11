@@ -21,7 +21,6 @@ import Loading from "./Loading";
 
 
 
-
 const MobileLanding = () => {
   const {data:topCategories=[],isLoading:isCategoriesLoading} = useGetTop6ProductCategoriesQuery()
     //user id

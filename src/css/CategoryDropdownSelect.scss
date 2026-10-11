@@ -1,10 +1,11 @@
-@use 'Variables.scss'; // 🚀 Automatically inherits your specific brand color palette and breakpoints
+@use 'Variables' as Variables;
 
 /* ==========================================================================
-   MODERN COMPLIANT CATEGORY DROPDOWN INPUT DESIGN (.category-dropdown)
+   MODERN ACCORDION CATEGORY DROPDOWN INPUT DESIGN (.category-dropdown)
    ========================================================================== */
 
 .category-dropdown {
+  position: relative; // 🚀 Crucial: Anchors the absolute floating menu below the input field
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -12,14 +13,233 @@
   max-width: Variables.$max-width-content; // Ensures adaptive alignment limits up to 1280px
   font-family: Variables.$font-sans;
   box-sizing: border-box;
+  z-index: 30; // Places the dropdown mechanism above other standard input fields
 
-  // Stateful Loading and Exception Banners
+  // Input Field Typography Descriptor
+  &__label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: Variables.$color-text-muted; // #666666
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+
+    svg {
+      color: Variables.$color-primary; // Sage Green #66704A
+      font-size: 15px;
+    }
+  }
+
+  // =========================================================
+  // THE ACCORDION TRIGGER BAR BUTTON (Replacements for Select)
+  // =========================================================
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    height: 48px; // Premium, ergonomic touch target boundary height
+    padding: 0 16px;
+    background-color: Variables.$background; // Pure white background
+    border: 1px solid Variables.$color-border; // #e5e5e5
+    border-radius: 12px;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: Variables.$color-text-main; // #111111
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: left;
+    transition: Variables.$transition-default;
+
+    &:hover {
+      border-color: Variables.$color-primary;
+    }
+
+    &:focus-visible {
+      outline: none;
+      border-color: Variables.$color-primary; // Focal lock ring using #66704A Sage Green
+      box-shadow: 0 0 0 1px Variables.$color-primary;
+    }
+
+    &.is-open {
+      border-color: Variables.$color-primary;
+      box-shadow: 0 0 0 1px Variables.$color-primary;
+
+      .category-dropdown__trigger-icon {
+        transform: rotate(180deg); // Vertically flips chevron on active dropdown engagement
+      }
+    }
+  }
+
+  &__placeholder {
+    color: Variables.$color-text-muted;
+  }
+
+  &__trigger-icon {
+    flex-shrink: 0;
+    font-size: 14px;
+    color: Variables.$color-text-muted;
+    transition: Variables.$transition-default;
+  }
+
+  // =========================================================
+  // FLOATING SELECTION ACCORDION MENU PANEL
+  // =========================================================
+
+  &__menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 9999; // 🚀 Force menu to sit cleanly over layout modal backdrops or card borders
+    width: 100%;
+    max-height: 300px; // Smooth, standard viewport scroll threshold boundary
+    overflow-y: auto;
+    background-color: Variables.$background; // Pure white background
+    border: 1px solid Variables.$color-border;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    padding: 6px 0;
+    box-sizing: border-box;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid Variables.$color-bg-light;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__parent-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 12px;
+    background-color: Variables.$background;
+    transition: Variables.$transition-default;
+
+    &:hover {
+      background-color: Variables.$color-bg-light;
+    }
+  }
+
+  // Left-aligned structural chevron / name toggle button
+  &__expand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+    padding: 8px 0;
+    background: transparent;
+    border: none;
+    font-size: 14.5px;
+    font-weight: 700; // Applied strong bolding profile weights matching old parent layout
+    color: Variables.$color-primary-dark; // Applied deep, readable #2a2e1c for parent lines
+    cursor: pointer;
+    text-align: left;
+
+    svg {
+      flex-shrink: 0;
+      color: Variables.$color-text-muted;
+      font-size: 16px;
+    }
+  }
+
+  // Alignment structural spacer used when list items have no children
+  &__tree-spacer {
+    display: inline-block;
+    width: 16px; 
+  }
+
+  // Right-aligned "Select parent category" utility handle block
+  &__select-parent {
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: Variables.$color-primary;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: Variables.$transition-default;
+
+    &:hover {
+      background-color: rgba(Variables.$color-primary, 0.08); // Subtle brand highlighting backdrop tint
+    }
+
+    &.is-selected {
+      color: Variables.$color-primary-dark;
+      background-color: Variables.$color-bg-light;
+      font-weight: 700;
+
+      svg {
+        font-size: 14px;
+        color: Variables.$color-primary;
+      }
+    }
+  }
+
+  // =========================================================
+  // NESTED SUBCATEGORY DRAWER
+  // =========================================================
+
+  &__children {
+    display: flex;
+    flex-direction: column;
+    background-color: Variables.$color-bg-light; // Soft gray nested backdrop shift separation block
+    padding: 4px 0;
+  }
+
+  &__child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 16px 8px 38px; // Indented padding tier highlighting layout tree depth hierarchies
+    font-size: 13.5px;
+    font-weight: 500;
+    color: Variables.$color-text-main;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: Variables.$transition-default;
+
+    &:hover {
+      background-color: rgba(Variables.$color-primary, 0.08);
+    }
+
+    &.is-selected {
+      font-weight: 700;
+      color: Variables.$color-primary-dark;
+      background-color: rgba(Variables.$color-primary, 0.12);
+
+      svg {
+        color: Variables.$color-primary;
+        font-size: 14px;
+      }
+    }
+  }
+
+  // =========================================================
+  // STATEFUL MESSAGING TEMPLATES
+  // =========================================================
+
   &__status {
     padding: 14px 18px;
     font-size: 13.5px;
     font-weight: 600;
     color: Variables.$color-text-muted;
-    background-color: Variables.$background; // 🚀 FIXED: Set background to pure white
+    background-color: Variables.$background; // Pure white
     border: 1px solid Variables.$color-border;
     border-radius: 12px;
     text-align: center;
@@ -32,109 +252,19 @@
     }
   }
 
-  // Input Field Typography Descriptor
-  &__label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: Variables.$color-text-muted; // #666666
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    svg {
-      color: Variables.$color-primary; // Sage Green #66704A
-      font-size: 15px;
-    }
-  }
-
-  // Isolated Context Wrapper for Chevron Control Injection
-  &__wrapper {
-    position: relative;
-    width: 100%;
-    display: flex;
-    align-items: center;
-
-    // Premium, custom pseudo-element drop icon selector replacement
-    &::after {
-      content: '▼';
-      font-size: 9px;
-      color: Variables.$color-text-muted;
-      position: absolute;
-      right: 16px;
-      pointer-events: none; // Passes mouse clicks directly through to the under-layer select tag
-      transition: Variables.$transition-default;
-    }
-
-    // Rotates or modifies indicator presence seamlessly when select is active
-    &:focus-within::after {
-      color: Variables.$color-primary;
-      transform: scaleY(-1); // Vertically flips chevron on active dropdown engagement
-    }
-  }
-
-  // =========================================================
-  // THE ACTUAL UNIFIED SELECT INPUT BOX
-  // =========================================================
-
-  &__select {
-    width: 100%;
-    height: 48px; // Premium, ergonomic touch target boundary height
-    padding: 0 40px 0 16px; // Extra right side padding prevents text overlap with custom chevron
-    background-color: Variables.$background; // 🚀 FIXED: Enforces clear pure white background
-    border: 1px solid Variables.$color-border; // #e5e5e5
-    border-radius: 12px;
-    font-size: 14.5px;
-    font-weight: 500;
-    color: Variables.$color-text-main; // #111111
-    cursor: pointer;
-    box-sizing: border-box;
-    appearance: none; // Completely strips native browser/OS select styling overlays
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    transition: Variables.$transition-default;
-
-    &:hover {
-      border-color: Variables.$color-primary;
-      background-color: Variables.$background; // 🚀 FIXED: Kept background white on hover
-    }
-
-    &:focus {
-      outline: none;
-      background-color: Variables.$background;
-      border-color: Variables.$color-primary; // Focal lock ring using #66704A Sage Green
-      box-shadow: 0 0 0 1px Variables.$color-primary;
-    }
-
-    // Handles disabled form states gracefully during submit latency transitions
-    &:disabled {
-      opacity: 0.6;
-      background-color: Variables.$color-bg-light;
-      border-color: Variables.$color-border;
-      cursor: not-allowed;
-    }
-  }
-
-  // =========================================================
-  // COMPLIANT SEGMENTATION OPTION TYPOGRAPHY KEYS
-  // =========================================================
-
-  &__option {
-    &--parent {
-      font-weight: 700;
-      color: Variables.$color-primary-dark; // Applied deep, readable #2a2e1c for parent blocks
-      background-color: Variables.$background; // 🚀 FIXED: Changed parent option strip backdrop to pure white
-      padding: 8px 12px;
-      letter-spacing: 0.02em;
-    }
-
-    &--child {
-      font-weight: 500;
-      color: Variables.$color-text-main;
-      background-color: Variables.$background; // Pure white backdrop
-      padding: 6px 12px;
-    }
+  // Completely conceals standard validation fallback fields while preserving standard browser target validation
+  &__validation-input {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+    pointer-events: none;
   }
 }
 
@@ -144,15 +274,13 @@
 
 @media (max-width: Variables.$breakpoint-sm) {
   .category-dropdown {
-    &__select {
+    &__trigger {
       height: 46px; // Slightly more compact target for mobile screens
       font-size: 14px;
     }
-
-    &__wrapper {
-      &::after {
-        right: 14px; // Inset chevron slightly closer to the edge on mobile
-      }
+    
+    &__child {
+      padding-left: 32px; // Slightly tighter indent step context metrics on tighter viewports
     }
   }
 }

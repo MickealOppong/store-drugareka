@@ -29,7 +29,6 @@
   color: #666666;
   cursor: pointer;
 }
-
 .mobile-search__close svg {
   width: 21px;
   height: 21px;
@@ -58,11 +57,9 @@
   border-radius: 4px;
   transition: border-color 0.2s ease;
 }
-
 .mobile-search__form:focus-within {
   border-color: #111111;
 }
-
 .mobile-search__form input {
   flex: 1;
   width: 100%;
@@ -75,11 +72,12 @@
   font-family: inherit;
   font-size: 15px;
 }
-
+.mobile-search__form input::-moz-placeholder {
+  color: #666666;
+}
 .mobile-search__form input::placeholder {
   color: #666666;
 }
-
 .mobile-search__form input::-webkit-search-cancel-button {
   display: none;
 }
@@ -104,7 +102,6 @@
   background: transparent;
   color: #111111;
 }
-
 .mobile-search__clear svg {
   width: 16px;
   height: 16px;
@@ -123,7 +120,6 @@
   background: #111111;
   color: #f9f9f9;
 }
-
 .mobile-search__submit svg {
   width: 17px;
   height: 17px;
@@ -159,7 +155,6 @@
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
 }
-
 .mobile-search__suggestions button:active {
   background: #ffffff;
   color: #f9f9f9;
@@ -201,18 +196,15 @@
   text-align: left;
   cursor: pointer;
 }
-
 .mobile-search__recent button svg:first-child {
   width: 15px;
   height: 15px;
   color: #666666;
 }
-
 .mobile-search__recent button span {
   flex: 1;
   font-size: 12px;
 }
-
 .mobile-search__recent button svg:last-child {
   width: 14px;
   height: 14px;
@@ -242,8 +234,7 @@
   color: #ffffff;
   text-decoration: none;
 }
-
 .mobile-search__discover a svg {
   width: 14px;
   height: 14px;
-}
+}/*# sourceMappingURL=Search.css.map */

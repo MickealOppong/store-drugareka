@@ -3,32 +3,19 @@
   padding: 1.5rem 1.25rem;
   background-color: #f9f9f9;
   color: #111111;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   box-sizing: border-box;
-  /* ==========================================================================
-     TOP CONTROL ACTION HEADER
-     ========================================================================== */
-  /* ==========================================================================
-     ASYMMETRIC GRID STRUCTURE
-     ========================================================================== */
-  /* ==========================================================================
-     SHARED CONTENT CARDS FRAMEWORKS
-     ========================================================================== */
-  /* ==========================================================================
-     MEDIA UPLOADER IMAGERY PIPELINES
-     ========================================================================== */
-  /* ==========================================================================
-     UNIVERSAL INPUT STRUCTURE FIELDS
-     ========================================================================== */
-  /* ==========================================================================SIDEBAR STATUS SUB-WIDGET COMPONENTS========================================================================== */
 }
-
 @media (min-width: 768px) {
   .add-product {
     padding: 2rem;
   }
 }
-
+.add-product {
+  /* ==========================================================================
+     TOP CONTROL ACTION HEADER
+     ========================================================================== */
+}
 .add-product__header {
   display: flex;
   flex-direction: column;
@@ -37,7 +24,6 @@
   max-width: 1280px;
   width: 100%;
 }
-
 @media (min-width: 640px) {
   .add-product__header {
     flex-direction: row;
@@ -45,14 +31,12 @@
     justify-content: space-between;
   }
 }
-
 .add-product__header-left {
   display: flex;
   align-items: center;
   gap: 12px;
   min-width: 0;
 }
-
 .add-product__header-left h1 {
   margin: 0 0 2px 0;
   font-size: 1.75rem;
@@ -61,13 +45,11 @@
   line-height: 1.2;
   color: #111111;
 }
-
 .add-product__header-left p {
   margin: 0;
   font-size: 13px;
   color: #666666;
 }
-
 .add-product__back {
   width: 40px;
   height: 40px;
@@ -83,32 +65,27 @@
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
 }
-
 .add-product__back svg {
   font-size: 16px;
   stroke-width: 2.25;
 }
-
 .add-product__back:hover {
   border-color: #66704A;
   background: #393c2e;
   color: #66704A;
   transform: translateX(-1px);
 }
-
 .add-product__header-actions {
   display: flex;
   align-items: center;
   gap: 10px;
   width: 100%;
 }
-
 @media (min-width: 640px) {
   .add-product__header-actions {
     width: auto;
   }
 }
-
 .add-product__draft-btn, .add-product__publish-btn {
   flex: 1;
   min-height: 42px;
@@ -122,40 +99,38 @@
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
 }
-
 @media (min-width: 640px) {
   .add-product__draft-btn, .add-product__publish-btn {
     flex: 0 0 auto;
   }
 }
-
 .add-product__draft-btn:active, .add-product__publish-btn:active {
   transform: translateY(1px);
 }
-
 .add-product__draft-btn {
   border: 1px solid #e5e5e5;
   background: #FFFFFF;
   color: #767676;
 }
-
 .add-product__draft-btn:hover {
-  border-color: #c6c6c6;
+  border-color: rgb(198.4, 198.4, 198.4);
   background-color: #f9f9f9;
 }
-
 .add-product__publish-btn {
   border: none;
   background: #66704A;
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
 }
-
 .add-product__publish-btn:hover {
   background: #2a2e1c;
   box-shadow: 0 6px 16px rgba(15, 31, 31, 0.22);
 }
-
+.add-product {
+  /* ==========================================================================
+     ASYMMETRIC GRID STRUCTURE
+     ========================================================================== */
+}
 .add-product__layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -163,34 +138,29 @@
   max-width: 1280px;
   width: 100%;
 }
-
 @media (min-width: 1024px) {
   .add-product__layout {
     grid-template-columns: minmax(0, 1fr) 300px;
   }
 }
-
 .add-product__main {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
   min-width: 0;
 }
-
 .add-product__sidebar {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
   width: 100%;
 }
-
 @media (min-width: 768px) {
   .add-product__sidebar {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-
 @media (min-width: 1024px) {
   .add-product__sidebar {
     display: flex;
@@ -199,7 +169,11 @@
     top: 1.5rem;
   }
 }
-
+.add-product {
+  /* ==========================================================================
+     SHARED CONTENT CARDS FRAMEWORKS
+     ========================================================================== */
+}
 .add-product .product-section,
 .add-product .product-card {
   background: #FFFFFF;
@@ -208,15 +182,12 @@
   box-shadow: 0 2px 8px rgba(13, 19, 19, 0.01);
   box-sizing: border-box;
 }
-
 .add-product .product-card {
   padding: 1.25rem;
 }
-
 .add-product .product-card__header {
   margin-bottom: 1rem;
 }
-
 .add-product .product-card__header h3 {
   margin: 0;
   font-size: 13px;
@@ -225,11 +196,9 @@
   letter-spacing: 0.5px;
   color: #111111;
 }
-
 .add-product .product-section {
   padding: 1.5rem;
 }
-
 .add-product .product-section__header {
   display: flex;
   align-items: flex-start;
@@ -237,7 +206,6 @@
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
-
 .add-product .product-section__header h2 {
   margin: 0 0 4px 0;
   font-size: 16px;
@@ -245,14 +213,12 @@
   letter-spacing: -0.01em;
   color: #111111;
 }
-
 .add-product .product-section__header p {
   margin: 0;
   font-size: 12.5px;
   color: #666666;
   line-height: 1.5;
 }
-
 .add-product .product-section__header > span {
   padding: 4px 8px;
   border-radius: 10px;
@@ -261,44 +227,43 @@
   font-size: 11px;
   font-weight: 700;
 }
-
 .add-product .product-section .shippingInfo {
   margin-top: 12px;
 }
-
+.add-product {
+  /* ==========================================================================
+     MEDIA UPLOADER IMAGERY PIPELINES
+     ========================================================================== */
+}
 .add-product .product-images {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
-
 @media (min-width: 640px) {
   .add-product .product-images {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
-
 .add-product .product-image,
 .add-product .product-image__upload {
   position: relative;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1/1;
   border-radius: 8px;
   overflow: hidden;
   box-sizing: border-box;
 }
-
 .add-product .product-image {
   border: 1px solid #e5e5e5;
   background: #f9f9f9;
 }
-
 .add-product .product-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   display: block;
 }
-
 .add-product .product-image__remove {
   position: absolute;
   top: 6px;
@@ -316,12 +281,10 @@
   backdrop-filter: blur(4px);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .add-product .product-image__remove:hover {
   background: #666666;
   transform: scale(1.05);
 }
-
 .add-product .product-image__primary {
   position: absolute;
   left: 6px;
@@ -336,62 +299,58 @@
   backdrop-filter: blur(4px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
-
 .add-product .product-image__upload {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  border: 1.5px dashed #d8d8d8;
+  border: 1.5px dashed rgb(216.25, 216.25, 216.25);
   background: #FFFFFF;
   color: #666666;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .add-product .product-image__upload:hover {
   border-color: #767676;
   background: #EDF7F3;
 }
-
-.add-product .product-image__upload input[type="file"] {
+.add-product .product-image__upload input[type=file] {
   position: absolute;
   width: 1px;
   height: 1px;
   opacity: 0;
   pointer-events: none;
 }
-
 .add-product .product-image__upload svg {
   font-size: 20px;
   color: #66704A;
   margin-bottom: 2px;
 }
-
 .add-product .product-image__upload span {
   font-size: 12px;
   font-weight: 700;
   color: #767676;
 }
-
 .add-product .product-image__upload small {
   font-size: 10px;
-  color: gray;
+  color: rgb(127.5, 127.5, 127.5);
 }
-
+.add-product {
+  /* ==========================================================================
+     UNIVERSAL INPUT STRUCTURE FIELDS
+     ========================================================================== */
+}
 .add-product .form-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.25rem;
 }
-
 @media (min-width: 640px) {
   .add-product .form-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-
 .add-product .form-field {
   display: flex;
   flex-direction: column;
@@ -399,19 +358,16 @@
   width: 100%;
   box-sizing: border-box;
 }
-
 @media (min-width: 640px) {
   .add-product .form-field--full {
-    grid-column: 1 / -1;
+    grid-column: 1/-1;
   }
 }
-
 .add-product .form-field label {
   font-size: 13px;
   font-weight: 600;
   color: #767676;
 }
-
 .add-product .form-field input,
 .add-product .form-field select,
 .add-product .form-field textarea {
@@ -426,50 +382,45 @@
   font-size: 13px;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
+.add-product .form-field input::-moz-placeholder, .add-product .form-field select::-moz-placeholder, .add-product .form-field textarea::-moz-placeholder {
+  color: rgb(140.25, 140.25, 140.25);
+}
 .add-product .form-field input::placeholder,
 .add-product .form-field select::placeholder,
 .add-product .form-field textarea::placeholder {
-  color: #8c8c8c;
+  color: rgb(140.25, 140.25, 140.25);
 }
-
 .add-product .form-field input:hover,
 .add-product .form-field select:hover,
 .add-product .form-field textarea:hover {
-  border-color: #cccccc;
+  border-color: rgb(203.5, 203.5, 203.5);
 }
-
 .add-product .form-field input:focus,
 .add-product .form-field select:focus,
 .add-product .form-field textarea:focus {
   border-color: #66704A;
   box-shadow: 0 0 0 3px rgba(30, 58, 58, 0.08);
 }
-
 .add-product .form-field input,
 .add-product .form-field select {
   height: 42px;
   padding: 0 12px;
 }
-
 .add-product .form-field select {
   cursor: pointer;
   background-color: #FFFFFF;
 }
-
 .add-product .form-field textarea {
   min-height: 100px;
   padding: 10px 12px;
   resize: vertical;
   line-height: 1.5;
 }
-
 .add-product .form-field__hint {
   font-size: 11px;
-  color: gray;
+  color: rgb(127.5, 127.5, 127.5);
   margin-top: -2px;
 }
-
 .add-product .form-field__error-msg {
   display: block;
   color: #C24B4B;
@@ -477,12 +428,10 @@
   font-weight: 600;
   margin-top: 1px;
 }
-
 .add-product .input-with-prefix {
   position: relative;
   width: 100%;
 }
-
 .add-product .input-with-prefix span {
   position: absolute;
   top: 50%;
@@ -494,11 +443,12 @@
   pointer-events: none;
   z-index: 2;
 }
-
 .add-product .input-with-prefix input {
   padding-left: 32px;
 }
-
+.add-product {
+  /* ==========================================================================SIDEBAR STATUS SUB-WIDGET COMPONENTS========================================================================== */
+}
 .add-product .status-option {
   display: flex;
   align-items: flex-start;
@@ -508,7 +458,6 @@
   border-radius: 8px;
   background: #f9f9f9;
 }
-
 .add-product .status-option__icon {
   width: 20px;
   height: 20px;
@@ -520,7 +469,6 @@
   flex-shrink: 0;
   margin-top: 2px;
 }
-
 .add-product .status-option__icon span.primary {
   width: 6px;
   height: 6px;
@@ -528,11 +476,9 @@
   border-radius: 50%;
   background: #f9f9f9;
 }
-
 .add-product .status-option__message {
   min-width: 0;
 }
-
 .add-product .status-option__message strong {
   display: block;
   font-size: 12px;
@@ -540,14 +486,12 @@
   color: #111111;
   margin-bottom: 2px;
 }
-
 .add-product .status-option__message p {
   margin: 0;
   font-size: 11px;
   color: #666666;
   line-height: 1.4;
 }
-
 .add-product .product-tips {
   margin: 0;
   padding: 0;
@@ -556,7 +500,6 @@
   flex-direction: column;
   gap: 8px;
 }
-
 .add-product .product-tips li {
   position: relative;
   padding-left: 14px;
@@ -564,7 +507,6 @@
   line-height: 1.45;
   color: #767676;
 }
-
 .add-product .product-tips li::before {
   content: "";
   position: absolute;
@@ -575,38 +517,34 @@
   border-radius: 50%;
   background: #e11d48;
 }
-
 .add-product .product-preview {
   border: 1px solid #e5e5e5;
   border-radius: 8px;
   background: #FFFFFF;
   overflow: hidden;
 }
-
 .add-product .product-preview__image {
-  aspect-ratio: 16 / 13;
+  aspect-ratio: 16/13;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #f9f9f9;
-  color: #8c8c8c;
+  color: rgb(140.25, 140.25, 140.25);
   font-size: 28px;
   overflow: hidden;
 }
-
 .add-product .product-preview__image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   display: block;
 }
-
 .add-product .product-preview__content {
   padding: 12px;
   display: flex;
   flex-direction: column;
 }
-
 .add-product .product-preview__content span {
   font-size: 10px;
   font-weight: 700;
@@ -615,7 +553,6 @@
   letter-spacing: 0.5px;
   margin-bottom: 4px;
 }
-
 .add-product .product-preview__content h4 {
   margin: 0 0 6px 0;
   font-size: 13px;
@@ -625,9 +562,8 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 .add-product .product-preview__content strong {
   font-size: 15px;
   font-weight: 800;
   color: #66704A;
-}
+}/*# sourceMappingURL=AddListing.css.map */

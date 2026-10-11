@@ -32,8 +32,7 @@ const EditListing = () => {
   const { data: conditions } = useGetAllConditionsQuery();
   const [getListing] = useLazyGetListingQuery();
 
-  const [category, setCategory] = useState<string>("");
-  const [categoryPath, setCategoryPath] = useState<string>("");
+  const [category, setCategory] = useState<{name:string,path:string}>({name:'',path:''});
   const roles = useAppSelector((state) => state.userSlice.roles);
 
   /**
@@ -51,6 +50,7 @@ const EditListing = () => {
     const response = await getListing(parseInt(listingId as string));
 
     const listing = response.data as TListTrans;
+    
 
     const mediaObj: TFile[] = await Promise.all(
       listing.media.map(async (item) => {
@@ -99,7 +99,7 @@ const EditListing = () => {
       itemSize: listing.itemSize,
     });
 
-    setCategory(formData.category.name);
+    setCategory(listing.category);
   }
 
   useEffect(() => {
@@ -236,7 +236,7 @@ const EditListing = () => {
     dataToSend.append("condition", productData.condition);
     dataToSend.append("brand", productData.brand);
     dataToSend.append("status", productData.status);
-    dataToSend.append("categoryPath", categoryPath || formData.category.path);
+    dataToSend.append("categoryPath", category.path || formData.category.path);
     dataToSend.append("price", productData.price);
     dataToSend.append("sku", productData.sku);
     dataToSend.append("itemSize", productData.itemSize);
@@ -312,9 +312,10 @@ const EditListing = () => {
   };
 
   const handleCategoryChange = (category: string, path: string) => {
-    setCategory(category);
-    setCategoryPath(path);
+    setCategory({name:category,path});
   };
+
+  
 
   return (
     <main className="add-product">
@@ -504,7 +505,7 @@ const EditListing = () => {
                 </div>
                 {/** CATEGORY */}
                 <CategoryDropdownSelect
-                  value={category}
+                  value={category.name}
                   name="category"
                   onChange={handleCategoryChange}
                 />

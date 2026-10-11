@@ -3,8 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #F4F7F6;
-  /* Alabaster template background tone */
+  background-color: #F4F7F6; /* Alabaster template background tone */
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -29,8 +28,7 @@
   width: 56px;
   height: 64px;
   background-color: #F4F7F6;
-  color: #1E3A3A;
-  /* Spruce Accent Tint */
+  color: #1E3A3A; /* Spruce Accent Tint */
   font-size: 1.6rem;
   border-radius: 50%;
   margin-bottom: 1.25rem;
@@ -38,8 +36,7 @@
 
 .dc-icon--success {
   background-color: #EDF7F3;
-  color: #2A6B4E;
-  /* Sage Green */
+  color: #2A6B4E; /* Sage Green */
 }
 
 .dc-icon--error {
@@ -101,4 +98,4 @@
 .dc-btn:disabled {
   background-color: #A2D2C8;
   cursor: not-allowed;
-}
+}/*# sourceMappingURL=DeliveryConfirmation.css.map */

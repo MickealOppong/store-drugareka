@@ -5,16 +5,15 @@
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
-
 .mobile-landing a {
   text-decoration: none;
   color: inherit;
 }
-
 .mobile-landing img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   display: block;
 }
 
@@ -32,14 +31,12 @@
   align-items: flex-end;
   margin-bottom: 1.75rem;
 }
-
 .mobile-section-heading h2 {
   font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   margin: 0.35rem 0 0;
 }
-
 .mobile-section-heading a {
   display: inline-flex;
   align-items: center;
@@ -74,19 +71,16 @@
   text-align: center;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .mobile-button--primary {
   background-color: #66704A;
   color: #ffffff !important;
   border: 1px solid #66704A;
 }
-
 .mobile-button--secondary {
   background-color: transparent;
   color: olivedrab;
   border: 1px solid #e5e5e5;
 }
-
 .mobile-button--light {
   background-color: #ffffff;
   color: #66704A;
@@ -98,7 +92,6 @@
   font-weight: 800;
   letter-spacing: -0.03em;
 }
-
 .mobile-brand span {
   font-weight: 400;
   color: #666666;
@@ -110,11 +103,9 @@
   gap: 2.5rem;
   margin-top: 2rem;
 }
-
 .mobile-hero__content .mobile-hero__eyebrow {
   margin-bottom: 0.85rem;
 }
-
 .mobile-hero__title {
   font-size: 2.25rem;
   line-height: 1.15;
@@ -122,48 +113,41 @@
   letter-spacing: -0.04em;
   margin: 0 0 1rem;
 }
-
 .mobile-hero__title em {
   font-style: italic;
   font-weight: 400;
   font-family: serif;
 }
-
 .mobile-hero__description {
   font-size: 1rem;
   line-height: 1.5;
   color: #666666;
   margin: 0 0 2rem;
 }
-
 .mobile-hero__actions {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
-
 .mobile-hero__visual {
   position: relative;
   height: 300px;
   width: 100%;
   margin-top: 1rem;
 }
-
 .mobile-hero__image {
   position: absolute;
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
 }
-
 .mobile-hero__image--large {
   width: 70%;
   height: 85%;
   left: 0;
   top: 0;
 }
-
 .mobile-hero__image--small {
   width: 48%;
   height: 55%;
@@ -171,7 +155,6 @@
   bottom: 5%;
   border: 4px solid #ffffff;
 }
-
 .mobile-hero__verified {
   position: absolute;
   left: 4%;
@@ -185,24 +168,20 @@
   gap: 0.65rem;
   max-width: 180px;
 }
-
 .mobile-hero__verified svg {
   font-size: 1.2rem;
   flex-shrink: 0;
   color: #66704A;
 }
-
 .mobile-hero__verified div {
   display: flex;
   flex-direction: column;
 }
-
 .mobile-hero__verified strong {
   font-size: 0.8rem;
   font-weight: 700;
   line-height: 1.2;
 }
-
 .mobile-hero__verified span {
   font-size: 0.7rem;
   color: #666666;
@@ -216,24 +195,20 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem 1rem;
 }
-
 .mobile-trust__item {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-
 .mobile-trust__item svg {
   font-size: 1.25rem;
   color: #66704A;
 }
-
 .mobile-trust__item strong {
   font-size: 0.85rem;
   font-weight: 700;
   display: block;
 }
-
 .mobile-trust__item span {
   font-size: 0.75rem;
   color: #666666;
@@ -248,29 +223,26 @@
 
 .mobile-category-card {
   position: relative;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1/1;
   border-radius: 6px;
   overflow: hidden;
   background-color: #f9f9f9;
 }
-
 .mobile-category-card__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 60%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 60%);
   padding: 1rem;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   color: #ffffff;
 }
-
 .mobile-category-card__overlay h3 {
   font-size: 0.95rem;
   font-weight: 600;
   margin: 0;
 }
-
 .mobile-category-card__overlay svg {
   font-size: 0.95rem;
 }
@@ -288,16 +260,14 @@
   margin-top: 12px;
   overflow: hidden;
 }
-
 .mobile-product-card__media {
   display: block;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1/1;
   background-color: #f9f9f9;
   border-radius: 6px;
   overflow: hidden;
   margin-bottom: 0.65rem;
 }
-
 .mobile-product-card__favorite {
   position: absolute;
   top: 0.5rem;
@@ -315,14 +285,12 @@
   color: #111111;
   z-index: 10;
 }
-
 .mobile-product-card__info {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
   flex-grow: 1;
 }
-
 .mobile-product-card__info h3 {
   font-size: 0.85rem;
   font-weight: 500;
@@ -332,13 +300,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .mobile-product-card__info strong {
   font-size: 0.95rem;
   font-weight: 700;
   color: #111111;
 }
-
 .mobile-product-card__condition {
   align-self: flex-start;
   font-size: 0.65rem;
@@ -359,12 +325,10 @@
   flex-direction: column;
   gap: 3rem;
 }
-
 .mobile-seller__content .mobile-section-eyebrow, .mobile-seller__content .mobile-hero__content .mobile-hero__eyebrow, .mobile-hero__content .mobile-seller__content .mobile-hero__eyebrow {
   color: rgba(255, 255, 255, 0.45);
   margin-bottom: 0.75rem;
 }
-
 .mobile-seller__content h2 {
   font-size: 2rem;
   font-weight: 800;
@@ -372,27 +336,23 @@
   letter-spacing: -0.03em;
   margin: 0 0 1rem;
 }
-
 .mobile-seller__content h2 em {
   font-style: italic;
   font-weight: 400;
   font-family: serif;
 }
-
 .mobile-seller__content p {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.95rem;
   line-height: 1.5;
   margin-bottom: 1.75rem;
 }
-
 .mobile-seller__content .mobile-button {
   align-self: flex-start;
   border-color: transparent;
   background: #66704A;
   color: #ffffff;
 }
-
 .mobile-seller__steps {
   display: flex;
   flex-direction: column;
@@ -404,7 +364,6 @@
   gap: 1rem;
   align-items: flex-start;
 }
-
 .mobile-seller__step span {
   font-size: 1.25rem;
   font-weight: 700;
@@ -412,14 +371,12 @@
   font-family: serif;
   line-height: 1;
 }
-
 .mobile-seller__step strong {
   font-size: 1rem;
   font-weight: 600;
   display: block;
   margin-bottom: 0.25rem;
 }
-
 .mobile-seller__step p {
   color: rgba(255, 255, 255, 0.6);
   font-size: 0.85rem;
@@ -434,11 +391,9 @@
   flex-direction: column;
   align-items: center;
 }
-
 .mobile-final-cta .mobile-section-eyebrow, .mobile-final-cta .mobile-hero__content .mobile-hero__eyebrow, .mobile-hero__content .mobile-final-cta .mobile-hero__eyebrow {
   margin-bottom: 0.75rem;
 }
-
 .mobile-final-cta h2 {
   font-size: 1.75rem;
   font-weight: 800;
@@ -459,19 +414,16 @@
   flex-direction: column;
   gap: 2.5rem;
 }
-
 .mobile-footer__brand p {
   margin-top: 0.75rem;
   font-size: 0.9rem;
   line-height: 1.4;
   color: #666666;
 }
-
 .mobile-footer__links {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-
 .mobile-footer__links h4 {
   font-size: 0.8rem;
   font-weight: 700;
@@ -479,18 +431,15 @@
   letter-spacing: 0.05em;
   margin: 0 0 1rem;
 }
-
 .mobile-footer__links div {
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
 }
-
 .mobile-footer__links a {
   font-size: 0.9rem;
   color: #666666;
 }
-
 .mobile-footer__bottom {
   border-top: 1px solid #e5e5e5;
   padding-top: 1.5rem;
@@ -500,7 +449,6 @@
   font-size: 0.8rem;
   color: #666666;
 }
-
 .mobile-footer__bottom div {
   display: flex;
   gap: 1.25rem;
@@ -510,4 +458,4 @@
   .mobile-landing {
     display: none !important;
   }
-}
+}/*# sourceMappingURL=MobileLanding.css.map */

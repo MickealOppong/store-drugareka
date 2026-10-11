@@ -13,7 +13,6 @@
   box-sizing: border-box;
   animation: cookieBannerSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 .cookie-consent-banner__container {
   padding: 20px 24px;
   display: flex;
@@ -22,7 +21,6 @@
   align-items: center;
   box-sizing: border-box;
 }
-
 @media (min-width: 768px) {
   .cookie-consent-banner__container {
     flex-direction: row;
@@ -30,14 +28,12 @@
     gap: 32px;
   }
 }
-
 .cookie-consent-banner__content {
   display: flex;
   align-items: start;
   gap: 16px;
   flex: 1;
 }
-
 .cookie-consent-banner__icon-box {
   width: 40px;
   height: 40px;
@@ -50,27 +46,23 @@
   font-size: 20px;
   flex-shrink: 0;
 }
-
 .cookie-consent-banner__text-frame {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-
 .cookie-consent-banner__title {
   margin: 0;
   font-size: 15px;
   font-weight: 800;
   color: #111111;
 }
-
 .cookie-consent-banner__description {
   margin: 0;
   font-size: 13.5px;
   line-height: 1.5;
   color: #666666;
 }
-
 .cookie-consent-banner__actions {
   display: flex;
   align-items: center;
@@ -78,13 +70,11 @@
   width: 100%;
   flex-shrink: 0;
 }
-
 @media (min-width: 640px) {
   .cookie-consent-banner__actions {
     width: auto;
   }
 }
-
 .cookie-consent-banner__btn {
   height: 40px;
   padding: 0 16px;
@@ -100,35 +90,29 @@
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   flex: 1;
 }
-
 @media (min-width: 640px) {
   .cookie-consent-banner__btn {
     flex: none;
   }
 }
-
 .cookie-consent-banner__btn svg {
   font-size: 14px;
 }
-
 .cookie-consent-banner__btn--reject {
   background-color: transparent;
   border: 1px solid #e5e5e5;
   color: #666666;
 }
-
 .cookie-consent-banner__btn--reject:hover {
   background-color: #f9f9f9;
   color: #111111;
 }
-
 .cookie-consent-banner__btn--accept {
   background-color: #66704A;
   border: none;
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(102, 112, 74, 0.15);
 }
-
 .cookie-consent-banner__btn--accept:hover {
   background-color: #393c2e;
   box-shadow: 0 6px 16px rgba(102, 112, 74, 0.25);
@@ -143,4 +127,4 @@
     opacity: 1;
     transform: translate(-50%, 0);
   }
-}
+}/*# sourceMappingURL=CookieBanner.css.map */

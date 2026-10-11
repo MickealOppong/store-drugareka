@@ -5,7 +5,6 @@
   width: 100%;
   box-sizing: border-box;
 }
-
 .al-sidebar__label {
   font-size: 0.65rem;
   font-weight: 700;
@@ -14,9 +13,10 @@
   text-transform: uppercase;
   margin-bottom: 1.25rem;
   padding-left: 0.5rem;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
-
 .al-sidebar__menu {
   display: flex;
   flex-direction: column;
@@ -40,36 +40,30 @@
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
 }
-
 .al-nav-link__icon {
   font-size: 1.15rem;
   color: #767676;
   transition: color 0.2s ease, transform 0.2s ease;
   flex-shrink: 0;
 }
-
 .al-nav-link:hover {
   background-color: #f9f9f9;
   color: #111111;
 }
-
 .al-nav-link:hover .al-nav-link__icon {
   color: #111111;
   transform: scale(1.05);
 }
-
 .al-nav-link.active {
   background-color: #66704A;
   color: #ffffff;
   font-weight: 600;
 }
-
 .al-nav-link.active .al-nav-link__icon {
   color: #ffffff;
 }
-
 .al-nav-link.active:hover {
-  background-color: #5b6442;
+  background-color: rgb(90.8129032258, 99.7161290323, 65.8838709677);
 }
 
 .al-sidebar-footer {
@@ -82,7 +76,6 @@
   width: 100%;
   box-sizing: border-box;
 }
-
 .al-sidebar-footer__back-link {
   align-self: center;
   font-size: 0.85rem;
@@ -93,12 +86,10 @@
   border-bottom: 2px solid transparent;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .al-sidebar-footer__back-link:hover {
   color: #e11d48;
   border-color: #e11d48;
 }
-
 .al-sidebar-footer__logout-btn {
   display: inline-flex;
   align-items: center;
@@ -118,21 +109,17 @@
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
 }
-
 .al-sidebar-footer__logout-btn svg {
   font-size: 1rem;
   transition: transform 0.2s ease;
 }
-
 .al-sidebar-footer__logout-btn:hover:not(:disabled) {
   background-color: #fff1f2;
-  border-color: #eb607e;
+  border-color: rgb(234.5059055118, 95.9940944882, 126.3818897638);
 }
-
 .al-sidebar-footer__logout-btn:hover:not(:disabled) svg {
   transform: translateX(-2px);
 }
-
 .al-sidebar-footer__logout-btn:active {
   transform: scale(0.97);
 }
@@ -156,22 +143,18 @@
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
 }
-
 .al-add-btn svg {
   font-size: 1.1rem;
   stroke-width: 2.5;
   transition: transform 0.2s ease;
 }
-
 .al-add-btn:hover {
-  background-color: #747f54;
+  background-color: rgb(115.9838709677, 127.3548387097, 84.1451612903);
   box-shadow: 0 6px 16px rgba(30, 58, 58, 0.22);
 }
-
 .al-add-btn:hover svg {
   transform: rotate(90deg);
 }
-
 .al-add-btn:active {
   transform: scale(0.97);
-}
+}/*# sourceMappingURL=Admin.css.map */

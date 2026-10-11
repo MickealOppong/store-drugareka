@@ -37,8 +37,8 @@
     },
     "seller_cta": {
       "eyebrow": "HAVE SOMETHING YOU NO LONGER NEED?",
-            "sub-eyebrow-1": "Maybe it's something you've stopped using. Maybe it's brand new but you can't return it.",
-            "sub-eyebrow-2": "Tired of messages, price negotiations and buyers asking questions?",
+      "sub-eyebrow-1": "Maybe it's something you've stopped using. Maybe it's brand new but you can't return it.",
+      "sub-eyebrow-2": "Tired of messages, price negotiations and buyers asking questions?",
       "title_line1": "You list it.",
       "title_line2": "We sell it.",
       "description": "List your items in just a few minutes. Set the amount you want to receive, and we'll take care of the rest.",
@@ -67,26 +67,26 @@
       "link_start_selling": "Start selling",
       "link_help_centre": "Help centre",
       "link_contact": "Contact",
-      "terms":"Terms of service",
-      "privacy":"Privacy policy"
+      "terms": "Terms of service",
+      "privacy": "Privacy policy"
     }
   },
   "categories": {
-    "feed":{
-      "title":"Popular categories",
-      "filtered_view":"Filtered Listings",
-      "all_listing":"All Available Listing",
-      "loading":"Loading Catalog Tree...",
-      "error":"Failed to load category layout fields."
+    "feed": {
+      "title": "Popular categories",
+      "filtered_view": "Filtered Listings",
+      "all_listing": "All Available Listing",
+      "loading": "Loading Catalog Tree...",
+      "error": "Failed to load category layout fields."
     },
-        "empty_search":{
-        "title":"",
-        "message":"We couldn't find any items matching your active category profile. Try expanding your search queries or resetting the active parameters.",
-        "clear_btn":"Clear Active filters"
-      },
-     "header": {
-      "title":"Categories",
-      "text_label":"Product category",
+    "empty_search": {
+      "title": "",
+      "message": "We couldn't find any items matching your active category profile. Try expanding your search queries or resetting the active parameters.",
+      "clear_btn": "Clear Active filters"
+    },
+    "header": {
+      "title": "Categories",
+      "text_label": "Product category",
       "placeholder_text": "Select category"
     },
     "electronics": {
@@ -96,7 +96,7 @@
         "tablets": "Tablets",
         "laptops_computers": "Laptops & Computers",
         "monitors": "Monitors",
-        "computers":"Computers",
+        "computers": "Computers",
         "televisions": "TVs",
         "consoles_games": "Consoles & Video Games",
         "headphones_speakers": "Headphones & Speakers",
@@ -105,7 +105,7 @@
         "electronic_accessories": "Electronic Accessories",
         "audio_equipment": "Audio Equipment",
         "small_appliances": "Small Home Appliances",
-        "accessories":"Accessories"
+        "accessories": "Accessories"
       }
     },
     "women": {
@@ -189,7 +189,7 @@
       "subcategories": {
         "furniture": "Furniture",
         "home_decor": "Home Decor",
-        "bedroom":"Bedroom",
+        "bedroom": "Bedroom",
         "lighting": "Lighting",
         "kitchen_dining": "Kitchen & Dining",
         "tableware": "Tableware & Dinnerware",
@@ -200,6 +200,17 @@
         "storage_organization": "Storage & Organization",
         "home_appliances": "Home Appliances",
         "home_office": "Home Office"
+      }
+    },
+
+    "tickets_events":{
+        "name": "Tickets & Events",
+      "subcategories": {
+        "concerts_festivals": "Concerts & Festivals",
+        "cinema": "Cinema",
+        "theatre_musicals": "Theatre & Musicals",
+        "sports": "Sports",
+        "other_events": "Other Events"
       }
     },
     "sports_recreation": {
@@ -260,7 +271,7 @@
         "manicure_pedicure": "Manicure & Pedicure",
         "massage_relaxation": "Massage & Relaxation",
         "beauty_devices": "Beauty Devices",
-        "accessories":"Accessories"
+        "accessories": "Accessories"
       }
     },
     "office_business": {
@@ -309,31 +320,31 @@
         "luggage_organizers": "Luggage Organizers"
       }
     },
- "sports_outdoor": {
- "name":"Sports & outdoor",
- "subcategories":{
-   "bicycles": "Bicycles",
-  "gym_equipment": "Gym equipment",
-  "running_shoes": "Running shoes",
-  "hiking_camping": "Hiking and camping",
-  "sportswear": "Sportswear",
-  "football": "Football",
-  "basketball": "Basketball",
-  "tennis": "Tennis",
-  "swimming": "Swimming",
-  "winter_sports": "Winter sports",
-  "water_sports": "Water sports",
-  "fishing": "Fishing",
-  "fitness_accessories": "Fitness accessories",
-  "sports_equipment": "Sports equipment",
-  "outdoor_equipment": "Outdoor equipment",
-  "skateboards_rollers": "Skateboards and rollerblades",
-  "scooters": "Scooters",
-  "camping_equipment": "Camping equipment",
-  "cycling_accessories": "Cycling accessories",
-  "team_sports": "Team sports"
- }
-}
+    "sports_outdoor": {
+      "name": "Sports & outdoor",
+      "subcategories": {
+        "bicycles": "Bicycles",
+        "gym_equipment": "Gym equipment",
+        "running_shoes": "Running shoes",
+        "hiking_camping": "Hiking and camping",
+        "sportswear": "Sportswear",
+        "football": "Football",
+        "basketball": "Basketball",
+        "tennis": "Tennis",
+        "swimming": "Swimming",
+        "winter_sports": "Winter sports",
+        "water_sports": "Water sports",
+        "fishing": "Fishing",
+        "fitness_accessories": "Fitness accessories",
+        "sports_equipment": "Sports equipment",
+        "outdoor_equipment": "Outdoor equipment",
+        "skateboards_rollers": "Skateboards and rollerblades",
+        "scooters": "Scooters",
+        "camping_equipment": "Camping equipment",
+        "cycling_accessories": "Cycling accessories",
+        "team_sports": "Team sports"
+      }
+    }
   },
   "product_conditions": {
     "good": "Good",
@@ -341,9 +352,9 @@
     "excellent_condition": "Excellent",
     "used": "Used",
     "very_good": "Very good",
-  "open_new": "Open but new",
-  "new_other": "New (Other / Long-term storage)",
-  "used_good": "Used — Good condition"
+    "open_new": "Open but new",
+    "new_other": "New (Other / Long-term storage)",
+    "used_good": "Used — Good condition"
   },
   "shop": {
     "header": {
@@ -418,8 +429,8 @@
       "eyebrow": "WHY kasoa.pl?",
       "title": "Want to sell something without becoming a full-time seller?",
       "description": "On most marketplaces, listing an item means staying involved — checking messages, answering questions, negotiating prices and dealing with buyers.",
-      "sub_title-1":"Kasoa works differently.",
-      "sub_title-2":"Once your item is listed, you don't need to manage the sale. We'll contact you when there's something you need to do.",
+      "sub_title-1": "Kasoa works differently.",
+      "sub_title-2": "Once your item is listed, you don't need to manage the sale. We'll contact you when there's something you need to do.",
       "bullet1": "No buyer messages",
       "bullet2": "No direct contact with strangers",
       "bullet3": "No need to stay active on the marketplace",
@@ -457,8 +468,8 @@
       "shipments": "Shipments",
       "wishlist": "My favorites",
       "payouts": "Payouts",
-      "my_profile":"My profile",
-      "shop":"Shop"
+      "my_profile": "My profile",
+      "shop": "Shop"
     },
     "footer": {
       "add_product": "Add product",
@@ -513,14 +524,14 @@
           "sold": "Sold",
           "shipping": "In shipping",
           "cancelled": "Cancelled",
-          "awaiting_shipment":"Awaiting shipment",
-          "published":"Published",
-          "returned":"Returned",
-          "delivered":"Delivered",
-          "shipped":"Shipped",
-          "draft":"Draft",
-          "available":"Available",
-          "reserved":"Reserved"
+          "awaiting_shipment": "Awaiting shipment",
+          "published": "Published",
+          "returned": "Returned",
+          "delivered": "Delivered",
+          "shipped": "Shipped",
+          "draft": "Draft",
+          "available": "Available",
+          "reserved": "Reserved"
         }
       }
     },
@@ -530,7 +541,6 @@
       "btn": "Start selling"
     }
   },
-
 
   "user_products": {
     "header": {
@@ -565,11 +575,11 @@
         "actions": "Actions"
       },
       "statuses": {
-    "published":"Published",
-    "draft":"Draft",
-    "available":"Available",
-    "sold":"Sold",
-    "reserved":"Reserved"
+        "published": "Published",
+        "draft": "Draft",
+        "available": "Available",
+        "sold": "Sold",
+        "reserved": "Reserved"
       }
     },
     "actions": {
@@ -614,7 +624,7 @@
         "status": "Status",
         "ordered_date": "Order date",
         "action": "Action",
-          "service_charge":"Service charge"
+        "service_charge": "Service charge"
       },
       "statuses": {
         "paid": "Paid",
@@ -658,13 +668,13 @@
     "actions": {
       "file_dispute": "Report dispute / Problem"
     },
-    "statuses":{
-        "paid": "Paid",
-        "awaiting_shipment": "Awaiting shipment",
-        "shipped": "Shipped",
-        "delivered": "Delivered",
-        "cancelled": "Cancelled",
-        "processing": "Processing"
+    "statuses": {
+      "paid": "Paid",
+      "awaiting_shipment": "Awaiting shipment",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled",
+      "processing": "Processing"
     }
   },
   "shipments": {
@@ -689,11 +699,11 @@
       "headers": {
         "order": "Order",
         "seller": "Seller",
-        "size":"Package size",
+        "size": "Package size",
         "address": "Delivery address",
         "shipped_at": "Sent",
         "delivered_at": "Delivered",
-        "tracking_number":"Tracking Number",
+        "tracking_number": "Tracking Number",
         "status": "Status",
         "action": "Action"
       }
@@ -744,7 +754,7 @@
         "status": "Status",
         "currency": "Currency",
         "total": "Amount",
-        "actions":"Actions"
+        "actions": "Actions"
       },
       "statuses": {
         "pending": "Pending",
@@ -753,8 +763,8 @@
         "completed": "Completed",
         "failed": "Failed",
         "cancelled": "Cancelled",
-        "created":"Created",
-        "refund":"Refund"
+        "created": "Created",
+        "refund": "Refund"
       }
     }
   },
@@ -869,7 +879,7 @@
       "title": "Order summary",
       "subtotal": "Product value",
       "shipping": "Shipping cost",
-      "service_charge":"Service charge",
+      "service_charge": "Service charge",
       "total": "Total",
       "checkout_btn": "Secure payment",
       "address_warning": "Please add a delivery address to unlock payment options."
@@ -920,13 +930,13 @@
     "info": {
       "condition": "Condition",
       "availability": "Availability",
-      "delivery":"Delivery"
+      "delivery": "Delivery"
     },
     "pricing": {
       "savings": "You save {{amount}} zł ({{percent}}%)"
     },
     "safety": {
-   "return_assurance": "Safe purchase with 24 hours to reject and 3 days to return the product"
+      "return_assurance": "Safe purchase with 24 hours to reject and 3 days to return the product"
     },
     "actions": {
       "buy_now": "Buy now",
@@ -945,7 +955,7 @@
     "error": {
       "generic": "Something went wrong while loading this product.",
       "return_btn": "Back",
-      "add_btn":"Add address"
+      "add_btn": "Add address"
     }
   },
   "add_listing": {
@@ -1005,9 +1015,9 @@
       },
       "brand": {
         "label": "Brand",
-         "placeholder": "Type or search brand...",
-      "clear_hint": "Clear selection",
-      "no_results": "We couldn't find matches for \"{{value}}\", Brand will be added to list"
+        "placeholder": "Type or search brand...",
+        "clear_hint": "Clear selection",
+        "no_results": "We couldn't find matches for \"{{value}}\", Brand will be added to list"
       },
 
       "sku": {
@@ -1017,28 +1027,27 @@
       "shipping_method": {
         "label": "Shipping method",
         "placeholder": "Choose a shipping method",
-          "shipping_method": {
-    "standard": "Courier Standard",
-    "locker": "Parcel Locker",
-    "bulky": "Oversized Cargo / Bulky",
-    "palette": "Freight / Pallet Delivery"
-  }
+        "shipping_method": {
+          "standard": "Courier Standard",
+          "locker": "Parcel Locker",
+          "bulky": "Oversized Cargo / Bulky",
+          "palette": "Freight / Pallet Delivery"
+        }
       },
       "shipping_info": {
         "label": "Shipping information",
         "placeholder": "e.g. Shipping within 2-3 business days. Shipping costs are covered by the buyer."
       },
       "cargo_sizes": {
-        "label":"Item size",
-        "placeholder":"Select item size",
-   "item_size": {
-    "small": "Small - up to 10kg",
-    "medium": "Medium - up to 20kg",
-    "large": "Large - up to 50kg",
-    "heavy": "Heavy - over 50kg"
-  }
-
-  }
+        "label": "Item size",
+        "placeholder": "Select item size",
+        "item_size": {
+          "small": "Small - up to 10kg",
+          "medium": "Medium - up to 20kg",
+          "large": "Large - up to 50kg",
+          "heavy": "Heavy - over 50kg"
+        }
+      }
     },
     "sidebar": {
       "status": {
@@ -1081,11 +1090,11 @@
         "order_status": "Status",
         "tracking_number": "Tracking Number",
         "delivery_status": "Delivery Status",
-        "service_charge":"Service charge"
+        "service_charge": "Service charge"
       }
     }
   },
-"payment_confirmation": {
+  "payment_confirmation": {
     "success": {
       "eyebrow": "Transaction Confirmed",
       "title": "Payment Successful!",
@@ -1115,7 +1124,7 @@
       "continue_btn": "Continue shopping"
     }
   },
- "delivery_confirmation": {
+  "delivery_confirmation": {
     "success": {
       "title": "Delivery confirmed!",
       "description": "Thank you! The funds from the Escrow protection system have been successfully released to the seller's balance. The order has been closed."
@@ -1157,7 +1166,7 @@
       "reports": "Reports",
       "analytics": "Analytics",
       "payouts": "Payouts",
-      "courier":"Courier charges"
+      "courier": "Courier charges"
     }
   },
   "error_page": {
@@ -1225,7 +1234,7 @@
       "seller_btn": "List a product for sale"
     }
   },
-"user_profile": {
+  "user_profile": {
     "header": {
       "badge": "User Profile",
       "title": "Your Profile",
@@ -1246,7 +1255,7 @@
       "city": "City",
       "country": "Country",
       "contact": "Phone Number",
-      "pesel":"Pesel"
+      "pesel": "Pesel"
     },
     "placeholders": {
       "account": "account#...",
@@ -1337,7 +1346,7 @@
       "generic_error": "An unexpected server error occurred."
     }
   },
-"contact_form": {
+  "contact_form": {
     "header": {
       "eyebrow": "Help Center",
       "title": "Get in Touch",
@@ -1371,7 +1380,8 @@
       "problem_description": "Problem description",
       "placeholder": "Briefly describe the return details for verification...",
       "warning_title": "Strict 3-Day Escrow Deadline:",
-      "warning_text": "Returns must be filed within 3 days of delivery. After 3 days, funds are automatically released to the seller and an immediate platform refund can no longer be processed. If you face an issue after this window, you must open a formal dispute ticket for administrative review."    },
+      "warning_text": "Returns must be filed within 3 days of delivery. After 3 days, funds are automatically released to the seller and an immediate platform refund can no longer be processed. If you face an issue after this window, you must open a formal dispute ticket for administrative review."
+    },
     "reasons": {
       "damaged_goods": "Item arrived damaged / defective",
       "wrong_item": "Received a completely different product",
@@ -1427,7 +1437,7 @@
     "banner_title": "No need to print a label!",
     "banner_desc": "Once the order is confirmed, the DPD courier will arrive at your address with a pre-printed waybill for delivery to the buyer.",
     "select_products": "Select items to pack",
-    "warning":"Unselected item will be cancelled and funds returned to buyer",
+    "warning": "Unselected item will be cancelled and funds returned to buyer",
     "product_label": "Product",
     "verified_status": "Verified for shipping",
     "loading_items": "Loading shipment details...",

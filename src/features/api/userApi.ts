@@ -40,6 +40,19 @@ export const userApi = createApi({
               providesTags:['user'],
           
         }),
+              stripeConnect:build.mutation<{url:string},void>({
+            query:()=>({
+                url:`/api/seller/stripe/onboarding`,
+                method:"POST",
+            }),
+           invalidatesTags:['user','users']          
+        }),    getStripeUpdate:build.query<TUserDto,void>({
+            query:()=>({
+                url:`/api/users/stripe-update`,
+    
+            }),
+           providesTags:['user','users']    
+        }),
   changePassword:build.mutation<TResponseDto,{currentPassword:string,newPassword:string}>({
             query:({currentPassword,newPassword})=>({
                 url:`/api/users/change-password`,
@@ -125,5 +138,6 @@ export const userApi = createApi({
 })
 export const {useNewUserMutation,useEditUserMutation,useDeleteUserMutation,useLazyGetUserQuery,useLazyGetAllUsersQuery
     ,useLazyAllRolesQuery,useGetMyPayoutsQuery,useGetShipmentsQuery,useChangePasswordMutation,
-    useUpdatePayoutStatusMutation
+    useUpdatePayoutStatusMutation,useLazyGetStripeUpdateQuery,useStripeConnectMutation
+  
 }=userApi
