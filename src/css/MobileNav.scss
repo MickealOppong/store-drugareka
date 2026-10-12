@@ -1,257 +1,430 @@
-@use "Variables.scss"; // Imports $color-primary, $color-bg-light, $background, etc.
 
-// ==========================================================================
-// 1. MOBILE NAVBAR CONTROLLER WRAPPER GRID
-// ==========================================================================
+@use "sass:color";
+@use "Variables.scss" as Variables;
+
+// --------------------------------------------------
+// Mobile header
+// --------------------------------------------------
 
 .mn-header {
-  font-family: Variables.$font-sans;
   position: sticky;
   top: 0;
   left: 0;
+  z-index: 99999;
   width: 100%;
-  z-index: 99999; // Enforces a solid stacking layer above any database grids or cards
-  background-color: Variables.$background-3;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid Variables.$color-border;
   box-sizing: border-box;
+  font-family: Variables.$font-sans;
+  background: Variables.$background;
+  border-bottom: 1px solid Variables.$color-border;
 
-
-  @media (min-width: Variables.$breakpoint-md) {
-    display: none !important; // Completely unmounts the mobile framework layout on desktop grids
+  @media (min-width: Variables.$breakpoint-lg) {
+    display: none !important;
   }
 
   &__inner {
-    padding: 0.75rem 1.25rem;
+    position: relative;
+    z-index: 100001;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: Variables.$header-height-mobile; // Securely hard-locked to 60px
-    position: relative;
-    z-index: 100001;
-    background-color: Variables.$background;
+    height: Variables.$header-height-mobile;
+    padding: 0 16px;
     box-sizing: border-box;
+    background: Variables.$background;
   }
 
   &__actions {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 2px;
   }
 
-  &__action-btn {
-    background: transparent;
-    border: none;
-    color: Variables.$color-text-main;
-    cursor: pointer;
+  &__action-btn,
+  &__menu-toggle {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    padding: 0.5rem;
-    border-radius: 8px;
-    min-height: Variables.$touch-target-min;
+    flex-shrink: 0;
     min-width: Variables.$touch-target-min;
-    transition: Variables.$transition-default;
-    outline: none;
-    box-sizing: border-box;
+    min-height: Variables.$touch-target-min;
+    padding: 8px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: Variables.$color-text-main;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
 
     svg {
-      font-size: 1.35rem; // Prominent, touch-friendly scale layout bounds
+      width: 21px;
+      height: 21px;
       stroke-width: 2;
     }
 
     &:hover {
-      background-color: Variables.$color-bg-light;
+      background: Variables.$color-bg-light;
       color: Variables.$color-primary;
     }
 
     &:active {
-      transform: scale(0.92);
+      transform: scale(0.94);
     }
-  }
 
-  // Numerical Badge counters styling anchors
-  &__counter-badge {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    background-color: Variables.$color-accent; // High-conversion radiant highlight indicator
-    color: Variables.$color-text-light;
-    font-size: 10px;
-    font-weight: 700;
-    min-width: 16px;
-    height: 16px;
-    padding: 0 4px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
+    &:focus-visible {
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 2px;
+    }
   }
 
   &__menu-toggle {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: Variables.$touch-target-min;
-    min-width: Variables.$touch-target-min;
-    outline: none;
-    transition: Variables.$transition-default;
-    color: Variables.$color-primary;
-    margin-left: 0.25rem;
+    margin-left: 5px;
+    padding-left: 11px;
     border-left: 1px solid Variables.$color-border;
     border-radius: 0;
-    padding-left: 0.5rem;
+    color: Variables.$color-primary;
+  }
+
+  &__counter-badge {
+    position: absolute;
+    top: 2px;
+    right: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    border-radius: 20px;
+    background: Variables.$color-accent;
+    color: Variables.$color-text-light;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
     box-sizing: border-box;
-
-    svg {
-      font-size: 1.4rem;
-      stroke-width: 2.25;
-    }
-
-    &:active {
-      transform: scale(0.92);
-    }
   }
 }
 
-// ==========================================================================
-// 2. BRAND LOGO SPECIFICATION LINK (`.mn-brand`)
-// ==========================================================================
+// --------------------------------------------------
+// Brand
+// --------------------------------------------------
 
 .mn-brand {
-  font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: Variables.$color-primary;
-  text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  user-select: none;
   min-height: Variables.$touch-target-min;
+  color: Variables.$color-primary;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+  white-space: nowrap;
 
   &__light {
-    font-weight: 400;
+    margin-left: 1px;
     color: Variables.$color-text-muted;
-    margin-right: 1px;
+    font-weight: 400;
+  }
+
+  &:focus-visible {
+    outline: 2px solid Variables.$color-primary;
+    outline-offset: 3px;
   }
 }
 
-// ==========================================================================
-// 3. FIXED OVERLAY SLIDER MENU PANEL DRAWER (`.mn-drawer`)
-// ==========================================================================
+// --------------------------------------------------
+// Drawer container
+// --------------------------------------------------
 
 .mn-drawer {
   position: fixed;
-  top: Variables.$header-height-mobile; // Locks exactly at 60px down from viewport ceiling
+  top: Variables.$header-height-mobile;
+  right: 0;
+  bottom: 0;
   left: 0;
-  width: 100vw;
-  
-  // 🚀 HIGHLY CRITICAL FIX: Forces explicit container viewport layout bounds to prevent hidden overflows
-  height: calc(100vh - #{Variables.$header-height-mobile}); 
-  background-color: Variables.$background;
-  z-index: 100000; // Sits right underneath the nav inner top-bar row frame element
-  box-sizing: border-box;
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  height: calc(100vh - Variables.$header-height-mobile);
+  height: calc(100dvh - Variables.$header-height-mobile);
+  padding: 18px 16px 32px;
+  overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  
-  // Hardware accelerated display configurations pipeline
-  display: block !important;
-  visibility: visible !important;
-  animation: mnDrawerReveal 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  box-sizing: border-box;
+  background: Variables.$background;
+
+  animation: mnDrawerReveal 0.22s ease-out both;
+
+  // Shared section title
+  &__section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2px 12px;
+
+    h2 {
+      margin: 0;
+      color: Variables.$color-text-main;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+  }
+
+  // ------------------------------------------------
+  // Top: categories
+  // ------------------------------------------------
+
+  &__categories {
+    flex: 0 0 auto;
+    min-width: 0;
+    padding: 18px 16px;
+    border: 1px solid Variables.$color-border;
+    border-radius: 14px;
+    background: Variables.$background-3;
+    box-sizing: border-box;
+
+    .mn-drawer__section-heading {
+      margin-bottom: 4px;
+      border-bottom: 1px solid Variables.$color-border;
+    }
+  }
+
+  &__category-content {
+    min-width: 0;
+    padding-top: 10px;
+
+    // Keep category tree content inside its own panel.
+    > * {
+      max-width: 100%;
+    }
+  }
+
+  // ------------------------------------------------
+  // Bottom: navigation links
+  // ------------------------------------------------
+
+  &__navigation {
+    flex: 0 0 auto;
+    min-width: 0;
+    padding: 18px 16px;
+    border: 1px solid Variables.$color-border;
+    border-radius: 14px;
+    background: Variables.$background;
+    box-sizing: border-box;
+
+    .mn-drawer__section-heading {
+      margin-bottom: 4px;
+      border-bottom: 1px solid Variables.$color-border;
+    }
+  }
 
   &__nav {
     display: flex;
     flex-direction: column;
-    padding: 1.5rem 1.25rem 4rem 1.25rem; // Deep bottom padding avoids mobile system bar masking
-    gap: 0.65rem;
-    box-sizing: border-box;
+    gap: 4px;
     width: 100%;
+    padding-top: 8px;
+    box-sizing: border-box;
   }
 
   &__nav-link {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    text-decoration: none;
+    gap: 16px;
+    width: 100%;
+    min-height: 50px;
+    padding: 13px 8px;
+    border: 0;
+    border-bottom: 1px solid Variables.$color-border;
+    border-radius: 0;
+    background: transparent;
     color: Variables.$color-text-main;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     font-weight: 600;
-    padding: 1rem 1.25rem;
-    border-radius: 10px;
-    background-color: Variables.$color-bg-light;
-    min-height: 52px;
+    text-decoration: none;
     box-sizing: border-box;
-    transition: Variables.$transition-default;
+    transition:
+      color 0.2s ease,
+      padding 0.2s ease,
+      background-color 0.2s ease;
 
-    &--login {
-      background-color: transparent;
-      border: 1px solid Variables.$color-border;
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &:hover {
+      padding-right: 4px;
+      padding-left: 12px;
+      background: Variables.$color-bg-light;
       color: Variables.$color-primary;
     }
 
     &:active {
-      background-color: Variables.$color-primary-light;
-      color: Variables.$color-primary-light;
-      
-      .mn-drawer__link-icon {
-        transform: translateX(4px);
-        color: Variables.$color-primary-light;
+      background: Variables.$color-bg-light;
+    }
+
+    &:focus-visible {
+      position: relative;
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: -2px;
+    }
+
+    &--login {
+      margin-top: 8px;
+      padding-right: 14px;
+      padding-left: 14px;
+      border: 1px solid Variables.$color-primary;
+      border-radius: 9px;
+      color: Variables.$color-primary;
+
+      &:hover {
+        padding-right: 14px;
+        padding-left: 14px;
+        background: Variables.$color-bg-light;
       }
     }
   }
 
   &__link-text {
+    min-width: 0;
     pointer-events: none;
   }
 
   &__link-icon {
-    font-size: 1.1rem;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
     color: Variables.$color-text-muted;
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease;
   }
 
-  // Session termination custom override utility button elements
+  &__nav-link:hover &__link-icon {
+    transform: translateX(3px);
+    color: Variables.$color-primary;
+  }
+
+  // Logout button
   &__logout-btn {
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 700;
-    background-color: Variables.$color-primary;
-    color: Variables.$color-text-light;
-    border: none;
-    border-radius: 10px;
-    padding: 1rem;
-    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    min-height: 48px;
+    margin-top: 14px;
+    padding: 12px 16px;
+    border: 1px solid Variables.$color-primary;
+    border-radius: 9px;
+    background: Variables.$color-primary;
+    color: Variables.$color-text-light;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
     cursor: pointer;
     box-sizing: border-box;
-    margin-top: 1rem;
-    box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
-    transition: Variables.$transition-default;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      background: color.adjust(
+        Variables.$color-primary,
+        $lightness: -7%
+      );
+    }
 
     &:active {
-      background-color: Variables.$color-primary-light;
-      transform: scale(0.97);
+      transform: scale(0.98);
+    }
+
+    &:focus-visible {
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 3px;
     }
   }
 }
 
-// ==========================================================================
-// 4. PHYSICS TRANSITIONS
-// ==========================================================================
+// --------------------------------------------------
+// Drawer animation
+// --------------------------------------------------
 
 @keyframes mnDrawerReveal {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-6px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+// --------------------------------------------------
+// Small phones
+// --------------------------------------------------
+
+@media (max-width: 360px) {
+  .mn-header {
+    &__inner {
+      padding-right: 8px;
+      padding-left: 12px;
+    }
+
+    &__actions {
+      gap: 0;
+    }
+
+    &__action-btn {
+      min-width: 38px;
+      padding: 6px;
+    }
+
+    &__menu-toggle {
+      min-width: 40px;
+      margin-left: 2px;
+      padding-left: 8px;
+    }
+  }
+
+  .mn-brand {
+    font-size: 1.05rem;
+  }
+
+  .mn-drawer {
+    gap: 12px;
+    padding: 12px 10px 24px;
+
+    &__categories,
+    &__navigation {
+      padding: 14px 12px;
+      border-radius: 11px;
+    }
+  }
+}
+
+// --------------------------------------------------
+// Reduced motion
+// --------------------------------------------------
+
+@media (prefers-reduced-motion: reduce) {
+  .mn-drawer {
+    animation: none;
+  }
+
+  .mn-header *,
+  .mn-drawer * {
+    scroll-behavior: auto;
+    transition-duration: 0.01ms;
   }
 }

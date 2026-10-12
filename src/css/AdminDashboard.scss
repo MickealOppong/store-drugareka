@@ -1,105 +1,104 @@
+
 @use "sass:color";
-@use "./Variables.scss" ; // Hooks core Spruce, Mint, Alabaster, and Ink platform layout tokens
+@use "./Variables.scss" as Variables;
 
 .admin-dashboard {
   width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   color: Variables.$color-text-main;
   font-family: Variables.$font-sans;
 
-  // =========================================================
-  // HEADER PROFILE BAR
-  // =========================================================
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  // Header
   &__header {
     margin-bottom: 2rem;
-    border-bottom: 1px solid Variables.$color-border;
     padding-bottom: 1.25rem;
-  }
-
-  &__title {
-    margin: 0;
-    font-size: 2.25rem;
-    font-weight: 800;
-    color: Variables.$color-text-main; // Deep Matte Ink #0D1313
-    letter-spacing: -0.03em;
-  }
-
-  &__description {
-    margin: 0.5rem 0 0 0;
-    font-size: 14px;
-    color: Variables.$color-text-muted; // Grey Zinc #5E6C6A
-    line-height: 1.5;
+    border-bottom: 1px solid Variables.$color-border;
   }
 
   &__eyebrow {
     display: block;
-    margin-bottom: 4px;
-    font-size: 11px;
+    margin-bottom: 0.25rem;
+    color: Variables.$color-primary;
+    font-size: 0.6875rem;
     font-weight: 700;
-    text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: Variables.$color-primary; // Deep Spruce #1E3A3A
+    text-transform: uppercase;
   }
 
-  // =========================================================
-  // RESPONSIVE MASTER SPLIT-COLUMN LAYOUT MATRIX BLOCK
-  // =========================================================
+  &__title {
+    margin: 0;
+    color: Variables.$color-text-main;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  &__description {
+    margin: 0.5rem 0 0;
+    color: Variables.$color-text-muted;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  // Main layout
   &__layout-body {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1.5rem;
     width: 100%;
-    box-sizing: border-box;
-
-    // Converted hardcoded breakpoints down to standard responsive system tokens
-    @include Variables.media-up(Variables.$breakpoint-xl) {
-      grid-template-columns: 1fr 360px; // Pinned asymmetric distribution grid
-      gap: 2rem;
-    }
   }
 
-  &__main-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    min-width: 0; // Safeguards grid items from fracturing cell width calculations
-  }
-
+  &__main-content,
   &__sidebar {
     display: flex;
+    min-width: 0;
     flex-direction: column;
     gap: 1.5rem;
-    width: 100%;
-    box-sizing: border-box;
   }
 
-  // =========================================================
-  // COUNTER GRID WIDGETS
-  // =========================================================
+  // Statistics
   &__stats {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
     width: 100%;
-
-    @include Variables.media-up(Variables.$breakpoint-sm) {
-      grid-template-columns: repeat(4, 1fr);
-    }
   }
 
   &__stat {
-    padding: 1.25rem;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    padding: 1.125rem;
     border: 1px solid Variables.$color-border;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     background: Variables.$background;
+    color: inherit;
     text-decoration: none;
-    box-sizing: border-box;
-    transition: Variables.$transition-default;
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
 
     &:hover {
       transform: translateY(-2px);
-      border-color: color.adjust(Variables.$color-border, $lightness: -10%);
-      box-shadow: 0 8px 24px rgba(13, 19, 19, 0.04);
+      border-color: color.adjust(
+        Variables.$color-border,
+        $lightness: -10%
+      );
+      box-shadow: 0 8px 24px rgba(13, 19, 19, 0.05);
+    }
+
+    &:focus-visible {
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 3px;
     }
   }
 
@@ -107,98 +106,61 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.5rem;
     margin-bottom: 1.25rem;
   }
 
   &__stat-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 6px;
-    background: Variables.$color-bg-light; // Pure Cool Alabaster
+    display: grid;
+    width: 2.375rem;
+    height: 2.375rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 0.375rem;
+    background: Variables.$color-bg-light;
     color: Variables.$color-primary;
 
     svg {
-      width: 18px;
-      height: 18px;
+      width: 1.125rem;
+      height: 1.125rem;
       stroke-width: 2.25;
     }
   }
 
   &__stat-change {
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
     background: Variables.$color-success-bg;
-    color: Variables.$color-success; // Jade Sage Green
-    font-size: 11px;
+    color: Variables.$color-success;
+    font-size: 0.6875rem;
     font-weight: 700;
+    white-space: nowrap;
   }
 
   &__stat-value {
-    margin-bottom: 2px;
-    font-size: 1.5rem;
-    font-weight: 800;
+    overflow-wrap: anywhere;
+    margin-bottom: 0.125rem;
     color: Variables.$color-text-main;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 800;
     letter-spacing: -0.02em;
+    line-height: 1.3;
   }
 
   &__stat-label {
-    font-size: 13px;
     color: Variables.$color-text-muted;
+    font-size: 0.8125rem;
     font-weight: 500;
   }
 
-  // =========================================================
-  // GENERAL INTERIOR CONTAINER CARD WRAPPER ATOMS
-  // =========================================================
+  // Shared panels
   &__panel {
-    min-width: 0;
-    border: 1px solid Variables.$color-border;
-    border-radius: 8px;
-    background: Variables.$background;
-    box-sizing: border-box;
     width: 100%;
-  }
-
-  &__panel-title {
-    margin: 0;
-    font-size: 15px;
-    font-weight: 800;
-    color: Variables.$color-text-main;
-    letter-spacing: -0.01em;
-  }
-
-  &__panel-subtitle {
-    margin: 4px 0 0;
-    font-size: 12px;
-    color: Variables.$color-text-muted;
-  }
-
-  &__panel-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 12px;
-    font-weight: 700;
-    color: Variables.$color-primary;
-    text-decoration: none;
-    transition: Variables.$transition-default;
-    flex-shrink: 0;
-
-    svg {
-      width: 14px;
-      height: 14px;
-      transition: transform 0.2s ease;
-    }
-
-    &:hover {
-      color: color.adjust(Variables.$color-primary, $lightness: -10%);
-      svg {
-        transform: translateX(2px);
-      }
-    }
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid Variables.$color-border;
+    border-radius: 0.5rem;
+    background: Variables.$background;
   }
 
   &__panel-header {
@@ -208,92 +170,133 @@
     gap: 1rem;
     padding: 1.25rem 1.5rem;
     border-bottom: 1px solid Variables.$color-border;
-    box-sizing: border-box;
   }
 
-  // =========================================================
-  // OVERVIEW PERFORMANCE MATRIX SUMMARY
-  // =========================================================
+  &__panel-title {
+    margin: 0;
+    color: Variables.$color-text-main;
+    font-size: 0.9375rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+
+  &__panel-subtitle {
+    margin: 0.25rem 0 0;
+    color: Variables.$color-text-muted;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  &__panel-link {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.25rem;
+    color: Variables.$color-primary;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    svg {
+      width: 0.875rem;
+      height: 0.875rem;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      color: color.adjust(
+        Variables.$color-primary,
+        $lightness: -10%
+      );
+
+      svg {
+        transform: translateX(2px);
+      }
+    }
+
+    &:focus-visible {
+      border-radius: 2px;
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 3px;
+    }
+  }
+
+  // Marketplace overview
   &__overview {
+    width: 100%;
     padding: 1.25rem 1.5rem;
     border: 1px solid Variables.$color-border;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     background: Variables.$background;
-    box-sizing: border-box;
-    width: 100%;
   }
 
   &__overview-header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    gap: 1rem;
     margin-bottom: 1.5rem;
+  }
 
-    .admin-dashboard__overview-trend-icon {
-      width: 20px;
-      height: 20px;
-      color: Variables.$color-primary;
-    }
+  &__overview-trend-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    color: Variables.$color-primary;
   }
 
   &__overview-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    border-top: 1px solid Variables.$color-border;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
-
-    @include Variables.media-up(Variables.$breakpoint-sm) {
-      grid-template-columns: repeat(4, 1fr);
-    }
+    border-top: 1px solid Variables.$color-border;
   }
 
   &__metric {
-    padding: 1.25rem 1rem 0.5rem 1rem;
+    min-width: 0;
+    padding: 1rem 0.75rem;
     border-right: 1px solid Variables.$color-border;
     border-bottom: 1px solid Variables.$color-border;
-    box-sizing: border-box;
 
-    &:nth-child(2n),
-    &:last-child {
-      border-right: none;
+    &:nth-child(2n) {
+      border-right: 0;
     }
 
-    @include Variables.media-up(Variables.$breakpoint-sm) {
-      border-bottom: none;
-      border-right: 1px solid Variables.$color-border;
-      padding: 1.25rem 1.25rem 0.5rem 1.25rem;
-
-      &:last-child {
-        border-right: none;
-      }
+    &:nth-last-child(-n + 2) {
+      border-bottom: 0;
     }
   }
 
   &__metric-label {
     display: block;
-    margin-bottom: 6px;
-    font-size: 12px;
+    margin-bottom: 0.375rem;
     color: Variables.$color-text-muted;
+    font-size: 0.75rem;
     font-weight: 500;
+    line-height: 1.5;
   }
 
   &__metric-value {
     display: block;
-    margin-bottom: 4px;
-    font-size: 1.2rem;
+    overflow-wrap: anywhere;
+    margin-bottom: 0.25rem;
     color: Variables.$color-text-main;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
     font-weight: 800;
+    line-height: 1.4;
   }
 
   &__metric-trend {
-    font-size: 11px;
+    display: block;
     color: Variables.$color-primary;
+    font-size: 0.6875rem;
     font-weight: 600;
+    line-height: 1.5;
   }
 
-  // =========================================================
-  // DATA TABLE BROWSERS
-  // =========================================================
+  // Listings table
   &__table-wrapper {
     width: 100%;
     overflow-x: auto;
@@ -302,30 +305,40 @@
 
   &__table {
     width: 100%;
-    border-collapse: collapse;
     min-width: 600px;
+    border-collapse: collapse;
+    text-align: left;
 
     th,
     td {
       padding: 1rem 1.5rem;
-      font-size: 13px;
       border-bottom: 1px solid Variables.$color-border;
-      box-sizing: border-box;
+      font-size: 0.8125rem;
       text-align: left;
+      vertical-align: middle;
     }
 
     th {
+      height: 2.75rem;
       background: Variables.$color-bg-light;
-      font-weight: 700;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
       color: Variables.$color-text-muted;
-      height: 44px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
 
-    tr:last-child td {
-      border-bottom: none;
+    tbody tr {
+      transition: background 0.15s ease;
+
+      &:hover {
+        background: Variables.$color-bg-light;
+      }
+
+      &:last-child td {
+        border-bottom: 0;
+      }
     }
   }
 
@@ -338,16 +351,17 @@
     color: Variables.$color-secondary;
   }
 
-  // =========================================================
-  // STATUS CONTEXT ACCENT BADGES
-  // =========================================================
+  // Listing status badges
   &__status {
     display: inline-flex;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 11px;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    font-size: 0.6875rem;
     font-weight: 700;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
 
     &--success {
       background: Variables.$color-success-bg;
@@ -355,82 +369,79 @@
     }
 
     &--pending {
-      // Applies an elegant warm Amber shade for pending verifications
       background: #fef3c7;
-      color: #d97706;
+      color: #92400e;
     }
   }
 
-  // =========================================================
-  // USERS LOG FEED SECTORS
-  // =========================================================
+  // Recent users
   &__users {
-    padding: 0.5rem 1.5rem;
     display: flex;
     flex-direction: column;
+    padding: 0.5rem 1.5rem;
   }
 
   &__user {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    width: 100%;
+    min-width: 0;
     padding: 1rem 0;
     border-bottom: 1px solid Variables.$color-border;
-    width: 100%;
-    box-sizing: border-box;
 
     &:last-child {
-      border-bottom: none;
+      border-bottom: 0;
     }
   }
 
   &__avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: Variables.$color-error; // Glacial Mint
-    color: Variables.$color-bg-light;
-    font-size: 13px;
-    font-weight: 700;
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
     flex-shrink: 0;
+    place-items: center;
+    border-radius: 50%;
+    background: Variables.$color-bg-light;
+    color: Variables.$color-primary;
+    font-size: 0.8125rem;
+    font-weight: 700;
   }
 
   &__user-info {
+    display: flex;
     min-width: 0;
     flex: 1;
-    display: flex;
     flex-direction: column;
+    gap: 0.125rem;
   }
 
-  &__user-name {
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 13px;
-    color: Variables.$color-text-main;
-    font-weight: 600;
-  }
-
+  &__user-name,
   &__user-email {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 11px;
+  }
+
+  &__user-name {
+    color: Variables.$color-text-main;
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  &__user-email {
     color: Variables.$color-text-muted;
-    margin-top: 1px;
+    font-size: 0.6875rem;
   }
 
   &__role {
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 10px;
+    flex-shrink: 0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.625rem;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
 
     &--user {
@@ -445,85 +456,204 @@
 
     &--admin {
       background: #ffe4e6;
-      color: Variables.$color-accent; // Radiant Terracotta Coral Alert Anchor
+      color: Variables.$color-accent;
     }
   }
 
-  // =========================================================
-  // QUICK NAVIGATION ACCELERATION SYSTEM LINKS
-  // =========================================================
+  // Quick actions
   &__quick {
+    width: 100%;
     padding: 1.25rem 1.5rem;
     border: 1px solid Variables.$color-border;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     background: Variables.$background;
-    box-sizing: border-box;
-    width: 100%;
-    h2 {
-      margin: 0 0 1.25rem 0;
-      font-size: 15px;
-      font-weight: 800;
+
+    > h2 {
+      margin: 0 0 1.25rem;
     }
   }
+
   &__quick-grid {
     display: flex;
     flex-direction: column;
     gap: 0.65rem;
     width: 100%;
   }
+
   &__quick-item {
     display: flex;
     align-items: center;
     gap: 0.85rem;
     width: 100%;
+    min-width: 0;
     padding: 0.85rem 1rem;
     border: 1px solid Variables.$color-border;
-    border-radius: 8px;
+    border-radius: 0.5rem;
+    color: inherit;
     text-decoration: none;
-    box-sizing: border-box;
-    transition: Variables.$transition-default;
-    outline: none;
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease;
+
     &:hover {
-      border-color: color.adjust(Variables.$color-border, $lightness: -10%);
+      border-color: color.adjust(
+        Variables.$color-border,
+        $lightness: -10%
+      );
       background: Variables.$color-bg-light;
-      svg:last-child {
+
+      > svg:last-child {
         transform: translateX(2px);
         color: Variables.$color-text-main;
       }
     }
-    svg:first-child {
-      width: 18px;
-      height: 18px;
+
+    &:focus-visible {
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 2px;
+    }
+
+    > svg:first-child {
+      width: 1.125rem;
+      height: 1.125rem;
       flex-shrink: 0;
       color: Variables.$color-primary;
     }
-    svg:last-child {
-      width: 14px;
-      height: 14px;
+
+    > svg:last-child {
+      width: 0.875rem;
+      height: 0.875rem;
       flex-shrink: 0;
       margin-left: auto;
-      color: color.adjust(Variables.$color-text-muted, $lightness: 15%);
+      color: Variables.$color-text-muted;
       transition:
         transform 0.2s ease,
         color 0.2s ease;
     }
-    div {
-      min-width: 0;
+
+    > div {
       display: flex;
+      min-width: 0;
+      flex: 1;
       flex-direction: column;
-      gap: 1px;
+      gap: 0.125rem;
+
       strong {
-        font-size: 12px;
         color: Variables.$color-text-main;
+        font-size: 0.75rem;
         font-weight: 700;
+        line-height: 1.4;
       }
+
       span {
-        font-size: 11px;
-        color: Variables.$color-text-muted;
-        white-space: nowrap;
         overflow: hidden;
+        color: Variables.$color-text-muted;
+        font-size: 0.6875rem;
+        line-height: 1.4;
         text-overflow: ellipsis;
+        white-space: nowrap;
       }
+    }
+  }
+
+  // Tablet
+  @include Variables.media-up(Variables.$breakpoint-sm) {
+    &__stat {
+      padding: 1.25rem;
+    }
+
+    &__overview-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    &__metric {
+      padding: 1.25rem 1rem 0.5rem;
+      border-right: 1px solid Variables.$color-border;
+      border-bottom: 0;
+
+      &:nth-child(2n) {
+        border-right: 1px solid Variables.$color-border;
+      }
+
+      &:last-child {
+        border-right: 0;
+      }
+    }
+  }
+
+  // Desktop
+  @include Variables.media-up(Variables.$breakpoint-xl) {
+    &__layout-body {
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 2rem;
+      align-items: start;
+    }
+  }
+
+  // Compact screens
+  @media (max-width: 480px) {
+    &__header {
+      margin-bottom: 1.5rem;
+    }
+
+    &__stats {
+      gap: 0.75rem;
+    }
+
+    &__stat {
+      padding: 0.875rem;
+    }
+
+    &__stat-top {
+      margin-bottom: 0.875rem;
+    }
+
+    &__stat-change {
+      padding: 0.2rem 0.35rem;
+      font-size: 0.625rem;
+    }
+
+    &__overview,
+    &__panel-header,
+    &__quick {
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
+
+    &__panel-header {
+      align-items: flex-start;
+    }
+
+    &__users {
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
+
+    &__user {
+      gap: 0.5rem;
+    }
+
+    &__role {
+      padding: 0.2rem 0.35rem;
+      font-size: 0.5625rem;
+    }
+
+    &__table {
+      th,
+      td {
+        padding: 0.875rem 1rem;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
     }
   }
 }

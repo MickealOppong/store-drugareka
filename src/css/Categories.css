@@ -54,6 +54,7 @@
   box-sizing: border-box;
   box-shadow: 0 4px 18px rgba(13, 19, 19, 0.02);
   align-self: start;
+  display: none;
   position: sticky;
   top: 1rem;
   z-index: 10;
@@ -68,6 +69,7 @@
     max-height: calc(100vh - 5rem);
     padding: 1.75rem;
     margin-bottom: 0;
+    display: grid;
   }
 }
 .catalog-browser__sidebar {

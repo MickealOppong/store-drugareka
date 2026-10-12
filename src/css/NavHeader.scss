@@ -19,7 +19,7 @@
   box-sizing: border-box;
   display: none; // Hidden on mobile views by default
 
-  @include Variables.media-up(Variables.$breakpoint-md) {
+  @include Variables.media-up(Variables.$breakpoint-lg) {
     display: block;
   }
 

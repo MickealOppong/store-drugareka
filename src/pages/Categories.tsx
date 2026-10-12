@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FiArrowRight,
-  FiChevronDown,
-  FiChevronRight,
   FiEdit,
   FiHeart,
   FiSearch,
   FiShoppingBag,
-  FiX,
+  FiX
 } from "react-icons/fi";
 import { Link, useNavigate, useSearchParams } from "react-router";
 import { Loading } from "../components";
+import CategoryTree from "../components/CategoryTree";
 import "../css/Categories.scss";
-import { CATEGORY_HEADERS } from "../data/data";
 import {
   useAddWishListMutation,
   useGetWishListsQuery,
@@ -25,7 +23,6 @@ import {
 } from "../features/api/storeApi";
 import { useAddToCart } from "../hooks/useAddTocart";
 import { useAppSelector } from "../store";
-import type { TCategoryTreeDto, TSubCategory } from "../types/TCategoryTreeDto";
 import {
   formatPrice,
   sanitizeBackendKey,
@@ -44,9 +41,8 @@ export const Categories: React.FC = () => {
   const { data: wishlist = [] } = useGetWishListsQuery();
   const wishlists = wishlist.map((item) => item.listingId);
 
-  const [expandedMainCat, setExpandedMainCat] = useState<number | null>(null);
+
   const [selectedSubCat, setSelectedSubCat] = useState<number | null>(null);
-  const [selectedNode, setSelectedNode] = useState<TSubCategory | null>(null);
 
   const {
     data: catalogTree = [],
@@ -58,17 +54,15 @@ export const Categories: React.FC = () => {
   const selectedCategory = searchParams.get("category") || "all";
 
 
- 
+
   const request = {
     queryCategory: selectedCategory,
     page,
     size: 50,
   };
 
-   //top categories
-  const {data:topCategories=[]} = useGetTop8ProductCategoriesQuery()
-
-  
+  //top categories
+  const { data: topCategories = [] } = useGetTop8ProductCategoriesQuery();
 
   const [addToWish] = useAddWishListMutation();
 
@@ -91,56 +85,8 @@ export const Categories: React.FC = () => {
 
   const products = data?.listings || [];
 
-  // Sync expanded categories from URL params if page reloads.
-  useEffect(() => {
-    if (selectedCategory !== "all" && catalogTree.length > 0) {
-      const activeParent = catalogTree.find(
-        (main) =>
-          main.slug === selectedCategory ||
-          main.subCategories.some((sub) => sub.slug === selectedCategory),
-      );
-
-      if (activeParent) {
-        setExpandedMainCat(activeParent.id);
-
-        const activeSub = activeParent.subCategories.find(
-          (sub) => sub.slug === selectedCategory,
-        );
-
-        setSelectedSubCat(activeSub?.id ?? null);
-      } else {
-        setExpandedMainCat(null);
-        setSelectedSubCat(null);
-      }
-    } else {
-      setExpandedMainCat(null);
-      setSelectedSubCat(null);
-    }
-  }, [selectedCategory, catalogTree]);
-
-  const handleMainCategoryClick = (parentCategory: TCategoryTreeDto) => {
-    setExpandedMainCat((prev) =>
-      prev === parentCategory.id ? null : parentCategory.id,
-    );
-
-    const nextParams = new URLSearchParams(window.location.search);
-    nextParams.set("category", parentCategory.slug);
-
-    navigate(`${window.location.pathname}?${nextParams.toString()}`);
-  };
-
-  const handleSubCategorySelect = (category: TSubCategory) => {
-    setSelectedNode(category);
-    setSelectedSubCat(category.id);
-
-    const nextParams = new URLSearchParams(window.location.search);
-    nextParams.set("category", category.slug);
-
-    navigate(`${window.location.pathname}?${nextParams.toString()}`);
-  };
 
   const handleClearFilters = () => {
-    setExpandedMainCat(null);
     setSelectedSubCat(null);
 
     const nextParams = new URLSearchParams(window.location.search);
@@ -148,6 +94,54 @@ export const Categories: React.FC = () => {
 
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
   };
+
+ 
+const findCategory = () => {
+  if (!selectedCategory) return null;
+
+  const searchTarget = selectedCategory.toLowerCase();
+
+
+  // Recursive worker helper
+  const searchBranches = (nodes: any[]): any | null => {
+    for (const node of nodes) {
+      // Check both properties dynamically based on your schema fields
+      const nodeValue = (node.slug).toLowerCase();
+      
+      if (nodeValue === searchTarget) {
+        return node;
+      }
+
+      if (node.subCategories && node.subCategories.length > 0) {
+        const foundDeep = searchBranches(node.subCategories);
+        if (foundDeep) return foundDeep;
+      }
+    }
+    return null;
+  };
+
+  return searchBranches(catalogTree);
+};
+
+
+const extractCategoryPath = (path: string) => {
+  if (!path) return { parent: null, child: null };
+
+  // Remove leading/trailing slashes and filter out blank segments
+  const segments = path.split("/").filter(Boolean);
+
+  return {
+    parent: segments[0] || null, 
+    child: segments[1] || null,  
+  };
+};
+
+
+const category = findCategory()
+// Usage Example:
+const { parent, child } = extractCategoryPath(category?category.path:'');
+
+
 
 
   if (isLoading) {
@@ -172,310 +166,253 @@ export const Categories: React.FC = () => {
 
   return (
     <section className="catalog-page">
-   <div className="catalog-browser">
-       {/* SIDEBAR NAVIGATION */}
-      <aside className="catalog-browser__sidebar">
-        <h2 className="catalog-browser__sidebar-title"    onClick={() => navigate('/shop/categories')}
-                  role="button">
-          {t("categories.header.title", {
-            defaultValue: "Categories",
-          })}
-        </h2>
+      <div className="catalog-browser">
+        {/* SIDEBAR NAVIGATION */}
+        <aside className="catalog-browser__sidebar">
+          <h2
+            className="catalog-browser__sidebar-title"
+            onClick={() => navigate("/shop/categories")}
+            role="button"
+          >
+            {t("categories.header.title", {
+              defaultValue: "Categories",
+            })}
+          </h2>
+          {/** CATEGORY TREEE */}
+     
+          <CategoryTree />
+        </aside>
 
-        <ul className="catalog-browser__tree">
-          {catalogTree.map((mainCat: TCategoryTreeDto) => {
-            const isExpanded = expandedMainCat === mainCat.id;
-
-            const localizedMainName = t(
-              `categories.${sanitizeCategoryKey(mainCat.name)}.name`,
-            );
-
-            {/** CATEGORY ICONS */}
-            const Icon = CATEGORY_HEADERS.find(
-              (item) => item.key === sanitizeCategoryKey(mainCat.name),
-            )?.icon;
-
-             const IconColor= CATEGORY_HEADERS.find(
-              (item) => item.key === sanitizeCategoryKey(mainCat.name),
-            )?.color;
-            return (
-              <li
-                key={mainCat.id}
-                className={`catalog-browser__node ${
-                  isExpanded ? "catalog-browser__node--expanded" : ""
-                }`}
-              >
-                <div
-                  className="catalog-browser__parent-row"
-                  onClick={() => handleMainCategoryClick(mainCat)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      handleMainCategoryClick(mainCat);
-                    }
-                  }}
-                >
-                  <span className="catalog-browser__parent-label">
-                    {Icon && <Icon style={{color:IconColor}}/>}
-                    {localizedMainName}
-                  </span>
-
-                  {isExpanded ? <FiChevronDown /> : <FiChevronRight />}
-                </div>
-
-                {isExpanded && (
-                  <ul className="catalog-browser__sub-list">
-                    {mainCat.subCategories.map((subCat: TSubCategory) => {
-                      const isSelected = selectedSubCat === subCat.id;
-
-                      const localizedSubName = t(
-                        `categories.${sanitizeCategoryKey(
-                          mainCat.name,
-                        )}.subcategories.${sanitizeCategoryKey(subCat.name)}`,
-                      );
-
-                      return (
-                        <li
-                          key={subCat.id}
-                          className={`catalog-browser__sub-item ${
-                            isSelected
-                              ? "catalog-browser__sub-item--active"
-                              : ""
-                          }`}
-                        >
-                          <button
-                            type="button"
-                            className="catalog-browser__sub-button"
-                            onClick={() => handleSubCategorySelect(subCat)}
-                            aria-pressed={isSelected}
-                          >
-                            {localizedSubName}
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </aside>
-
-      {/* PRODUCT FEED */}
-      <div className="catalog-browser__feed">
-           {/* =====================================================
+        {/* PRODUCT FEED */}
+        <div className="catalog-browser__feed">
+          {/* =====================================================
                         CATEGORIES
                     ====================================================== */}
-        
-         <section className="catalog-top-categories top-categories">
-                  <div className="top-categories-heading">
-                    <div>
-                      <h2>{t('categories.feed.title')}</h2>
-                    </div>
-                  </div>
-        
-                  <div className="top-categories-grid">
-                    {topCategories.map((category) => (
-                      <Link
-                        key={category.id}
-                        to={`/shop/categories?category=${category.slug}`}
-                        className="category-card"
-                      >
-                        <img src={category.image} alt={category.name} />
-                        <div className="top-categories-card__overlay">
-                          <h3> {t(`categories.${sanitizeCategoryKey(category.name)}.name`)}</h3>
-                          <FiArrowRight />
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </section>
-        <header className="catalog-browser__feed-header">
-     <h1 className="catalog-browser__feed-title">
-              {selectedSubCat && selectedNode
-                ? t(
-                    `categories.${sanitizeCategoryKey(selectedNode.parent as string)}.subcategories.${sanitizeCategoryKey(selectedNode.name as string)}`,
-                    { defaultValue: selectedNode.name }
-                  )
-                : expandedMainCat
-                  ? t(`categories.${sanitizeCategoryKey(catalogTree.find(c => c.id === expandedMainCat)?.name as string)}.name`, { 
-                      defaultValue: selectedCategory 
-                    })
-                  : t("categories.feed.all_listing", {
-                      defaultValue: "All Available Listings",
-                    })}
-            </h1>
-      
 
-        </header>
-
-        {isProductsLoading ? (
-          <Loading />
-        ) : products.length === 0 ? (
-          /* EMPTY RESULTS */
-          <div className="catalog-browser__empty-feed">
-            <div className="catalog-browser__empty-icon-box">
-              <FiSearch />
+          <section className="catalog-top-categories top-categories">
+            <div className="top-categories-heading">
+              <div>
+                <h2>{t("categories.feed.title")}</h2>
+              </div>
             </div>
 
-            <h3 className="catalog-browser__empty-title">
-              {t("categories.empty_search.title", {
-                defaultValue: "No Matching Listings Found",
-              })}
-            </h3>
-
-            <p className="catalog-browser__empty-text">
-              {t("categories.empty_search.message", {
-                defaultValue:
-                  "We couldn't find any items matching your active category profile. Try expanding your search queries or resetting the active parameters.",
-              })}
-            </p>
-
-            <button
-              type="button"
-              className="catalog-browser__empty-reset-btn"
-              onClick={handleClearFilters}
-            >
-              <FiX />
-
-              <span>
-                {t("categories.empty_search.clear_btn", {
-                  defaultValue: "Clear Active Filters",
-                })}
-              </span>
-            </button>
-          </div>
-        ) : (
-          /* PRODUCT GRID */
-          <div className="category-page__products">
-            {products.map((product) => {
-              const isWishlisted = wishlists.includes(product.listingId);
-              const oldPrice = product.priceDto.sellerOldPrice;
-              const newPrice = product.priceDto.sellerNewPrice;
-
-              const discount =
-                oldPrice > 0
-                  ? Math.round(((oldPrice - newPrice) / oldPrice) * 100)
-                  : 0;
-
-              const conditionKey = sanitizeBackendKey(
-                product.productCondition.toLowerCase(),
-              );
-
-              return (
-                <article
-                  className="category-product-card"
-                  key={product.listingId}
+            <div className="top-categories-grid">
+              {topCategories.map((category) => (
+                <Link
+                  key={category.id}
+                  to={`/shop/categories?category=${category.slug}`}
+                  className="category-card"
                 >
-                  {/* ==========================================================================
+                  <img
+                    src={category.image}
+                    alt={category.name}
+                  />
+                  <div className="top-categories-card__overlay">
+                    <h3>
+                      {" "}
+                      {t(
+                        `categories.${sanitizeCategoryKey(category.name)}.name`,
+                      )}
+                    </h3>
+                    <FiArrowRight />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+          <header className="catalog-browser__feed-header">
+            <h1 className="catalog-browser__feed-title">
+              {parent
+                ? t(
+                    `categories.${sanitizeCategoryKey(parent as string)}.name`
+                  )
+                : t("categories.feed.all_listing", {
+                    defaultValue: "All Available Listings",
+                  })}
+            </h1>
+            <h4>
+                {child &&
+               t(
+                    `categories.${sanitizeCategoryKey(parent as string)}.subcategories.${sanitizeCategoryKey(child as string)}`
+                  )
+                }
+            </h4>
+
+              <h4 className="catalog-browser__feed-title">
+              {selectedSubCat
+                ? t(
+                  ""  
+                  )
+                : ""
+}
+            </h4>
+          </header>
+
+          {isProductsLoading ? (
+            <Loading />
+          ) : products.length === 0 ? (
+            /* EMPTY RESULTS */
+            <div className="catalog-browser__empty-feed">
+              <div className="catalog-browser__empty-icon-box">
+                <FiSearch />
+              </div>
+
+              <h3 className="catalog-browser__empty-title">
+                {t("categories.empty_search.title", {
+                  defaultValue: "No Matching Listings Found",
+                })}
+              </h3>
+
+              <p className="catalog-browser__empty-text">
+                {t("categories.empty_search.message", {
+                  defaultValue:
+                    "We couldn't find any items matching your active category profile. Try expanding your search queries or resetting the active parameters.",
+                })}
+              </p>
+
+              <button
+                type="button"
+                className="catalog-browser__empty-reset-btn"
+                onClick={handleClearFilters}
+              >
+                <FiX />
+
+                <span>
+                  {t("categories.empty_search.clear_btn", {
+                    defaultValue: "Clear Active Filters",
+                  })}
+                </span>
+              </button>
+            </div>
+          ) : (
+            /* PRODUCT GRID */
+            <div className="category-page__products">
+              {products.map((product) => {
+                const isWishlisted = wishlists.includes(product.listingId);
+                const oldPrice = product.priceDto.sellerOldPrice;
+                const newPrice = product.priceDto.sellerNewPrice;
+
+                const discount =
+                  oldPrice > 0
+                    ? Math.round(((oldPrice - newPrice) / oldPrice) * 100)
+                    : 0;
+
+                const conditionKey = sanitizeBackendKey(
+                  product.productCondition.toLowerCase(),
+                );
+
+                return (
+                  <article
+                    className="category-product-card"
+                    key={product.listingId}
+                  >
+                    {/* ==========================================================================
             MEDIA REGION: THUMBNAILS, DISCOUNTS & WISHLIST OVERLAYS
             ========================================================================== */}
-                  <div className="category-product-card__media">
-                    <Link
-                      to={`/shop/listing/${product.listingId}`}
-                      className="category-product-card__image-link"
-                    >
-                      <img
-                        src={product?.media?.[0]?.image}
-                        alt={product.productName}
-                        loading="lazy"
-                      />
-                    </Link>
-
-                    {discount > 0 && (
-                      <span className="category-product-card__discount">
-                        -{discount}%
-                      </span>
-                    )}
-
-                    <button
-                      type="button"
-                      className={`category-product-card__wishlist ${isWishlisted ? "active" : ""}`}
-                      onClick={() => toggleWishlist(product.listingId)}
-                      aria-label={t("shop.product.add_wishlist", {
-                        defaultValue: "Add to wishlist",
-                      })}
-                      aria-pressed={isWishlisted}
-                      style={{
-                        display: product.sellerId === userId ? "none" : "flex",
-                      }}
-                    >
-                      <FiHeart />
-                    </button>
-                  </div>
-
-                  {/* ==========================================================================
-            CONTENT REGION: METADATA & TYPOGRAPHY INFO HIERARCHIES
-            ========================================================================== */}
-                  <div className="category-product-card__content">
-                    <span className="category-product-card__brand">
-                      {product.brand}
-                    </span>
-
-                    <h2>
-                      <Link to={`/shop/listing/${product.listingId}`}>
-                        {product.productName}
+                    <div className="category-product-card__media">
+                      <Link
+                        to={`/shop/listing/${product.listingId}`}
+                        className="category-product-card__image-link"
+                      >
+                        <img
+                          src={product?.media?.[0]?.image}
+                          alt={product.productName}
+                          loading="lazy"
+                        />
                       </Link>
-                    </h2>
 
-                    <div className="category-product-card__condition">
-                      <span>
-                        {t(`product_conditions.${conditionKey}`, {
-                          defaultValue: product.productCondition,
+                      {discount > 0 && (
+                        <span className="category-product-card__discount">
+                          -{discount}%
+                        </span>
+                      )}
+
+                      <button
+                        type="button"
+                        className={`category-product-card__wishlist ${isWishlisted ? "active" : ""}`}
+                        onClick={() => toggleWishlist(product.listingId)}
+                        aria-label={t("shop.product.add_wishlist", {
+                          defaultValue: "Add to wishlist",
                         })}
-                      </span>
+                        aria-pressed={isWishlisted}
+                        style={{
+                          display:
+                            product.sellerId === userId ? "none" : "flex",
+                        }}
+                      >
+                        <FiHeart />
+                      </button>
                     </div>
 
                     {/* ==========================================================================
-              BOTTOM REGION: PRICE MARKERS & INTERACTIVE ACTION BUTTONCTAS
-              ========================================================================== */}
-                    <div className="category-product-card__bottom">
-                      <div>
-                        <strong>{formatPrice(newPrice) || 0} zł</strong>
-                        {oldPrice > 0 && (
-                          <del>{formatPrice(oldPrice) || 0} zł</del>
-                        )}
+            CONTENT REGION: METADATA & TYPOGRAPHY INFO HIERARCHIES
+            ========================================================================== */}
+                    <div className="category-product-card__content">
+                      <span className="category-product-card__brand">
+                        {product.brand}
+                      </span>
+
+                      <h2>
+                        <Link to={`/shop/listing/${product.listingId}`}>
+                          {product.productName}
+                        </Link>
+                      </h2>
+
+                      <div className="category-product-card__condition">
+                        <span>
+                          {t(`product_conditions.${conditionKey}`, {
+                            defaultValue: product.productCondition,
+                          })}
+                        </span>
                       </div>
 
-                      {product.sellerId !== userId ? (
-                        <button
-                          type="button"
-                          className="category-product-card__buy"
-                          aria-label={t("shop.product.add_to_cart", {
-                            defaultValue: "Add to cart",
-                          })}
-                          onClick={() => addItemToCart(product.listingId)}
-                        >
-                          <FiShoppingBag />
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          className="category-product-card__buy"
-                          aria-label={t("shop.product.edit_listing", {
-                            defaultValue: "Edit listing",
-                          })}
-                          onClick={() =>
-                            navigate(
-                              `/account/listings/${product.listingId}/edit`,
-                            )
-                          }
-                        >
-                          <FiEdit />
-                        </button>
-                      )}
+                      {/* ==========================================================================
+              BOTTOM REGION: PRICE MARKERS & INTERACTIVE ACTION BUTTONCTAS
+              ========================================================================== */}
+                      <div className="category-product-card__bottom">
+                        <div>
+                          <strong>{formatPrice(newPrice) || 0} zł</strong>
+                          {oldPrice > 0 && (
+                            <del>{formatPrice(oldPrice) || 0} zł</del>
+                          )}
+                        </div>
+
+                        {product.sellerId !== userId ? (
+                          <button
+                            type="button"
+                            className="category-product-card__buy"
+                            aria-label={t("shop.product.add_to_cart", {
+                              defaultValue: "Add to cart",
+                            })}
+                            onClick={() => addItemToCart(product.listingId)}
+                          >
+                            <FiShoppingBag />
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            className="category-product-card__buy"
+                            aria-label={t("shop.product.edit_listing", {
+                              defaultValue: "Edit listing",
+                            })}
+                            onClick={() =>
+                              navigate(
+                                `/account/listings/${product.listingId}/edit`,
+                              )
+                            }
+                          >
+                            <FiEdit />
+                          </button>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        )}
+                  </article>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
-   </div>
     </section>
   );
 };

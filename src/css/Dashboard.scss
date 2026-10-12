@@ -10,7 +10,7 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
   font-family: Variables.$font-sans;
   color: Variables.$color-text-main;
-  background-color: Variables.$background;
+  //background-color: Variables.$background;
 
   &__header {
     display: flex;

@@ -189,7 +189,8 @@ if (!rawString) return 'all'; // Default fallback value string
     .replace(/\b(i|and|or)\b/g, "") // REMOVES FILLER WORDS: Strips standalone joining words "i", "and", "or"
     .replace(/[^a-z0-9\s-]/g, "") // Remove all remaining non-alphanumeric special characters
     .trim() // Trim again to catch any spaces left behind by stripped words
-    .replace(/[\s-]+/g, "_");
+    .replace(/[\s-]+/g, "_")
+    .replace("-","_");
  
 }
 
