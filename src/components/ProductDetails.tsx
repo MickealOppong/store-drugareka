@@ -21,7 +21,6 @@ import {
 import { useGetListingQuery } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
-import type { TResponseDto } from "../types/TResponseDto";
 import { formatPrice } from "../util/util";
 import { ErrorToast } from "./ErrorTaost";
 import Footer from "./Footer";
@@ -96,37 +95,6 @@ const ProductDetails = () => {
     await addToWish(listingId);
   };
 
-  /**
-   * BUY NOW
-   */
-  const quickCheckout = async (listingId: number) => {
-    setIsLoading(true);
-    if (!isLoggin || isLoggin === "") {
-      navigate("/login");
-    }
-    try {
-      const response = await buyNow(listingId);
-
-      const { data, message, httpStatus } = response.data as TResponseDto;
-
-      // console.log(data);
-
-      if (httpStatus == 400 || httpStatus == 500 || httpStatus == 403) {
-        setIsLoading(false);
-        setError(message);
-        return;
-      }
-      if (httpStatus == 200) {
-        const checkoutUrl = data;
-        if (checkoutUrl) {
-          // navigate("/checkout", { state: { clientSecret } });
-          window.location.href = checkoutUrl;
-        }
-      }
-    } catch (error) {
-      setIsLoading(false);
-    }
-  };
 
   //handle modal state
   const onModalButtonClick =()=>{
