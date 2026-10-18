@@ -1,5 +1,5 @@
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { FiAlertCircle, FiArrowRight, FiTag, FiX } from "react-icons/fi";
 
@@ -122,7 +122,7 @@ export const MakeOfferModal = ({
   };
 
   const handleFormSubmit = async (
-    event: FormEvent<HTMLFormElement>,
+    event: ChangeEvent<HTMLFormElement>,
   ) => {
     event.preventDefault();
     setAlertError(null);
@@ -233,9 +233,6 @@ export const MakeOfferModal = ({
     void handleCheckout(numericOffer);
   };
 
-  const handleQuickCheckoutWithoutOffer = () => {
-    void handleCheckout(currentPrice);
-  };
 
   const renderError = () =>
     alertError ? (

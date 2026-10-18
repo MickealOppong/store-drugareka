@@ -45,7 +45,7 @@ export const Categories: React.FC = () => {
 
   //make offer modal
   const[openModal,setOpenModal] = useState<boolean>(false)
-    const[modalData,setModalData] = useState<{name:string,id:number,currentPrice:number}|null>(null)
+    const[modalData,setModalData] = useState<{name:string,id:number,currentPrice:number,isNegotiable:boolean}|null>(null)
 
 
   const [selectedSubCat, setSelectedSubCat] = useState<number | null>(null);
@@ -157,7 +157,7 @@ const { parent, child } = extractCategoryPath(category?category.path:'');
   const handleMakeOffer = (product:TListTrans)=>{
    if (!username) return navigate("/login");
     if(product){
-    setModalData({name:product.productName,id:product.listingId,currentPrice:product.priceDto.sellerNewPrice})
+    setModalData({name:product.productName,id:product.listingId,currentPrice:product.priceDto.sellerNewPrice,isNegotiable:product.priceDto.sellerNewPrice!==product.priceDto.sellerNewPrice})
     setOpenModal(true)
     }
   
@@ -433,7 +433,7 @@ const { parent, child } = extractCategoryPath(category?category.path:'');
                     </div>
                          {/** MAKE OFFER MODAL */}
                           {
-                        openModal && <MakeOfferModal  productName={modalData?.name||''} id={modalData?.id||0} currentPrice={modalData?.currentPrice||0} isOpen={openModal} onButtonClick={onModalButtonClick}/>
+                        openModal && <MakeOfferModal  productName={modalData?.name || ''} id={modalData?.id || 0} currentPrice={modalData?.currentPrice || 0} isOpen={openModal} onButtonClick={onModalButtonClick} isNegotiable={Boolean(modalData?.isNegotiable)}/>
                     }
                   </article>
                 );
