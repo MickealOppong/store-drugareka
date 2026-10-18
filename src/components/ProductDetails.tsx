@@ -13,7 +13,6 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import "../css/ProductDetails.css";
 
-import { useStripeBuyNowMutation } from "../features/api/checkoutApi";
 import {
   useAddWishListMutation,
   useGetWishListsQuery,
@@ -35,7 +34,6 @@ const getConditionSlug = (condition: string) => {
 
 const ProductDetails = () => {
   const { listingId } = useParams<string>();
-  const isLoggin = useAppSelector((state) => state.userSlice.email);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -47,16 +45,11 @@ const ProductDetails = () => {
     const[modalData,setModalData] = useState<{name:string,id:number,currentPrice:number}|null>(null)
 
   const [addToWish] = useAddWishListMutation();
-  const { data: wishlist = [] } = useGetWishListsQuery();
+  const { data: wishlist = [] ,error} = useGetWishListsQuery();
   const wishlists = wishlist.map((item) => item.listingId);
   const isWishlisted = wishlists.includes(Number(listingId));
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  // error
-  const [error, setError] = useState<string>("");
 
-  //buy now hook
-  const [buyNow] = useStripeBuyNowMutation();
 
   // Local interface states for media interactions
   const [activeImageIdx, setActiveImageIdx] = useState<number>(0);
@@ -69,26 +62,6 @@ const ProductDetails = () => {
   );
 
   
-
-  /**
-   * TOGGLE WISHLIST
-   */
-  /*
-  const toggleWishlist = async (listingId: number) => {
-    setIsLoading(true);
-    if (!isLoggin || isLoggin === "") {
-      setIsLoading(false);
-      return navigate("/login");
-    }
-    try {
-    await addToWish(listingId);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-    }
-    setIsLoading(false)
-  };
-  */
 
   const toggleWishlist = async (listingId: number) => {
     if (!username) return navigate("/login");
@@ -114,11 +87,7 @@ const ProductDetails = () => {
  
   
 
-  if (isLoading || productLoading) {
-    return <Loading />;
-  }
-
-  if (isLoading) {
+  if ( productLoading) {
     return <Loading />;
   }
 
@@ -146,7 +115,7 @@ const ProductDetails = () => {
           </span>
         </header>
 
-        {error && <ErrorToast errorMessage={error} />}
+        {error && <ErrorToast errorMessage={error as string} />}
 
         {/** MAKE OFFER MODAL */}
         {openModal && (
