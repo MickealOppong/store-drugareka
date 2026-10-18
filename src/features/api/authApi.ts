@@ -69,14 +69,7 @@ export const authApi = createApi({
       }),
       providesTags:['shipment']
     }),
-      getPaymentStatus: build.query<String, string>({
-      query: (orderNumber) => ({
-        url: "/api/payment/payu/status",
-       params:{
-       orderNumber
-       }
-      }),
-    }),
+
   }),
 });
 export const {
@@ -86,5 +79,4 @@ export const {
   useConfirmShipmentMutation,
  useLazyGetSellerShipmentsQuery,
  useGetSellerShipmentsQuery,
-useGetPaymentStatusQuery
 } = authApi;

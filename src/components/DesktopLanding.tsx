@@ -9,6 +9,7 @@ import {
   FiTruck
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import defImage from '../assets/default.jpeg';
 import '../css/DesktopLanding.css';
 import { useGetLandingListingQuery, useGetTop6ProductCategoriesQuery } from "../features/api/storeApi";
 import { useAddToCart } from "../hooks/useAddTocart";
@@ -196,8 +197,8 @@ if(isLoading){
                 to={`/shop/listing/${product.listingId}`}
                 className="product-card"
               >
-                <div className="product-card__media">
-              <img src={product?.media[0].image} alt={product.productName} />
+             <div className="product-card__media">
+              <img src={product?.media[0]?.image ? product.media[0].image :defImage} alt={product.productName}   />
                  {
                   !userId || userId!==product.sellerId? <button
                     className="product-card__favorite"

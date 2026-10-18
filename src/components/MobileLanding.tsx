@@ -19,7 +19,7 @@ import CookieBanner from "./CoolieBanner";
 import Footer from "./Footer";
 import Loading from "./Loading";
 
-
+import defImage from '../assets/default.jpeg';
 
 const MobileLanding = () => {
   const {data:topCategories=[],isLoading:isCategoriesLoading} = useGetTop6ProductCategoriesQuery()
@@ -191,7 +191,7 @@ const {data:listings=[]} = useGetLandingListingQuery()
           {listings.map((product) => (
             <article key={product.listingId} className="mobile-product-card">
               <Link to={`/shop/listing/${product.listingId}`} className="mobile-product-card__media">
-                <img src={product.media[0].image} alt={product.productName} />
+                <img src={product?.media[0]?.image ? product.media[0].image :defImage} alt={product.productName} />
               </Link>
 
               {String(userId)!=='NaN' || userId!==product.sellerId?<button

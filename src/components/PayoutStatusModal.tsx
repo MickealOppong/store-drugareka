@@ -1,8 +1,9 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { FiAlertCircle, FiCalendar, FiCreditCard, FiX } from "react-icons/fi";
+import { FiAlertCircle, FiCreditCard, FiX } from "react-icons/fi";
 
-import { useUpdatePayoutStatusMutation } from "../features/api/userApi";
+import { STATUS_LIST } from "../data/data";
+import { useUpdatePayoutStatusMutation } from "../features/api/transApi";
 import type { TPayout } from "../types/TPayout";
 import type { TResponseDto } from "../types/TResponseDto";
 import { formatPrice } from "../util/util";
@@ -21,22 +22,26 @@ export const PayoutStatusModal = ({
   const [updatePayoutStatus, { isLoading, error }] = useUpdatePayoutStatusMutation();
 
   // INTERACTIVE FORM STATES MODELED
-  const [isMarkedAsPaid, setIsMarkedAsPaid] = useState<boolean>(false);
-  const [paidAtDate, setPaidAtDate] = useState<string>("");
+  const [isMarkedForUpdate, setIsMarkedForUpdate] = useState<boolean>(false);
+
+  const [status, setStatus] = useState<string>('');
   const [validationError, setValidationError] = useState<string | null>(null);
 
   // Reset form states cleanly whenever the modal closes or changes data profiles
   useEffect(() => {
     if (!isOpen) {
-      setIsMarkedAsPaid(false);
-      setPaidAtDate("");
+      setIsMarkedForUpdate(false);
+      setStatus('');
       setValidationError(null);
     } else {
-      // Default the payment date selector parameter tracking lines to today's date placeholder string
-      const todayString = new Date().toISOString().split("T")[0];
-      setPaidAtDate(todayString);
+      // Pre-populate status if your DTO provides a current structural state value
+      if (data?.status) {
+        setStatus(data.status.toLowerCase());
+      }
     }
   }, [isOpen, data]);
+
+
 
   if (!isOpen) return null;
 
@@ -44,12 +49,12 @@ export const PayoutStatusModal = ({
     e.preventDefault();
     
     // Safety Enforcements: Block submissions if user checks box but drops date picker variables
-    if (!isMarkedAsPaid) {
-      setValidationError(t("payout_status_modal.validation.checkbox_required"));
+    if (!isMarkedForUpdate) {
+      setValidationError(t("payout_status_modal.validation.checkbox_required") || "Please check the acknowledgment box.");
       return;
     }
-    if (!paidAtDate) {
-      setValidationError(t("payout_status_modal.validation.date_required"));
+    if (!status) {
+      setValidationError("Please select a valid payout status.");
       return;
     }
 
@@ -58,26 +63,24 @@ export const PayoutStatusModal = ({
       
       console.log({ 
         payoutId: data.id, 
-        paidAt: paidAtDate ,
+        status: status
       });
-      
 
-      const response= await updatePayoutStatus({ 
+      const response = await updatePayoutStatus({ 
         payoutId: data.id, 
-        paidAt: paidAtDate ,
+        status: status, // 🚀 FIXED: Passes the active selected controlled variable string state natively
       }).unwrap();
 
-      const {message,httpStatus} = response as TResponseDto
-      if(httpStatus===403){
-        setValidationError(message)
+      const { message, httpStatus } = response as TResponseDto;
+      if (httpStatus === 403) {
+        setValidationError(message);
       }
       
-     if(httpStatus===200){
-         // Trigger the default close function passed from the parent grid layout row anchor
-      onButtonClick();
-     }
-    } catch (err:any) {
-                
+      if (httpStatus === 200) {
+        // Trigger the default close function passed from the parent grid layout row anchor
+        onButtonClick();
+      }
+    } catch (err: any) {
       console.error("Failed to commit administrative payout checklist: ", err);
     }
   };
@@ -122,35 +125,42 @@ export const PayoutStatusModal = ({
               </div>
             </div>
 
-            {/* INPUT FIELD A: "MARKED AS PAID" CHECKBOX ELEMENT */}
+  
+
+            {/* INPUT FIELD A: "MARKED  FOR UPDATE" CHECKBOX ELEMENT */}
             <div className="po-modal__field">
               <label className="po-modal__checkbox-wrapper">
                 <input
                   type="checkbox"
                   className="po-modal__checkbox-input"
-                  checked={isMarkedAsPaid}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => setIsMarkedAsPaid(e.target.checked)}
+                  checked={isMarkedForUpdate}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setIsMarkedForUpdate(e.target.checked)}
                   disabled={isLoading}
                 />
                 <span className="po-modal__checkbox-label">{t("payout_status_modal.fields.checkbox_label")}</span>
               </label>
             </div>
 
-            {/* "DATE PAID" WITH CONDITIONAL UNLOCK */}
-            <div className={`po-modal__field po-modal__field--transition ${!isMarkedAsPaid ? "is-locked" : ""}`}>
-              <label htmlFor="payout-date" className="po-modal__label">
-                {t("payout_status_modal.fields.date_label")}
+                    {/* payout status change*/}
+            <div className={`po-modal__field po-modal__field--transition ${!isMarkedForUpdate ? "is-locked" : ""}`}>
+                <label htmlFor="payout-status" className="po-modal__label">
+                {t("payout_status_modal.fields.payout_status", { defaultValue: "Payout Status" })}
               </label>
               <div className="po-modal__input-wrapper">
-                <FiCalendar className="po-modal__input-icon" />
-                <input
-                  id="payout-date"
-                  type="date"
-                  className="po-modal__input"
-                  value={paidAtDate}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => setPaidAtDate(e.target.value)}
-                  disabled={!isMarkedAsPaid || isLoading}
-                />
+                <select 
+                  id="payout-status" 
+                  name="status" 
+                  className="po-modal__input po-modal__select"
+                  value={status}
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) => setStatus(e.target.value)}
+                  disabled={isLoading}
+                >
+                {
+                  STATUS_LIST.map((status)=>{
+                    return <option key={status.id} value={status.label.toLowerCase()}>{t(`payouts.table.statuses.${status.label.toLowerCase()}`)}</option>
+                  })
+                }
+                </select>
               </div>
             </div>
 
@@ -185,7 +195,7 @@ export const PayoutStatusModal = ({
             <button
               type="submit"
               className="po-modal__btn po-modal__btn--confirm"
-              disabled={isLoading || !isMarkedAsPaid}
+              disabled={isLoading || !isMarkedForUpdate}
             >
               {isLoading ? t("payout_status_modal.buttons.processing") : t("payout_status_modal.buttons.confirm")}
             </button>

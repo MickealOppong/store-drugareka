@@ -1,20 +1,21 @@
 import { useTranslation } from "react-i18next";
 import { FiShoppingBag } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Cart } from "../components/index";
 import '../css/Cart.css';
 import { useGetBuyerCartQuery, useRemoveCartItemMutation } from "../features/api/cartApi";
-import { useCheckoutBuyerPayUMutation } from "../features/api/checkoutApi";
+import { useCheckoutBuyerStripeMutation } from "../features/api/checkoutApi";
 import type { TCart } from "../types/TCart";
 
 const CartPage = () => {
   const { data: cart, isLoading: cartLoading } = useGetBuyerCartQuery();
   const { t } = useTranslation();
 
-
+const navigate = useNavigate()
 
   const [deleteItem] = useRemoveCartItemMutation();
-  const [checkout] =useCheckoutBuyerPayUMutation()
+  //const [checkout] =useCheckoutBuyerPayUMutation()
+  const[checkout] = useCheckoutBuyerStripeMutation();
 
   const handleRemoveItem = async (listingId: number) => {
     try {
@@ -27,12 +28,14 @@ const CartPage = () => {
   const handleCheckout = async () => {
     try {
       const response = await checkout().unwrap();
-      const checkoutUrl = response?.data; // Adjusted to match generic API wrappers safely
-
+      console.log(response);
+      
+      //const checkoutUrl = response?.data; // Adjusted to match generic API wrappers safely
+      const url = response.data;
      
-      if (checkoutUrl) {
+      if (url) {
        // navigate("/checkout", { state: { clientSecret } });
-     window.location.href=response.data
+     window.location.href=url;
       }
     } catch (error) {
       console.error("Checkout transaction initialization failure:", error);

@@ -139,3 +139,19 @@ export const CATEGORY_HEADERS = [
   }
 ];
 
+
+export const STATUS_LIST = [
+  { id: "pending", label: "Pending" },
+  { id: "pending_payout", label: "Awaiting payment" },
+  { id: "paid", label: "Paid" },
+  { id: "completed", label: "Completed" },
+  { id: "failed", label: "Failed" },
+  { id: "cancelled", label: "Cancelled" },
+  { id: "created", label: "Created" },
+  { id: "refund", label: "Refund" },
+  { id: "approved", label: "Approved" },
+  { id: "processing", label: "Processing" },
+  { id: "Ready_for_review", label: "Ready for review" },
+  { id: "reversed", label: "Reversed" },
+  { id: "transferred", label: "Transferred" }
+];

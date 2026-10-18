@@ -11,9 +11,16 @@ export type TProductData={
     condition: string;
     brand: string;
     sku: string;
+    minPrice:string
     shippingInfo: string;
     status:string;
     imageSortOrder:number[],
     shippingMethod:string,
     itemSize:string
+    width:string,
+    height:string,
+    depth:string,
+    model:string,
+    yearMade:string,
+    itemNumber:string
 }

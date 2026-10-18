@@ -7,137 +7,145 @@ import type { TUserUpdateRequest } from "../../types/TUserUpdatRequest";
 import { CookieService } from "../../util/util";
 import { baseUrl } from "./baseUrl";
 
-
-
-
-
-
-
 export const userApi = createApi({
-    reducerPath:'userApi',
-    baseQuery:fetchBaseQuery({
+  reducerPath: "userApi",
+  baseQuery: fetchBaseQuery({
     baseUrl,
-                  prepareHeaders: (headers) => {
+    prepareHeaders: (headers) => {
       // RTK Query runs this function EVERY time you make a request
       const token = CookieService.get("tk") ?? "";
 
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+        headers.set("Authorization", `Bearer ${token}`);
       }
-                  // user preferred langauge selected
-      const currentLanguage = localStorage.getItem('i18nextLng') as string
+      // user preferred langauge selected
+      const currentLanguage = localStorage.getItem("i18nextLng") as string;
       headers.set("Accept-Language", currentLanguage);
       return headers;
     },
-    
+  }),
+  tagTypes: ["users", "user", "roles"],
+  endpoints: (build) => ({
+    getUser: build.query<TResponseDto, void>({
+      query: () => ({
+        url: `/api/users/user`,
+      }),
+      providesTags: ["user"],
     }),
-    tagTypes:['users','user','roles'],
-    endpoints:(build)=>({
-        getUser:build.query<TResponseDto,void>({
-            query:()=>({
-                url:`/api/users/user`,
-            }),
-              providesTags:['user'],
-          
-        }),
-              stripeConnect:build.mutation<{url:string},void>({
-            query:()=>({
-                url:`/api/seller/stripe/onboarding`,
-                method:"POST",
-            }),
-           invalidatesTags:['user','users']          
-        }),    getStripeUpdate:build.query<TUserDto,void>({
-            query:()=>({
-                url:`/api/users/stripe-update`,
-    
-            }),
-           providesTags:['user','users']    
-        }),
-  changePassword:build.mutation<TResponseDto,{currentPassword:string,newPassword:string}>({
-            query:({currentPassword,newPassword})=>({
-                url:`/api/users/change-password`,
-              params:{
-                currentPassword,newPassword
-              },
-              method:'PUT'
-            }),
-            invalidatesTags:['user']
-          
-        }),
-         getAllUsers:build.query<TUserDto[],void>({
-            query:()=>({
-                url:`/api/users/all`,
-            }),
-              providesTags:['users'],
-          
-        }),
-          newUser:build.mutation<TResponseDto,TUserUpdateRequest>({
-            query:(body)=>({
-                url:`/api/users/new`,
-                method:"POST",
-                body
-            }),
-              invalidatesTags:['user','users']
-          
-        }),
-          editUser:build.mutation<TResponseDto,FormData>({
-            query:(body)=>({
-                url:`/api/users/edit`,
-                method:"PUT",
-                body
-            }),
-              invalidatesTags:['user','users']
-          
-        }),
-           deleteUser:build.mutation<TResponseDto,number>({
-            query:(userId)=>({
-                url:`/api/users/delete`,
-                method:"DELETE",
-                params:{
-                    userId
-                }
-            }),
-              invalidatesTags:['user','users']
-        }),
-             allRoles:build.query<string[],void>({
-            query:()=>({
-                url:`/api/users/roles`,
-            }),
-        }),
-           getMyPayouts: build.query<TListPagePayout,{page:number,size:number}>({
-              query: ({page,size}) => ({
-                url: "/api/users/payouts",
-                params:{
-                  page,size
-                }
-              }),
-
-            }),
-             updatePayoutStatus: build.mutation<TResponseDto,{payoutId:number,paidAt:string}>({
-              query: ({paidAt,payoutId}) => ({
-                url: "/api/users/settle-order",
-                params:{
-               paidAt,payoutId
-                },
-                method:"PUT"
-              }),
-
-            }),
-             getShipments: build.query<TListShipmentPage,{page:number,size:number,type:string}>({
-              query: ({page,size,type}) => ({
-                url: "/api/shipment/shipments",
-                params:{
-                    page,size,type
-                }
-              }),
-
-            }),
-      
+    stripeConnect: build.mutation<{ url: string }, void>({
+      query: () => ({
+        url: `/api/seller/stripe/onboarding`,
+        method: "POST",
+      }),
+      invalidatesTags: ["user", "users"],
     }),
- 
-})
-export const {useNewUserMutation,useEditUserMutation,useDeleteUserMutation,useLazyGetUserQuery,useLazyGetAllUsersQuery
-    ,useLazyAllRolesQuery,useGetMyPayoutsQuery,useGetShipmentsQuery,useChangePasswordMutation,
-    useUpdatePayoutStatusMutation,useLazyGetStripeUpdateQuery,useStripeConnectMutation
-  
-}=userApi
+    getStripeUpdate: build.query<TUserDto, void>({
+      query: () => ({
+        url: `/api/users/stripe-update`,
+      }),
+      providesTags: ["user", "users"],
+    }),
+    changePassword: build.mutation<
+      TResponseDto,
+      { currentPassword: string; newPassword: string }
+    >({
+      query: ({ currentPassword, newPassword }) => ({
+        url: `/api/users/change-password`,
+        params: {
+          currentPassword,
+          newPassword,
+        },
+        method: "PUT",
+      }),
+      invalidatesTags: ["user"],
+    }),
+    getAllUsers: build.query<TUserDto[], void>({
+      query: () => ({
+        url: `/api/users/all`,
+      }),
+      providesTags: ["users"],
+    }),
+    newUser: build.mutation<TResponseDto, TUserUpdateRequest>({
+      query: (body) => ({
+        url: `/api/users/new`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["user", "users"],
+    }),
+    editUser: build.mutation<TResponseDto, FormData>({
+      query: (body) => ({
+        url: `/api/users/edit`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["user", "users"],
+    }),
+    deleteUser: build.mutation<TResponseDto, number>({
+      query: (userId) => ({
+        url: `/api/users/delete`,
+        method: "DELETE",
+        params: {
+          userId,
+        },
+      }),
+      invalidatesTags: ["user", "users"],
+    }),
+    allRoles: build.query<string[], void>({
+      query: () => ({
+        url: `/api/users/roles`,
+      }),
+    }),
+    getMyPayouts: build.query<TListPagePayout, { page: number; size: number }>({
+      query: ({ page, size }) => ({
+        url: "/api/users/payouts",
+        params: {
+          page,
+          size,
+        },
+      }),
+    }),
+    getShipments: build.query<
+      TListShipmentPage,
+      { page: number; size: number; type: string }
+    >({
+      query: ({ page, size, type }) => ({
+        url: "/api/shipment/shipments",
+        params: {
+          page,
+          size,
+          type,
+        },
+      }),
+    }),
+    getPayUPaymentStatus: build.query<String, string>({
+      query: (orderNumber) => ({
+        url: "/api/payment/payu/status",
+        params: {
+          orderNumber,
+        },
+      }),
+    }),
+          getPaymentStatus: build.query<String, string>({
+          query: (orderNumber) => ({
+            url: "/api/payment/stripe/status",
+           params:{
+           orderNumber
+           }
+          }),
+        }),
+  }),
+});
+export const {
+  useNewUserMutation,
+  useEditUserMutation,
+  useDeleteUserMutation,
+  useLazyGetUserQuery,
+  useLazyGetAllUsersQuery,
+  useLazyAllRolesQuery,
+  useGetMyPayoutsQuery,
+  useGetShipmentsQuery,
+  useChangePasswordMutation,
+  useLazyGetStripeUpdateQuery,
+  useStripeConnectMutation,
+} = userApi;

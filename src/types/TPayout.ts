@@ -6,4 +6,5 @@ export type TPayout={
     status:string,
     currency:string,
     orderNumber:string
+    transferId:string
 }

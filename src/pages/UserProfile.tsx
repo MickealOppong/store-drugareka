@@ -256,6 +256,8 @@ const UserProfile = () => {
 
     try {
       const response: any = await createMerchant().unwrap();
+      console.log(response);
+      
       const url = response?.data?.url ?? response?.url;
 
       if (!url) {

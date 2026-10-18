@@ -1,0 +1,104 @@
+.cart-alert-summary {
+  position: fixed;
+  z-index: 10000;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 2.5rem);
+  max-width: 420px;
+}
+@media (min-width: 768px) {
+  .cart-alert-summary {
+    top: 1.5rem;
+    right: 1.5rem;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: 420px;
+  }
+}
+.cart-alert-summary {
+  animation: toastLifecycle 10s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, visibility;
+}
+
+.cart-alert-row--reserved {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  box-sizing: border-box;
+  box-shadow: 0 10px 15px -3px rgba(17, 11, 11, 0.08), 0 4px 6px -4px rgba(17, 11, 11, 0.04);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #e5e5e5;
+  border-left: 4px solid #e11d48;
+}
+.cart-alert-row--reserved .cart-alert-icon {
+  color: #e11d48;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  min-width: 17.6px;
+}
+.cart-alert-row--reserved .cart-alert-message {
+  margin: 0;
+  color: #111111;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: left;
+  white-space: pre-line;
+}
+.cart-alert-row--reserved:hover {
+  transform: scale(1.01);
+  border-color: rgb(228, 179, 189.75);
+  background-color: #FFFFFF;
+}
+
+@keyframes toastLifecycle {
+  0% {
+    opacity: 0;
+    visibility: visible;
+    @media (max-width: 767px) {
+      transform: translate(-50%, 24px);
+    }
+    @media (min-width: 768px) {
+      transform: translateX(40px);
+    }
+  }
+  3% {
+    opacity: 1;
+    @media (max-width: 767px) {
+      transform: translate(-50%, 0);
+    }
+    @media (min-width: 768px) {
+      transform: translateX(0);
+    }
+  }
+  93% {
+    opacity: 1;
+    visibility: visible;
+    @media (max-width: 767px) {
+      transform: translate(-50%, 0);
+    }
+    @media (min-width: 768px) {
+      transform: translateX(0);
+    }
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    @media (max-width: 767px) {
+      transform: translate(-50%, 32px);
+    }
+    @media (min-width: 768px) {
+      transform: translateX(60px);
+    }
+  }
+}/*# sourceMappingURL=ErrorToast.css.map */

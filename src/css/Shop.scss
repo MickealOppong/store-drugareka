@@ -669,3 +669,86 @@
     transform: translateX(0);
   }
 }
+
+// ========================================================================
+// 9. MAKE-OFFER ACTION — SECONDARY PRODUCT-CARD CTA
+// The cart action remains compact; Make Offer spans the card below the price.
+// ========================================================================
+
+.shop-product-card__bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 36px;
+  align-items: center;
+  column-gap: 0.5rem;
+  row-gap: 0.65rem;
+
+  // Price block occupies the first column and keeps long prices from overflowing.
+  > div {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+
+    strong {
+      overflow-wrap: anywhere;
+    }
+  }
+
+  // Make Offer is the secondary full-width action beneath the price row.
+  > button:not(.shop-product-card__buy) {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    min-width: 0;
+    min-height: 38px;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid Variables.$color-primary;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: Variables.$color-primary;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    cursor: pointer;
+    transition:
+      background-color 0.18s ease,
+      color 0.18s ease,
+      border-color 0.18s ease,
+      box-shadow 0.18s ease;
+
+    &:hover {
+      background-color: Variables.$color-primary;
+      border-color: Variables.$color-primary;
+      color: Variables.$color-text-light;
+    }
+
+    &:focus-visible {
+      outline: 3px solid rgba(Variables.$color-primary, 0.25);
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+
+  // Keep the buy/edit control aligned with the price on the first row.
+  > .shop-product-card__buy {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+}
+
+@media (max-width: 360px) {
+  .shop-product-card__bottom {
+    column-gap: 0.35rem;
+    row-gap: 0.55rem;
+
+    > button:not(.shop-product-card__buy) {
+      font-size: 0.75rem;
+      padding-inline: 0.45rem;
+    }
+  }
+}

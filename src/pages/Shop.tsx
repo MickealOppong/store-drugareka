@@ -12,6 +12,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Loading, Pagination } from "../components";
+import { ErrorToast } from "../components/ErrorTaost";
+import MakeOfferodal from "../components/MakeOfferModal";
 import "../css/Shop.css";
 import {
   useAddWishListMutation,
@@ -24,8 +26,8 @@ import {
 import { useAddToCart } from "../hooks/useAddTocart";
 import { useRecentViews } from "../hooks/useRecentViews";
 import { useAppSelector } from "../store";
+import type { TListTrans } from "../types/TListTrans";
 import { formatPrice, sanitizeBackendKey, sanitizeCategoryKey } from "../util/util";
-
 
 
 const Shop = () => {
@@ -35,9 +37,12 @@ const Shop = () => {
   //user id
   const userId = useAppSelector((state) => state.userSlice.userId);
 
+  const[openModal,setOpenModal] = useState<boolean>(false)
+  const[modalData,setModalData] = useState<{name:string,id:number,currentPrice:number,isNegotiable:boolean}|null>(null)
+
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { addItemToCart } = useAddToCart();
+  const { addItemToCart ,isLoading:addCartLoading,error} = useAddToCart();
   const { addView } = useRecentViews();
 
   // 1. Core State Trackers synchronized natively with standard parameters
@@ -144,17 +149,34 @@ const Shop = () => {
   // ==========================================================================
   const handleCategoryButtonClick = (categorySlug: string) => {
     const nextParams = new URLSearchParams(location.search);
+    const category = categories.find((item)=>item.slug===categorySlug)
     nextParams.set("category", categorySlug);
     // Navigating automatically shifts the reactive 'selectedCategory' token, re-firing the query
-    navigate(`${location.pathname}?${nextParams.toString()}`);
+    navigate(`${location.pathname}?${nextParams.toString()}_${category?category.id:'0'}`);
   };
-
+ 
 
 
   const toggleWishlist = async (listingId: number) => {
     if (!username) return navigate("/login");
     await addToWish(listingId);
   };
+
+
+  //handle modal state
+  const onModalButtonClick =()=>{
+    setOpenModal(false)
+  }
+
+  //handle make offer click
+  const handleMakeOffer = (product:TListTrans)=>{
+   if (!username) return navigate("/login");
+    if(product){
+    setModalData({name:product.productName,id:product.listingId,currentPrice:product.priceDto.sellerNewPrice,isNegotiable:product.priceDto.sellerNewPrice!==product.priceDto.sellerMinPrice})
+    setOpenModal(true)
+    }
+  
+  }
 
   return (
     <main className="shop-page">
@@ -262,11 +284,15 @@ const Shop = () => {
         </div>
       </section>
 
+        {
+                    error && <ErrorToast errorMessage={error}/>
+                 } 
+
       {/* =====================================================
                 PRODUCTS
             ====================================================== */}
 
-      {isProductsLoading ? (
+      {isProductsLoading ||addCartLoading? (
         <Loading />
       ) : (
         <section className="shop-page__products">
@@ -287,18 +313,21 @@ const Shop = () => {
           ) : (
             filteredProducts.map((product) => {
               const isWishlisted = wishlists.includes(product.listingId);
-              const discount = Math.round(
+              
+              const discount = (product.priceDto.sellerNewPrice-product.priceDto.sellerOldPrice)>0 ?Math.round(
                 ((product.priceDto.sellerNewPrice -
                   product.priceDto.sellerOldPrice) /
                   product.priceDto.sellerNewPrice) *
                   100,
-              );
+              ):0;
 
+            
               return (
                 <article
                   className="shop-product-card"
                   key={product.listingId}
                 >
+             
                   {/* IMAGE */}
                   <div className="shop-product-card__media">
                     <Link
@@ -328,6 +357,7 @@ const Shop = () => {
                       <FiHeart />
                     </button>
                   </div>
+               
 
                   {/* CONTENT */}
                   <div className="shop-product-card__content">
@@ -353,6 +383,10 @@ const Shop = () => {
                           {formatPrice(product.priceDto.sellerNewPrice) || 0} zł
                         </del>
                       </div>
+                     {
+                      product.priceDto.sellerMinPrice!==null&& product.priceDto.sellerMinPrice!==product.priceDto.sellerNewPrice 
+                      &&  <button onClick={()=>handleMakeOffer(product)}>{t("shop.product.make_offer")}</button>
+                     }
 
                       {!userId || product.sellerId !== userId ? (
                         <button
@@ -383,6 +417,10 @@ const Shop = () => {
           )}
         </section>
       )}
+           {/** MAKE OFFER MODAL */}
+                    {
+                  openModal && <MakeOfferodal isNegotiable={modalData?.isNegotiable || false}  productName={modalData?.name||''} id={modalData?.id||0} currentPrice={modalData?.currentPrice||0} isOpen={openModal} onButtonClick={onModalButtonClick}/>
+              }
      {
       data &&  <Pagination
         page={page }

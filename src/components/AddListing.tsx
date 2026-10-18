@@ -5,10 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import "../css/AddListing.css";
 import { ITEM_SIZE } from "../data/data";
 import { useAddListingMutation } from "../features/api/itemApi";
-import { useGetCategoryTreeQuery } from "../features/api/storeApi";
 import {
   useGetAllConditionsQuery,
-  useGetBrandsQuery
+  useGetBrandsQuery,
 } from "../features/api/transApi";
 import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TProductData } from "../types/TProductData";
@@ -23,6 +22,7 @@ type TFile = {
 
 const AddListing = () => {
   const [images, setImages] = useState<TFile[]>([]);
+  const [error, setError] = useState<string>('');
 
   /**
    * Brand query
@@ -34,35 +34,21 @@ const AddListing = () => {
    */
 
   const navigate = useNavigate();
-  /**
-   * Errors
-   */
-  const [brandError, setBrandError] = useState<string>("");
-  const [priceError, setPriceError] = useState<string>("");
-  const [categoryError, setCategoryError] = useState<string>("");
-  const [nameError, setNameError] = useState<string>("");
-  const [descriptionError, setDescriptionError] = useState<string>("");
-  const [conditionError, setConditionError] = useState<string>("");
-  const [imageError, setImageError] = useState<string>("");
-  const [shippingError, setShippingError] = useState<string>("");
-  const [itemSizeError, setItemSizeError] = useState<string>("");
-  
 
   /**
    * * crud hooks
    */
-  const { data: categories = [] } = useGetCategoryTreeQuery()
   const { data: conditions = [] } = useGetAllConditionsQuery();
   const [addItem] = useAddListingMutation();
-  const [category,setCategory]=useState<string>('')
-  const [categoryPath,setCategoryPath]=useState<string>('')
+  const [category, setCategory] = useState<string>("");
+  const [categoryPath, setCategoryPath] = useState<string>("");
 
   const [formData, setFormData] = useState<TProductData>({
     id: 1,
     name: "",
-    category:{
-      name:'',
-      path:''
+    category: {
+      name: "",
+      path: "",
     },
     description: "",
     price: "2",
@@ -76,6 +62,13 @@ const AddListing = () => {
     imageSortOrder: [],
     shippingMethod: "",
     itemSize: "",
+    minPrice:'0',
+    yearMade: "",
+    model: "",
+    itemNumber: "",
+    width: "",
+    height: "",
+    depth: "",
   });
 
   /**
@@ -88,8 +81,6 @@ const AddListing = () => {
     const { name, value } = e.target;
 
     // Dynamic clean up based on field names
-    if (name === "brand" && brandError) setBrandError("");
-    if (name === "name" && nameError) setNameError("");
 
     setFormData((prev) => ({
       ...prev,
@@ -101,8 +92,6 @@ const AddListing = () => {
     const { name, value } = e.target;
 
     // Dynamic clean up based on field names
-    if (name === "condition" && conditionError) setConditionError("");
-    if (name === "category" && categoryError) setCategoryError("");
 
     setFormData((prev) => ({
       ...prev,
@@ -114,8 +103,6 @@ const AddListing = () => {
     const { name, value } = e.target;
 
     // Dynamic clean up based on field names
-    if (name === "shippingInfo" && shippingError) setShippingError("");
-    if (name === "description" && descriptionError) setDescriptionError("");
 
     setFormData((prev) => ({
       ...prev,
@@ -127,7 +114,6 @@ const AddListing = () => {
     const files = Array.from(e.target.files ?? []);
 
     // Dynamic clean up based on field names
-    setImageError("");
 
     const newImages = files.map((file) => ({
       file,
@@ -154,6 +140,8 @@ const AddListing = () => {
     handleSubmit(action);
   };
   const handleSubmit = async (action: string) => {
+    setError("");
+
     const productData: TProductData = {
       ...formData,
       images,
@@ -170,81 +158,74 @@ const AddListing = () => {
     dataToSend.append("status", productData.status);
     dataToSend.append("categoryPath", categoryPath);
     dataToSend.append("price", productData.price);
+    dataToSend.append("minPrice", productData.minPrice);
     dataToSend.append("sku", productData.sku);
     dataToSend.append("itemSize", productData.itemSize);
+    dataToSend.append("productionYear", productData.yearMade);
+    dataToSend.append("model", productData.model);
+    dataToSend.append("itemNumber", productData.itemNumber);
+    dataToSend.append("width", productData.width);
+    dataToSend.append("height", productData.height);
+    dataToSend.append("depth", productData.depth);
 
     images.forEach((file, index) => {
       dataToSend.append("images", file.file);
       dataToSend.append("imageSortOrder", String(index));
     });
 
-     console.log(Object.fromEntries(dataToSend));
+    console.log(Object.fromEntries(dataToSend));
 
-    
     try {
       const response = await addItem(dataToSend);
+      console.log(response);
 
       if (response.data?.httpStatus === 200) {
         navigate("/account/listings/me");
       }
 
       if (response.error) {
-        type TError = {
-          price: string;
-          name: string;
-          description: string;
-          status: string;
-          category: string;
-          brand: string;
-          condition: string;
-          shipping: string;
-          shippingMethod: string;
-          itemSize: string;
+        const errorResponse = response.error as {
+          data?: {
+            message?: any;
+            error?: Record<string, unknown>;
+          };
+          status?: number;
+          message?: string;
         };
 
-        const { data, status } = response?.error as {
-          data: any;
-          message: string;
-          status: number;
-        };
-        if (status === 400) {
-          setImageError(data.error ? (data.error as string) : "");
-        }
+        const messages: string[] = [];
+        const responseMessage = errorResponse.data?.message as
+          | string
+          | Record<string, string>;
 
-        if (status === 413) {
-          setImageError(data.error);
-        }
+        if (typeof responseMessage === "string") {
+          setError(responseMessage);
+        } else {
+          const errors = Object.values(responseMessage);
 
-        const {
-          name,
-          description,
-          category,
-          brand,
-          condition,
-          shipping,
-          price,
-          itemSize,
-        } = data.error as TError;
-        setNameError(name);
-        setConditionError(condition);
-        setCategoryError(category);
-        setDescriptionError(description);
-        setBrandError(brand);
-        setShippingError(shipping);
-        setPriceError(price);
-        setItemSizeError(itemSize);
+          if (messages.length === 0 && errorResponse.message) {
+            errors.map((error) => {
+              messages.push(error);
+            });
+          }
+    
+          setError(errors.join("\n"));
+        }
       }
-    } catch (error: any) {}
-     
+    } catch (submitError: unknown) {
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : "Unable to submit the listing. Please try again.",
+      );
+    }
   };
 
-  
+  const handleCategoryChange = (category: string, path: string) => {
+    setCategory(category);
+    setCategoryPath(path);
+  };
 
-  const handleCategoryChange =(category:string,path:string)=>{
-    setCategory(category)
-    setCategoryPath(path)
-  }
-  
   return (
     <main className="add-product">
       {/* =====================================================
@@ -284,6 +265,12 @@ const AddListing = () => {
           </button>
         </div>
       </header>
+      <div
+        className="add-product__error-container"
+        role="alert"
+      >
+        {error && <span className="add-product__error-text">{error}</span>}
+      </div>
 
       {/* =====================================================
                 FORM
@@ -353,9 +340,6 @@ const AddListing = () => {
                   </label>
                 )}
               </div>
-              {imageError && (
-                <span className="form-field__error-msg">{imageError}</span>
-              )}
             </section>
 
             {/* Basic Information */}
@@ -384,60 +368,14 @@ const AddListing = () => {
                       required
                     />
                   </div>
-                  {/* Fallback handling for downstream pricing or general shippingErrors if passed */}
-                  {nameError && (
-                    <span className="form-field__error-msg">{nameError}</span>
-                  )}
-                </div>
-
-                <div
-                  className="form-field"
-                  style={{ display: "none" }}
-                >
-                  <label htmlFor="category">
-                    {t("add_listing.fields.category.label")}
-                  </label>
-
-                  <select
-                    id="category"
-                    name="category"
-                    value={category}
-                    onChange={handleSelectChange}
-                  >
-                    <option
-                      value=""
-                      disabled
-                    >
-                      {t("add_listing.fields.category.placeholder")}
-                    </option>
-
-                    {categories?.map((category) => {
-                      return (
-                        <option
-                          key={category.id}
-                          value={category.name}
-                        >
-                          {t(
-                            `category_names.${sanitizeBackendKey(category.slug.toLowerCase())}`,
-                          )}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  {/* Fallback handling for general shippingErrors if passed */}
-                  {categoryError && (
-                    <span className="form-field__error-msg">
-                      {categoryError}
-                    </span>
-                  )}
                 </div>
 
                 {/** CATEGORY */}
 
-                <CategoryDropdownSelect 
-                 onChange={handleCategoryChange}
-                 name={'category'}
-                 value={category}
+                <CategoryDropdownSelect
+                  onChange={handleCategoryChange}
+                  name={"category"}
+                  value={category}
                 />
 
                 <div className="form-field">
@@ -471,11 +409,48 @@ const AddListing = () => {
                       );
                     })}
                   </select>
-                  {conditionError && (
-                    <span className="form-field__error-msg">
-                      {conditionError}
-                    </span>
-                  )}
+                </div>
+                <div className="form-field">
+                  <label htmlFor="model">
+                    {t("add_listing.fields.automotive.model")}
+                  </label>
+
+                  <input
+                    id="model"
+                    name="model"
+                    type="text"
+                    placeholder={""}
+                    value={formData.model}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="oem_number">
+                    {t("add_listing.fields.automotive.oem_number")}
+                  </label>
+
+                  <input
+                    id="itemNumber"
+                    name="itemNumber"
+                    type="text"
+                    placeholder={""}
+                    value={formData.itemNumber}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="year">
+                    {t("add_listing.fields.automotive.year")}
+                  </label>
+
+                  <input
+                    id="yearMade"
+                    name="yearMade"
+                    type="text"
+                    placeholder={""}
+                    value={formData.yearMade}
+                    onChange={handleInputChange}
+                  />
                 </div>
 
                 <div>
@@ -499,11 +474,6 @@ const AddListing = () => {
                       {t("add_listing.fields.description.hint")}
                     </span>
                   </div>
-                  {descriptionError && (
-                    <span className="form-field__error-msg">
-                      {descriptionError}
-                    </span>
-                  )}
                 </div>
               </div>
             </section>
@@ -520,7 +490,7 @@ const AddListing = () => {
               <div className="form-grid">
                 <div className="form-field">
                   <label htmlFor="price">
-                    {t("add_listing.fields.price.label")}
+                    {t("add_listing.fields.price.price")}
                   </label>
 
                   <div className="input-with-prefix">
@@ -538,9 +508,28 @@ const AddListing = () => {
                       required
                     />
                   </div>
-                  {priceError && (
-                    <span className="form-field__error-msg">{priceError}</span>
-                  )}
+                </div>
+
+                  <div className="form-field">
+                  <label htmlFor="price">
+                    {t("add_listing.fields.price.min_price")}
+                  </label>
+
+                  <div className="input-with-prefix">
+                    <span>zł</span>
+
+                    <input
+                      id="minPrice"
+                      name="minPrice"
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      placeholder="0.00"
+                      value={formData.minPrice}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="form-field">
@@ -568,9 +557,6 @@ const AddListing = () => {
                     value={formData.brand}
                     onChange={handleSelectChange}
                   />
-                  {brandError && (
-                    <span className="form-field__error-msg">{brandError}</span>
-                  )}
                 </div>
 
                 <div className="form-field">
@@ -595,7 +581,6 @@ const AddListing = () => {
               <div className="product-section__header">
                 <div>
                   <h2>{t("add_listing.sections.shipping.title")}</h2>
-                  <p>{t("add_listing.sections.shipping.subtitle")}</p>
                 </div>
               </div>
 
@@ -631,9 +616,51 @@ const AddListing = () => {
                     );
                   })}
                 </select>
-                {itemSizeError && (
-                  <span className="form-field__error-msg">{itemSizeError}</span>
-                )}
+              </div>
+
+              <div>
+                <div className="form-field">
+                  <label htmlFor="width">
+                    {t("add_listing.fields.dimension.width")}
+                  </label>
+
+                  <input
+                    id="width"
+                    name="width"
+                    type="text"
+                    placeholder={""}
+                    value={formData.width}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="height">
+                    {t("add_listing.fields.dimension.height")}
+                  </label>
+
+                  <input
+                    id="height"
+                    name="height"
+                    type="text"
+                    placeholder={""}
+                    value={formData.height}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="depth">
+                    {t("add_listing.fields.dimension.depth")}
+                  </label>
+
+                  <input
+                    id="depth"
+                    name="depth"
+                    type="text"
+                    placeholder={""}
+                    value={formData.depth}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
 
               <div className="form-field shippingInfo">
@@ -652,9 +679,6 @@ const AddListing = () => {
                   onChange={handleTextInputChange}
                 />
               </div>
-              {shippingError && (
-                <span className="form-field__error-msg">{shippingError}</span>
-              )}
             </section>
           </div>
 

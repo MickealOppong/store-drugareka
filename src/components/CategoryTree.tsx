@@ -2,16 +2,16 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-    FiChevronDown,
-    FiChevronRight
+  FiChevronDown,
+  FiChevronRight
 } from "react-icons/fi";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import '../css/CategoryTree.css';
 import { CATEGORY_HEADERS } from "../data/data";
 import { useGetCategoryTreeQuery } from "../features/api/storeApi";
 import type {
-    TCategoryTreeDto,
-    TSubCategory,
+  TCategoryTreeDto,
+  TSubCategory,
 } from "../types/TCategoryTreeDto";
 import { sanitizeCategoryKey } from "../util/util";
 
@@ -52,7 +52,7 @@ const CategoryTree = () => {
 
   // Parent name click: select the parent category and open the shop.
   const handleParentSelect = (parent: TCategoryTreeDto) => {
-    navigate(`/shop/categories?category=${encodeURIComponent(parent.slug)}`);
+    navigate(`/shop/categories?category=${encodeURIComponent(parent.slug)}_${parent.id}`);
   };
 
   // Chevron click: expand or collapse children without navigating.
@@ -64,7 +64,7 @@ const CategoryTree = () => {
 
   // Child click: select the child category and open the shop.
   const handleChildSelect = (child: TSubCategory) => {
-    navigate(`/shop/categories?category=${encodeURIComponent(child.slug)}`);
+    navigate(`/shop/categories?category=${encodeURIComponent(child.slug)}_${child.id}`);
   };
 
   const isSelected = (slug: string) => selectedCategory === slug;

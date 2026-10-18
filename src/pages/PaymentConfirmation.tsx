@@ -1,50 +1,71 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FiAlertCircle, FiCheckCircle, FiShoppingBag, FiXCircle } from "react-icons/fi";
+import { FiAlertCircle, FiCheckCircle, FiClock, FiShoppingBag, FiXCircle } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
 import { Loading } from "../components";
 import '../css/PaymentConfirmation.scss';
-import { useGetPaymentStatusQuery } from "../features/api/authApi";
+import { useGetPaymentStatusQuery } from "../features/api/checkoutApi";
 
 export const PaymentConfirmation: React.FC = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   
   const orderNumber = searchParams.get("orderNumber") as string;
+  const sessionId = searchParams.get('session_id') as string;
   const [shouldPoll, setShouldPoll] = useState(true);
   const [isTimedOut, setIsTimedOut] = useState(false);
 
-  //  Poll every 5 seconds while shouldPoll is active
-  const { data: status, isLoading, error } = useGetPaymentStatusQuery(orderNumber, {
+  // Unified lookup payload fallback: Resolves either the PayU tracking key or the Stripe Session ID token string
+  const paymentId = orderNumber || sessionId;
+
+  // Poll every 5 seconds while shouldPoll is active
+  const { data: status, isLoading, error } = useGetPaymentStatusQuery(paymentId, {
     pollingInterval: shouldPoll ? 5000 : 0,
-    skip: !orderNumber || isTimedOut,
+    skip: !paymentId // Safety guard: Prevents sending requests if both query params evaluate empty
   });
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    // ⏱ Hard timeout: Stop trying after 1 minutes (60000 ms)
+    // ⏱ Hard timeout: Stop polling after 1 minute (60000 ms) to prevent infinite loops
     const timeoutTimer = setTimeout(() => {
       setShouldPoll(false);
-      setIsTimedOut(status==="PAID"?true:false);
+      
+      // If the status isn't PAID, FAILED, or CANCELLED, trigger the timed out fallback layout view
+      setIsTimedOut(() => {
+        return status !== "PAID" && status !== "CANCELLED" && status !== "FAILED";
+      });
     }, 60000); 
 
     return () => clearTimeout(timeoutTimer);
-  }, []);
+  }, [status]);
 
-  //  Stop requests if a final state is reached
+  // Stop polling requests as soon as a definitive final state is confirmed from your Spring API
   useEffect(() => {
     if (status === "PAID" || status === "CANCELLED" || status === "FAILED") {
       setShouldPoll(false);
+      setIsTimedOut(false); // Reset timeout flag since we reached an explicit outcome
     }
   }, [status]);
 
-  // STATE 1: INITIAL COMPONENT LOADING SPINNER
+  // STATE 1: INITIAL COMPONENT LOADING SPINNER (Awaiting your first network handshake response)
   if (isLoading && !status) {
-    return <Loading />;
+    return (
+      <main className="payment-status payment-status--loading">
+        <section className="payment-status__card">
+          <Loading />
+          <p className="payment-status__loading-text" style={{ marginTop: "1rem", fontWeight: 600 }}>
+            {t("payment_confirmation.loading.title", { defaultValue: "Please be patient..." })}
+          </p>
+          <p className="payment-status__loading-subtext" style={{ color: "var(--color-text-muted, #64748b)" }}>
+            {t("payment_confirmation.loading.desc", { defaultValue: "Confirming payment with bank servers..." })}
+          </p>
+        </section>
+      </main>
+    );
   }
 
-  //  STATE 2: DATABASE SERVER / API NETWORK EXCEPTION FETCH FAILURE
+  // STATE 2: DATABASE SERVER / API NETWORK EXCEPTION FETCH FAILURE
   if (error) {
     return (
       <main className="payment-status payment-status--error">
@@ -66,37 +87,38 @@ export const PaymentConfirmation: React.FC = () => {
     );
   }
 
-  //  STATE 3: WEBHOOK PROCESSING / PENDING SCREEN (For up to 5 minutes)
+  // STATE 3: WEBHOOK ASYNC PROCESSING / TIMEOUT SCREEN
   if (isTimedOut || (status === "PENDING" && shouldPoll)) {
-
-    return <Loading/>
-    /*
     return (
       <main className="payment-status payment-status--processing">
         <section className="payment-status__card">
+          {/* Custom spinning-icon class handles standard smooth rotating animations via CSS */}
           <div className="payment-status__icon-wrapper payment-status__icon-wrapper--processing spinning-icon">
             <FiClock />
           </div>
           <h1 className="payment-status__title">
             {isTimedOut 
-              ? t("payment_confirmation.timeout.title", "Verification taking longer than usual")
-              : t("payment_confirmation.processing.title", "Processing your payment...")}
+              ? t("payment_confirmation.timeout.title", { defaultValue: "Verification taking longer than usual" })
+              : t("payment_confirmation.processing.title", { defaultValue: "Processing your payment..." })}
           </h1>
           <p className="payment-status__description">
             {isTimedOut
-              ? t("payment_confirmation.timeout.description", "We haven't received confirmation from your bank yet. Don't worry, we will notify you by email once it goes through.")
-              : t("payment_confirmation.processing.description", "PayU is currently finalizing your transaction with your bank. This can take a few minutes. Please do not close or refresh this page.")}
+              ? t("payment_confirmation.timeout.description", { 
+                  defaultValue: "We haven't received confirmation from your bank yet. Don't worry, we will notify you by email once it goes through." 
+                })
+              : t("payment_confirmation.processing.description", { 
+                  defaultValue: "Your transaction is currently being finalized with your bank. This can take a few moments. Please do not close or refresh this page." 
+                })}
           </p>
           <Link to="/shop" className="payment-status__cta-btn payment-status__cta-btn--secondary">
-            {t("payment_confirmation.processing.cta_shop", "Return to shop")}
+            {t("payment_confirmation.processing.cta_shop", { defaultValue: "Return to shop" })}
           </Link>
         </section>
       </main>
     );
-    */
   }
 
-  //  STATE 4: TERMINAL FAILURE FROM WEBHOOK (CANCELLED / REJECTED)
+  // STATE 4: TERMINAL FAILURE FROM WEBHOOK (CANCELLED / REJECTED)
   if (status === "CANCELLED" || status === "FAILED") {
     return (
       <main className="payment-status payment-status--cancelled">
@@ -121,7 +143,7 @@ export const PaymentConfirmation: React.FC = () => {
     );
   }
 
-  //  STATE 5: SUCCESSFUL TRANSACTIONS VERIFIED (PAID / COMPLETED)
+  // STATE 5: SUCCESSFUL TRANSACTIONS VERIFIED (PAID / COMPLETED)
   if (status === "PAID") {
     return (
       <main className="payment-status payment-status--success">
@@ -142,10 +164,10 @@ export const PaymentConfirmation: React.FC = () => {
             {t("payment_confirmation.success.description")}
           </p>
 
-          {orderNumber && (
+          {paymentId && (
             <div className="payment-status__session-badge">
               <span>{t("payment_confirmation.success.session_label")}: </span>
-              <code>#{orderNumber}</code>
+              <code>#{paymentId.substring(0,30)}</code>
             </div>
           )}
 
@@ -173,7 +195,25 @@ export const PaymentConfirmation: React.FC = () => {
     );
   }
 
-  return null;
+  // FALLBACK SECURITY BADGE IF STATE ENGINES EVALUATE UNRECOGNIZED STATUS VALUE
+  return (
+    <main className="payment-status payment-status--unknown">
+      <section className="payment-status__card">
+        <div className="payment-status__icon-wrapper payment-status__icon-wrapper--processing">
+          <FiAlertCircle />
+        </div>
+        <h1 className="payment-status__title">
+          {t("payment_confirmation.unknown.title", { defaultValue: "We were unable to confirm payment status" })}
+        </h1>
+        <p className="payment-status__description">
+          {t("payment_confirmation.unknown.description", { defaultValue: "Please refresh the page view manually or contact platform support if your balance was deducted." })}
+        </p>
+        <button type="button" className="payment-status__cta-btn" onClick={() => window.location.reload()}>
+          {t("payment_confirmation.unknown.cta_refresh", { defaultValue: "Refresh Page View" })}
+        </button>
+      </section>
+    </main>
+  );
 };
 
 export default PaymentConfirmation;

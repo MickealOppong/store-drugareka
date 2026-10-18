@@ -58,6 +58,36 @@ $ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     }
   }
 
+&__error-container {
+  margin: 0 0 1.5rem;
+  padding: 0;
+
+  white-space: pre-line; 
+  animation: errorShake 0.4s ease-in-out;
+
+  span {
+    display: block;
+    padding: 0.875rem 1rem;
+    border: 1px solid #fecaca;
+    border-left: 4px solid #dc2626;
+    border-radius: 8px;
+    background-color: #fef2f2;
+    color: #991b1b;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+  }
+
+  &:has(span) {
+    margin-bottom: 1.5rem;
+  }
+
+
+}
+
+
   &__back {
     width: 40px;
     height: 40px;

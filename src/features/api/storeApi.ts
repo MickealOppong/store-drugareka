@@ -15,36 +15,39 @@ export const storeApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl,
     prepareHeaders: (headers) => {
-       // RTK Query runs this function EVERY time you make a request
-        const token = CookieService.get("tk") ?? "";
+      // RTK Query runs this function EVERY time you make a request
+      const token = CookieService.get("tk") ?? "";
 
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
         //  headers.set('Content-Type','application/json')
       }
-                  // user preferred langauge selected
-      const currentLanguage = localStorage.getItem('i18nextLng') as string
+      // user preferred langauge selected
+      const currentLanguage = localStorage.getItem("i18nextLng") as string;
       headers.set("Accept-Language", currentLanguage);
       return headers;
     },
   }),
-  tagTypes: ["listings", "categories", "listing"],
+  tagTypes: ["listings", "categories", "listing", "wishlists"],
   endpoints: (build) => ({
     getStoreListings: build.query<TListTrans[], void>({
       query: () => ({
         url: "/api/store/listings",
       }),
     }),
-    getStoreListingsFeed: build.query<TListPageDto,{ queryCategory: string; page: number; size: number }>({
+    getStoreListingsFeed: build.query<
+      TListPageDto,
+      { queryCategory: string; page: number; size: number }
+    >({
       query: ({ queryCategory, page, size }) => ({
         url: `/api/store/store-listing`,
         params: {
           queryCategory,
           page,
-          size
+          size,
         },
       }),
-      providesTags: ["listing"],
+      providesTags: ["listings"],
     }),
     getAllParentCategories: build.query<TCategoryReponse[], void>({
       query: () => ({
@@ -52,7 +55,7 @@ export const storeApi = createApi({
       }),
       providesTags: ["categories"],
     }),
-      getCategoryTree: build.query<TCategoryTreeDto[], void>({
+    getCategoryTree: build.query<TCategoryTreeDto[], void>({
       query: () => ({
         url: "/api/store/category-tree",
       }),
@@ -66,7 +69,7 @@ export const storeApi = createApi({
           listingId,
         },
       }),
-      providesTags: ["listings"],
+      providesTags: ["listing"],
     }),
     getTop6ProductCategories: build.query<TCategoryReponse[], void>({
       query: () => ({
@@ -74,7 +77,7 @@ export const storeApi = createApi({
       }),
       providesTags: ["categories"],
     }),
-        getTop8ProductCategories: build.query<TCategoryReponse[], void>({
+    getTop8ProductCategories: build.query<TCategoryReponse[], void>({
       query: () => ({
         url: `/api/store/top8-categories`,
       }),
@@ -86,7 +89,7 @@ export const storeApi = createApi({
       }),
       providesTags: ["categories"],
     }),
-        getLandingListing: build.query<TListTrans[], void>({
+    getLandingListing: build.query<TListTrans[], void>({
       query: () => ({
         url: `/api/store/landing-listing`,
       }),
@@ -99,43 +102,43 @@ export const storeApi = createApi({
       }),
       providesTags: ["listings"],
     }),
-        confirmDelivery: build.mutation<boolean, string>({
+    confirmDelivery: build.mutation<boolean, string>({
       query: (token) => ({
         url: "/api/store/confirm-delivery",
-        params:{
-          token
+        params: {
+          token,
         },
-        method:'put'
+        method: "put",
       }),
     }),
-           confirmReturn: build.mutation<boolean, string>({
+    confirmReturn: build.mutation<boolean, string>({
       query: (token) => ({
         url: "/api/store/confirm-return",
-        params:{
-          token
+        params: {
+          token,
         },
-        method:'put'
+        method: "put",
       }),
     }),
-          isDeliveryConfirmed: build.query<boolean, string>({
+    isDeliveryConfirmed: build.query<boolean, string>({
       query: (token) => ({
         url: "/api/store/verify-confirmation",
-        params:{
-          token
+        params: {
+          token,
         },
       }),
     }),
 
-              isReturnConfirmed: build.query<boolean, string>({
+    isReturnConfirmed: build.query<boolean, string>({
       query: (token) => ({
         url: "/api/store/verify-return",
-        params:{
-          token
+        params: {
+          token,
         },
       }),
     }),
+   
   }),
-  
 });
 export const {
   useGetStoreListingsFeedQuery,
@@ -151,5 +154,5 @@ export const {
   useGetTop8ProductCategoriesQuery,
   useIsDeliveryConfirmedQuery,
   useIsReturnConfirmedQuery,
-  useConfirmReturnMutation
+  useConfirmReturnMutation,
 } = storeApi;

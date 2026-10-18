@@ -3,11 +3,10 @@ import { useTranslation } from "react-i18next";
 import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "../css/AddListing.css";
-import { ITEM_SIZE, SHIPPING_METHOD } from "../data/data";
+import { ITEM_SIZE } from "../data/data";
 import { useEditListingMutation } from "../features/api/itemApi";
 import {
-  useGetAllParentCategoriesQuery,
-  useLazyGetListingQuery,
+  useLazyGetListingQuery
 } from "../features/api/storeApi";
 import {
   useGetAllConditionsQuery,
@@ -90,6 +89,7 @@ const EditListing = () => {
       quantity: "1",
       condition: listing.productCondition,
       brand: listing.brand,
+    minPrice:String(listing.priceDto.sellerMinPrice),
       sku: listing.sku || "EA",
       shippingInfo: listing.shipping,
       status: listing.inventoryStatus,
@@ -97,6 +97,12 @@ const EditListing = () => {
       imageSortOrder: [],
       shippingMethod: listing.shippingMethod,
       itemSize: listing.itemSize,
+           model: listing.model,
+          itemNumber: listing.itemNumber,
+          width: String(listing.width),
+          height: String(listing.height),
+          depth: String(listing.depth ),
+           yearMade: String(listing.productionYear),
     });
 
     setCategory(listing.category);
@@ -113,31 +119,21 @@ const EditListing = () => {
   /**
    * Errors
    */
-  const [brandError, setBrandError] = useState<string>("");
-  const [priceError, setPriceError] = useState<string>("");
-  const [categoryError, setCategoryError] = useState<string>("");
-  const [nameError, setNameError] = useState<string>("");
-  const [descriptionError, setDescriptionError] = useState<string>("");
-  const [conditionError, setConditionError] = useState<string>("");
-  const [imageError, setImageError] = useState<string>("");
-  const [shippingError, setShippingError] = useState<string>("");
-  const [shippingMethodError, setShippingMethodError] = useState<string>("");
-  const [itemSizeError, setItemSizeError] = useState<string>("");
+  const [error, setError] = useState<string>('');
   /**
    * * crud hooks
    */
-  const { data: categories = [] } = useGetAllParentCategoriesQuery();
   const [editLisitng] = useEditListingMutation();
 
-  const [formData, setFormData] = useState<TProductData>({
-    id: -1,
+   const [formData, setFormData] = useState<TProductData>({
+    id: 1,
     name: "",
     category: {
       name: "",
       path: "",
     },
     description: "",
-    price: "",
+    price: "2",
     quantity: "1",
     condition: "",
     brand: "",
@@ -148,15 +144,18 @@ const EditListing = () => {
     imageSortOrder: [],
     shippingMethod: "",
     itemSize: "",
+    yearMade: "",
+    model: "",
+    minPrice:'',
+    itemNumber: "",
+    width: "",
+    height: "",
+    depth: "",
   });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    // Dynamic clean up based on field names
-    if (name === "brand" && brandError) setBrandError("");
-    if (name === "name" && nameError) setNameError("");
-
+    setError('')
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -165,13 +164,7 @@ const EditListing = () => {
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
-
-    // Dynamic clean up based on field names
-    if (name === "condition" && conditionError) setConditionError("");
-    if (name === "category" && categoryError) setCategoryError("");
-    if (name === "itemSize" && itemSizeError) setItemSizeError("");
-    if (name === "shippingMethod" && shippingMethodError) setShippingError("");
-
+    setError('')
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -180,11 +173,7 @@ const EditListing = () => {
 
   const handleTextInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-
-    // Dynamic clean up based on field names
-    if (name === "shipping" && nameError) setShippingError("");
-    if (name === "description" && brandError) setDescriptionError("");
-
+    setError('')
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -193,9 +182,6 @@ const EditListing = () => {
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files as FileList);
-
-    // Dynamic clean up based on field names
-    setImageError("");
 
     const newImages = files.map((file) => ({
       file,
@@ -230,27 +216,35 @@ const EditListing = () => {
     productData.status = action;
 
     const dataToSend = new FormData();
-    dataToSend.append("id", String(productData.id));
     dataToSend.append("name", productData.name);
+      dataToSend.append("id",String( listingId));
     dataToSend.append("description", productData.description);
     dataToSend.append("condition", productData.condition);
+    dataToSend.append("shippingInfo", productData.shippingInfo);
     dataToSend.append("brand", productData.brand);
     dataToSend.append("status", productData.status);
-    dataToSend.append("categoryPath", category.path || formData.category.path);
+    dataToSend.append("categoryPath", category.path);
     dataToSend.append("price", productData.price);
+    dataToSend.append("minPrice", productData.minPrice||'0.00');
     dataToSend.append("sku", productData.sku);
     dataToSend.append("itemSize", productData.itemSize);
-    dataToSend.append("shippingInfo", productData.shippingInfo);
-    //dataToSend.append("shippingMethod", productData.shippingMethod);
+    dataToSend.append("productionYear", productData.yearMade);
+    dataToSend.append("model", productData.model);
+    dataToSend.append("itemNumber", productData.itemNumber);
+    dataToSend.append("width", productData.width);
+    dataToSend.append("height", productData.height);
+    dataToSend.append("depth", productData.depth);
 
     images.forEach((file, index) => {
       dataToSend.append("images", file.file);
       dataToSend.append("imageSortOrder", String(index));
     });
 
+   // console.log(Object.fromEntries(dataToSend));
+    
+
     try {
       const response = await editLisitng(dataToSend);
-      console.log(response);
 
       if (response.data?.httpStatus === 200) {
         if (roles.includes("ROLE_ADMIN")) {
@@ -260,53 +254,34 @@ const EditListing = () => {
         }
       }
 
-      if (response.error) {
-        type TError = {
-          price: string;
-          name: string;
-          description: string;
-          status: string;
-          category: string;
-          brand: string;
-          condition: string;
-          shippingInfo: string;
-          shippingMethod: string;
-          itemSize: string;
+         if (response.error) {
+        const errorResponse = response.error as {
+          data?: {
+            message?: any;
+            error?: Record<string, unknown>;
+          };
+          status?: number;
+          message?: string;
         };
 
-        const { data, status } = response?.error as {
-          data: any;
-          message: string;
-          status: number;
-        };
-        if (status === 400) {
-          setImageError(data.error ? (data.error as string) : "");
-        }
+        const messages: string[] = [];
+        const responseMessage = errorResponse.data?.message as
+          | string
+          | Record<string, string>;
 
-        if (status === 413) {
-          setImageError(data.error);
-        }
+        if (typeof responseMessage === "string") {
+          setError(responseMessage);
+        } else {
+          const errors = Object.values(responseMessage);
 
-        const {
-          name,
-          description,
-          category,
-          brand,
-          condition,
-          shippingInfo,
-          price,
-          shippingMethod,
-          itemSize,
-        } = data.error as TError;
-        setNameError(name);
-        setConditionError(condition);
-        setCategoryError(category);
-        setDescriptionError(description);
-        setBrandError(brand);
-        setShippingError(shippingInfo);
-        setPriceError(price);
-        setShippingMethodError(shippingMethod);
-        setItemSizeError(itemSize);
+          if (messages.length === 0 && errorResponse.message) {
+            errors.map((error) => {
+              messages.push(error);
+            });
+          }
+    
+          setError(errors.join("\n"));
+        }
       }
     } catch (error: any) {}
   };
@@ -325,14 +300,14 @@ const EditListing = () => {
       <header className="add-product__header">
         <div className="add-product__header-left">
           <Link
-            to="/account/listings/me"
+            to={"/account/listings/me"}
             className="add-product__back"
           >
             <FiArrowLeft />
           </Link>
 
           <div>
-            <h1>{t("add_listing.header.title_edit")}</h1>
+            <h1>{t("add_listing.header.title_add")}</h1>
             <p>{t("add_listing.header.subtitle")}</p>
           </div>
         </div>
@@ -356,6 +331,12 @@ const EditListing = () => {
           </button>
         </div>
       </header>
+      <div
+        className="add-product__error-container"
+        role="alert"
+      >
+        {error && <span className="add-product__error-text">{error}</span>}
+      </div>
 
       {/* =====================================================
                 FORM
@@ -425,9 +406,6 @@ const EditListing = () => {
                   </label>
                 )}
               </div>
-              {imageError && (
-                <span className="form-field__error-msg">{imageError}</span>
-              )}
             </section>
 
             {/* Basic Information */}
@@ -456,58 +434,14 @@ const EditListing = () => {
                       required
                     />
                   </div>
-                  {/* Fallback handling for downstream pricing or general shippingErrors if passed */}
-                  {nameError && (
-                    <span className="form-field__error-msg">{nameError}</span>
-                  )}
                 </div>
 
-                <div
-                  className="form-field"
-                  style={{ display: "none" }}
-                >
-                  <label htmlFor="category">
-                    {t("add_listing.fields.category.label")}
-                  </label>
-
-                  <select
-                    id="category"
-                    name="category"
-                    value={formData.category.name}
-                    onChange={handleSelectChange}
-                  >
-                    <option
-                      value=""
-                      disabled
-                    >
-                      {t("add_listing.fields.category.placeholder")}
-                    </option>
-
-                    {categories?.map((category) => {
-                      return (
-                        <option
-                          key={category.id}
-                          value={category.name}
-                        >
-                          {t(
-                            `category_names.${sanitizeBackendKey(category.slug.toLowerCase())}`,
-                          )}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  {/* Fallback handling for general shippingErrors if passed */}
-                  {categoryError && (
-                    <span className="form-field__error-msg">
-                      {categoryError}
-                    </span>
-                  )}
-                </div>
                 {/** CATEGORY */}
+
                 <CategoryDropdownSelect
-                  value={category.name}
-                  name="category"
                   onChange={handleCategoryChange}
+                  name={"category"}
+                  value={category.name}
                 />
 
                 <div className="form-field">
@@ -541,11 +475,48 @@ const EditListing = () => {
                       );
                     })}
                   </select>
-                  {conditionError && (
-                    <span className="form-field__error-msg">
-                      {conditionError}
-                    </span>
-                  )}
+                </div>
+                <div className="form-field">
+                  <label htmlFor="model">
+                    {t("add_listing.fields.automotive.model")}
+                  </label>
+
+                  <input
+                    id="model"
+                    name="model"
+                    type="text"
+                    placeholder={""}
+                    value={formData.model}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="oem_number">
+                    {t("add_listing.fields.automotive.oem_number")}
+                  </label>
+
+                  <input
+                    id="itemNumber"
+                    name="itemNumber"
+                    type="text"
+                    placeholder={""}
+                    value={formData.itemNumber}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="year">
+                    {t("add_listing.fields.automotive.year")}
+                  </label>
+
+                  <input
+                    id="yearMade"
+                    name="yearMade"
+                    type="text"
+                    placeholder={""}
+                    value={formData.yearMade}
+                    onChange={handleInputChange}
+                  />
                 </div>
 
                 <div>
@@ -569,11 +540,6 @@ const EditListing = () => {
                       {t("add_listing.fields.description.hint")}
                     </span>
                   </div>
-                  {descriptionError && (
-                    <span className="form-field__error-msg">
-                      {descriptionError}
-                    </span>
-                  )}
                 </div>
               </div>
             </section>
@@ -590,7 +556,7 @@ const EditListing = () => {
               <div className="form-grid">
                 <div className="form-field">
                   <label htmlFor="price">
-                    {t("add_listing.fields.price.label")}
+                    {t("add_listing.fields.price.price")}
                   </label>
 
                   <div className="input-with-prefix">
@@ -608,10 +574,30 @@ const EditListing = () => {
                       required
                     />
                   </div>
-                  {priceError && (
-                    <span className="form-field__error-msg">{priceError}</span>
-                  )}
                 </div>
+
+                   <div className="form-field">
+                  <label htmlFor="price">
+                    {t("add_listing.fields.price.min_price")}
+                  </label>
+
+                  <div className="input-with-prefix">
+                    <span>zł</span>
+
+                    <input
+                      id="minPrice"
+                      name="minPrice"
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      placeholder="0.00"
+                      value={formData.minPrice}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+                
 
                 <div className="form-field">
                   <label htmlFor="quantity">
@@ -638,9 +624,6 @@ const EditListing = () => {
                     value={formData.brand}
                     onChange={handleSelectChange}
                   />
-                  {brandError && (
-                    <span className="form-field__error-msg">{brandError}</span>
-                  )}
                 </div>
 
                 <div className="form-field">
@@ -665,47 +648,7 @@ const EditListing = () => {
               <div className="product-section__header">
                 <div>
                   <h2>{t("add_listing.sections.shipping.title")}</h2>
-                  <p>{t("add_listing.sections.shipping.subtitle")}</p>
                 </div>
-              </div>
-
-              <div
-                className="form-field"
-                style={{ display: "none" }}
-              >
-                <label htmlFor="shippingMethod">
-                  {t("add_listing.fields.shipping_method.label")}
-                </label>
-
-                <select
-                  id="shippingMethod"
-                  name="shippingMethod"
-                  value={formData.shippingMethod}
-                  onChange={handleSelectChange}
-                >
-                  <option
-                    value=""
-                    disabled
-                  >
-                    {t("add_listing.fields.shipping_method.placeholder")}
-                  </option>
-
-                  {SHIPPING_METHOD.map((method) => {
-                    return (
-                      <option
-                        key={method.id}
-                        value={method.value}
-                      >
-                        {method.method}
-                      </option>
-                    );
-                  })}
-                </select>
-                {shippingMethodError && (
-                  <span className="form-field__error-msg">
-                    {shippingMethodError}
-                  </span>
-                )}
               </div>
 
               {/** ITEM SIZE */}
@@ -740,9 +683,51 @@ const EditListing = () => {
                     );
                   })}
                 </select>
-                {itemSizeError && (
-                  <span className="form-field__error-msg">{itemSizeError}</span>
-                )}
+              </div>
+
+              <div>
+                <div className="form-field">
+                  <label htmlFor="width">
+                    {t("add_listing.fields.dimension.width")}
+                  </label>
+
+                  <input
+                    id="width"
+                    name="width"
+                    type="text"
+                    placeholder={""}
+                    value={formData.width}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="height">
+                    {t("add_listing.fields.dimension.height")}
+                  </label>
+
+                  <input
+                    id="height"
+                    name="height"
+                    type="text"
+                    placeholder={""}
+                    value={formData.height}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="depth">
+                    {t("add_listing.fields.dimension.depth")}
+                  </label>
+
+                  <input
+                    id="depth"
+                    name="depth"
+                    type="text"
+                    placeholder={""}
+                    value={formData.depth}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
 
               <div className="form-field shippingInfo">
@@ -761,9 +746,6 @@ const EditListing = () => {
                   onChange={handleTextInputChange}
                 />
               </div>
-              {shippingError && (
-                <span className="form-field__error-msg">{shippingError}</span>
-              )}
             </section>
           </div>
 

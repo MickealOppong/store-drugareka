@@ -53,6 +53,8 @@ import Orders from "./pages/Orders";
 import { store } from "./store";
 
 import EditCondition from "./components/EditCondition";
+import PayUAmlOnboarding from "./components/PayUAmlOnbaording";
+import AdminPayout from "./pages/AdminPayouts";
 import ConfirmShipment from "./pages/ConfirmShipment";
 import { loader as landingLoader } from "./pages/Landing";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -170,6 +172,10 @@ function App() {
           path: "listings/me",
           element: <UserProductView />,
         },
+           {
+          path: "/account/payments/onboarding",
+          element: <PayUAmlOnboarding />,
+        },
         {
           path: "wishlist",
           element: <WishList />,
@@ -217,7 +223,7 @@ function App() {
         },
         {
           path: "admin/payouts",
-          element: <SellerPayout />,
+          element: <AdminPayout />,
         },
         {
           path: "admin/users",

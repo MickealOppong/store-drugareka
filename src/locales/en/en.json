@@ -385,7 +385,8 @@
     "product": {
       "add_wishlist": "Add to favorites",
       "buy_btn": "Buy product",
-      "edit_btn": "Edit listing"
+      "edit_btn": "Edit listing",
+      "make_offer":"Make an offer"
     },
     "filter_drawer": {
       "title": "Filters",
@@ -752,6 +753,7 @@
         "payout_id": "Settlement ID",
         "order": "Order",
         "status": "Status",
+        "transfer_id":"Transfer id",
         "currency": "Currency",
         "total": "Amount",
         "actions": "Actions"
@@ -764,7 +766,12 @@
         "failed": "Failed",
         "cancelled": "Cancelled",
         "created": "Created",
-        "refund": "Refund"
+        "refund": "Refund",
+        "approved":"Approved",
+        "processing":"Processing",
+        "Ready_for_review":"Ready for review",
+        "reversed":"Reversed",
+        "transferred":"Transferred"
       }
     }
   },
@@ -1008,7 +1015,8 @@
         "hint": "Describe the product accurately and clearly."
       },
       "price": {
-        "label": "Price"
+        "price": "Price",
+         "min_price": "Minimum price acceptable"
       },
       "quantity": {
         "label": "Quantity"
@@ -1037,6 +1045,16 @@
       "shipping_info": {
         "label": "Shipping information",
         "placeholder": "e.g. Shipping within 2-3 business days. Shipping costs are covered by the buyer."
+      },
+      "dimension":{
+        "width":"Width",
+        "height":"Height",
+        "depth":"Depth"
+      },
+      "automotive":{
+        "oem_number":"OEM number / Part number/ Item number",
+        "year":"Year of Manufacture",
+        "model":"Model"
       },
       "cargo_sizes": {
         "label": "Item size",
@@ -1099,7 +1117,7 @@
       "eyebrow": "Transaction Confirmed",
       "title": "Payment Successful!",
       "description": "Thank you for your purchase. Your payment has been securely processed and funds are now safely held in our protected escrow pool.",
-      "session_label": "Order Reference",
+      "session_label": "Paynent reference",
       "next_steps_title": "What happens next?",
       "next_steps_desc": "The seller has been notified via private server manifest to package your items. Your escrow protection clock will run for 72 hours following courier delivery confirmation.",
       "support_hint": "If you experience any complications or logistics delays, contact our team immediately at",
@@ -1328,8 +1346,9 @@
       "amount_label": "Settlement Amount:"
     },
     "fields": {
-      "checkbox_label": "Mark payout as paid",
-      "date_label": "Payment Execution Date (paidAt)"
+      "checkbox_label": "Mark payout for update",
+      "date_label": "Payment Execution Date (paidAt)",
+      "payout_status":"Payout status"
     },
     "warning": {
       "bold": "Accounting rule:",
@@ -1477,5 +1496,31 @@
     "message": "To list an item on Kasoa.pl, you must first provide a valid pickup/shipping address inside your seller profile. This ensures buyers can accurately calculate logistics rates.",
     "btn_close": "Go Back",
     "btn_profile": "Add Address Now"
+  },
+  "make_offer_modal": {
+    "header": {
+      "badge": "Make an offer"
+    },
+    "body": {
+      "title": "Bargain a Price",
+      "description": "The seller might be willing to offer a discount. Use this form to propose a price. If the seller accepts, you can add the item to your cart at the proposed price immediately."
+    },
+    "summary": {
+      "product_name": "Product name",
+      "list_price": "List price",
+      "reduced_price": "Reduced price"
+    },
+    "fields": {
+      "offer_label": "Your proposed offer"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "submit": "Submit offer",
+      "checkout": "Secure checkout"
+    },
+    "validation": {
+      "invalid_amount": "Please enter a valid price greater than zero.",
+      "generic_error": "Unable to process offer. Please refresh and try again."
+    }
   }
 }

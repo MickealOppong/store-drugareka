@@ -6,4 +6,5 @@ export type TPriceDto={
     sellerNewPrice:number,
     newServiceCharge:number
     oldServiceCharge:number
+    sellerMinPrice:number
 }

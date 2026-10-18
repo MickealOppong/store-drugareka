@@ -385,7 +385,8 @@
     "product": {
       "add_wishlist": "Dodaj do ulubionych",
       "buy_btn": "Kup produkt",
-      "edit_btn": "Edytuj ofertę"
+      "edit_btn": "Edytuj ofertę",
+      "make_offer":"Złożyć ofertę"
     },
     "filter_drawer": {
       "title": "Filtry",
@@ -740,23 +741,29 @@
     "table": {
       "headers": {
         "seller": "Sprzedawca",
-        "payout_id": "ID rozliczenia",
+  "transfer_id": "Identyfikator przelewu",
         "order": "Zamówienie",
         "status": "Status",
         "currency": "Waluta",
         "total": "Kwota",
         "actions": "Ackje"
       },
-      "statuses": {
+         "statuses": {
         "pending": "Oczekujące",
-        "pending_payout": "Oczekuje na wypłatę",
+        "pending_payout": "Oczekuje na płatność",
         "paid": "Opłacone",
         "completed": "Zakończone",
-        "failed": "Nieudane",
+        "failed": "Niepowodzenie",
         "cancelled": "Anulowane",
         "created": "Utworzone",
-        "refund": "Zwrot pieniężny"
+        "refund": "Zwrócone",
+        "approved": "Zatwierdzone",
+        "processing": "W trakcie przetwarzania",
+        "Ready_for_review": "Gotowe do weryfikacji",
+        "reversed": "Cofnięte",
+        "transferred": "Przelane"
       }
+
     }
   },
   "STORE": {
@@ -998,7 +1005,8 @@
         "hint": "Opisz produkt dokładnie i jasno."
       },
       "price": {
-        "label": "Cena"
+        "price": "Cena",
+          "min_price": "Minimalna akceptowana cena"
       },
       "quantity": {
         "label": "Ilość"
@@ -1023,6 +1031,16 @@
           "palette": "Przesyłka Paletowa (Ciężka)"
         }
       },
+       "dimension": {
+    "width": "Szerokość",
+    "height": "Wysokość",
+    "depth": "Głębokość"
+  },
+  "automotive": {
+    "oem_number": "Numer OEM / Numer części / Numer produktu",
+    "year": "Rok produkcji",
+    "model": "Model"
+  },
       "shipping_info": {
         "label": "Informacje o wysyłce",
         "placeholder": "np. Wysyłka w ciągu 2–3 dni roboczych. Koszt wysyłki pokrywa kupujący."
@@ -1088,7 +1106,7 @@
       "eyebrow": "Transakcja Sfinalizowana",
       "title": "Płatność Zakończona Sukcesem!",
       "description": "Dziękujemy za zakupy. Twoja płatność została pomyślnie autoryzowana, a środki finansowe zostały bezpiecznie ulokowane na chronionym rachunku depozytowym escrow.",
-      "session_label": "Numer zamówienia",
+      "session_label": "Numer płatnosci",
       "next_steps_title": "Co dzieje się teraz?",
       "next_steps_desc": "Sprzedawca został niezwłocznie powiadomiony systemowo o konieczności przygotowania przesyłki gabarytowej. Twój zegar ochrony transakcji będzie odliczał 72 godziny od momentu doręczenia paczki przez kuriera.",
       "support_hint": "W przypadku jakichkolwiek problemów technicznych lub opóźnień logistycznych, prosimy o natychmiastowy kontakt z zespołem pod adresem",
@@ -1330,8 +1348,9 @@
       "amount_label": "Kwota do Rozliczenia:"
     },
     "fields": {
-      "checkbox_label": "Oznacz wypłatę jako opłaconą (Paid)",
-      "date_label": "Data Realizacji Przelewu (paidAt)"
+  "checkbox_label": "Zaznacz wypłatę do aktualizacji",
+      "date_label": "Data Realizacji Przelewu (paidAt)",
+      "payout_status": "Status wypłaty"
     },
     "warning": {
       "bold": "Zasada księgowości:",
@@ -1479,5 +1498,31 @@
     "message": "Przed wystawieniem przedmiotu na Kasoa.pl musisz podać prawidłowy adres odbioru/wysyłki w swoim profilu sprzedawcy. Pozwoli to kupującym na dokładne obliczenie kosztów dostawy.",
     "btn_close": "Wróć",
     "btn_profile": "Dodaj Adres Teraz"
+  },
+  "make_offer_modal": {
+    "header": {
+      "badge": "Złóż ofertę"
+    },
+    "body": {
+      "title": "Negocjuj cenę",
+      "description": "Sprzedawca może być skłonny do obniżenia ceny. Użyj tego formularza, aby zaproponować kwotę. Jeśli sprzedawca ją zaakceptuje, będziesz mógł natychmiast dodać produkt do koszyka w wynegocjowanej cenie."
+    },
+    "summary": {
+      "product_name": "Nazwa produktu",
+      "list_price": "Cena katalogowa",
+      "reduced_price": "Obniżona cena"
+    },
+    "fields": {
+      "offer_label": "Twoja propozycja ceny"
+    },
+    "buttons": {
+      "cancel": "Anuluj",
+      "submit": "Wyślij ofertę",
+      "checkout": "Bezpieczna płatność"
+    },
+    "validation": {
+      "invalid_amount": "Proszę podać poprawną kwotę większą od zera.",
+      "generic_error": "Nie udało się zapisać oferty. Odśwież stronę i spróbuj ponownie."
+    }
   }
 }

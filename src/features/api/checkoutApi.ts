@@ -10,56 +10,83 @@ export const checkoutApi = createApi({
 
     prepareHeaders: (headers) => {
       // RTK Query runs this function EVERY time you make a request
-     const token = CookieService.get("tk") ?? "";
+      const token = CookieService.get("tk") ?? "";
 
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
         //  headers.set('Content-Type','application/json')
       }
-                  // user preferred langauge selected
-      const currentLanguage = localStorage.getItem('i18nextLng') as string
+      // user preferred langauge selected
+      const currentLanguage = localStorage.getItem("i18nextLng") as string;
       headers.set("Accept-Language", currentLanguage);
       return headers;
     },
   }),
-  tagTypes: ['checkout'],
+  tagTypes: ["checkout"],
   endpoints: (build) => ({
-    checkoutBuyerPayU: build.mutation<TResponseDto,void>({
+    checkoutBuyerPayU: build.mutation<TResponseDto, void>({
       query: () => ({
         url: "/api/checkout/payU",
-        method:"POST",
+        method: "POST",
       }),
-      invalidatesTags:['checkout']
+      invalidatesTags: ["checkout"],
     }),
-       checkoutBuyerStripe: build.mutation<TResponseDto,void>({
+    checkoutBuyerStripe: build.mutation<TResponseDto, void>({
       query: () => ({
         url: "/api/checkout/stripe",
-        method:"POST",
+        method: "POST",
       }),
-      invalidatesTags:['checkout']
+      invalidatesTags: ["checkout"],
     }),
-stripeBuyNow: build.mutation<TResponseDto,number>({
+    stripeBuyNow: build.mutation<TResponseDto, number>({
       query: (listingId) => ({
         url: "/api/checkout/stripe-buy-now",
-        params:{
+        params: {
           listingId,
         },
-        method:"POST",
+        method: "POST",
       }),
-      invalidatesTags:['checkout']
+      invalidatesTags: ["checkout"],
     }),
-    payUbuyNow: build.mutation<TResponseDto,{listingId:number,locale:string}>({
-      query: ({listingId,locale}) => ({
-        url: "/api/checkout/payU-buy-now",
-        params:{
-          listingId,locale
+     stripeOfferBuyNow: build.mutation<TResponseDto, {listingId:number,offer:number}>({
+      query: ({listingId,offer}) => ({
+        url: "/api/checkout/stripe-offer-buy-now",
+        params: {
+          listingId,offer
         },
-        method:"POST",
+        method: "POST",
       }),
-      invalidatesTags:['checkout']
+      invalidatesTags: ["checkout"],
+    }),
+    payUbuyNow: build.mutation<
+      TResponseDto,
+      { listingId: number; locale: string }
+    >({
+      query: ({ listingId, locale }) => ({
+        url: "/api/checkout/payU-buy-now",
+        params: {
+          listingId,
+          locale,
+        },
+        method: "POST",
+      }),
+      invalidatesTags: ["checkout"],
+    }),
+    getPaymentStatus: build.query<String, string>({
+      query: (paymentId) => ({
+        url: "/api/payment/status",
+        params: {
+          paymentId,
+        },
+      }),
     }),
   }),
 });
-export const { 
-    useCheckoutBuyerStripeMutation,useStripeBuyNowMutation,usePayUbuyNowMutation,useCheckoutBuyerPayUMutation
+export const {
+  useCheckoutBuyerStripeMutation,
+  useStripeBuyNowMutation,
+  usePayUbuyNowMutation,
+  useCheckoutBuyerPayUMutation,
+  useGetPaymentStatusQuery,
+  useStripeOfferBuyNowMutation
 } = checkoutApi;

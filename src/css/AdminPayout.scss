@@ -1,0 +1,508 @@
+@use "sass:color";
+@use "Variables.scss"; 
+
+/* ==========================================================================
+   MASTER MANAGEMENT CONTAINER STYLES (.admin-payout)
+   ========================================================================== */
+.admin-payout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  box-sizing: border-box;
+  font-family: Variables.$font-sans;
+
+  @include Variables.media-up(Variables.$breakpoint-lg) {
+    padding: 3rem 1.5rem;
+  }
+
+  /* =========================================================
+     HEADER TOOLBAR CONFIGURATIONS
+     ========================================================= */
+  &__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1.5rem;
+
+    h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.025em;
+
+      @include Variables.media-up(Variables.$breakpoint-sm) {
+        font-size: 1.85rem;
+      }
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.5;
+      max-width: 600px;
+    }
+  }
+
+  &__refresh {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 0.6rem 1.15rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+
+    &:hover:not(:disabled) {
+      background-color: #f8fafc;
+      color: Variables.$color-primary;
+      border-color: color.adjust(#cbd5e1, $lightness: -8%);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    svg {
+      font-size: 0.95rem;
+      transition: transform 0.25s ease;
+
+      &.is-spinning {
+        animation: adminRefreshSpin 1s linear infinite;
+      }
+    }
+  }
+
+  /* =========================================================
+     FILTERS & HORIZONTAL SCROLL SEGMENTED TABS
+     ========================================================= */
+  &__filters {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+
+    @include Variables.media-up(Variables.$breakpoint-md) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__search {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+
+    svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      color: #94a3b8;
+      pointer-events: none;
+    }
+
+    input[type="search"] {
+      width: 100%;
+      height: 44px;
+      padding: 0 1rem 0 2.75rem;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: #0f172a;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.02);
+
+      &::placeholder {
+        color: #94a3b8;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: var(--color-primary, #66704a);
+        box-shadow: 0 0 0 3px rgba(102, 112, 74, 0.12);
+      }
+    }
+  }
+
+  &__tabs {
+    display: flex;
+    flex-direction: row;
+    gap: 0.35rem;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none; // Hides default scrollbar tracks on Firefox
+
+    &::-webkit-scrollbar {
+      display: none; // Hides default scrollbar tracks on Chrome / Safari
+    }
+  }
+
+  &__tab {
+    white-space: nowrap;
+    background: none;
+    border: none;
+    padding: 0.55rem 1.15rem;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover {
+      color: #0f172a;
+      background-color: #f1f5f9;
+    }
+
+    &--active {
+      color: #ffffff;
+      background-color: var(--color-primary, #66704a) !important;
+      box-shadow: 0 4px 12px rgba(102, 112, 74, 0.18);
+    }
+  }
+
+  /* =========================================================
+     NOTICES & ACTION BANNERS
+     ========================================================= */
+  &__notice,
+  &__error {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    line-height: 1.5;
+    box-sizing: border-box;
+    white-space: pre-line;
+  }
+
+  &__notice {
+    color: #15803d;
+    background-color: #f0fdf4;
+    border: 1px solid rgba(22, 163, 74, 0.15);
+  }
+
+  &__error {
+    color: #b91c1c;
+    background-color: #fef2f2;
+    border: 1px solid rgba(220, 38, 38, 0.15);
+  }
+
+  /* =========================================================
+     BATCH ACTION OVERLAY SLATE BAR
+     ========================================================= */
+  &__bulk-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background-color: #0f172a; // High-contrast carbon gray contextual footer
+    border-radius: 14px;
+    padding: 0.85rem 1.5rem;
+    box-sizing: border-box;
+    color: #ffffff;
+    animation: adminBatchBarPop 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+    span {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: var(--color-primary, #66704a);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.55rem 1.25rem;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+      &:hover:not(:disabled) {
+        background-color: color.adjust(#66704a, $lightness: 5%);
+        transform: translateY(-1px);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  /* =========================================================
+     THE FLEXIBLE DATA TABLE FRAMEWORK
+     ========================================================= */
+  &__table-container {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.015);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+
+    thead {
+      background-color: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+
+      th {
+        padding: 1rem 1.25rem;
+        font-weight: 700;
+        color: #475569;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #f1f5f9;
+        transition: background-color 0.2s ease;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &:hover {
+          background-color: #f8fafc;
+        }
+      }
+
+      td {
+        padding: 1.15rem 1.25rem;
+        color: #334155;
+        vertical-align: middle;
+      }
+    }
+
+    // Explicit structural column alignment controls
+    input[type="checkbox"] {
+      cursor: pointer;
+      transform: scale(1.15);
+      accent-color: var(--color-primary, #66704a);
+      display: block;
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+      }
+    }
+  }
+
+  &__order-number {
+    font-weight: 700;
+    color: #0f172a;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__amount {
+    font-weight: 700;
+    color: #0f172a;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__no-action {
+    color: #94a3b8;
+    font-weight: 500;
+  }
+
+  /* =========================================================
+     COMPLIANT PILL BADGES MAPPING (V1/V2 States)
+     ========================================================= */
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+
+    &--ready_for_review {
+      background-color: #fef3c7;
+      color: #d97706;
+    }
+
+    &--approved {
+      background-color: #ecfdf5;
+      color: #059669;
+    }
+
+    &--processing {
+      background-color: #eff6ff;
+      color: #2563eb;
+    }
+
+    &--transferred {
+      background-color: #f0fdf4;
+      color: #16a34a;
+    }
+
+    &--failed,
+    &--rejected {
+      background-color: #fef2f2;
+      color: #dc2626;
+    }
+  }
+
+  &__approve {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background-color: #f1f5f9;
+    color: #1e293b;
+    border: none;
+    border-radius: 6px;
+    padding: 0.45rem 0.85rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover:not(:disabled) {
+      background-color: var(--color-primary, #66704a);
+      color: #ffffff;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    svg {
+      font-size: 0.9rem;
+    }
+  }
+
+  // Blank status panel handler view layouts
+  &__state {
+    padding: 5rem 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+
+    &--error {
+      color: #dc2626;
+    }
+
+    button {
+      background-color: #0f172a;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1.25rem;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      &:hover {
+        background-color: #1e293b;
+      }
+    }
+  }
+  /* =========================================================
+PAGINATION BUTTON CONTROLLER NAVIGATION BAR
+========================================================= */
+  &__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    span {
+      font-variant-numeric: tabular-nums;
+    }
+    button {
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 0.5rem 1.15rem;
+      font-family: inherit;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      &:hover:not(:disabled) {
+        background-color: #f8fafc;
+        border-color: #94a3b8;
+        color: #0f172a;
+      }
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+/* ==========================================================================
+SYSTEM MOTION ANIMATION PROCEDURES (KEYFRAMES)
+========================================================================== */
+@keyframes adminRefreshSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes adminBatchBarPop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

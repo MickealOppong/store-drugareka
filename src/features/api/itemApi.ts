@@ -33,7 +33,7 @@ export const itemApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["categories",'wishlists','products','orders','complaints','shipment','shipments'],
+  tagTypes: ["categories",'wishlists','products','orders','complaints','shipment','shipments','users','user','listings','listing'],
   endpoints: (build) => ({
     addListing: build.mutation<TResponseDto, FormData>({
       query: (body) => ({
@@ -41,7 +41,7 @@ export const itemApi = createApi({
         method: "post",
         body,
       }),
-      invalidatesTags:['products']
+      invalidatesTags:['products','users','user']
     }),
       deleteListing: build.mutation<void, number>({
       query: (listingId) => ({
@@ -94,7 +94,7 @@ export const itemApi = createApi({
         },
         method:"POST"
       }),
-      invalidatesTags:['wishlists']
+         invalidatesTags: ["wishlists"],
     }),
         addCourierPrice: build.mutation<TResponseDto,TShipmentPriceInput>({
       query: (body) => ({
@@ -217,6 +217,15 @@ export const itemApi = createApi({
       }),
  providesTags:['shipments']
     }),
+     makeOffer: build.mutation<TResponseDto, {listingId:number,offer:number}>({
+          query: ({listingId,offer}) => ({
+            url: "/api/item/make-offer",
+            params: {
+              listingId,offer
+            },
+            method:"POST"
+          }),
+        }),
   }),
 });
 export const { useAddListingMutation,useGetMylistingsQuery,
@@ -226,5 +235,5 @@ export const { useAddListingMutation,useGetMylistingsQuery,
   useGetPurchaseOrdersQuery,useGetSaleOrdersQuery,useGetPurchaseDetailsQuery,useUpdateShipmentStatusMutation,
   useDeleteListingMutation,useLazyGetWishListsQuery,useLazyGetWishlistCountQuery,
   useCancelOrderMutation,useReturnItemMutation,useUpdateReturnShipmentStatusMutation,useAddCourierPriceMutation
-  ,useGetCouriersQuery
+  ,useGetCouriersQuery,useMakeOfferMutation
 } = itemApi;

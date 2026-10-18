@@ -1,0 +1,116 @@
+@use "sass:color";
+@use "Variables.scss" as var;
+
+// ==========================================================================
+// FLOATING RESPONSIVE TOAST NOTIFICATION ENGINE (10-SECOND TIMELINE)
+// ==========================================================================
+
+.cart-alert-summary {
+  position: fixed;
+  z-index: 10000; // Floats decisively over absolute navigation, sticky wrappers, and modals
+  box-sizing: border-box;
+  font-family: var.$font-sans;
+  
+  // 🚀 FIXED POSITIONING RESPONSIVE GRID
+  // Mobile Default: Anchored at the bottom center of the screen
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 2.5rem); // Fluid widths on small mobile screens
+  max-width: 420px;
+
+  // Desktop Override: Snaps cleanly to the top-right viewport sector
+  @include var.media-up(var.$breakpoint-md) {
+    top: 1.5rem;
+    right: 1.5rem;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: 420px;
+  }
+
+  // 🚀 10-SECOND CSS TIMELINE CONTROLLER
+  // Handles: 0-3% (slide/fade entry), 3-93% (hold view), 93-100% (slide/fade exit)
+  animation: toastLifecycle 10s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, visibility;
+}
+
+.cart-alert-row--reserved {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px; // Modern smooth corner detailing for toasts
+  box-sizing: border-box;
+  
+  // High-performance layered dropdown shadow treatment
+  box-shadow: 0 10px 15px -3px rgba(17, 11, 11, 0.08), 0 4px 6px -4px rgba(17, 11, 11, 0.04);
+  transition: var.$transition-default;
+
+  // 🚀 GLASSMORPHIC BLUR TOAST CANVAS LAYER
+  background-color: rgba(255, 255, 255, 0.9); // Semi-transparent ultra-pure canvas overlay
+  backdrop-filter: blur(12px);                 // High-performance hardware frosted backdrop filter
+  -webkit-backdrop-filter: blur(12px);         // Legacy Safari browser engine guard support
+  
+  border: 1px solid var.$color-border;
+  border-left: 4px solid var.$color-accent;   // Accent ribbon line using your crimson alert token
+
+  .cart-alert-icon {
+    color: var.$color-accent;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    min-width: calc(var.$touch-target-min * 0.4);
+  }
+
+  .cart-alert-message {
+    margin: 0;
+    color: var.$color-text-main;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: left;
+    white-space: pre-line; // Honors backend multiline split parameters safely
+  }
+
+  &:hover {
+    transform: scale(1.01);
+    border-color: color.mix(var.$color-accent, var.$color-border, 25%);
+    background-color: var.$background; // Solid white layer swap on active cursor inspection
+  }
+}
+
+// ==========================================================================
+// DUAL-ORIENTATION RESPONSIVE LIFECYCLE TIMELINE KEYFRAMES
+// ==========================================================================
+@keyframes toastLifecycle {
+  // --- Stage 1: Fluid Sliding & Fading Entry Sequence (0s -> 0.3s) ---
+  0% {
+    opacity: 0;
+    visibility: visible;
+    // Mobile entry slides up from absolute bottom, Desktop slides in from right edge
+    @media (max-width: 767px) { transform: translate(-50%, 24px); }
+    @include var.media-up(var.$breakpoint-md) { transform: translateX(40px); }
+  }
+  3% {
+    opacity: 1;
+    @media (max-width: 767px) { transform: translate(-50%, 0); }
+    @include var.media-up(var.$breakpoint-md) { transform: translateX(0); }
+  }
+
+  // --- Stage 2: Persistent Steady Active Hold Window (0.3s -> 9.3s) ---
+  93% {
+    opacity: 1;
+    visibility: visible;
+    @media (max-width: 767px) { transform: translate(-50%, 0); }
+    @include var.media-up(var.$breakpoint-md) { transform: translateX(0); }
+  }
+
+  // --- Stage 3: Smooth Slide Out & Fade Exit Deallocation (9.3s -> 10s) ---
+  100% {
+    opacity: 0;
+    visibility: hidden; // Disables interaction layer nodes cleanly after time constraints run out
+    @media (max-width: 767px) { transform: translate(-50%, 32px); }
+    @include var.media-up(var.$breakpoint-md) { transform: translateX(60px); }
+  }
+}

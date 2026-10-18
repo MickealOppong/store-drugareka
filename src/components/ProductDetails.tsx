@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineSafety } from "react-icons/ai";
 import {
@@ -13,18 +13,20 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import "../css/ProductDetails.css";
 
-import { usePayUbuyNowMutation } from "../features/api/checkoutApi";
+import { useStripeBuyNowMutation } from "../features/api/checkoutApi";
 import {
   useAddWishListMutation,
-  useLazyGetWishListsQuery,
+  useGetWishListsQuery,
 } from "../features/api/itemApi";
 import { useGetListingQuery } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
+import type { TListTrans } from "../types/TListTrans";
 import type { TResponseDto } from "../types/TResponseDto";
-import type { TWishLists } from "../types/TWishLists";
 import { formatPrice } from "../util/util";
+import { ErrorToast } from "./ErrorTaost";
 import Footer from "./Footer";
 import Loading from "./Loading";
+import MakeOfferModal from "./MakeOfferModal";
 
 // Helper function to safely translate backend condition data strings to localized dictionary keys
 const getConditionSlug = (condition: string) => {
@@ -40,20 +42,22 @@ const ProductDetails = () => {
 
   //userId to prevent seller buying own product
   const userId = useAppSelector((state) => state.userSlice.userId);
+  const username = useAppSelector((state) => state.userSlice.email);
+
+    const[openModal,setOpenModal] = useState<boolean>(false)
+    const[modalData,setModalData] = useState<{name:string,id:number,currentPrice:number}|null>(null)
 
   const [addToWish] = useAddWishListMutation();
-  const [fetchWishLists] = useLazyGetWishListsQuery();
+  const { data: wishlist = [] } = useGetWishListsQuery();
+  const wishlists = wishlist.map((item) => item.listingId);
+  const isWishlisted = wishlists.includes(Number(listingId));
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [wishlists, setWishlists] = useState<TWishLists[]>([]);
-  const Wishlists = wishlists.map((item) => item.listingId);
   // error
   const [error, setError] = useState<string>("");
 
-  const locale = localStorage.getItem("i18nextLng") as string;
-
   //buy now hook
-  const [buyNow] = usePayUbuyNowMutation()
+  const [buyNow] = useStripeBuyNowMutation();
 
   // Local interface states for media interactions
   const [activeImageIdx, setActiveImageIdx] = useState<number>(0);
@@ -65,10 +69,12 @@ const ProductDetails = () => {
     parseInt(listingId as string),
   );
 
+  
+
   /**
    * TOGGLE WISHLIST
    */
-
+  /*
   const toggleWishlist = async (listingId: number) => {
     setIsLoading(true);
     if (!isLoggin || isLoggin === "") {
@@ -76,11 +82,18 @@ const ProductDetails = () => {
       return navigate("/login");
     }
     try {
-      addToWish(listingId);
+    await addToWish(listingId);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
     }
+    setIsLoading(false)
+  };
+  */
+
+  const toggleWishlist = async (listingId: number) => {
+    if (!username) return navigate("/login");
+    await addToWish(listingId);
   };
 
   /**
@@ -92,70 +105,49 @@ const ProductDetails = () => {
       navigate("/login");
     }
     try {
-      const response = await buyNow({ listingId, locale });
-      
+      const response = await buyNow(listingId);
 
       const { data, message, httpStatus } = response.data as TResponseDto;
 
-     // console.log(data);
-      
+      // console.log(data);
+
       if (httpStatus == 400 || httpStatus == 500 || httpStatus == 403) {
         setIsLoading(false);
         setError(message);
         return;
       }
       if (httpStatus == 200) {
-       const  checkoutUrl = data;
-      if (checkoutUrl) {
-       // navigate("/checkout", { state: { clientSecret } });
-     window.location.href=checkoutUrl;
-      }
+        const checkoutUrl = data;
+        if (checkoutUrl) {
+          // navigate("/checkout", { state: { clientSecret } });
+          window.location.href = checkoutUrl;
+        }
       }
     } catch (error) {
       setIsLoading(false);
     }
   };
 
-  /**
-   *  FETCH WISHLISTS
-   */
-
-  const getWishlists = async () => {
-    if (!isLoggin || isLoggin === "") {
-      return;
-    }
-    const response = await fetchWishLists();
-    setWishlists(response.data as TWishLists[]);
-  };
-
-  useEffect(() => {
-    getWishlists();
-  }, [listingId]);
-  if (isLoading || productLoading) {
-    return <Loading />;
+  //handle modal state
+  const onModalButtonClick =()=>{
+    setOpenModal(false)
   }
 
-  if (error) {
-    return (
-      <div className="product-details__error-state">
-        <p className="product-details__error-message">{error}</p>
-        <div className="product-details_error-row">
-          <button
-            type="button"
-            className="product-details__error-btn"
-            onClick={() => navigate(0)}
-          >
-            {t("product_details.error.return_btn")}
-          </button>
-          <button
-            className="product-details__address-btn"
-            onClick={() => navigate("/account/me")}
-          >
-         {t("product_details.error.add_btn")}
-          </button>
-        </div>
-      </div>
-    );
+  //handle make offer click
+  const handleMakeOffer = (product:TListTrans)=>{
+   if (!username) return navigate("/login");
+    if(product){
+    setModalData({name:product.productName,id:product.listingId,currentPrice:product.priceDto.sellerNewPrice})
+    setOpenModal(true)
+    }
+  
+  }
+
+ 
+  
+
+  if (isLoading || productLoading) {
+    return <Loading />;
   }
 
   if (isLoading) {
@@ -185,6 +177,22 @@ const ProductDetails = () => {
             {t("product_details.nav.shop_crumb")} / {product.category.name}
           </span>
         </header>
+
+        {error && <ErrorToast errorMessage={error} />}
+
+        {/** MAKE OFFER MODAL */}
+        {openModal && (
+          <MakeOfferModal
+            productName={modalData?.name || ""}
+            id={modalData?.id || 0}
+            currentPrice={modalData?.currentPrice || 0}
+            isOpen={openModal}
+            isNegotiable={product.priceDto.sellerMinPrice!==product.priceDto.sellerNewPrice?true:false}
+            shipment={product?.shippingCost}
+            service={product?.serviceCharge}
+            onButtonClick={onModalButtonClick}
+          />
+        )}
 
         {/* =====================================================
                2. PRIMARY SINGLE PRODUCT GRID WINDOW CONTAINER
@@ -251,12 +259,10 @@ const ProductDetails = () => {
               </span>
             </div>
 
-             <div className="product-details__condition-badge">
+            <div className="product-details__condition-badge">
               <span>
                 {t("product_details.info.delivery")}:{" "}
-                <strong>
-                 {product.shipping}
-                </strong>
+                <strong>{product.shipping}</strong>
               </span>
             </div>
 
@@ -304,7 +310,7 @@ const ProductDetails = () => {
               <button
                 type="button"
                 className="product-details__buy-now-btn"
-                onClick={() => quickCheckout(product.listingId)}
+                onClick={() => handleMakeOffer(product)}
               >
                 <FiShoppingBag />{" "}
                 <span>{t("product_details.actions.buy_now")}</span>
@@ -312,12 +318,12 @@ const ProductDetails = () => {
 
               <button
                 type="button"
-                className={`product-details__wishlist-btn ${Wishlists.includes(product.listingId) ? "product-details__wishlist-btn--active" : ""}`}
+                className={`product-details__wishlist-btn ${isWishlisted ? "product-details__wishlist-btn--active" : ""}`}
                 onClick={() => toggleWishlist(product.listingId)}
               >
                 <FiHeart />
                 <span>
-                  {Wishlists.includes(product.listingId)
+                  {isWishlisted
                     ? t("product_details.actions.wishlist_active")
                     : t("product_details.actions.wishlist_add")}
                 </span>
@@ -369,7 +375,7 @@ const ProductDetails = () => {
         <section className="product-details__featured-carousel">
           {/* Related item cards map injections insert loop blocks mount layer */}
         </section>
-        <Footer/>
+        <Footer />
       </section>
     );
   } else {

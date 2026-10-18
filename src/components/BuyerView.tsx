@@ -31,7 +31,7 @@ const BuyerView: React.FC = () => {
     const query = search.toLowerCase().trim();
     if (!query) return true;
     return (
-      String(order.orderNumber || order.id).includes(query) ||
+      String(order.orderNumber.toLowerCase() || order.price).includes(query) ||
       order.seller?.toLowerCase().includes(query)
     );
   });

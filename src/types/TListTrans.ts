@@ -14,6 +14,8 @@ export type TListTrans = {
     name:string,
     path:string
   }
+  shippingCost:number,
+  serviceCharge:number
 
   productName: string;
 
@@ -22,6 +24,7 @@ export type TListTrans = {
   media:TMedia[]
 sku:string
   productDescription: string;
+  isNegotiable:boolean;
 
   productCondition: string;
   shippingMethod:string
@@ -30,5 +33,11 @@ sku:string
   inventoryStatus: string;
   listingStatus: string;
   createdAt:Date,
-  itemSize:string
+  itemSize:string,
+    width:string,
+    height:string,
+    depth:string,
+    model:string,
+    productionYear:string,
+    itemNumber:string
 };

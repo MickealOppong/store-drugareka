@@ -11,6 +11,7 @@ import {
 import { Link, useNavigate, useSearchParams } from "react-router";
 import { Loading } from "../components";
 import CategoryTree from "../components/CategoryTree";
+import MakeOfferModal from "../components/MakeOfferModal";
 import "../css/Categories.scss";
 import {
   useAddWishListMutation,
@@ -23,6 +24,7 @@ import {
 } from "../features/api/storeApi";
 import { useAddToCart } from "../hooks/useAddTocart";
 import { useAppSelector } from "../store";
+import type { TListTrans } from "../types/TListTrans";
 import {
   formatPrice,
   sanitizeBackendKey,
@@ -40,6 +42,10 @@ export const Categories: React.FC = () => {
 
   const { data: wishlist = [] } = useGetWishListsQuery();
   const wishlists = wishlist.map((item) => item.listingId);
+
+  //make offer modal
+  const[openModal,setOpenModal] = useState<boolean>(false)
+    const[modalData,setModalData] = useState<{name:string,id:number,currentPrice:number}|null>(null)
 
 
   const [selectedSubCat, setSelectedSubCat] = useState<number | null>(null);
@@ -142,6 +148,20 @@ const category = findCategory()
 const { parent, child } = extractCategoryPath(category?category.path:'');
 
 
+  //handle modal state
+  const onModalButtonClick =()=>{
+    setOpenModal(false)
+  }
+
+  //handle make offer click
+  const handleMakeOffer = (product:TListTrans)=>{
+   if (!username) return navigate("/login");
+    if(product){
+    setModalData({name:product.productName,id:product.listingId,currentPrice:product.priceDto.sellerNewPrice})
+    setOpenModal(true)
+    }
+  
+  }
 
 
   if (isLoading) {
@@ -200,7 +220,7 @@ const { parent, child } = extractCategoryPath(category?category.path:'');
               {topCategories.map((category) => (
                 <Link
                   key={category.id}
-                  to={`/shop/categories?category=${category.slug}`}
+                  to={`/shop/categories?category=${category.slug}_${category.id}`}
                   className="category-card"
                 >
                   <img
@@ -364,6 +384,10 @@ const { parent, child } = extractCategoryPath(category?category.path:'');
                             defaultValue: product.productCondition,
                           })}
                         </span>
+                                {
+                      product.priceDto.sellerMinPrice!==null&& product.priceDto.sellerMinPrice!==product.priceDto.sellerNewPrice 
+                      &&  <button className="make_offer" onClick={()=>handleMakeOffer(product)}>{t("shop.product.make_offer")}</button>
+                     }
                       </div>
 
                       {/* ==========================================================================
@@ -376,6 +400,7 @@ const { parent, child } = extractCategoryPath(category?category.path:'');
                             <del>{formatPrice(oldPrice) || 0} zł</del>
                           )}
                         </div>
+                   
 
                         {product.sellerId !== userId ? (
                           <button
@@ -406,6 +431,10 @@ const { parent, child } = extractCategoryPath(category?category.path:'');
                         )}
                       </div>
                     </div>
+                         {/** MAKE OFFER MODAL */}
+                          {
+                        openModal && <MakeOfferModal  productName={modalData?.name||''} id={modalData?.id||0} currentPrice={modalData?.currentPrice||0} isOpen={openModal} onButtonClick={onModalButtonClick}/>
+                    }
                   </article>
                 );
               })}
@@ -413,6 +442,7 @@ const { parent, child } = extractCategoryPath(category?category.path:'');
           )}
         </div>
       </div>
+     
     </section>
   );
 };
