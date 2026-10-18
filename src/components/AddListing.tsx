@@ -621,7 +621,7 @@ const AddListing = () => {
               <div>
                 <div className="form-field">
                   <label htmlFor="width">
-                    {t("add_listing.fields.dimension.width")}
+                    {t("add_listing.fields.dimension.width")} cm
                   </label>
 
                   <input
@@ -635,7 +635,7 @@ const AddListing = () => {
                 </div>
                 <div className="form-field">
                   <label htmlFor="height">
-                    {t("add_listing.fields.dimension.height")}
+                    {t("add_listing.fields.dimension.height")} cm
                   </label>
 
                   <input
@@ -649,7 +649,7 @@ const AddListing = () => {
                 </div>
                 <div className="form-field">
                   <label htmlFor="depth">
-                    {t("add_listing.fields.dimension.depth")}
+                    {t("add_listing.fields.dimension.depth")} cm
                   </label>
 
                   <input
