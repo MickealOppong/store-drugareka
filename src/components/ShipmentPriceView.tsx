@@ -167,7 +167,7 @@ const couriers = data as TCourierResponse[] || [];
                     {/* PRICE*/}
                     <td>
                       <span className="data-table__text text-muted">
-                        {formatPrice(parseInt(courier.price))}
+                        {formatPrice(parseFloat(courier.price))}
                       </span>
                     </td>
 
