@@ -40,6 +40,7 @@ const Shop = () => {
   const[openModal,setOpenModal] = useState<boolean>(false)
   const[modalData,setModalData] = useState<{name:string,id:number,currentPrice:number,isNegotiable:boolean}|null>(null)
 
+
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { addItemToCart ,isLoading:addCartLoading,error} = useAddToCart();
@@ -169,14 +170,21 @@ const Shop = () => {
   }
 
   //handle make offer click
-  const handleMakeOffer = (product:TListTrans)=>{
+  const handleMakeOffer = (product:TListTrans)=>{    
    if (!username) return navigate("/login");
     if(product){
-    setModalData({name:product.productName,id:product.listingId,currentPrice:product.priceDto.sellerNewPrice,isNegotiable:product.priceDto.sellerNewPrice!==product.priceDto.sellerMinPrice})
+const negotiable =
+  Number(product.priceDto?.sellerNewPrice ?? 0) >
+  Number(product.priceDto?.sellerMinPrice ?? 0);
+     
+    setModalData({name:product.productName,id:product.listingId,currentPrice:product.priceDto.sellerNewPrice,isNegotiable:negotiable})
     setOpenModal(true)
+  
     }
   
   }
+ 
+  
 
   return (
     <main className="shop-page">
@@ -383,10 +391,15 @@ const Shop = () => {
                           {formatPrice(product.priceDto.sellerNewPrice) || 0} zł
                         </del>
                       </div>
-                     {
-                      product.priceDto.sellerMinPrice!==null&& product.priceDto.sellerMinPrice!==product.priceDto.sellerNewPrice 
-                      &&  <button onClick={()=>handleMakeOffer(product)}>{t("shop.product.make_offer")}</button>
-                     }
+                       {product.priceDto.sellerNewPrice!==product.priceDto.sellerMinPrice &&
+                         (!username || product.sellerId !== userId) && (
+                            <button
+                              className="make_offer"
+                              onClick={() => handleMakeOffer(product)}
+                            >
+                              {t("shop.product.make_offer")}
+                            </button>
+                          )}
 
                       {!userId || product.sellerId !== userId ? (
                         <button
@@ -419,7 +432,7 @@ const Shop = () => {
       )}
            {/** MAKE OFFER MODAL */}
                     {
-                  openModal && <MakeOfferodal isNegotiable={modalData?.isNegotiable || false}  productName={modalData?.name||''} id={modalData?.id||0} currentPrice={modalData?.currentPrice||0} isOpen={openModal} onButtonClick={onModalButtonClick}/>
+                  (openModal ) && <MakeOfferodal isNegotiable={Boolean(modalData?.isNegotiable)}  productName={modalData?.name||''} id={modalData?.id||0} currentPrice={modalData?.currentPrice||0} isOpen={openModal} onButtonClick={onModalButtonClick}/>
               }
      {
       data &&  <Pagination

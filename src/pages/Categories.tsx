@@ -6,7 +6,7 @@ import {
   FiHeart,
   FiSearch,
   FiShoppingBag,
-  FiX
+  FiX,
 } from "react-icons/fi";
 import { Link, useNavigate, useSearchParams } from "react-router";
 import { Loading } from "../components";
@@ -44,9 +44,13 @@ export const Categories: React.FC = () => {
   const wishlists = wishlist.map((item) => item.listingId);
 
   //make offer modal
-  const[openModal,setOpenModal] = useState<boolean>(false)
-    const[modalData,setModalData] = useState<{name:string,id:number,currentPrice:number,isNegotiable:boolean}|null>(null)
-
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [modalData, setModalData] = useState<{
+    name: string;
+    id: number;
+    currentPrice: number;
+    isNegotiable: boolean;
+  } | null>(null);
 
   const [selectedSubCat, setSelectedSubCat] = useState<number | null>(null);
 
@@ -58,8 +62,6 @@ export const Categories: React.FC = () => {
 
   const page = parseInt(searchParams.get("page") || "1", 10);
   const selectedCategory = searchParams.get("category") || "all";
-
-
 
   const request = {
     queryCategory: selectedCategory,
@@ -91,7 +93,6 @@ export const Categories: React.FC = () => {
 
   const products = data?.listings || [];
 
-
   const handleClearFilters = () => {
     setSelectedSubCat(null);
 
@@ -101,68 +102,73 @@ export const Categories: React.FC = () => {
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
   };
 
- 
-const findCategory = () => {
-  if (!selectedCategory) return null;
+  const findCategory = () => {
+    if (!selectedCategory) return null;
 
-  const searchTarget = selectedCategory.toLowerCase();
+    const searchTarget = selectedCategory.toLowerCase();
 
+    // Recursive worker helper
+    const searchBranches = (nodes: any[]): any | null => {
+      for (const node of nodes) {
+        // Check both properties dynamically based on your schema fields
+        const nodeValue = node.slug.toLowerCase();
 
-  // Recursive worker helper
-  const searchBranches = (nodes: any[]): any | null => {
-    for (const node of nodes) {
-      // Check both properties dynamically based on your schema fields
-      const nodeValue = (node.slug).toLowerCase();
-      
-      if (nodeValue === searchTarget) {
-        return node;
+        if (nodeValue === searchTarget) {
+          return node;
+        }
+
+        if (node.subCategories && node.subCategories.length > 0) {
+          const foundDeep = searchBranches(node.subCategories);
+          if (foundDeep) return foundDeep;
+        }
       }
+      return null;
+    };
 
-      if (node.subCategories && node.subCategories.length > 0) {
-        const foundDeep = searchBranches(node.subCategories);
-        if (foundDeep) return foundDeep;
-      }
-    }
-    return null;
+    return searchBranches(catalogTree);
   };
 
-  return searchBranches(catalogTree);
-};
+  const extractCategoryPath = (path: string) => {
+    if (!path) return { parent: null, child: null };
 
+    // Remove leading/trailing slashes and filter out blank segments
+    const segments = path.split("/").filter(Boolean);
 
-const extractCategoryPath = (path: string) => {
-  if (!path) return { parent: null, child: null };
-
-  // Remove leading/trailing slashes and filter out blank segments
-  const segments = path.split("/").filter(Boolean);
-
-  return {
-    parent: segments[0] || null, 
-    child: segments[1] || null,  
+    return {
+      parent: segments[0] || null,
+      child: segments[1] || null,
+    };
   };
-};
 
-
-const category = findCategory()
-// Usage Example:
-const { parent, child } = extractCategoryPath(category?category.path:'');
-
+  const category = findCategory();
+  // Usage Example:
+  const { parent, child } = extractCategoryPath(category ? category.path : "");
 
   //handle modal state
-  const onModalButtonClick =()=>{
-    setOpenModal(false)
-  }
+  const onModalButtonClick = () => {
+    setOpenModal(false);
+  };
 
   //handle make offer click
-  const handleMakeOffer = (product:TListTrans)=>{
-   if (!username) return navigate("/login");
-    if(product){
-    setModalData({name:product.productName,id:product.listingId,currentPrice:product.priceDto.sellerNewPrice,isNegotiable:product.priceDto.sellerNewPrice!==product.priceDto.sellerNewPrice})
-    setOpenModal(true)
+  const handleMakeOffer = (product: TListTrans) => {
+    if (!username) return navigate("/login");
+    if (product) {
+   const negotiable =
+  Number(product.priceDto?.sellerNewPrice ?? 0) >
+  Number(product.priceDto?.sellerMinPrice ?? 0);
+      setModalData({
+        name: product.productName,
+        id: product.listingId,
+        currentPrice: product.priceDto.sellerNewPrice,
+        isNegotiable: negotiable,
+      });
+      setOpenModal(true);
     }
-  
-  }
+  };
 
+
+
+  
 
   if (isLoading) {
     return (
@@ -199,7 +205,7 @@ const { parent, child } = extractCategoryPath(category?category.path:'');
             })}
           </h2>
           {/** CATEGORY TREEE */}
-     
+
           <CategoryTree />
         </aside>
 
@@ -243,28 +249,20 @@ const { parent, child } = extractCategoryPath(category?category.path:'');
           <header className="catalog-browser__feed-header">
             <h1 className="catalog-browser__feed-title">
               {parent
-                ? t(
-                    `categories.${sanitizeCategoryKey(parent as string)}.name`
-                  )
+                ? t(`categories.${sanitizeCategoryKey(parent as string)}.name`)
                 : t("categories.feed.all_listing", {
                     defaultValue: "All Available Listings",
                   })}
             </h1>
             <h4>
-                {child &&
-               t(
-                    `categories.${sanitizeCategoryKey(parent as string)}.subcategories.${sanitizeCategoryKey(child as string)}`
-                  )
-                }
+              {child &&
+                t(
+                  `categories.${sanitizeCategoryKey(parent as string)}.subcategories.${sanitizeCategoryKey(child as string)}`,
+                )}
             </h4>
 
-              <h4 className="catalog-browser__feed-title">
-              {selectedSubCat
-                ? t(
-                  ""  
-                  )
-                : ""
-}
+            <h4 className="catalog-browser__feed-title">
+              {selectedSubCat ? t("") : ""}
             </h4>
           </header>
 
@@ -384,10 +382,16 @@ const { parent, child } = extractCategoryPath(category?category.path:'');
                             defaultValue: product.productCondition,
                           })}
                         </span>
-                                {
-                      product.priceDto.sellerMinPrice!==null&& product.priceDto.sellerMinPrice!==product.priceDto.sellerNewPrice 
-                      &&  <button className="make_offer" onClick={()=>handleMakeOffer(product)}>{t("shop.product.make_offer")}</button>
-                     }
+
+                        {product.priceDto.sellerNewPrice!==product.priceDto.sellerMinPrice &&
+                         (!username || product.sellerId !== userId) &&(
+                            <button
+                              className="make_offer"
+                              onClick={() => handleMakeOffer(product)}
+                            >
+                              {t("shop.product.make_offer")}
+                            </button>
+                          )}
                       </div>
 
                       {/* ==========================================================================
@@ -400,7 +404,6 @@ const { parent, child } = extractCategoryPath(category?category.path:'');
                             <del>{formatPrice(oldPrice) || 0} zł</del>
                           )}
                         </div>
-                   
 
                         {product.sellerId !== userId ? (
                           <button
@@ -431,10 +434,17 @@ const { parent, child } = extractCategoryPath(category?category.path:'');
                         )}
                       </div>
                     </div>
-                         {/** MAKE OFFER MODAL */}
-                          {
-                        openModal && <MakeOfferModal  productName={modalData?.name || ''} id={modalData?.id || 0} currentPrice={modalData?.currentPrice || 0} isOpen={openModal} onButtonClick={onModalButtonClick} isNegotiable={Boolean(modalData?.isNegotiable)}/>
-                    }
+                    {/** MAKE OFFER MODAL */}
+                    {openModal && (
+                      <MakeOfferModal
+                        productName={modalData?.name || ""}
+                        id={modalData?.id || 0}
+                        currentPrice={modalData?.currentPrice || 0}
+                        isOpen={openModal}
+                        onButtonClick={onModalButtonClick}
+                        isNegotiable={Boolean(modalData?.isNegotiable)}
+                      />
+                    )}
                   </article>
                 );
               })}
@@ -442,7 +452,6 @@ const { parent, child } = extractCategoryPath(category?category.path:'');
           )}
         </div>
       </div>
-     
     </section>
   );
 };
