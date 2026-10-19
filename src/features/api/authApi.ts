@@ -70,7 +70,7 @@ export const authApi = createApi({
       }),
       providesTags: ["shipment"],
     }),
-    ResetPasswordRequest: build.mutation<TShipmentItemResponse[], string>({
+    ResetPasswordRequest: build.mutation<TResponseDto, string>({
       query: (email) => ({
         url: "/api/auth/reset-password-request",
         params: {
