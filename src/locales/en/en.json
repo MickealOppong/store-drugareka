@@ -1523,5 +1523,31 @@
       "invalid_amount": "Please enter a valid price greater than zero.",
       "generic_error": "Unable to process offer. Please refresh and try again."
     }
+  },
+  "auth": {
+    "reset": {
+      "link_sent_success": "A secure recovery link has been dispatched to your email inbox.",
+      "change_success": "Your account credentials have been successfully updated.",
+      "set_title": "Set New Password",
+      "set_description": "Please configure your secure alternative credentials profile below.",
+      "req_title": "Reset Password",
+      "req_description": "Provide your registered email account to receive an automated recovery link token.",
+      "fields": {
+        "new_password": "New Password",
+        "confirm_password": "Confirm New Password",
+        "email": "Email Address"
+      },
+      "buttons": {
+        "processing": "Updating...",
+        "submit_new": "Update Password",
+        "submit_req": "Send Reset Link"
+      },
+      "errors": {
+        "request_failed": "Unable to request a reset link. Please verify your email address.",
+        "password_length": "Password must be at least 8 characters long.",
+        "password_mismatch": "New passwords do not match.",
+        "change_failed": "This token signature is invalid or has expired. Please request a new recovery link."
+      }
+    }
   }
 }

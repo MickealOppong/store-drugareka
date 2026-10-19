@@ -15,7 +15,7 @@ import type { TAddress } from "../components/CartAddressManager";
 import "../css/ConfirmShipment.scss";
 import {
   useConfirmShipmentMutation,
-  useGetSellerShipmentsQuery
+  useGetSellerShipmentsQuery,
 } from "../features/api/authApi";
 import type { TShipmentItemResponse } from "../types/TShipmentItemResponse";
 

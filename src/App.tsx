@@ -15,6 +15,7 @@ import {
   Login,
   PaymentConfirmation,
   Register,
+  ResetPassword,
   Sell,
   SellerPayout,
   SharedLayout,
@@ -289,7 +290,8 @@ function App() {
         {
           path: "admin/brand/:id/edit",
           element: <EditBrand />,
-        },
+        },  
+
       ],
       
     },
@@ -301,6 +303,10 @@ function App() {
       path: "/privacy",
       element: <PrivacyPolicy/>,
     },
+     {
+          path: "reset",
+          element: <ResetPassword/>,
+        },
  
   ]);
   return <RouterProvider router={router} />;

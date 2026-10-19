@@ -3,6 +3,7 @@ import type { TLogin } from "../../types/TLogin";
 import { type TRegisterDto } from "../../types/TRegisterDto";
 import type { TResponseDto } from "../../types/TResponseDto";
 
+import type { TChangePasswordDto } from "../../types/TChangePasswordDto";
 import type { TShipmentItemResponse } from "../../types/TShipmentItemResponse";
 import { baseUrl } from "./baseUrl";
 
@@ -17,11 +18,11 @@ export const authApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["wishlists",'shipment'],
+  tagTypes: ["wishlists", "shipment"],
   endpoints: (build) => ({
     addUser: build.mutation<TResponseDto, TRegisterDto>({
       query: (body) => ({
-        url: "/auth/register",
+        url: "/api/auth/register",
         method: "post",
         body,
         headers: {
@@ -31,7 +32,7 @@ export const authApi = createApi({
     }),
     login: build.mutation<TResponseDto, TLogin>({
       query: (body) => ({
-        url: "/auth/login",
+        url: "/api/auth/login",
         method: "post",
         body,
         headers: {
@@ -41,7 +42,7 @@ export const authApi = createApi({
     }),
     logout: build.mutation<boolean, string>({
       query: (refreshToken) => ({
-        url: "/auth/logout",
+        url: "/api/auth/logout",
         method: "Delete",
         params: {
           refreshToken,
@@ -54,22 +55,37 @@ export const authApi = createApi({
     }),
     confirmShipment: build.mutation<boolean, FormData>({
       query: (body) => ({
-        url:"/api/seller/shipment/ship",
+        url: "/api/seller/shipment/ship",
         method: "POST",
         body,
       }),
       invalidatesTags: ["wishlists"],
     }),
-      getSellerShipments: build.query<TShipmentItemResponse[], string>({
+    getSellerShipments: build.query<TShipmentItemResponse[], string>({
       query: (token) => ({
         url: "/api/seller/shipment/token",
-       params:{
-        token
-       }
+        params: {
+          token,
+        },
       }),
-      providesTags:['shipment']
+      providesTags: ["shipment"],
     }),
-
+    ResetPasswordRequest: build.mutation<TShipmentItemResponse[], string>({
+      query: (email) => ({
+        url: "/api/auth/reset-password-request",
+        params: {
+          email,
+        },
+        method: "POST",
+      }),
+    }),
+      changePassword: build.mutation<TResponseDto,TChangePasswordDto>({
+          query: (body) => ({
+            url: `/api/auth/change-password`,
+           body,
+            method: "PUT",
+          }),
+        }),
   }),
 });
 export const {
@@ -77,6 +93,8 @@ export const {
   useLoginMutation,
   useLogoutMutation,
   useConfirmShipmentMutation,
- useLazyGetSellerShipmentsQuery,
- useGetSellerShipmentsQuery,
+  useLazyGetSellerShipmentsQuery,
+  useResetPasswordRequestMutation,
+  useGetSellerShipmentsQuery,
+  useChangePasswordMutation
 } = authApi;

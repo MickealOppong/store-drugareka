@@ -1525,5 +1525,31 @@
       "invalid_amount": "Proszę podać poprawną kwotę większą od zera.",
       "generic_error": "Nie udało się zapisać oferty. Odśwież stronę i spróbuj ponownie."
     }
+  },
+  "auth": {
+    "reset": {
+      "link_sent_success": "Bezpieczny link odzyskiwania został wysłany na Twój adres e-mail.",
+      "change_success": "Twoje dane logowania zostały pomyślnie zaktualizowane.",
+      "set_title": "Ustaw nowe hasło",
+      "set_description": "Skonfiguruj swoje nowe bezpieczne dane dostępowe do konta poniżej.",
+      "req_title": "Resetowanie hasła",
+      "req_description": "Podaj swój zarejestrowany adres e-mail, aby otrzymać automatyczny token z linkiem do odzyskiwania konta.",
+      "fields": {
+        "new_password": "Nowe hasło",
+        "confirm_password": "Potwierdź nowe hasło",
+        "email": "Adres e-mail"
+      },
+      "buttons": {
+        "processing": "Aktualizacja...",
+        "submit_new": "Zaktualizuj hasło",
+        "submit_req": "Wyślij link do resetowania"
+      },
+      "errors": {
+        "request_failed": "Nie można wygenerować linku resetującego. Sprawdź poprawność adresu e-mail.",
+        "password_length": "Hasło musi składać się z co najmniej 8 znaków.",
+        "password_mismatch": "Wprowadzone hasła nie są identyczne.",
+        "change_failed": "Ten token autoryzacyjny jest nieprawidłowy lub wygasł. Wygeneruj nowy link odzyskiwania."
+      }
+    }
   }
 }

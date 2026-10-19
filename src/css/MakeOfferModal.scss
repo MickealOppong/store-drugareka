@@ -26,9 +26,12 @@
   animation: mktOverlayFade var.$transition-default ease-out;
 
   @include var.mobile-container;
+
 }
 
 .mkt-offer-modal {
+  position: absolute;
+  top: 10rem;
   width: 100%;
   max-width: 480px;
   max-height: calc(100vh - 2rem);
@@ -44,6 +47,7 @@
   box-sizing: border-box;
   animation: mktModalScale var.$transition-default
     cubic-bezier(0.34, 1.56, 0.64, 1);
+   
 
   // --- Sub-Header Segment ---
   &__header {
