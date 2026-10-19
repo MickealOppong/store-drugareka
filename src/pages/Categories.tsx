@@ -153,14 +153,12 @@ export const Categories: React.FC = () => {
   const handleMakeOffer = (product: TListTrans) => {
     if (!username) return navigate("/login");
     if (product) {
-   const negotiable =
-  Number(product.priceDto?.sellerNewPrice ?? 0) >
-  Number(product.priceDto?.sellerMinPrice ?? 0);
+
       setModalData({
         name: product.productName,
         id: product.listingId,
-        currentPrice: product.priceDto.sellerNewPrice,
-        isNegotiable: negotiable,
+        currentPrice: product.newPrice,
+        isNegotiable: product.negotiable,
       });
       setOpenModal(true);
     }
@@ -307,8 +305,8 @@ export const Categories: React.FC = () => {
             <div className="category-page__products">
               {products.map((product) => {
                 const isWishlisted = wishlists.includes(product.listingId);
-                const oldPrice = product.priceDto.sellerOldPrice;
-                const newPrice = product.priceDto.sellerNewPrice;
+                const oldPrice = product.oldPrice;
+                const newPrice = product.newPrice;
 
                 const discount =
                   oldPrice > 0
@@ -383,7 +381,7 @@ export const Categories: React.FC = () => {
                           })}
                         </span>
 
-                        {product.priceDto.sellerNewPrice!==product.priceDto.sellerMinPrice &&
+                        {product.negotiable &&
                          (!username || product.sellerId !== userId) &&(
                             <button
                               className="make_offer"

@@ -15,7 +15,7 @@ import { useAppSelector } from "../store";
 import { formatPrice, sanitizeBackendKey, sanitizeCategoryKey } from "../util/util";
 import hero from './../assets/hero-large.png';
 import heroSmall from './../assets/hero-small.png';
-import CookieBanner from "./CoolieBanner";
+import CookieBanner from "./CookieBanner";
 import Footer from "./Footer";
 import Loading from "./Loading";
 
@@ -220,7 +220,7 @@ const {data:listings=[]} = useGetLandingListingQuery()
                   {t(`product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`)}
                 </span>
                 <h3>{product.productName}</h3>
-                <strong>{formatPrice(product.priceDto.sellerNewPrice)} zl</strong>
+                <strong>{formatPrice(product.newPrice)} zl</strong>
               </Link>
             </article>
           ))}

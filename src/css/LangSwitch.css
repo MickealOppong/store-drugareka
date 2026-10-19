@@ -1,148 +1,78 @@
-/* ==========================================================================
-   MASTER CONTAINER INTERFACE MATRIX (.language-component-wrapper)
-   ========================================================================== */
 .language-component-wrapper {
   position: fixed;
   bottom: 0;
-  right: 2%;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
 }
 
-/* ==========================================================================
-   1. GUEST INTERACTIVE PILL CAPSULE (.app-language-toggle)
-   ========================================================================== */
 .app-language-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  background-color: rgba(15, 23, 42, 0.04);
-  padding: 4px;
-  border-radius: 12px;
-  border: 1px solid rgba(15, 23, 42, 0.02);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
-  transition: background-color 0.3s ease;
-}
-.app-language-toggle:hover {
-  background-color: rgba(15, 23, 42, 0.06);
+  background-color: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 30px;
+  padding: 3px;
+  box-sizing: border-box;
 }
 .app-language-toggle button {
-  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 32px;
+  padding: 0 0.5rem;
   border: none;
-  padding: 6px 14px;
+  background: transparent;
+  border-radius: 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #64748b;
-  border-radius: 9px;
+  letter-spacing: 0.03em;
+  color: #666666;
   cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  outline: none;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease, box-shadow 0.25s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.app-language-toggle button:hover {
-  color: #1e293b;
-}
-.app-language-toggle button:active {
-  transform: scale(0.94);
-}
-.app-language-toggle button {
-  /* ACTIVE SELECTION HIGHLIGHT STATE */
+.app-language-toggle button:hover:not(.active) {
+  color: #111111;
+  background-color: rgb(245.9, 245.9, 245.9);
 }
 .app-language-toggle button.active {
-  background-color: #ffffff;
-  color: #ff4757;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.02);
+  background-color: #66704A;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(17, 17, 11, 0.08);
   cursor: default;
   pointer-events: none;
 }
 
-/* ==========================================================================
-   2. AUTHENTICATED READ-ONLY LOCK BADGE (.language-badge-locked)
-   ========================================================================== */
 .language-badge-locked {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(248, 250, 252, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid #e2e8f0;
-  padding: 8px 16px;
-  border-radius: 14px;
-  cursor: not-allowed;
-  animation: badgeEntryScale 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  background-color: #f9f9f9;
+  border: 1px dashed #e5e5e5;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #666666;
+  cursor: help;
 }
 .language-badge-locked .lock-icon {
   font-size: 0.85rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #94a3b8;
-  animation: lockSecurePulse 2s ease-in-out infinite alternate;
+  color: #767676;
+  opacity: 0.85;
+  flex-shrink: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
-.language-badge-locked span {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  line-height: 1;
-}
-.language-badge-locked span strong {
-  color: #0f172a;
-  font-weight: 800;
-  margin-left: 2px;
-}
-
-/* ==========================================================================
-   MICRO-INTERACTION LOOKBOOK ANIMATION FRAMES
-   ========================================================================== */
-@keyframes badgeEntryScale {
-  from {
-    opacity: 0;
-    transform: scale(0.96) translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-@keyframes lockSecurePulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(1.1);
-    opacity: 1;
-    color: #ff4757;
-  }
-}
-/* ==========================================================================
-   MOBILE SCREEN COMPRESSION RESPONSIVE DOWN-SCALING
-   ========================================================================== */
-@media (max-width: 576px) {
-  .app-language-toggle {
-    padding: 3px;
-    border-radius: 10px;
-  }
-  .app-language-toggle button {
-    padding: 5px 10px;
-    font-size: 0.7rem;
-    border-radius: 7px;
-  }
-  .language-badge-locked {
-    padding: 6px 12px;
-    border-radius: 10px;
-    gap: 6px;
-  }
-  .language-badge-locked span {
-    font-size: 0.7rem;
-  }
+.language-badge-locked strong {
+  color: #66704A;
+  font-weight: 700;
 }/*# sourceMappingURL=LangSwitch.css.map */

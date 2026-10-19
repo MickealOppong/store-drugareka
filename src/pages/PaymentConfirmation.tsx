@@ -110,9 +110,12 @@ export const PaymentConfirmation: React.FC = () => {
                   defaultValue: "Your transaction is currently being finalized with your bank. This can take a few moments. Please do not close or refresh this page." 
                 })}
           </p>
-          <Link to="/shop" className="payment-status__cta-btn payment-status__cta-btn--secondary">
+          <Link style={{display:'none'}} to="/shop" className="payment-status__cta-btn payment-status__cta-btn--secondary">
             {t("payment_confirmation.processing.cta_shop", { defaultValue: "Return to shop" })}
           </Link>
+               <button type="button" className="payment-status__cta-btn" onClick={() => window.location.reload()}>
+          {t("payment_confirmation.unknown.cta_refresh", { defaultValue: "Refresh Page View" })}
+        </button>
         </section>
       </main>
     );

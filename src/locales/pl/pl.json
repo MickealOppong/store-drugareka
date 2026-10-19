@@ -841,6 +841,7 @@
   "navigation": {
     "menu": {
       "shop": "Kupuj",
+         "listings": "Oferty produktów",
       "categories": "Kategorie",
       "sell": "Sprzedawaj z nami"
     },

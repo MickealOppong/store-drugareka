@@ -11,7 +11,7 @@ import {
 import { Link } from "react-router-dom";
 
 import Footer from "../components/Footer";
-import "../css/Sell.css"; // Imports the newly structured, isolated styles cleanly
+import "../css/Sell.css";
 import { useAppSelector } from "../store";
 
 const Sell = () => {
@@ -24,8 +24,8 @@ const Sell = () => {
     : "/account/user/";
 
   return (
- <>
-    <main className="sl-view">
+ <main>
+    <section className="sl-view">
 
       {/* =====================================================
           1. HERO HEADER AREA
@@ -144,9 +144,9 @@ const Sell = () => {
             {t("sell_page.benefits.description")}
           </p>
 
-            <h1 className="sl-section-desc">
+            <h3 className="sl-benefits__subtitle">
             {t("sell_page.benefits.sub_title-1")}
-          </h1>
+          </h3>
 
               <p className="sl-section-desc">
             {t("sell_page.benefits.sub_title-2")}
@@ -191,7 +191,7 @@ const Sell = () => {
         <div className="sl-model__flex">
           <div className="sl-model-card">
             <span className="sl-model-card__tag">{t("sell_page.pricing.seller_card_tag")}</span>
-            <strong className="sl-model-card__price" style={{ fontStyle: "italic", fontFamily: "serif" }}>X</strong>
+            <strong className="sl-model-card__price sl-model-card__price--seller">X</strong>
             <p className="sl-model-card__text">
               {t("sell_page.pricing.seller_card_desc")}
             </p>
@@ -222,9 +222,9 @@ const Sell = () => {
           {t("sell_page.final_cta.cta")} <FiArrowRight />
         </Link>
       </section>
-    </main>
+    </section>
     <Footer/>
- </>
+ </main>
   );
 };
 

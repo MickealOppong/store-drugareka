@@ -226,6 +226,15 @@ export const itemApi = createApi({
             method:"POST"
           }),
         }),
+            getListing: build.query<TListTrans, number>({
+              query: (listingId) => ({
+                url: `/api/item/listing/${listingId}`,
+                params: {
+                  listingId,
+                },
+              }),
+              providesTags: ["listing"],
+            }),
   }),
 });
 export const { useAddListingMutation,useGetMylistingsQuery,
@@ -235,5 +244,5 @@ export const { useAddListingMutation,useGetMylistingsQuery,
   useGetPurchaseOrdersQuery,useGetSaleOrdersQuery,useGetPurchaseDetailsQuery,useUpdateShipmentStatusMutation,
   useDeleteListingMutation,useLazyGetWishListsQuery,useLazyGetWishlistCountQuery,
   useCancelOrderMutation,useReturnItemMutation,useUpdateReturnShipmentStatusMutation,useAddCourierPriceMutation
-  ,useGetCouriersQuery,useMakeOfferMutation
+  ,useGetCouriersQuery,useMakeOfferMutation,useLazyGetListingQuery
 } = itemApi;

@@ -4,10 +4,8 @@ import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "../css/AddListing.css";
 import { ITEM_SIZE } from "../data/data";
-import { useEditListingMutation } from "../features/api/itemApi";
-import {
-  useLazyGetListingQuery
-} from "../features/api/storeApi";
+import { useEditListingMutation, useLazyGetListingQuery } from "../features/api/itemApi";
+
 import {
   useGetAllConditionsQuery,
   useGetBrandsQuery,
@@ -29,7 +27,7 @@ const EditListing = () => {
   const { listingId } = useParams<{ listingId: string }>();
   const [images, setImages] = useState<TFile[]>([]);
   const { data: conditions } = useGetAllConditionsQuery();
-  const [getListing] = useLazyGetListingQuery();
+  const [getListing] = useLazyGetListingQuery()
 
   const [category, setCategory] = useState<{name:string,path:string}>({name:'',path:''});
   const roles = useAppSelector((state) => state.userSlice.roles);
@@ -49,7 +47,7 @@ const EditListing = () => {
     const response = await getListing(parseInt(listingId as string));
 
     const listing = response.data as TListTrans;
-    
+
 
     const mediaObj: TFile[] = await Promise.all(
       listing.media.map(async (item) => {
@@ -85,11 +83,11 @@ const EditListing = () => {
         path: listing?.category.path,
       },
       description: listing.productDescription,
-      price: String(listing.priceDto.sellerNewPrice),
+      price: String(listing.newPrice),
       quantity: "1",
       condition: listing.productCondition,
       brand: listing.brand,
-    minPrice:String(listing.priceDto.sellerMinPrice),
+    minPrice:String(listing.minPrice),
       sku: listing.sku || "EA",
       shippingInfo: listing.shipping,
       status: listing.inventoryStatus,
@@ -429,7 +427,7 @@ const EditListing = () => {
                       name="name"
                       type="text"
                       placeholder={t("add_listing.fields.name.placeholder")}
-                      value={formData.name}
+                      value={formData.name||''}
                       onChange={handleInputChange}
                       required
                     />
@@ -452,7 +450,7 @@ const EditListing = () => {
                   <select
                     id="condition"
                     name="condition"
-                    value={formData.condition}
+                    value={formData.condition||''}
                     onChange={handleSelectChange}
                   >
                     <option
@@ -486,7 +484,7 @@ const EditListing = () => {
                     name="model"
                     type="text"
                     placeholder={""}
-                    value={formData.model}
+                    value={formData.model||''}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -500,7 +498,7 @@ const EditListing = () => {
                     name="itemNumber"
                     type="text"
                     placeholder={""}
-                    value={formData.itemNumber}
+                    value={formData.itemNumber ||''}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -514,7 +512,7 @@ const EditListing = () => {
                     name="yearMade"
                     type="text"
                     placeholder={""}
-                    value={formData.yearMade}
+                    value={formData.yearMade||''}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -532,7 +530,7 @@ const EditListing = () => {
                       placeholder={t(
                         "add_listing.fields.description.placeholder",
                       )}
-                      value={formData.description}
+                      value={formData.description||''}
                       onChange={handleTextInputChange}
                     />
 
@@ -569,7 +567,7 @@ const EditListing = () => {
                       min="0"
                       step="0.01"
                       placeholder="0.00"
-                      value={formData.price}
+                      value={formData.price||0.00}
                       onChange={handleInputChange}
                       required
                     />
@@ -591,7 +589,7 @@ const EditListing = () => {
                       min="0"
                       step="0.01"
                       placeholder="0.00"
-                      value={formData.minPrice}
+                      value={formData.minPrice||0.00}
                       onChange={handleInputChange}
                       required
                     />
@@ -610,7 +608,7 @@ const EditListing = () => {
                     type="number"
                     min="1"
                     placeholder="1"
-                    value={formData.quantity}
+                    value={formData.quantity||1}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -621,7 +619,7 @@ const EditListing = () => {
                   </label>
                   <SearchSelect
                     brands={brands as TbrandResponse[]}
-                    value={formData.brand}
+                    value={formData.brand ||''}
                     onChange={handleSelectChange}
                   />
                 </div>
@@ -636,7 +634,7 @@ const EditListing = () => {
                     name="sku"
                     type="text"
                     placeholder={t("add_listing.fields.sku.placeholder")}
-                    value={formData.sku}
+                    value={formData.sku||''}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -660,7 +658,7 @@ const EditListing = () => {
                 <select
                   id="itemSize"
                   name="itemSize"
-                  value={formData.itemSize}
+                  value={formData.itemSize||''}
                   onChange={handleSelectChange}
                 >
                   <option

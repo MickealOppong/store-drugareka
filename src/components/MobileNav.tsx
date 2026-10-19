@@ -184,7 +184,7 @@ const MobileNav = () => {
           {/* Top section: product categories */}
           <section className="mn-drawer__categories">
             <div className="mn-drawer__section-heading">
-              <h2>{t("navigation.menu.categories")}</h2>
+              <Link to={'/shop/categories'}>{t("navigation.menu.categories")}</Link>
             </div>
 
             <div className="mn-drawer__category-content">
@@ -208,7 +208,7 @@ const MobileNav = () => {
                 onClick={closeMenu}
               >
                 <span className="mn-drawer__link-text">
-                  {t("navigation.menu.shop")}
+                  {t("navigation.menu.listings")}
                 </span>
                 <FiArrowRight className="mn-drawer__link-icon" />
               </Link>

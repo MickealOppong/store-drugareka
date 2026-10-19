@@ -850,6 +850,7 @@
   "navigation": {
     "menu": {
       "shop": "Shop",
+         "listings": "Product listings",
       "categories": "Categories",
       "sell": "Sell with us"
     },

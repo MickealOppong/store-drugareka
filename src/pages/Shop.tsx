@@ -102,25 +102,25 @@ const Shop = () => {
     switch (sort) {
       case "price-low":
         result.sort(
-          (a, b) => a.priceDto.sellerNewPrice - b.priceDto.sellerNewPrice,
+          (a, b) => a.newPrice - b.newPrice,
         );
         break;
 
       case "price-high":
         result.sort(
-          (a, b) => b.priceDto.sellerOldPrice- a.priceDto.sellerOldPrice,
+          (a, b) => b.oldPrice- a.oldPrice,
         );
         break;
 
       case "discount":
         result.sort((a, b) => {
           const discountA =
-            ((a.priceDto.sellerOldPrice - a.priceDto.sellerNewPrice) /
-              a.priceDto.sellerNewPrice) *
+            ((a.oldPrice - a.newPrice) /
+              a.newPrice) *
             100;
           const discountB =
-            ((b.priceDto.sellerNewPrice - b.priceDto.sellerOldPrice) /
-              b.priceDto.sellerOldPrice) *
+            ((b.newPrice - b.oldPrice) /
+              b.oldPrice) *
             100;
           return discountB - discountA;
         });
@@ -173,17 +173,14 @@ const Shop = () => {
   const handleMakeOffer = (product:TListTrans)=>{    
    if (!username) return navigate("/login");
     if(product){
-const negotiable =
-  Number(product.priceDto?.sellerNewPrice ?? 0) >
-  Number(product.priceDto?.sellerMinPrice ?? 0);
-     
-    setModalData({name:product.productName,id:product.listingId,currentPrice:product.priceDto.sellerNewPrice,isNegotiable:negotiable})
+    setModalData({name:product.productName,id:product.listingId,currentPrice:product.newPrice,isNegotiable:product.negotiable})
     setOpenModal(true)
   
     }
   
   }
  
+
   
 
   return (
@@ -322,10 +319,10 @@ const negotiable =
             filteredProducts.map((product) => {
               const isWishlisted = wishlists.includes(product.listingId);
               
-              const discount = (product.priceDto.sellerNewPrice-product.priceDto.sellerOldPrice)>0 ?Math.round(
-                ((product.priceDto.sellerNewPrice -
-                  product.priceDto.sellerOldPrice) /
-                  product.priceDto.sellerNewPrice) *
+              const discount = (product.newPrice-product.oldPrice)>0 ?Math.round(
+                ((product.newPrice -
+                  product.oldPrice) /
+                  product.newPrice) *
                   100,
               ):0;
 
@@ -384,14 +381,14 @@ const negotiable =
                     <div className="shop-product-card__bottom">
                       <div>
                         <strong>
-                          {formatPrice(product.priceDto.sellerNewPrice) || 0} zł
+                          {formatPrice(product.newPrice) || 0} zł
                         </strong>
 
                         <del>
-                          {formatPrice(product.priceDto.sellerNewPrice) || 0} zł
+                          {formatPrice(product.newPrice) || 0} zł
                         </del>
                       </div>
-                       {product.priceDto.sellerNewPrice!==product.priceDto.sellerMinPrice &&
+                       {product.negotiable &&
                          (!username || product.sellerId !== userId) && (
                             <button
                               className="make_offer"

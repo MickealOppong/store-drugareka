@@ -1,161 +1,102 @@
-@use 'variables.scss';
- // Imports your core app tokens ($primary, $background, etc.)
+@use "sass:color";
+@use "Variables.scss" as var;
 
-/* ==========================================================================
-   MASTER CONTAINER INTERFACE MATRIX (.language-component-wrapper)
-   ========================================================================== */
+// ==========================================================================
+// CORE LANGUAGE SWITCHER COMPONENT CONTAINER
+// ==========================================================================
+
 .language-component-wrapper {
-    position: fixed;
-    bottom: 0;
-    right: 2%;
+  position: fixed;
+  bottom: 0;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  font-family: var.$font-sans;
+  box-sizing: border-box;
 }
 
-/* ==========================================================================
-   1. GUEST INTERACTIVE PILL CAPSULE (.app-language-toggle)
-   ========================================================================== */
+// ==========================================================================
+// 🔓 GUEST TOGGLE BAR PIPELINE (PILL CAPSULE CONFIGURATION)
+// ==========================================================================
+
 .app-language-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  background-color: rgba(15, 23, 42, 0.04); // Translucent muted slate matrix
-  padding: 4px;
-  border-radius: 12px;
-  border: 1px solid rgba(15, 23, 42, 0.02);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: rgba(15, 23, 42, 0.06);
-  }
+  background-color: var.$color-bg-light; // Clean light-grey canvas tracking backplate
+  border: 1px solid var.$color-border;
+  border-radius: 30px; // Forms a fluid capsule pill shape
+  padding: 3px; // Perfect micro-spacing margins between boundary track and buttons
+  box-sizing: border-box;
 
   button {
-    background: transparent;
-    border: none;
-    padding: 6px 14px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #64748b; // Elegant inactive slate tone
-    border-radius: 9px;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    outline: none;
-    
-    // Hardware-accelerated sliding/scaling transition spring bezier curve
-    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-                background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                color 0.2s ease,
-                box-shadow 0.25s ease;
-
-    &:hover {
-      color: #1e293b;
-    }
-
-    &:active {
-      transform: scale(0.94); // Tactile micro-compression tracking response
-    }
-
-    /* ACTIVE SELECTION HIGHLIGHT STATE */
-    &.active {
-      background-color: #ffffff;
-      color: #ff4757; // Core vibrant application premium accent pink ($primary)
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06), 
-                  0 1px 3px rgba(15, 23, 42, 0.02);
-      cursor: default;
-      pointer-events: none; // Disables twin clicks on active cells safely
-    }
-  }
-}
-
-/* ==========================================================================
-   2. AUTHENTICATED READ-ONLY LOCK BADGE (.language-badge-locked)
-   ========================================================================== */
-.language-badge-locked {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(248, 250, 252, 0.85); // Frosted thin lookbook glass template
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid #e2e8f0;
-  padding: 8px 16px;
-  border-radius: 14px;
-  cursor: not-allowed;
-  
-  // Custom animation smoothly entries when user context hydrates
-  animation: badgeEntryScale 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
-
-  .lock-icon {
-    font-size: 0.85rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #94a3b8;
-    animation: lockSecurePulse 2s ease-in-out infinite alternate;
-  }
-
-  span {
+    
+    // Explicit sizing for clean tap-target square ratios
+    min-width: 38px;
+    height: 32px;
+    padding: 0 0.5rem;
+    border: none;
+    background: transparent;
+    border-radius: 20px;
+    
+    // Typography properties
+    font-family: var.$font-sans;
     font-size: 0.75rem;
-    font-weight: 600;
-    color: #64748b; // Muted editorial gray text
-    text-transform: uppercase;
+    font-weight: 700;
     letter-spacing: 0.03em;
-    line-height: 1;
+    color: var.$color-text-muted;
+    
+    cursor: pointer;
+    user-select: none;
+    transition: var.$transition-default;
 
-    strong {
-      color: #0f172a; // High-contrast character validation representation
-      font-weight: 800;
-      margin-left: 2px;
+    &:hover:not(.active) {
+      color: var.$color-text-main;
+      background-color: color.mix(var.$color-border, var.$color-text-light, 35%);
+    }
+
+    // --- Active Language Slider Modifier State ---
+    &.active {
+      background-color: var.$color-primary; // Sage Green Brand Token
+      color: var.$color-text-light;
+      box-shadow: 0 2px 4px rgba(17, 17, 11, 0.08);
+      cursor: default;
+      pointer-events: none; // Completely drops redundant click interception streams
     }
   }
 }
 
-/* ==========================================================================
-   MICRO-INTERACTION LOOKBOOK ANIMATION FRAMES
-   ========================================================================== */
-@keyframes badgeEntryScale {
-  from {
-    opacity: 0;
-    transform: scale(0.96) translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
+// ==========================================================================
+// 🔒 AUTHENTICATED/LOCKED USER BADGE COMPONENT 
+// ==========================================================================
 
-@keyframes lockSecurePulse {
-  0% { transform: scale(1); opacity: 0.7; }
-  100% { transform: scale(1.1); opacity: 1; color: #ff4757; } // Subtle reminder it is locked to brand specs
-}
+.language-badge-locked {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  background-color: var.$color-bg-light;
+  border: 1px dashed var.$color-border;
+  border-radius: 6px;
+  box-sizing: border-box;
+  
+  // Typography properties
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var.$color-text-muted;
+  cursor: help; // Implies an informational tooltip hover layer naturally
 
-/* ==========================================================================
-   MOBILE SCREEN COMPRESSION RESPONSIVE DOWN-SCALING
-   ========================================================================== */
-@media (max-width: 576px) {
-  .app-language-toggle {
-    padding: 3px;
-    border-radius: 10px;
-
-    button {
-      padding: 5px 10px;
-      font-size: 0.7rem;
-      border-radius: 7px;
-    }
+  .lock-icon {
+    font-size: 0.85rem;
+    color: var.$color-secondary;
+    opacity: 0.85;
+    flex-shrink: 0;
+    user-select: none;
   }
 
-  .language-badge-locked {
-    padding: 6px 12px;
-    border-radius: 10px;
-    gap: 6px;
-
-    span {
-      font-size: 0.7rem;
-    }
+  strong {
+    color: var.$color-primary; // Highlights active lock code in your system brand Sage Green
+    font-weight: 700;
   }
 }

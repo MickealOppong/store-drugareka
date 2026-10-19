@@ -25,7 +25,7 @@ const UserProductView = () => {
    */
   const [deleteProduct]=useDeleteListingMutation();
   
-  const productListings = data?.listings as TListTrans[];
+  const productListings = data?.productList as TListTrans[];
   const [search, setSearch] = useState("");
   const [deletingId] = useState<number | null>(null);
   const [error,] = useState('')
@@ -244,7 +244,7 @@ const UserProductView = () => {
                     {/* PRICE IN PLN */}
                     <td>
                       <span className="data-table__text font-bold text-primary">
-                        {product.priceDto.sellerNewPrice} zł
+                        {product.newPrice} zł
                       </span>
                     </td>
 

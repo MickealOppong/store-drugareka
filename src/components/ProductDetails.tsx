@@ -77,7 +77,7 @@ const ProductDetails = () => {
   const handleMakeOffer = (product:TListTrans)=>{
    if (!username) return navigate("/login");
     if(product){
-    setModalData({name:product.productName,id:product.listingId,currentPrice:product.priceDto.sellerNewPrice})
+    setModalData({name:product.productName,id:product.listingId,currentPrice:product.newPrice})
     setOpenModal(true)
     }
   
@@ -93,9 +93,9 @@ const ProductDetails = () => {
   if (product) {
     // Dynamic values derivation layer
     const savingsAmount =
-      product?.priceDto.sellerNewPrice - product?.priceDto.sellerOldPrice;
+      product?.newPrice - product?.oldPrice
     const savingsPercent = Math.round(
-      (savingsAmount / product?.priceDto.sellerOldPrice) * 100,
+      (savingsAmount / product?.oldPrice) * 100,
     );
 
     return (
@@ -121,7 +121,7 @@ const ProductDetails = () => {
             id={modalData?.id || 0}
             currentPrice={modalData?.currentPrice || 0}
             isOpen={openModal}
-            isNegotiable={product.priceDto.sellerMinPrice!==product.priceDto.sellerNewPrice?true:false}
+            isNegotiable={product.negotiable}
             shipment={product?.shippingCost}
             service={product?.serviceCharge}
             onButtonClick={onModalButtonClick}
@@ -208,17 +208,17 @@ const ProductDetails = () => {
             <div className="product-details__pricing-matrix">
               <div className="product-details__price-row">
                 <strong className="product-details__deal-price">
-                  {formatPrice(product.priceDto.sellerNewPrice)} zł
+                  {formatPrice(product.newPrice)} zł
                 </strong>
-                {product.priceDto.sellerOldPrice >
-                  product.priceDto.sellerNewPrice && (
+                {product.oldPrice >
+                  product.newPrice && (
                   <del className="product-details__strike-price">
-                    {formatPrice(product.priceDto.sellerOldPrice)} zł
+                    {formatPrice(product.oldPrice)} zł
                   </del>
                 )}
               </div>
-              {product.priceDto.sellerOldPrice >
-                product.priceDto.sellerNewPrice && (
+              {product.newPrice >
+                product.oldPrice && (
                 <p className="product-details__savings-banner">
                   {t("product_details.pricing.savings", {
                     amount: formatPrice(savingsAmount),

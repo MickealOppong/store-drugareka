@@ -1,5 +1,4 @@
 import type { TMedia } from "../types/TMedia";
-import type { TPriceDto } from "../types/TPriceDto";
 
 export type TListTrans = {
   listingId: number;
@@ -18,13 +17,15 @@ export type TListTrans = {
   serviceCharge:number
 
   productName: string;
-
+minPrice:number
   productSlug: string;
-  priceDto:TPriceDto
+ oldPrice:number,
+ newPrice:number,
+ negotiable:boolean,
   media:TMedia[]
 sku:string
   productDescription: string;
-  isNegotiable:boolean;
+
 
   productCondition: string;
   shippingMethod:string
