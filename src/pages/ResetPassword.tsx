@@ -87,17 +87,31 @@ export const ResetPassword = () => {
       }else{
               setSuccessMessage(message);
       }
-      if(response.error){
-        
-      }
-      if(response.error){
-        const {error} = response.error as {data:any,error:string,message:string}
-        setValidationError(error)
-      }
+  
       
     } catch (error: any) {
-      setValidationError(t("auth.reset.errors.change_failed"));
-    }
+       const { status } = error as {
+          status: number | string;
+          message: string;
+        };
+
+        // Handle Redux Network Level Errors (FETCH_ERROR)
+        if (status === "FETCH_ERROR") {
+          setValidationError("NETWORK_ERROR");
+          return;
+        }
+
+        if (status === 500 || status === 401) {
+          const errorResponse = error.data as {
+            error: string;
+            status: number;
+            message: string;
+          };
+
+          setValidationError(errorResponse.error);
+        }
+      }
+
   };
 
   
