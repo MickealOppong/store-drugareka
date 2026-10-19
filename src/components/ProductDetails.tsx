@@ -21,7 +21,6 @@ import { useGetListingQuery } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
 import { formatPrice } from "../util/util";
-import { ErrorToast } from "./ErrorTaost";
 import Footer from "./Footer";
 import Loading from "./Loading";
 import MakeOfferModal from "./MakeOfferModal";
@@ -45,7 +44,7 @@ const ProductDetails = () => {
     const[modalData,setModalData] = useState<{name:string,id:number,currentPrice:number}|null>(null)
 
   const [addToWish] = useAddWishListMutation();
-  const { data: wishlist = [] ,error} = useGetWishListsQuery();
+  const { data: wishlist = []} = useGetWishListsQuery();
   const wishlists = wishlist.map((item) => item.listingId);
   const isWishlisted = wishlists.includes(Number(listingId));
 
@@ -114,8 +113,6 @@ const ProductDetails = () => {
             {t("product_details.nav.shop_crumb")} / {product.category.name}
           </span>
         </header>
-
-        {error && <ErrorToast errorMessage={error as string} />}
 
         {/** MAKE OFFER MODAL */}
         {openModal && (
