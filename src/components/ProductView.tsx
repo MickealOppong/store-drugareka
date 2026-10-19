@@ -220,7 +220,7 @@ const ProductView = () => {
                     {/* PRICE VIEW FOR VALUE MARGIN MARKUPS */}
                     <td>
                       <span className="data-table__text font-bold text-primary">
-                        {product.priceDto.sellerNewPrice}
+                        {product.newPrice}
                       </span>
                     </td>
 
