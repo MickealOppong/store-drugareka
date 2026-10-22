@@ -17,6 +17,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Loading } from "../components";
 import '../css/Admin.css';
 import { useLogoutMutation } from "../features/api/authApi";
+import { userApi } from "../features/api/userApi";
 import { logoutUser } from "../features/slice/userSlice";
 
 interface AdminSidebarProps {
@@ -34,6 +35,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ onNavigate }) => {
     try {
       await logout(refreshToken).unwrap();
       dispatch(logoutUser());
+      dispatch(userApi.util.resetApiState());
       navigate("/");
     } catch (error) {
       console.error("Admin logout session interception error:", error);

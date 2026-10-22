@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/AddListing.css";
 import { ITEM_SIZE } from "../data/data";
@@ -9,9 +10,10 @@ import {
   useGetAllConditionsQuery,
   useGetBrandsQuery,
 } from "../features/api/transApi";
+import { updateRoles } from "../features/slice/userSlice";
 import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TProductData } from "../types/TProductData";
-import { sanitizeBackendKey } from "../util/util";
+import { CookieService, sanitizeBackendKey } from "../util/util";
 import { CategoryDropdownSelect } from "./CategoryDropdownSelect";
 import SearchSelect from "./SearchSelect";
 
@@ -34,6 +36,7 @@ const AddListing = () => {
    */
 
   const navigate = useNavigate();
+  const disptach = useDispatch()
 
   /**
    * * crud hooks
@@ -173,13 +176,17 @@ const AddListing = () => {
       dataToSend.append("imageSortOrder", String(index));
     });
 
-    console.log(Object.fromEntries(dataToSend));
+    //console.log(Object.fromEntries(dataToSend));
 
     try {
       const response = await addItem(dataToSend);
-      console.log(response);
-
+ 
       if (response.data?.httpStatus === 200) {
+         let roles :string[]= JSON.parse(CookieService.get("roles")as string);
+          roles.push("ROLE_SELLER")
+          CookieService.set('roles',JSON.stringify(roles))
+                 
+          disptach(updateRoles(roles))
         navigate("/account/listings/me");
       }
 
@@ -225,6 +232,9 @@ const AddListing = () => {
     setCategory(category);
     setCategoryPath(path);
   };
+
+
+  
 
   return (
     <main className="add-product">

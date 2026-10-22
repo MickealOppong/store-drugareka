@@ -1,42 +1,32 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FiEdit2, FiPlus, FiSearch, FiTrash2 } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import "../css/GenericViewLayout.css"; // Reuses your unified generic layout styles seamlessly
 import {
   useDeleteUserMutation,
-  useLazyGetAllUsersQuery,
+  useGetAllUsersQuery
 } from "../features/api/userApi";
-import type { TResponseDto } from "../types/TResponseDto";
 import type { TUserDto } from "../types/TUserDto";
+import Loading from "./Loading";
+import Pagination from "./Pagination";
 
 const UserView = () => {
-  const [users, setUsers] = useState<TUserDto[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [deletingId, setDeletingId] = useState<number | null>(null);
+    const [searchParams] = useSearchParams();
+
+   const page = parseInt(searchParams.get("page") || "1");
+
 
   // RTK API query lazy hooks
-  const [getUsers] = useLazyGetAllUsersQuery();
+ const{data,isLoading}= useGetAllUsersQuery({page,size:20})
+
   const [deleteUser] = useDeleteUserMutation();
 
-  /*
-   * Lifecycle trigger hook to load users payload database rows
-   */
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  const fetchUsers = async () => {
-    try {
-      const response = await getUsers();
-      setUsers(() => response.data as TUserDto[]||[]);
-    } catch (err) {
-      console.error("Failed to fetch platform users dataset:", err);
-      setError("Nie udało się załadować listy użytkowników.");
-    }
-  };
+const users = data?.userList ||[];
 
   /*
    * Delete User account target mapping action row handler
@@ -56,15 +46,7 @@ const UserView = () => {
 
     try {
       const response: any = await deleteUser(user.userId);
-      if (response?.data) {
-        const { httpStatus, message } = response.data as TResponseDto;
-        
-        if (httpStatus === 200) {
-          fetchUsers(); // Instantly update view context layout grid mapping array rows
-        } else if (httpStatus === 400 || httpStatus === 403) {
-          setError(message);
-        }
-      }
+     
       if (response?.error) {
         setError("Ups, nie udało się usunąć wybranego użytkownika.");
       }
@@ -85,7 +67,9 @@ const UserView = () => {
       user.firstName?.toLowerCase().includes(search.toLowerCase()) ||
       user.lastName?.toLowerCase().includes(search.toLowerCase())
   );
-
+if(isLoading){
+  return <Loading/>
+}
   return (
     <main className="panel-view">
       {/* =====================================================
@@ -242,6 +226,16 @@ const UserView = () => {
           </div>
         )}
       </section>
+      {/* LOCALIZED PACING HOOKS */}
+            {data && (
+              <Pagination
+              accumulated={data.accumulatedItems}
+                page={page}
+                totalPage={data.totalPages}
+                size={data.pageSize}
+                totalElements={data?.totalElements}
+              />
+            )}
     </main>
   );
 };

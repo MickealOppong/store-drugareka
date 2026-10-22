@@ -1,383 +1,392 @@
-// ==========================================================================
-// CONFIGURATION: VARIABLES & BREAKPOINTS
-// ==========================================================================
+@use "sass:color";
+@use "Variables.scss" as Variables;
 
-@use 'Variables.scss';
-
-
-
-// ==========================================================================
-// GLOBAL FETCH ERROR BAR
-// ==========================================================================
-
-.fetch_error {
-  position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 200;
-  width: calc(100% - 2.5rem);
-  max-width: 480px;
-  background-color: #fef2f2;
-  border: 1px solid rgba(Variables.$color-accent, 0.2);
-  border-radius: 8px;
-  padding: 1rem 1.25rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  animation: slideInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-
-
-  h2 {
-    margin: 0;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: Variables.$color-accent;
-    text-align: center;
-    line-height: 1.4;
-  }
-}
-
-@keyframes slideInDown {
-  from { transform: translate(-50%, -20px); opacity: 0; }
-  to { transform: translate(-50%, 0); opacity: 1; }
-}
-
-// ==========================================================================
-// MAIN PAGE STRUCTURE (`.register-page`)
-// ==========================================================================
-
+/* ==========================================================================
+   AUTHENTICATION REGISTRATION CANVAS WRAPPER (.register-page)
+   ========================================================================== */
 .register-page {
-  font-family: Variables.$font-sans;
-  color: Variables.$color-text-main;
-  background-color: Variables.$background-2;
-  height: fit-content;
+  position:absolute;
+  top: 5rem;
   display: flex;
-
+  align-items: center;
   justify-content: center;
-  padding: 2rem 1.25rem;
+  min-height: 100vh;
+  min-height: 100dvh; // Locks the viewport boundary context on dynamic mobile viewports
+  width: 100%;
+  background-color: Variables.$color-bg-light;
+  padding: 16px;
   box-sizing: border-box;
+  font-family: Variables.$font-sans;
 
-
-  a {
-    text-decoration: none;
-    color: inherit;
-    transition: Variables.$transition-default;
+  @media (min-width: Variables.$breakpoint-sm) {
+    padding: 32px 24px;
   }
 }
 
-// ==========================================================================
-// THE REGISTRATION CONTAINER CARD (`.register-card`)
-// ==========================================================================
-
+/* ==========================================================================
+   RESPONSIVE LAYOUT PROFILE SIGNUP CARD (.register-card)
+   ========================================================================== */
 .register-card {
-  width: 100%;
-  max-width: 480px; 
-  height: fit-content;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
-    border: 1px solid Variables.$color-border;
-    padding: 3rem 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.03);
- 
+  align-items: start;
+  width: 100%;
+  max-width: 480px; // Slightly expanded footprint boundary grid to accommodate adjacent inputs rows
+  background-color: Variables.$background;
+  border: 1px solid Variables.$color-border;
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.02),
+              0 20px 48px -10px rgba(15, 23, 42, 0.03);
+  box-sizing: border-box;
+  animation: regCardSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 
-
-  // Brand Header Block
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-
-    .register-heart {
-      color: Variables.$color-accent;
-      font-size: 1.35rem;
-      flex-shrink: 0;
-    }
-
-    h1 {
-      font-size: 1.25rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin: 0;
-    }
-  }
-
-  // Heading Block
-  .register-heading {
-    margin-bottom: 2rem;
-
-    h2 {
-      font-size: 1.75rem;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      margin: 0 0 0.5rem;
-    }
-
-    p {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: Variables.$color-text-muted;
-      margin: 0;
-    }
+  @media (min-width: Variables.$breakpoint-sm) {
+    padding: 40px 32px;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 16px;
+    width: 100%;
   }
 }
 
-// ==========================================================================
-// INPUT LAYOUTS & PARENT-HOVER INTERACTION FIELDS
-// ==========================================================================
+/* BRAND SIGNATURE PLACEMENT MATCH */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
 
-// Double Grid Layout Layer (First Name / Last Name Row)
+
+  h1 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: Variables.$color-primary;
+    letter-spacing: -0.04em;
+   
+  }
+
+  img {
+    display: block;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+}
+
+/* HEADER COMPONENT TEXT STRUCTURE */
+.register-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  text-align: center;
+  margin-bottom: 24px;
+
+  h2 {
+    margin: 0 0 6px 0;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: Variables.$color-text-main;
+    letter-spacing: -0.025em;
+
+    @media (min-width: Variables.$breakpoint-sm) {
+      font-size: 1.6rem;
+    }
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: Variables.$color-text-muted;
+  }
+}
+
+/* ==========================================================================
+   🚀 DYNAMIC SIDE-BY-SIDE MOBILE INPUTS ROW RESPONSIVENESS
+   ========================================================================== */
 .register-form-row {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 16px;
+  width: 100%;
 
-  @include Variables.media-up(Variables.$breakpoint-sm) {
+  /* Automatically splits first name and last name layout blocks on tables / desktops */
+  @media (min-width: 480px) {
     flex-direction: row;
-    gap: 1rem;
+    align-items: flex-start;
 
-    > div {
+    & > div {
       flex: 1;
-      width: 50%;
+      min-width: 0; // Guard anchor parameter prevents flex text overflow container blowouts
     }
   }
 }
 
-// Parent Input Group Container Box
+/* ==========================================================================
+   FLOATING LABELS PACK TRACKS CONTROL GROUPS (.register-input-group)
+   ========================================================================== */
 .register-input-group {
+  position: relative;
   display: flex;
   align-items: center;
-  background-color: #ffffff;
-  border: 1px solid Variables.$color-border;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  transition: Variables.$transition-default;
+  width: 100%;
+  height: 56px;
+  background-color: Variables.$background;
+  border: 1px solid color.adjust(Variables.$color-border, $lightness: -2%);
+  border-radius: 12px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
-  // NEW: Parent Hover State Updates
-  &:hover {
-    border-color: Variables.$color-secondary;
-
-    .input-icon {
-      color: Variables.$color-text-main;
-    }
-  }
-
-  // Active Focus State Updates
   &:focus-within {
     border-color: Variables.$color-primary;
-    box-shadow: 0 0 0 1px Variables.$color-primary;
-
-    .input-icon {
-      color: Variables.$color-primary;
-    }
+    box-shadow: 0 0 0 3px rgba(Variables.$color-primary, 0.12);
   }
 
-  // Left Embedded Input Vectors
   .input-icon {
+    position: absolute;
+    left: 14px;
+    color: Variables.$color-text-muted;
     font-size: 1.1rem;
-    color: Variables.$color-secondary;
-    margin-right: 0.85rem;
+    pointer-events: none;
     flex-shrink: 0;
-    transition: color 0.2s ease;
   }
 
-  // Text & Label Grid Alignment Layout
   .input-group_div {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    width: 100%;
+    padding: 6px 14px 4px 42px; // Symmetrical padding buffers for input placement
+    box-sizing: border-box;
 
     label {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
       color: Variables.$color-text-muted;
-      margin-bottom: 0.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      line-height: 1.2;
+      pointer-events: none;
+      text-align: left;
     }
 
-    input,
-    input.register-input {
+    input {
+      width: 100%;
       border: none;
       background: transparent;
-      padding: 0.2rem 0;
-      font-family: Variables.$font-sans;
+      padding: 2px 0 0 0;
+      font-family: inherit;
       font-size: 0.95rem;
+      font-weight: 600;
       color: Variables.$color-text-main;
-      width: 100%;
       box-sizing: border-box;
 
       &:focus {
         outline: none;
       }
-    }
 
-    // Custom configuration safeties for native calendar date rows
-    input[type="date"] {
-      color: Variables.$color-text-main;
-      cursor: pointer;
-      font-family: Variables.$font-sans;
-      
-      &::-webkit-calendar-picker-indicator {
+      /* Clean standard default native calendar picker icon position styling overrides on mobile */
+      &[type="date"] {
         cursor: pointer;
-        opacity: 0.5;
-        transition: opacity 0.2s ease;
-        
-        &:hover {
-          opacity: 1;
+        &::-webkit-calendar-picker-indicator {
+          cursor: pointer;
+          opacity: 0.5;
+          &:hover { opacity: 0.9; }
         }
       }
     }
   }
 }
 
-// Inline Form Field Errors
+/* ==========================================================================
+   ERROR MESSAGE LINES ATTRIBUTES TYPOGRAPHY
+   ========================================================================== */
 .error {
   display: block;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: Variables.$color-accent;
-  margin-top: 0.4rem;
-  padding-left: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: Variables.$color-error;
+  text-align: left;
+  margin-top: 5px;
+  padding-left: 4px;
+  animation: regFieldErrorPop 0.2s ease-out;
 }
 
-// ==========================================================================
-// LEGAL CHECKBOX BAR (`.terms`)
-// ==========================================================================
-
+/* ==========================================================================
+   CHECKBOX COMPLIANCE WRAPPERS GATES (.terms)
+   ========================================================================== */
 .terms {
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: 10px;
+  width: 100%;
+  margin-top: 4px;
   cursor: pointer;
-  padding: 0.25rem;
   user-select: none;
+  box-sizing: border-box;
 
-  // NEW: Parent Hover updates standard border profiles dynamically
-  &:hover {
-    input[type="checkbox"] {
-      border-color: Variables.$color-primary;
-    }
-  }
-
-  // Customized Native Native Checkbox Mask Hides Safari Box Layout Defaults
   input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    border: 1px solid Variables.$color-border;
-    border-radius: 4px;
-    background-color: #ffffff;
-    margin: 0.15rem 0 0 0;
+    margin-top: 3px;
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 16px;
+    height: 16px;
+    accent-color: Variables.$color-primary;
     cursor: pointer;
-    transition: Variables.$transition-default;
-
-    &:checked {
-      background-color: Variables.$color-primary;
-      border-color: Variables.$color-primary;
-
-      &::after {
-        content: '';
-        width: 4px;
-        height: 8px;
-        border: solid #ffffff;
-        border-width: 0 2px 2px 0;
-        transform: rotate(45deg);
-        margin-bottom: 2px;
-      }
-    }
-
-    &:focus-visible {
-      outline: 2px solid Variables.$color-accent;
-    }
   }
 
   span {
-    font-size: 0.85rem;
-    line-height: 1.5;
+    font-size: 0.82rem;
+    line-height: 1.45;
     color: Variables.$color-text-muted;
+    text-align: left;
 
     .legal-link {
+      font-weight: 700;
       color: Variables.$color-primary;
-      font-weight: 600;
-      border-bottom: 1px solid transparent;
+      text-decoration: none;
 
       &:hover {
-        color: Variables.$color-accent;
-        border-color: Variables.$color-accent;
+        text-decoration: underline;
       }
     }
   }
 }
 
-// ==========================================================================
-// ACTION TRIGGERS & FOOTER REDIRECT LINKS
-// ==========================================================================
-
-// Primary Submit Action Button Layout
+/* ==========================================================================
+   PRIMARY INTERACTIVE REGISTRATION BUTTONS (.register-btn)
+   ========================================================================== */
 .register-btn {
-  font-family: Variables.$font-sans;
-  background-color: Variables.$color-primary;
-  color: Variables.$color-text-light;
-  border: 1px solid Variables.$color-primary;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  padding: 0.85rem 1.25rem;
-  min-height: Variables.$touch-target-min;
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 8px;
   width: 100%;
-  margin-top: 0.5rem;
-  transition: Variables.$transition-default;
+  height: Variables.$touch-target-min; // Follows native device minimum touch targets thresholds
+  background-color: Variables.$color-primary;
+  color: Variables.$color-text-light;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(Variables.$color-primary, 0.15);
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  margin-top: 8px;
 
   svg {
-    font-size: 1.1rem;
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.05rem;
+    transition: transform 0.2s ease;
   }
 
-  // NEW: Parent Hover Rule slides vector graphic forward dynamically
   &:hover {
-    background-color: Variables.$color-primary-light;
-    border-color: Variables.$color-primary-light;
+    background-color: color.adjust(Variables.$color-primary, $lightness: -6%);
+    box-shadow: 0 6px 18px rgba(Variables.$color-primary, 0.22);
 
     svg {
-      transform: translateX(4px);
+      transform: translateX(3px); // Micro-interaction forward arrow guide transition
     }
+  }
+
+  &:active {
+    transform: scale(0.985);
+  }
+
+  &:focus-visible {
+    outline: 2px solid Variables.$color-primary;
+    outline-offset: 2px;
   }
 }
 
-
-
-// Secondary Footer Prompt Sign-up Area
+/* ==========================================================================
+   FOOTER REDIRECTION PATH PROMPTS (.login-link)
+   ========================================================================== */
 .login-link {
-  text-align: center;
-  font-size: 0.9rem;
+  margin-top: 24px;
+  font-size: 0.88rem;
   color: Variables.$color-text-muted;
-  margin-top: 2rem;
+  text-align: center;
+
+  span {
+    margin-right: 4px;
+  }
 
   a {
     font-weight: 700;
     color: Variables.$color-primary;
-    margin-left: 0.25rem;
+    text-decoration: none;
 
     &:hover {
-      color: Variables.$color-accent;
+      text-decoration: underline;
     }
+  }
+}
+
+/* ==========================================================================
+   NETWORK LEVEL TIMEOUT ERRORS BANNERS
+   ========================================================================== */
+.fetch_error {
+  width: 100%;
+  background-color: Variables.$color-error-bg;
+  border-bottom: 1px solid rgba(Variables.$color-error, 0.15);
+  padding: 12px 16px;
+  text-align: center;
+  box-sizing: border-box;
+  animation: regBannerSlideDown 0.25s ease-out;
+
+  h2 {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: Variables.$color-error;
+  }
+}
+
+/* ==========================================================================
+   ANIMATIONS CORE CONFIGURATION PROPERTIES (KEYFRAMES)
+   ========================================================================== */
+@keyframes regCardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes regFieldErrorPop {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes regBannerSlideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+/* ACCESSIBILITY COMPLIANT OVERRIDES: PREFERS REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  .register-card,
+  .error,
+  .fetch_error {
+    animation: none !important;
+  }
+  .register-btn {
+    transition: none !important;
+    &:active { transform: none !important; }
+    &:hover svg { transform: none !important; }
   }
 }

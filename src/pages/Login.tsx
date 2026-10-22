@@ -11,7 +11,7 @@ import { useMergeCartMutation } from "../features/api/cartApi";
 import { setGuestCartCount } from "../features/slice/cartSlice";
 import { loginUser } from "../features/slice/userSlice";
 import type { TUserDto } from "../types/TUserDto";
-import logoKasoa from './../assets/logo-kasoa.png';
+import logoKasoa from './../assets/logo-kasoa.webp';
 const Login = () => {
   const [showText, setShowText] = useState<String>("password");
   const [errorEmail, setErrorEmail] = useState<string>("");

@@ -161,10 +161,20 @@ export const itemApi = createApi({
       providesTags:['orders']
     }),
       cancelOrder: build.mutation<TResponseDto,number>({
-      query: (orderId) => ({
-        url: "/api/orders/cancel-order",
+      query: (orderItemId) => ({
+        url: "/api/orders/cancel-seller-order",
         params:{
-         orderId
+         orderItemId
+        },
+        method:"POST"
+      }),
+     invalidatesTags:['orders']
+    }),
+        cancelBuyerOrder: build.mutation<TResponseDto,number>({
+      query: (orderItemId) => ({
+        url: "/api/orders/cancel-buyer-order",
+        params:{
+         orderItemId
         },
         method:"POST"
       }),
@@ -244,5 +254,5 @@ export const { useAddListingMutation,useGetMylistingsQuery,
   useGetPurchaseOrdersQuery,useGetSaleOrdersQuery,useGetPurchaseDetailsQuery,useUpdateShipmentStatusMutation,
   useDeleteListingMutation,useLazyGetWishListsQuery,useLazyGetWishlistCountQuery,
   useCancelOrderMutation,useReturnItemMutation,useUpdateReturnShipmentStatusMutation,useAddCourierPriceMutation
-  ,useGetCouriersQuery,useMakeOfferMutation,useLazyGetListingQuery
+  ,useGetCouriersQuery,useMakeOfferMutation,useLazyGetListingQuery,useGetListingQuery,useCancelBuyerOrderMutation
 } = itemApi;

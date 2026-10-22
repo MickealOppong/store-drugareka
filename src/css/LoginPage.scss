@@ -1,192 +1,160 @@
-// ==========================================================================
-// 1. CONFIGURATION (VARIABLES & TOKENS)
-// ==========================================================================
+@use "sass:color";
+@use "Variables.scss" as Variables;
 
-@use 'Variables.scss';
-
-// ==========================================================================
-// 2. MIXINS
-// ==========================================================================
-
-
-
-// ==========================================================================
-// 3. GLOBAL FETCH ERROR BAR
-// ==========================================================================
-
-.fetch_error {
-  position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 200;
-  width: calc(100% - 2.5rem);
-  max-width: 480px;
-  background-color:Variables.$background;
-  border: 1px solid rgba(Variables.$color-accent, 0.2);
-  border-radius: 8px;
-  padding: 1rem 1.25rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  animation: slideInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-
-  h2 {
-    margin: 0;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: Variables.$color-accent;
-    text-align: center;
-    line-height: 1.4;
-  }
-}
-
-@keyframes slideInDown {
-  from { transform: translate(-50%, -20px); opacity: 0; }
-  to { transform: translate(-50%, 0); opacity: 1; }
-}
-
-
-// ==========================================================================
-// 4. MAIN CONTAINER (`.login-page`)
-// ==========================================================================
-
+/* ==========================================================================
+   AUTHENTICATION LAYOUT CORE CANVAS WRAPPER (.login-page)
+   ========================================================================== */
 .login-page {
-  font-family: Variables.$font-sans;
-  color: Variables.$color-text-main;
-  background-color: Variables.$background-2;
- height: 100vh;
   display: flex;
-
+  align-items: center;
   justify-content: center;
-  padding: 1.5rem 1.25rem;
+  min-height: 100vh;
+  min-height: 100dvh; // Prevents mobile viewport shifting under floating address bars
+  width: 100%;
+  background-color: Variables.$color-bg-light;
+  padding: 16px;
   box-sizing: border-box;
+  font-family: Variables.$font-sans;
 
-position: fixed;
-left: 0;
-right: 0;
-
-  // Universal typography handling inside page scope
-  a {
-    text-decoration: none;
-    color: inherit;
-    transition: Variables.$transition-default;
+  @media (min-width: Variables.$breakpoint-sm) {
+    padding: 32px 24px;
   }
 }
 
-
-// ==========================================================================
-// 5. THE LOGIN CARD MAPPING (`.login-card`)
-// ==========================================================================
-
+/* ==========================================================================
+   RESPONSIVE PROFILE INTERFACE CONTAINER CARD (.login-card)
+   ========================================================================== */
 .login-card {
-  width: 100%;
-  max-width: 420px;
-  height: fit-content;
   display: flex;
   flex-direction: column;
+  align-items: start;
+  width: 100%;
+  max-width: 440px; // Standard industrial security envelope threshold width
+  background-color: Variables.$background;
+  border: 1px solid Variables.$color-border;
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.02),
+              0 20px 48px -10px rgba(15, 23, 42, 0.03);
+  box-sizing: border-box;
+  animation: logCardSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 
-   background: Variables.$background;
-    border: 1px solid Variables.$color-border;
-    padding: 3rem 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.03);
-
-    margin-top: 4rem;
-
-  // Brand Header
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-
-    .heart {
-      color: Variables.$color-accent;
-      flex-shrink: 0;
-    }
-
-    h1 {
-      font-size: 1.25rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin: 0;
-    }
+  @media (min-width: Variables.$breakpoint-sm) {
+    padding: 40px 32px;
   }
 
-  // Typography Elements
+  /* Marketplace Typography Headers */
   h2 {
-    font-size: 1.75rem;
+    margin: 0 0 6px 0;
+    font-size: 1.35rem;
     font-weight: 800;
-    letter-spacing: -0.04em;
-    margin: 0 0 0.5rem;
+    color: Variables.$color-text-main;
+    letter-spacing: -0.025em;
+
+
+    @media (min-width: Variables.$breakpoint-sm) {
+      font-size: 1.6rem;
+    }
   }
 
   p {
-    font-size: 0.95rem;
+    margin: 0 0 24px 0;
+    font-size: 0.88rem;
     line-height: 1.5;
     color: Variables.$color-text-muted;
-    margin: 0 0 2rem;
   }
 
-  // Form Elements Wrapper
   form {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 16px;
+    width: 100%;
+
   }
 }
 
-
-// ==========================================================================
-// 6. INPUT GROUPS & INTERACTION LAYERS
-// ==========================================================================
-
-.register-input-group {
-  display: flex;
+/* ==========================================================================
+   THE BRAND SEGMENT HEADINGS (.brand)
+   ========================================================================== */
+.brand {
+  display: inline-flex;
   align-items: center;
-  position: relative;
-  background-color: #ffffff;
-  border: 1px solid Variables.$color-border;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  transition: Variables.$transition-default;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
 
-  // Highlights input border elegantly on interaction
-  &:focus-within {
-    border-color: Variables.$color-primary;
-    box-shadow: 0 0 0 1px Variables.$color-primary;
+  h1 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: Variables.$color-primary;
+    letter-spacing: -0.04em;
   }
 
-  // Left Vector Icons
+  img {
+    display: block;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+}
+
+/* ==========================================================================
+   INPUT TRACK GROUPS WRAPPERS FOR FLOATING LAYOUTS
+   ========================================================================== */
+.register-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 56px; // Tall touch layout container
+  background-color: Variables.$background;
+  border: 1px solid color.adjust(Variables.$color-border, $lightness: -2%);
+  border-radius: 12px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus-within {
+    border-color: Variables.$color-primary;
+    box-shadow: 0 0 0 3px rgba(Variables.$color-primary, 0.12);
+  }
+
   .input-icon {
+    position: absolute;
+    left: 14px;
+    color: Variables.$color-text-muted;
     font-size: 1.1rem;
-    color: Variables.$color-secondary;
-    margin-right: 0.85rem;
+    pointer-events: none;
     flex-shrink: 0;
   }
 
-  // Text & Label Grid Controller
+  /* Nested Content Box Layouts */
   .input-group_div {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    width: 100%;
+    padding: 6px 44px 4px 42px; // Strict box balancing insulation limits
+    box-sizing: border-box;
 
     label {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
       color: Variables.$color-text-muted;
-      margin-bottom: 0.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      line-height: 1.2;
+      pointer-events: none;
+      text-align: left;
     }
 
     input {
+      width: 100%;
       border: none;
       background: transparent;
-      padding: 0.2rem 0;
-      font-family: Variables.$font-sans;
+      padding: 2px 0 0 0;
+      font-family: inherit;
       font-size: 0.95rem;
+      font-weight: 600;
       color: Variables.$color-text-main;
-      width: 100%;
       box-sizing: border-box;
 
       &:focus {
@@ -195,139 +163,200 @@ right: 0;
     }
   }
 
-  // Action interactive spans (Eye visibility icons toggle)
+  /* Password Hiding Eye Action Toggles Buttons */
   span {
-    display: flex;
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    bottom: 4px;
+    width: 40px;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    min-width: Variables.$touch-target-min;
-    min-height: Variables.$touch-target-min;
-    margin-right: -0.5rem;
-    color: Variables.$color-secondary;
+    color: Variables.$color-text-muted;
     font-size: 1.1rem;
-    transition: color 0.15s ease;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: color 0.15s ease, background-color 0.15s ease;
 
     &:hover {
-      color: Variables.$color-text-main;
+      background-color: Variables.$color-bg-light;
+      color: Variables.$color-primary;
     }
   }
 }
 
-// Error Context Subtext
+/* ==========================================================================
+   ERROR ATTRIBUTE TYPOGRAPHY TEXT STRINGS
+   ========================================================================== */
 .error-text {
   display: block;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: Variables.$color-accent;
-  margin-top: 0.4rem;
-  padding-left: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: Variables.$color-error;
+  text-align: left;
+  margin-top: 5px;
+  padding-left: 4px;
+  animation: logFieldErrorPop 0.2s ease-out;
 }
 
-
-// ==========================================================================
-// 7. INTERACTION BUTTONS & LINKS
-// ==========================================================================
-
-// Primary Submit Action
+/* ==========================================================================
+   PRIMARY INTERACTIVE SUBMIT ACTION TARGETS (.login-btn)
+   ========================================================================== */
 .login-btn {
-  font-family: Variables.$font-sans;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: Variables.$touch-target-min; // Enforces standard touch targets boundaries
   background-color: Variables.$color-primary;
   color: Variables.$color-text-light;
-  border: 1px solid Variables.$color-primary;
-  border-radius: 6px;
-  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
   font-size: 0.95rem;
-  padding: 0.85rem 1.25rem;
-  min-height: Variables.$touch-target-min;
+  font-weight: 700;
   cursor: pointer;
-  width: 100%;
-  margin-top: 0.5rem;
-  transition: Variables.$transition-default;
+  box-shadow: 0 4px 12px rgba(Variables.$color-primary, 0.15);
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  margin-top: 6px;
 
   &:hover {
-    background-color: Variables.$color-primary-light;
-    border-color: Variables.$color-primary-light;
+    background-color: color.adjust(Variables.$color-primary, $lightness: -6%);
+    box-shadow: 0 6px 18px rgba(Variables.$color-primary, 0.22);
+  }
+
+  &:active {
+    transform: scale(0.985); // Responsive mobile tap compression interaction
+  }
+
+  &:focus-visible {
+    outline: 2px solid Variables.$color-primary;
+    outline-offset: 2px;
   }
 }
 
-// Reset Link
-.reset-password-link {
-  display: inline-block;
-  align-self: center;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: Variables.$color-text-muted;
-  margin-top: 1.5rem;
-  border-bottom: 1px solid transparent;
-
-  &:hover {
-    color: Variables.$color-text-main;
-    border-color: Variables.$color-text-main;
-  }
-}
-
-// Hidden Social Authentication Elements (Styled cleanly for eventual activation)
-.social-btn {
-  font-family: Variables.$font-sans;
-  background-color: transparent;
-  color: Variables.$color-text-main;
-  border: 1px solid Variables.$color-border;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  padding: 0.85rem 1.25rem;
-  min-height: Variables.$touch-target-min;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 0.75rem;
-  transition: Variables.$transition-default;
-
-  &:hover {
-    background-color: Variables.$color-bg-light;
-    border-color: Variables.$color-primary;
-  }
-}
-
-// Global Custom Divider Row
+/* ==========================================================================
+   CONTEXTUAL LAYOUT DIVIDERS SEGMENTS
+   ========================================================================== */
 .divider {
   display: flex;
   align-items: center;
   text-align: center;
-  margin-top: 1.75rem;
-  color: Variables.$color-border;
+  width: 100%;
+  margin: 20px 0;
 
   &::before,
   &::after {
-    content: '';
+    content: "";
     flex: 1;
     border-bottom: 1px solid Variables.$color-border;
   }
 
   span {
-    padding: 0 0.85rem;
-    font-size: 0.75rem;
+    padding: 0 12px;
+    font-size: 0.78rem;
     font-weight: 700;
+    color: Variables.$color-text-muted;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #999999;
   }
 }
 
-// Secondary Footer Prompt Sign-up Area
+/* ==========================================================================
+   NAVIGATION REDIRECTION ROUTING LINKS
+   ========================================================================== */
+.reset-password-link {
+  align-self: center;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: Variables.$color-primary;
+  text-decoration: none;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: color.adjust(Variables.$color-primary, $lightness: -12%);
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid Variables.$color-primary;
+    border-radius: 4px;
+    padding: 2px;
+  }
+}
+
 .signup-link {
-  text-align: center;
-  font-size: 0.9rem;
+  margin-top: 24px;
+  font-size: 0.88rem;
   color: Variables.$color-text-muted;
-  margin-top: 2rem;
+  text-align: center;
 
   a {
     font-weight: 700;
     color: Variables.$color-primary;
-    margin-left: 0.25rem;
+    text-decoration: none;
 
     &:hover {
-      color: Variables.$color-accent;
+      text-decoration: underline;
     }
+  }
+}
+
+/* ==========================================================================
+   NETWORK LEVEL SYSTEM DISRUPTION ALERTS (.fetch_error)
+   ========================================================================== */
+.fetch_error {
+  width: 100%;
+  background-color: Variables.$color-error-bg;
+  border-bottom: 1px solid rgba(Variables.$color-error, 0.15);
+  padding: 12px 16px;
+  text-align: center;
+  box-sizing: border-box;
+  animation: logErrorBannerSlide down 0.25s ease-out;
+
+  h2 {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: Variables.$color-error;
+  }
+}
+
+/* ==========================================================================
+   SYSTEM MOTION HARDWARE-ACCELERATED TIMING FRAMEWORK
+   ========================================================================== */
+@keyframes logCardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes logFieldErrorPop {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* REDUCED MOTION GATES ACCESSIBILITY OVERRIDES */
+@media (prefers-reduced-motion: reduce) {
+  .login-card,
+  .error-text,
+  .fetch_error {
+    animation: none !important;
+  }
+  .login-btn {
+    transition: none !important;
+    &:active { transform: none !important; }
   }
 }

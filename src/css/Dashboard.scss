@@ -1,249 +1,293 @@
 @use "sass:color";
-@use "Variables.scss"; // Hooks core Spruce (#1E3A3A), Alabaster (#F4F7F6), Ink (#0D1313)
+@use "Variables.scss" as Variables;
 
-// Scoped layout parameters
-$db-card-bg: #ffffff;
-$db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
-
+/* ==========================================================================
+   MASTER DASHBOARD SHELL CONTAINER WORKSPACE (.db-view)
+   ========================================================================== */
 .db-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
   width: 100%;
   box-sizing: border-box;
-  font-family: Variables.$font-sans;
-  color: Variables.$color-text-main;
-  //background-color: Variables.$background;
-
-  &__header {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid Variables.$color-border;
-    margin-bottom: 2.5rem;
-
-    @include Variables.media-up(Variables.$breakpoint-sm) {
-      flex-direction: row;
-      align-items: center;
-    }
-  }
-
-  &__title {
-    margin: 0.25rem 0 0 0;
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    color: Variables.$color-text-main;
-  }
-
-  &__description {
-    margin: 0.5rem 0 0 0;
-    font-size: 14px;
-    color: Variables.$color-text-muted;
-  }
-}
-
-// Global Reusable Text Label Atom
-.db-eyebrow {
-  display: block;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: Variables.$color-text-muted;
-  text-transform: uppercase;
-}
-
-// High-Performance Retail Store Action Button
-.db-shop-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0 1.25rem;
-  height: 42px;
-  background-color: Variables.$color-bg-light;
-  color: Variables.$color-primary;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: 700;
-  transition: Variables.$transition-default;
-  border: 1px solid Variables.$color-border;
-
-  svg {
-    font-size: 1rem;
-    transition: transform 0.2s $db-physics-cubic;
-  }
-
-  &:hover {
-    background-color: Variables.$color-primary;
-    color: Variables.$color-text-light;
-    border-color: Variables.$color-primary;
-    svg {
-      transform: translateX(3px);
-    }
-  }
-}
-
-// =========================================================
-// WIDGET HIGH-DENSITY METRICS CARDS (`.db-stats-row`)
-// =========================================================
-.db-stats-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin-bottom: 2.5rem;
 
   @include Variables.media-up(Variables.$breakpoint-sm) {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2.5rem;
+  }
+
+  /* Shared Typography Eyebrows System Token */
+  .db-eyebrow {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: Variables.$color-primary;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.35rem;
+  }
+}
+
+/* ==========================================================================
+   1. RUNTIME PROFILE VIEWPORTS HEADER SECTIONS (.db-view__header)
+   ========================================================================== */
+.db-view__header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  border-bottom: 1px solid Variables.$color-border;
+  padding-bottom: 1.5rem;
+  box-sizing: border-box;
+
+  @include Variables.media-up(Variables.$breakpoint-md) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  &-meta {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+  }
+
+  .db-view__title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: Variables.$color-text-main;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      font-size: 1.85rem;
+    }
+  }
+
+  .db-view__description {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: Variables.$color-text-muted;
+    max-width: 580px;
+  }
+
+  /* Call-To-Action Shop Link Overlay Element */
+  .db-shop-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: Variables.$touch-target-min;
+    padding: 0 1.25rem;
+    background-color: Variables.$color-primary;
+    color: Variables.$color-text-light;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(Variables.$color-primary, 0.12);
+    transition: background-color 0.15s ease, transform 0.1s ease;
+
+    &:hover {
+      background-color: color.adjust(Variables.$color-primary, $lightness: -6%);
+      
+      svg {
+        transform: translateX(2px);
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    svg {
+      font-size: 1rem;
+      transition: transform 0.15s ease;
+    }
+  }
+}
+
+/* ==========================================================================
+   2. HIGH-DENSITY METRICS STATS GRID (.db-stats-row)
+   ========================================================================== */
+.db-stats-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include Variables.media-up(Variables.$breakpoint-sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include Variables.media-up(1140px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 .db-stat-card {
   display: flex;
   align-items: center;
-  padding: 1.25rem;
-  background-color: $db-card-bg;
+  gap: 1.15rem;
+  background-color: Variables.$background;
   border: 1px solid Variables.$color-border;
-  border-radius: 12px;
+  border-radius: 14px;
+  padding: 1.25rem;
   text-decoration: none;
+  color: inherit;
   box-sizing: border-box;
-  position: relative;
-  transition: Variables.$transition-default;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    border-color: color.adjust(Variables.$color-border, $lightness: -8%);
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.02);
+
+    .db-stat-card__arrow {
+      transform: translateX(2px);
+      color: Variables.$color-primary;
+    }
+  }
 
   &__icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
-    background-color: Variables.$color-bg-light;
-    color: Variables.$color-primary;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background-color: Variables.$color-bg-light;
+    color: Variables.$color-primary;
     font-size: 1.25rem;
-    margin-right: 1rem;
     flex-shrink: 0;
   }
 
   &__body {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    text-align: left;
   }
 
   &__label {
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 0.8rem;
+    font-weight: 700;
     color: Variables.$color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.15rem;
   }
 
   &__value {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 800;
     color: Variables.$color-text-main;
-    line-height: 1.2;
-    margin-top: 2px;
+    font-variant-numeric: tabular-nums;
   }
 
   &__arrow {
-    margin-left: auto;
     font-size: 1.1rem;
-    color: color.adjust(Variables.$color-text-muted, $lightness: 15%);
-    transition:
-      transform 0.2s ease,
-      color 0.2s ease;
-  }
-
-  &:hover {
-    transform: translateY(-2px);
-    border-color: color.adjust(Variables.$color-border, $lightness: -10%);
-    box-shadow: 0 10px 24px rgba(13, 19, 19, 0.03);
-
-    .db-stat-card__arrow {
-      color: Variables.$color-text-main;
-      transform: translateX(2px);
-    }
+    color: color.adjust(Variables.$color-border, $lightness: -15%);
+    flex-shrink: 0;
+    transition: transform 0.15s ease, color 0.15s ease;
   }
 }
 
-// =========================================================
-// REUSABLE DASHBOARD INTERIOR GRID PANELS
-// =========================================================
+/* ==========================================================================
+   3. STRUCTURAL SPLIT SECTION BLOCKS (.db-section)
+   ========================================================================== */
 .db-section {
-  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
   width: 100%;
   box-sizing: border-box;
 
   &__header {
     display: flex;
-    justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 1.5rem;
-    width: 100%;
-  }
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid Variables.$color-border;
+    padding-bottom: 0.5rem;
+    text-align: left;
 
-  &__title {
-    margin: 2px 0 0 0;
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-  }
+    &-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: Variables.$color-primary;
+      text-decoration: none;
 
-  &__header-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 13px;
-    font-weight: 700;
-    color: Variables.$color-primary;
-    text-decoration: none;
-    transition: Variables.$transition-default;
+      &:hover {
+        text-decoration: underline;
+        svg { transform: translateX(2px); }
+      }
 
-    svg {
-      font-size: 14px;
-      transition: transform 0.2s ease;
-    }
-
-    &:hover {
-      color: color.adjust(Variables.$color-primary, $lightness: -10%);
       svg {
-        transform: translateX(2px);
+        font-size: 0.95rem;
+        transition: transform 0.15s ease;
       }
     }
   }
-}
 
-// Actions Link Ribbon Modules
-.db-actions-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+  &__title {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: Variables.$color-text-main;
+    letter-spacing: -0.02em;
+  }
 
-  @include Variables.media-up(Variables.$breakpoint-md) {
-    grid-template-columns: repeat(3, 1fr);
+  /* 4. Action Cards Activity Grid Layout */
+  .db-actions-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.85rem;
+    width: 100%;
+
+    @include Variables.media-up(Variables.$breakpoint-md) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 }
 
 .db-action-item {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1.25rem;
-  background-color: $db-card-bg;
+  gap: 1.15rem;
+  background-color: Variables.$background;
   border: 1px solid Variables.$color-border;
-  border-radius: 12px;
+  border-radius: 14px;
+  padding: 1.15rem;
   text-decoration: none;
   box-sizing: border-box;
-  transition: Variables.$transition-default;
+  transition: all 0.15s ease;
+
+  &:hover {
+    border-color: color.adjust(Variables.$color-border, $lightness: -8%);
+    background-color: Variables.$color-bg-light;
+
+    .db-action-item__arrow {
+      transform: translateX(3px);
+      color: Variables.$color-primary;
+    }
+  }
 
   &__icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    background-color: Variables.$color-bg-light;
-    color: Variables.$color-primary;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #f1f5f9;
+    color: #475569;
     font-size: 1.15rem;
     flex-shrink: 0;
   }
@@ -251,397 +295,242 @@ $db-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
   &__body {
     display: flex;
     flex-direction: column;
+    flex: 1;
     min-width: 0;
+    text-align: left;
 
     strong {
-      font-size: 14px;
+      font-size: 0.92rem;
       font-weight: 700;
       color: Variables.$color-text-main;
+      margin-bottom: 0.2rem;
     }
+
     span {
-      font-size: 12px;
+      font-size: 0.82rem;
       color: Variables.$color-text-muted;
-      margin-top: 1px;
+      line-height: 1.35;
     }
   }
 
   &__arrow {
-    margin-left: auto;
-    font-size: 1rem;
-    color: color.adjust(Variables.$color-text-muted, $lightness: 15%);
-    transition: transform 0.2s ease;
+    font-size: 1.1rem;
+    color: color.adjust(Variables.$color-border, $lightness: -12%);
+    flex-shrink: 0;
+    transition: transform 0.15s ease, color 0.15s ease;
   }
 
-  &:hover {
-    border-color: color.adjust(Variables.$color-border, $lightness: -10%);
-    background-color: Variables.$color-bg-light;
-
-    .db-action-item__arrow {
-      transform: translateX(2px);
-    }
-  }
-
+  /* Featured Primary Action Card Focus Modifiers */
   &--primary {
-    background-color: Variables.$color-primary;
-    border-color: Variables.$color-primary;
+    background-color: #f0f3eb;
+    border-color: rgba(104, 118, 75, 0.15);
 
     .db-action-item__icon {
-      background-color: rgba(255, 255, 255, 0.15);
-      color: Variables.$color-text-light;
-    }
-    .db-action-item__body strong {
-      color: Variables.$color-text-light;
-    }
-    .db-action-item__body span {
-      color: rgba(255, 255, 255, 0.7);
-    }
-    .db-action-item__arrow {
+      background-color: Variables.$color-primary;
       color: Variables.$color-text-light;
     }
 
     &:hover {
-      background-color: color.adjust(Variables.$color-primary, $lightness: -4%);
-      border-color: color.adjust(Variables.$color-primary, $lightness: -4%);
+      background-color: #e5eadc;
+      border-color: rgba(104, 118, 75, 0.25);
     }
   }
 }
 
-// =========================================================
-// SELLER PERFORMANCE DATA REGISTRIES
-// =========================================================
+/* ==========================================================================
+   4. SELLER LOGISTICS PROFILE CONTAINERS (.db-seller-stats)
+   ========================================================================== */
 .db-seller-stats {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  background-color: Variables.$color-bg-light;
-  padding: 1.5rem;
-  border-radius: 12px;
-  border: 1px solid Variables.$color-border;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  width: 100%;
+  box-sizing: border-box;
 
-  @include Variables.media-up(Variables.$breakpoint-md) {
-    grid-template-columns: repeat(5, 1fr);
-    padding: 2rem 1.5rem;
+  @include Variables.media-up(Variables.$breakpoint-sm) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  @include Variables.media-up(1140px) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
 .db-seller-metric {
   display: flex;
   flex-direction: column;
-  border-bottom: none;
+  justify-content: center;
+  text-align: left;
+  background-color: Variables.$background-3;
+  border: 1px solid Variables.$color-border;
+  border-radius: 12px;
+  padding: 1.15rem;
   box-sizing: border-box;
 
   &__label {
-    font-size: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
     color: Variables.$color-text-muted;
-    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.35rem;
   }
 
   &__value {
     font-size: 1.35rem;
     font-weight: 800;
     color: Variables.$color-text-main;
-    margin-top: 4px;
-    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
   }
 }
 
-// Activity Rows Layout Loops
+/* ==========================================================================
+   RECENT SELLER ACTIVITY DATAGRID TRACKS (.db-activity-panel)
+   ========================================================================== */
 .db-activity-panel {
+  width: 100%;
+  background-color: Variables.$background;
   border: 1px solid Variables.$color-border;
-  background-color: $db-card-bg;
-  border-radius: 12px;
+  border-radius: 16px;
+  margin-top: 0.5rem;
   overflow: hidden;
+  box-sizing: border-box;
 
   &__header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1.25rem 1.5rem;
+    justify-content: space-between;
+    gap: 1rem;
+    background-color: #fafafa;
     border-bottom: 1px solid Variables.$color-border;
-    background-color: Variables.$color-bg-light;
+    padding: 1rem 1.25rem;
 
     h3 {
       margin: 0;
-      font-size: 14px;
+      font-size: 0.92rem;
       font-weight: 800;
+      color: Variables.$color-text-main;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.04em;
     }
   }
 
   &__list {
     display: flex;
     flex-direction: column;
-    width: 100%;
-  }
+width: 100%;
 }
-
+}
+/* Individual Data Line Rows Component */
 .db-item-row {
-  display: flex;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid Variables.$color-border;
-  gap: 1rem;
-  width: 100%;
-  box-sizing: border-box;
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  &__media {
-    width: 36px;
-    height: 36px;
-    border-radius: 6px;
-    background-color: Variables.$color-bg-light;
-    color: Variables.$color-text-muted;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    flex-shrink: 0;
-  }
-
-  &__info {
-    min-width: 0;
-    flex: 1;
-    strong {
-      font-size: 14px;
-      color: Variables.$color-text-main;
-      font-weight: 600;
-    }
-  }
-
-  &__status {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-
-    &--sold {
-      background-color: Variables.$color-success-bg;
-      color: Variables.$color-success;
-    }
-    &--shipping {
-      background-color: #fef3c7;
-      color: #d97706;
-    }
-    &--active {
-      background-color: #eff6ff;
-      color: #2563eb;
-    }
-  }
-
-  &__action {
-    color: color.adjust(Variables.$color-text-muted, $lightness: 15%);
-    font-size: 1.1rem;
-    display: flex;
-    transition: color 0.2s ease;
-    &:hover {
-      color: Variables.$color-primary;
-    }
-  }
+display: flex;
+align-items: center;
+gap: 1rem;
+padding: 1rem 1.25rem;
+border-bottom: 1px solid Variables.$color-border;
+box-sizing: border-box;
+transition: background-color 0.15s ease;
+&:last-child {
+border-bottom: none;
 }
-
-// =========================================================
-// NON-SELLER REGISTRATION PROMO BANNER (`.db-sell-cta`)
-// =========================================================
+&:hover {
+background-color: Variables.$color-bg-light;
+}
+&__media {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 36px;
+height: 36px;
+border-radius: 8px;
+background-color: #f1f5f9;
+color: #64748b;
+font-size: 1.05rem;
+flex-shrink: 0;
+}
+&__info {
+flex: 1;
+min-width: 0;
+text-align: left;
+strong {
+display: block;
+font-size: 0.88rem;
+font-weight: 600;
+color: Variables.$color-text-main;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+}
+&__status {
+display: inline-flex;
+align-items: center;
+gap: 0.35rem;
+font-size: 0.75rem;
+font-weight: 700;
+padding: 0.25rem 0.6rem;
+border-radius: 6px;
+white-space: nowrap;
+svg {
+font-size: 0.85rem;
+flex-shrink: 0;
+}
+/* Conditional status modifier classes injection mappings */
+&--sold {
+background-color: #ecfdf5;
+color: #10b981;
+}
+&--shipping {
+background-color: #eff6ff;
+color: #3b82f6;
+}
+&--active {
+background-color: #fef3c7;
+color: #f59e0b;
+}
+}
+&__action {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 28px;
+height: 28px;
+border-radius: 6px;
+color: #94a3b8;
+text-decoration: none;
+transition: all 0.15s ease;
+&:hover {
+background-color: #e2e8f0;
+color: Variables.$color-primary;
+}
+}
+}
+/* ==========================================================================
+5. NON-SELLER BANNER UPGRADE ONBOARDING CTA (.db-sell-cta)
+========================================================================== */
 .db-sell-cta {
-  background-color: Variables.$color-primary;
-  border-radius: 16px;
-  padding: 2.5rem 1.5rem;
-  position: relative;
-  overflow: hidden;
-  color: Variables.$color-text-light;
-  margin-bottom: 3rem;
-  width: 100%;
-  box-sizing: border-box;
-
-  @include Variables.media-up(Variables.$breakpoint-md) {
-    padding: 3.5rem 3rem;
-  }
-
-  &__content {
-    max-width: 480px;
-    position: relative;
-    z-index: 2;
-  }
-
-  &__title {
-    font-size: 1.85rem;
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: -0.03em;
-    margin: 0.5rem 0 0.75rem 0;
-    color: Variables.$color-text-light;
-
-    @include Variables.media-up(Variables.$breakpoint-md) {
-      font-size: 2.25rem;
-    }
-  }
-
-  &__desc {
-    font-size: 14px;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.75);
-    margin: 0 0 2rem 0;
-  }
-
-  &__btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    height: 46px;
-    padding: 0 1.5rem;
-    background-color: Variables.$background;
-    color: Variables.$color-primary;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: Variables.$transition-default;
-    svg {
-      transition: transform 0.2s ease;
-    }
-    &:hover {
-      background-color: Variables.$color-bg-light;
-      svg {
-        transform: translateX(3px);
-      }
-    }
-  }
-  &__backdrop-icon {
-    position: absolute;
-    right: -2rem;
-    bottom: -2rem;
-    font-size: 12rem;
-    color: rgba(255, 255, 255, 0.04);
-    pointer-events: none;
-    z-index: 1;
-  }
+display: flex;
+width: 100%;
+background-color: #f4f5f0; // Gentle olive tint matching branding constraints
+border: 1px dashed rgba(104, 118, 75, 0.3);
+border-radius: 16px;
+padding: 1.75rem;
+box-sizing: border-box;
+&__content {
+display: flex;
+flex-direction: column;
+gap: 0.35rem;
+text-align: left;
+span:first-child {
+font-size: 1rem;
+font-weight: 800;
+color: Variables.$color-text-main;
 }
-// =========================================================// RECENTLY VIEWED PRODUCTS RESPONSIVE GRID MATRIX// =========================================================
-.db-products-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  width: 100%;
-  box-sizing: border-box;
-  @include Variables.media-up(Variables.$breakpoint-sm) {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-  }
-  @include Variables.media-up(Variables.$breakpoint-lg) {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-  }
+span:last-child {
+font-size: 0.85rem;
+line-height: 1.45;
+color: Variables.$color-text-muted;
+max-width: 540px;
 }
-.db-product-card {
-  background-color: $db-card-bg;
-  border: 1px solid Variables.$color-border;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(13, 19, 19, 0.01);
-  display: flex;
-  flex-direction: column;
-  transition: Variables.$transition-default;
-  &__gallery {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    background-color: Variables.$color-bg-light;
-    overflow: hidden;
-  }
-  &__link {
-    display: block;
-    width: 100%;
-    height: 100%;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-  }
-  &__wish-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: Variables.$background;
-    border: 1px solid Variables.$color-border;
-    color: Variables.$color-text-muted;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 14px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: Variables.$transition-default;
-    outline: none;
-    z-index: 3;
-    &:hover {
-      color: Variables.$color-accent;
-      transform: scale(1.05);
-    }
-    &.is-active {
-      background-color: #ffe4e6;
-      color: Variables.$color-accent;
-      border-color: #fca5a5;
-      svg {
-        fill: Variables.$color-accent;
-      }
-    }
-  }
-  &__meta {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  &__condition {
-    align-self: flex-start;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: Variables.$color-text-muted;
-    background-color: Variables.$color-bg-light;
-    padding: 2px 6px;
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
-  }
-  &__brand {
-    margin: 0 0 0.35rem 0;
-    font-size: 14px;
-    font-weight: 700;
-    color: Variables.$color-text-main;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  &__price {
-    font-size: 15px;
-    font-weight: 800;
-    color: Variables.$color-primary;
-    margin-top: auto;
-  }
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(13, 19, 19, 0.04);
-    border-color: color.adjust(Variables.$color-border, $lightness: -10%);
-    .db-product-card__gallery img {
-      transform: scale(1.04);
-    }
-  }
+}
 }

@@ -2,41 +2,53 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { useState } from "react";
-import { FiArrowUpLeft } from "react-icons/fi";
+import { FiArrowUpLeft, FiX } from "react-icons/fi";
 import { useGetPurchaseDetailsQuery } from "../features/api/itemApi";
 import type { TOrdersDto } from "../types/TOrdersDto";
 import { formatPrice } from "../util/util";
+import BuyerOrderCancellationModal from "./BuyerOrderCancellationModla";
 import OrderReturnModal from "./OrderReturnModal";
 import OrderTimeline from "./OrderTimeline";
 
 const OrderDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation();
-const[selectedOrder,setSelectedOrder]=useState<TOrdersDto>()
+  const [selectedOrder, setSelectedOrder] = useState<TOrdersDto>();
 
-const[modalOpen,setModalOpen] = useState<boolean>(false)
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [canceelModalOpen, setCancelModalOpen] = useState<boolean>(false);
 
   // ISOLATED API COMPONENT FETCH
   const { data, isLoading, isError } = useGetPurchaseDetailsQuery(
     parseInt(id as string),
   );
 
-
   const orders = (data as TOrdersDto[]) || [];
 
   const totalCost = orders.reduce((accumulator, currentOrder) => {
-    return accumulator + (currentOrder.price + currentOrder.shipping+currentOrder.serviceCharge);
+    return (
+      accumulator +
+      (currentOrder.price + currentOrder.shipping + currentOrder.serviceCharge)
+    );
   }, 0);
 
-
   const openModal = (order: TOrdersDto) => {
-      setSelectedOrder(order);
-      setModalOpen(true);
-    };
-  
-    const closeModal = () => {
-      setModalOpen(false);
-    };
+    setSelectedOrder(order);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const cancelModal = (order: TOrdersDto) => {
+    setSelectedOrder(order);
+    setCancelModalOpen(true);
+  };
+
+  const closeCancelModal = () => {
+    setCancelModalOpen(false);
+  };
 
   return (
     <>
@@ -83,7 +95,7 @@ const[modalOpen,setModalOpen] = useState<boolean>(false)
                   <th>{t("order_details.table.headers.seller")}</th>
                   <th>{t("order_details.table.headers.subtotal")}</th>
                   <th>{t("order_details.table.headers.shipping")}</th>
-                    <th>{t("order_details.table.headers.service_charge")}</th>
+                  <th>{t("order_details.table.headers.service_charge")}</th>
                   <th>{t("order_details.table.headers.total")}</th>
                   <th>{t("order_details.table.headers.order_status")}</th>
                   <th>{t("order_details.table.headers.tracking_number")}</th>
@@ -116,14 +128,16 @@ const[modalOpen,setModalOpen] = useState<boolean>(false)
                         {formatPrice(order.shipping)} {order.currency}
                       </span>
                     </td>
-                       <td>
+                    <td>
                       <span className="data-table__text">
                         {formatPrice(order.serviceCharge)} {order.currency}
                       </span>
                     </td>
                     <td>
                       <span className="data-table__text font-bold text-primary">
-                        {formatPrice(order.price+order.serviceCharge+order.shipping)}{" "}
+                        {formatPrice(
+                          order.price + order.serviceCharge + order.shipping,
+                        )}{" "}
                         {order.currency}
                       </span>
                     </td>
@@ -160,9 +174,16 @@ const[modalOpen,setModalOpen] = useState<boolean>(false)
                           type="button"
                           className="data-table__action-trigger"
                           title="Anuluj i zwróć zamówienie"
-                          onClick={()=>openModal(order)}
+                          onClick={() => openModal(order)}
                         >
                           <FiArrowUpLeft />
+                        </button>
+                        <button
+                          type="button"
+                          className="data-table__actions__btn data-table__actions__btn--cancel"
+                          onClick={() => cancelModal(order)}
+                        >
+                          <FiX />
                         </button>
                       </td>
                     )}
@@ -187,10 +208,20 @@ const[modalOpen,setModalOpen] = useState<boolean>(false)
         );
       })}
 
-      {
-        modalOpen && 
-        <OrderReturnModal orderData={selectedOrder as TOrdersDto} isOpen={modalOpen} onButtonClick={closeModal}/>
-      }
+      {canceelModalOpen && (
+        <BuyerOrderCancellationModal
+          orderData={selectedOrder as TOrdersDto}
+          isOpen={canceelModalOpen}
+          onButtonClick={closeCancelModal}
+        />
+      )}
+      {modalOpen && (
+        <OrderReturnModal
+          orderData={selectedOrder as TOrdersDto}
+          isOpen={modalOpen}
+          onButtonClick={closeModal}
+        />
+      )}
     </>
   );
 };

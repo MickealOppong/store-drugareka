@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { FiAlertCircle, FiArrowRight, FiTag, FiX } from "react-icons/fi";
 
 import { useStripeOfferBuyNowMutation } from "../features/api/checkoutApi";
-import { useMakeOfferMutation } from "../features/api/itemApi";
+import { useGetListingQuery, useMakeOfferMutation } from "../features/api/itemApi";
 import type { TOfferDto } from "../types/TOfferDto";
 import type { TResponseDto } from "../types/TResponseDto";
 import { formatPrice } from "../util/util";
@@ -68,6 +68,9 @@ export const MakeOfferModal = ({
   const [message, setMessage] = useState("");
   const [alertError, setAlertError] = useState<string | null>(null);
 
+  const{data:listing} = useGetListingQuery(id)
+  
+
   const isComponentProcessing =
     isOfferLoading || isCheckoutLoading;
 
@@ -78,8 +81,8 @@ export const MakeOfferModal = ({
 
   const totalCheckoutCost =
     currentPrice +
-    Number(shipment || 0) +
-    Number(service || 0);
+    Number(shipment || listing?.shippingCost) +
+    Number(service || listing?.serviceCharge);
 
   const genericError = t(
     "make_offer_modal.validation.generic_error",
@@ -154,6 +157,9 @@ export const MakeOfferModal = ({
         listingId: id,
         offer: numericOffer,
       }).unwrap()) as TResponseDto;
+
+      console.log(response);
+      
 
       const {
         message: apiMessage,
@@ -527,7 +533,7 @@ export const MakeOfferModal = ({
           <div className="mkt-offer-modal__badge">
             <FiTag aria-hidden="true" />
             <span>
-              {t("cart.summary.checkout_btn", {
+              {t("make_offer_modal.header.title", {
                 defaultValue: "Checkout",
               })}
             </span>
@@ -548,13 +554,13 @@ export const MakeOfferModal = ({
               id="mkt-checkout-title"
               className="mkt-offer-modal__title"
             >
-              {t("checkout.summary.title", {
+              {t("make_offer_modal.header.title", {
                 defaultValue: "Order summary",
               })}
             </h2>
 
             <p className="mkt-offer-modal__description">
-              {t("checkout.summary.description", {
+              {t("make_offer_modal.header.message", {
                 defaultValue:
                   "Review your order before proceeding to secure payment.",
               })}
@@ -582,7 +588,7 @@ export const MakeOfferModal = ({
                   </span>
 
                   <span className="mkt-offer-modal__summary-value">
-                    {formatPrice(currentPrice)} zł
+                    {formatPrice(currentPrice||Number(listing?.newPrice))} zł
                   </span>
                 </div>
 
@@ -594,7 +600,7 @@ export const MakeOfferModal = ({
                   </span>
 
                   <span className="mkt-offer-modal__summary-value">
-                    {formatPrice(Number(service || 0))} zł
+                    {formatPrice(Number(service || Number(listing?.serviceCharge)))} zł
                   </span>
                 </div>
 
@@ -606,7 +612,7 @@ export const MakeOfferModal = ({
                   </span>
 
                   <span className="mkt-offer-modal__summary-value">
-                    {formatPrice(Number(shipment || 0))} zł
+                    {formatPrice(Number(shipment || Number(listing?.shippingCost)))} zł
                   </span>
                 </div>
 

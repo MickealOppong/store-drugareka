@@ -20,7 +20,7 @@ import {
 import { useGetListingQuery } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
-import { formatPrice } from "../util/util";
+import { formatPrice, sanitizeCategoryKey } from "../util/util";
 import Footer from "./Footer";
 import Loading from "./Loading";
 import MakeOfferModal from "./MakeOfferModal";
@@ -110,7 +110,7 @@ const ProductDetails = () => {
             <FiArrowLeft /> {t("product_details.nav.back")}
           </button>
           <span className="product-details__category-crumb">
-            {t("product_details.nav.shop_crumb")} / {product.category.name}
+            {t("product_details.nav.shop_crumb")} / {t(`categories.${sanitizeCategoryKey(product.category.name)}.name`)}
           </span>
         </header>
 

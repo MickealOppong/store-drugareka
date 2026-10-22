@@ -8,6 +8,7 @@ import { appName } from "../data/data";
 import { useLogoutMutation } from "../features/api/authApi";
 import { useGetCartCountQuery } from "../features/api/cartApi";
 import { useGetWishlistCountQuery } from "../features/api/itemApi";
+import { userApi } from "../features/api/userApi";
 import { logoutUser } from "../features/slice/userSlice";
 import { useAppSelector } from "../store";
 import Loading from "./Loading";
@@ -35,6 +36,7 @@ const NavHeader = () => {
     try {
       await logout(refreshToken).unwrap();
       dispatch(logoutUser());
+          dispatch(userApi.util.resetApiState());
       navigate("/");
     } catch (error) {
       console.error("Logout transaction lifecycle exception:", error);

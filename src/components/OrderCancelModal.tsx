@@ -10,7 +10,7 @@ import "./../css/OrderCancelModal.scss";
 export const OrderCancelModal= ({orderData,isOpen,onButtonClick}:{orderData:TOrdersDto,isOpen:boolean,onButtonClick:()=>void}) => {
   const [cancelOrder, { isLoading, error}] = useCancelOrderMutation();
 
-  console.log(orderData);
+
   
 
   if (!isOpen || !orderData) return null;
@@ -19,8 +19,10 @@ export const OrderCancelModal= ({orderData,isOpen,onButtonClick}:{orderData:TOrd
     e.preventDefault();
     try {
       // Direct backend cancellation call
-    const response =await cancelOrder(orderData.id);
-    
+      const orderItemId=orderData.id
+    const response =await cancelOrder(orderItemId);
+console.log(response);
+
     
     if (response && !('error' in response)) {
         onButtonClick();

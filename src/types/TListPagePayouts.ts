@@ -5,6 +5,7 @@ export type TListPagePayout={
  pageSize:number,
 page:number,
 totalPages:number,
-totalElements:number
+totalElements:number,
+accumulatedItems:number
 
 }

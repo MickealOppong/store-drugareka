@@ -1,5 +1,5 @@
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FiAlertCircle,
@@ -23,10 +23,10 @@ import {
   useLazyGetUserQuery,
   useStripeConnectMutation,
 } from "../features/api/userApi";
-import { updateUser } from "../features/slice/userSlice";
 import { useAppSelector } from "../store";
 import type { TResponseDto } from "../types/TResponseDto";
 import type { TUserDto } from "../types/TUserDto";
+import { CookieService } from "../util/util";
 import "./../css/UserProfile.scss";
 
 type StripeStatus =
@@ -105,9 +105,9 @@ const UserProfile = () => {
       setId(profile.userId);
       setFirstName(profile.firstName ?? "");
       setLastName(profile.lastName ?? "");
-      setAccountNumber(profile.accountNumber ?? "");
+  
       setEmail(profile.email ?? "");
-      setPesel(profile.pesel ?? "");
+
 
       setStreet(profile.address?.street ?? "");
       setCity(profile.address?.city ?? "");
@@ -178,7 +178,7 @@ const UserProfile = () => {
   };
 
   const handleProfileSubmit = async (
-    event: FormEvent<HTMLFormElement>
+    event: ChangeEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
     setProfileError(null);
@@ -218,8 +218,10 @@ const UserProfile = () => {
       const response = await updateProfile(formData).unwrap();
       const { httpStatus, data } = response as TResponseDto;
 
+      console.log(data);
+      
       if (httpStatus === 200 && data) {
-        dispatch(updateUser({ hasAddress: true }));
+         CookieService.set('hasAddress',"true");
         setProfileSuccess(
           t("user_profile.messages.success") ||
             "Profile updated successfully."
@@ -282,7 +284,7 @@ const UserProfile = () => {
   };
 
   const handlePasswordSubmit = async (
-    event: FormEvent<HTMLFormElement>
+    event: ChangeEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
     setPasswordError(null);
@@ -382,7 +384,7 @@ const UserProfile = () => {
         {/* LEFT COLUMN */}
         <div className="usr-profile__column">
       
-{isSeller && (
+
   <section className="usr-profile__card usr-profile__verification">
     {/* Header */}
     <header className="usr-profile__verification-header">
@@ -494,7 +496,6 @@ const UserProfile = () => {
       </button>
     </footer>
   </section>
-)}
 
 
           {/* PROFILE FORM */}

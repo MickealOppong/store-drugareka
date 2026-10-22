@@ -1,11 +1,51 @@
-.sharedlayout {
-  
-  .entry {
+@use "Variables.scss" as Variables;
+
+/* ==========================================================================
+   SHARED OVERALL APPLICATION VIEWPORT WRAPPER (.mkt-shared-layout)
+   ========================================================================== */
+.mkt-shared-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh; 
+  width: 100%;
+  background-color: #ffffff;
+  box-sizing: border-box;
+
+  & > header,
+  & > nav {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  /* =========================================================
+     MAIN APPLICATION DATA FEED PORT WORKSPACE (.mkt-shared-layout__main)
+     ========================================================= */
+  &__main {
+    flex: 1 0 auto; // Allows space tracking to push footers down dynamically
     display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+
+    /* 
+     * Applies standard responsive layout cushions to nested template pages 
+     * inside your main view outlet grids.
+     */
+    & > * {
+      width: 100%;
+      box-sizing: border-box;
+    }
   }
 }
-@media (min-width: 768px) {
-  .sharedlayout {
-   display: flex;
+
+/* ==========================================================================
+   REDUCED MOTION ACCESSIBILITY FALLBACK OVERRIDES
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .mkt-shared-layout__main * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

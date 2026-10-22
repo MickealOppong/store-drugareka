@@ -1,13 +1,18 @@
+@charset "UTF-8";
+/* ==========================================================================
+   MOBILE-FIRST MARKETPLACE STICKY NAVIGATION HEADER
+   ========================================================================== */
 .mn-header {
   position: sticky;
   top: 0;
   left: 0;
-  z-index: 99999;
+  right: 0;
+  z-index: 500;
   width: 100%;
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background: #FFFFFF;
+  background-color: rebeccapurple;
   border-bottom: 1px solid #e5e5e5;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
 }
 @media (min-width: 1024px) {
   .mn-header {
@@ -15,20 +20,22 @@
   }
 }
 .mn-header__inner {
-  position: relative;
-  z-index: 100001;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 510;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 60px;
   padding: 0 16px;
+  background-color: #FFFFFF;
   box-sizing: border-box;
-  background: #FFFFFF;
 }
 .mn-header__actions {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
 }
 .mn-header__action-btn, .mn-header__menu-toggle {
   position: relative;
@@ -40,47 +47,48 @@
   min-height: 44px;
   padding: 8px;
   border: 0;
-  border-radius: 9px;
+  border-radius: 8px;
   background: transparent;
   color: #111111;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  box-sizing: border-box;
+  transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.1s ease;
 }
 .mn-header__action-btn svg, .mn-header__menu-toggle svg {
-  width: 21px;
-  height: 21px;
+  width: 22px;
+  height: 22px;
   stroke-width: 2;
 }
 .mn-header__action-btn:hover, .mn-header__menu-toggle:hover {
-  background: #f9f9f9;
+  background-color: #f9f9f9;
   color: #66704A;
 }
 .mn-header__action-btn:active, .mn-header__menu-toggle:active {
-  transform: scale(0.94);
+  transform: scale(0.95);
 }
 .mn-header__action-btn:focus-visible, .mn-header__menu-toggle:focus-visible {
   outline: 2px solid #66704A;
-  outline-offset: 2px;
+  outline-offset: -2px;
 }
 .mn-header__menu-toggle {
-  margin-left: 5px;
-  padding-left: 11px;
+  margin-left: 4px;
+  padding-left: 12px;
   border-left: 1px solid #e5e5e5;
   border-radius: 0;
   color: #66704A;
 }
 .mn-header__counter-badge {
   position: absolute;
-  top: 2px;
-  right: 1px;
+  top: 4px;
+  right: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 17px;
-  height: 17px;
+  min-width: 18px;
+  height: 18px;
   padding: 0 4px;
-  border-radius: 20px;
-  background: #e11d48;
+  border-radius: 10px;
+  background-color: #e11d48;
   color: #ffffff;
   font-size: 10px;
   font-weight: 700;
@@ -88,54 +96,63 @@
   box-sizing: border-box;
 }
 
+/* ==========================================================================
+   MARKETPLACE BRAND IDENTITY SIGNATURE
+   ========================================================================== */
 .mn-brand {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   color: #66704A;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   text-decoration: none;
   white-space: nowrap;
 }
 .mn-brand__light {
-  margin-left: 1px;
+  margin-left: 2px;
   color: #666666;
   font-weight: 400;
 }
 .mn-brand:focus-visible {
   outline: 2px solid #66704A;
-  outline-offset: 3px;
+  outline-offset: 4px;
 }
 
+/* ==========================================================================
+   TOUCH-OPTIMIZED NAVIGATION DRAWER SYSTEM
+   ========================================================================== */
 .mn-drawer {
   position: fixed;
   top: 60px;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 100000;
+  z-index: 490;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
   width: 100%;
+  /* 🚀 FIXED: Dynamic viewport height tokens eliminate iOS Safari bottom-bar clipping errors */
   height: calc(100vh - 60px);
   height: calc(100dvh - 60px);
-  padding: 18px 16px 32px;
+  padding: 16px 16px 24px;
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
+  background-color: #FFFFFF;
   box-sizing: border-box;
-  background: #FFFFFF;
-  animation: mnDrawerReveal 0.22s ease-out both;
+  animation: mnDrawerReveal 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .mn-drawer__section-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2px 12px;
+  padding: 0 4px 8px;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 12px;
 }
 .mn-drawer__section-heading a {
   text-decoration: none;
@@ -143,49 +160,35 @@
 .mn-drawer__section-heading h2, .mn-drawer__section-heading a {
   margin: 0;
   color: #111111;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
-.mn-drawer__categories {
-  flex: 0 0 auto;
-  min-width: 0;
-  padding: 18px 16px;
+.mn-drawer__categories, .mn-drawer__navigation {
+  width: 100%;
+  padding: 16px;
   border: 1px solid #e5e5e5;
   border-radius: 14px;
-  background: rgba(252, 252, 253, 0.9);
   box-sizing: border-box;
 }
-.mn-drawer__categories .mn-drawer__section-heading {
-  margin-bottom: 4px;
-  border-bottom: 1px solid #e5e5e5;
+.mn-drawer__categories {
+  background-color: rgba(252, 252, 253, 0.9);
+}
+.mn-drawer__navigation {
+  background-color: #FFFFFF;
 }
 .mn-drawer__category-content {
   min-width: 0;
-  padding-top: 10px;
 }
 .mn-drawer__category-content > * {
   max-width: 100%;
 }
-.mn-drawer__navigation {
-  flex: 0 0 auto;
-  min-width: 0;
-  padding: 18px 16px;
-  border: 1px solid #e5e5e5;
-  border-radius: 14px;
-  background: #FFFFFF;
-  box-sizing: border-box;
-}
-.mn-drawer__navigation .mn-drawer__section-heading {
-  margin-bottom: 4px;
-  border-bottom: 1px solid #e5e5e5;
-}
 .mn-drawer__nav {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   width: 100%;
-  padding-top: 8px;
   box-sizing: border-box;
 }
 .mn-drawer__nav-link {
@@ -194,63 +197,71 @@
   justify-content: space-between;
   gap: 16px;
   width: 100%;
-  min-height: 50px;
-  padding: 13px 8px;
+  min-height: 48px;
+  padding: 12px 8px;
   border: 0;
   border-bottom: 1px solid #e5e5e5;
-  border-radius: 0;
   background: transparent;
   color: #111111;
   font-size: 0.95rem;
   font-weight: 600;
   text-decoration: none;
   box-sizing: border-box;
-  transition: color 0.2s ease, padding 0.2s ease, background-color 0.2s ease;
+  transition: color 0.15s ease, background-color 0.15s ease;
 }
 .mn-drawer__nav-link:last-child {
   border-bottom: 0;
 }
+.mn-drawer__nav-link {
+  /* 🚀 FIXED: Replaced layout-shifting padding transitions with smooth hardware-accelerated text translations */
+}
 .mn-drawer__nav-link:hover {
-  padding-right: 4px;
-  padding-left: 12px;
-  background: #f9f9f9;
+  background-color: #f9f9f9;
+  color: #66704A;
+}
+.mn-drawer__nav-link:hover .mn-drawer__link-text {
+  transform: translateX(4px);
+}
+.mn-drawer__nav-link:hover .mn-drawer__link-icon {
+  transform: translateX(2px);
   color: #66704A;
 }
 .mn-drawer__nav-link:active {
-  background: #f9f9f9;
+  background-color: #f9f9f9;
 }
 .mn-drawer__nav-link:focus-visible {
-  position: relative;
   outline: 2px solid #66704A;
   outline-offset: -2px;
 }
 .mn-drawer__nav-link--login {
-  margin-top: 8px;
-  padding-right: 14px;
-  padding-left: 14px;
+  margin-top: 12px;
+  padding: 12px 16px;
   border: 1px solid #66704A;
-  border-radius: 9px;
+  border-radius: 10px;
   color: #66704A;
 }
 .mn-drawer__nav-link--login:hover {
-  padding-right: 14px;
-  padding-left: 14px;
-  background: #f9f9f9;
+  background-color: #f9f9f9;
+}
+.mn-drawer__nav-link--login:hover .mn-drawer__link-text {
+  transform: none;
 }
 .mn-drawer__link-text {
   min-width: 0;
   pointer-events: none;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .mn-drawer__link-icon {
   flex-shrink: 0;
   width: 18px;
   height: 18px;
   color: #666666;
-  transition: transform 0.2s ease, color 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.mn-drawer__nav-link:hover .mn-drawer__link-icon {
-  transform: translateX(3px);
-  color: #66704A;
+.mn-drawer {
+  /* =========================================================
+     SECURE DESTRUCTIVE ACCOUNT SESSION CALL-TO-ACTION BUTTONS
+     ========================================================= */
 }
 .mn-drawer__logout-btn {
   display: flex;
@@ -258,21 +269,22 @@
   justify-content: center;
   width: 100%;
   min-height: 48px;
-  margin-top: 14px;
+  margin-top: 8px;
   padding: 12px 16px;
-  border: 1px solid #66704A;
-  border-radius: 9px;
-  background: #66704A;
+  border: none;
+  border-radius: 10px;
+  background-color: #66704A;
   color: #ffffff;
   font-family: inherit;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(102, 112, 74, 0.12);
   box-sizing: border-box;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.15s ease, transform 0.1s ease;
 }
 .mn-drawer__logout-btn:hover {
-  background: rgb(82.4225806452, 90.5032258065, 59.7967741935);
+  background-color: rgb(85.2193548387, 93.5741935484, 61.8258064516);
 }
 .mn-drawer__logout-btn:active {
   transform: scale(0.98);
@@ -282,52 +294,61 @@
   outline-offset: 3px;
 }
 
+/* ==========================================================================
+   HARDWARE-ACCELERATED HARDWARE MOTION TIMING KEYS
+   ========================================================================== */
 @keyframes mnDrawerReveal {
   from {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-4px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+/* ==========================================================================
+   COMPACT DISPLAY RETINA CORRECTIONS (Small Handsets Layout Rules)
+   ========================================================================== */
 @media (max-width: 360px) {
   .mn-header__inner {
-    padding-right: 8px;
-    padding-left: 12px;
+    padding: 0 10px;
   }
   .mn-header__actions {
-    gap: 0;
+    gap: 2px;
   }
   .mn-header__action-btn {
-    min-width: 38px;
-    padding: 6px;
+    min-width: 36px;
+    padding: 4px;
   }
   .mn-header__menu-toggle {
-    min-width: 40px;
+    min-width: 36px;
     margin-left: 2px;
-    padding-left: 8px;
+    padding-left: 6px;
   }
   .mn-brand {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
   }
   .mn-drawer {
     gap: 12px;
-    padding: 12px 10px 24px;
+    padding: 12px 12px 20px;
   }
   .mn-drawer__categories, .mn-drawer__navigation {
-    padding: 14px 12px;
-    border-radius: 11px;
+    padding: 12px;
+    border-radius: 10px;
   }
 }
+/* ==========================================================================
+   ACCESSIBILITY OVERRIDES: PREFERS REDUCED MOTION GATES
+   ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .mn-drawer {
     animation: none;
   }
   .mn-header *,
   .mn-drawer * {
-    scroll-behavior: auto;
-    transition-duration: 0.01ms;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    transform: none !important;
   }
 }/*# sourceMappingURL=MobileNav.css.map */

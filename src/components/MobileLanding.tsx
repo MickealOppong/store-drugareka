@@ -291,23 +291,26 @@ const {data:listings=[]} = useGetLandingListingQuery()
           FINAL CTA
       ====================================================== */}
 
-      <section className="mobile-final-cta">
-        <span className="mobile-section-eyebrow">DRUGA RĘKA</span>
+ <section className="mobile-final-cta">
+  <span className="mobile-section-eyebrow">
+    {t("landing.closing_cta.eyebrow", { defaultValue: "DRUGA RĘKA" })}
+  </span>
 
-        <h2>
-          Shop better.
-          <br />
-          Give things another life.
-        </h2>
+  <h2>
+    {t("landing.closing_cta.title_line1", { defaultValue: "Shop better." })}
+    <br />
+    {t("landing.closing_cta.title_line2", { defaultValue: "Give things another life." })}
+  </h2>
 
-        <Link
-          to="/shop"
-          className="mobile-button mobile-button--primary"
-        >
-          <span>Explore the store</span>
-          <FiArrowRight />
-        </Link>
-      </section>
+  <Link
+    to="/shop"
+    className="mobile-button mobile-button--primary"
+  >
+    <span>{t("landing.closing_cta.cta", { defaultValue: "Explore the store" })}</span>
+    <FiArrowRight />
+  </Link>
+</section>
+
 
       {/* =====================================================
           FOOTER

@@ -62,6 +62,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ReturnConfirmation from "./pages/ReturnConfirmation";
 import StripeReturnKYCHandler from "./pages/StripeReturnKYCHandler";
 
+import { loader as accountLoader } from './../src/pages/AccountLayout';
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -164,6 +166,7 @@ function App() {
           <AccountLayout />
         </ProtectedRoute>
       ),
+      loader:accountLoader(store),
       children: [
         {
           path: "user",

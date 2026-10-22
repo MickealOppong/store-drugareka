@@ -1,10 +1,14 @@
+
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { Link, Outlet, redirect } from "react-router-dom";
-import type { Store } from "redux";
-import "../css/AccountLayout.css";
+import "../css/AccountLayout.css"; // 🚀 Connect directly to compiled stylesheet asset outputs
 import { appName } from "../data/data";
-import { useAppSelector, type RootState } from "../store";
+import { userApi } from "../features/api/userApi";
+import { updateUser } from "../features/slice/userSlice";
+
+import type { Store } from "redux";
+import { useAppSelector, type AppDispatch, type RootState } from "../store";
 import type { TUserDto } from "../types/TUserDto";
 import Admin from "./Admin";
 import User from "./User";
@@ -12,9 +16,35 @@ import User from "./User";
 export const loader = (store: Store<RootState>) => async () => {
   const { email } = store.getState().userSlice;
 
+  // 1. Unauthenticated Gate
   if (!email) {
     return redirect("/login");
   }
+
+  const dispatch = store.dispatch as AppDispatch;
+
+  try {
+    // 2. Initiate the RTK Query endpoint request
+    const apiQueryTrigger = dispatch(userApi.endpoints.getUser.initiate());
+    
+    // 3. Force the loader to wait until the network payload is FULLY resolved
+    const response = await apiQueryTrigger.unwrap(); 
+
+    if (response) {
+      // 4. Update your slice once the data is guaranteed to exist
+      dispatch(updateUser(response.data));
+    //  console.log("Loader Synced: User data loaded successfully", response);
+    }
+    
+  } catch (error: any) {
+   // console.error("Loader Exception: User profile sync failed", error);
+    
+    // If the backend returns a 401 or 403 on this profiles sync, clear state and boot to login
+    if (error?.status === 401 || error?.status === 403) {
+       return redirect("/login");
+    }
+  }
+
   return null;
 };
 
@@ -29,14 +59,9 @@ export default function SellerLayout() {
 
   return (
     <div className="al-layout">
-      {/* ==========================================================================
-          MOBILE STICKY TOP BAR SUB-HEADER
-      ========================================================================== */}
+      {/* MOBILE STICKY TOP BAR */}
       <div className="al-mobile-bar">
-        <Link
-          to="/shop"
-          className="al-brand"
-        >
+        <Link to="/shop" className="al-brand">
           {appName}
           <span className="al-brand__light">.pl</span>
         </Link>
@@ -51,29 +76,16 @@ export default function SellerLayout() {
         </button>
       </div>
 
-      {/* ==========================================================================
-          RESPONSIVE PANEL SLIDER COMPONENT ELEMENT
-      ========================================================================== */}
-      <div
-        className={`al-sidebar-wrapper ${openSidebar ? "al-sidebar-wrapper--open" : ""}`}
-      >
-        {/* GLASSMORPHISM ACTIVE TRANSITION SCRIM OVERLAY SURFACE */}
-        <div
-          className="al-sidebar-overlay"
-          onClick={handleCloseNavigation}
-        />
+      {/* RESPONSIVE PANEL SLIDER COLUMN */}
+      <div className={`al-sidebar-wrapper ${openSidebar ? "al-sidebar-wrapper--open" : ""}`}>
+        <div className="al-sidebar-overlay" onClick={handleCloseNavigation} />
 
         <div className="al-sidebar-container">
-          {/* SLIDEOUT WRAPPER BRAND LOGO ANCHOR */}
-          <Link
-            to="/shop"
-            className="al-brand"
-          >
+          <Link to="/shop" className="al-brand">
             {appName}
             <span className="al-brand__light">.pl</span>
           </Link>
 
-          {/* INTERNAL MOBILE RETRACT BUTTON */}
           <button
             type="button"
             className="al-sidebar-close"
@@ -83,7 +95,6 @@ export default function SellerLayout() {
             <FiX />
           </button>
 
-          {/* DYNAMIC INVERSE ROUTER RENDERING TRACKS */}
           <nav className="al-sidebar-nav">
             {isAdminUser ? (
               <Admin onNavigate={handleCloseNavigation} />
@@ -94,9 +105,7 @@ export default function SellerLayout() {
         </div>
       </div>
 
-      {/* ==========================================================================
-          CORE VIEWPORT INNER SUB-ROUTER TARGET WORKSPACE
-      ========================================================================== */}
+      {/* CORE VIEWPORT OUTLET TARGET PANEL WORKSPACE */}
       <main className="al-content">
         <Outlet />
       </main>

@@ -20,10 +20,10 @@ export const StripeReturnKYCHandler = () => {
     const stripeAction = searchParams.get("stripe");
 
     if (stripeAction === "success") {
-      // 🟢 Step A: Explicitly update local Redux state configurations proactively
+
       dispatch(updateUser({ hasAddress: true }));
       
-      // 🟢 Step B: Re-fetch user profile from your Spring API to sync newly unlocked seller credentials
+    
       triggerFetchUser()
         .unwrap()
         .then(() => {

@@ -262,3 +262,20 @@ export const CookieService = {
 };
 
 
+
+export const getRolesCookie= ()=>{
+   const rawRolesCookie = CookieService.get('roles');
+// 2. Wrap the JSON parser in a secure evaluation block
+let parsedRoles: string[] = [];
+if (rawRolesCookie) {
+  try {
+  parsedRoles = JSON.parse(rawRolesCookie);
+  } catch (e) {
+    console.error("Failed to parse roles cookie syntax", e);
+    parsedRoles = [];
+  }
+}
+return parsedRoles;
+}
+
+

@@ -1,266 +1,188 @@
 @use "sass:color";
-@use 'Variables.scss'; // 🚀 Hooks into Kasoa premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and layout variables
+@use "Variables.scss" as Variables;
 
 /* ==========================================================================
-   KASOA ADMINISTRATIVE WORKSPACE ACCOUNT LAYOUT (BEM SPECIFICATION)
+   MASTER SELLER/ADMIN ACCOUNT WORKSPACE SHELL CONTAINER (.al-layout)
    ========================================================================== */
-
-// 1. Core Framework Container Bounding Box
 .al-layout {
-  display: flex;
-  min-height: 100vh;
-  width: 100vw;
-  background-color: Variables.$color-bg-light; // Standard pristine Alabaster background base
-  color: Variables.$color-text-main;
-  font-family: Variables.$font-sans;
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
-
-// 2. Core Left-Hand Sidebar Column Wrapper (Desktop Perspective)
-.al-sidebar-wrapper {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 260px; // Constant wide structural column map
-  flex-shrink: 0;
-  z-index: 1000;
-  box-sizing: border-box;
-}
-
-// Left side layout tracking panel container skin bounds
-.al-sidebar-container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   background-color: #ffffff;
-  border-right: 1px solid Variables.$color-border;
-  padding: 24px 16px;
   box-sizing: border-box;
 
-  // Typographic Brand Logo Overwrite Hook integrations
-  .al-brand {
-    display: inline-flex;
-    align-items: center;
-    font-size: 22px;
-    font-weight: 900;
-    letter-spacing: -0.03em;
-    color: Variables.$color-text-main;
-    text-decoration: none;
-    text-transform: uppercase; // Enforces branding rules cleanly without inline styles
-    margin-bottom: 32px;
-    padding-left: 8px;
-    user-select: none;
-    transition: opacity 0.2s Variables.$transition-default;
-
-    &__light {
-      font-weight: 400;
-      color: Variables.$color-primary; // Accented with trademark forest Spruce
-      margin-left: 1px;
-    }
-
-    &:hover {
-      opacity: 0.85;
-    }
+  /*  THE LARGE SCREEN FIX: Freeze viewport scrolling, convert shell into a split workspace grid */
+  @include Variables.media-up(Variables.$breakpoint-lg) {
+    flex-direction: row;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden; // Prevents the outer application shell page canvas from ever scrolling
   }
 }
 
-// Internal Navigation Sub-Menu Router Links Wrappers
+/* ==========================================================================
+   MOBILE TOP HEADER NAVIGATION SUB-BAR (.al-mobile-bar)
+   ========================================================================== */
+.al-mobile-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: Variables.$header-height-mobile;
+  padding: 0 16px;
+  background-color: Variables.$background;
+  border-bottom: 1px solid Variables.$color-border;
+  box-sizing: border-box;
+
+  @include Variables.media-up(Variables.$breakpoint-lg) {
+    display: none !important; // Hide mobile anchor bars completely on desktop lines
+  }
+}
+
+.al-brand {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: Variables.$color-primary;
+  text-decoration: none;
+  letter-spacing: -0.04em;
+
+  &__light {
+    color: Variables.$color-text-muted;
+    font-weight: 400;
+  }
+}
+
+.al-mobile-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: Variables.$touch-target-min;
+  min-height: Variables.$touch-target-min;
+  background: transparent;
+  border: none;
+  color: Variables.$color-text-main;
+  font-size: 1.35rem;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   RESPONSIVE MODAL SIDEBAR WRAPPER SLATES (.al-sidebar-wrapper)
+   ========================================================================== */
+.al-sidebar-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  visibility: hidden;
+  pointer-events: none;
+  box-sizing: border-box;
+
+  &--open {
+    visibility: visible;
+    pointer-events: auto;
+    
+    .al-sidebar-overlay { opacity: 1; }
+    .al-sidebar-container { transform: translateX(0); }
+  }
+
+  /* THE LARGE SCREEN FIX: Transform the mobile drawer panel into a static, fixed desktop sidebar column */
+  @include Variables.media-up(Variables.$breakpoint-lg) {
+    position: relative;
+    inset: auto;
+    z-index: auto;
+    visibility: visible;
+    pointer-events: auto;
+    width: 260px; // Static desktop column track width
+    height: 100vh;
+    height: 100dvh;
+    flex-shrink: 0;
+  }
+}
+
+.al-sidebar-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @include Variables.media-up(Variables.$breakpoint-lg) {
+    display: none; // Strip overlay layers on desktop columns
+  }
+}
+
+.al-sidebar-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 280px;
+  background-color: Variables.$background;
+  border-right: 1px solid Variables.$color-border;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+  transform: translateX(-100%);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  .al-sidebar-close {
+    position: absolute;
+    top: 20px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    color: Variables.$color-text-muted;
+    cursor: pointer;
+
+    @include Variables.media-up(Variables.$breakpoint-lg) {
+      display: none;
+    }
+  }
+
+  /* Static alignment resets for desktops layout profiles */
+  @include Variables.media-up(Variables.$breakpoint-lg) {
+    position: relative;
+    transform: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 32px 24px;
+  }
+}
+
 .al-sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   width: 100%;
   overflow-y: auto;
   flex: 1;
-
-  // Custom sleek hidden scrollbar profiles for side navigation matrices
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: transparent;
-    border-radius: 4px;
-  }
-  &:hover::-webkit-scrollbar-thumb {
-    background-color: color.adjust(Variables.$color-bg-light, $lightness: -10%);
-  }
-}
-
-// Mobile-only hidden close control button hooks
-.al-sidebar-close {
-  display: none;
-}
-
-// Scrim Overlay Layer Shadow Mask
-.al-sidebar-overlay {
-  display: none;
-}
-
-// 3. Desktop Hidden Mobile Header Bar
-.al-mobile-bar {
-  display: none;
-}
-
-// 4. Core Viewport Inner Sub-Router Right Hand Target Workspace Area
-.al-content {
-  flex: 1;
-  width: 100%;
-  min-width: 0; // Essential CSS flexbox clip bug override safeguard
-  padding: 40px;
-  box-sizing: border-box;
-  overflow-y: auto;
 }
 
 /* ==========================================================================
-   🎯 HANDSHAKE RESPONSIVE MEDIA QUERIES (TABLETS & SMARTPHONES BREAKPOINTS)
+    CORE OUTLET TARGET WORKSPACE CONTENT PANEL (.al-content)
    ========================================================================== */
+.al-content {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
 
-@media (max-width: Variables.$breakpoint-md) {
-  .al-layout {
-    flex-direction: column; // Pivot page layout to a vertical block stack structure cleanly
-  }
-
-  // Mobile Top Header Bar Configuration
-  .al-mobile-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    background-color: #ffffff;
-    border-bottom: 1px solid Variables.$color-border;
-    padding: 0 20px;
-    z-index: 900;
-    box-sizing: border-box;
-
-    .al-brand {
-      font-size: 19px;
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      color: Variables.$color-text-main;
-      text-decoration: none;
-      text-transform: uppercase;
-
-      &__light {
-        font-weight: 400;
-        color: Variables.$color-primary;
-      }
-    }
-  }
-
-  // Interactive Open Button Switch Drawer Trigger
-  .al-mobile-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    background: transparent;
-    border: none;
-    color: Variables.$color-text-main;
-    font-size: 22px;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: background-color 0.15s ease;
-
-    &:hover {
-      background-color: Variables.$color-bg-light;
-    }
-  }
-
-  // Pivot the layout sidebar into a sliding off-canvas mobile drawer panel loop
-  .al-sidebar-wrapper {
-    position: fixed;
-    inset: 0;
-    width: 100%;
+  /* 🚀 THE LARGE SCREEN FIX: Isolates scroll mechanics exclusively to child pages inside the outlet */
+  @include Variables.media-up(Variables.$breakpoint-lg) {
+    flex: 1;
+    min-width: 0; // Guard prevent flex content container from blowing past right screen border
     height: 100vh;
-    pointer-events: none; // Disables input event trapping when the drawer state is closed
-    visibility: hidden;
-    transition: visibility 0.3s ease;
-    z-index: 2000;
-
-    // 🚀 Hardware-accelerated sliding drawer action modifier hook
-    &--open {
-      pointer-events: auto;
-      visibility: visible;
-
-      .al-sidebar-overlay {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .al-sidebar-container {
-        transform: translateX(0);
-      }
-    }
-  }
-
-  // Glassmorphism background active backdrop transition overlay matrix mesh
-  .al-sidebar-overlay {
-    display: block;
-    position: absolute;
-    inset: 0;
-    background-color: rgba(Variables.$color-text-main, 0.4);
-    backdrop-filter: blur(4px); // Premium native digital hardware blur look
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
-    z-index: 1;
-  }
-
-  // The actual sliding panel drawer card wrapper skin structure layout boundary
-  .al-sidebar-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 280px;
-    height: 100%;
-    max-width: 85vw;
-    transform: translateX(-100%); // Direct displacement off-screen grid vectors leftwards
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 12px 0 32px rgba(Variables.$color-text-main, 0.15);
-    z-index: 2;
-    padding-top: 20px;
-
-    .al-brand {
-      margin-bottom: 24px;
-    }
-  }
-
-  // Mobile drawer interior retract close cross button triggers
-  .al-sidebar-close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 32px;
-    height: 32px;
-    background-color: Variables.$color-bg-light;
-    border: none;
-    color: color.adjust(Variables.$color-text-main, $lightness: 15%);
-    font-size: 18px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.15s ease, color 0.15s ease;
-
-    &:hover {
-      background-color: color.adjust(Variables.$color-bg-light, $lightness: -4%);
-      color: Variables.$color-text-main;
-    }
-  }
-
-  // Offset main screen workspace padding downward to prevent layout clipping underneath sticky mobile taskbar headers
-  .al-content {
-    padding: 24px 16px;
-    margin-top: 60px;
-    height: calc(100vh - 60px);
+    height: 100dvh;
+    overflow-y: auto;
+    padding: 40px;
+    background-color: #fafafa; // Clean grid backdrop canvas
+    -webkit-overflow-scrolling: touch;
   }
 }

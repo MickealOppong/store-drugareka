@@ -34,11 +34,15 @@ export const PaymentConfirmation: React.FC = () => {
       // If the status isn't PAID, FAILED, or CANCELLED, trigger the timed out fallback layout view
       setIsTimedOut(() => {
         return status !== "PAID" && status !== "CANCELLED" && status !== "FAILED";
+       
       });
     }, 60000); 
 
+
     return () => clearTimeout(timeoutTimer);
   }, [status]);
+
+
 
   // Stop polling requests as soon as a definitive final state is confirmed from your Spring API
   useEffect(() => {

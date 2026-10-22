@@ -292,23 +292,26 @@ if(isLoading){
                 FINAL CTA
             ====================================================== */}
 
-      <section className="final-cta">
-        <span className="section-eyebrow">DRUGA RĘKA</span>
 
-        <h2>
-          Shop better.
-          <br />
-          Give things another life.
-        </h2>
+<section className="final-cta">
+  <span className="section-eyebrow">
+    {t("landing.closing_cta.eyebrow", { defaultValue: "DRUGA RĘKA" })}
+  </span>
 
-        <Link
-          to="/shop"
-          className="button button--primary"
-        >
-          Explore the store
-          <FiArrowRight />
-        </Link>
-      </section>
+  <h2>
+    {t("landing.closing_cta.title_line1", { defaultValue: "Shop better." })}
+    <br />
+    {t("landing.closing_cta.title_line2", { defaultValue: "Give things another life." })}
+  </h2>
+
+  <Link
+    to="/shop"
+   className="button button--primary"
+  >
+    <span>{t("landing.closing_cta.cta", { defaultValue: "Explore the store" })}</span>
+    <FiArrowRight />
+  </Link>
+</section>
 
 
       {/* =====================================================

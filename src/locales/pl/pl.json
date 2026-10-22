@@ -25,6 +25,12 @@
       "title": "Czego szukasz?",
       "view_all": "Wszystkie kategorie"
     },
+     "closing_cta": {
+      "eyebrow": "DRUGA RĘKA",
+      "title_line1": "Kupuj mądrzej.",
+      "title_line2": "Daj rzeczom drugie życie.",
+      "cta": "Odkryj sklep"
+    },
     "new_arrivals": {
       "eyebrow": "NOWO DODANE",
       "title": "Ostatnio dodane",
@@ -1108,7 +1114,7 @@
       "eyebrow": "Transakcja Sfinalizowana",
       "title": "Płatność Zakończona Sukcesem!",
       "description": "Dziękujemy za zakupy. Twoja płatność została pomyślnie autoryzowana, a środki finansowe zostały bezpiecznie ulokowane na chronionym rachunku depozytowym escrow.",
-      "session_label": "Numer płatnosci",
+      "session_label": "Numer sesji",
       "next_steps_title": "Co dzieje się teraz?",
       "next_steps_desc": "Sprzedawca został niezwłocznie powiadomiony systemowo o konieczności przygotowania przesyłki gabarytowej. Twój zegar ochrony transakcji będzie odliczał 72 godziny od momentu doręczenia paczki przez kuriera.",
       "support_hint": "W przypadku jakichkolwiek problemów technicznych lub opóźnień logistycznych, prosimy o natychmiastowy kontakt z zespołem pod adresem",
@@ -1503,7 +1509,9 @@
   },
   "make_offer_modal": {
     "header": {
-      "badge": "Złóż ofertę"
+      "badge": "Złóż ofertę",
+      "title": "Podsumowanie zamówienia",
+      "message": "Sprawdź swoje zamówienie przed przejściem do bezpiecznej płatności."
     },
     "body": {
       "title": "Negocjuj cenę",

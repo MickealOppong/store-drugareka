@@ -6,7 +6,8 @@ export type TOrderPageDto={
      pageSize:number,
     page:number,
     totalPages:number,
-    totalElements:0
+    totalElements:0,
+    accumulatedItems:number
     
     
 }

@@ -10,7 +10,7 @@ export const ErrorPage = () => {
   
   console.error("Kasoa routing system exception trapped:", error);
 
-  // 🚀 HIGH-PERFORMANCE ERROR PARSING LOGIC
+ 
   let errorMessage = t("error_page.fallbacks.generic_message");
   let errorHeading = t("error_page.fallbacks.generic_title");
   let statusCode = "500";

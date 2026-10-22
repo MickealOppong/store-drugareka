@@ -9,7 +9,7 @@ import {
 
 import { Link, useNavigate } from "react-router-dom";
 import "../css/Register.css";
-import logoKasoa from './../assets/logo-kasoa.png';
+import logoKasoa from './../assets/logo-kasoa.webp';
 
 import { useTranslation } from "react-i18next";
 import { useAddUserMutation } from "../features/api/authApi";

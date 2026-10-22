@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiShoppingBag } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -6,6 +7,7 @@ import '../css/Cart.css';
 import { useGetBuyerCartQuery, useRemoveCartItemMutation } from "../features/api/cartApi";
 import { useCheckoutBuyerStripeMutation } from "../features/api/checkoutApi";
 import type { TCart } from "../types/TCart";
+import type { TResponseDto } from "../types/TResponseDto";
 
 const CartPage = () => {
   const { data: cart, isLoading: cartLoading } = useGetBuyerCartQuery();
@@ -15,6 +17,8 @@ const CartPage = () => {
   const [deleteItem] = useRemoveCartItemMutation();
   //const [checkout] =useCheckoutBuyerPayUMutation()
   const[checkout] = useCheckoutBuyerStripeMutation();
+  //error
+  const[error,setError]=useState<string>('')
 
   const handleRemoveItem = async (listingId: number) => {
     try {
@@ -27,15 +31,21 @@ const CartPage = () => {
   const handleCheckout = async () => {
     try {
       const response = await checkout().unwrap();
-      console.log(response);
       
+      
+      const{httpStatus,data,message} = response as TResponseDto
       //const checkoutUrl = response?.data; // Adjusted to match generic API wrappers safely
-      const url = response.data;
-     
-      if (url) {
-       // navigate("/checkout", { state: { clientSecret } });
-     window.location.href=url;
-      }
+     if(httpStatus===200){
+    
+       const url = data;
+      window.location.href=url;
+  
+     }
+     if(httpStatus===403|| httpStatus===500||httpStatus===400){
+         
+       setError(message)
+     }
+      
     } catch (error) {
       console.error("Checkout transaction initialization failure:", error);
     }
@@ -68,6 +78,7 @@ const CartPage = () => {
 
   return (
     <Cart
+    error={error}
       cart={cart as TCart}
       onRemoveItem={handleRemoveItem}
       onCheckout={handleCheckout}

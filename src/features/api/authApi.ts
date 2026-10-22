@@ -18,7 +18,7 @@ export const authApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["wishlists", "shipment"],
+  tagTypes: ["wishlists", "shipment",'user'],
   endpoints: (build) => ({
     addUser: build.mutation<TResponseDto, TRegisterDto>({
       query: (body) => ({
@@ -51,7 +51,7 @@ export const authApi = createApi({
           "Content-Type": "application/json",
         },
       }),
-      invalidatesTags: ["wishlists"],
+      invalidatesTags: ["wishlists",'user'],
     }),
     confirmShipment: build.mutation<boolean, FormData>({
       query: (body) => ({

@@ -1,235 +1,238 @@
-.fetch_error {
-  position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 200;
-  width: calc(100% - 2.5rem);
-  max-width: 480px;
-  background-color: #FFFFFF;
-  border: 1px solid rgba(225, 29, 72, 0.2);
-  border-radius: 8px;
-  padding: 1rem 1.25rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  animation: slideInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.fetch_error h2 {
-  margin: 0;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #e11d48;
-  text-align: center;
-  line-height: 1.4;
-}
-
-@keyframes slideInDown {
-  from {
-    transform: translate(-50%, -20px);
-    opacity: 0;
-  }
-  to {
-    transform: translate(-50%, 0);
-    opacity: 1;
-  }
-}
+/* ==========================================================================
+   AUTHENTICATION LAYOUT CORE CANVAS WRAPPER (.login-page)
+   ========================================================================== */
 .login-page {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: #111111;
-  background-color: #f6f6fb;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  padding: 1.5rem 1.25rem;
-  box-sizing: border-box;
-  position: fixed;
-  left: 0;
-  right: 0;
-}
-.login-page a {
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.login-card {
-  width: 100%;
-  max-width: 420px;
-  height: -moz-fit-content;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  background: #FFFFFF;
-  border: 1px solid #e5e5e5;
-  padding: 3rem 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.03);
-  margin-top: 4rem;
-}
-.login-card .brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  background-color: #f9f9f9;
+  padding: 16px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-.login-card .brand .heart {
-  color: #e11d48;
-  flex-shrink: 0;
+@media (min-width: 640px) {
+  .login-page {
+    padding: 32px 24px;
+  }
 }
-.login-card .brand h1 {
-  font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  margin: 0;
+
+/* ==========================================================================
+   RESPONSIVE PROFILE INTERFACE CONTAINER CARD (.login-card)
+   ========================================================================== */
+.login-card {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  max-width: 440px;
+  background-color: #FFFFFF;
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.02), 0 20px 48px -10px rgba(15, 23, 42, 0.03);
+  box-sizing: border-box;
+  animation: logCardSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@media (min-width: 640px) {
+  .login-card {
+    padding: 40px 32px;
+  }
+}
+.login-card {
+  /* Marketplace Typography Headers */
 }
 .login-card h2 {
-  font-size: 1.75rem;
+  margin: 0 0 6px 0;
+  font-size: 1.35rem;
   font-weight: 800;
-  letter-spacing: -0.04em;
-  margin: 0 0 0.5rem;
+  color: #111111;
+  letter-spacing: -0.025em;
+}
+@media (min-width: 640px) {
+  .login-card h2 {
+    font-size: 1.6rem;
+  }
 }
 .login-card p {
-  font-size: 0.95rem;
+  margin: 0 0 24px 0;
+  font-size: 0.88rem;
   line-height: 1.5;
   color: #666666;
-  margin: 0 0 2rem;
 }
 .login-card form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 16px;
+  width: 100%;
 }
 
+/* ==========================================================================
+   THE BRAND SEGMENT HEADINGS (.brand)
+   ========================================================================== */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.brand h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #66704A;
+  letter-spacing: -0.04em;
+}
+.brand img {
+  display: block;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   INPUT TRACK GROUPS WRAPPERS FOR FLOATING LAYOUTS
+   ========================================================================== */
 .register-input-group {
+  position: relative;
   display: flex;
   align-items: center;
-  position: relative;
-  background-color: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  height: 56px;
+  background-color: #FFFFFF;
+  border: 1px solid rgb(223.9, 223.9, 223.9);
+  border-radius: 12px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .register-input-group:focus-within {
   border-color: #66704A;
-  box-shadow: 0 0 0 1px #66704A;
+  box-shadow: 0 0 0 3px rgba(102, 112, 74, 0.12);
 }
 .register-input-group .input-icon {
+  position: absolute;
+  left: 14px;
+  color: #666666;
   font-size: 1.1rem;
-  color: #767676;
-  margin-right: 0.85rem;
+  pointer-events: none;
   flex-shrink: 0;
+}
+.register-input-group {
+  /* Nested Content Box Layouts */
 }
 .register-input-group .input-group_div {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  width: 100%;
+  padding: 6px 44px 4px 42px;
+  box-sizing: border-box;
 }
 .register-input-group .input-group_div label {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
   color: #666666;
-  margin-bottom: 0.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  pointer-events: none;
+  text-align: left;
 }
 .register-input-group .input-group_div input {
+  width: 100%;
   border: none;
   background: transparent;
-  padding: 0.2rem 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 2px 0 0 0;
+  font-family: inherit;
   font-size: 0.95rem;
+  font-weight: 600;
   color: #111111;
-  width: 100%;
   box-sizing: border-box;
 }
 .register-input-group .input-group_div input:focus {
   outline: none;
 }
+.register-input-group {
+  /* Password Hiding Eye Action Toggles Buttons */
+}
 .register-input-group span {
-  display: flex;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  bottom: 4px;
+  width: 40px;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  min-width: 44px;
-  min-height: 44px;
-  margin-right: -0.5rem;
-  color: #767676;
+  color: #666666;
   font-size: 1.1rem;
-  transition: color 0.15s ease;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: color 0.15s ease, background-color 0.15s ease;
 }
 .register-input-group span:hover {
-  color: #111111;
+  background-color: #f9f9f9;
+  color: #66704A;
 }
 
+/* ==========================================================================
+   ERROR ATTRIBUTE TYPOGRAPHY TEXT STRINGS
+   ========================================================================== */
 .error-text {
   display: block;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #e11d48;
-  margin-top: 0.4rem;
-  padding-left: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #C24B4B;
+  text-align: left;
+  margin-top: 5px;
+  padding-left: 4px;
+  animation: logFieldErrorPop 0.2s ease-out;
 }
 
+/* ==========================================================================
+   PRIMARY INTERACTIVE SUBMIT ACTION TARGETS (.login-btn)
+   ========================================================================== */
 .login-btn {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 44px;
   background-color: #66704A;
   color: #ffffff;
-  border: 1px solid #66704A;
-  border-radius: 6px;
-  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
   font-size: 0.95rem;
-  padding: 0.85rem 1.25rem;
-  min-height: 44px;
+  font-weight: 700;
   cursor: pointer;
-  width: 100%;
-  margin-top: 0.5rem;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(102, 112, 74, 0.15);
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  margin-top: 6px;
 }
 .login-btn:hover {
-  background-color: #393c2e;
-  border-color: #393c2e;
+  background-color: rgb(85.2193548387, 93.5741935484, 61.8258064516);
+  box-shadow: 0 6px 18px rgba(102, 112, 74, 0.22);
+}
+.login-btn:active {
+  transform: scale(0.985);
+}
+.login-btn:focus-visible {
+  outline: 2px solid #66704A;
+  outline-offset: 2px;
 }
 
-.reset-password-link {
-  display: inline-block;
-  align-self: center;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #666666;
-  margin-top: 1.5rem;
-  border-bottom: 1px solid transparent;
-}
-.reset-password-link:hover {
-  color: #111111;
-  border-color: #111111;
-}
-
-.social-btn {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background-color: transparent;
-  color: #111111;
-  border: 1px solid #e5e5e5;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  padding: 0.85rem 1.25rem;
-  min-height: 44px;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 0.75rem;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.social-btn:hover {
-  background-color: #f9f9f9;
-  border-color: #66704A;
-}
-
+/* ==========================================================================
+   CONTEXTUAL LAYOUT DIVIDERS SEGMENTS
+   ========================================================================== */
 .divider {
   display: flex;
   align-items: center;
   text-align: center;
-  margin-top: 1.75rem;
-  color: #e5e5e5;
+  width: 100%;
+  margin: 20px 0;
 }
 .divider::before, .divider::after {
   content: "";
@@ -237,25 +240,103 @@
   border-bottom: 1px solid #e5e5e5;
 }
 .divider span {
-  padding: 0 0.85rem;
-  font-size: 0.75rem;
+  padding: 0 12px;
+  font-size: 0.78rem;
   font-weight: 700;
+  color: #666666;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #999999;
+}
+
+/* ==========================================================================
+   NAVIGATION REDIRECTION ROUTING LINKS
+   ========================================================================== */
+.reset-password-link {
+  align-self: center;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #66704A;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.reset-password-link:hover {
+  color: rgb(68.4387096774, 75.1483870968, 49.6516129032);
+  text-decoration: underline;
+}
+.reset-password-link:focus-visible {
+  outline: 2px solid #66704A;
+  border-radius: 4px;
+  padding: 2px;
 }
 
 .signup-link {
-  text-align: center;
-  font-size: 0.9rem;
+  margin-top: 24px;
+  font-size: 0.88rem;
   color: #666666;
-  margin-top: 2rem;
+  text-align: center;
 }
 .signup-link a {
   font-weight: 700;
   color: #66704A;
-  margin-left: 0.25rem;
+  text-decoration: none;
 }
 .signup-link a:hover {
-  color: #e11d48;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   NETWORK LEVEL SYSTEM DISRUPTION ALERTS (.fetch_error)
+   ========================================================================== */
+.fetch_error {
+  width: 100%;
+  background-color: #FDF2F2;
+  border-bottom: 1px solid rgba(194, 75, 75, 0.15);
+  padding: 12px 16px;
+  text-align: center;
+  box-sizing: border-box;
+  animation: logErrorBannerSlide down 0.25s ease-out;
+}
+.fetch_error h2 {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #C24B4B;
+}
+
+/* ==========================================================================
+   SYSTEM MOTION HARDWARE-ACCELERATED TIMING FRAMEWORK
+   ========================================================================== */
+@keyframes logCardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes logFieldErrorPop {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* REDUCED MOTION GATES ACCESSIBILITY OVERRIDES */
+@media (prefers-reduced-motion: reduce) {
+  .login-card,
+  .error-text,
+  .fetch_error {
+    animation: none !important;
+  }
+  .login-btn {
+    transition: none !important;
+  }
+  .login-btn:active {
+    transform: none !important;
+  }
 }/*# sourceMappingURL=LoginPage.css.map */

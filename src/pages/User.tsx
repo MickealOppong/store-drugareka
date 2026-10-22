@@ -16,6 +16,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Loading } from "../components";
 import '../css/Admin.css';
 import { useLogoutMutation } from "../features/api/authApi";
+import { userApi } from "../features/api/userApi";
 import { logoutUser } from "../features/slice/userSlice";
 
 interface UserSidebarProps {
@@ -33,6 +34,7 @@ const User: React.FC<UserSidebarProps> = ({ onNavigate }) => {
     try {
       await logout(refreshToken).unwrap();
       dispatch(logoutUser());
+         dispatch(userApi.util.resetApiState());
       navigate("/");
     } catch (error) {
       console.error("Logout transaction lifecycle exception:", error);

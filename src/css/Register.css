@@ -1,305 +1,377 @@
-.fetch_error {
-  position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 200;
-  width: calc(100% - 2.5rem);
-  max-width: 480px;
-  background-color: #fef2f2;
-  border: 1px solid rgba(225, 29, 72, 0.2);
-  border-radius: 8px;
-  padding: 1rem 1.25rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  animation: slideInDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.fetch_error h2 {
-  margin: 0;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #e11d48;
-  text-align: center;
-  line-height: 1.4;
-}
-
-@keyframes slideInDown {
-  from {
-    transform: translate(-50%, -20px);
-    opacity: 0;
-  }
-  to {
-    transform: translate(-50%, 0);
-    opacity: 1;
-  }
-}
+@charset "UTF-8";
+/* ==========================================================================
+   AUTHENTICATION REGISTRATION CANVAS WRAPPER (.register-page)
+   ========================================================================== */
 .register-page {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: #111111;
-  background-color: #f6f6fb;
-  height: -moz-fit-content;
-  height: fit-content;
-  display: flex;
-  justify-content: center;
-  padding: 2rem 1.25rem;
-  box-sizing: border-box;
-}
-.register-page a {
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.register-card {
-  width: 100%;
-  max-width: 480px;
-  height: -moz-fit-content;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  border: 1px solid #e5e5e5;
-  padding: 3rem 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.03);
-}
-.register-card .brand {
+  position: absolute;
+  top: 5rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  background-color: #f9f9f9;
+  padding: 16px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-.register-card .brand .register-heart {
-  color: #e11d48;
-  font-size: 1.35rem;
-  flex-shrink: 0;
+@media (min-width: 640px) {
+  .register-page {
+    padding: 32px 24px;
+  }
 }
-.register-card .brand h1 {
-  font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  margin: 0;
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT PROFILE SIGNUP CARD (.register-card)
+   ========================================================================== */
+.register-card {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  max-width: 480px;
+  background-color: #FFFFFF;
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.02), 0 20px 48px -10px rgba(15, 23, 42, 0.03);
+  box-sizing: border-box;
+  animation: regCardSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-.register-card .register-heading {
-  margin-bottom: 2rem;
-}
-.register-card .register-heading h2 {
-  font-size: 1.75rem;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  margin: 0 0 0.5rem;
-}
-.register-card .register-heading p {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: #666666;
-  margin: 0;
+@media (min-width: 640px) {
+  .register-card {
+    padding: 40px 32px;
+  }
 }
 .register-card form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 16px;
+  width: 100%;
 }
 
+/* BRAND SIGNATURE PLACEMENT MATCH */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.brand h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #66704A;
+  letter-spacing: -0.04em;
+}
+.brand img {
+  display: block;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 6px;
+}
+
+/* HEADER COMPONENT TEXT STRUCTURE */
+.register-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.register-heading h2 {
+  margin: 0 0 6px 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: -0.025em;
+}
+@media (min-width: 640px) {
+  .register-heading h2 {
+    font-size: 1.6rem;
+  }
+}
+.register-heading p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #666666;
+}
+
+/* ==========================================================================
+   🚀 DYNAMIC SIDE-BY-SIDE MOBILE INPUTS ROW RESPONSIVENESS
+   ========================================================================== */
 .register-form-row {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 16px;
+  width: 100%;
+  /* Automatically splits first name and last name layout blocks on tables / desktops */
 }
-@media (min-width: 640px) {
+@media (min-width: 480px) {
   .register-form-row {
     flex-direction: row;
-    gap: 1rem;
+    align-items: flex-start;
   }
   .register-form-row > div {
     flex: 1;
-    width: 50%;
+    min-width: 0;
   }
 }
 
+/* ==========================================================================
+   FLOATING LABELS PACK TRACKS CONTROL GROUPS (.register-input-group)
+   ========================================================================== */
 .register-input-group {
+  position: relative;
   display: flex;
   align-items: center;
-  background-color: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.register-input-group:hover {
-  border-color: #767676;
-}
-.register-input-group:hover .input-icon {
-  color: #111111;
+  width: 100%;
+  height: 56px;
+  background-color: #FFFFFF;
+  border: 1px solid rgb(223.9, 223.9, 223.9);
+  border-radius: 12px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .register-input-group:focus-within {
   border-color: #66704A;
-  box-shadow: 0 0 0 1px #66704A;
-}
-.register-input-group:focus-within .input-icon {
-  color: #66704A;
+  box-shadow: 0 0 0 3px rgba(102, 112, 74, 0.12);
 }
 .register-input-group .input-icon {
+  position: absolute;
+  left: 14px;
+  color: #666666;
   font-size: 1.1rem;
-  color: #767676;
-  margin-right: 0.85rem;
+  pointer-events: none;
   flex-shrink: 0;
-  transition: color 0.2s ease;
 }
 .register-input-group .input-group_div {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-}
-.register-input-group .input-group_div label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #666666;
-  margin-bottom: 0.15rem;
-}
-.register-input-group .input-group_div input,
-.register-input-group .input-group_div input.register-input {
-  border: none;
-  background: transparent;
-  padding: 0.2rem 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 0.95rem;
-  color: #111111;
   width: 100%;
+  padding: 6px 14px 4px 42px;
   box-sizing: border-box;
 }
-.register-input-group .input-group_div input:focus,
-.register-input-group .input-group_div input.register-input:focus {
+.register-input-group .input-group_div label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  pointer-events: none;
+  text-align: left;
+}
+.register-input-group .input-group_div input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 2px 0 0 0;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111111;
+  box-sizing: border-box;
+}
+.register-input-group .input-group_div input:focus {
   outline: none;
 }
+.register-input-group .input-group_div input {
+  /* Clean standard default native calendar picker icon position styling overrides on mobile */
+}
 .register-input-group .input-group_div input[type=date] {
-  color: #111111;
   cursor: pointer;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 .register-input-group .input-group_div input[type=date]::-webkit-calendar-picker-indicator {
   cursor: pointer;
   opacity: 0.5;
-  -webkit-transition: opacity 0.2s ease;
-  transition: opacity 0.2s ease;
 }
 .register-input-group .input-group_div input[type=date]::-webkit-calendar-picker-indicator:hover {
-  opacity: 1;
+  opacity: 0.9;
 }
 
+/* ==========================================================================
+   ERROR MESSAGE LINES ATTRIBUTES TYPOGRAPHY
+   ========================================================================== */
 .error {
   display: block;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #e11d48;
-  margin-top: 0.4rem;
-  padding-left: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #C24B4B;
+  text-align: left;
+  margin-top: 5px;
+  padding-left: 4px;
+  animation: regFieldErrorPop 0.2s ease-out;
 }
 
+/* ==========================================================================
+   CHECKBOX COMPLIANCE WRAPPERS GATES (.terms)
+   ========================================================================== */
 .terms {
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: 10px;
+  width: 100%;
+  margin-top: 4px;
   cursor: pointer;
-  padding: 0.25rem;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
-}
-.terms:hover input[type=checkbox] {
-  border-color: #66704A;
+  box-sizing: border-box;
 }
 .terms input[type=checkbox] {
-  -moz-appearance: none;
-       appearance: none;
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 1px solid #e5e5e5;
-  border-radius: 4px;
-  background-color: #ffffff;
-  margin: 0.15rem 0 0 0;
+  margin-top: 3px;
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 16px;
+  height: 16px;
+  accent-color: #66704A;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.terms input[type=checkbox]:checked {
-  background-color: #66704A;
-  border-color: #66704A;
-}
-.terms input[type=checkbox]:checked::after {
-  content: "";
-  width: 4px;
-  height: 8px;
-  border: solid #ffffff;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-  margin-bottom: 2px;
-}
-.terms input[type=checkbox]:focus-visible {
-  outline: 2px solid #e11d48;
 }
 .terms span {
-  font-size: 0.85rem;
-  line-height: 1.5;
+  font-size: 0.82rem;
+  line-height: 1.45;
   color: #666666;
+  text-align: left;
 }
 .terms span .legal-link {
+  font-weight: 700;
   color: #66704A;
-  font-weight: 600;
-  border-bottom: 1px solid transparent;
+  text-decoration: none;
 }
 .terms span .legal-link:hover {
-  color: #e11d48;
-  border-color: #e11d48;
+  text-decoration: underline;
 }
 
+/* ==========================================================================
+   PRIMARY INTERACTIVE REGISTRATION BUTTONS (.register-btn)
+   ========================================================================== */
 .register-btn {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background-color: #66704A;
-  color: #ffffff;
-  border: 1px solid #66704A;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  padding: 0.85rem 1.25rem;
-  min-height: 44px;
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 8px;
   width: 100%;
-  margin-top: 0.5rem;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 44px;
+  background-color: #66704A;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(102, 112, 74, 0.15);
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  margin-top: 8px;
 }
 .register-btn svg {
-  font-size: 1.1rem;
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 1.05rem;
+  transition: transform 0.2s ease;
 }
 .register-btn:hover {
-  background-color: #393c2e;
-  border-color: #393c2e;
+  background-color: rgb(85.2193548387, 93.5741935484, 61.8258064516);
+  box-shadow: 0 6px 18px rgba(102, 112, 74, 0.22);
 }
 .register-btn:hover svg {
-  transform: translateX(4px);
+  transform: translateX(3px);
+}
+.register-btn:active {
+  transform: scale(0.985);
+}
+.register-btn:focus-visible {
+  outline: 2px solid #66704A;
+  outline-offset: 2px;
 }
 
+/* ==========================================================================
+   FOOTER REDIRECTION PATH PROMPTS (.login-link)
+   ========================================================================== */
 .login-link {
-  text-align: center;
-  font-size: 0.9rem;
+  margin-top: 24px;
+  font-size: 0.88rem;
   color: #666666;
-  margin-top: 2rem;
+  text-align: center;
+}
+.login-link span {
+  margin-right: 4px;
 }
 .login-link a {
   font-weight: 700;
   color: #66704A;
-  margin-left: 0.25rem;
+  text-decoration: none;
 }
 .login-link a:hover {
-  color: #e11d48;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   NETWORK LEVEL TIMEOUT ERRORS BANNERS
+   ========================================================================== */
+.fetch_error {
+  width: 100%;
+  background-color: #FDF2F2;
+  border-bottom: 1px solid rgba(194, 75, 75, 0.15);
+  padding: 12px 16px;
+  text-align: center;
+  box-sizing: border-box;
+  animation: regBannerSlideDown 0.25s ease-out;
+}
+.fetch_error h2 {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #C24B4B;
+}
+
+/* ==========================================================================
+   ANIMATIONS CORE CONFIGURATION PROPERTIES (KEYFRAMES)
+   ========================================================================== */
+@keyframes regCardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes regFieldErrorPop {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes regBannerSlideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+/* ACCESSIBILITY COMPLIANT OVERRIDES: PREFERS REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  .register-card,
+  .error,
+  .fetch_error {
+    animation: none !important;
+  }
+  .register-btn {
+    transition: none !important;
+  }
+  .register-btn:active {
+    transform: none !important;
+  }
+  .register-btn:hover svg {
+    transform: none !important;
+  }
 }/*# sourceMappingURL=Register.css.map */

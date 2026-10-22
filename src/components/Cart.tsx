@@ -10,12 +10,14 @@ import CartItemCard from "./CartItemCard";
 
 interface CartProps {
   cart: TCart;
+  error:string;
   onCheckout: () => void;
   onRemoveItem: (listingId: number) => void;
 }
 
 const Cart: React.FC<CartProps> = ({
   cart,
+  error,
   onRemoveItem,
   onCheckout,
 }) => {
@@ -60,7 +62,11 @@ const Cart: React.FC<CartProps> = ({
           {t("cart.header.title")}
         </h1>
       </header>
-
+{
+  error && <div className="cart-page__error">
+    <p >{error}</p>
+  </div>
+}
       <section className="cart-workspace">
         {/* Cart items grouped by seller */}
         <div className="cart-items-feed">

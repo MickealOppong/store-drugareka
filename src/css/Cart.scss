@@ -13,7 +13,41 @@
   box-sizing: border-box;
   font-family: Variables.$font-sans;
   background-color: #fafbfc;
+
+
 }
+    .cart-page__error {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.75rem 1rem;
+    background-color: Variables.$color-error-bg;
+    border: 1px solid color.mix(
+      Variables.$color-error,
+      Variables.$color-error-bg,
+      15%
+    );
+    margin-bottom: 1rem;
+    border-left: 4px solid Variables.$color-error;
+    border-radius: 6px;
+    color: Variables.$color-error;
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left;
+    overflow-wrap: anywhere;
+    animation: mktErrorShake 0.4s ease-in-out;
+
+    svg {
+      font-size: 1.15rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
 
 .cart-header {
   margin-bottom: 32px;

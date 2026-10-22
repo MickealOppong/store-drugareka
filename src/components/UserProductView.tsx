@@ -15,8 +15,10 @@ const UserProductView = () => {
     const [searchParams,] = useSearchParams();
   // Read active pagination location straight from URL parameters (1-indexed base)
   const page = parseInt(searchParams.get("page" )as string)||1;
-  const { data, isLoading: productsLoading,error:productError} = useGetMylistingsQuery({ page, size:10 },{refetchOnFocus:true,refetchOnMountOrArgChange:true});
+  const { data, isLoading: productsLoading,error:productError} = useGetMylistingsQuery({ page, size:5 },{refetchOnFocus:true,refetchOnMountOrArgChange:true});
 
+  console.log(data);
+  
 
   const navigate = useNavigate()
 
@@ -34,7 +36,8 @@ const UserProductView = () => {
   /**
    * ROLE AUTH CHECK
    */
-  const {roles,hasAddress} = useAppSelector((state) => state.userSlice);
+  const {hasAddress} = useAppSelector((state) => state.userSlice);
+
 
   /**
    *  translation
@@ -105,7 +108,7 @@ const UserProductView = () => {
       <>
       <AddressCheckModal isOpen={openModal} onClose={handleModalClose}/>
         {/* Dynamic add button using your standard Sage Green styling elements */}
-        {!roles.includes("ROLE_ADMIN") && (
+   
           <button
             onClick={()=>handleAddListing()}
             className="data-table__action-link"
@@ -114,7 +117,7 @@ const UserProductView = () => {
             <FiPlus />
             {t("user_products.header.add_btn")}
           </button>
-        )}
+      
       </>
       </header>
 
@@ -173,7 +176,6 @@ const UserProductView = () => {
                   <th>{t("user_products.table.headers.name")}</th>
                   <th>{t("user_products.table.headers.id")}</th>
                   <th>{t("user_products.table.headers.description")}</th>
-                  {roles.includes("ROLE_ADMIN") && <th>{t("user_products.table.headers.seller_id")}</th>}
                   <th>{t("user_products.table.headers.slug")}</th>
                   <th>{t("user_products.table.headers.brand")}</th>
                   <th>{t("user_products.table.headers.category")}</th>
@@ -211,14 +213,8 @@ const UserProductView = () => {
                       </span>
                     </td>
 
-                    {/* ROLE-RESTRICTED SELLER LINK ROW */}
-                    {roles.includes("ROLE_ADMIN") && (
-                      <td>
-                        <span className="data-table__text text-muted">
-                          {product.sellerId}
-                        </span>
-                      </td>
-                    )}
+        
+                  
 
                     {/* SLUG */}
                     <td>
@@ -295,6 +291,7 @@ const UserProductView = () => {
       </section>
           {data && (
               <Pagination
+              accumulated={data.accumulatedItems}
                 page={page}
                 totalPage={data.totalPages}
                 size={data.pageSize}

@@ -5,10 +5,11 @@ interface PaginationProps {
   page: number;        // 1-indexed current page from URL
   totalPage: number;   // 1-indexed total pages from Spring Boot payload
   size: number;        // Elements in current view
-  totalElements:number
+  totalElements:number,
+  accumulated:number
 }
 
-export const Pagination = ({ page, totalPage, size,totalElements }: PaginationProps) => {
+export const Pagination = ({ page, totalPage, size,totalElements,accumulated }: PaginationProps) => {
   const navigate = useNavigate();
   const { search, pathname } = useLocation();
 
@@ -70,7 +71,7 @@ export const Pagination = ({ page, totalPage, size,totalElements }: PaginationPr
       {/* Entries Metadata Section */}
       <div className="ks-pagination__info">
         <span>showing</span>
-        <strong className="ks-pagination__badge">{size}</strong>
+        <strong className="ks-pagination__badge">{accumulated}</strong>
         <span>{`/ ${totalElements} entries`}</span>
       </div>
 

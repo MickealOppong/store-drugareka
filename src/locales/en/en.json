@@ -35,6 +35,12 @@
         "good": "Good"
       }
     },
+    "closing_cta": {
+      "eyebrow": "SECOND HAND",
+      "title_line1": "Shop better.",
+      "title_line2": "Give things another life.",
+      "cta": "Explore the store"
+    },
     "seller_cta": {
       "eyebrow": "HAVE SOMETHING YOU NO LONGER NEED?",
       "sub-eyebrow-1": "Maybe it's something you've stopped using. Maybe it's brand new but you can't return it.",
@@ -1119,7 +1125,7 @@
       "eyebrow": "Transaction Confirmed",
       "title": "Payment Successful!",
       "description": "Thank you for your purchase. Your payment has been securely processed and funds are now safely held in our protected escrow pool.",
-      "session_label": "Paynent reference",
+      "session_label": "Session number",
       "next_steps_title": "What happens next?",
       "next_steps_desc": "The seller has been notified via private server manifest to package your items. Your escrow protection clock will run for 72 hours following courier delivery confirmation.",
       "support_hint": "If you experience any complications or logistics delays, contact our team immediately at",
@@ -1501,7 +1507,9 @@
   },
   "make_offer_modal": {
     "header": {
-      "badge": "Make an offer"
+      "badge": "Make an offer",
+      "title":"Order summary",
+      "message":"Review your order before proceeding to secure payment."
     },
     "body": {
       "title": "Bargain a Price",

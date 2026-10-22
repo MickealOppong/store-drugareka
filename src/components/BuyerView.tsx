@@ -146,7 +146,7 @@ const BuyerView: React.FC = () => {
       </section>
 
       {/* LOCALIZED PACING HOOKS */}
-      {data && <Pagination page={page} totalPage={data.totalPages} size={data.pageSize}     totalElements={data.totalElements}/>}
+      {data && <Pagination accumulated={data.accumulatedItems}page={page} totalPage={data.totalPages} size={data.pageSize}     totalElements={data.totalElements}/>}
     </>
   );
 };

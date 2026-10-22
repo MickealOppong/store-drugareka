@@ -204,6 +204,7 @@ const brands = data?.brands as TbrandResponse[]||[]
       </section>
            {data?.brands && (
                     <Pagination
+                    accumulated={data.accumulatedItems}
                       page={page}
                       totalPage={data.totalPages}
                       size={data.pageSize}

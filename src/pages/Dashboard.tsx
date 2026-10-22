@@ -40,7 +40,7 @@ const {data:sellingActivity=[]} = useGetRecentSellerActivityQuery()
   const {
     firstName,
     lastName,
-    roles = [],
+    roles 
   } = useAppSelector((state) => state.userSlice);
 
   // Fallback array constraint blocks runtime trace rejections
@@ -111,7 +111,7 @@ const {data:sellingActivity=[]} = useGetRecentSellerActivityQuery()
           <FiArrowRight className="db-stat-card__arrow" />
         </Link>
 
-        {isSeller && (
+        
           <Link to="/account/listings" className="db-stat-card">
             <div className="db-stat-card__icon">
               <FiPackage />
@@ -124,7 +124,7 @@ const {data:sellingActivity=[]} = useGetRecentSellerActivityQuery()
             </div>
             <FiArrowRight className="db-stat-card__arrow" />
           </Link>
-        )}
+        
       </section>
 
       {/* =================================================

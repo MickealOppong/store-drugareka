@@ -6,5 +6,6 @@ export type TListPageBrand={
 page:number,
 totalPages:number,
 totalElements:number
+accumulatedItems:number
 
 }

@@ -6,6 +6,7 @@ export type TListPageDto={
  pageSize:number,
 page:number,
 totalPages:number,
+accumulatedItems:number
 totalElements:number
 
 }

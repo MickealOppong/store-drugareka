@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { TListPagePayout } from "../../types/TListPagePayouts";
+import type { TListPageUsers } from "../../types/TListPageUsers";
 import type { TResponseDto } from "../../types/TResponseDto";
 import type { TListShipmentPage } from "../../types/TShipment";
 import type { TUserDto } from "../../types/TUserDto";
@@ -59,9 +60,12 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["user"],
     }),
-    getAllUsers: build.query<TUserDto[], void>({
-      query: () => ({
+    getAllUsers: build.query<TListPageUsers, {page:number,size:number}>({
+      query: ({page,size}) => ({
         url: `/api/users/all`,
+        params:{
+          page,size
+        }
       }),
       providesTags: ["users"],
     }),
@@ -148,4 +152,5 @@ export const {
   useChangePasswordMutation,
   useLazyGetStripeUpdateQuery,
   useStripeConnectMutation,
+  useGetAllUsersQuery
 } = userApi;
