@@ -1422,8 +1422,8 @@
       "reason_label": "Powód Zwrotu",
       "problem_description": "Opis problemu",
       "placeholder": "Opisz krótko szczegóły zwrotu dla celów weryfikacji...",
-      "warning_title": "Rygorystyczny Termin 3 Dni:",
-      "warning_text": "Zwrot musi zostać zgłoszony w ciągu 3 dni od doręczenia paczki. Po tym terminie środki są automatycznie przekazywane sprzedawcy i natychmiastowy zwrot przez platformę nie będzie możliwy. Jeśli napotkasz problemy po tym czasie, musisz otworzyć oficjalny spór w celu weryfikacji przez administratora."
+      "warning_title": "Rygorystyczny Termin 24 godz:",
+      "warning_text": "Zwrot musi zostać zgłoszony w ciągu 24 godz od doręczenia paczki. Po tym terminie środki są automatycznie przekazywane sprzedawcy i natychmiastowy zwrot przez platformę nie będzie możliwy. Jeśli napotkasz problemy po tym czasie, musisz otworzyć oficjalny spór w celu weryfikacji przez administratora."
     },
     "reasons": {
       "damaged_goods": "Przedmiot dotarł uszkodzony / wadliwy",
