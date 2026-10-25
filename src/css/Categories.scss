@@ -19,6 +19,7 @@
   margin: 0 auto;
   padding: 1.25rem 1rem 3rem;
   box-sizing: border-box;
+    margin: 4rem auto;
 
   @include Variables.media-up(Variables.$breakpoint-lg) {
     grid-template-columns: 224px minmax(0, 1fr);

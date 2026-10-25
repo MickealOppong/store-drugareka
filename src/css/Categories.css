@@ -17,6 +17,7 @@
   margin: 0 auto;
   padding: 1.25rem 1rem 3rem;
   box-sizing: border-box;
+  margin: 4rem auto;
 }
 @media (min-width: 1024px) {
   .catalog-browser {

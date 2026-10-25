@@ -151,7 +151,7 @@
   gap: 16px;
   width: 100%;
   
-  /* 🚀 FIXED: Dynamic viewport height tokens eliminate iOS Safari bottom-bar clipping errors */
+
   height: calc(100vh - #{Variables.$header-height-mobile});
   height: calc(100dvh - #{Variables.$header-height-mobile});
   

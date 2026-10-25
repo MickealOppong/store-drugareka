@@ -20,14 +20,15 @@
   color: Variables.$color-text-main;
   background-color: #ffffff;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 4rem auto;
   padding: 1rem 1rem 3rem 1rem; // Enhanced padding baseline preventing taskbar overlapping
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   box-sizing: border-box;
   width: 100%;
-  overflow-x: hidden; // 🚀 CRITICAL MOBILE FIX: Eradicates structural right-sided horizontal bleed
+  overflow-x: hidden; 
+
 
   @include media-up(Variables.$breakpoint-md) {
     padding: 2.5rem 1.5rem;
