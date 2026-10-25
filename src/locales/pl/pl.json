@@ -1431,6 +1431,10 @@
       "not_as_described": "Towar niezgodny ze specyfikacją lub opisem",
       "other": "Inny powód (Wymaga uzasadnienia)"
     },
+  "labels": {
+      "select_images_label": "Zdjęcia dowodowe",
+      "upload_btn":"Dodaj zdjęcie"
+    },
     "validation": {
       "required_reason": "Proszę wpisać uzasadnienie zwrotu.",
       "server_error": "Wystąpił błąd serwera podczas rejestracji zwrotu.",
@@ -1549,12 +1553,10 @@
       "generic_error": "Nie udało się zapisać oferty. Odśwież stronę i spróbuj ponownie."
     }
   },
-  "auth": {
+ "auth": {
     "reset": {
-      "link_sent_success": "Bezpieczny link odzyskiwania został wysłany na Twój adres e-mail.",
-      "change_success": "Twoje dane logowania zostały pomyślnie zaktualizowane.",
       "set_title": "Ustaw nowe hasło",
-      "set_description": "Skonfiguruj swoje nowe bezpieczne dane dostępowe do konta poniżej.",
+      "set_description": "Skonfiguruj poniżej nowe bezpieczne dane uwierzytelniające do swojego profilu konta.",
       "req_title": "Resetowanie hasła",
       "req_description": "Podaj swój zarejestrowany adres e-mail, aby otrzymać automatyczny token z linkiem do odzyskiwania konta.",
       "fields": {
@@ -1563,18 +1565,19 @@
         "email": "Adres e-mail"
       },
       "buttons": {
-        "processing": "Aktualizacja...",
+        "processing": "Przetwarzanie...",
         "submit_new": "Zaktualizuj hasło",
         "submit_req": "Wyślij link do resetowania"
       },
       "errors": {
-        "request_failed": "Nie można wygenerować linku resetującego. Sprawdź poprawność adresu e-mail.",
         "password_length": "Hasło musi składać się z co najmniej 8 znaków.",
-        "password_mismatch": "Wprowadzone hasła nie są identyczne.",
-        "change_failed": "Ten token autoryzacyjny jest nieprawidłowy lub wygasł. Wygeneruj nowy link odzyskiwania."
+        "password_mismatch": "Podane hasła nie są identyczne.",
+        "request_failed": "Nie udało się wysłać linku resetującego. Sprawdź poprawność adresu e-mail.",
+        "change_failed": "Ten link odzyskiwania wygasł lub jego sygnatura tokenu jest nieprawidłowa."
       }
     }
-  },"complaint_modal": {
+  },
+  "complaint_modal": {
     "header": {
       "badge": "Przegląd reklamacji"
     },

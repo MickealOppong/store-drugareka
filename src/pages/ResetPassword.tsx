@@ -46,11 +46,12 @@ export const ResetPassword = () => {
       const { message, httpStatus } = response.data as TResponseDto;
       if (httpStatus === 200) {
         setSuccessMessage(message);
-      }else{
-        setValidationError("auth.reset.errors.change_failed")
+      } else {
+        // 🚀 FIXED: Wrapped key in t() hook function to avoid raw text leaks in UI
+        setValidationError(t("auth.reset.errors.change_failed", "Ten link odzyskiwania wygasł lub jego sygnatura tokenu jest nieprawidłowa."));
       }
     } catch (error: any) {
-      setValidationError(t("auth.reset.errors.request_failed"));
+      setValidationError(t("auth.reset.errors.request_failed", "Nie udało się wysłać linku resetującego. Sprawdź poprawność adresu e-mail."));
     }
   };
 
@@ -64,18 +65,14 @@ export const ResetPassword = () => {
     // Front-End Verification Shield Guard
     if (newPassword.length < 8) {
       setValidationError(
-        t("auth.reset.errors.password_length", {
-          defaultValue: "Password must be at least 8 characters long.",
-        }),
+        t("auth.reset.errors.password_length", "Hasło musi składać się z co najmniej 8 znaków."),
       );
       return;
     }
 
     if (newPassword !== confirmNewPassword) {
       setValidationError(
-        t("auth.reset.errors.password_mismatch", {
-          defaultValue: "New passwords do not match.",
-        }),
+        t("auth.reset.errors.password_mismatch", "Podane hasła nie są identyczne."),
       );
       return;
     }
@@ -87,19 +84,16 @@ export const ResetPassword = () => {
     };
 
     try {
-      //  Pass both the secure verification token and your verified password properties
       const response = await changePassword(dto);
-
       const { httpStatus, message } = response.data as TResponseDto;
       if (httpStatus === 200) {
         setSuccessMessage(message);
-
         setTimeout(() => navigate("/login"), 3000); // Route back to login panel after 3 seconds
       } else {
         setSuccessMessage(message);
       }
     } catch (error: any) {
-      setValidationError(t("auth.reset.errors.change_failed"));
+      setValidationError(t("auth.reset.errors.change_failed", "Ten link odzyskiwania wygasł lub jego sygnatura tokenu jest nieprawidłowa."));
     }
   };
 
@@ -115,12 +109,12 @@ export const ResetPassword = () => {
               <FiLock />
             </div>
             <h1 className="auth-card__title">
-              {t("auth.reset.set_title", "Set New Password")}
+              {t("auth.reset.set_title", "Ustaw nowe hasło")}
             </h1>
             <p className="auth-card__description">
               {t(
                 "auth.reset.set_description",
-                "Please configure your secure alternative credentials profile below.",
+                "Skonfiguruj poniżej nowe bezpieczne dane uwierzytelniające do swojego profilu konta.",
               )}
             </p>
           </header>
@@ -134,7 +128,7 @@ export const ResetPassword = () => {
                 htmlFor="new-password-input"
                 className="auth-card__label"
               >
-                {t("auth.reset.fields.new_password", "New Password")}
+                {t("auth.reset.fields.new_password", "Nowe hasło")}
               </label>
               <div className="auth-card__input-wrapper">
                 <FiLock className="auth-card__input-icon" />
@@ -160,7 +154,7 @@ export const ResetPassword = () => {
               >
                 {t(
                   "auth.reset.fields.confirm_password",
-                  "Confirm New Password",
+                  "Potwierdź nowe hasło",
                 )}
               </label>
               <div className="auth-card__input-wrapper">
@@ -195,8 +189,8 @@ export const ResetPassword = () => {
               disabled={isLoading || changingPassword}
             >
               {isLoading || changingPassword
-                ? t("auth.reset.buttons.processing", "Updating...")
-                : t("auth.reset.buttons.submit_new", "Update Password")}
+                ? t("auth.reset.buttons.processing", "Przetwarzanie...")
+                : t("auth.reset.buttons.submit_new", "Zaktualizuj hasło")}
             </button>
           </form>
         </section>
@@ -215,12 +209,12 @@ export const ResetPassword = () => {
             <FiMail />
           </div>
           <h1 className="auth-card__title">
-            {t("auth.reset.req_title", "Reset Password")}
+            {t("auth.reset.req_title", "Resetowanie hasła")}
           </h1>
           <p className="auth-card__description">
             {t(
               "auth.reset.req_description",
-              "Provide your registered email account to receive an automated recovery link token.",
+              "Podaj swój zarejestrowany adres e-mail, aby otrzymać automatyczny token z linkiem do odzyskiwania konta.",
             )}
           </p>
         </header>
@@ -234,7 +228,7 @@ export const ResetPassword = () => {
               htmlFor="reset-email-input"
               className="auth-card__label"
             >
-              {t("auth.reset.fields.email", "Email Address")}
+              {t("auth.reset.fields.email", "Adres e-mail")}
             </label>
             <div className="auth-card__input-wrapper">
               <FiMail className="auth-card__input-icon" />
@@ -268,8 +262,8 @@ export const ResetPassword = () => {
             disabled={isLoading}
           >
             {isLoading
-              ? t("auth.reset.buttons.processing", "Sending...")
-              : t("auth.reset.buttons.submit_req", "Send Reset Link")}
+              ? t("auth.reset.buttons.processing", "Przetwarzanie...")
+              : t("auth.reset.buttons.submit_req", "Wyślij link do resetowania")}
           </button>
         </form>
       </section>

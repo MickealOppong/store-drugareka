@@ -1470,8 +1470,8 @@
       "reason_label": "Reason for Return",
       "problem_description": "Problem description",
       "placeholder": "Briefly describe the return details for verification...",
-      "warning_title": "Strict 3-Day Escrow Deadline:",
-      "warning_text": "Returns must be filed within 3 days of delivery. After 3 days, funds are automatically released to the seller and an immediate platform refund can no longer be processed. If you face an issue after this window, you must open a formal dispute ticket for administrative review."
+      "warning_title": "Strict 24-hour Escrow Deadline:",
+      "warning_text": "Returns must be filed within 24 hours of delivery. After 24 hours, funds are automatically released to the seller and an immediate platform refund can no longer be processed. If you face an issue after this window, you must open a formal dispute ticket for administrative review."
     },
     "reasons": {
       "damaged_goods": "Item arrived damaged / defective",
@@ -1483,6 +1483,10 @@
       "required_reason": "Please provide a reason for the return.",
       "server_error": "A server error occurred while registering the return.",
       "processing": "Processing..."
+    },
+ "labels": {
+      "select_images_label": "Evidence images",
+      "upload_btn":"Add image"
     },
     "actions": {
       "cancel": "Cancel",
@@ -1597,10 +1601,8 @@
       "generic_error": "Unable to process offer. Please refresh and try again."
     }
   },
-  "auth": {
+"auth": {
     "reset": {
-      "link_sent_success": "A secure recovery link has been dispatched to your email inbox.",
-      "change_success": "Your account credentials have been successfully updated.",
       "set_title": "Set New Password",
       "set_description": "Please configure your secure alternative credentials profile below.",
       "req_title": "Reset Password",
@@ -1616,10 +1618,10 @@
         "submit_req": "Send Reset Link"
       },
       "errors": {
-        "request_failed": "Unable to request a reset link. Please verify your email address.",
         "password_length": "Password must be at least 8 characters long.",
         "password_mismatch": "New passwords do not match.",
-        "change_failed": "This token signature is invalid or has expired. Please request a new recovery link."
+        "request_failed": "Failed to send reset link. Please check your email address correctness.",
+        "change_failed": "This recovery link has expired or its token signature is invalid."
       }
     }
   }

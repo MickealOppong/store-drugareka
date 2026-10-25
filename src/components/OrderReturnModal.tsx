@@ -204,11 +204,11 @@ export const OrderReturnModal = ({
               </select>
             </div>
 
-            {/* 📸 COMPLETE IMAGE COMPONENT BLOCK WITH GRID PREVIEWS */}
+            {/*  COMPLETE IMAGE COMPONENT BLOCK WITH GRID PREVIEWS */}
             <div className="po-modal__field po-modal__image-section">
               <label className="po-modal__label">
                 {t(
-                  "order_return_modal.body.select_images_label",
+                  "order_return_modal.labels.select_images_label",
                   "Evidence Images",
                 )}
               </label>
@@ -221,7 +221,7 @@ export const OrderReturnModal = ({
                 >
                   <FiPlus className="po-modal__upload-icon" />
                   <span>
-                    {t("order_return_modal.body.upload_btn", "Add Image")}
+                    {t("order_return_modal.labels.upload_btn", "Add Image")}
                   </span>
                   <input
                     id="return-image-upload"
