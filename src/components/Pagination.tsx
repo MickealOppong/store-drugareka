@@ -9,7 +9,7 @@ interface PaginationProps {
   accumulated:number
 }
 
-export const Pagination = ({ page, totalPage, size,totalElements,accumulated }: PaginationProps) => {
+export const Pagination = ({ page, totalPage,totalElements,accumulated }: PaginationProps) => {
   const navigate = useNavigate();
   const { search, pathname } = useLocation();
 
@@ -36,7 +36,7 @@ export const Pagination = ({ page, totalPage, size,totalElements,accumulated }: 
    * across all conditional navigational view windows.
    */
   const generateConstantRange = (): (number | string)[] => {
-    const maxVisibleSlots = 7; // 🚀 FIXED: Locked boundary to match array sizes perfectly
+    const maxVisibleSlots = 7; //  Locked boundary to match array sizes perfectly
 
     // Case 1: If total pages fit completely within our max visible slots, show them all directly
     if (totalPage <= maxVisibleSlots) {

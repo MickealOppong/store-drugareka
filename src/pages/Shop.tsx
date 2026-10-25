@@ -433,6 +433,7 @@ const Shop = () => {
               }
      {
       data &&  <Pagination
+      accumulated={data.accumulatedItems}
         page={page }
         totalPage={data?.totalPages}
         size={data?.pageSize }
