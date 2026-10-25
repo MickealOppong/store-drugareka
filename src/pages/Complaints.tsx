@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { FiEdit, FiSearch } from "react-icons/fi";
+import { FiEye, FiSearch } from "react-icons/fi";
 import { useSearchParams } from "react-router-dom";
-import '../css/Complaint.css';
+import { Pagination } from "../components";
+import { ComplaintImageModal } from "../components/ComplaintImageModal";
+
 import "../css/GenericViewLayout.css"; // Reuses your unified generic layout styles
 import { useGetComplaintsQuery } from "../features/api/itemApi";
+import type { TComplaints } from "../types/TComplaints";
 
 
-
-const Complaint = () => {
+const Complaints = () => {
   const [search, setSearch] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+  const[openImageModal,setOpenImageModal] =useState<boolean>(false)
+  const[selectedData,setSelectedData] =useState<TComplaints>()
   
   const page = parseInt(searchParams.get("page") || "1", 10);
   const currentTab = searchParams.get("status") || "ALL";
@@ -21,13 +25,15 @@ const Complaint = () => {
   const {data} = useGetComplaintsQuery({page,size})
   const complaints = data?.complaintResponseList|| []
 
+  
+
   const handleTabChange = (status: string) => {
     const params = new URLSearchParams(searchParams);
     params.set("status", status);
     params.set("page", "1"); // Reset window to page 1 on filter flip
     setSearchParams(params);
   };
-
+ 
 
 
   // Filter pipeline handling query checks and sub-tab selection matrixes
@@ -45,6 +51,15 @@ const Complaint = () => {
     );
   });
 
+  const handleImageView =(complaint:TComplaints)=>{
+    setOpenImageModal(true);
+ setSelectedData(complaint)
+  }
+
+  const onCloseModal=()=>{
+    setOpenImageModal(false)
+   
+  }
   return (
     <main className="panel-view">
       {/* =====================================================
@@ -64,7 +79,7 @@ const Complaint = () => {
                 STATUS CONTROLS TABS
             ====================================================== */}
       <div className="panel-view__tab-group">
-        {["ALL", "OPEN", "UNDER_REVIEW", "RESOLVED", "DISMISSED"].map((status) => (
+        {["ALL", "OPEN", "UNDER_REVIEW", "RESOLVED","APPROVED","RETURN_UPHELD", "REJECTED","AWAITING_RETURN_PAYMENT"].map((status) => (
           <button
             key={status}
             type="button"
@@ -112,7 +127,8 @@ const Complaint = () => {
                   <th>Reporter</th>
                   <th>Target ID</th>
                   <th>Category</th>
-                  <th>Description Preview</th>
+                   <th>seller comment</th>
+                     <th>Buyer comment</th>
                   <th>Status</th>
                   <th>Created</th>
                   <th className="data-table__actions-header">Action</th>
@@ -121,7 +137,7 @@ const Complaint = () => {
               <tbody>
                 {filteredReports.map((report) => {
                   const normalizedStatus = report.status.toLowerCase().replace(/_/g, "-");
-                  const normalizedIssue = report.issue.toLowerCase().replace(/_/g, " ");
+                  const normalizedIssue = report.reason.toLowerCase().replace(/_/g, " ");
 
                   return (
                     <tr key={report.id}>
@@ -155,14 +171,18 @@ const Complaint = () => {
                           {normalizedIssue}
                         </span>
                       </td>
-
-                      {/* DESCRIPTION SUMMARY */}
+ {/* seller comment*/}
                       <td>
-                        <span className="data-table__text text-muted" title={report.description} style={{ whiteSpace: "normal", minWidth: "220px", display: "inline-block" }}>
-                          {report.description.substring(0, 45)}...
+                        <span className="data-table__text font-semibold capital-first" style={{textWrap:'wrap'}}>
+                          {report.sellerComment}
                         </span>
                       </td>
-
+                       {/* buyer comment*/}
+                      <td>
+                        <span className="data-table__text font-semibold capital-first" style={{textWrap:'wrap'}}>
+                          {report.buyerComment}
+                        </span>
+                      </td>
                       {/* STATUS BADGE COPIES */}
                       <td>
                         <span className={`status-badge status-badge--${normalizedStatus}`}>
@@ -179,16 +199,17 @@ const Complaint = () => {
 
                       {/* ACTIONS DRAWER BUTTON */}
                       <td>
-                        <div className="data-table__actions" style={{ gap: "0.5rem" }}>
+                         <div className="data-table__actions" style={{ gap: "0.5rem" }}>
                           <button
                             type="button"
                             className="data-table__action-link"
                             title="Inspect dispute details"
-                            onClick={() => alert(`Reviewing details for ticket: ${report.orderNumber}`)}
+                            onClick={() =>handleImageView(report)}
                           >
-                            <FiEdit/>
+                            <FiEye/>
                           </button>
                         </div>
+                      
                       </td>
                     </tr>
                   );
@@ -198,8 +219,23 @@ const Complaint = () => {
           </div>
         )}
       </section>
+      {
+        selectedData && <ComplaintImageModal isOpen={openImageModal} onClose={onCloseModal} 
+        orderNumber={selectedData.orderNumber} originalImages={selectedData.listingImages} complaintImages={selectedData.images}/>
+      }
+   
+      {/* LOCALIZED PACING HOOKS */}
+      {data && (
+        <Pagination
+        accumulated={data.accumulatedItems}
+          page={page}
+          totalPage={data.totalPages}
+          size={data.pageSize}
+          totalElements={data?.totalElements}
+        />
+      )}
     </main>
   );
 };
 
-export default Complaint
+export default Complaints

@@ -17,6 +17,7 @@ export const PaymentConfirmation: React.FC = () => {
 
   // Unified lookup payload fallback: Resolves either the PayU tracking key or the Stripe Session ID token string
   const paymentId = orderNumber || sessionId;
+  
 
   // Poll every 5 seconds while shouldPoll is active
   const { data: status, isLoading, error } = useGetPaymentStatusQuery(paymentId, {

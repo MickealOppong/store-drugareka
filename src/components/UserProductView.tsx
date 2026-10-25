@@ -5,10 +5,8 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import '../css/GenericViewLayout.css';
 import { useDeleteListingMutation, useGetMylistingsQuery } from "../features/api/itemApi";
-import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
 import { isFetchBaseQueryError } from "../util/util";
-import AddressCheckModal from "./AddressCheckModal";
 import Pagination from "./Pagination";
 
 const UserProductView = () => {
@@ -16,8 +14,6 @@ const UserProductView = () => {
   // Read active pagination location straight from URL parameters (1-indexed base)
   const page = parseInt(searchParams.get("page" )as string)||1;
   const { data, isLoading: productsLoading,error:productError} = useGetMylistingsQuery({ page, size:5 },{refetchOnFocus:true,refetchOnMountOrArgChange:true});
-
-  console.log(data);
   
 
   const navigate = useNavigate()
@@ -31,12 +27,8 @@ const UserProductView = () => {
   const [search, setSearch] = useState("");
   const [deletingId] = useState<number | null>(null);
   const [error,] = useState('')
-  const [openModal,setOpenModal] = useState<boolean>(false)
 
-  /**
-   * ROLE AUTH CHECK
-   */
-  const {hasAddress} = useAppSelector((state) => state.userSlice);
+
 
 
   /**
@@ -67,20 +59,10 @@ const UserProductView = () => {
 
   const handleAddListing = ()=>{
 
-  
-    if(hasAddress!=='true'){
-     setOpenModal(true)
-     return;
-    }else{
-    navigate('/account/listings/new')
-    }
-
-  
+   navigate('/account/listings/new')  
   }
 
-  const handleModalClose = ()=>{
-    setOpenModal(false)
-  }
+ 
 
   if (!productListings) {
     return null;
@@ -106,7 +88,6 @@ const UserProductView = () => {
         </div>
 
       <>
-      <AddressCheckModal isOpen={openModal} onClose={handleModalClose}/>
         {/* Dynamic add button using your standard Sage Green styling elements */}
    
           <button

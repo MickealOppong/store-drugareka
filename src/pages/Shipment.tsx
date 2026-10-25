@@ -393,7 +393,7 @@ useEffect(() => {
                             display: "inline-block",
                           }}
                         >
-                           {t(`add_listing.fields.cargo_sizes.${item.itemSize.toLowerCase()}`)}
+                           {t(`add_listing.fields.cargo_sizes.item_size.${item.itemSize.toLowerCase()}`)}
                         </span>
                        }
                       </td>

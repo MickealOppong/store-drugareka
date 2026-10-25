@@ -12,7 +12,7 @@ import {
 import { useSearchParams } from "react-router";
 import { Loading } from "../components";
 import type { TAddress } from "../components/CartAddressManager";
-import "../css/ConfirmShipment.scss";
+import "../css/ConfirmShipment.css";
 import {
   useConfirmShipmentMutation,
   useGetSellerShipmentsQuery,
@@ -44,7 +44,9 @@ const ConfirmShipment = () => {
   const [validationError, setValidationError] = useState<string | null>(null);
   
 
-  const products = data as TShipmentItemResponse[]|[];
+  const products = data?.data as TShipmentItemResponse[]|[];
+
+  
 
   const[isLoading,setIsLoading]=useState<boolean>(false);
   const[isSuccess,setIsSucess]=useState<boolean>(false)
@@ -121,15 +123,53 @@ const ConfirmShipment = () => {
       : t("confirm_shipment.errors.network_fallback");
 
 
-      if(isLoading){
-        return <Loading/>
-      }
+if (isLoading) {
+  return <Loading />;
+}
 
-      if(isSuccess){
-        return <div>
-          Kurier request successfull
-        </div>
-      }
+if (isSuccess) {
+  return (
+    <div className="al-confirm-shipment__status-page">
+      <div className="al-confirm-shipment__success">
+        <FiCheckSquare className="al-confirm-shipment__status-icon" />
+
+        <h1>{t("confirm_shipment.success.title", "Shipment confirmed")}</h1>
+
+        <p>
+          {t(
+            "confirm_shipment.success.description",
+            "Your courier collection request has been submitted successfully."
+          )}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+if (data?.data === "CONFIRMED") {
+  return (
+    <div className="al-confirm-shipment__status-page">
+      <div className="al-confirm-shipment__confirmed">
+        <FiInfo className="al-confirm-shipment__status-icon" />
+
+        <h1>
+          {t(
+            "confirm_shipment.already_confirmed.title",
+            "Shipment already confirmed"
+          )}
+        </h1>
+
+        <p>
+          {t(
+            "confirm_shipment.already_confirmed.description",
+            "This shipment has already been confirmed. No further action is required."
+          )}
+        </p>
+      </div>
+    </div>
+  );
+}
+      
   return (
     <div className="al-confirm-shipment">
       {/* LEFT COLUMN: Clean Order Context Banner Elements */}

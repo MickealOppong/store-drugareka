@@ -138,6 +138,11 @@ export const userApi = createApi({
            }
           }),
         }),
+     stripeConnectDashboard: build.query<TResponseDto,void>({
+          query: () => ({
+            url: "/api/users/stripe/dashboard",
+          }),
+        }),
   }),
 });
 export const {
@@ -152,5 +157,6 @@ export const {
   useChangePasswordMutation,
   useLazyGetStripeUpdateQuery,
   useStripeConnectMutation,
-  useGetAllUsersQuery
+  useGetAllUsersQuery,
+  useLazyStripeConnectDashboardQuery
 } = userApi;

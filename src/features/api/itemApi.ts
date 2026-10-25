@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { ShipmentRequest } from "../../components/ShipmentStatusModal";
-import type { TListComplaintPage } from "../../types/TComplaints";
+import type { TComplaints, TListComplaintPage } from "../../types/TComplaints";
 import type { TCourierResponse } from "../../types/TCourierResponse";
 import type { TDashboard } from "../../types/TDashboard";
 import type { TListPageDto } from "../../types/TListPageDto";
@@ -182,7 +182,7 @@ export const itemApi = createApi({
     }),
       returnItem: build.mutation<TResponseDto,FormData>({
       query: (body) => ({
-        url: "/api/orders/return-intent",
+        url: "/api/dispute/return-intent",
         body,
         method:"POST"
       }),
@@ -198,12 +198,41 @@ export const itemApi = createApi({
     }),
          getComplaints: build.query<TListComplaintPage,{page:number,size:number}>({
       query: ({page,size}) => ({
-        url: "/api/orders/complaints",
+        url: "/api/dispute/complaints",
         params:{
           page,size
         }
       }),
    providesTags:['complaints']
+    }),
+          getBuyerComplaint: build.query<TComplaints,string>({
+      query: (orderNumber) => ({
+        url: "/api/dispute/complaint",
+        params:{
+          orderNumber
+        }
+      }),
+   providesTags:['complaints']
+    }),
+           updateOrderDispute: build.mutation<TResponseDto,{orderNumber:string,decision:string,reason:string}>({
+      query: ({orderNumber,reason,decision}) => ({
+        url: "/api/dispute/update",
+        params:{
+      orderNumber,reason,decision
+        },
+        method:"PUT"
+      }),
+   invalidatesTags:['complaints']
+    }),
+          updateOrderDisputeAdmin: build.mutation<TResponseDto,{orderNumber:string,decision:string,reason:string}>({
+      query: ({orderNumber,reason,decision}) => ({
+        url: "/api/dispute/admin-review",
+        params:{
+      orderNumber,reason,decision
+        },
+        method:"PUT"
+      }),
+   invalidatesTags:['complaints']
     }),
         updateShipmentStatus: build.mutation<void,ShipmentRequest>({
       query: ({shipmentId,trackingNumber,comment,status,createdAt}) => ({
@@ -245,6 +274,15 @@ export const itemApi = createApi({
               }),
               providesTags: ["listing"],
             }),
+                  getReturnDetails: build.query<TListTrans, number>({
+              query: (orderId) => ({
+                url: `/api/order/${orderId}/return`,
+                params: {
+                 orderId
+                },
+              }),
+         
+            }),
   }),
 });
 export const { useAddListingMutation,useGetMylistingsQuery,
@@ -254,5 +292,6 @@ export const { useAddListingMutation,useGetMylistingsQuery,
   useGetPurchaseOrdersQuery,useGetSaleOrdersQuery,useGetPurchaseDetailsQuery,useUpdateShipmentStatusMutation,
   useDeleteListingMutation,useLazyGetWishListsQuery,useLazyGetWishlistCountQuery,
   useCancelOrderMutation,useReturnItemMutation,useUpdateReturnShipmentStatusMutation,useAddCourierPriceMutation
-  ,useGetCouriersQuery,useMakeOfferMutation,useLazyGetListingQuery,useGetListingQuery,useCancelBuyerOrderMutation
+  ,useGetCouriersQuery,useMakeOfferMutation,useLazyGetListingQuery,useGetListingQuery,useCancelBuyerOrderMutation,
+  useGetReturnDetailsQuery,useGetBuyerComplaintQuery,useUpdateOrderDisputeMutation,useUpdateOrderDisputeAdminMutation,useLazyGetBuyerComplaintQuery
 } = itemApi;

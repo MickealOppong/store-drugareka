@@ -25,6 +25,7 @@ export const DeliveryConfirmation = () => {
 
 
 
+console.log(isConfirmed);
 
 
   const handleConfirm = async () => {

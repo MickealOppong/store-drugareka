@@ -1056,14 +1056,15 @@
       "cargo_sizes": {
         "label": "Rozmiar paczki",
         "placeholder": "Wybierz gabaryt przedmiotu (Rozmiar paczki)",
-        "item_size": {
-          "small": "Mała - do 10kg",
-          "medium": "Średnia - do 20kg",
-          "large": "Duża - do 50kg",
-          "heavy": "Ciężka - powyżej 50kg"
-        }
+    "item_size": {
+  "small_up_10kg": "Mały – do 10 kg",
+  "medium_up_20kg": "Średni – do 20 kg",
+  "large_up_50kg": "Duży – do 50 kg",
+  "heavy_above_50kg": "Ciężki – powyżej 50 kg"
+}
       }
     },
+
     "sidebar": {
       "status": {
         "title": "Status produktu",
@@ -1249,97 +1250,110 @@
       "seller_btn": "Wystaw produkt na sprzedaż"
     }
   },
-  "user_profile": {
+"user_profile": {
     "header": {
-      "badge": "Profil użytkownika",
+      "badge": "Konto",
       "title": "Twój profil",
-      "desc": "Zarządzaj swoimi danymi osobowymi i adresem wysyłkowym."
+      "desc": "Zarządzaj danymi osobowymi, weryfikacją sprzedawcy i bezpieczeństwem konta."
     },
     "sections": {
       "personal": "Dane osobowe",
-      "address": "Adres wysyłkowy",
-      "password": "Zmiana hasła"
+      "address": "Adres"
     },
     "fields": {
       "first_name": "Imię",
       "last_name": "Nazwisko",
       "email": "Adres e-mail",
-      "account": "Numer rachunku bankowego",
-      "street": "Ulica i numer",
+      "street": "Ulica i numer domu",
       "postal_code": "Kod pocztowy",
       "city": "Miasto",
-      "country": "Kraj",
       "contact": "Numer telefonu",
-      "current_password": "Obecne hasło",
-      "new_password": "Nowe hasło",
-      "confirm_password": "Potwierdź nowe hasło",
-      "pesel": "Pesel"
-    },
-    "placeholders": {
-      "account": "nr rachunku...",
-      "street": "np. Kostromska 120",
-      "postal_code": "np. 97-300",
-      "city": "np. Piotrków Trybunalski",
-      "current_password": "Wpisz obecne hasło",
-      "new_password": "Wpisz nowe hasło",
-      "confirm_password": "Potwierdź nowe hasło"
+      "country": "Kraj"
     },
     "privacy": {
-      "title": "Prywatność",
-      "desc": "Twoje dane osobowe są wykorzystywane wyłącznie do obsługi konta, zamówień, płatności i dostaw."
-    },
-    "messages": {
-      "success": "Twój profil został pomyślnie zaktualizowany.",
-      "password_success": "Twoje hasło zostało pomyślnie zmienione."
-    },
-    "errors": {
-      "required_fields": "Uzupełnij wszystkie wymagane pola.",
-      "save_failed": "Nie udało się zapisać zmian profilu.",
-      "password_change_failed": "Nie udało się zmienić hasła.",
-      "current_password_required": "Wpisz obecne hasło.",
-      "new_password_required": "Wpisz nowe hasło.",
-      "confirm_password_required": "Potwierdź nowe hasło.",
-      "password_mismatch": "Nowe hasła nie są takie same.",
-      "password_too_short": "Nowe hasło musi zawierać co najmniej 8 znaków."
+      "title": "Dbamy o Twoją prywatność",
+      "desc": "Twoje dane osobowe są bezpiecznie przetwarzane i wykorzystywane do obsługi konta oraz zamówień."
     },
     "buttons": {
-      "edit": "Edytuj profil",
       "cancel": "Anuluj",
+      "edit": "Edytuj profil",
       "save": "Zapisz zmiany",
-      "saving": "Zapisywanie...",
-      "change_password": "Zmień hasło",
-      "changing_password": "Zmiana hasła...",
-      "update_password": "Zaktualizuj hasło"
+      "saving": "Zapisywanie…"
     },
-    "email_locked": "Adres e-mail nie może być zmieniony",
+    "errors": {
+      "required_fields": "Wypełnij wszystkie wymagane pola.",
+      "first_name_required": "Imię jest wymagane.",
+      "street_required": "Ulica jest wymagana.",
+      "city_required": "Miasto jest wymagane.",
+      "correct_highlighted": "Popraw zaznaczone pola.",
+      "check_details": "Sprawdź poprawność danych profilu.",
+      "load_failed": "Nie udało się wczytać profilu. Spróbuj ponownie.",
+      "update_failed": "Nie udało się zaktualizować profilu. Spróbuj ponownie."
+    },
+    "messages": {
+      "success": "Profil został zaktualizowany."
+    },
+    "stripe": {
+      "title": "Weryfikacja tożsamości sprzedawcy",
+      "subtitle": "Zweryfikuj swoją tożsamość, aby móc otrzymywać wypłaty ze sprzedaży.",
+      "description": "Dane weryfikacyjne Stripe są zarządzane oddzielnie od danych profilu i adresów wysyłki.",
+      "status": {
+        "loading": "Sprawdzanie statusu",
+        "not_started": "Nie rozpoczęto",
+        "pending": "W trakcie",
+        "ready": "Gotowość do otrzymywania wypłat",
+        "action_required": "Wymagane działanie",
+        "error": "Status niedostępny"
+      },
+      "messages": {
+        "ready": "Twoje konto jest gotowe do otrzymywania wypłat.",
+        "pending": "Konto Stripe zostało utworzone, ale nie potwierdzono jeszcze możliwości otrzymywania wypłat. W razie potrzeby kontynuuj weryfikację.",
+        "action_required": "Stripe wymaga dodatkowych informacji, zanim konto sprzedawcy zostanie aktywowane.",
+        "status_error": "Nie udało się pobrać aktualnego statusu weryfikacji. Odśwież status i spróbuj ponownie."
+      },
+      "buttons": {
+        "connecting": "Łączenie ze Stripe…",
+        "continue": "Kontynuuj weryfikację",
+        "verify": "Zweryfikuj tożsamość, aby sprzedawać",
+        "checking": "Sprawdzanie…",
+        "refresh": "Odśwież status",
+        "opening_dashboard": "Otwieranie Stripe…",
+        "open_dashboard": "Otwórz panel Stripe"
+      },
+      "errors": {
+        "dashboard_url_missing": "Nie otrzymano linku do panelu Stripe.",
+        "dashboard_open_failed": "Nie udało się otworzyć panelu Stripe. Spróbuj ponownie.",
+        "onboarding_url_missing": "Nie otrzymano linku do rozpoczęcia weryfikacji Stripe.",
+        "onboarding_failed": "Nie udało się rozpocząć weryfikacji tożsamości. Spróbuj ponownie."
+      }
+    },
+    "payment_provider": {
+      "title": "Operator płatności",
+      "description": "Wybierz preferowanego operatora, jeśli ta opcja jest obsługiwana.",
+      "availability": "Dostępne metody zależą od konfiguracji płatności w kasie.",
+      "stripe_description": "Płatności kartą i obsługiwane metody",
+      "payu_description": "Polskie płatności internetowe i obsługiwane metody"
+    },
     "password": {
-      "title": "Zmiana hasła",
-      "description": "Zmień hasło, aby zwiększyć bezpieczeństwo swojego konta.",
+      "title": "Zmień hasło",
+      "description": "Użyj silnego hasła, którego nie używasz w innych serwisach.",
       "fields": {
         "current": "Obecne hasło",
         "new": "Nowe hasło",
         "confirm": "Potwierdź nowe hasło"
       },
-      "placeholders": {
-        "current": "Wpisz obecne hasło",
-        "new": "Wpisz nowe hasło",
-        "confirm": "Potwierdź nowe hasło"
-      },
-      "buttons": {
-        "change": "Zmień hasło",
-        "schanging": "Zmiana hasła...",
-        "cancel": "Anuluj"
-      },
-      "messages": {
-        "success": "Hasło zostało pomyślnie zmienione."
-      },
       "errors": {
         "current_required": "Wpisz obecne hasło.",
         "new_required": "Wpisz nowe hasło.",
+        "too_short": "Hasło musi zawierać co najmniej 8 znaków.",
         "confirm_required": "Potwierdź nowe hasło.",
-        "mismatch": "Nowe hasła nie są takie same.",
-        "too_short": "Nowe hasło musi zawierać co najmniej 8 znaków.",
-        "failed": "Nie udało się zmienić hasła."
+        "mismatch": "Hasła nie są zgodne.",
+        "change_failed": "Nie udało się zmienić hasła. Spróbuj ponownie."
+      },
+      "messages": "Hasło zostało zmienione.",
+      "buttons": {
+        "changing": "Zmiana hasła…",
+        "change": "Zmień hasło"
       }
     }
   },
@@ -1558,6 +1572,42 @@
         "password_length": "Hasło musi składać się z co najmniej 8 znaków.",
         "password_mismatch": "Wprowadzone hasła nie są identyczne.",
         "change_failed": "Ten token autoryzacyjny jest nieprawidłowy lub wygasł. Wygeneruj nowy link odzyskiwania."
+      }
+    }
+  },"complaint_modal": {
+    "header": {
+      "badge": "Przegląd reklamacji"
+    },
+    "accessibility": {
+      "close": "Zamknij okno",
+      "zoom": "Powiększ obraz"
+    },
+    "panels": {
+      "original_title": "Oryginalna oferta referencyjna",
+      "complaint_title": "Dowody uszkodzeń przesłane przez kupującego"
+    },
+    "images": {
+      "original_alt": "Oryginalne zdjęcie oferty",
+      "complaint_alt": "Zdjęcie uszkodzenia przesłane przez kupującego",
+      "fullscreen_alt": "Pełnoekranowy widok szczegółowy dowodu"
+    },
+    "errors": {
+      "generic": "Coś poszło nie tak. Spróbuj ponownie.",
+      "checkout_create": "Nie udało się utworzyć płatności.",
+      "decision_failed": "Nie udało się sfinalizować decyzji reklamacyjnej.",
+      "checkout_unavailable": "Płatność za przesyłkę zwrotną jest niedostępna."
+    },
+    "return_upheld_message": "Administrator uwzględnił reklamację. Opłać koszt przesyłki zwrotnej, aby zamówić kuriera.",
+    "buttons": {
+      "processing": "Przetwarzanie...",
+      "order_courier": "Zamów kuriera"
+    },
+    "footer": {
+      "comment_label": "Uzasadnienie decyzji",
+      "placeholder": "Wprowadź uzasadnienie administracyjne dla tej decyzji...",
+      "buttons": {
+        "reject": "Odrzuć reklamację",
+        "approve": "Zamów kuriera"
       }
     }
   }

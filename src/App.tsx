@@ -6,7 +6,6 @@ import {
   CartPage,
   Categories,
   CheckoutForm,
-  Complaint,
   Dashboard,
   DeliveryConfirmation,
   ErrorPage,
@@ -23,7 +22,7 @@ import {
   Shop,
   TermsAndConditions,
   UserProfile,
-  WishList,
+  WishList
 } from "./pages/index";
 
 import {
@@ -63,6 +62,7 @@ import ReturnConfirmation from "./pages/ReturnConfirmation";
 import StripeReturnKYCHandler from "./pages/StripeReturnKYCHandler";
 
 import { loader as accountLoader } from './../src/pages/AccountLayout';
+import Complaints from "./pages/Complaints";
 
 function App() {
   const router = createBrowserRouter([
@@ -235,7 +235,7 @@ function App() {
         },
         {
           path: "admin/reports",
-          element: <Complaint />,
+          element: <Complaints />,
         },
         {
           path: "admin/user/new",

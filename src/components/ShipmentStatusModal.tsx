@@ -74,7 +74,9 @@ const ShipmentStatusModal: React.FC<ShipmentStatusModalProps> = ({ shipment, onC
       }
       if (type === 'RETURN') {
           response = await updateReturnShipmentStatus(requestPayload);
-      } 
+      }     
+
+      
       
       if (response && !('error' in response)) {
         onSaveSuccess();

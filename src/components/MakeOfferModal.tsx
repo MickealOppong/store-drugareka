@@ -158,7 +158,6 @@ export const MakeOfferModal = ({
         offer: numericOffer,
       }).unwrap()) as TResponseDto;
 
-      console.log(response);
       
 
       const {

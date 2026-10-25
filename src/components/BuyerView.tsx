@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FiEye, FiFlag, FiSearch } from "react-icons/fi";
+import { FiEye, FiSearch } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
 
 import { useGetPurchaseOrdersQuery } from "../features/api/itemApi";
@@ -23,6 +23,8 @@ const BuyerView: React.FC = () => {
     size:5,
   });
 
+
+  
 
   const orders = (data?.orders as TOrdersDto[]) || [];
 
@@ -132,9 +134,7 @@ const BuyerView: React.FC = () => {
                         <Link to={`/account/orders/${order.id}/details`} className="data-table__action-link" title={t("buyer_view.actions.view_details")}>
                           <FiEye />
                         </Link>
-                        <Link to={`/account/complaints/new/${order.id}`} className="data-table__action-link" title={t("buyer_view.actions.file_dispute")}>
-                          <FiFlag />
-                        </Link>
+                      
                       </div>
                     </td>
                   </tr>

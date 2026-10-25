@@ -3,7 +3,8 @@ export type TListComplaintPage={
     pageSize:number,
 page:number,
 totalPages:number,
-totalElements:number
+totalElements:number,
+accumulatedItems:number
 }
 
 export type TComplaints={
@@ -11,8 +12,11 @@ export type TComplaints={
     ticketId:string,
     orderNumber:string,
     user:string,
-    issue:string,
-    description:string,
+    reason:string
     status:string,
-    createdAt:Date
+    createdAt:Date,
+    sellerComment:string,
+    buyerComment:string
+    listingImages:string[],
+    images:string[]
 }

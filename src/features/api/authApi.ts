@@ -4,7 +4,6 @@ import { type TRegisterDto } from "../../types/TRegisterDto";
 import type { TResponseDto } from "../../types/TResponseDto";
 
 import type { TChangePasswordDto } from "../../types/TChangePasswordDto";
-import type { TShipmentItemResponse } from "../../types/TShipmentItemResponse";
 import { baseUrl } from "./baseUrl";
 
 export const authApi = createApi({
@@ -61,7 +60,7 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["wishlists"],
     }),
-    getSellerShipments: build.query<TShipmentItemResponse[], string>({
+    getSellerShipments: build.query<TResponseDto, string>({
       query: (token) => ({
         url: "/api/seller/shipment/token",
         params: {

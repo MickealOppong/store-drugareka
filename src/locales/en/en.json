@@ -1068,13 +1068,14 @@
         "label": "Item size",
         "placeholder": "Select item size",
         "item_size": {
-          "small": "Small - up to 10kg",
-          "medium": "Medium - up to 20kg",
-          "large": "Large - up to 50kg",
-          "heavy": "Heavy - over 50kg"
+          "small_up_10kg": "Small - up to 10kg",
+          "medium_up_20kg": "Medium - up to 20kg",
+          "large_up_50kg": "Large - up to 50kg",
+          "heavy_above_50kg": "Heavy - over 50kg"
         }
       }
     },
+    
     "sidebar": {
       "status": {
         "title": "Product status",
@@ -1092,6 +1093,43 @@
         "title": "Preview",
         "fallback_category": "Category",
         "fallback_name": "Your product name"
+      }
+    }
+  },
+  "complaint_modal": {
+    "header": {
+      "badge": "Complaint Review"
+    },
+    "accessibility": {
+      "close": "Close modal",
+      "zoom": "Zoom image"
+    },
+    "panels": {
+      "original_title": "Original Reference Listing",
+      "complaint_title": "Buyer Damage Complaint Evidence"
+    },
+    "images": {
+      "original_alt": "Original listing reference",
+      "complaint_alt": "Buyer complaint uploaded evidence",
+      "fullscreen_alt": "Fullscreen evidence evaluation focus view"
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "checkout_create": "Unable to create checkout.",
+      "decision_failed": "The complaint decision could not be completed.",
+      "checkout_unavailable": "The complaint or return-shipping checkout is unavailable."
+    },
+    "return_upheld_message": "The administrator has upheld the complaint. Pay the return-shipping cost to arrange the courier.",
+    "buttons": {
+      "processing": "Processing...",
+      "order_courier": "Order courier"
+    },
+    "footer": {
+      "comment_label": "Justification Comment",
+      "placeholder": "Provide an administrative rationale for this decision...",
+      "buttons": {
+        "reject": "Reject Complaint",
+        "approve": "Order courier"
       }
     }
   },
@@ -1260,84 +1298,110 @@
       "seller_btn": "List a product for sale"
     }
   },
-  "user_profile": {
+"user_profile": {
     "header": {
-      "badge": "User Profile",
-      "title": "Your Profile",
-      "desc": "Manage your personal information and shipping details."
+      "badge": "Account",
+      "title": "Your profile",
+      "desc": "Manage your personal details, seller verification and account security."
     },
     "sections": {
-      "personal": "Personal Information",
-      "address": "Shipping Address",
-      "password": "Change Password"
+      "personal": "Personal information",
+      "address": "Address"
     },
     "fields": {
-      "first_name": "First Name",
-      "last_name": "Last Name",
-      "email": "Email Address",
-      "account": "Bank Account",
-      "street": "Street Address",
-      "postal_code": "Postal Code",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email address",
+      "street": "Street and house number",
+      "postal_code": "Postal code",
       "city": "City",
-      "country": "Country",
-      "contact": "Phone Number",
-      "pesel": "Pesel"
-    },
-    "placeholders": {
-      "account": "account#...",
-      "street": "e.g. xx ",
-      "postal_code": "e.g. XX-XXX",
-      "city": "e.g. Gliwice"
+      "contact": "Phone number",
+      "country": "Country"
     },
     "privacy": {
-      "title": "Privacy",
-      "desc": "Your personal information is used only to process your account, orders, payments, and deliveries."
+      "title": "Your privacy matters",
+      "desc": "Your personal details are handled securely and used to support your account and orders."
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "edit": "Edit profile",
+      "save": "Save changes",
+      "saving": "Saving…"
+    },
+    "errors": {
+      "required_fields": "Please fill in all mandatory fields.",
+      "first_name_required": "First name is required.",
+      "street_required": "Street is required.",
+      "city_required": "City is required.",
+      "correct_highlighted": "Please correct the highlighted fields.",
+      "check_details": "Please check your profile details.",
+      "load_failed": "Unable to load your profile. Please try again.",
+      "update_failed": "Failed to update your profile. Please try again."
     },
     "messages": {
       "success": "Profile updated successfully."
     },
-    "errors": {
-      "required_fields": "Please fill in all mandatory fields.",
-      "save_failed": "Failed to save profile changes.",
-      "load_failed": "Failed to load your profile.",
-      "street_required": "Street is required.",
-      "city_required": "City is required."
-    },
-    "buttons": {
-      "edit": "Edit Profile",
-      "cancel": "Cancel",
-      "save": "Save Changes",
-      "saving": "Saving..."
-    },
-    "email_locked": "Email cannot be changed",
-    "password": {
-      "title": "Change Password",
-      "description": "Change your account password separately from your personal information.",
-      "fields": {
-        "current": "Current Password",
-        "new": "New Password",
-        "confirm": "Confirm New Password"
-      },
-      "placeholders": {
-        "current": "Enter your current password",
-        "new": "Enter a new password",
-        "confirm": "Confirm your new password"
-      },
-      "hint": "Minimum 8 characters.",
-      "buttons": {
-        "change": "Change Password",
-        "changing": "Changing Password..."
+    "stripe": {
+      "title": "Seller identity verification",
+      "subtitle": "Verify your identity to enable seller payouts.",
+      "description": "Your Stripe identity information is managed separately from your profile details and shipping addresses.",
+      "status": {
+        "loading": "Checking status",
+        "not_started": "Not started",
+        "pending": "In progress",
+        "ready": "Ready to receive payouts",
+        "action_required": "Action required",
+        "error": "Status unavailable"
       },
       "messages": {
-        "success": "Password changed successfully."
+        "ready": "Your account is ready to receive payouts.",
+        "pending": "Your Stripe account exists, but payout readiness has not yet been confirmed. Continue verification if needed.",
+        "action_required": "Stripe requires additional information before your seller account can be activated.",
+        "status_error": "We could not retrieve your current verification status. Please try refreshing it."
+      },
+      "buttons": {
+        "connecting": "Connecting to Stripe…",
+        "continue": "Continue verification",
+        "verify": "Verify identity to sell",
+        "checking": "Checking…",
+        "refresh": "Refresh status",
+        "opening_dashboard": "Opening Stripe…",
+        "open_dashboard": "Open Stripe dashboard"
       },
       "errors": {
-        "current_required": "Please enter your current password.",
-        "new_required": "Please enter a new password.",
-        "too_short": "New password must contain at least 8 characters.",
-        "confirm_required": "Please confirm your new password.",
-        "mismatch": "New passwords do not match.",
-        "failed": "Failed to change password."
+        "dashboard_url_missing": "The Stripe dashboard link was not returned.",
+        "dashboard_open_failed": "Unable to open the Stripe dashboard. Please try again.",
+        "onboarding_url_missing": "The Stripe onboarding link was not returned.",
+        "onboarding_failed": "Unable to start identity verification. Please try again."
+      }
+    },
+    "payment_provider": {
+      "title": "Payment provider",
+      "description": "Choose your preferred provider where this choice is supported.",
+      "availability": "Available methods depend on the checkout configuration.",
+      "stripe_description": "Card payments and supported methods",
+      "payu_description": "Polish online payments and supported methods"
+    },
+    "password": {
+      "title": "Change password",
+      "description": "Use a strong password you do not use for other accounts.",
+      "fields": {
+        "current": "Current password",
+        "new": "New password",
+        "confirm": "Confirm new password"
+      },
+      "errors": {
+        "current_required": "Enter your current password.",
+        "new_required": "Enter a new password.",
+        "too_short": "Password must contain at least 8 characters.",
+        "confirm_required": "Confirm your new password.",
+        "mismatch": "The passwords do not match.",
+        "change_failed": "Failed to change your password. Please try again."
+      },
+      "messages": "Password changed successfully.",
+      "buttons": {
+        "changing": "Changing password…",
+        "change": "Change password"
       }
     }
   },

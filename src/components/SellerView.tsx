@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiFlag, FiSearch, FiX } from "react-icons/fi";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 import { useGetSaleOrdersQuery } from "../features/api/itemApi";
 import type { TOrdersDto } from "../types/TOrdersDto";
 import { formatPrice } from "../util/util";
 import OrderCancelModal from "./OrderCancelModal";
 import Pagination from "./Pagination";
+import { SellerReviewModal } from "./SellerReviewModal";
 
 const SellerView =() => {
   const [search, setSearch] = useState("");
@@ -16,6 +17,8 @@ const SellerView =() => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<TOrdersDto>();
+    const[openImageModal,setOpenImageModal] =useState<boolean>(false)
+    const[selectedId,setSelectedId] =useState<string>()
 
   const page = parseInt(searchParams.get("page") || "1");
   // ISOLATED API COMPONENT FETCH
@@ -23,6 +26,7 @@ const SellerView =() => {
     page,
     size: 5,
   });
+
 
   const orders = (data?.orders as TOrdersDto[]) || [];
 
@@ -46,7 +50,15 @@ const SellerView =() => {
   };
 
 
+    const handleImageView =(orderNumber:string)=>{
+      setOpenImageModal(true);
+   setSelectedId(orderNumber)
+    }
   
+    const onCloseModal=()=>{
+      setOpenImageModal(false)
+     
+    }
 
   return (
     <>
@@ -164,14 +176,13 @@ const SellerView =() => {
                     <td>
             
                       <div className="data-table__actions">
-                        <Link
-                          to={`/account/complaints/new/${order.id}`}
-                      
+                        <button
+                            onClick={()=>handleImageView(order.orderNumber)}           
                           className="data-table__action-link data-table__actions__action-link--dispute"
                           title={t("seller_view.actions.file_dispute")}
                         >
                           <FiFlag />
-                        </Link>
+                        </button>
 
                         <button
                           type="button"
@@ -197,6 +208,11 @@ const SellerView =() => {
           orderData={selectedOrder as TOrdersDto}
         />
       )}
+
+          {
+              selectedId && <SellerReviewModal isOpen={openImageModal} onClose={onCloseModal} 
+              orderNumber={selectedId}/>
+            }
 
       {/* LOCALIZED PACING HOOKS */}
       {data && (

@@ -58,6 +58,16 @@ export const checkoutApi = createApi({
       }),
       invalidatesTags: ["checkout"],
     }),
+       stripeShippingCostCheckout: build.mutation<TResponseDto, number>({
+      query: (disputeId) => ({
+        url: "/api/checkout/return-shipping",
+        params:{
+          disputeId
+        },
+        method: "POST",
+      }),
+      invalidatesTags: ["checkout"],
+    }),
     payUbuyNow: build.mutation<
       TResponseDto,
       { listingId: number; locale: string }
@@ -88,5 +98,6 @@ export const {
   usePayUbuyNowMutation,
   useCheckoutBuyerPayUMutation,
   useGetPaymentStatusQuery,
-  useStripeOfferBuyNowMutation
+  useStripeOfferBuyNowMutation,
+  useStripeShippingCostCheckoutMutation
 } = checkoutApi;

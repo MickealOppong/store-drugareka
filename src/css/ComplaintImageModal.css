@@ -1,0 +1,498 @@
+@charset "UTF-8";
+/* ==========================================================================
+   BACKDROP GLASS SCRIM OVERLAY CONTAINER (.cmp-modal-overlay)
+   ========================================================================== */
+.cmp-modal-overlay {
+  position: absolute;
+  top: 0;
+  overflow: scroll;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  z-index: 2000;
+  box-sizing: border-box;
+  animation: cmpOverlayFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cmp-modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1120px;
+  height: calc(100vh - 24px);
+  height: calc(100dvh - 24px);
+  background-color: #FFFFFF;
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+  overflow: hidden;
+  box-sizing: border-box;
+  animation: cmpModalSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@media (min-width: 640px) {
+  .cmp-modal {
+    height: auto;
+    max-height: calc(100vh - 48px);
+    max-height: calc(100dvh - 48px);
+  }
+}
+.cmp-modal {
+  /* =========================================================
+     MODAL HEADER LAYER DEFINITIONS
+     ========================================================= */
+}
+.cmp-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #e5e5e5;
+  flex-shrink: 0;
+}
+.cmp-modal__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #111111;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cmp-modal__badge svg {
+  font-size: 1.15rem;
+  color: #C24B4B;
+}
+.cmp-modal__order-tag {
+  font-family: monospace;
+  font-size: 0.9rem;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 2px 8px;
+  border-radius: 6px;
+  color: #475569;
+  text-transform: none;
+  letter-spacing: normal;
+}
+.cmp-modal__close-btn {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: #666666;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+.cmp-modal__close-btn:hover {
+  background-color: rgba(15, 23, 42, 0.05);
+  color: #111111;
+}
+.cmp-modal {
+  /* =========================================================
+     SPLIT SCREEN MULTI PANEL ENGINE HUB
+     ========================================================= */
+}
+.cmp-modal__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+  box-sizing: border-box;
+}
+@media (min-width: 768px) {
+  .cmp-modal__body {
+    flex-direction: row;
+    overflow-y: hidden;
+    padding: 24px;
+    gap: 24px;
+  }
+}
+.cmp-modal {
+  /* =========================================================
+     🚀 NEW: LIVE MUTATION RUNTIME ERROR ALERT BLOCK
+     ========================================================= */
+}
+.cmp-modal__alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 16px;
+  padding: 12px 16px;
+  background-color: #FDF2F2;
+  border: 1px solid rgba(194, 75, 75, 0.15);
+  border-radius: 10px;
+  color: #C24B4B;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: left;
+  box-sizing: border-box;
+  animation: cmpAlertPop 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@media (min-width: 768px) {
+  .cmp-modal__alert {
+    margin: 0 24px;
+  }
+}
+.cmp-modal__alert svg {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+.cmp-modal {
+  /* =========================================================
+     MODAL FOOTER CONFIGURATIONS REGIONS
+     ========================================================= */
+}
+.cmp-modal__footer {
+  padding: 1.25rem 1.5rem;
+  background-color: #f8fafc;
+  border-top: 1px solid #e5e5e5;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   INDIVIDUAL SLIT HOUSING COLUMN PANEL SLATE (.cmp-panel)
+   ========================================================================== */
+.cmp-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.cmp-panel__title-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 10px 14px;
+  background-color: #fafafa;
+  border-bottom: 1px solid #e5e5e5;
+  text-align: left;
+}
+.cmp-panel__title-bar svg {
+  color: #66704A;
+}
+.cmp-panel__title-bar h3 {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 750;
+  color: #111111;
+}
+.cmp-panel__display-frame {
+  position: relative;
+  width: 100%;
+  background-color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  aspect-ratio: 4/3;
+}
+@media (min-width: 768px) {
+  .cmp-panel__display-frame {
+    flex: 1;
+    aspect-ratio: auto;
+    height: 100%;
+  }
+}
+.cmp-panel__display-frame img {
+  max-width: 100%;
+  max-height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+}
+.cmp-panel__zoom-trigger {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s ease;
+  z-index: 5;
+}
+.cmp-panel__zoom-trigger:hover {
+  background-color: #ffffff;
+  color: #66704A;
+  transform: scale(1.05);
+}
+.cmp-panel__controls {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  z-index: 5;
+}
+.cmp-panel__arrow {
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  font-size: 1.15rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cmp-panel__indicator {
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.cmp-panel--complaint {
+  border-color: rgba(194, 75, 75, 0.15);
+}
+.cmp-panel--complaint .cmp-panel__title-bar {
+  background-color: #FDF2F2;
+}
+.cmp-panel--complaint .cmp-panel__title-bar svg {
+  color: #C24B4B;
+}
+
+/* ==========================================================================
+   DRAG DISPUTE FORM COMPONENT CONTROL STYLES (.cmp-footer-form)
+   ========================================================================== */
+.cmp-footer-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+@media (min-width: 768px) {
+  .cmp-footer-form {
+    grid-template-columns: 1fr auto;
+    align-items: flex-end;
+    gap: 1.5rem;
+  }
+}
+.cmp-footer-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+}
+.cmp-footer-form__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.cmp-footer-form__label svg {
+  font-size: 0.95rem;
+  color: #66704A;
+}
+.cmp-footer-form__textarea {
+  width: 100%;
+  min-height: 72px;
+  max-height: 120px;
+  padding: 0.75rem 1rem;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: #0f172a;
+  line-height: 1.5;
+  box-sizing: border-box;
+  resize: vertical;
+  transition: all 0.2s ease;
+}
+.cmp-footer-form__textarea::-moz-placeholder {
+  color: #94a3b8;
+}
+.cmp-footer-form__textarea::placeholder {
+  color: #94a3b8;
+}
+.cmp-footer-form__textarea:focus {
+  outline: none;
+  border-color: #66704A;
+  box-shadow: 0 0 0 3px rgba(102, 112, 74, 0.12);
+}
+.cmp-footer-form__textarea:disabled {
+  background-color: #f1f5f9;
+  cursor: not-allowed;
+}
+.cmp-footer-form__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .cmp-footer-form__actions {
+    width: auto;
+  }
+}
+.cmp-footer-form__btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 1.5rem;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (min-width: 768px) {
+  .cmp-footer-form__btn {
+    flex: none;
+    width: auto;
+  }
+}
+.cmp-footer-form__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.cmp-footer-form__btn--reject {
+  background-color: #ffffff;
+  border: 1px solid #fee2e2;
+  color: #dc2626;
+}
+.cmp-footer-form__btn--reject:hover:not(:disabled) {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+}
+.cmp-footer-form__btn--approve {
+  background-color: #16a34a;
+  border: none;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15);
+}
+.cmp-footer-form__btn--approve:hover:not(:disabled) {
+  background-color: #15803d;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.25);
+}
+
+/* ==========================================================================
+   LIGHTBOX FULL-SCREEN VIEW ENGINE MODAL (.cmp-lightbox-overlay)
+========================================================================== */
+.cmp-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 3000;
+  animation: cmpOverlayFade 0.2s ease-out;
+}
+.cmp-lightbox-overlay .cmp-lightbox-close {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: zoom-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  max-height: 100%;
+}
+.cmp-lightbox-overlay .cmp-lightbox-close::before {
+  content: "✕";
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  color: #94a3b8;
+  font-size: 2rem;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.cmp-lightbox-overlay .cmp-lightbox-close:hover::before {
+  color: #ffffff;
+}
+.cmp-lightbox-overlay img {
+  max-width: 100%;
+  max-height: 90vh;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+SYSTEM MOTION TIMING KEYS
+========================================================================== */
+@keyframes cmpOverlayFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes cmpModalSlide {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes cmpAlertPop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cmp-modal,
+  .cmp-modal-overlay,
+  .cmp-modal__alert {
+    animation: none !important;
+  }
+}/*# sourceMappingURL=ComplaintImageModal.css.map */

@@ -13,7 +13,6 @@ import {
   FiUser,
   FiX,
 } from "react-icons/fi";
-import { useDispatch } from "react-redux";
 
 import { Loading } from "../components";
 import {
@@ -21,6 +20,7 @@ import {
   useEditUserMutation,
   useLazyGetStripeUpdateQuery,
   useLazyGetUserQuery,
+  useLazyStripeConnectDashboardQuery,
   useStripeConnectMutation,
 } from "../features/api/userApi";
 import { useAppSelector } from "../store";
@@ -39,9 +39,21 @@ type StripeStatus =
 
 type PaymentProvider = "STRIPE" | "PAYU";
 
+
+const getReadableError = (error: any, fallback: string): string => {
+  const message = error?.data?.message ?? error?.data?.error ?? error?.message;
+  if (typeof message === "string") return message;
+  if (message && typeof message === "object") {
+    const messages = Object.values(message).filter(
+      (value): value is string => typeof value === "string"
+    );
+    if (messages.length) return messages.join("\n");
+  }
+  return fallback;
+};
+
 const UserProfile = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
   const roles = useAppSelector((state) => state.userSlice.roles);
   const isSeller = roles.includes("ROLE_SELLER");
@@ -61,13 +73,12 @@ const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [profileError, setProfileError] = useState<string | null>(null);
   const [profileSuccess, setProfileSuccess] = useState<string | null>(null);
+  const [profileFieldErrors, setProfileFieldErrors] = useState<Record<string, string>>({});
 
   const [id, setId] = useState(0);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [pesel, setPesel] = useState("");
 
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
@@ -90,6 +101,32 @@ const UserProfile = () => {
   const [paymentProvider, setPaymentProvider] =
     useState<PaymentProvider>("STRIPE");
 
+  const [getStripeDashboard, { isFetching: isDashboardLoading }] =
+    useLazyStripeConnectDashboardQuery();
+
+  const openStripeDashboard = async () => {
+    setStripeError(null);
+    try {
+      const response = await getStripeDashboard().unwrap();
+      const outer = response as TResponseDto;
+      const payload = outer?.data
+      const url = payload;
+
+
+      if (!url || typeof url !== "string") {
+        throw new Error(t("user_profile.stripe.errors.dashboard_url_missing"));
+      }
+
+      window.location.assign(url);
+    } catch (error: any) {
+      console.error("Unable to open Stripe dashboard", error);
+      setStripeError(
+        getReadableError(error, t("user_profile.stripe.errors.dashboard_open_failed"))
+      );
+    }
+  };
+
+
   const getUser = async () => {
     try {
       setProfileError(null);
@@ -98,7 +135,7 @@ const UserProfile = () => {
       const profile = response?.data as TUserDto | undefined;
 
       if (!profile) {
-        setProfileError("Unable to load profile.");
+        setProfileError(t("user_profile.errors.load_failed"));
         return;
       }
 
@@ -117,7 +154,7 @@ const UserProfile = () => {
     } catch (error: any) {
       console.error("Unable to load profile", error);
       setProfileError(
-        error?.data?.message || "Failed to load profile."
+        getReadableError(error, t("user_profile.errors.load_failed"))
       );
     }
   };
@@ -167,6 +204,7 @@ const UserProfile = () => {
   const handleStartEditing = () => {
     setProfileError(null);
     setProfileSuccess(null);
+    setProfileFieldErrors({});
     setIsEditing(true);
   };
 
@@ -183,17 +221,20 @@ const UserProfile = () => {
     event.preventDefault();
     setProfileError(null);
     setProfileSuccess(null);
+    setProfileFieldErrors({});
 
     if (!firstName.trim()) {
-      setProfileError(
-        t("user_profile.errors.required_fields") ||
-          "Please fill in all mandatory fields."
-      );
+      setProfileFieldErrors({ firstName: t("user_profile.errors.first_name_required") });
+      setProfileError(t("user_profile.errors.required_fields"));
       return;
     }
 
     if (!street.trim() || !city.trim()) {
-      setProfileError("Street and city are required.");
+      setProfileFieldErrors({
+        ...(!street.trim() ? { street: t("user_profile.errors.street_required") } : {}),
+        ...(!city.trim() ? { city: t("user_profile.errors.city_required") } : {}),
+      });
+      setProfileError(t("user_profile.errors.correct_highlighted"));
       return;
     }
 
@@ -208,48 +249,48 @@ const UserProfile = () => {
       formData.append("postalCode", postalCode.trim());
       formData.append("country", country.trim());
       formData.append("contact", telephone.trim());
-      formData.append("pesel", pesel.trim());
-      formData.append("email", email.trim());
-
-      if (isSeller) {
-        formData.append("accountNumber", accountNumber.trim());
-      }
+      formData.append("email", email.trim())
 
       const response = await updateProfile(formData).unwrap();
       const { httpStatus, data } = response as TResponseDto;
-
-      console.log(data);
       
       if (httpStatus === 200 && data) {
          CookieService.set('hasAddress',"true");
-        setProfileSuccess(
-          t("user_profile.messages.success") ||
-            "Profile updated successfully."
-        );
+        setProfileSuccess(t("user_profile.messages.success"));
         setIsEditing(false);
       }
     } catch (error: any) {
       console.error("Unable to update profile", error);
 
-      if (error?.status === 403 && error?.data?.error) {
-        const errors = error.data.error;
+  const responseData = error?.data;
+  const validationErrors =
+    responseData?.message &&
+    typeof responseData.message === "object"
+      ? responseData.message
+      : responseData?.error &&
+          typeof responseData.error === "object"
+        ? responseData.error
+        : null;
 
-        setProfileError(
-          [
-            errors.street,
-            errors.city,
-            errors.postalCode,
-            errors.contact,
-            errors.pesel,
-          ]
-            .filter(Boolean)
-            .join("\n")
-        );
-      } else {
-        setProfileError(
-          error?.data?.message || "Failed to update profile."
-        );
-      }
+  if (validationErrors) {
+    const messages = Object.values(validationErrors).filter(
+      (value): value is string => typeof value === "string"
+    );
+
+    setProfileError(
+      messages.length > 0
+        ? messages.join("\n")
+        : t("user_profile.errors.check_details")
+    );
+  } else {
+    const message = responseData?.message;
+
+    setProfileError(
+      typeof message === "string"
+        ? message
+        : t("user_profile.errors.update_failed")
+    );
+  }
     }
   };
 
@@ -258,21 +299,18 @@ const UserProfile = () => {
 
     try {
       const response: any = await createMerchant().unwrap();
-      console.log(response);
       
       const url = response?.data?.url ?? response?.url;
 
       if (!url) {
-        throw new Error("Stripe onboarding URL was not returned.");
+        throw new Error(t("user_profile.stripe.errors.onboarding_url_missing"));
       }
 
       window.location.assign(url);
     } catch (error: any) {
       console.error("Unable to start Stripe onboarding", error);
       setStripeError(
-        error?.data?.message ??
-          error?.message ??
-          "Unable to start identity verification. Please try again."
+        getReadableError(error, t("user_profile.stripe.errors.onboarding_failed"))
       );
     }
   };
@@ -337,7 +375,7 @@ const UserProfile = () => {
         clearPasswordFields();
         setPasswordSuccess(
           t("user_profile.password.messages") ||
-            "Password changed successfully."
+            t("user_profile.password.messages")
         );
       } else if (httpStatus === 400) {
         setPasswordError(message);
@@ -345,19 +383,22 @@ const UserProfile = () => {
     } catch (error: any) {
       console.error("Unable to change password", error);
       setPasswordError(
-        error?.data?.message || "Failed to change password."
+        getReadableError(error, t("user_profile.password.errors.change_failed"))
       );
     }
   };
 
   const stripeStatusLabel: Record<StripeStatus, string> = {
-    loading: "Checking status",
-    not_started: "Not started",
-    pending: "In progress",
-    ready: "Ready to receive payouts",
-    action_required: "Action required",
-    error: "Status unavailable",
+    loading: t("user_profile.stripe.status.loading"),
+    not_started: t("user_profile.stripe.status.not_started"),
+    pending: t("user_profile.stripe.status.pending"),
+    ready: t("user_profile.stripe.status.ready"),
+    action_required: t("user_profile.stripe.status.action_required"),
+    error: t("user_profile.stripe.status.error"),
   };
+
+
+  
 
   if (isProfileLoading) {
     return <Loading />;
@@ -391,9 +432,9 @@ const UserProfile = () => {
       <div className="usr-profile__card-heading">
         <FiShield />
         <div>
-          <h2>Seller identity verification</h2>
+          <h2>{t("user_profile.stripe.title")}</h2>
           <p className="usr-profile__description">
-            Verify your identity to enable seller payouts.
+            {t("user_profile.stripe.subtitle")}
           </p>
         </div>
       </div>
@@ -416,28 +457,27 @@ const UserProfile = () => {
     {/* Information */}
     <div className="usr-profile__verification-content">
       <p className="usr-profile__verification-description">
-        Your Stripe identity information is managed separately from
-        your profile details and shipping addresses.
+        {t("user_profile.stripe.description")}
       </p>
 
       {stripeStatus === "ready" && (
         <div className="usr-profile__verification-message usr-profile__verification-message--success">
           <FiCheckCircle />
-          <span>Your account is ready to receive payouts.</span>
+          <span>{t("user_profile.stripe.messages.ready")}</span>
         </div>
       )}
 
       {stripeStatus === "pending" && (
         <div className="usr-profile__verification-message usr-profile__verification-message--notice">
-          Your Stripe account exists, but payout readiness has not
-          yet been confirmed. Continue verification if needed.
+          {t("user_profile.stripe.messages.pending")}
+
         </div>
       )}
 
       {stripeStatus === "action_required" && (
         <div className="usr-profile__verification-message usr-profile__verification-message--notice">
-          Stripe requires additional information before your seller
-          account can be activated.
+          {t("user_profile.stripe.messages.action_required")}
+
         </div>
       )}
 
@@ -446,8 +486,8 @@ const UserProfile = () => {
           className="usr-profile__verification-message usr-profile__verification-message--error"
           role="alert"
         >
-          We could not retrieve your current verification status.
-          Please try refreshing it.
+          {t("user_profile.stripe.messages.status_error")}
+
         </div>
       )}
 
@@ -475,11 +515,11 @@ const UserProfile = () => {
           }
         >
           {isStripeStarting
-            ? "Connecting to Stripe..."
+            ? t("user_profile.stripe.buttons.connecting")
             : stripeStatus === "pending" ||
                 stripeStatus === "action_required"
-              ? "Continue verification"
-              : "Verify identity to sell"}
+              ? t("user_profile.stripe.buttons.continue")
+              : t("user_profile.stripe.buttons.verify")}
 
           <FiArrowRight />
         </button>
@@ -492,11 +532,22 @@ const UserProfile = () => {
         disabled={isStripeChecking}
       >
         <FiRefreshCw />
-        {isStripeChecking ? "Checking..." : "Refresh status"}
+        {isStripeChecking ? t("user_profile.stripe.buttons.checking") : t("user_profile.stripe.buttons.refresh")}
       </button>
+
+      {stripeStatus !== "not_started" && stripeStatus !== "loading" && (
+        <button
+          type="button"
+          className="usr-profile__verification-refresh"
+          onClick={() => void openStripeDashboard()}
+          disabled={isDashboardLoading}
+        >
+          <FiArrowRight />
+          {isDashboardLoading ? t("user_profile.stripe.buttons.opening_dashboard") : t("user_profile.stripe.buttons.open_dashboard")}
+        </button>
+      )}
     </footer>
   </section>
-
 
           {/* PROFILE FORM */}
           <section className="usr-profile__card">
@@ -510,9 +561,12 @@ const UserProfile = () => {
                 <label className="usr-profile__field">
                   <span>{t("user_profile.fields.first_name")}</span>
                   {isEditing ? (
+                    <>
                     <input
                       type="text"
-                      className="usr-profile__input"
+                      className={`usr-profile__input ${profileFieldErrors.firstName ? "usr-profile__input--error" : ""}`}
+                      aria-invalid={Boolean(profileFieldErrors.firstName)}
+                      aria-describedby={profileFieldErrors.firstName ? "profile-error-firstName" : undefined}
                       value={firstName}
                       onChange={(event) =>
                         setFirstName(event.target.value)
@@ -520,6 +574,8 @@ const UserProfile = () => {
                       disabled={isProfileUpdating}
                       autoComplete="given-name"
                     />
+                    {profileFieldErrors.firstName && <small id="profile-error-firstName" className="usr-profile__field-error" role="alert">{profileFieldErrors.firstName}</small>}
+                                      </>
                   ) : (
                     <span className="usr-profile__value">
                       {firstName || "—"}
@@ -530,9 +586,12 @@ const UserProfile = () => {
                 <label className="usr-profile__field">
                   <span>{t("user_profile.fields.last_name")}</span>
                   {isEditing ? (
+                    <>
                     <input
                       type="text"
-                      className="usr-profile__input"
+                      className={`usr-profile__input ${profileFieldErrors.lastName ? "usr-profile__input--error" : ""}`}
+                      aria-invalid={Boolean(profileFieldErrors.lastName)}
+                      aria-describedby={profileFieldErrors.lastName ? "profile-error-lastName" : undefined}
                       value={lastName}
                       onChange={(event) =>
                         setLastName(event.target.value)
@@ -540,6 +599,8 @@ const UserProfile = () => {
                       disabled={isProfileUpdating}
                       autoComplete="family-name"
                     />
+                    {profileFieldErrors.lastName && <small id="profile-error-lastName" className="usr-profile__field-error" role="alert">{profileFieldErrors.lastName}</small>}
+                                      </>
                   ) : (
                     <span className="usr-profile__value">
                       {lastName || "—"}
@@ -565,9 +626,12 @@ const UserProfile = () => {
                 <label className="usr-profile__field">
                   <span>{t("user_profile.fields.street")}</span>
                   {isEditing ? (
+                    <>
                     <input
                       type="text"
-                      className="usr-profile__input"
+                      className={`usr-profile__input ${profileFieldErrors.street ? "usr-profile__input--error" : ""}`}
+                      aria-invalid={Boolean(profileFieldErrors.street)}
+                      aria-describedby={profileFieldErrors.street ? "profile-error-street" : undefined}
                       value={street}
                       onChange={(event) =>
                         setStreet(event.target.value)
@@ -575,6 +639,8 @@ const UserProfile = () => {
                       disabled={isProfileUpdating}
                       autoComplete="street-address"
                     />
+                    {profileFieldErrors.street && <small id="profile-error-street" className="usr-profile__field-error" role="alert">{profileFieldErrors.street}</small>}
+                                      </>
                   ) : (
                     <span className="usr-profile__value">
                       {street || "—"}
@@ -585,9 +651,12 @@ const UserProfile = () => {
                 <label className="usr-profile__field">
                   <span>{t("user_profile.fields.postal_code")}</span>
                   {isEditing ? (
+                    <>
                     <input
                       type="text"
-                      className="usr-profile__input"
+                      className={`usr-profile__input ${profileFieldErrors.postalCode ? "usr-profile__input--error" : ""}`}
+                      aria-invalid={Boolean(profileFieldErrors.postalCode)}
+                      aria-describedby={profileFieldErrors.postalCode ? "profile-error-postalCode" : undefined}
                       value={postalCode}
                       onChange={(event) =>
                         setPostalCode(event.target.value)
@@ -595,6 +664,8 @@ const UserProfile = () => {
                       disabled={isProfileUpdating}
                       autoComplete="postal-code"
                     />
+                    {profileFieldErrors.postalCode && <small id="profile-error-postalCode" className="usr-profile__field-error" role="alert">{profileFieldErrors.postalCode}</small>}
+                                      </>
                   ) : (
                     <span className="usr-profile__value">
                       {postalCode || "—"}
@@ -605,9 +676,12 @@ const UserProfile = () => {
                 <label className="usr-profile__field">
                   <span>{t("user_profile.fields.city")}</span>
                   {isEditing ? (
+                    <>
                     <input
                       type="text"
-                      className="usr-profile__input"
+                      className={`usr-profile__input ${profileFieldErrors.city ? "usr-profile__input--error" : ""}`}
+                      aria-invalid={Boolean(profileFieldErrors.city)}
+                      aria-describedby={profileFieldErrors.city ? "profile-error-city" : undefined}
                       value={city}
                       onChange={(event) =>
                         setCity(event.target.value)
@@ -615,6 +689,8 @@ const UserProfile = () => {
                       disabled={isProfileUpdating}
                       autoComplete="address-level2"
                     />
+                    {profileFieldErrors.city && <small id="profile-error-city" className="usr-profile__field-error" role="alert">{profileFieldErrors.city}</small>}
+                                      </>
                   ) : (
                     <span className="usr-profile__value">
                       {city || "—"}
@@ -625,9 +701,12 @@ const UserProfile = () => {
                 <label className="usr-profile__field">
                   <span>{t("user_profile.fields.contact")}</span>
                   {isEditing ? (
+                    <>
                     <input
                       type="tel"
-                      className="usr-profile__input"
+                      className={`usr-profile__input ${profileFieldErrors.telephone ? "usr-profile__input--error" : ""}`}
+                      aria-invalid={Boolean(profileFieldErrors.telephone)}
+                      aria-describedby={profileFieldErrors.telephone ? "profile-error-telephone" : undefined}
                       value={telephone}
                       onChange={(event) =>
                         setTelephone(event.target.value)
@@ -635,6 +714,8 @@ const UserProfile = () => {
                       disabled={isProfileUpdating}
                       autoComplete="tel"
                     />
+                    {profileFieldErrors.telephone && <small id="profile-error-telephone" className="usr-profile__field-error" role="alert">{profileFieldErrors.telephone}</small>}
+                                      </>
                   ) : (
                     <span className="usr-profile__value">
                       {telephone || "—"}
@@ -645,9 +726,12 @@ const UserProfile = () => {
                 <label className="usr-profile__field">
                   <span>{t("user_profile.fields.country")}</span>
                   {isEditing ? (
+                    <>
                     <input
                       type="text"
-                      className="usr-profile__input"
+                      className={`usr-profile__input ${profileFieldErrors.country ? "usr-profile__input--error" : ""}`}
+                      aria-invalid={Boolean(profileFieldErrors.country)}
+                      aria-describedby={profileFieldErrors.country ? "profile-error-country" : undefined}
                       value={country}
                       onChange={(event) =>
                         setCountry(event.target.value)
@@ -655,6 +739,8 @@ const UserProfile = () => {
                       disabled={isProfileUpdating}
                       autoComplete="country-name"
                     />
+                    {profileFieldErrors.country && <small id="profile-error-country" className="usr-profile__field-error" role="alert">{profileFieldErrors.country}</small>}
+                                      </>
                   ) : (
                     <span className="usr-profile__value">
                       {country || "—"}
@@ -676,7 +762,12 @@ const UserProfile = () => {
               {profileError && (
                 <p className="usr-profile__error" role="alert">
                   <FiAlertCircle />
-                  {profileError}
+                  <span>{profileError.split("\n").map((message, index) => (
+                    <span key={`${index}-${message}`}>
+                      {index > 0 && <br />}
+                      {message}
+                    </span>
+                  ))}</span>
                 </p>
               )}
 
@@ -731,12 +822,12 @@ const UserProfile = () => {
           <section className="usr-profile__card">
             <div className="usr-profile__card-heading">
               <FiCreditCard />
-              <h2>Payment provider</h2>
+              <h2>{t("user_profile.payment_provider.title")}</h2>
             </div>
 
             <p className="usr-profile__description">
-              Choose your preferred provider where this choice is supported.
-              Available methods depend on the checkout configuration.
+              {t("user_profile.payment_provider.description")}<br />
+              {t("user_profile.payment_provider.availability")}
             </p>
 
             <div className="usr-profile__payment-options">
@@ -755,14 +846,15 @@ const UserProfile = () => {
                 </span>
                 <span className="usr-profile__payment-option-content">
                   <strong>Stripe</strong>
-                  <small>Card payments and supported methods</small>
+                  <small>{t("user_profile.payment_provider.stripe_description")}</small>
                 </span>
                 {paymentProvider === "STRIPE" && <FiCheckCircle />}
               </button>
 
               <button
+        
                 type="button"
-                className={`usr-profile__payment-option ${
+                className={`usr-profile__payment-option payu${
                   paymentProvider === "PAYU"
                     ? "usr-profile__payment-option--selected"
                     : ""
@@ -776,19 +868,12 @@ const UserProfile = () => {
                 <span className="usr-profile__payment-option-content">
                   <strong>PayU</strong>
                   <small>
-                    Polish online payments and supported methods
+                    {t("user_profile.payment_provider.payu_description")}
                   </small>
                 </span>
                 {paymentProvider === "PAYU" && <FiCheckCircle />}
               </button>
             </div>
-
-            <p className="usr-profile__notice">
-              This selection is currently local to this page and is not
-              saved or connected to checkout. Provider selection must be
-              implemented in your backend before it changes how orders are
-              paid.
-            </p>
           </section>
 
           {/* PASSWORD FORM */}

@@ -1,8 +1,87 @@
+@charset "UTF-8";
 /* ==========================================================================
-   KASOA ADMINISTRATIVE ORDER RETURN MANAGEMENT CARD OVERRIDES
+   KASOA ADMINISTRATIVE ORDER RETURN MANAGEMENT STRUCTURAL RESPONSIVE RULES
    ========================================================================== */
+.po-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.po-modal {
+  width: 100%;
+  max-width: 520px;
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 2rem);
+  overflow: hidden;
+  box-sizing: border-box;
+}
 .po-modal--warning {
-  border-top: 4px solid #d97706;
+  border-top: 4px solid #e11d48;
+}
+.po-modal__form {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+.po-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem 0.75rem 1.5rem;
+  background-color: #FFFFFF;
+}
+.po-modal__close-btn {
+  background: none;
+  border: none;
+  color: #666666;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.po-modal__close-btn:hover {
+  background-color: #e5e5e5;
+  color: #111111;
+}
+.po-modal__body {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  overflow-y: auto;
+  flex-grow: 1;
+  -webkit-overflow-scrolling: touch;
+}
+.po-modal__title {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 0.5rem 0;
+}
+.po-modal__description {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  color: #666666;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.5;
 }
 .po-modal__badge--warning {
   display: inline-flex;
@@ -12,70 +91,275 @@
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #b45309;
-  background-color: #fef3c7;
+  color: #e11d48;
+  background-color: #FDF2F2;
   padding: 4px 10px;
   border-radius: 20px;
-  border: 1px solid #fde68a;
+  border: 1px solid #C24B4B;
 }
 .po-modal__badge--warning svg {
   font-size: 13px;
 }
+.po-modal {
+  /* 🧾 LEDGER METADATA COMPACT SUMMARY CONTAINER */
+}
+.po-modal__summary-box {
+  background-color: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+.po-modal__summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  color: #666666;
+}
+.po-modal__summary-row:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.po-modal__summary-row--total {
+  border-top: 1px dashed #e5e5e5;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  color: #111111;
+}
+.po-modal__summary-label {
+  font-weight: 500;
+}
+.po-modal__summary-value {
+  font-weight: 600;
+  color: #111111;
+}
 .po-modal__summary-value--warning {
-  color: #d97706;
+  color: #e11d48;
   font-size: 16px;
   font-weight: 800;
 }
-.po-modal__select {
-  width: 100%;
-  height: 42px;
-  padding: 0 12px;
-  background-color: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 6px;
-  font-family: inherit;
-  font-size: 14px;
-  color: #111111;
-  outline: none;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease;
-}
-.po-modal__select:focus {
-  border-color: #d97706;
-}
-.po-modal__textarea {
-  width: 100%;
-  padding: 12px;
-  background-color: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 6px;
-  font-family: inherit;
-  font-size: 14px;
-  color: #111111;
-  outline: none;
-  box-sizing: border-box;
-  resize: none;
-  transition: border-color 0.2s ease;
-}
-.po-modal__textarea:focus {
-  border-color: #d97706;
-}
-.po-modal__btn--warning {
-  background-color: #d97706 !important;
-  border-color: #d97706 !important;
-  color: #ffffff !important;
-}
-.po-modal__btn--warning:hover {
-  background-color: #b45309 !important;
-  border-color: #b45309 !important;
-}
-.po-modal__btn--warning:active {
-  transform: scale(0.98);
+.po-modal__field {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 .po-modal__field--transition {
   animation: poReturnFadeIn 0.25s all 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
+.po-modal__label {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111111;
+}
+.po-modal {
+  /* 📸 EVIDENCE GALLERY MULTI-UPLOAD ARCHITECTURE GRIDS */
+}
+.po-modal__image-section {
+  margin-bottom: 1.25rem;
+}
+.po-modal__image-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+.po-modal__upload-trigger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90px;
+  border: 2px dashed #e5e5e5;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  font-size: 11px;
+  color: #666666;
+  font-weight: 600;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.po-modal__upload-trigger:hover {
+  background-color: #FFFFFF;
+  border-color: #66704A;
+  color: #66704A;
+}
+.po-modal__upload-trigger--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.po-modal__upload-trigger--disabled:hover {
+  background-color: #f9f9f9;
+  border-color: #e5e5e5;
+  color: #666666;
+}
+.po-modal__upload-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+.po-modal__preview-card {
+  position: relative;
+  height: 90px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e5e5;
+  animation: poReturnFadeIn 0.2s all 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.po-modal__preview-img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.po-modal__preview-remove-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: rgba(17, 17, 17, 0.75);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.po-modal__preview-remove-btn:hover {
+  background-color: #e11d48;
+}
+.po-modal {
+  /* 📋 FORM SELECTION INPUT ARCHITECTURE ELEMENTS */
+}
+.po-modal__select, .po-modal__textarea {
+  width: 100%;
+  background-color: #FFFFFF;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  color: #111111;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.po-modal__select:focus, .po-modal__textarea:focus {
+  border-color: #66704A;
+  box-shadow: 0 0 0 2px #f0fdf4;
+}
+.po-modal__select {
+  height: 42px;
+  padding: 0 12px;
+}
+.po-modal__textarea {
+  padding: 12px;
+  resize: none;
+}
+.po-modal {
+  /* ⚠️ DISCLAIMER ADVISORY ELEMENT GATES */
+}
+.po-modal__warning-box {
+  display: flex;
+  gap: 0.75rem;
+  background-color: #FDF2F2;
+  border: 1px solid #C24B4B;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #991b1b;
+}
+.po-modal__warning-box p {
+  margin: 0;
+}
+.po-modal__warning-box strong {
+  font-weight: 700;
+}
+.po-modal__warning-box svg {
+  color: #C24B4B;
+  font-size: 16px;
+}
+.po-modal__alert--error {
+  padding: 0.75rem 1rem;
+  background-color: #FDF2F2;
+  border-left: 4px solid #C24B4B;
+  border-radius: 4px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #C24B4B;
+  margin-bottom: 1.25rem;
+}
+.po-modal {
+  /* 🎬 MODAL CONTROLLER ACTION FOOTER CONTAINER */
+}
+.po-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e5e5e5;
+  flex-shrink: 0;
+}
+.po-modal {
+  /* 🎬 FIXED DEPLOYMENT INTERFACE BUTTONS */
+}
+.po-modal__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 1.5rem;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  outline: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.po-modal__btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.po-modal__btn--cancel {
+  background-color: #FFFFFF;
+  border-color: #e5e5e5;
+  color: #111111;
+}
+.po-modal__btn--cancel:hover:not(:disabled) {
+  background-color: #e5e5e5;
+}
+.po-modal__btn--cancel:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.po-modal__btn--warning {
+  background-color: #66704A;
+  border-color: #66704A;
+  color: #ffffff;
+}
+.po-modal__btn--warning:hover:not(:disabled) {
+  background-color: #393c2e;
+  border-color: #393c2e;
+}
+.po-modal__btn--warning:active:not(:disabled) {
+  transform: scale(0.98);
+}
 
+/* ==========================================================================
+   ANIMATION KEYFRAME ROUTINES
+========================================================================== */
 @keyframes poReturnFadeIn {
   from {
     opacity: 0;

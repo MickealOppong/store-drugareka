@@ -1,0 +1,374 @@
+@use 'Variables.scss';
+
+/* ==========================================================================
+   KASOA ADMINISTRATIVE CUSTOMER REPORTS PANEL LAYOUT STYLES
+   ========================================================================== */
+
+.panel-view {
+  width: 100%;
+  max-width: Variables.$max-width-content;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  font-family: Variables.$font-sans;
+  background-color: Variables.$background;
+  color: Variables.$color-text-main;
+
+  /* ── HEADER LAYOUT ── */
+  &__header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid Variables.$color-border;
+    padding-bottom: 1.5rem;
+  }
+
+  &__eyebrow {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: Variables.$color-primary;
+    margin-bottom: 0.5rem;
+  }
+
+  &__title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: Variables.$color-text-main;
+    margin: 0 0 0.5rem 0;
+  }
+
+  &__description {
+    font-size: 14px;
+    line-height: 1.5;
+    color: Variables.$color-text-muted;
+    margin: 0;
+    max-width: 680px;
+  }
+
+  /* ── FILTER MATRIX TAB GROUP ── */
+  &__tab-group {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid Variables.$color-border;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1px;
+
+    &::-webkit-scrollbar {
+      display: none; // Hides horizontal scroll bar tracks seamlessly
+    }
+  }
+
+  &__tab-btn {
+    background: none;
+    border: none;
+    padding: 0.75rem 1rem;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: Variables.$color-text-muted;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+    transition: Variables.$transition-default;
+
+    &:hover {
+      color: Variables.$color-primary;
+    }
+
+    &.is-active {
+      color: Variables.$color-primary-light;
+      font-weight: 700;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: Variables.$color-primary;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  /* ── TOOLBAR SECTIONS ── */
+  &__toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    max-width: 460px;
+
+    svg {
+      position: absolute;
+      left: 12px;
+      color: Variables.$color-text-muted;
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    input {
+      width: 100%;
+      height: 40px;
+      padding: 0 12px 0 38px;
+      background-color: Variables.$color-bg-light;
+      border: 1px solid Variables.$color-border;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      color: Variables.$color-text-main;
+      outline: none;
+      box-sizing: border-box;
+      transition: Variables.$transition-default;
+
+      &:focus {
+        background-color: Variables.$background;
+        border-color: Variables.$color-primary;
+        box-shadow: 0 0 0 2px Variables.$color-safety-bg;
+      }
+
+      &::placeholder {
+        color: Variables.$color-text-muted;
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &__metrics-counter {
+    font-size: 13px;
+    font-weight: 600;
+    color: Variables.$color-text-muted;
+    background-color: Variables.$color-bg-light;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid Variables.$color-border;
+    align-self: flex-start;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      align-self: auto;
+    }
+  }
+
+  /* ── MAIN DATA WINDOW CARD ── */
+  &__content-card {
+    background-color: Variables.$background;
+    border: 1px solid Variables.$color-border;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    overflow: hidden;
+  }
+
+  &__scroll-table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ── EMPTY DATA LAYER FALLBACKS ── */
+  &__empty-state {
+    padding: 4rem 2rem;
+    text-align: center;
+    max-width: 420px;
+    margin: 0 auto;
+
+    p {
+      font-size: 14px;
+      color: Variables.$color-text-muted;
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+
+  &__empty-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: Variables.$color-text-main;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* ==========================================================================
+   BEM COMPLIANT DATA-TABLE AND DATA LAYOUT COMPONENT PIECES
+   ========================================================================== */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+
+  thead {
+    background-color: Variables.$color-bg-light;
+    border-bottom: 1px solid Variables.$color-border;
+
+    th {
+      padding: 1rem 1.25rem;
+      font-weight: 700;
+      color: Variables.$color-text-muted;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid Variables.$color-border;
+      transition: background-color 0.15s ease;
+
+      &:hover {
+        background-color: rgba(Variables.$color-primary, 0.02); // Elegant fade row capture indicator
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: 1rem 1.25rem;
+      vertical-align: middle;
+    }
+  }
+
+  /* Structural elements modifiers mapping */
+  &__text {
+    display: block;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  &__user-profile {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+
+  &__avatar-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: Variables.$color-primary-light;
+    color: Variables.$color-text-light;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  &__actions-header {
+    text-align: right;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &__action-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: 1px solid Variables.$color-border;
+    border-radius: 6px;
+    color: Variables.$color-text-muted;
+    cursor: pointer;
+    font-size: 14px;
+    transition: Variables.$transition-default;
+    outline: none;
+
+    &:hover {
+      border-color: Variables.$color-primary;
+      color: Variables.$color-primary;
+      background-color: Variables.$background;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+/* ==========================================================================
+   SEMANTIC STATUS BADGE GENERATORS
+   ========================================================================== */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  border: 1px solid transparent;
+
+  &--open {
+    color: #b45309;
+    background-color: #fef3c7;
+    border-color: #fde68a;
+  }
+
+  &--under-review {
+    color: #1d4ed8;
+    background-color: #dbeafe;
+    border-color: #bfdbfe;
+  }
+
+  &--resolved {
+    color: Variables.$color-success;
+    background-color: Variables.$color-success-bg;
+    border-color: #bbf7d0;
+  }
+
+  &--dismissed {
+    color: Variables.$color-text-muted;
+    background-color: Variables.$color-border;
+    border-color: #d1d5db;
+  }
+}
+
+/* ==========================================================================
+   HELPER UTILITY CLASS BLOCKS
+   ========================================================================== */
+
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.text-main { color: Variables.$color-text-main; }
+.text-muted { color: Variables.$color-text-muted; }
+.text-primary { color: Variables.$color-primary; }
+
+.capital-first {
+  display: inline-block;
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}

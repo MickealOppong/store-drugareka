@@ -1,12 +1,98 @@
-@use 'Variables.scss'; // 🚀 Binds premium Spruce (#1E3A3A), Alabaster (#F4F7F6), and Ink (#0D1313)
+@use 'Variables.scss';
 
 /* ==========================================================================
-   KASOA ADMINISTRATIVE ORDER RETURN MANAGEMENT CARD OVERRIDES
+   KASOA ADMINISTRATIVE ORDER RETURN MANAGEMENT STRUCTURAL RESPONSIVE RULES
    ========================================================================== */
 
+.po-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); // Protective dimming layer
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  padding: 1rem; // Prevents clipping against physical mobile screen edges
+  box-sizing: border-box;
+}
+
 .po-modal {
+  width: 100%;
+  max-width: 520px; // Standard compact desktop administration panel anchor
+  background-color: Variables.$background;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  
+  // 🎯 SCROLLABLE VIEWPORT GATEWAY: Caps size and forces scrolling on small displays
+  max-height: calc(100vh - 2rem);
+  overflow: hidden; // Keeps layout wrapper borders crisp
+  box-sizing: border-box;
+
   &--warning {
-    border-top: 4px solid #d97706; // Professional safety amber warning boundary marker edge row
+    border-top: 4px solid Variables.$color-accent; // Alert crimson boundary row
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%; // Locks layout height strictly inside the modal container
+    margin: 0;
+    overflow: hidden;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem 0.75rem 1.5rem;
+    background-color: Variables.$background;
+  }
+
+  &__close-btn {
+    background: none;
+    border: none;
+    color: Variables.$color-text-muted;
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 50%;
+    transition: Variables.$transition-default;
+
+    &:hover {
+      background-color: Variables.$color-border;
+      color: Variables.$color-text-main;
+    }
+  }
+
+  &__body {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    overflow-y: auto; // 📱 Scrollable form element viewport engine rule
+    flex-grow: 1;
+    -webkit-overflow-scrolling: touch; // Smooth inertia scroll for Apple Safari engines
+  }
+
+  &__title {
+    font-family: Variables.$font-sans;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: Variables.$color-text-main;
+    margin: 0 0 0.5rem 0;
+  }
+
+  &__description {
+    font-family: Variables.$font-sans;
+    font-size: 14px;
+    color: Variables.$color-text-muted;
+    margin: 0 0 1.25rem 0;
+    line-height: 1.5;
   }
 
   &__badge {
@@ -18,11 +104,11 @@
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: #b45309;
-      background-color: #fef3c7;
+      color: Variables.$color-accent; // Styled using notification accent
+      background-color: Variables.$color-error-bg;
       padding: 4px 10px;
       border-radius: 20px;
-      border: 1px solid #fde68a;
+      border: 1px solid Variables.$color-error;
 
       svg {
         font-size: 13px;
@@ -30,83 +116,298 @@
     }
   }
 
+  /* 🧾 LEDGER METADATA COMPACT SUMMARY CONTAINER */
+  &__summary-box {
+    background-color: Variables.$color-bg-light;
+    border: 1px solid Variables.$color-border;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Variables.$font-sans;
+    font-size: 14px;
+    color: Variables.$color-text-muted;
+
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+
+    &--total {
+      border-top: 1px dashed Variables.$color-border;
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      color: Variables.$color-text-main;
+    }
+  }
+
+  &__summary-label {
+    font-weight: 500;
+  }
+
   &__summary-value {
+    font-weight: 600;
+    color: Variables.$color-text-main;
+
     &--warning {
-      color: #d97706;
+      color: Variables.$color-accent; // Locks value token to error/warning accent
       font-size: 16px;
       font-weight: 800;
     }
   }
 
-  &__select {
+  &__field {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &--transition {
+      animation: poReturnFadeIn 0.25s Variables.$transition-default forwards; // Structural bezier slide
+    }
+  }
+
+  &__label {
+    font-family: Variables.$font-sans;
+    font-size: 13px;
+    font-weight: 600;
+    color: Variables.$color-text-main;
+  }
+
+  /* 📸 EVIDENCE GALLERY MULTI-UPLOAD ARCHITECTURE GRIDS */
+  &__image-section {
+    margin-bottom: 1.25rem;
+  }
+
+  &__image-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  &__upload-trigger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    border: 2px dashed Variables.$color-border;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: Variables.$color-bg-light;
+    font-size: 11px;
+    color: Variables.$color-text-muted;
+    font-weight: 600;
+    transition: Variables.$transition-default;
+
+    &:hover {
+      background-color: Variables.$background;
+      border-color: Variables.$color-primary; // Sage highlights
+      color: Variables.$color-primary;
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+      &:hover {
+        background-color: Variables.$color-bg-light;
+        border-color: Variables.$color-border;
+        color: Variables.$color-text-muted;
+      }
+    }
+  }
+
+  &__upload-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  &__preview-card {
+    position: relative;
+    height: 90px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid Variables.$color-border;
+    animation: poReturnFadeIn 0.2s Variables.$transition-default forwards;
+  }
+
+  &__preview-img {
     width: 100%;
-    height: 42px;
-    padding: 0 12px;
-    background-color: #ffffff;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__preview-remove-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: rgba(17, 17, 17, 0.75); // Dark overlay shielding
+    color: Variables.$color-text-light;
+    border: none;
+    cursor: pointer;
+    font-size: 11px;
+    transition: Variables.$transition-default;
+
+    &:hover {
+      background-color: Variables.$color-accent; // Turns warning red when focusing removal
+    }
+  }
+
+  /* 📋 FORM SELECTION INPUT ARCHITECTURE ELEMENTS */
+  &__select, &__textarea {
+    width: 100%;
+    background-color: Variables.$background;
     border: 1px solid Variables.$color-border;
     border-radius: 6px;
-    font-family: inherit;
+    font-family: Variables.$font-sans;
     font-size: 14px;
     color: Variables.$color-text-main;
     outline: none;
     box-sizing: border-box;
-    transition: border-color 0.2s ease;
+    transition: Variables.$transition-default;
 
     &:focus {
-      border-color: #d97706;
+      border-color: Variables.$color-primary; // Sage green emphasis loop ring
+      box-shadow: 0 0 0 2px Variables.$color-safety-bg;
     }
+  }
+
+  &__select {
+    height: 42px;
+    padding: 0 12px;
   }
 
   &__textarea {
-    width: 100%;
     padding: 12px;
-    background-color: #ffffff;
-    border: 1px solid Variables.$color-border;
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 14px;
-    color: Variables.$color-text-main;
-    outline: none;
-    box-sizing: border-box;
     resize: none;
-    transition: border-color 0.2s ease;
+  }
 
-    &:focus {
-      border-color: #d97706;
+  /* ⚠️ DISCLAIMER ADVISORY ELEMENT GATES */
+  &__warning-box {
+    display: flex;
+    gap: 0.75rem;
+    background-color: Variables.$color-error-bg;
+    border: 1px solid Variables.$color-error;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+    font-family: Variables.$font-sans;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #991b1b; // High readability dark red text
+
+    p {
+      margin: 0;
+    }
+    strong {
+      font-weight: 700;
+    }
+    svg {
+      color: Variables.$color-error;
+      font-size: 16px;
     }
   }
 
-  &__btn {
-    &--warning {
-      background-color: #d97706 !important;
-      border-color: #d97706 !important;
-      color: #ffffff !important;
+  &__alert {
+    &--error {
+      padding: 0.75rem 1rem;
+      background-color: Variables.$color-error-bg;
+      border-left: 4px solid Variables.$color-error;
+      border-radius: 4px;
+      font-family: Variables.$font-sans;
+      font-size: 13px;
+      font-weight: 500;
+      color: Variables.$color-error;
+      margin-bottom: 1.25rem;
+    }
+  }
 
-      &:hover {
-        background-color: #b45309 !important;
-        border-color: #b45309 !important;
+  /* 🎬 MODAL CONTROLLER ACTION FOOTER CONTAINER */
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background-color: Variables.$color-bg-light;
+    border-top: 1px solid Variables.$color-border;
+    flex-shrink: 0; // Fixes footer to the base layer during scroll flows
+  }
+
+  /* 🎬 FIXED DEPLOYMENT INTERFACE BUTTONS */
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 1.5rem;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-family: Variables.$font-sans;
+    outline: none;
+    transition: Variables.$transition-default;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    &--cancel {
+      background-color: Variables.$background;
+      border-color: Variables.$color-border;
+      color: Variables.$color-text-main;
+
+      &:hover:not(:disabled) {
+        background-color: Variables.$color-border;
       }
 
-      &:active {
+      &:active:not(:disabled) {
+        transform: scale(0.98);
+      }
+    }
+
+    &--warning {
+      background-color: Variables.$color-primary; // Styled directly with your signature green brand identifier
+      border-color: Variables.$color-primary;
+      color: Variables.$color-text-light;
+
+      &:hover:not(:disabled) {
+        background-color: Variables.$color-primary-light;
+        border-color: Variables.$color-primary-light;
+      }
+
+      &:active:not(:disabled) {
         transform: scale(0.98);
       }
     }
   }
-
-  &__field {
-    &--transition {
-      animation: poReturnFadeIn 0.25s Variables.$transition-default forwards;
-    }
-  }
 }
 
+/* ==========================================================================
+   ANIMATION KEYFRAME ROUTINES
+========================================================================== */
 @keyframes poReturnFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+from {
+opacity: 0;
+transform: translateY(-4px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
 }

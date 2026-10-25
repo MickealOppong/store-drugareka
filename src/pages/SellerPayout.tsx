@@ -130,7 +130,7 @@ const SellerPayout = () => {
                       
                       <td>
                         <span className="data-table__text text-muted">
-                          #{payout.id}
+                          #{payout.transferId}
                         </span>
                       </td>
 

@@ -26,22 +26,22 @@ export const SHIPPING_METHOD = [
 export const ITEM_SIZE = [
   {
     id: 1,
-    value: "small",
+    value: "small_up_10kg",
     name: "Small - up to 10kg",
   },
   {
     id: 2,
-    value: "medium",
+    value: "medium_up_20kg",
     name: "Medium - up to 20kg",
   },
   {
     id: 3,
-    value: "large",
+    value: "large_up_50kg",
     name: "Large - up to 50kg",
   },
   {
     id: 4,
-    value: "heavy",
+    value: "heavy_above_50kg",
     name: "Heavy - over 50kg",
   },
 ];

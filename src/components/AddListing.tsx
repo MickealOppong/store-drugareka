@@ -181,6 +181,7 @@ const AddListing = () => {
     try {
       const response = await addItem(dataToSend);
  
+      
       if (response.data?.httpStatus === 200) {
          let roles :string[]= JSON.parse(CookieService.get("roles")as string);
           roles.push("ROLE_SELLER")
