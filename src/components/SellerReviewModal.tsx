@@ -30,7 +30,7 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
   onClose,
   orderNumber,
 }) => {
-  const { t ,i18n} = useTranslation();
+  const { t } = useTranslation();
   const [alertError, setAlertError] = useState<string>("");
   const [getComplaint,{ isFetching } ]= useLazyGetBuyerComplaintQuery()
   const[data,setData]=useState<TComplaints>()
