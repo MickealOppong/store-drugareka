@@ -184,7 +184,7 @@ if(isLoading){
                 NEW ARRIVALS
             ====================================================== */}
 
-<section className="products section" style={{display:listings.length===0?'none':'grid'}}>
+<section className="products section" style={{display:'none'}}>
           <div className="section-heading">
             <div>
               <span className="section-eyebrow">{t("landing.new_arrivals.eyebrow")}</span>

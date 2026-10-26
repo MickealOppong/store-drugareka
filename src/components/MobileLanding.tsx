@@ -179,7 +179,7 @@ const {data:listings=[]} = useGetLandingListingQuery()
           NEW ARRIVALS
       ====================================================== */}
 
-  <section className="mobile-products">
+  <section className="mobile-products" style={{display:'none'}}>
         <div className="mobile-section-heading">
           <div>
             <span className="mobile-section-eyebrow">{t("landing.new_arrivals.eyebrow")}</span>
