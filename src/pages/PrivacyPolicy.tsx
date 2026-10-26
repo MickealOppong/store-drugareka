@@ -214,36 +214,6 @@ const PrivacyPolicy: React.FC = () => {
     </div>
   </div>
 
-  {/* 3b. PayU */}
-  <div className="terms-page__highlight-box">
-    <FiLock />
-
-    <div>
-      <strong>3b. PayU S.A. – operator płatności</strong>
-
-      <p>
-        W celu realizacji płatności dane osobowe mogą być przekazywane do:
-      </p>
-
-      <p>
-        <strong>
-          PayU S.A. z siedzibą w Poznaniu przy ul. Grunwaldzkiej 186,
-          60-166 Poznań, wpisanej do Rejestru Przedsiębiorców
-          Krajowego Rejestru Sądowego pod numerem KRS: 0000274399,
-          NIP: 792308495, REGON: 300523444.
-        </strong>
-      </p>
-
-      <p>
-        W odniesieniu do danych przekazanych PayU w związku
-        z realizacją płatności PayU występuje jako administrator
-        danych osobowych. Szczegółowe informacje dotyczące
-        przetwarzania danych przez PayU są dostępne w polityce
-        prywatności PayU.
-      </p>
-    </div>
-  </div>
-
   {/* Other recipients */}
   <ul className="terms-page__list">
     <li>
