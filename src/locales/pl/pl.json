@@ -353,16 +353,18 @@
     }
   },
 
-  "product_conditions": {
-    "good": "Dobry",
-    "new": "Nowy",
-    "excellent_condition": "Doskonały",
-    "used": "Używany",
-    "very_good": "Bardzo dobry",
-    "open_new": "Otwarte, ale nowe",
-    "new_other": "Nowy (powystawowy, leżak magazynowy)",
-    "used_good": "Używany — w dobrym stanie"
-  },
+"product_conditions": {
+  "new": "Nowy",
+  "almost_new": "Prawie nowy",
+  "open_new": "Otwarty, ale nowy",
+  "new_other": "Nowy (inny / długo przechowywany)",
+  "excellent_condition": "Doskonały",
+  "very_good": "Bardzo dobry",
+  "good": "Dobry",
+  "used_good": "Używany — w dobrym stanie",
+  "used": "Używany",
+  "acceptable": "Zadowalający"
+},
   "shop": {
     "header": {
       "title": "Znajdź coś wyjątkowego",

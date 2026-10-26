@@ -353,16 +353,18 @@
       }
     }
   },
-  "product_conditions": {
-    "good": "Good",
-    "new": "New",
-    "excellent_condition": "Excellent",
-    "used": "Used",
-    "very_good": "Very good",
-    "open_new": "Open but new",
-    "new_other": "New (Other / Long-term storage)",
-    "used_good": "Used — Good condition"
-  },
+"product_conditions": {
+  "new": "New",
+  "almost_new": "Almost new",
+  "open_new": "Open but new",
+  "new_other": "New (Other / Long-term storage)",
+  "excellent_condition": "Excellent",
+  "very_good": "Very good",
+  "good": "Good",
+  "used_good": "Used — Good condition",
+  "used": "Used",
+  "acceptable": "Acceptable"
+},
   "shop": {
     "header": {
       "title": "Find something exceptional",
