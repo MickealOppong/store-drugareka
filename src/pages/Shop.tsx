@@ -22,14 +22,17 @@ import {
 } from "../features/api/itemApi";
 import {
   useGetAllParentCategoriesQuery,
-  useGetStoreListingsFeedQuery
+  useGetStoreListingsFeedQuery,
 } from "../features/api/storeApi";
 import { useAddToCart } from "../hooks/useAddTocart";
 import { useRecentViews } from "../hooks/useRecentViews";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
-import { formatPrice, sanitizeBackendKey, sanitizeCategoryKey } from "../util/util";
-
+import {
+  formatPrice,
+  sanitizeBackendKey,
+  sanitizeCategoryKey,
+} from "../util/util";
 
 const Shop = () => {
   //translation hook
@@ -38,13 +41,17 @@ const Shop = () => {
   //user id
   const userId = useAppSelector((state) => state.userSlice.userId);
 
-  const[openModal,setOpenModal] = useState<boolean>(false)
-  const[modalData,setModalData] = useState<{name:string,id:number,currentPrice:number,isNegotiable:boolean}|null>(null)
-
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [modalData, setModalData] = useState<{
+    name: string;
+    id: number;
+    currentPrice: number;
+    isNegotiable: boolean;
+  } | null>(null);
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { addItemToCart ,isLoading:addCartLoading,error} = useAddToCart();
+  const { addItemToCart, isLoading: addCartLoading, error } = useAddToCart();
   const { addView } = useRecentViews();
 
   // 1. Core State Trackers synchronized natively with standard parameters
@@ -52,11 +59,10 @@ const Shop = () => {
   const [sort, setSort] = useState<string>("newest");
   const [showFilters, setShowFilters] = useState<boolean>(false);
 
-    const page = parseInt(searchParams.get("page") || "1");
+  const page = parseInt(searchParams.get("page") || "1");
 
   // Safely extract the default active category from URL line, falling back to global state
   const selectedCategory = searchParams.get("category") || "all";
-
 
   const request = {
     queryCategory: selectedCategory,
@@ -66,16 +72,13 @@ const Shop = () => {
 
   // Replaced useLazy Query hooks entirely. These automatically trigger an optimized
   // backend network fetch pass the split second a user mounts or lands on this route path!
-  const { data, isLoading: isProductsLoading} = useGetStoreListingsFeedQuery(
+  const { data, isLoading: isProductsLoading } = useGetStoreListingsFeedQuery(
     request,
     { refetchOnFocus: true, refetchOnMountOrArgChange: true },
   );
   const products = data?.listings || [];
 
-
   const { data: categories = [] } = useGetAllParentCategoriesQuery();
-
-  
 
   const { data: wishlist = [] } = useGetWishListsQuery();
   const wishlists = wishlist.map((item) => item.listingId);
@@ -102,27 +105,17 @@ const Shop = () => {
     // Chronological and Pricing Sorting Configurations
     switch (sort) {
       case "price-low":
-        result.sort(
-          (a, b) => a.newPrice - b.newPrice,
-        );
+        result.sort((a, b) => a.newPrice - b.newPrice);
         break;
 
       case "price-high":
-        result.sort(
-          (a, b) => b.oldPrice- a.oldPrice,
-        );
+        result.sort((a, b) => b.oldPrice - a.oldPrice);
         break;
 
       case "discount":
         result.sort((a, b) => {
-          const discountA =
-            ((a.oldPrice - a.newPrice) /
-              a.newPrice) *
-            100;
-          const discountB =
-            ((b.newPrice - b.oldPrice) /
-              b.oldPrice) *
-            100;
+          const discountA = ((a.oldPrice - a.newPrice) / a.newPrice) * 100;
+          const discountB = ((b.newPrice - b.oldPrice) / b.oldPrice) * 100;
           return discountB - discountA;
         });
         break;
@@ -151,47 +144,45 @@ const Shop = () => {
   // ==========================================================================
   const handleCategoryButtonClick = (categorySlug: string) => {
     const nextParams = new URLSearchParams(location.search);
-    const category = categories.find((item)=>item.slug===categorySlug)
+    const category = categories.find((item) => item.slug === categorySlug);
     nextParams.set("category", categorySlug);
     // Navigating automatically shifts the reactive 'selectedCategory' token, re-firing the query
-    navigate(`${location.pathname}?${nextParams.toString()}_${category?category.id:'0'}`);
+    navigate(
+      `${location.pathname}?${nextParams.toString()}_${category ? category.id : "0"}`,
+    );
   };
- 
-
 
   const toggleWishlist = async (listingId: number) => {
     if (!username) return navigate("/login");
     await addToWish(listingId);
   };
 
-
   //handle modal state
-  const onModalButtonClick =()=>{
-    setOpenModal(false)
-  }
+  const onModalButtonClick = () => {
+    setOpenModal(false);
+  };
 
   //handle make offer click
-  const handleMakeOffer = (product:TListTrans)=>{    
-   if (!username) return navigate("/login");
-    if(product){
-    setModalData({name:product.productName,id:product.listingId,currentPrice:product.newPrice,isNegotiable:product.negotiable})
-    setOpenModal(true)
-  
+  const handleMakeOffer = (product: TListTrans) => {
+    if (!username) return navigate("/login");
+    if (product) {
+      setModalData({
+        name: product.productName,
+        id: product.listingId,
+        currentPrice: product.newPrice,
+        isNegotiable: product.negotiable,
+      });
+      setOpenModal(true);
     }
-  
-  }
- 
-
-  
+  };
 
   return (
     <main className="shop-page">
-
-            <SEO
-              title="Kupuj i sprzedawaj na Kasoa"
-              description="Odkrywaj wyjątkowe produkty na Kasoa.pl. Wystawiaj przedmioty na sprzedaż bez negocjacji i bez bezpośredniego kontaktu z kupującymi."
-              canonical="https://kasoa.pl/"
-            />
+      <SEO
+        title="Kupuj i sprzedawaj na Kasoa"
+        description="Odkrywaj wyjątkowe produkty na Kasoa.pl. Wystawiaj przedmioty na sprzedaż bez negocjacji i bez bezpośredniego kontaktu z kupującymi."
+        canonical="https://kasoa.pl/"
+      />
       {/* =====================================================
                 SHOP HEADER
             ====================================================== */}
@@ -241,7 +232,7 @@ const Shop = () => {
             className={selectedCategory === category.slug ? "active" : ""}
             onClick={() => handleCategoryButtonClick(category.slug)}
           >
-  {t(`categories.${sanitizeCategoryKey(category.name)}.name`)}
+            {t(`categories.${sanitizeCategoryKey(category.name)}.name`)}
           </button>
         ))}
       </section>
@@ -296,15 +287,13 @@ const Shop = () => {
         </div>
       </section>
 
-        {
-                    error && <ErrorToast errorMessage={error}/>
-                 } 
+      {error && <ErrorToast errorMessage={error} />}
 
       {/* =====================================================
                 PRODUCTS
             ====================================================== */}
 
-      {isProductsLoading ||addCartLoading? (
+      {isProductsLoading || addCartLoading ? (
         <Loading />
       ) : (
         <section className="shop-page__products">
@@ -325,21 +314,21 @@ const Shop = () => {
           ) : (
             filteredProducts.map((product) => {
               const isWishlisted = wishlists.includes(product.listingId);
-              
-              const discount = (product.newPrice-product.oldPrice)>0 ?Math.round(
-                ((product.newPrice -
-                  product.oldPrice) /
-                  product.newPrice) *
-                  100,
-              ):0;
 
-            
+              const discount =
+                product.oldPrice > 0 && product.oldPrice > product.newPrice
+                  ? Math.round(
+                      ((product.oldPrice - product.newPrice) /
+                        product.oldPrice) *
+                        100,
+                    )
+                  : 0;
+
               return (
                 <article
                   className="shop-product-card"
                   key={product.listingId}
                 >
-             
                   {/* IMAGE */}
                   <div className="shop-product-card__media">
                     <Link
@@ -369,7 +358,6 @@ const Shop = () => {
                       <FiHeart />
                     </button>
                   </div>
-               
 
                   {/* CONTENT */}
                   <div className="shop-product-card__content">
@@ -381,29 +369,27 @@ const Shop = () => {
 
                     <div className="shop-product-card__condition">
                       <span>
-                         {t(`product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`)}
+                        {t(
+                          `product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`,
+                        )}
                       </span>
                     </div>
 
                     <div className="shop-product-card__bottom">
                       <div>
-                        <strong>
-                          {formatPrice(product.newPrice) || 0} zł
-                        </strong>
+                        <strong>{formatPrice(product.newPrice) || 0} zł</strong>
 
-                        <del>
-                          {formatPrice(product.newPrice) || 0} zł
-                        </del>
+                        <del>{formatPrice(product.oldPrice) || 0} zł</del>
                       </div>
-                       {product.negotiable &&
-                         (!username || product.sellerId !== userId) && (
-                            <button
-                              className="make_offer"
-                              onClick={() => handleMakeOffer(product)}
-                            >
-                              {t("shop.product.make_offer")}
-                            </button>
-                          )}
+                      {product.negotiable &&
+                        (!username || product.sellerId !== userId) && (
+                          <button
+                            className="make_offer"
+                            onClick={() => handleMakeOffer(product)}
+                          >
+                            {t("shop.product.make_offer")}
+                          </button>
+                        )}
 
                       {!userId || product.sellerId !== userId ? (
                         <button
@@ -434,19 +420,26 @@ const Shop = () => {
           )}
         </section>
       )}
-           {/** MAKE OFFER MODAL */}
-                    {
-                  (openModal ) && <MakeOfferodal isNegotiable={Boolean(modalData?.isNegotiable)}  productName={modalData?.name||''} id={modalData?.id||0} currentPrice={modalData?.currentPrice||0} isOpen={openModal} onButtonClick={onModalButtonClick}/>
-              }
-     {
-      data &&  <Pagination
-      accumulated={data.accumulatedItems}
-        page={page }
-        totalPage={data?.totalPages}
-        size={data?.pageSize }
-        totalElements={data?.totalElements}
-      />
-     }
+      {/** MAKE OFFER MODAL */}
+      {openModal && (
+        <MakeOfferodal
+          isNegotiable={Boolean(modalData?.isNegotiable)}
+          productName={modalData?.name || ""}
+          id={modalData?.id || 0}
+          currentPrice={modalData?.currentPrice || 0}
+          isOpen={openModal}
+          onButtonClick={onModalButtonClick}
+        />
+      )}
+      {data && (
+        <Pagination
+          accumulated={data.accumulatedItems}
+          page={page}
+          totalPage={data?.totalPages}
+          size={data?.pageSize}
+          totalElements={data?.totalElements}
+        />
+      )}
 
       {/* =====================================================
                 MOBILE FILTER DRAWER
@@ -474,7 +467,7 @@ const Shop = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => {
-               handleCategoryButtonClick(e.target.value);
+                  handleCategoryButtonClick(e.target.value);
 
                   setShowFilters(false);
                 }}
@@ -493,7 +486,6 @@ const Shop = () => {
                 ))}
               </select>
             </div>
-      
           </div>
         </div>
       )}

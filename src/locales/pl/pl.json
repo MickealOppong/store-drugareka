@@ -1401,8 +1401,8 @@
       "email_title": "Napisz do nas",
       "call_title": "Zadzwoń do nas",
       "address_title": "Główna siedziba",
-      "address_building": "Focus Mall",
-      "address_street": "ul. Słowackiego 123",
+      "address_building": "Blok 21",
+      "address_street": "Kostromska 55/95",
       "address_city": "97-300 Piotrków Trybunalski"
     },
     "buttons": {
@@ -1612,6 +1612,28 @@
         "reject": "Odrzuć reklamację",
         "approve": "Zamów kuriera"
       }
+    }
+  },
+  "catalog-browser": {
+    "feed": {
+      "loading": "Ładowanie drzewa kategorii...",
+      "error": "Nie udało się załadować układu kategorii.",
+      "title": "Najpopularniejsze kategorie",
+      "all_listing": "Wszystkie dostępne oferty"
+    },
+    "header": {
+      "title": "Kategorie"
+    },
+    "condition_search": {
+      "label": "Szukaj produktów według nazwy, ceny lub stanu",
+      "placeholder": "np. Nowy, Jak nowy, Dobry",
+      "clear": "Wyczyść wyszukiwanie",
+      "no_results": "Żadne produkty nie pasują do wyszukiwania."
+    },
+    "empty_search": {
+      "title": "Nie znaleziono pasujących ofert",
+      "message": "Nie znaleźliśmy produktów pasujących do wybranej kategorii. Spróbuj rozszerzyć wyszukiwanie lub wyczyścić aktywne filtry.",
+      "clear_btn": "Wyczyść aktywne filtry"
     }
   }
 }

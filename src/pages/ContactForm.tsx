@@ -33,14 +33,14 @@ export const ContactForm: React.FC = () => {
 
           <ul className="contact-form-page__channels-list">
             
-            {/* 🚀 THE DIRECT EMAIL HUB TRIGGER */}
+            {/* 🚀THE DIRECT EMAIL HUB TRIGGER */}
             <li className="contact-form-page__channel-item">
               <div className="contact-form-page__icon-wrapper">
                 <FiMail />
               </div>
               <div className="contact-form-page__text-wrapper">
                 <strong>{t("contact_form.info_card.email_title")}</strong>
-                <p>admin.kasoa.pl@gmail.com</p>
+                <p>kasawa.corp@gmail.com</p>
                 <a 
                   href={mailtoUri} 
                   className="contact-form-page__action-anchor"

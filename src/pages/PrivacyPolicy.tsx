@@ -163,83 +163,124 @@ const PrivacyPolicy: React.FC = () => {
         </section>
 
         {/* 3 */}
-        <section className="terms-page__section">
-          <h2 className="terms-page__section-title">
-            <FiShare2 />
-            3. Odbiorcy danych osobowych
-          </h2>
+    {/* 3. Odbiorcy danych osobowych */}
+<section className="terms-page__section">
+  <h2 className="terms-page__section-title">
+    <FiShare2 />
+    3. Odbiorcy danych osobowych
+  </h2>
 
-          <p className="terms-page__text">
-            Dane osobowe mogą być przekazywane podmiotom zewnętrznym
-            wyłącznie w zakresie niezbędnym do realizacji określonych
-            celów oraz na podstawie właściwej podstawy prawnej.
-          </p>
+  <p className="terms-page__text">
+    Dane osobowe mogą być przekazywane podmiotom zewnętrznym
+    wyłącznie w zakresie niezbędnym do realizacji określonych
+    celów oraz na podstawie właściwej podstawy prawnej.
+  </p>
 
-          <div className="terms-page__highlight-box">
-            <FiLock />
+  {/* 3a. Stripe */}
+  <div className="terms-page__highlight-box">
+    <FiLock />
 
-            <div>
-              <strong>PayU S.A. – operator płatności</strong>
+    <div>
+      <strong>3a. Stripe – operator płatności</strong>
 
-              <p>
-                W celu realizacji płatności dane osobowe mogą być przekazywane
-                do:
-              </p>
+      <p>
+        W celu obsługi płatności elektronicznych oraz, w stosownych
+        przypadkach, realizacji wypłat na rzecz Sprzedających,
+        dane osobowe mogą być przekazywane do podmiotów z grupy Stripe,
+        w szczególności do Stripe Payments Europe, Limited z siedzibą
+        w Irlandii oraz innych właściwych podmiotów z grupy Stripe,
+        w zależności od rodzaju świadczonej usługi i obsługi transakcji.
+      </p>
 
-              <p>
-                <strong>
-                  PayU S.A. z siedzibą w Poznaniu przy ul. Grunwaldzkiej 186,
-                  60-166 Poznań, wpisanej do Rejestru Przedsiębiorców
-                  Krajowego Rejestru Sądowego pod numerem KRS:0000274399 | NIP:792308495 | REGON:300523444.
-                </strong>
-              </p>
+      <p>
+        Przekazywane dane mogą obejmować dane identyfikacyjne i kontaktowe,
+        informacje dotyczące transakcji oraz dane niezbędne do obsługi
+        płatności, weryfikacji Sprzedających i realizacji wypłat,
+        w zakresie wymaganym dla danej usługi.
+      </p>
 
-              <p>
-                W odniesieniu do danych przekazanych PayU w związku
-                z realizacją płatności PayU występuje jako administrator
-                danych osobowych. Szczegółowe informacje dotyczące
-                przetwarzania danych przez PayU są dostępne w polityce
-                prywatności PayU.
-              </p>
-            </div>
-          </div>
+      <p>
+        Stripe może przetwarzać dane osobowe jako odrębny administrator
+        danych w zakresie swoich usług płatniczych i obowiązków prawnych.
+        Szczegółowe informacje znajdują się w{" "}
+        <a
+          href="https://stripe.com/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          polityce prywatności Stripe
+        </a>.
+      </p>
+    </div>
+  </div>
 
-          <ul className="terms-page__list">
-            <li>
-              <strong>Operatorzy logistyczni</strong> – w szczególności
-              DPD i InPost, w zakresie niezbędnym do przygotowania,
-              nadania, śledzenia i doręczenia przesyłki.
-            </li>
+  {/* 3b. PayU */}
+  <div className="terms-page__highlight-box">
+    <FiLock />
 
-            <li>
-              <strong>Dostawcy usług IT</strong> – podmioty zapewniające
-              hosting, infrastrukturę serwerową, utrzymanie systemów,
-              bezpieczeństwo oraz inne usługi techniczne niezbędne
-              do działania Serwisu.
-            </li>
+    <div>
+      <strong>3b. PayU S.A. – operator płatności</strong>
 
-            <li>
-              <strong>Dostawcy usług komunikacyjnych</strong> – podmioty
-              umożliwiające wysyłanie wiadomości e-mail, powiadomień
-              lub innych komunikatów związanych z działaniem Serwisu.
-            </li>
+      <p>
+        W celu realizacji płatności dane osobowe mogą być przekazywane do:
+      </p>
 
-            <li>
-              <strong>Organy publiczne i inne podmioty uprawnione</strong> –
-              jeżeli obowiązek przekazania danych wynika z przepisów prawa
-              lub jest niezbędny do ochrony praw KASAWA.
-            </li>
-          </ul>
+      <p>
+        <strong>
+          PayU S.A. z siedzibą w Poznaniu przy ul. Grunwaldzkiej 186,
+          60-166 Poznań, wpisanej do Rejestru Przedsiębiorców
+          Krajowego Rejestru Sądowego pod numerem KRS: 0000274399,
+          NIP: 792308495, REGON: 300523444.
+        </strong>
+      </p>
 
-          <p className="terms-page__text">
-            Dane Kupującego wymagane do dostawy mogą być przekazywane
-            operatorowi logistycznemu w celu wykonania przesyłki.
-            Dane adresowe Kupującego nie są udostępniane Sprzedającemu
-            za pośrednictwem interfejsu Kasoa.pl, z zastrzeżeniem sytuacji,
-            w których przekazanie danych jest wymagane przez prawo lub
-            niezbędne do realizacji określonego procesu.
-          </p>
-        </section>
+      <p>
+        W odniesieniu do danych przekazanych PayU w związku
+        z realizacją płatności PayU występuje jako administrator
+        danych osobowych. Szczegółowe informacje dotyczące
+        przetwarzania danych przez PayU są dostępne w polityce
+        prywatności PayU.
+      </p>
+    </div>
+  </div>
+
+  {/* Other recipients */}
+  <ul className="terms-page__list">
+    <li>
+      <strong>Operatorzy logistyczni</strong> – w szczególności
+      DPD i InPost, w zakresie niezbędnym do przygotowania,
+      nadania, śledzenia i doręczenia przesyłki.
+    </li>
+
+    <li>
+      <strong>Dostawcy usług IT</strong> – podmioty zapewniające
+      hosting, infrastrukturę serwerową, utrzymanie systemów,
+      bezpieczeństwo oraz inne usługi techniczne niezbędne
+      do działania Serwisu.
+    </li>
+
+    <li>
+      <strong>Dostawcy usług komunikacyjnych</strong> – podmioty
+      umożliwiające wysyłanie wiadomości e-mail, powiadomień
+      lub innych komunikatów związanych z działaniem Serwisu.
+    </li>
+
+    <li>
+      <strong>Organy publiczne i inne podmioty uprawnione</strong> –
+      jeżeli obowiązek przekazania danych wynika z przepisów prawa
+      lub jest niezbędny do ochrony praw KASAWA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ.
+    </li>
+  </ul>
+
+  <p className="terms-page__text">
+    Dane Kupującego wymagane do dostawy mogą być przekazywane
+    operatorowi logistycznemu w celu wykonania przesyłki.
+    Dane adresowe Kupującego nie są udostępniane Sprzedającemu
+    za pośrednictwem interfejsu Kasoa.pl, z zastrzeżeniem sytuacji,
+    w których przekazanie danych jest wymagane przez prawo lub
+    niezbędne do realizacji określonego procesu.
+  </p>
+</section>
 
         {/* 4 */}
         <section className="terms-page__section">

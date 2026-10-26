@@ -380,45 +380,40 @@ export const Categories: React.FC = () => {
             </h4>
           </header>
 
-          {isCategorySelected && !isProductsLoading && products.length > 0 && (
-            <div className="catalog-condition-search">
-              <label
-                className="catalog-condition-search__label"
-                htmlFor="catalog-condition-search-input"
-              >
-                {t("categories.condition_search.label", {
-                  defaultValue: "Search products by name, price or condition",
-                })}
-              </label>
-              <div className="catalog-condition-search__control">
-                <FiSearch aria-hidden="true" />
-                <input
-                  id="catalog-condition-search-input"
-                  type="search"
-                  value={conditionSearch}
-                  onChange={(event) => setConditionSearch(event.target.value)}
-                  placeholder={t("categories.condition_search.placeholder", {
-                    defaultValue: "e.g. New, Like new, Good",
-                  })}
-                  aria-label={t("categories.condition_search.label", {
-                    defaultValue: "Search products by name, price or condition",
-                  })}
-                />
-                {conditionSearch && (
-                  <button
-                    type="button"
-                    className="catalog-condition-search__clear"
-                    onClick={() => setConditionSearch("")}
-                    aria-label={t("categories.condition_search.clear", {
-                      defaultValue: "Clear search",
-                    })}
-                  >
-                    <FiX />
-                  </button>
-                )}
-              </div>
-            </div>
-          )}
+  {isCategorySelected && !isProductsLoading && products.length > 0 && (
+  <div className="catalog-condition-search">
+    <label
+      className="catalog-condition-search__label"
+      htmlFor="catalog-condition-search-input"
+    >
+      {t("catalog-browser.condition_search.label")}
+    </label>
+
+    <div className="catalog-condition-search__control">
+      <FiSearch aria-hidden="true" />
+
+      <input
+        id="catalog-condition-search-input"
+        type="search"
+        value={conditionSearch}
+        onChange={(event) => setConditionSearch(event.target.value)}
+        placeholder={t("catalog-browser.condition_search.placeholder")}
+        aria-label={t("categories.condition_search.label")}
+      />
+
+      {conditionSearch && (
+        <button
+          type="button"
+          className="catalog-condition-search__clear"
+          onClick={() => setConditionSearch("")}
+          aria-label={t("categories.condition_search.clear")}
+        >
+          <FiX />
+        </button>
+      )}
+    </div>
+  </div>
+)}
 
           {isProductsLoading ? (
             <Loading />

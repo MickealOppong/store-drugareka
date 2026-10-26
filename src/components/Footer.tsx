@@ -12,7 +12,7 @@ const Footer = ()=>{
         <div className="landing-footer__brand">
           <Link
             to="/"
-            className="brand"
+            className="brand-link"
           >
             {appName}<span>.pl</span>
           </Link>

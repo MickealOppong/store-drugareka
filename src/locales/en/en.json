@@ -1449,8 +1449,8 @@
       "email_title": "Email Us",
       "call_title": "Call Us",
       "address_title": "Headquarters",
-      "address_building": "Focus Mall",
-      "address_street": "123 Slowackiego St.",
+      "address_building": "Block 21",
+      "address_street": "Kostromska 55/95",
       "address_city": "97-300 Piotrkow Trybunalski"
     },
     "buttons": {
@@ -1624,5 +1624,28 @@
         "change_failed": "This recovery link has expired or its token signature is invalid."
       }
     }
+  },
+  "catalog-browser": {
+    "feed": {
+      "loading": "Loading Catalog Tree...",
+      "error": "Failed to load category layout fields.",
+      "title": "Top categories",
+      "all_listing": "All Available Listings"
+    },
+    "header": {
+      "title": "Categories"
+    },
+    "condition_search": {
+      "label": "Search products by name, price or condition",
+      "placeholder": "e.g. New, Like new, Good",
+      "clear": "Clear search",
+      "no_results": "No products match your search."
+    },
+    "empty_search": {
+      "title": "No Matching Listings Found",
+      "message": "We couldn't find any items matching your active category profile. Try expanding your search queries or resetting the active parameters.",
+      "clear_btn": "Clear Active Filters"
+    }
   }
+
 }
