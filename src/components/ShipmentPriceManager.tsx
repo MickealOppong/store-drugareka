@@ -1,10 +1,10 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import {
-    FiAlertCircle,
-    FiCheckCircle,
-    FiDollarSign,
-    FiLayers,
-    FiTruck,
+  FiAlertCircle,
+  FiCheckCircle,
+  FiDollarSign,
+  FiLayers,
+  FiTruck,
 } from "react-icons/fi";
 import { useNavigate, useRevalidator } from "react-router";
 import "../css/ShippingPrice.css";
@@ -72,8 +72,6 @@ const ShipmentPriceManager = () => {
         price: formData.price,
         active: formData.active,
     };
-
-       console.log(payload);
        
 
     try {

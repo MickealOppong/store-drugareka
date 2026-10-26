@@ -702,6 +702,7 @@
         "address": "Adres dostawy",
         "shipped_at": "Wysłano",
         "delivered_at": "Dostarczone",
+         "confirmation_status":"Status potwierdzenia",
         "tracking_number": "Numer przesyłki",
         "status": "Status",
         "action": "Akcja"
@@ -1619,6 +1620,7 @@
       "loading": "Ładowanie drzewa kategorii...",
       "error": "Nie udało się załadować układu kategorii.",
       "title": "Najpopularniejsze kategorie",
+       "no_categories":"Brak kategorie",
       "all_listing": "Wszystkie dostępne oferty"
     },
     "header": {

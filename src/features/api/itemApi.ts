@@ -104,6 +104,14 @@ export const itemApi = createApi({
       }),
       invalidatesTags:['shipments']
     }),
+       editCourierPrice: build.mutation<TResponseDto,TShipmentPriceInput>({
+      query: (body) => ({
+        url: "/api/courier/edit-courier-charge",
+       body,
+        method:"PUT"
+      }),
+      invalidatesTags:['shipments']
+    }),
      getUserDashboard: build.query<TDashboard, void>({
       query: () => ({
         url: "/api/analytics/dashboard",
@@ -283,6 +291,15 @@ export const itemApi = createApi({
               }),
          
             }),
+                  getShipmentPrice: build.query<TShipmentPriceInput, number>({
+              query: (id) => ({
+                url: `/api/courier/option/${id}`,
+                params: {
+                id
+                },
+              }),
+         
+            }),
   }),
 });
 export const { useAddListingMutation,useGetMylistingsQuery,
@@ -293,5 +310,6 @@ export const { useAddListingMutation,useGetMylistingsQuery,
   useDeleteListingMutation,useLazyGetWishListsQuery,useLazyGetWishlistCountQuery,
   useCancelOrderMutation,useReturnItemMutation,useUpdateReturnShipmentStatusMutation,useAddCourierPriceMutation
   ,useGetCouriersQuery,useMakeOfferMutation,useLazyGetListingQuery,useGetListingQuery,useCancelBuyerOrderMutation,
-  useGetReturnDetailsQuery,useGetBuyerComplaintQuery,useUpdateOrderDisputeMutation,useUpdateOrderDisputeAdminMutation,useLazyGetBuyerComplaintQuery
+  useGetReturnDetailsQuery,useGetBuyerComplaintQuery,useUpdateOrderDisputeMutation,useUpdateOrderDisputeAdminMutation,
+  useLazyGetBuyerComplaintQuery,useLazyGetShipmentPriceQuery,useEditCourierPriceMutation
 } = itemApi;

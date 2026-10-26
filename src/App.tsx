@@ -62,6 +62,7 @@ import ReturnConfirmation from "./pages/ReturnConfirmation";
 import StripeReturnKYCHandler from "./pages/StripeReturnKYCHandler";
 
 import { loader as accountLoader } from './../src/pages/AccountLayout';
+import EditShipmentPrice from "./components/EditShipmentPrice";
 import Complaints from "./pages/Complaints";
 
 function App() {
@@ -269,6 +270,10 @@ function App() {
           {
           path: "admin/courier",
           element: <ShipmentPriceView/>,
+        },
+            {
+          path: "admin/courier/:id/edit",
+          element: <EditShipmentPrice/>,
         },
            {
           path: "admin/courier/new",

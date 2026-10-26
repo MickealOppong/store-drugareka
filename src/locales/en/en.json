@@ -712,6 +712,7 @@
         "shipped_at": "Sent",
         "delivered_at": "Delivered",
         "tracking_number": "Tracking Number",
+        "confirmation_status":"Confirmation status",
         "status": "Status",
         "action": "Action"
       }
@@ -1630,6 +1631,7 @@
       "loading": "Loading Catalog Tree...",
       "error": "Failed to load category layout fields.",
       "title": "Top categories",
+      "no_categories":"No categories available.",
       "all_listing": "All Available Listings"
     },
     "header": {

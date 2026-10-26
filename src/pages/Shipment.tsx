@@ -302,6 +302,12 @@ useEffect(() => {
 
                   <th>
                     {t(
+                      "shipments.table.headers.confirmation_status"
+                    )}
+                  </th>
+
+                  <th>
+                    {t(
                       "shipments.table.headers.size"
                     )}
                   </th>
@@ -378,6 +384,21 @@ useEffect(() => {
                           }}
                         >
                           {item.trackingNumber || "-"}
+                        </span>
+                      </td>
+
+                        {/* CONFIRMATION STATUS*/}
+                      <td>
+                        <span
+                          className="data-table__text"
+                          style={{
+                            whiteSpace: "normal",
+                            wordBreak: "break-word",
+                            minWidth: "180px",
+                            display: "inline-block",
+                          }}
+                        >
+                          {item.confirmationStatus|| "-"}
                         </span>
                       </td>
 

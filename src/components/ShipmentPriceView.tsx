@@ -179,7 +179,7 @@ const couriers = data as TCourierResponse[] || [];
                     <td>
                       <div className="data-table__actions" style={{ gap: "0.5rem" }}>
                         <Link
-                          to={`/account/admin/brand/${courier.id}/edit`}
+                          to={`/account/admin/courier/${courier.id}/edit`}
                           className="data-table__action-link"
                           title="Edytuj"
                         >
