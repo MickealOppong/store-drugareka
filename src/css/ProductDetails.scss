@@ -1,517 +1,518 @@
-// ==========================================================================
-// 1. DESIGN TOKENS & RESPONSIVE GEOMETRY
-// ==========================================================================
-
 @use "sass:color";
-@use 'Variables.scss';
+@use "Variables.scss" as Variables;
 
-// ==========================================================================
-// 2. MAIN BLOCK CONTAINER & HEADER (`.product-details`)
-// ==========================================================================
-
+/* ==========================================================================
+   MASTER SINGLE PRODUCT DETAILS SHELL (.product-details)
+   ========================================================================== */
 .product-details {
-  font-family: Variables.$font-sans;
-  color: Variables.$color-text-main;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 16px;
+  box-sizing: border-box;
+  font-family: Variables.$font-sans;
+
+
+  @include Variables.media-up(Variables.$breakpoint-sm) {
+    padding: 24px 32px;
+  }
+
+  /* Shared Typography Eyebrow Labels */
+  &__brand-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: Variables.$color-primary;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* ==========================================================================
+   1. STRUCTURAL BREADCRUMB HEADER NAV
+   ========================================================================== */
+.product-details__nav-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid Variables.$color-border;
+  margin-bottom: 1.75rem;
+  width: 100%;
   box-sizing: border-box;
 
-  @media (min-width: Variables.$breakpoint-md) {
-    padding: 2rem 1.5rem;
-  }
-
-
-  &__error-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 3rem 1.5rem;
-    background-color: #fff4f2; // Soft warning crimson grounding backdrop tint
-    border: 1px solid #efd1ce; // Subtle contrast layout safety line
-    border-radius: 12px;
-    max-width: 420px;
-    margin: 2rem auto;
-    box-sizing: border-box;
-    width: 100%;
-
-
-      .product-details_error-row{
-    display: flex;
-    gap:1rem;
-    width: 100%;
-  
-  }
-
-
-  }
-
-  &__error-message {
-    margin: 0 0 1.5rem 0;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.5;
-    color:Variables.$color-accent;
-    white-space: pre-line; 
-  }
-
-  /* Tactile Refresh Action Controls Trigger */
-  &__error-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-        width: 100%;
-    height: 40px;
-    padding: 0 1.25rem;
-    background-color: Variables.$color-primary; // Flagship Obsidian Spruce
-    color: #ffffff;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    border: 1px solid Variables.$color-primary;
-    border-radius: 6px;
-    cursor: pointer;
-    outline: none;
-    white-space: nowrap;
-    box-sizing: border-box;
-    user-select: none;
-    transition: all 0.2s Variables.$transition-default;
-
-    &:hover {
-      background-color: color.adjust(Variables.$color-primary, $lightness: 5%);
-      border-color: color.adjust(Variables.$color-primary, $lightness: 5%);
-      transform: translateY(-1px);
-    }
-
-    &:active {
-      transform: translateY(0);
-    }
-  }
-  &__address-btn{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 40px;
-    padding: 0 1.25rem;
-    background-color: Variables.$color-primary;
-    color: #ffffff;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    border: 1px solid Variables.$color-primary;
-    border-radius: 6px;
-    cursor: pointer;
-    outline: none;
-    white-space: nowrap;
-    box-sizing: border-box;
-    user-select: none;
-    transition: all 0.2s Variables.$transition-default;
-
-    &:hover {
-      background-color: color.adjust(Variables.$color-bg-dark, $lightness: 5%);
-      border-color: color.adjust(Variables.$color-bg-dark, $lightness: 5%);
-      transform: translateY(-1px);
-    }
-
-    &:active {
-      transform: translateY(0);
-    }
-  }
-
-  &__nav-header {
-    display: flex;
+  @include Variables.media-up(Variables.$breakpoint-sm) {
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid Variables.$color-border;
     padding-bottom: 1rem;
-    margin-bottom: 2rem;
   }
 
-  &__back-btn {
+  .product-details__back-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     background: transparent;
     border: none;
-    color: Variables.$color-text-muted;
-    font-size: 0.9rem;
-    font-weight: 600;
+    color: Variables.$color-text-main;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 700;
     cursor: pointer;
-    padding: 0.5rem 0;
-    min-height: 36px;
-    transition: color 0.2s ease;
-
-    svg {
-      font-size: 1rem;
-    }
+    padding: 6px 0;
+    transition: color 0.15s ease;
 
     &:hover {
       color: Variables.$color-primary;
     }
+
+    svg {
+      font-size: 1.05rem;
+    }
   }
 
-  &__category-crumb {
+  .product-details__category-crumb {
     font-size: 0.85rem;
+    font-weight: 600;
     color: Variables.$color-text-muted;
-    font-weight: 500;
   }
 }
 
-// ==========================================================================
-// 3. SECTOR SPLIT SECTION ELEMENT WRAPPERS (`.product-details__main-wrapper`)
-// ==========================================================================
-
+/* ==========================================================================
+   2. PRIMARY SINGLE PRODUCT GRID CONTAINER WORKSPACE
+   ========================================================================== */
 .product-details__main-wrapper {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2.5rem;
-  margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  box-sizing: border-box;
 
-  @media (min-width: Variables.$breakpoint-lg) {
-    grid-template-columns: 1.1fr 0.9fr; // Distinct two-column grid split balance
-    gap: 4rem;
+  @include Variables.media-up(Variables.$breakpoint-md) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
   }
 }
 
-// ==========================================================================
-// 4. LEFT ASYMMETRIC COLUMN: GALLERY SHOWCASE MODULES
-// ==========================================================================
-
+/* MEDIA DISPLAY SHOWCASE CAROUSEL BOX */
 .product-details__media-showcase {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 12px;
   width: 100%;
+  box-sizing: border-box;
+
+  @include Variables.media-up(Variables.$breakpoint-md) {
+    width: 50%;
+    position: sticky;
+    top: 24px;
+  }
 }
 
 .product-details__primary-viewport {
-  position: relative;
+  width: 100%;
   aspect-ratio: 1 / 1;
   background-color: Variables.$color-bg-light;
-  border-radius: 12px;
-  overflow: hidden;
   border: 1px solid Variables.$color-border;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow: hidden;
+  box-sizing: border-box;
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .product-details__main-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; // Guarantees product item borders never compress or distort edges
     display: block;
+    mix-blend-mode: multiply;
   }
 }
 
 .product-details__thumbnails-grid {
-  display: flex;
-  gap: 0.75rem;
-  overflow-x: auto;
-  padding-bottom: 0.25rem;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
 
-  &::-webkit-scrollbar {
-    display: none; // Hides thick scroll bars on mobile displays
+  .product-details__thumb-trigger {
+    aspect-ratio: 1 / 1;
+    background-color: Variables.$background;
+    border: 2px solid Variables.$color-border;
+    border-radius: 10px;
+    padding: 4px;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease, transform 0.1s ease;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    &:hover {
+      border-color: color.adjust(Variables.$color-border, $lightness: -12%);
+    }
+
+    &--active {
+      border-color: Variables.$color-primary;
+      transform: scale(0.96);
+    }
   }
 }
 
-.product-details__thumb-trigger {
-  width: 72px;
-  height: 72px;
-  border-radius: 6px;
-  border: 2px solid transparent;
-  background-color: Variables.$color-bg-light;
-  padding: 0;
-  overflow: hidden;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: Variables.$transition-default;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &--active {
-    border-color: Variables.$color-primary;
-  }
-}
-
-// ==========================================================================
-// 5. RIGHT COLUMN: DETAILS CONTENT PANEL DESIGNS
-// ==========================================================================
-
+/* INTERACTIVE MARKETPLACE ATTRIBUTES CARD INFO PANEL */
 .product-details__content-panel {
   display: flex;
   flex-direction: column;
-}
+  align-items: flex-start;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
 
-.product-details__brand-label {
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: Variables.$color-text-muted;
-  display: block;
-  margin-bottom: 0.5rem;
-}
+  @include Variables.media-up(Variables.$breakpoint-md) {
+    width: 50%;
+  }
 
-.product-details__product-title {
-  font-size: 1.75rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.25;
-  margin: 0 0 1rem;
+  .product-details__product-title {
+    margin: 0 0 1rem 0;
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: Variables.$color-text-main;
+    letter-spacing: -0.035em;
+    line-height: 1.2;
 
-  @media (min-width: Variables.$breakpoint-md) {
-    font-size: 2.25rem;
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      font-size: 2.15rem;
+    }
+  }
+
+  .product-details__narrative-description {
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: Variables.$color-text-muted;
+    border-bottom: 1px solid Variables.$color-border;
+    padding-bottom: 1.5rem;
+    width: 100%;
   }
 }
 
+/* DATA CONDITION SPECIFICATION TAG BADGES */
 .product-details__condition-badge {
-  display: flex;
-  margin-bottom: 1.5rem;
+  display: inline-flex;
+  margin-bottom: 0.5rem;
 
   span {
-    font-size: 0.8rem;
-    font-weight: 500;
+    font-size: 0.85rem;
+    color: Variables.$color-text-muted;
     background-color: Variables.$color-bg-light;
     border: 1px solid Variables.$color-border;
-    color: Variables.$color-text-main;
-    padding: 0.35rem 0.75rem;
-    border-radius: 4px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
 
     strong {
+      color: Variables.$color-text-main;
       font-weight: 700;
     }
   }
 }
 
-.product-details__narrative-description {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: rgba(Variables.$color-text-main, 0.85);
-  margin: 0 0 2rem;
-}
-
-// ==========================================================================
-// 6. FINANCIAL PRICING MATRIX DESIGNS
-// ==========================================================================
-
+/* FINANCIAL PRICING SUMMARY GROUPS */
 .product-details__pricing-matrix {
-  background-color: Variables.$color-bg-light;
-  border-radius: 8px;
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 4px;
+  margin-top: 0.5rem;
+  width: 100%;
 }
 
 .product-details__price-row {
   display: flex;
   align-items: baseline;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
+  gap: 12px;
 
-.product-details__deal-price {
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: Variables.$color-text-main;
-  line-height: 1.1;
+  .product-details__deal-price {
+    font-size: 1.85rem;
+    font-weight: 850;
+    color: Variables.$color-text-main;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
 
-  @media (min-width: Variables.$breakpoint-md) {
-    font-size: 2rem;
+  .product-details__strike-price {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: Variables.$color-text-muted;
+    font-variant-numeric: tabular-nums;
   }
 }
 
-.product-details__strike-price {
-  font-size: 1.15rem;
-  color: Variables.$color-text-muted;
-}
-
 .product-details__savings-banner {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: Variables.$color-accent;
   margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #b45309;
+  background-color: #fef3c7;
+  padding: 4px 8px;
+  border-radius: 5px;
+  align-self: flex-start;
 }
 
-// ==========================================================================
-// 7. SECURITY TRUST BADGE STRIP
-// ==========================================================================
-
+/* ECO-SYSTEM SECURITY ASSURANCES BADGE STRIP */
 .product-details__safety-strip {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  background-color: Variables.$color-safety-bg;
-  color: Variables.$color-safety-text;
-  padding: 0.85rem 1.25rem;
-  border-radius: 6px;
-  margin-bottom: 2rem;
-  border: 1px solid rgba(Variables.$color-safety-text, 0.1);
+  gap: 10px;
+  background-color: #f0f7f4;
+  border: 1px solid rgba(104, 118, 75, 0.15);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 1.25rem 0;
+  width: 100%;
+  box-sizing: border-box;
 
   .product-details__safety-icon {
-    font-size: 1.4rem;
+    font-size: 1.45rem;
+    color: Variables.$color-primary;
     flex-shrink: 0;
   }
 
   .product-details__safety-text {
-    font-size: 0.9rem;
-    font-weight: 600;
     margin: 0;
+    font-size: 0.82rem;
     line-height: 1.4;
+    color: color.adjust(Variables.$color-primary, $lightness: -16%);
+    font-weight: 600;
   }
 }
 
-// ==========================================================================
-// 8. TRANSACTION BUTTON PANEL CONTROLS
-// ==========================================================================
-
+/* FIXED-SIZE ACTION BUTTON TRANSACTION CONSOLE LAYOUT */
 .product-details__action-row {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-
-  @media (min-width: 768px) {
-
-  display: flex;
-  flex-direction: row !important;
-  gap: 0.75rem;
-  }
-}
-
-.product-details__buy-now-btn,
-.product-details__wishlist-btn {
-  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  min-height: 52px;
-  box-sizing: border-box;
-  transition: Variables.$transition-default;
-  outline: none;
+  gap: 12px;
   width: 100%;
+  margin-top: 0.5rem;
+  box-sizing: border-box;
 
-  svg {
-    font-size: 1.15rem;
-  }
-}
-
-.product-details__buy-now-btn {
-  background-color: Variables.$color-primary;
-  border: 1px solid Variables.$color-primary;
-  color: Variables.$color-text-light;
-
-  &:hover {
-    background-color: Variables.$color-primary-light;
-    border-color: Variables.$color-primary-light;
+  /* Full-width responsive stack breakout overrides for small viewports */
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 10px;
+    
+    & > button { 
+      width: 100% !important; 
+      max-width: 100% !important;
+    }
   }
 
-  &:active {
-    transform: scale(0.98);
+  .product-details__buy-now-btn {
+    width:50%;
+    height: Variables.$touch-target-min; // Follows strict 48px tactile boundary guidelines
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: Variables.$color-primary;
+    color: Variables.$color-text-light;
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(Variables.$color-primary, 0.16);
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      background-color: color.adjust(Variables.$color-primary, $lightness: -6%);
+      box-shadow: 0 6px 20px rgba(Variables.$color-primary, 0.24);
+    }
+
+    &:active {
+      transform: scale(0.985);
+    }
   }
-}
 
-.product-details__wishlist-btn {
-  background-color: #ffffff;
-  border: 1px solid Variables.$color-border;
-  color: Variables.$color-text-main;
-
-  svg {
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), fill 0.2s ease;
-  }
-
-  &:hover {
-    border-color: Variables.$color-primary;
-    background-color: Variables.$color-bg-light;
-  }
-
-  // Active micro state changes when user favorites an listing
-  &--active {
-    color: Variables.$color-accent;
-    border-color: rgba(Variables.$color-accent, 0.2);
-    background-color: #fff1f2;
+  .product-details__wishlist-btn {
+    width: 50%;
+    height: Variables.$touch-target-min;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: Variables.$background;
+    border: 1px solid #cbd5e1;
+    color: #475569;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 
     svg {
-      fill: Variables.$color-accent;
-      transform: scale(1.08);
+      font-size: 1.15rem;
+      transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     &:hover {
-      background-color: #ffe4e6;
-      border-color: rgba(Variables.$color-accent, 0.3);
+      background-color: Variables.$color-bg-light;
+      color: #0f172a;
+      border-color: #94a3b8;
+    }
+
+    &--active {
+      background-color: #fff1f2;
+      border-color: #fecdd3;
+      color: #e11d48;
+
+      svg {
+        fill: #e11d48;
+        transform: scale(1.08);
+      }
+
+      &:hover {
+        background-color: #ffe4e6;
+        color: #be123c;
+        border-color: #fda4af;
+      }
     }
   }
-
-  &:active {
-    transform: scale(0.98);
-  }
 }
 
-// ==========================================================================
-// 9. BOTTOM COMPACT STATEMENTS VALUES TRUST BAR
-// ==========================================================================
-
+/* ==========================================================================
+   3.  DYNAMIC MARKETPLACE TRUST STATEMENTS VALUE BAR
+      ROW ON MOBILE SCREENS / COLUMN ON DESKTOPS
+   ========================================================================== */
 .product-details__trust-bar {
+  display: flex;
+  width: 100%;
+  margin: 3.5rem 0 2rem 0;
   border-top: 1px solid Variables.$color-border;
-  padding-top: 3rem;
-  margin-top: 1rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem 1.5rem;
+  padding-top: 2.5rem;
+  box-sizing: border-box;
 
-  @media (min-width: 576px) {
-    grid-template-columns: repeat(2, 1fr); // 2-columns grid alignment for tablets
-  }
 
-  @media (min-width: Variables.$breakpoint-lg) {
-    grid-template-columns: repeat(4, 1fr); // Seamless 4-columns baseline configuration for desktops
-  }
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 24px;
+  padding-left: 4px;
+padding-right: 4px;
+scroll-snap-type: x mandatory;
+-webkit-overflow-scrolling: touch;
+scrollbar-width: none; // Hides noisy desktop tracking bars on compact windows
+&::-webkit-scrollbar {
+display: none; // Completely flushes scroll ribbons layout on mobile screens
 }
-
 .product-details__trust-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-
-  .product-details__trust-icon {
-    font-size: 1.35rem;
-    color: Variables.$color-primary;
-    margin-top: 0.15rem;
-    flex-shrink: 0;
-  }
+scroll-snap-align: start;
+flex: 0 0 240px; // Prevents content squeezing by forcing items to look like independent grid blocks
+display: flex;
+align-items: flex-start;
+gap: 12px;
+text-align: left;
+box-sizing: border-box;
 }
 
+@include Variables.media-up(Variables.$breakpoint-lg) {
+display: grid;
+grid-template-columns: repeat(4, minmax(0, 1fr));
+gap: 24px;
+overflow-x: visible;
+scroll-snap-type: none;
+.product-details__trust-item {
+flex: none; // Resets fluid flex allocations
+width: auto;
+}
+}
+}
+.product-details__trust-icon {
+font-size: 1.35rem;
+color: Variables.$color-primary;
+margin-top: 2px;
+flex-shrink: 0;
+}
 .product-details__trust-text-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-
-  strong {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: Variables.$color-text-main;
-  }
-
-  span {
-    font-size: 0.85rem;
-    color: Variables.$color-text-muted;
-    line-height: 1.4;
-  }
+display: flex;
+flex-direction: column;
+gap: 2px;
+strong {
+font-size: 0.9rem;
+font-weight: 750;
+color: Variables.$color-text-main;
 }
-
-// ==========================================================================
-// 10. COMPACT SLIDER ELEMENT WRAPPERS INTERFACE FALLBACK LAYOUTS
-// ==========================================================================
-
-.product-details__featured-carousel {
-  margin-top: 4rem;
+span {
+font-size: 0.82rem;
+line-height: 1.4;
+color: Variables.$color-text-muted;
+}
+}
+/* ==========================================================================
+4. SLEEK EXCEPTION FAULT RUNTIME ERROR RIBBON
+========================================================================== */
+.product-details__error-state {
+display: flex;
+align-items: center;
+justify-content: center;
+min-height: 45vh;
+width: 100%;
+padding: 2rem 1rem;
+box-sizing: border-box;
+}
+.product-details__error-message {
+display: inline-flex;
+align-items: center;
+gap: 0.65rem;
+padding: 0.85rem 1.25rem;
+background-color: Variables.$color-error-bg;
+border: 1px solid rgba(Variables.$color-error, 0.14);
+border-radius: 12px;
+color: Variables.$color-error;
+font-family: Variables.$font-sans;
+font-size: 0.88rem;
+font-weight: 600;
+line-height: 1.45;
+text-align: left;
+max-width: 460px;
+box-shadow: 0 4px 12px rgba(Variables.$color-error, 0.03);
+box-sizing: border-box;
+animation: prodDetailsErrorPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+.product-details__error-icon {
+font-size: 1.15rem;
+flex-shrink: 0;
+color: color.adjust(Variables.$color-error, $lightness: -4%);
+}
+}
+/* ==========================================================================
+SYSTEM MOTION TIMING TRANSITIONS (KEYFRAMES)
+========================================================================== */
+@keyframes prodDetailsErrorPop {
+from { opacity: 0; transform: translateY(6px) scale(0.98); }
+to { opacity: 1; transform: translateY(0) scale(1); }
+}
+/* Accessibility Guidelines Reduced Motion Overrides */
+@media (prefers-reduced-motion: reduce) {
+.product-details__error-message,
+.product-details__thumb-trigger,
+.product-details__buy-now-btn {
+animation: none !important;
+transition: none !important;
+transform: none !important;
+}
 }

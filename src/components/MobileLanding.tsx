@@ -20,6 +20,7 @@ import Footer from "./Footer";
 import Loading from "./Loading";
 
 import defImage from '../assets/default.jpeg';
+import SEO from "./SEO";
 
 const MobileLanding = () => {
   const {data:topCategories=[],isLoading:isCategoriesLoading} = useGetTop6ProductCategoriesQuery()
@@ -49,7 +50,11 @@ const {data:listings=[]} = useGetLandingListingQuery()
     <main className="mobile-landing">
     
 
-
+      <SEO
+        title="Kupuj i sprzedawaj na Kasoa"
+        description="Odkrywaj wyjątkowe produkty na Kasoa.pl. Wystawiaj przedmioty na sprzedaż bez negocjacji i bez bezpośredniego kontaktu z kupującymi."
+        canonical="https://kasoa.pl/"
+      />
 
  <section className="mobile-hero">
         <div className="mobile-hero__content">

@@ -369,4 +369,104 @@
   color: #e11d48;
   background-color: #fff1f2;
   border-color: rgba(225, 29, 72, 0.2);
+}
+
+.panel-view {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.panel-view *,
+.panel-view *::before,
+.panel-view *::after {
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .panel-view {
+    width: 100%;
+    max-width: 100%;
+    padding: 1.25rem 0.75rem 2.5rem;
+  }
+  .panel-view__header {
+    margin-bottom: 1.25rem;
+  }
+  .panel-view__title {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    overflow-wrap: anywhere;
+  }
+  .panel-view__description {
+    overflow-wrap: anywhere;
+  }
+  .panel-view__tab-group {
+    width: 100%;
+    max-width: 100%;
+    gap: 0.25rem;
+    margin-bottom: 1.25rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .panel-view__tab-btn {
+    flex: 0 0 auto;
+    padding: 0.7rem 0.85rem;
+    white-space: nowrap;
+  }
+  .panel-view__toolbar {
+    width: 100%;
+    min-width: 0;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+  .panel-view__search-wrapper {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+  }
+  .panel-view__content-card {
+    width: 100%;
+    min-width: 0;
+    border-radius: 12px;
+  }
+  .panel-view__scroll-table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .panel-view__loading-overlay, .panel-view__empty-state {
+    padding: 2.5rem 1rem;
+  }
+  .data-table {
+    width: 100%;
+    min-width: 640px;
+  }
+  .data-table thead th,
+  .data-table td {
+    padding: 0.75rem 0.85rem;
+  }
+  .data-table__cell {
+    padding: 0.65rem 0.75rem;
+  }
+}
+@media (max-width: 480px) {
+  .panel-view {
+    padding: 1rem 0.5rem 2rem;
+  }
+  .panel-view__eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+  .panel-view__title {
+    font-size: 1.4rem;
+  }
+  .panel-view__tab-btn {
+    padding: 0.65rem 0.7rem;
+    font-size: 14px;
+  }
+  .panel-view__error-box {
+    padding: 0.8rem;
+    overflow-wrap: anywhere;
+  }
 }/*# sourceMappingURL=GenericViewLayout.css.map */

@@ -3,6 +3,7 @@ export type TWishLists ={
     image:string,
     inventoryStatus:string,
     productName:string,
+    productSlug:string
     listingId:number,
     sellerPrice:number,
     createAt:Date

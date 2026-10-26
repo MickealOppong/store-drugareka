@@ -1,53 +1,169 @@
-@use 'Variables.scss';
+@use "sass:color";
+@use "Variables.scss" as Variables;
 
-  .landing-footer {
-a{
-    text-decoration: none;
-}
-  @include Variables.container;
+/* ==========================================================================
+   MASTER LANDING PAGE FOOTER CORE CONTAINER (.landing-footer)
+   ========================================================================== */
+.landing-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 100%;
+  padding: 4rem 1.5rem 3rem;
+  background-color: Variables.$background;
   border-top: 1px solid Variables.$color-border;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-  @include Variables.media-up(Variables.$breakpoint-md) {
-    grid-template-columns: 1fr 2fr;
+  font-family: Variables.$font-sans;
+  box-sizing: border-box;
+
+  @include Variables.media-up(Variables.$breakpoint-lg) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 4rem;
+    padding: 5rem 2rem 4rem;
   }
+
+  /* =========================================================
+     🚀 NEW: SLEEK HIGH-FIDELITY BRAND LOGO STYLING (.brand)
+     ========================================================= */
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 850; // Premium ultra-bold retail typography weight
+    color: Variables.$color-primary; // 🌿 Rich Olive Green Primary Tone
+    text-decoration: none;
+    letter-spacing: -0.04em; // High-fashion compact letter kerning track
+    line-height: 1;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+    span {
+      font-weight: 400; // Elegant light font contrast for regional country codes
+      color: Variables.$color-text-muted;
+      margin-left: 1px;
+      transition: color 0.2s ease;
+    }
+
+    &:hover {
+      color: color.adjust(Variables.$color-primary, $lightness: -8%);
+      transform: translateY(-0.5px);
+
+      span {
+        color: Variables.$color-primary; // Dynamic color sync interaction switch
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+  }
+
+  /* =========================================================
+     BRAND DESK DESCRIPTION BLOCK (.landing-footer__brand)
+     ========================================================= */
   &__brand {
-    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    max-width: 320px;
+
     p {
-      margin-top: 1rem;
-      font-size: 0.95rem;
-      line-height: 1.5;
+      margin: 1rem 0 0 0;
+      font-size: 0.88rem;
+      line-height: 1.6;
       color: Variables.$color-text-muted;
     }
   }
+
+  /* =========================================================
+     NAVIGATION TILES LINKS CLUSTER (.landing-footer__links)
+     ========================================================= */
   &__links {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+
     @include Variables.media-up(Variables.$breakpoint-sm) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    h4 {
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin: 0 0 1.25rem;
+
+    @include Variables.media-up(Variables.$breakpoint-lg) {
+      max-width: 680px;
     }
-    div {
+
+    /* Sub-section Link Matrix Nodes Column Rows */
+    & > div {
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
       gap: 0.75rem;
-    }
-    a {
-      font-size: 0.95rem;
-      color: Variables.$color-text-muted;
-      &:hover {
+
+      h4 {
+        margin: 0 0 0.5rem 0;
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
         color: Variables.$color-text-main;
+        letter-spacing: 0.06em;
       }
+
+      a {
+        font-size: 0.88rem;
+        font-weight: 550;
+        color: Variables.$color-text-muted;
+        text-decoration: none;
+        position: relative;
+        padding: 2px 0;
+        transition: color 0.15s ease;
+
+        /* Interactive modern bottom border tracking underline accent bounce */
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 1.5px;
+          background-color: Variables.$color-primary;
+          transform: scaleX(0);
+          transform-origin: right;
+          transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        &:hover {
+          color: Variables.$color-primary;
+
+          &::after {
+            transform: scaleX(1);
+            transform-origin: left;
+          }
+        }
+
+        &:focus-visible {
+          outline: 2px solid Variables.$color-primary;
+          outline-offset: 2px;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+
+  /* Language Switcher Dropdown Alignment Adaptations Overlay */
+  .language-switcher,
+  & > .language-switcher-container {
+    align-self: flex-start;
+    margin-top: 1rem;
+
+    @include Variables.media-up(Variables.$breakpoint-lg) {
+      align-self: flex-end;
+      margin-top: 0;
     }
   }
 }

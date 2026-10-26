@@ -14,6 +14,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Loading, Pagination } from "../components";
 import { ErrorToast } from "../components/ErrorTaost";
 import MakeOfferodal from "../components/MakeOfferModal";
+import SEO from "../components/SEO";
 import "../css/Shop.css";
 import {
   useAddWishListMutation,
@@ -185,6 +186,12 @@ const Shop = () => {
 
   return (
     <main className="shop-page">
+
+            <SEO
+              title="Kupuj i sprzedawaj na Kasoa"
+              description="Odkrywaj wyjątkowe produkty na Kasoa.pl. Wystawiaj przedmioty na sprzedaż bez negocjacji i bez bezpośredniego kontaktu z kupującymi."
+              canonical="https://kasoa.pl/"
+            />
       {/* =====================================================
                 SHOP HEADER
             ====================================================== */}
@@ -336,7 +343,7 @@ const Shop = () => {
                   {/* IMAGE */}
                   <div className="shop-product-card__media">
                     <Link
-                      to={`/shop/listing/${product.listingId}`}
+                      to={`/shop/listing/${product.productSlug}`}
                       className="shop-product-card__image-link"
                     >
                       <img

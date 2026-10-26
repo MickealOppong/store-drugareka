@@ -358,3 +358,130 @@
     }
   }
 }
+
+// --------------------------------------------------
+// SMALL-SCREEN WIDTH OPTIMIZATION
+// Keep the desktop container unchanged while allowing
+// panels and tables to use more of the available mobile width.
+// --------------------------------------------------
+.panel-view {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.panel-view *,
+.panel-view *::before,
+.panel-view *::after {
+  box-sizing: border-box;
+}
+
+@media (max-width: Variables.$breakpoint-md) {
+  .panel-view {
+    // Override excess side padding from the shared container mixin.
+    width: 100%;
+    max-width: 100%;
+    padding: 1.25rem 0.75rem 2.5rem;
+
+    &__header {
+      margin-bottom: 1.25rem;
+    }
+
+    &__title {
+      font-size: clamp(1.5rem, 6vw, 2rem);
+      overflow-wrap: anywhere;
+    }
+
+    &__description {
+      overflow-wrap: anywhere;
+    }
+
+    &__tab-group {
+      width: 100%;
+      max-width: 100%;
+      gap: 0.25rem;
+      margin-bottom: 1.25rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    &__tab-btn {
+      flex: 0 0 auto;
+      padding: 0.7rem 0.85rem;
+      white-space: nowrap;
+    }
+
+    &__toolbar {
+      width: 100%;
+      min-width: 0;
+      gap: 0.75rem;
+      align-items: stretch;
+    }
+
+    &__search-wrapper {
+      width: 100%;
+      min-width: 0;
+      max-width: none;
+    }
+
+    &__content-card {
+      width: 100%;
+      min-width: 0;
+      border-radius: 12px;
+    }
+
+    &__scroll-table-container {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    &__loading-overlay,
+    &__empty-state {
+      padding: 2.5rem 1rem;
+    }
+  }
+
+  .data-table {
+    // Keep columns readable; scroll the table inside its container
+    // instead of allowing it to widen the entire page.
+    width: 100%;
+    min-width: 640px;
+
+    thead th,
+    td {
+      padding: 0.75rem 0.85rem;
+    }
+  }
+
+  .data-table__cell {
+    padding: 0.65rem 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .panel-view {
+    padding: 1rem 0.5rem 2rem;
+
+    &__eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+
+    &__title {
+      font-size: 1.4rem;
+    }
+
+    &__tab-btn {
+      padding: 0.65rem 0.7rem;
+      font-size: 14px;
+    }
+
+    &__error-box {
+      padding: 0.8rem;
+      overflow-wrap: anywhere;
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineSafety } from "react-icons/ai";
 import {
+  FiAlertCircle,
   FiArrowLeft,
   FiHeart,
   FiRefreshCw,
@@ -17,13 +18,14 @@ import {
   useAddWishListMutation,
   useGetWishListsQuery,
 } from "../features/api/itemApi";
-import { useGetListingQuery } from "../features/api/storeApi";
+import { useGetListingBySlugQuery } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
 import { formatPrice, sanitizeCategoryKey } from "../util/util";
 import Footer from "./Footer";
 import Loading from "./Loading";
 import MakeOfferModal from "./MakeOfferModal";
+import SEO from "./SEO";
 
 // Helper function to safely translate backend condition data strings to localized dictionary keys
 const getConditionSlug = (condition: string) => {
@@ -32,7 +34,7 @@ const getConditionSlug = (condition: string) => {
 };
 
 const ProductDetails = () => {
-  const { listingId } = useParams<string>();
+  const { slug } = useParams<string>();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -40,15 +42,17 @@ const ProductDetails = () => {
   const userId = useAppSelector((state) => state.userSlice.userId);
   const username = useAppSelector((state) => state.userSlice.email);
 
-    const[openModal,setOpenModal] = useState<boolean>(false)
-    const[modalData,setModalData] = useState<{name:string,id:number,currentPrice:number}|null>(null)
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [modalData, setModalData] = useState<{
+    name: string;
+    id: number;
+    currentPrice: number;
+  } | null>(null);
 
   const [addToWish] = useAddWishListMutation();
-  const { data: wishlist = []} = useGetWishListsQuery();
-  const wishlists = wishlist.map((item) => item.listingId);
-  const isWishlisted = wishlists.includes(Number(listingId));
-
-
+  const { data: wishlist = [] } = useGetWishListsQuery();
+  const wishlists = wishlist.map((item) => item.productSlug);
+  const isWishlisted = wishlists.includes(String(slug));
 
   // Local interface states for media interactions
   const [activeImageIdx, setActiveImageIdx] = useState<number>(0);
@@ -56,50 +60,49 @@ const ProductDetails = () => {
   /**
    * fetch product
    */
-  const { data: product, isLoading: productLoading } = useGetListingQuery(
-    parseInt(listingId as string),
-  );
-
-  
+  const { data: product, isLoading: productLoading } = useGetListingBySlugQuery(String(slug));
 
   const toggleWishlist = async (listingId: number) => {
     if (!username) return navigate("/login");
     await addToWish(listingId);
   };
 
-
   //handle modal state
-  const onModalButtonClick =()=>{
-    setOpenModal(false)
-  }
+  const onModalButtonClick = () => {
+    setOpenModal(false);
+  };
 
   //handle make offer click
-  const handleMakeOffer = (product:TListTrans)=>{
-   if (!username) return navigate("/login");
-    if(product){
-    setModalData({name:product.productName,id:product.listingId,currentPrice:product.newPrice})
-    setOpenModal(true)
+  const handleMakeOffer = (product: TListTrans) => {
+    if (!username) return navigate("/login");
+    if (product) {
+      setModalData({
+        name: product.productName,
+        id: product.listingId,
+        currentPrice: product.newPrice,
+      });
+      setOpenModal(true);
     }
-  
-  }
+  };
 
- 
-  
-
-  if ( productLoading) {
+  if (productLoading) {
     return <Loading />;
   }
 
   if (product) {
     // Dynamic values derivation layer
-    const savingsAmount =
-      product?.newPrice - product?.oldPrice
+    const savingsAmount = product?.newPrice - product?.oldPrice;
     const savingsPercent = Math.round(
       (savingsAmount / product?.oldPrice) * 100,
     );
 
     return (
       <section className="product-details">
+        <SEO
+          title={`${product.productName} – kup online`}
+          description={product.productDescription.slice(0, 155)}
+          canonical={`https://kasoa.pl/shop/listing/${product.productSlug}`}
+        />
         {/* 1. STRUCTURAL BREADCRUMB HEADER NAV */}
         <header className="product-details__nav-header">
           <button
@@ -110,7 +113,8 @@ const ProductDetails = () => {
             <FiArrowLeft /> {t("product_details.nav.back")}
           </button>
           <span className="product-details__category-crumb">
-            {t("product_details.nav.shop_crumb")} / {t(`categories.${sanitizeCategoryKey(product.category.name)}.name`)}
+            {t("product_details.nav.shop_crumb")} /{" "}
+            {t(`categories.${sanitizeCategoryKey(product.category.name)}.name`)}
           </span>
         </header>
 
@@ -210,15 +214,13 @@ const ProductDetails = () => {
                 <strong className="product-details__deal-price">
                   {formatPrice(product.newPrice)} zł
                 </strong>
-                {product.oldPrice >
-                  product.newPrice && (
+                {product.oldPrice > product.newPrice && (
                   <del className="product-details__strike-price">
                     {formatPrice(product.oldPrice)} zł
                   </del>
                 )}
               </div>
-              {product.newPrice >
-                product.oldPrice && (
+              {product.newPrice > product.oldPrice && (
                 <p className="product-details__savings-banner">
                   {t("product_details.pricing.savings", {
                     amount: formatPrice(savingsAmount),
@@ -313,10 +315,13 @@ const ProductDetails = () => {
       </section>
     );
   } else {
-    return (
-      <p className="product-details__error">
-        {t("product_details.error.generic")}
-      </p>
+ return (
+      <div className="product-details__error-state">
+        <div className="product-details__error-message" role="alert">
+          <FiAlertCircle className="product-details__error-icon" />
+          <span>{t("product_details.error.generic")}</span>
+        </div>
+      </div>
     );
   }
 };

@@ -20,6 +20,7 @@ import heroSmall from './../assets/hero-small.png';
 import CookieBanner from "./CookieBanner";
 import Footer from "./Footer";
 import Loading from "./Loading";
+import SEO from "./SEO";
 
 export default function DesktopLanding() {
 const {data:topCategories=[],isLoading} = useGetTop6ProductCategoriesQuery()
@@ -51,6 +52,11 @@ if(isLoading){
     
   return (
     <main className="landing-page">
+         <SEO
+        title="Kupuj i sprzedawaj na Kasoa"
+        description="Odkrywaj wyjątkowe produkty na Kasoa.pl. Wystawiaj przedmioty na sprzedaż bez negocjacji i bez bezpośredniego kontaktu z kupującymi."
+        canonical="https://kasoa.pl/"
+      />
       <div className="landing-center">
               
 

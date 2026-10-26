@@ -85,7 +85,7 @@ function App() {
           element: <Sell />,
         },
         {
-          path: "shop/listing/:listingId",
+          path: "shop/listing/:slug",
           element: <ProductDetails />,
         },
         {

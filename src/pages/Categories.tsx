@@ -12,6 +12,7 @@ import { Link, useNavigate, useSearchParams } from "react-router";
 import { Loading } from "../components";
 import CategoryTree from "../components/CategoryTree";
 import MakeOfferModal from "../components/MakeOfferModal";
+import SEO from "../components/SEO";
 import "../css/Categories.scss";
 import {
   useAddWishListMutation,
@@ -30,6 +31,89 @@ import {
   sanitizeBackendKey,
   sanitizeCategoryKey,
 } from "../util/util";
+
+const PRODUCT_SEARCH_SYNONYMS: Record<string, string[]> = {
+  shoes: ["buty", "obuwie"],
+  phone: ["telefon", "smartfon"],
+  laptop: ["komputer", "komputer przenośny"],
+  table: ["stół", "stolik"],
+  chair: ["krzesło", "fotel"],
+  bag: ["torba", "torebka"],
+  watch: ["zegarek"],
+  book: ["książka"],
+  headphones: ["słuchawki"],
+  camera: ["aparat", "kamera"],
+  new: ["nowy", "nowa", "nowe", "nowy produkt"],
+  used: ["używany", "używana", "używane"],
+  "like new": ["jak nowy", "jak nowa", "jak nowe"],
+  "very good": ["bardzo dobry", "bardzo dobra", "bardzo dobre"],
+  good: ["dobry", "dobra", "dobre"],
+};
+
+const normalizeProductSearch = (value: string): string =>
+  value
+    .toLocaleLowerCase("pl")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+
+const getProductSearchTerms = (query: string): string[] => {
+  const normalizedQuery = normalizeProductSearch(query);
+  const terms = [normalizedQuery];
+
+  for (const [english, polishTerms] of Object.entries(PRODUCT_SEARCH_SYNONYMS)) {
+    const normalizedEnglish = normalizeProductSearch(english);
+    const normalizedPolishTerms = polishTerms.map(normalizeProductSearch);
+
+    if (normalizedEnglish === normalizedQuery) {
+      terms.push(...normalizedPolishTerms);
+    }
+
+    if (normalizedPolishTerms.includes(normalizedQuery)) {
+      terms.push(normalizedEnglish, ...normalizedPolishTerms);
+    }
+  }
+
+  return [...new Set(terms.filter(Boolean))];
+};
+
+const matchesProductSearch = (product: TListTrans, query: string): boolean => {
+  const trimmedQuery = query.trim();
+  if (!trimmedQuery) return true;
+
+  const searchTerms = getProductSearchTerms(trimmedQuery);
+  const searchableText = normalizeProductSearch(
+    [
+      product.productName,
+      product.brand,
+      product.productCondition,
+      product.productDescription,
+      product.category?.name,
+      product.sku,
+      product.model,
+    ]
+      .filter(Boolean)
+      .join(" "),
+  );
+
+  const matchesText = searchTerms.some((term) => searchableText.includes(term));
+
+  // Support exact numeric price searches such as "100", "100 zł", and "100,50".
+  const normalizedPriceQuery = normalizeProductSearch(trimmedQuery)
+    .replace(/\s*z[lł]\s*/g, "")
+    .replace(",", ".");
+  const priceQuery = /^\d+(\.\d{1,2})?$/.test(normalizedPriceQuery)
+    ? Number(normalizedPriceQuery)
+    : null;
+
+  const matchesPrice =
+    priceQuery !== null &&
+    [product.newPrice, product.oldPrice, product.minPrice].some(
+      (price) => Number.isFinite(Number(price)) && Number(price) === priceQuery,
+    );
+
+  return matchesText || matchesPrice;
+};
 
 export const Categories: React.FC = () => {
   const { t } = useTranslation();
@@ -53,6 +137,7 @@ export const Categories: React.FC = () => {
   } | null>(null);
 
   const [selectedSubCat, setSelectedSubCat] = useState<number | null>(null);
+  const [conditionSearch, setConditionSearch] = useState("");
 
   const {
     data: catalogTree = [],
@@ -92,6 +177,12 @@ export const Categories: React.FC = () => {
   );
 
   const products = data?.listings || [];
+  const isCategorySelected = selectedCategory !== "all";
+
+  // Frontend-only search across product name, condition, brand, description and price.
+  const filteredProducts = products.filter((product) =>
+    matchesProductSearch(product, conditionSearch),
+  );
 
   const handleClearFilters = () => {
     setSelectedSubCat(null);
@@ -105,7 +196,9 @@ export const Categories: React.FC = () => {
   const findCategory = () => {
     if (!selectedCategory) return null;
 
-    const searchTarget = selectedCategory.toLowerCase();
+    const searchTarget = selectedCategory.substring(0,selectedCategory.lastIndexOf('_'));
+    console.log(searchTarget);
+    
 
     // Recursive worker helper
     const searchBranches = (nodes: any[]): any | null => {
@@ -131,6 +224,7 @@ export const Categories: React.FC = () => {
   const extractCategoryPath = (path: string) => {
     if (!path) return { parent: null, child: null };
 
+    
     // Remove leading/trailing slashes and filter out blank segments
     const segments = path.split("/").filter(Boolean);
 
@@ -188,7 +282,28 @@ export const Categories: React.FC = () => {
     );
   }
 
+
+    
   return (
+   <>
+<SEO
+  title={
+    parent
+      ? `${t(`categories.${parent}.name`)} na sprzedaż | Kasoa.pl`
+      : "Wszystkie produkty na sprzedaż | Kasoa.pl"
+  }
+  description={
+    parent
+      ? `Przeglądaj ${t(
+          `categories.${parent}.name`)} na Kasoa.pl. Odkrywaj oferty, porównuj ceny i znajdź produkty dopasowane do swoich potrzeb.`
+      : "Przeglądaj produkty na Kasoa.pl. Odkrywaj oferty z różnych kategorii i znajdź produkty dopasowane do swoich potrzeb."
+  }
+  canonical={
+    category
+      ? `https://kasoa.pl/shop/categories?category=${encodeURIComponent(selectedCategory)}`
+      : "https://kasoa.pl/shop/categories"
+  }
+/>
     <section className="catalog-page">
       <div className="catalog-browser">
         {/* SIDEBAR NAVIGATION */}
@@ -245,9 +360,10 @@ export const Categories: React.FC = () => {
             </div>
           </section>
           <header className="catalog-browser__feed-header">
+        
             <h1 className="catalog-browser__feed-title">
               {parent
-                ? t(`categories.${sanitizeCategoryKey(parent as string)}.name`)
+                ? t(`categories.${parent as string}.name`)
                 : t("categories.feed.all_listing", {
                     defaultValue: "All Available Listings",
                   })}
@@ -255,7 +371,7 @@ export const Categories: React.FC = () => {
             <h4>
               {child &&
                 t(
-                  `categories.${sanitizeCategoryKey(parent as string)}.subcategories.${sanitizeCategoryKey(child as string)}`,
+                  `categories.${parent as string}.subcategories.${child as string}`,
                 )}
             </h4>
 
@@ -263,6 +379,46 @@ export const Categories: React.FC = () => {
               {selectedSubCat ? t("") : ""}
             </h4>
           </header>
+
+          {isCategorySelected && !isProductsLoading && products.length > 0 && (
+            <div className="catalog-condition-search">
+              <label
+                className="catalog-condition-search__label"
+                htmlFor="catalog-condition-search-input"
+              >
+                {t("categories.condition_search.label", {
+                  defaultValue: "Search products by name, price or condition",
+                })}
+              </label>
+              <div className="catalog-condition-search__control">
+                <FiSearch aria-hidden="true" />
+                <input
+                  id="catalog-condition-search-input"
+                  type="search"
+                  value={conditionSearch}
+                  onChange={(event) => setConditionSearch(event.target.value)}
+                  placeholder={t("categories.condition_search.placeholder", {
+                    defaultValue: "e.g. New, Like new, Good",
+                  })}
+                  aria-label={t("categories.condition_search.label", {
+                    defaultValue: "Search products by name, price or condition",
+                  })}
+                />
+                {conditionSearch && (
+                  <button
+                    type="button"
+                    className="catalog-condition-search__clear"
+                    onClick={() => setConditionSearch("")}
+                    aria-label={t("categories.condition_search.clear", {
+                      defaultValue: "Clear search",
+                    })}
+                  >
+                    <FiX />
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
 
           {isProductsLoading ? (
             <Loading />
@@ -302,8 +458,32 @@ export const Categories: React.FC = () => {
             </div>
           ) : (
             /* PRODUCT GRID */
+            filteredProducts.length === 0 ? (
+              <div className="catalog-browser__empty-feed">
+                <div className="catalog-browser__empty-icon-box">
+                  <FiSearch />
+                </div>
+                <h3 className="catalog-browser__empty-title">
+                  {t("categories.condition_search.no_results", {
+                    defaultValue: "No products match your search.",
+                  })}
+                </h3>
+                <button
+                  type="button"
+                  className="catalog-browser__empty-reset-btn"
+                  onClick={() => setConditionSearch("")}
+                >
+                  <FiX />
+                  <span>
+                    {t("categories.condition_search.clear", {
+                      defaultValue: "Clear search",
+                    })}
+                  </span>
+                </button>
+              </div>
+            ) : (
             <div className="category-page__products">
-              {products.map((product) => {
+              {filteredProducts.map((product) => {
                 const isWishlisted = wishlists.includes(product.listingId);
                 const oldPrice = product.oldPrice;
                 const newPrice = product.newPrice;
@@ -327,7 +507,7 @@ export const Categories: React.FC = () => {
             ========================================================================== */}
                     <div className="category-product-card__media">
                       <Link
-                        to={`/shop/listing/${product.listingId}`}
+                        to={`/shop/listing/${product.productSlug}`}
                         className="category-product-card__image-link"
                       >
                         <img
@@ -447,10 +627,12 @@ export const Categories: React.FC = () => {
                 );
               })}
             </div>
+            )
           )}
         </div>
       </div>
     </section>
+   </>
   );
 };
 

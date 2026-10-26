@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router-dom";
 
 import Footer from "../components/Footer";
+import SEO from "../components/SEO";
 import "../css/Sell.css";
 import { useAppSelector } from "../store";
 
@@ -25,6 +26,11 @@ const Sell = () => {
 
   return (
  <main>
+        <SEO
+          title="Sprzedaj z nami na Kasoa"
+          description="Odkrywaj wyjątkowe produkty na Kasoa.pl. Wystawiaj przedmioty na sprzedaż bez negocjacji i bez bezpośredniego kontaktu z kupującymi."
+          canonical="https://kasoa.pl/"
+        />
     <section className="sl-view">
 
       {/* =====================================================
