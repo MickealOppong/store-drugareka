@@ -85,7 +85,7 @@ const CategoryTree = () => {
         className="category-tree__message category-tree__message--error"
         role="alert"
       >
-        {t("catalog.feed.error", {
+        {t("catalog-browser.feed.error", {
           defaultValue: "Unable to load categories.",
         })}
       </div>
@@ -95,7 +95,7 @@ const CategoryTree = () => {
   if (!categories.length) {
     return (
       <div className="category-tree__message">
-        {t("catalog.feed.no_categories", {
+        {t("catalog-browser.feed.no_categories", {
           defaultValue: "No categories available.",
         })}
       </div>
