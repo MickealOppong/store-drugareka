@@ -469,4 +469,7 @@
     padding: 0.8rem;
     overflow-wrap: anywhere;
   }
+}
+.message--error {
+  color: rebeccapurple;
 }/*# sourceMappingURL=GenericViewLayout.css.map */

@@ -112,7 +112,7 @@ const {data:sellingActivity=[]} = useGetRecentSellerActivityQuery()
         </Link>
 
         
-          <Link to="/account/listings" className="db-stat-card">
+          <Link to="/account/listings/me" className="db-stat-card">
             <div className="db-stat-card__icon">
               <FiPackage />
             </div>

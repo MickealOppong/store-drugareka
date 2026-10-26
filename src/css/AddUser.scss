@@ -1,0 +1,324 @@
+@use "sass:color";
+@use "Variables.scss" as Variables;
+
+/* ==========================================================================
+   MASTER ADMIN ADD-USER PANEL MODULE WRAPPER (.add-category)
+   ========================================================================== */
+.add-category {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+  font-family: Variables.$font-sans;
+
+  @include Variables.media-up(Variables.$breakpoint-sm) {
+    gap: 2rem;
+    padding: 24px;
+  }
+
+  /* =========================================================
+     ADMIN CONSOLE DASHBOARD VIEW HEADERS
+     ========================================================= */
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    border-bottom: 1px solid Variables.$color-border;
+    padding-bottom: 1.25rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: Variables.$color-primary; // 🌿 Organic Olive Green Token
+    letter-spacing: 0.08em;
+    margin-bottom: 0.35rem;
+  }
+
+  &__title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: Variables.$color-text-main;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      font-size: 1.75rem;
+    }
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: Variables.$color-text-muted;
+  }
+
+  /* =========================================================
+     CONTENT CORE DATA GROUPS SHELL WRAPPERS
+     ========================================================= */
+  &__content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__form-card {
+    background-color: Variables.$background;
+    border: 1px solid Variables.$color-border;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.01);
+    box-sizing: border-box;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      padding: 2rem;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100%;
+    margin: 0;
+  }
+
+  /* =========================================================
+     🚀 SMALL SCREENS BREAKOUT: DUAL-COLUMN FLEX INTERFACE ROWS
+     ========================================================= */
+  &__row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100%;
+    box-sizing: border-box;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      flex-direction: row;
+      align-items: flex-start;
+
+      & > div {
+        flex: 1;
+        min-width: 0; // Guard anchor layer prevents text overflows from snapping containers
+      }
+    }
+  }
+
+  /* =========================================================
+     INPUT FIELD CONTAINER WRAPPERS & GEOMETRIES
+     ========================================================= */
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+  }
+
+  &__label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: Variables.$color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  &__input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: Variables.$color-text-main;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    appearance: none; // Strips default browser arrow micro-sliders on native selects
+
+    /* Custom drop down arrow indicator overlay element layer for html select boxes */
+    option {
+      color: Variables.$color-text-main;
+      font-weight: 500;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: Variables.$color-primary;
+      box-shadow: 0 0 0 3px rgba(Variables.$color-primary, 0.12);
+    }
+
+    &:disabled {
+      background-color: #f8fafc;
+      color: #94a3b8;
+      cursor: not-allowed;
+    }
+  }
+
+  &__hint {
+    font-size: 0.78rem;
+    color: Variables.$color-text-muted;
+    font-weight: 500;
+    padding-left: 2px;
+  }
+
+  /* =========================================================
+     COMPACT CHECKBOX SWITCH MODULES
+     ========================================================= */
+  &__checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    align-self: flex-start;
+    cursor: pointer;
+    user-select: none;
+    margin: 0.25rem 0;
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: Variables.$color-primary;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    span {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: Variables.$color-text-main;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+  }
+
+  /* =========================================================
+     RUNTIME VALIDATION SYSTEM ALERT MESSAGES BANNERS
+     ========================================================= */
+  &__message {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.45;
+    text-align: left;
+    white-space: pre-line; // Renders backend newline string configurations safely
+    box-sizing: border-box;
+    animation: adminAlertPopIn 0.2s ease-out;
+
+    &--error {
+      background-color: Variables.$color-error-bg;
+      border: 1px solid rgba(Variables.$color-error, 0.12);
+      color: Variables.$color-error;
+    }
+
+    &--success {
+      background-color: #f0fdf4;
+      border: 1px solid rgba(22, 163, 74, 0.12);
+      color: #166534;
+    }
+  }
+
+  /* =========================================================
+     TACTILE LAYOUT FORMS ACTIONS COMPONENT BUTTON FOOTERS
+     ========================================================= */
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    border-top: 1px solid Variables.$color-border;
+    padding-top: 1.25rem;
+    margin-top: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+
+    /* Stack buttons vertically to fill row bounds nicely on small mobile screens */
+    @media (max-width: 480px) {
+      flex-direction: column-reverse;
+      gap: 10px;
+
+      button {
+        width: 100% !important;
+      }
+    }
+  }
+
+  &__cancel,
+  &__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: Variables.$touch-target-min; // Follows standard 48px tactile boundary guidelines
+    padding: 0 1.5rem;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &__cancel {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+
+    &:hover:not(:disabled) {
+      background-color: #f1f5f9;
+      color: #0f172a;
+    }
+  }
+
+  &__submit {
+    background-color: Variables.$color-primary;
+    border: none;
+    color: Variables.$color-text-light;
+    box-shadow: 0 4px 12px rgba(Variables.$color-primary, 0.15);
+
+    &:hover:not(:disabled) {
+      background-color: color.adjust(Variables.$color-primary, $lightness: -6%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(Variables.$color-primary, 0.25);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  }
+}
+
+/* INTERACTIVE ENTRY MICRO-MOTION TIMING KEYS */
+@keyframes adminAlertPopIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .add-category__message {
+    animation: none !important;
+  }
+  .add-category__submit {
+    transition: none !important;
+    &:active { transform: none !important; }
+  }
+}

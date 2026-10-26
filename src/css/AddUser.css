@@ -1,0 +1,320 @@
+@charset "UTF-8";
+/* ==========================================================================
+   MASTER ADMIN ADD-USER PANEL MODULE WRAPPER (.add-category)
+   ========================================================================== */
+.add-category {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+@media (min-width: 640px) {
+  .add-category {
+    gap: 2rem;
+    padding: 24px;
+  }
+}
+.add-category {
+  /* =========================================================
+     ADMIN CONSOLE DASHBOARD VIEW HEADERS
+     ========================================================= */
+}
+.add-category__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 1.25rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+.add-category__eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #66704A;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+}
+.add-category__title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+@media (min-width: 640px) {
+  .add-category__title {
+    font-size: 1.75rem;
+  }
+}
+.add-category__description {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #666666;
+}
+.add-category {
+  /* =========================================================
+     CONTENT CORE DATA GROUPS SHELL WRAPPERS
+     ========================================================= */
+}
+.add-category__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+.add-category__form-card {
+  background-color: #FFFFFF;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.01);
+  box-sizing: border-box;
+}
+@media (min-width: 640px) {
+  .add-category__form-card {
+    padding: 2rem;
+  }
+}
+.add-category__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  margin: 0;
+}
+.add-category {
+  /* =========================================================
+     🚀 SMALL SCREENS BREAKOUT: DUAL-COLUMN FLEX INTERFACE ROWS
+     ========================================================= */
+}
+.add-category__row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+@media (min-width: 640px) {
+  .add-category__row {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .add-category__row > div {
+    flex: 1;
+    min-width: 0;
+  }
+}
+.add-category {
+  /* =========================================================
+     INPUT FIELD CONTAINER WRAPPERS & GEOMETRIES
+     ========================================================= */
+}
+.add-category__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+.add-category__label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.add-category__input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #111111;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  /* Custom drop down arrow indicator overlay element layer for html select boxes */
+}
+.add-category__input option {
+  color: #111111;
+  font-weight: 500;
+}
+.add-category__input:focus {
+  outline: none;
+  border-color: #66704A;
+  box-shadow: 0 0 0 3px rgba(102, 112, 74, 0.12);
+}
+.add-category__input:disabled {
+  background-color: #f8fafc;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+.add-category__hint {
+  font-size: 0.78rem;
+  color: #666666;
+  font-weight: 500;
+  padding-left: 2px;
+}
+.add-category {
+  /* =========================================================
+     COMPACT CHECKBOX SWITCH MODULES
+     ========================================================= */
+}
+.add-category__checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  align-self: flex-start;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  margin: 0.25rem 0;
+}
+.add-category__checkbox input[type=checkbox] {
+  width: 18px;
+  height: 18px;
+  accent-color: #66704A;
+  cursor: pointer;
+  margin: 0;
+}
+.add-category__checkbox span {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #111111;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.add-category {
+  /* =========================================================
+     RUNTIME VALIDATION SYSTEM ALERT MESSAGES BANNERS
+     ========================================================= */
+}
+.add-category__message {
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: left;
+  white-space: pre-line;
+  box-sizing: border-box;
+  animation: adminAlertPopIn 0.2s ease-out;
+}
+.add-category__message--error {
+  background-color: #FDF2F2;
+  border: 1px solid rgba(194, 75, 75, 0.12);
+  color: #C24B4B;
+}
+.add-category__message--success {
+  background-color: #f0fdf4;
+  border: 1px solid rgba(22, 163, 74, 0.12);
+  color: #166534;
+}
+.add-category {
+  /* =========================================================
+     TACTILE LAYOUT FORMS ACTIONS COMPONENT BUTTON FOOTERS
+     ========================================================= */
+}
+.add-category__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 1.25rem;
+  margin-top: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  /* Stack buttons vertically to fill row bounds nicely on small mobile screens */
+}
+@media (max-width: 480px) {
+  .add-category__actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+  .add-category__actions button {
+    width: 100% !important;
+  }
+}
+.add-category__cancel, .add-category__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 1.5rem;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.add-category__cancel {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+.add-category__cancel:hover:not(:disabled) {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+.add-category__submit {
+  background-color: #66704A;
+  border: none;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(102, 112, 74, 0.15);
+}
+.add-category__submit:hover:not(:disabled) {
+  background-color: rgb(85.2193548387, 93.5741935484, 61.8258064516);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(102, 112, 74, 0.25);
+}
+.add-category__submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+.add-category__submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* INTERACTIVE ENTRY MICRO-MOTION TIMING KEYS */
+@keyframes adminAlertPopIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .add-category__message {
+    animation: none !important;
+  }
+  .add-category__submit {
+    transition: none !important;
+  }
+  .add-category__submit:active {
+    transform: none !important;
+  }
+}/*# sourceMappingURL=AddUser.css.map */

@@ -4,7 +4,6 @@ import type { TListPageUsers } from "../../types/TListPageUsers";
 import type { TResponseDto } from "../../types/TResponseDto";
 import type { TListShipmentPage } from "../../types/TShipment";
 import type { TUserDto } from "../../types/TUserDto";
-import type { TUserUpdateRequest } from "../../types/TUserUpdatRequest";
 import { CookieService } from "../../util/util";
 import { baseUrl } from "./baseUrl";
 
@@ -69,7 +68,7 @@ export const userApi = createApi({
       }),
       providesTags: ["users"],
     }),
-    newUser: build.mutation<TResponseDto, TUserUpdateRequest>({
+    newUser: build.mutation<void, FormData>({
       query: (body) => ({
         url: `/api/users/new`,
         method: "POST",
@@ -158,5 +157,5 @@ export const {
   useLazyGetStripeUpdateQuery,
   useStripeConnectMutation,
   useGetAllUsersQuery,
-  useLazyStripeConnectDashboardQuery
+  useLazyStripeConnectDashboardQuery,
 } = userApi;

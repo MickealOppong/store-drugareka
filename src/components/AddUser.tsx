@@ -1,24 +1,24 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import { useNavigate } from "react-router";
-import "../css/General.css";
-import { useLazyAllRolesQuery, useNewUserMutation } from "../features/api/userApi";
-import type { TUserUpdateRequest } from "../types/TUserUpdatRequest";
+import "../css/AddUser.css";
+import {
+  useLazyAllRolesQuery,
+  useNewUserMutation,
+} from "../features/api/userApi";
 
 const AddUser = () => {
   const [active, setActive] = useState<boolean>(false);
   const [firstName, setFirstName] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
   const [role, setRole] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const[roles,setRoles] = useState<string[]>([])
+  const [roles, setRoles] = useState<string[]>([]);
   const navigate = useNavigate();
 
-
-  const [saving, ] = useState(false);
+  const [saving] = useState(false);
   const [error, setError] = useState("");
-  const [success, ] = useState("");
+  const [success] = useState("");
 
   //crud hooks
   const [createUser] = useNewUserMutation();
@@ -26,94 +26,82 @@ const AddUser = () => {
 
   const handleFormSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const dto: TUserUpdateRequest = {
-        firstName,
-        lastName,
-        email,
-        role,
-        isTermsAccepted: active,
-        dob: dateOfBirth as Date,
-        password,
-    };
-
-    console.log(dto);
+    const dataToSend = new FormData();
+    dataToSend.append("firstName", firstName);
+    dataToSend.append("lastName", lastName);
+    dataToSend.append("role", role);
+    dataToSend.append("email", email);
+    dataToSend.append("active", active ? "1" : "0");
+    dataToSend.append(
+      "dob",
+      dateOfBirth ? dateOfBirth.toISOString().split("T")[0] : "",
+    );
 
     try {
-      const response = await createUser(dto);
-
-      console.log(response);
-
-      if (response.data) {
-        const { httpStatus, message } = response.data as {
-          message: string;
-          httpStatus: number;
-        };
-        if (httpStatus === 400) {
-          setError(message);
-        }
-        if (httpStatus === 403) {
-          setError(message);
-        }
-        if (httpStatus === 200) {
-          navigate("/account/admin/users");
-        }
-      }
+      const response = await createUser(dataToSend);
+      
 
       if (response.error) {
-        const { data } = response?.error as {
-          data: {
-            error: {
-              name: string;
-              password: string;
+        const { data, status } = response.error as {
+          status: number;
+          data: {message:any}
+        
+        };
+        if (status === 403) {
+          const { firstName, lastName, email, role } = data.message as {
               firstName: string;
               lastName: string;
-              dob: string;
-              role:string;
-              isTermsAccepted:string;
+              role: string;
+              email: string;
             };
-          };
-          message: string;
-          status: number;
-        };
-        const { isTermsAccepted, password, lastName, firstName, dob ,role} = data.error;
-      setError(`${firstName ? firstName : ''}\n ${lastName ? lastName : ''}\n ${dob ? dob : ''}\n ${password ? password : ''}
-        \n ${isTermsAccepted ? isTermsAccepted : ''}\n ${role?role:''}`);
+          
 
+          setError(
+            `${firstName ? firstName : ""}\n ${lastName ? lastName : ""}\n ${role ? role : ""} \n${email ? email : ""}`,
+          );
+            return
+        }
+        if(status==409){
+          const message =data.message as string
+            setError(message)
+            return
+        }
+        else{
+            setError("Something went wrong")
+            return
+        }
       }
+         navigate("/account/admin/users");
     } catch (error: any) {
       console.log(error);
     }
   };
 
-
   /***
    * * fetch roles
    */
 
-  async function fetchRoles(){
+  async function fetchRoles() {
     const response = await getRoles();
-    console.log(response);
-    
-    setRoles(response.data as string[])
+
+    setRoles(response.data as string[]);
   }
 
-  useEffect(()=>{
-fetchRoles()
-  },[])
+  useEffect(() => {
+    fetchRoles();
+  }, []);
 
   const resetFields = () => {
     setFirstName("");
     setLastName("");
+    setEmail("")
+    setError("")
   };
 
+  const handleSelectChange = (input: string) => {
+    setRole(input);
+  };
 
-  const handleSelectChange = (input:string)=>{
-    setRole(input)
-  }
-
-
-  
   return (
     <main className="add-category">
       {/* =====================================================
@@ -242,14 +230,29 @@ fetchRoles()
                   Role
                 </label>
 
-                <select name="role" id="role"  className="add-category__input" defaultValue={''} onChange={(e)=>handleSelectChange(e.target.value)}>
-                     <option value="" disabled >choose role</option>
-                    {
-                        roles?.map((item)=>{
-                           
-                            return <option key={item} value={item}>{item}</option>
-                        })
-                    }
+                <select
+                  name="role"
+                  id="role"
+                  className="add-category__input"
+                  defaultValue={""}
+                  onChange={(e) => handleSelectChange(e.target.value)}
+                >
+                  <option
+                    value=""
+                    disabled
+                  >
+                    choose role
+                  </option>
+                  {roles?.map((item) => {
+                    return (
+                      <option
+                        key={item}
+                        value={item}
+                      >
+                        {item}
+                      </option>
+                    );
+                  })}
                 </select>
 
                 <span className="add-category__hint">Enter user role</span>
@@ -285,34 +288,6 @@ fetchRoles()
 
               <span className="add-category__hint">
                 Enter user Date of birth
-              </span>
-            </div>
-
-            {/* =================================================
-                        PASSWORD
-                        ================================================== */}
-            <div className="add-category__field">
-              <label
-                htmlFor="category-name"
-                className="add-category__label"
-              >
-                Password
-              </label>
-
-              <input
-                id="category-name"
-                name="password"
-                type="password"
-                value={password}
-                placeholder="e.g. user"
-                className="add-category__input"
-                maxLength={100}
-                disabled={saving}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-
-              <span className="add-category__hint">
-                Enter user default password
               </span>
             </div>
 
