@@ -12,6 +12,7 @@ import {
   FiTruck
 } from "react-icons/fi";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import defImage from '../assets/default.jpeg';
 import "../css/ProductDetails.css";
 
 import {
@@ -387,7 +388,7 @@ const ProductDetails = () => {
                         className="product-card"
                       >
                      <div className="product-card__media">
-                      <img src={product?.media[0]?.image } alt={product.productName}   />
+                      <img src={product?.media[0].image? product?.media[0].image :defImage } alt={product.productName}   />
                   
                         </div>
         
