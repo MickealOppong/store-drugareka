@@ -14,7 +14,7 @@ export const useAddToCart = () => {
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const addItemToCart = async (listingId: number,offer?:number): Promise<boolean> => {
+  const addItemToCart = async (listingId: number): Promise<boolean> => {
     setError(""); 
     setIsLoading(true);
 
