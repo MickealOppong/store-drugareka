@@ -186,16 +186,22 @@ const TermsAndConditions: React.FC = () => {
 
           <p className="terms-page__text">
             KASAWA nie jest właścicielem Towarów oferowanych przez
-            Sprzedających i nie występuje jako sprzedawca tych Towarów.
-            KASAWA działa jako pośrednik organizujący i obsługujący proces
-            transakcji, w szczególności zapewniając infrastrukturę Serwisu,
-            obsługę płatności oraz organizację procesu dostawy.
+            Sprzedających i, o ile przy konkretnej Ofercie wyraźnie nie
+            wskazano inaczej, nie występuje jako sprzedawca tych Towarów.
+            Umowa sprzedaży jest zawierana pomiędzy Sprzedającym a Kupującym.
+            KASAWA świadczy usługi marketplace, w tym udostępnia Serwis,
+            koordynuje obsługę transakcji i dostawy oraz przekazuje informacje
+            niezbędne do realizacji płatności za pośrednictwem zewnętrznego
+            dostawcy usług płatniczych.
           </p>
 
           <p className="terms-page__text">
-            KASAWA może przyjmować płatność od Kupującego i następnie
-            rozliczać należność ze Sprzedającym zgodnie z zasadami
-            obowiązującymi w Serwisie.
+            Płatności i transfery związane z transakcjami są obsługiwane
+            za pośrednictwem Stripe i właściwego rozwiązania Stripe Connect,
+            zgodnie z umowami zawartymi z Stripe. KASAWA nie przyjmuje środków
+            na własny rachunek bankowy wyłącznie z tego powodu, że organizuje
+            transakcję w Serwisie. Rzeczywisty przepływ środków zależy od
+            konfiguracji Stripe Connect zastosowanej dla danej transakcji.
           </p>
 
           <p className="terms-page__text">
@@ -279,31 +285,95 @@ const TermsAndConditions: React.FC = () => {
           </h2>
 
           <p className="terms-page__text">
-            Obsługę płatności elektronicznych w Serwisie realizuje
-            <strong>
-              {' '}PayU S.A. z siedzibą w Poznaniu przy ul. Grunwaldzkiej 186,
-              60-166 Poznań, wpisana do Rejestru Przedsiębiorców Krajowego
-              Rejestru Sądowego pod numerem KRS 0000274399
-            </strong>.
+            Obsługę płatności elektronicznych zapewnia Stripe, w tym
+            odpowiednie usługi Stripe Connect, zgodnie z warunkami Stripe
+            mającymi zastosowanie do Kupującego, Sprzedającego i Operatora.
+            W zależności od dostępnej metody płatności oraz konfiguracji
+            Serwisu płatność może być obsługiwana przez Stripe lub właściwego
+            partnera płatniczego wskazanego podczas składania Zamówienia.
+            Dostawcą właściwym dla konkretnej płatności jest podmiot wskazany
+            w procesie płatności; niniejsze postanowienia dotyczą Stripe
+            w zakresie, w jakim Stripe obsługuje daną płatność.
           </p>
 
           <p className="terms-page__text">
-            Płatność za Zamówienie dokonywana jest za pośrednictwem systemu
-            płatności PayU. KASAWA nie przechowuje danych instrumentów
-            płatniczych Kupującego.
+            KASAWA nie przechowuje pełnych danych instrumentów płatniczych
+            Kupującego. Dane płatnicze są przetwarzane przez właściwego
+            dostawcę usług płatniczych zgodnie z jego warunkami i politykami.
           </p>
 
           <p className="terms-page__text">
-            Po autoryzacji płatności środki są obsługiwane zgodnie z zasadami
-            systemu płatności oraz zasadami rozliczeń obowiązującymi
-            w Serwisie.
+            W modelu Stripe Connect płatność i ewentualny późniejszy transfer
+            do Sprzedającego są realizowane zgodnie z konfiguracją Stripe
+            Connect oraz umowami zawartymi ze Stripe. W przypadku modelu
+            oddzielnych obciążeń i transferów (Separate Charges and Transfers)
+            obciążenie może zostać zarejestrowane na saldzie Stripe konta
+            platformy, a transfer do połączonego konta Sprzedającego jest
+            inicjowany zgodnie z właściwymi warunkami i zasadami Stripe.
+            Nie oznacza to samo przez się, że środki zostały wypłacone na
+            rachunek bankowy KASAWA.
           </p>
 
           <p className="terms-page__text">
-            KASAWA może wstrzymać rozliczenie ze Sprzedającym do czasu
-            zakończenia procesu realizacji Zamówienia, w szczególności
-            w przypadku zgłoszenia przez Kupującego problemu dotyczącego
-            otrzymanego Towaru.
+            Sprzedający upoważnia KASAWA, w zakresie dopuszczonym przez
+            właściwe umowy Stripe i niniejszy Regulamin, do przekazywania
+            Stripe instrukcji dotyczących wypłaty środków należnych
+            Sprzedającemu. Instrukcje te służą realizacji uzgodnionych
+            warunków transakcji, w tym potwierdzenia dostawy oraz zasad
+            dotyczących zgłoszeń, zwrotów lub sporów. KASAWA nie jest
+            upoważniona na podstawie tego postanowienia do wykorzystywania
+            środków należnych Sprzedającemu na własne cele ani do dowolnego
+            kierowania ich do niepowiązanych odbiorców. Upoważnienie to jest
+            ograniczone do instrukcji przewidzianych w Regulaminie, warunkach
+            sprzedaży zaakceptowanych przez Sprzedającego oraz właściwych
+            umowach Stripe. Nie daje ono KASAWA samodzielnego prawa do zmiany
+            odbiorcy należnych Sprzedającemu środków ani do dowolnego ustalania
+            terminu transferu poza uzgodnionymi warunkami i dopuszczalnymi
+            ograniczeniami prawnymi lub proceduralnymi.
+          </p>
+
+          <p className="terms-page__text">
+            Warunkiem korzystania przez Sprzedającego z funkcji otrzymywania
+            płatności może być utworzenie lub powiązanie konta Stripe Connect,
+            podanie wymaganych danych oraz przejście weryfikacji tożsamości,
+            działalności lub rachunku wypłat, jeśli wymaga tego Stripe lub
+            prawo. Sprzedający zobowiązany jest zaakceptować warunki umowy
+            Stripe Connected Account Agreement lub inne warunki Stripe
+            właściwe dla danego typu konta. KASAWA może ograniczyć możliwość
+            wystawiania Towarów, realizacji transakcji lub otrzymywania
+            transferów, jeśli konto nie ma wymaganych możliwości albo
+            weryfikacja pozostaje nieukończona. KASAWA nie zastępuje Stripe
+            w weryfikacji wymaganej przez Stripe.
+          </p>
+
+          <p className="terms-page__text">
+            Kwoty, prowizje i inne opłaty związane z transakcją są ustalane
+            zgodnie z informacjami przedstawionymi przed jej zawarciem.
+            Zwroty, obciążenia zwrotne, reklamacje i spory mogą skutkować
+            anulowaniem, korektą lub odwróceniem płatności albo transferu,
+            o ile pozwalają na to właściwe zasady Stripe i przepisy prawa.
+            Odpowiedzialność za takie kwoty i sposób ich rozliczenia określają
+            Regulamin, warunki danej transakcji oraz właściwe umowy Stripe;
+            KASAWA nie gwarantuje, że transfer będzie nieodwracalny.
+          </p>
+
+          <p className="terms-page__text">
+            Dostawca usług płatniczych realizuje płatności i transfery zgodnie
+            ze swoimi umowami, procedurami, wymogami weryfikacyjnymi oraz
+            obowiązującymi przepisami. Samo przekazanie instrukcji przez
+            KASAWA nie gwarantuje natychmiastowego wykonania ani rozliczenia
+            transferu.
+          </p>
+
+          <p className="terms-page__text">
+            Usługi płatnicze są świadczone przez właściwego dostawcę usług
+            płatniczych zgodnie z mającymi zastosowanie przepisami, w tym
+            dyrektywą (UE) 2015/2366 (PSD2) oraz polską ustawą z dnia
+            19 sierpnia 2011 r. o usługach płatniczych. KASAWA administruje
+            transakcją na Platformie i przekazuje instrukcje w zakresie
+            wynikającym z uzgodnionych warunków; niniejszy Regulamin nie
+            stanowi wyłączenia ani ograniczenia obowiązków, które mogą mieć
+            zastosowanie do KASAWA na mocy bezwzględnie obowiązującego prawa.
           </p>
         </section>
 
@@ -578,23 +648,44 @@ const TermsAndConditions: React.FC = () => {
           </h2>
 
           <p className="terms-page__text">
-            Sprzedający otrzymuje należne mu środki zgodnie z zasadami
-            rozliczenia obowiązującymi w Serwisie oraz po spełnieniu warunków
-            wymaganych do zakończenia transakcji.
+            Wypłata należności Sprzedającemu jest realizowana za pośrednictwem
+            Stripe Connect zgodnie z warunkami Stripe, właściwą konfiguracją
+            płatności oraz niniejszym Regulaminem. Jeżeli warunki danej
+            transakcji przewidują potwierdzenie dostawy lub inne obiektywne
+            kryteria wypłaty, KASAWA może po ich spełnieniu przekazać Stripe
+            odpowiednią instrukcję. Termin wykonania transferu zależy również
+            od procedur Stripe, statusu konta Sprzedającego i wymogów prawnych.
           </p>
 
           <p className="terms-page__text">
-            Szczegółowe zasady dotyczące kwoty otrzymywanej przez Sprzedającego
-            oraz wynagrodzenia KASAWA określone są w procesie
+            Szczegółowe zasady dotyczące kwoty należnej Sprzedającemu oraz
+            wynagrodzenia KASAWA określone są w procesie
             <strong> „Sprzedaj z nami”</strong> oraz w informacjach
             przedstawianych Sprzedającemu przed zaakceptowaniem warunków
-            sprzedaży.
+            sprzedaży. Opłaty i prowizje są rozliczane zgodnie z informacjami
+            przedstawionymi przed zawarciem danej transakcji oraz z możliwościami
+            i zasadami właściwego rozwiązania Stripe Connect. Sprzedający
+            zobowiązuje się utrzymywać prawidłowe dane konta oraz rachunku
+            wypłat i niezwłocznie uzupełniać informacje wymagane przez Stripe.
+            Brak weryfikacji, ograniczenie konta, kontrola bezpieczeństwa,
+            niedostępność środków lub inne ograniczenia po stronie Stripe mogą
+            opóźnić albo uniemożliwić transfer, mimo spełnienia warunków
+            transakcji.
           </p>
 
           <p className="terms-page__text">
-            KASAWA może wstrzymać rozliczenie w przypadku trwającego sporu,
-            podejrzenia naruszenia Regulaminu lub konieczności wyjaśnienia
-            okoliczności związanych z Zamówieniem.
+            Instrukcja wypłaty może zostać opóźniona w zakresie przewidzianym
+            w Regulaminie, w szczególności gdy trwa zgłoszenie, procedura
+            zwrotu lub spór dotyczący Zamówienia, albo gdy wymagają tego
+            procedury Stripe lub przepisy prawa. Ograniczenia te stosuje się
+            na podstawie określonych warunków transakcji; nie przyznają one
+            KASAWA nieograniczonego prawa do dysponowania środkami należnymi
+            Sprzedającemu. Każde opóźnienie powinno mieć podstawę w konkretnym
+            warunku Regulaminu, zaakceptowanych warunkach transakcji, procedurze
+            Stripe lub przepisie prawa i powinno trwać tylko przez okres
+            uzasadniony daną przyczyną. KASAWA prowadzi ewidencję instrukcji
+            transferu i ich statusów w zakresie niezbędnym do obsługi
+            transakcji, rozliczeń i rozpatrywania zgłoszeń.
           </p>
         </section>
 

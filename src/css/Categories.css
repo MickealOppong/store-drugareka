@@ -649,7 +649,7 @@
     height: 31px;
   }
   .category-product-card {
-    /* 🚀 Keep button text readable and prevent layout shifting on small viewports */
+    /*  Keep button text readable and prevent layout shifting on small viewports */
   }
   .category-product-card__condition button {
     padding: 0.2rem 0.35rem;

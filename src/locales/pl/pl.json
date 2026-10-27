@@ -888,6 +888,7 @@
       "subtotal": "Wartość produktów",
       "shipping": "Koszt wysyłki",
       "total": "Suma",
+      "add_cart": "Dodaj do koszyka",
       "service_charge": "Opłata Serwisowa",
       "checkout_btn": "Bezpieczna płatność",
       "address_warning": "Dodaj adres dostawy, aby odblokować opcje płatności."
@@ -931,6 +932,8 @@
   },
   "product_details": {
     "loading": "Ładowanie szczegółów produktu...",
+    "header":"More from this seller",
+    "title":"Discover more items from this seller",
     "nav": {
       "back": "Wstecz",
       "shop_crumb": "Kupuj"
@@ -938,7 +941,13 @@
     "info": {
       "condition": "Stan",
       "availability": "Dostępność",
-      "delivery": "Doręczenie"
+      "delivery": "Doręczenie",
+       "weight": "Waga",
+  "height": "Wysokość",
+  "width": "Szerokość",
+  "depth": "Głębokość",
+  "year": "Rok produkcji",
+  "item_number": "Numer OEM / Numer części / Numer artykułu"
     },
     "pricing": {
       "savings": "Oszczędzasz {{amount}} zł ({{percent}}%)"

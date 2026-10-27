@@ -1,14 +1,17 @@
-
 import { useEffect, useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { FiAlertCircle, FiArrowRight, FiTag, FiX } from "react-icons/fi";
 
 import { useStripeOfferBuyNowMutation } from "../features/api/checkoutApi";
-import { useGetListingQuery, useMakeOfferMutation } from "../features/api/itemApi";
+import {
+  useGetListingQuery,
+  useMakeOfferMutation,
+} from "../features/api/itemApi";
+import { useAddToCartOffer } from "../hooks/useAddToCartOffer";
 import type { TOfferDto } from "../types/TOfferDto";
 import type { TResponseDto } from "../types/TResponseDto";
 import { formatPrice } from "../util/util";
-import "./../css/MakeOfferModal.scss";
+import "./../css/MakeOfferModal.css";
 
 type MakeOfferModalProps = {
   isOpen: boolean;
@@ -23,21 +26,14 @@ type MakeOfferModalProps = {
 
 const RESERVATION_WINDOW_MS = 15 * 60 * 1000;
 
-const getErrorMessage = (
-  error: unknown,
-  fallback: string,
-): string => {
+const getErrorMessage = (error: unknown, fallback: string): string => {
   if (typeof error === "object" && error !== null) {
     const apiError = error as {
       data?: { message?: string };
       message?: string;
     };
 
-    return (
-      apiError.data?.message ||
-      apiError.message ||
-      fallback
-    );
+    return apiError.data?.message || apiError.message || fallback;
   }
 
   return fallback;
@@ -55,8 +51,7 @@ export const MakeOfferModal = ({
 }: MakeOfferModalProps) => {
   const { t } = useTranslation();
 
-  const [makeOffer, { isLoading: isOfferLoading }] =
-    useMakeOfferMutation();
+  const [makeOffer, { isLoading: isOfferLoading }] = useMakeOfferMutation();
 
   const [buyNow, { isLoading: isCheckoutLoading }] =
     useStripeOfferBuyNowMutation();
@@ -68,28 +63,23 @@ export const MakeOfferModal = ({
   const [message, setMessage] = useState("");
   const [alertError, setAlertError] = useState<string | null>(null);
 
-  const{data:listing} = useGetListingQuery(id)
-  
+  const { data: listing } = useGetListingQuery(id);
+  const { addItemToCartOffer} = useAddToCartOffer();
 
-  const isComponentProcessing =
-    isOfferLoading || isCheckoutLoading;
+  const isComponentProcessing = isOfferLoading || isCheckoutLoading;
 
   const numericOffer = Number(offer);
 
-  const totalInvoiceCost =
-    serviceCharge + shipping + numericOffer;
+  const totalInvoiceCost = serviceCharge + shipping + numericOffer;
 
   const totalCheckoutCost =
     currentPrice +
     Number(shipment || listing?.shippingCost) +
     Number(service || listing?.serviceCharge);
 
-  const genericError = t(
-    "make_offer_modal.validation.generic_error",
-    {
-      defaultValue: "Something went wrong. Please try again.",
-    },
-  );
+  const genericError = t("make_offer_modal.validation.generic_error", {
+    defaultValue: "Something went wrong. Please try again.",
+  });
 
   const checkoutError = t("checkout.generic.failed", {
     defaultValue: "Unable to create payment session.",
@@ -124,16 +114,11 @@ export const MakeOfferModal = ({
     }
   };
 
-  const handleFormSubmit = async (
-    event: ChangeEvent<HTMLFormElement>,
-  ) => {
+  const handleFormSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     setAlertError(null);
 
-    if (
-      !Number.isFinite(numericOffer) ||
-      numericOffer <= 0
-    ) {
+    if (!Number.isFinite(numericOffer) || numericOffer <= 0) {
       setAlertError(
         t("make_offer_modal.validation.invalid_amount", {
           defaultValue: "Please enter a valid offer amount.",
@@ -145,8 +130,7 @@ export const MakeOfferModal = ({
     if (numericOffer > currentPrice) {
       setAlertError(
         t("make_offer_modal.validation.offer_too_high", {
-          defaultValue:
-            "Your offer cannot exceed the current listing price.",
+          defaultValue: "Your offer cannot exceed the current listing price.",
         }),
       );
       return;
@@ -158,13 +142,7 @@ export const MakeOfferModal = ({
         offer: numericOffer,
       }).unwrap()) as TResponseDto;
 
-      
-
-      const {
-        message: apiMessage,
-        httpStatus,
-        data,
-      } = response;
+      const { message: apiMessage, httpStatus, data } = response;
 
       if (httpStatus !== 200 || !data) {
         setAlertError(apiMessage || genericError);
@@ -174,10 +152,7 @@ export const MakeOfferModal = ({
       const details = data as TOfferDto;
       const acceptedPrice = Number(details.price);
 
-      if (
-        !Number.isFinite(acceptedPrice) ||
-        acceptedPrice <= 0
-      ) {
+      if (!Number.isFinite(acceptedPrice) || acceptedPrice <= 0) {
         setAlertError(genericError);
         return;
       }
@@ -212,17 +187,9 @@ export const MakeOfferModal = ({
         offer: amount,
       }).unwrap()) as TResponseDto;
 
-      const {
-        data,
-        message: apiMessage,
-        httpStatus,
-      } = response;
+      const { data, message: apiMessage, httpStatus } = response;
 
-      if (
-        httpStatus !== 200 ||
-        typeof data !== "string" ||
-        !data.trim()
-      ) {
+      if (httpStatus !== 200 || typeof data !== "string" || !data.trim()) {
         setAlertError(apiMessage || checkoutError);
         return;
       }
@@ -238,6 +205,11 @@ export const MakeOfferModal = ({
     void handleCheckout(numericOffer);
   };
 
+    const handleAddToCart = () => {
+    if (!offerAccepted) return;
+    void addItemToCartOffer(id,numericOffer);
+    onButtonClick()
+  };
 
   const renderError = () =>
     alertError ? (
@@ -264,8 +236,6 @@ export const MakeOfferModal = ({
       <FiX aria-hidden="true" />
     </button>
   );
-
-  
 
   // ============================================================
   // MODE A: NEGOTIABLE LISTING
@@ -364,17 +334,13 @@ export const MakeOfferModal = ({
                         max={currentPrice}
                         step="0.01"
                         value={offer}
-                        onChange={(event) =>
-                          setOffer(event.target.value)
-                        }
+                        onChange={(event) => setOffer(event.target.value)}
                         disabled={isComponentProcessing}
                         required
                         aria-invalid={Boolean(alertError)}
                       />
 
-                      <span className="mkt-offer-modal__currency">
-                        zł
-                      </span>
+                      <span className="mkt-offer-modal__currency">zł</span>
                     </div>
                   </div>
                 )}
@@ -448,11 +414,9 @@ export const MakeOfferModal = ({
 
             <footer className="mkt-offer-modal__footer">
               {offerAccepted ? (
-                <button
-                  type="button"
+                <div
                   className="mkt-offer-modal__btn mkt-offer-modal__btn--cart"
-                  onClick={handleQuickCheckout}
-                  disabled={isComponentProcessing}
+                 
                 >
                   {isCheckoutLoading ? (
                     <span>
@@ -462,15 +426,31 @@ export const MakeOfferModal = ({
                     </span>
                   ) : (
                     <>
-                      <span>
-                        {t("cart.summary.checkout_btn", {
-                          defaultValue: "Secure checkout",
-                        })}
-                      </span>
-                      <FiArrowRight aria-hidden="true" />
+                      <div className="mkt-offer-modal_cta">
+                        <button className="mkt-offer-modal_cta_checkout"  onClick={handleQuickCheckout}
+                  disabled={isComponentProcessing}>
+                          <span>
+                            {t("cart.summary.checkout_btn", {
+                              defaultValue: "Secure checkout",
+                            })}
+                          </span>
+                          <FiArrowRight aria-hidden="true" />
+                        </button>
+                        <button className="mkt-offer-modal_cta_add" 
+                         disabled={isComponentProcessing}
+                         onClick={handleAddToCart}
+                        >
+                          <span>
+                            {t("cart.summary.add_cart", {
+                              defaultValue: "Add to cart",
+                            })}
+                          </span>
+                          <FiArrowRight aria-hidden="true" />
+                        </button>
+                      </div>
                     </>
                   )}
-                </button>
+                </div>
               ) : (
                 <>
                   <button
@@ -587,7 +567,7 @@ export const MakeOfferModal = ({
                   </span>
 
                   <span className="mkt-offer-modal__summary-value">
-                    {formatPrice(currentPrice||Number(listing?.newPrice))} zł
+                    {formatPrice(currentPrice || Number(listing?.newPrice))} zł
                   </span>
                 </div>
 
@@ -599,7 +579,10 @@ export const MakeOfferModal = ({
                   </span>
 
                   <span className="mkt-offer-modal__summary-value">
-                    {formatPrice(Number(service || Number(listing?.serviceCharge)))} zł
+                    {formatPrice(
+                      Number(service || Number(listing?.serviceCharge)),
+                    )}{" "}
+                    zł
                   </span>
                 </div>
 
@@ -611,7 +594,10 @@ export const MakeOfferModal = ({
                   </span>
 
                   <span className="mkt-offer-modal__summary-value">
-                    {formatPrice(Number(shipment || Number(listing?.shippingCost)))} zł
+                    {formatPrice(
+                      Number(shipment || Number(listing?.shippingCost)),
+                    )}{" "}
+                    zł
                   </span>
                 </div>
 

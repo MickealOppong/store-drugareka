@@ -80,6 +80,15 @@ export const storeApi = createApi({
       }),
       providesTags: ["listing"],
     }),
+       getSellerListing: build.query<TListTrans[], number>({
+      query: (sellerId) => ({
+        url: `/api/store/listings/seller`,
+        params: {
+         sellerId
+        },
+      }),
+      providesTags: ["listing"],
+    }),
     getTop6ProductCategories: build.query<TCategoryReponse[], void>({
       query: () => ({
         url: `/api/store/top6-categories`,
@@ -164,5 +173,6 @@ export const {
   useIsDeliveryConfirmedQuery,
   useIsReturnConfirmedQuery,
   useConfirmReturnMutation,
-  useGetListingBySlugQuery
+  useGetListingBySlugQuery,
+  useGetSellerListingQuery
 } = storeApi;

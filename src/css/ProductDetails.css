@@ -1,5 +1,6 @@
+@charset "UTF-8";
 /* ==========================================================================
-   MASTER SINGLE PRODUCT DETAILS SHELL (.product-details)
+   MASTER SINGLE PRODUCT CONTAINER (.product-details)
    ========================================================================== */
 .product-details {
   width: 100%;
@@ -15,9 +16,9 @@
   }
 }
 .product-details {
-  /* Shared Typography Eyebrow Labels */
+  /* Shared Context Eyebrows */
 }
-.product-details__brand-label {
+.product-details .section-eyebrow, .product-details__brand-label {
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 800;
@@ -76,7 +77,7 @@
 }
 
 /* ==========================================================================
-   2. PRIMARY SINGLE PRODUCT GRID CONTAINER WORKSPACE
+   2. PRIMARY SINGLE PRODUCT ASYMMETRIC GRID CONTAINER
    ========================================================================== */
 .product-details__main-wrapper {
   display: flex;
@@ -93,7 +94,7 @@
   }
 }
 
-/* MEDIA DISPLAY SHOWCASE CAROUSEL BOX */
+/* MEDIA Showcase Display Frames */
 .product-details__media-showcase {
   display: flex;
   flex-direction: column;
@@ -166,7 +167,7 @@
   transform: scale(0.96);
 }
 
-/* INTERACTIVE MARKETPLACE ATTRIBUTES CARD INFO PANEL */
+/* INTERACTIVE SPECIFICATIONS METRICS DETAIL COLUMN */
 .product-details__content-panel {
   display: flex;
   flex-direction: column;
@@ -203,10 +204,11 @@
   width: 100%;
 }
 
-/* DATA CONDITION SPECIFICATION TAG BADGES */
+/* GRANULAR TECHNICAL SPECIFICATION MICRO BADGES */
 .product-details__condition-badge {
   display: inline-flex;
   margin-bottom: 0.5rem;
+  margin-right: 0.35rem;
 }
 .product-details__condition-badge span {
   font-size: 0.85rem;
@@ -222,7 +224,7 @@
   font-weight: 700;
 }
 
-/* FINANCIAL PRICING SUMMARY GROUPS */
+/* FINANCIAL PRICING GROUPS */
 .product-details__pricing-matrix {
   display: flex;
   flex-direction: column;
@@ -261,7 +263,7 @@
   align-self: flex-start;
 }
 
-/* ECO-SYSTEM SECURITY ASSURANCES BADGE STRIP */
+/* ASSURANCES SECURITY EMBLEM BAR */
 .product-details__safety-strip {
   display: flex;
   align-items: center;
@@ -287,7 +289,7 @@
   font-weight: 600;
 }
 
-/* FIXED-SIZE ACTION BUTTON TRANSACTION CONSOLE LAYOUT */
+/* FIXED-SIZE ACTION CONSOLE LAYER BUTTONS BUTTONS */
 .product-details__action-row {
   display: flex;
   align-items: center;
@@ -295,7 +297,6 @@
   width: 100%;
   margin-top: 0.5rem;
   box-sizing: border-box;
-  /* Full-width responsive stack breakout overrides for small viewports */
 }
 @media (max-width: 480px) {
   .product-details__action-row {
@@ -308,7 +309,7 @@
   }
 }
 .product-details__action-row .product-details__buy-now-btn {
-  width: 50%;
+  width: 180px;
   height: 44px;
   flex-shrink: 0;
   display: inline-flex;
@@ -327,14 +328,14 @@
   transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
 }
 .product-details__action-row .product-details__buy-now-btn:hover {
-  background-color: rgb(85.2193548387, 93.5741935484, 61.8258064516);
+  background-color: #525F3C;
   box-shadow: 0 6px 20px rgba(102, 112, 74, 0.24);
 }
 .product-details__action-row .product-details__buy-now-btn:active {
   transform: scale(0.985);
 }
 .product-details__action-row .product-details__wishlist-btn {
-  width: 50%;
+  width: 140px;
   height: 44px;
   flex-shrink: 0;
   display: inline-flex;
@@ -376,8 +377,7 @@
 }
 
 /* ==========================================================================
-   3.  DYNAMIC MARKETPLACE TRUST STATEMENTS VALUE BAR
-      ROW ON MOBILE SCREENS / COLUMN ON DESKTOPS
+   3. VALUE PROPOSITIONS BAR MATRIX LAYOUT
    ========================================================================== */
 .product-details__trust-bar {
   display: flex;
@@ -386,6 +386,7 @@
   border-top: 1px solid #e5e5e5;
   padding-top: 2.5rem;
   box-sizing: border-box;
+  /* 🚀 MOBILE CONFIGURATION: Fluid touch horizontal scroll path loop tracks */
   flex-direction: row;
   overflow-x: auto;
   gap: 24px;
@@ -404,8 +405,10 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  text-align: left;
   box-sizing: border-box;
+}
+.product-details__trust-bar {
+  /* 🚀 DESKTOP ORIENTATION RE-ARRANGEMENT: Transform into columns grids layout */
 }
 @media (min-width: 1024px) {
   .product-details__trust-bar {
@@ -445,7 +448,150 @@
 }
 
 /* ==========================================================================
-4. SLEEK EXCEPTION FAULT RUNTIME ERROR RIBBON
+3.a 🚀 NEW: SAME PRODUCTS FROM SELLER REVELATION CAROUSEL CARD FEEDS (.products)
+========================================================================== */
+.products.section {
+  width: 100%;
+  margin: 4rem 0 3rem;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 3rem;
+  box-sizing: border-box;
+}
+.products.section .section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  text-align: left;
+}
+.products.section .section-heading h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #111111;
+  letter-spacing: -0.025em;
+}
+.products.section {
+  /* Responsive adaptive product loop cards feed track grids mapping */
+}
+.products.section .product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+@media (min-width: 640px) {
+  .products.section .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+@media (min-width: 1024px) {
+  .products.section .product-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+.products.section {
+  /* Catalog Product Line Item Structural Wrapper Nodes */
+}
+.products.section .product-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.products.section .product-card__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1/0.95;
+  background-color: #f9f9f9;
+  padding: 12px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.products.section .product-card__media img {
+  max-width: 100%;
+  max-height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transition: transform 0.22s ease;
+}
+.products.section .product-card__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.85rem 1rem 1rem;
+  text-align: left;
+  box-sizing: border-box;
+}
+.products.section .product-card__info h3 {
+  margin: 0.25rem 0 0.5rem 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #111111;
+  line-height: 1.4;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-height: 2.8em;
+}
+.products.section .product-card__info strong {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #111111;
+}
+.products.section .product-card__condition {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #66704A;
+  background-color: #f9f9f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.products.section .product-card:hover {
+  border-color: rgb(208.6, 208.6, 208.6);
+  box-shadow: 0 8px 24px rgba(30, 38, 24, 0.05);
+}
+.products.section .product-card:hover .product-card__media img {
+  transform: scale(1.035);
+}
+
+@media (max-width: 480px) {
+  .products.section {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+  }
+  .products.section .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+  .products.section .product-card {
+    min-width: 0;
+    border-radius: 10px;
+  }
+  .products.section .product-card__media {
+    padding: 6px;
+  }
+  .products.section .product-card__info {
+    padding: 0.65rem;
+  }
+}
+/* ==========================================================================
+4. SLEEK HIGH-FIDELITY COMPACT FAULT ERROR BANNERS
 ========================================================================== */
 .product-details__error-state {
   display: flex;
@@ -483,7 +629,7 @@
 }
 
 /* ==========================================================================
-SYSTEM MOTION TIMING TRANSITIONS (KEYFRAMES)
+SYSTEM MOTION TIMING TRANSITIONS (KEYFRAMES SELECTIONS)
 ========================================================================== */
 @keyframes prodDetailsErrorPop {
   from {
@@ -495,11 +641,11 @@ SYSTEM MOTION TIMING TRANSITIONS (KEYFRAMES)
     transform: translateY(0) scale(1);
   }
 }
-/* Accessibility Guidelines Reduced Motion Overrides */
+/* Screen Reader Reduced Motions Fallback Overrides Gates */
 @media (prefers-reduced-motion: reduce) {
   .product-details__error-message,
   .product-details__thumb-trigger,
-  .product-details__buy-now-btn {
+  .product-card__media img {
     animation: none !important;
     transition: none !important;
     transform: none !important;

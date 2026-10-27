@@ -37,6 +37,16 @@ export const cartApi = createApi({
       }),
       invalidatesTags: ["cart"],
     }),
+      addToCartOffer: build.mutation<TResponseDto, {listingId:number,offer:number}>({
+      query: ({listingId,offer}) => ({
+        url: "/api/cart/offer",
+        params: {
+          listingId,offer
+        },
+        method: "POST",
+      }),
+      invalidatesTags: ["cart"],
+    }),
     mergeCart: build.mutation<TResponseDto, number[]>({
       query: (guestItemIds) => ({
         url: "/api/cart/merge",
@@ -87,5 +97,6 @@ export const {
   useGetBuyerCartQuery,
   useLazyGetBuyerCartQuery,
   useMergeCartMutation,
-  useLazyGetCartCountQuery
+  useLazyGetCartCountQuery,
+  useAddToCartOfferMutation
 } = cartApi;

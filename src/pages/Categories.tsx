@@ -13,7 +13,7 @@ import { Loading } from "../components";
 import CategoryTree from "../components/CategoryTree";
 import MakeOfferModal from "../components/MakeOfferModal";
 import SEO from "../components/SEO";
-import "../css/Categories.scss";
+import "../css/Categories.css";
 import {
   useAddWishListMutation,
   useGetWishListsQuery,
@@ -121,8 +121,8 @@ export const Categories: React.FC = () => {
   const [searchParams] = useSearchParams();
   const { addItemToCart } = useAddToCart();
 
-  const userId = useAppSelector((state) => state.userSlice.userId);
-  const username = useAppSelector((state) => state.userSlice.email);
+
+  const {email:username,sellerId:sellerProfileId } = useAppSelector((state) => state.userSlice);
 
   const { data: wishlist = [] } = useGetWishListsQuery();
   const wishlists = wishlist.map((item) => item.listingId);
@@ -282,6 +282,7 @@ export const Categories: React.FC = () => {
     );
   }
 
+console.log({sellerProfileId,username});
 
     
   return (
@@ -528,7 +529,7 @@ export const Categories: React.FC = () => {
                         aria-pressed={isWishlisted}
                         style={{
                           display:
-                            product.sellerId === userId ? "none" : "flex",
+                            product.sellerId === sellerProfileId ? "none" : "flex",
                         }}
                       >
                         <FiHeart />
@@ -557,8 +558,9 @@ export const Categories: React.FC = () => {
                         </span>
 
                         {product.negotiable &&
-                         (!username || product.sellerId !== userId) &&(
+                         (!sellerProfileId || product.sellerId !== sellerProfileId) &&(
                             <button
+                            type="button"
                               className="make_offer"
                               onClick={() => handleMakeOffer(product)}
                             >
@@ -578,7 +580,7 @@ export const Categories: React.FC = () => {
                           )}
                         </div>
 
-                        {product.sellerId !== userId ? (
+                        { !product.negotiable || product.sellerId !== sellerProfileId ? (
                           <button
                             type="button"
                             className="category-product-card__buy"

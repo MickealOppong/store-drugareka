@@ -5,6 +5,7 @@ export type TUserDto={
     firstName:string,
     lastName:string,
     email:string
+    sellerId:number
     roles:string[],
     tokenDto?:{
         expiredAt:string,

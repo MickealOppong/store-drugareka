@@ -222,7 +222,7 @@ const EditListing = () => {
     dataToSend.append("brand", productData.brand);
     dataToSend.append("status", productData.status);
     dataToSend.append("categoryPath", category.path);
-    dataToSend.append("price", productData.price);
+    dataToSend.append("price", productData.price||'0.00');
     dataToSend.append("minPrice", productData.minPrice||'0.00');
     dataToSend.append("sku", productData.sku);
     dataToSend.append("itemSize", productData.itemSize);
@@ -568,7 +568,7 @@ const EditListing = () => {
                       min="0"
                       step="0.01"
                       placeholder="0.00"
-                      value={formData.price||0.00}
+                      value={formData.price}
                       onChange={handleInputChange}
                       required
                     />
@@ -590,7 +590,7 @@ const EditListing = () => {
                       min="0"
                       step="0.01"
                       placeholder="0.00"
-                      value={formData.minPrice||0.00}
+                      value={formData.minPrice}
                       onChange={handleInputChange}
                       required
                     />

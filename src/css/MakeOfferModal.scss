@@ -2,23 +2,26 @@
 @use "Variables.scss" as Variables;
 
 /* ==========================================================================
-   BACKDROP GLASS SCRIM CONTAINER WRAPPER (.mkt-offer-overlay)
+   BACKDROP SCRIM BLUR WRAPPER LAYOUT (.mkt-offer-overlay)
    ========================================================================== */
 .mkt-offer-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(196, 199, 202, 0.3); // Modern slate drop glass mask
+  background-color: rgba(
+    Variables.$color-text-main,
+    0.45
+  ); // Dynamic brand-context drop mask
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
-  z-index: 2000; // Sits safely above standard page toolbar tracks
+  padding: 16px;
+  z-index: 2000; // Sits safely above active navigation elements
   box-sizing: border-box;
-  animation: mktOverlayFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: mktOverlayFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
   @media (max-width: 480px) {
-    padding: 0; // Eliminates visual spacing gaps on compact mobile handsets
+    padding: 0; // Seamless edge grid optimization for mobile screens
   }
 }
 
@@ -29,38 +32,34 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 480px;
+  max-width: 460px;
   background-color: Variables.$background;
   border: 1px solid Variables.$color-border;
   border-radius: 20px;
-  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+  box-shadow: 0 20px 50px -12px rgba(Variables.$color-text-main, 0.15);
   overflow: hidden;
   box-sizing: border-box;
-  animation: mktModalSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: mktModalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
-  /* 🚀 SMALL SCREENS PATCH: Transform card into an fluid full-height screen layout */
+  /* 📱 SMALL SCREENS MODIFIER: Snaps full viewport height to mimic native app layouts */
   @media (max-width: 480px) {
     height: 100%;
-    height: 100dvh; // Safe protection layout against iOS Safari toolbars shifting bounds
+    height: 100dvh;
     border-radius: 0;
     border: none;
   }
 
   /* =========================================================
-     MODAL HEADER LAYER REGIONS
+     MODAL STRUCTURE LAYOUT HEADER SEGMENT
      ========================================================= */
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 1.25rem;
+    padding: 1.15rem 1.25rem;
     background-color: Variables.$color-bg-light;
     border-bottom: 1px solid Variables.$color-border;
     flex-shrink: 0;
-
-    @media (min-width: Variables.$breakpoint-sm) {
-      padding: 1.25rem 1.5rem;
-    }
   }
 
   &__badge {
@@ -69,19 +68,20 @@
     gap: 0.5rem;
     font-size: 0.75rem;
     font-weight: 800;
-    color: Variables.$color-primary; // 🌿 Olive Green Primary Branding Hue
+    color: Variables.$color-primary; // 🌿 Olive Green Primary System Accent
     text-transform: uppercase;
     letter-spacing: 0.08em;
 
     svg {
       font-size: 1.1rem;
+      stroke-width: 2.5;
     }
   }
 
   &__close-btn {
     background: none;
     border: none;
-    font-size: 1.35rem; // Enhanced tactile closure tap area footprint sizing metrics
+    font-size: 1.25rem;
     color: Variables.$color-text-muted;
     cursor: pointer;
     padding: 6px;
@@ -89,10 +89,12 @@
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    transition: all 0.15s ease;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
 
     &:hover:not(:disabled) {
-      background-color: rgba(15, 23, 42, 0.05);
+      background-color: rgba(Variables.$color-text-main, 0.05);
       color: Variables.$color-text-main;
     }
 
@@ -102,36 +104,27 @@
     }
   }
 
-  /* =========================================================
-     FORM INNER CANVAS LAYOUTS
-     ========================================================= */
+  /* FORM AND LAYOUT DATA WRAPPERS */
   &__form {
     display: flex;
     flex-direction: column;
     margin: 0;
     padding: 0;
     flex: 1;
-    min-height: 0; // Guard anchor layer prevents text overflows from snapping container sizes
+    min-height: 0;
   }
 
-  /* =========================================================
-     SCROLLABLE STRUCTURAL INTERNAL COMPONENT BODY
-     ========================================================= */
   &__body {
-    padding: 1.25rem;
-    overflow-y: auto; // 🚀 SMALL SCREENS PATCH: Enables clean content swiping over soft-keyboards
+    padding: 1.5rem 1.25rem;
+    overflow-y: auto; // Content scroll preservation over mobile virtual soft keyboards
     flex: 1;
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch;
     text-align: left;
-
-    @media (min-width: Variables.$breakpoint-sm) {
-      padding: 1.75rem 1.5rem;
-    }
   }
 
   &__title {
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.35rem 0;
     font-size: 1.35rem;
     font-weight: 800;
     color: Variables.$color-text-main;
@@ -140,29 +133,25 @@
   }
 
   &__description {
-    margin: 0 0 1.25rem 0;
+    margin: 0 0 1.5rem 0;
     font-size: 0.88rem;
     line-height: 1.5;
     color: Variables.$color-text-muted;
   }
 
   /* =========================================================
-     SUMMARY LEDGER DATA BRIEF BOXES
+     SUMMARY DATAGRID BRIEF BOXES FRAMEWORKS
      ========================================================= */
   &__summary-box {
     background-color: Variables.$color-bg-light;
     border: 1px solid Variables.$color-border;
     border-radius: 14px;
-    padding: 1rem;
+    padding: 1.25rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
     box-sizing: border-box;
     margin-bottom: 0.5rem;
-
-    @media (min-width: Variables.$breakpoint-sm) {
-      padding: 1.25rem;
-    }
   }
 
   &__summary-row {
@@ -175,7 +164,7 @@
 
     &--total {
       border-top: 1px dashed Variables.$color-border;
-      padding-top: 0.75rem;
+      padding-top: 0.85rem;
       margin-top: 0.25rem;
       color: Variables.$color-text-main;
     }
@@ -183,29 +172,26 @@
 
   &__summary-label {
     font-weight: 600;
-    text-align: left;
   }
 
   &__summary-value {
     font-weight: 700;
     color: Variables.$color-text-main;
-    text-align: right;
-    word-break: break-word; // Prevents layout ruptures if catalog item names are long
+    word-break: break-word;
 
     &--price {
       font-size: 1.05rem;
-      color: Variables.$color-text-main;
     }
 
     &--price-reduced {
       font-size: 1.15rem;
-      font-weight: 800;
-      color: #16a34a; // Premium retail green success accent
+      font-weight: 850;
+      color: #16a34a; // Sharp commercial success green focus pricing display
     }
   }
 
   /* =========================================================
-     THE OFFERS CUSTOM AMOUNT INPUT GROUPS
+     FORM entry BARGAINING AMOUNT FIELDS
      ========================================================= */
   &__offer-field {
     display: flex;
@@ -217,11 +203,11 @@
   }
 
   &__field-label {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 700;
     color: Variables.$color-text-muted;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
   }
 
   &__input-wrapper {
@@ -239,16 +225,18 @@
     border: 1px solid #cbd5e1;
     border-radius: 10px;
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: Variables.$color-text-main;
     box-sizing: border-box;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
 
     &:focus {
       outline: none;
       border-color: Variables.$color-primary;
-      box-shadow: 0 0 0 3px rgba(Variables.$color-primary, 0.12);
+      box-shadow: 0 0 0 3px Variables.$color-primary-alpha;
     }
 
     &:disabled {
@@ -258,7 +246,7 @@
 
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
-      appearance: none; // Hides native unaligned numeric arrow spinners cleanly
+      appearance: none;
       margin: 0;
     }
     appearance: textfield;
@@ -269,49 +257,49 @@
     right: 14px;
     font-weight: 700;
     font-size: 0.95rem;
-    color: #64748b;
+    color: Variables.$color-text-muted;
     pointer-events: none;
   }
 
   /* =========================================================
-     ITEMIZED RECEIPT INTERIOR BREAKDOWN GROUPS (.animate-pop)
+     ITEMIZED BREAKDOWN RECEIPT GRID REGIONS
      ========================================================= */
   &__breakdown-container {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.85rem;
     margin-top: 0.25rem;
   }
 
   &__breakdown-table {
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.7rem;
     width: 100%;
   }
 
   &__success-msg {
-    padding: 0.65rem 0.85rem;
+    padding: 0.75rem 1rem;
     background-color: #f0fdf4;
-    border: 1px solid rgba(22, 163, 74, 0.15);
-    color: #15803d;
+    border: 1px solid rgba(22, 163, 74, 0.12);
+    color: #166534;
     font-size: 0.82rem;
     font-weight: 700;
     border-radius: 8px;
-    line-height: 1.4;
+    line-height: 1.45;
     text-align: center;
   }
 
   /* =========================================================
-     LIVE TELEMETRY FAULT WARNING ALERT BANNERS
+     LIVE RECONCILIATION DATA FAULT ALERTS
      ========================================================= */
   &__error {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 1rem;
-    padding: 10px 12px;
+    margin-top: 1.25rem;
+    padding: 10px 14px;
     background-color: Variables.$color-error-bg;
     border: 1px solid rgba(Variables.$color-error, 0.12);
     border-radius: 10px;
@@ -320,7 +308,7 @@
     font-weight: 600;
     line-height: 1.4;
     box-sizing: border-box;
-    animation: mktAlertReveal 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: mktAlertPop 0.22s ease-out;
 
     svg {
       font-size: 1.1rem;
@@ -328,129 +316,223 @@
     }
   }
 
+  /* ==========================================================================
+      REFACTORED: DUAL-ACTION CONSOLE INTERFACE LAYOUT (.mkt-offer-modal_cta)
+     ========================================================================== */
+  &_cta {
+    display: flex;
+    flex-direction: column; // Default to fluid touch stacks layout rows on small viewports
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+ 
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      flex-direction: row-reverse; // Right-hand alignment priority rules on desktop grids
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    &_checkout,
+    &_add {
+      border-inline-style: true;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      height: Variables.$touch-target-min; // Enforces standard minimum 48px tactile limits guidelines
+      padding: 0 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      box-sizing: border-box;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+      @media (max-width: Variables.$breakpoint-sm) {
+        width: 100%; // Spans full horizontal workspace rows on phone displays
+      }
+
+      svg {
+        font-size: 1rem;
+        flex-shrink: 0;
+        transition: transform 0.18s ease;
+      }
+    }
+
+    /* 🟢 Secure Direct Payment Allocation Action Row Trigger Button Style */
+    &_checkout {
+      background-color: Variables.$color-primary;
+      border: none;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(22, 163, 74, 0.15);
+      font-weight: 500;
+
+      &:hover {
+        background-color:Variables.$color-primary-dark;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(22, 163, 74, 0.25);
+
+        svg {
+          transform: translateX(3px);
+        }
+      }
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    /* ⚪ Secondary Local Basket Storage Injection Action Button Style */
+    &_add {
+      background-color: #ffffff;
+      border: 1px solid Variables.$color-primary;
+      color: Variables.$color-primary;
+
+      &:hover {
+        background-color: Variables.$color-bg-light;
+        color: Variables.$color-primary-hover;
+        border-color: Variables.$color-primary-hover;
+        svg {
+          transform: translateX(2px);
+        }
+      }
+    }
+  }
   /* =========================================================
-     TACTILE CONTROL ACTIONS INTERACTIVE FOOTER LAYOUT
-     ========================================================= */
-  &__footer {
+TACTILE CONTROL ACTIONS INTERACTIVE FOOTER FOOTERS
+========================================================= */
+  &__footer{
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 0.75rem;
     border-top: 1px solid Variables.$color-border;
-    padding: 1rem 1.25rem;
+    padding: 1.15rem 1.25rem;
     background-color: Variables.$color-bg-light;
     flex-shrink: 0;
     box-sizing: border-box;
-
-    @media (min-width: Variables.$breakpoint-sm) {
-      padding: 1.25rem 1.5rem;
-    }
-
-    /* 🚀 SMALL SCREENS PATCH: Convert action buttons into fluid, stacked tap targets */
+    /* Stack standalone confirm/cancel triggers inside un-accepted views layout */
     @media (max-width: 480px) {
-      flex-direction: column-reverse; // Cancels side layout, primary checkout button holds top index
+      flex-direction: column-reverse;
       width: 100%;
       padding: 1.25rem;
       gap: 10px;
-
-      .mkt-offer-modal__btn {
+      & > button,
+      & > .mkt-offer-modal_cta {
         width: 100% !important;
-        max-width: 100% !important;
       }
     }
   }
+
 
   &__btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    height: Variables.$touch-target-min; // Enforces absolute minimum 48px tactile tap targets
+    height: Variables.$touch-target-min;
     padding: 0 1.5rem;
     font-family: inherit;
     font-size: 0.9rem;
     font-weight: 700;
     border-radius: 12px;
+    border: none;
     cursor: pointer;
-box-sizing: border-box;
-transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-&:disabled {
-opacity: 0.45;
-cursor: not-allowed;
-transform: none !important;
-box-shadow: none !important;
-}
-&--cancel {
-background-color: #ffffff;
-border: 1px solid #cbd5e1;
-color: #334155;
-&:hover:not(:disabled) {
-background-color: #f1f5f9;
-color: #0f172a;
-}
-}
-&--parent, &--confirm {
-background-color: Variables.$color-primary;
-border: none;
-color: #ffffff;
-box-shadow: 0 4px 12px rgba(Variables.$color-primary, 0.12);
-&:hover:not(:disabled) {
-background-color: color.adjust(Variables.$color-primary, $lightness: -6%);
-transform: translateY(-1px);
-box-shadow: 0 6px 16px rgba(Variables.$color-primary, 0.22);
-}
-&:active:not(:disabled) { transform: translateY(0); }
-}
-&--cart {
-width: 100%;
-background-color: #16a34a;
-border: none;
-color: #ffffff;
-box-shadow: 0 4px 14px rgba(22, 163, 74, 0.15);
-&:hover:not(:disabled) {
-background-color: #15803d;
-transform: translateY(-1px);
-box-shadow: 0 6px 18px rgba(22, 163, 74, 0.25);
-}
-&:active:not(:disabled) { transform: translateY(0); }
-svg {
-font-size: 1rem;
-}
-}
-}
+    box-sizing: border-box;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+    background-color: none;
+    @media (max-width: Variables.$breakpoint-sm) {
+      width: 100%;
+    }
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+    &--cancel {
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      &:hover:not(:disabled) {
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-color: #94a3b8;
+      }
+    }
+    &--confirm {
+      background-color: Variables.$color-primary;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(Variables.$color-primary, 0.12);
+      &:hover:not(:disabled) {
+        background-color: Variables.$color-primary-hover;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(Variables.$color-primary, 0.22);
+      }
+      &:active:not(:disabled) {
+        transform: translateY(0);
+      }
+    }
+ 
+  }
 }
 /* ==========================================================================
-SYSTEM MOTION CONFIGURATIONS TIMING (KEYFRAMES GLIDES)
+SYSTEM MOTION TIMING TRANSITIONS (KEYFRAMES SELECTIONS)
 ========================================================================== */
-@keyframes mktOverlayFade {
-from { opacity: 0; }
-to { opacity: 1; }
+@keyframes mktOverlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes mktModalSlideUp {
-from { opacity: 0; transform: translateY(20px) scale(0.97); }
-to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes mktAlertPop {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .animate-pop {
-animation: mktBreakdownPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: mktBreakdownPopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-@keyframes mktBreakdownPop {
-from { opacity: 0; transform: scale(0.98); }
-to { opacity: 1; transform: scale(1); }
+@keyframes mktBreakdownPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
-@keyframes mktAlertReveal {
-from { opacity: 0; transform: translateY(-3px); }
-to { opacity: 1; transform: translateY(0); }
-}
-/* Accessibility Guidelines Breakout: Screen Reader Reduced Motion Overrides */
+/* Screen Reader Accessibility Settings Overrides Gates */
 @media (prefers-reduced-motion: reduce) {
-.mkt-offer-modal,
-.mkt-offer-overlay,
-.mkt-offer-modal__error,
-.animate-pop {
-animation: none !important;
-}
-.mkt-offer-modal__btn {
-transition: none !important;
-&:active { transform: none !important; }
-}
+  .mkt-offer-modal,
+  .mkt-offer-overlay,
+  .mkt-offer-modal__error,
+  .animate-pop {
+    animation: none !important;
+  }
+  .mkt-offer-modal_cta_checkout,
+  .mkt-offer-modal_cta_add,
+  .mkt-offer-modal__btn {
+    transition: none !important;
+    transform: none !important;
+  }
 }

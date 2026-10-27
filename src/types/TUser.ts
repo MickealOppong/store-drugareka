@@ -7,4 +7,5 @@ export type TUser ={
     isTermsAccepted:boolean,
     dob:Date,
     password:string
+    selelrId:number
 }

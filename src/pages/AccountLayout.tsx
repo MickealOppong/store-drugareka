@@ -29,7 +29,7 @@ export const loader = (store: Store<RootState>) => async () => {
     
     // 3. Force the loader to wait until the network payload is FULLY resolved
     const response = await apiQueryTrigger.unwrap(); 
-
+    
     if (response) {
       // 4. Update your slice once the data is guaranteed to exist
       dispatch(updateUser(response.data));

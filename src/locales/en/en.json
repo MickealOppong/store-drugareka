@@ -900,6 +900,7 @@
       "service_charge": "Service charge",
       "total": "Total",
       "checkout_btn": "Secure payment",
+      "add_cart":"Add to cart",
       "address_warning": "Please add a delivery address to unlock payment options."
     },
     "item": {
@@ -941,6 +942,8 @@
   },
   "product_details": {
     "loading": "Loading product details...",
+      "header": "Więcej od tego sprzedawcy",
+  "title": "Odkryj więcej przedmiotów od tego sprzedawcy",
     "nav": {
       "back": "Back",
       "shop_crumb": "Shop"
@@ -948,7 +951,13 @@
     "info": {
       "condition": "Condition",
       "availability": "Availability",
-      "delivery": "Delivery"
+      "delivery": "Delivery",
+      "weight":"Weight",
+      "height":"Height",
+      "width":"Width",
+      "depth":"Depth",
+      "year":"Year of Manufacture",
+      "item_number":"OEM / Part number / Item number"
     },
     "pricing": {
       "savings": "You save {{amount}} zł ({{percent}}%)"

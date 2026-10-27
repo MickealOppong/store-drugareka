@@ -9,19 +9,19 @@ import {
   FiShield,
   FiShoppingBag,
   FiTag,
-  FiTruck,
+  FiTruck
 } from "react-icons/fi";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "../css/ProductDetails.css";
 
 import {
   useAddWishListMutation,
   useGetWishListsQuery,
 } from "../features/api/itemApi";
-import { useGetListingBySlugQuery } from "../features/api/storeApi";
+import { useGetListingBySlugQuery, useGetSellerListingQuery } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
-import { formatPrice, sanitizeCategoryKey } from "../util/util";
+import { formatPrice, sanitizeBackendKey, sanitizeCategoryKey } from "../util/util";
 import Footer from "./Footer";
 import Loading from "./Loading";
 import MakeOfferModal from "./MakeOfferModal";
@@ -49,6 +49,8 @@ const ProductDetails = () => {
     currentPrice: number;
   } | null>(null);
 
+
+
   const [addToWish] = useAddWishListMutation();
   const { data: wishlist = [] } = useGetWishListsQuery();
   const wishlists = wishlist.map((item) => item.productSlug);
@@ -61,6 +63,12 @@ const ProductDetails = () => {
    * fetch product
    */
   const { data: product, isLoading: productLoading } = useGetListingBySlugQuery(String(slug));
+
+    //get listings from this seller
+    const sellerId = product?.sellerId;
+    const {data:sellerListings=[],isLoading:isProductsLoading} = useGetSellerListingQuery(Number(sellerId),{skip:!sellerId})
+
+    
 
   const toggleWishlist = async (listingId: number) => {
     if (!username) return navigate("/login");
@@ -204,6 +212,57 @@ const ProductDetails = () => {
               </span>
             </div>
 
+                <div className="product-details__condition-badge">
+              <span>
+                {t("product_details.info.weight")}:{" "}
+                <strong>{product.itemSize.split("_").join(' ')}</strong>
+              </span>
+            </div>
+
+                {
+                  product.height && <div className="product-details__condition-badge">
+              <span>
+                {t("product_details.info.height")}:{" "}
+                <strong>{`${product.height} cm`}</strong>
+              </span>
+            </div>
+                }
+             {
+              product.width &&  <div className="product-details__condition-badge">
+              <span>
+                {t("product_details.info.width")}:{" "}
+                <strong>{`${product.width} cm`}</strong>
+              </span>
+            </div>
+             }
+
+                {
+              product.depth &&  <div className="product-details__condition-badge">
+              <span>
+                {t("product_details.info.depth")}:{" "}
+                <strong>{`${product.depth} cm`}</strong>
+              </span>
+            </div>
+             }
+
+                 {
+              product.itemNumber &&  <div className="product-details__condition-badge">
+              <span>
+                {t("product_details.info.item_number")}:{" "}
+                <strong>{product.itemNumber}</strong>
+              </span>
+            </div>
+             }
+
+                   {
+              product.productionYear &&  <div className="product-details__condition-badge">
+              <span>
+                {t("product_details.info.year")}:{" "}
+                <strong>{product.productionYear}</strong>
+              </span>
+            </div>
+             }
+
             <p className="product-details__narrative-description">
               {product.productDescription}
             </p>
@@ -268,6 +327,7 @@ const ProductDetails = () => {
           </div>
         </article>
 
+
         {/* =====================================================
                3. TRUST STATEMENT VALUE BAR PROPOSITIONS
             ====================================================== */}
@@ -304,6 +364,46 @@ const ProductDetails = () => {
             </div>
           </div>
         </section>
+
+
+        {/* =====================================================
+              3.a SAME PRODUCTS FROM SELLER
+            ====================================================== */}
+     {
+      isProductsLoading?<Loading/>:
+         <section className="products section" >
+                  <div className="section-heading">
+                    <div>
+                      <span className="section-eyebrow">{t("product_details.header")}</span>
+                      <h2>{t("product_details.title")}</h2>
+                    </div>
+                  </div>
+        
+                  <div className="product-grid">
+                    {sellerListings.map((product) => (
+                      <Link
+                        key={product.listingId}
+                        to={`/shop/listing/${product.productSlug}`}
+                        className="product-card"
+                      >
+                     <div className="product-card__media">
+                      <img src={product?.media[0]?.image } alt={product.productName}   />
+                  
+                        </div>
+        
+                        <div className="product-card__info">
+                          <span className="product-card__condition">
+                             {t(`product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`)}
+                          </span>
+                          <h3>{product.productName}</h3>
+                          <strong>{formatPrice(product.newPrice)} zl</strong>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+
+     }
 
         {/* =====================================================
                4. COMPONENT FOOTER FEATURED PRODUCTS SLIDER 

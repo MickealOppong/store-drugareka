@@ -38,9 +38,6 @@ const Shop = () => {
   //translation hook
   const { t } = useTranslation();
 
-  //user id
-  const userId = useAppSelector((state) => state.userSlice.userId);
-
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [modalData, setModalData] = useState<{
     name: string;
@@ -84,8 +81,12 @@ const Shop = () => {
   const wishlists = wishlist.map((item) => item.listingId);
 
   const [addToWish] = useAddWishListMutation();
-  const username = useAppSelector((state) => state.userSlice.email);
+  const { email, sellerId: sellerProfileId } = useAppSelector(
+    (state) => state.userSlice,
+  );
 
+
+  
   // ==========================================================================
   // HIGH-PERFORMANCE CLIENT FILTERS MEMOIZATION MATRIX
   // ==========================================================================
@@ -153,7 +154,7 @@ const Shop = () => {
   };
 
   const toggleWishlist = async (listingId: number) => {
-    if (!username) return navigate("/login");
+    if (!email) return navigate("/login");
     await addToWish(listingId);
   };
 
@@ -164,7 +165,7 @@ const Shop = () => {
 
   //handle make offer click
   const handleMakeOffer = (product: TListTrans) => {
-    if (!username) return navigate("/login");
+    if (!email) return navigate("/login");
     if (product) {
       setModalData({
         name: product.productName,
@@ -220,7 +221,7 @@ const Shop = () => {
 
       <section className="shop-page__categories">
         <button
-          className={selectedCategory === "all" ? "active" : ""}
+          className={selectedCategory === "all_0" ? "active" : ""}
           onClick={() => handleCategoryButtonClick("all")}
         >
           {t("shop.categories.all")}
@@ -229,7 +230,11 @@ const Shop = () => {
         {categories.map((category) => (
           <button
             key={category.id}
-            className={selectedCategory === category.slug ? "active" : ""}
+            className={
+              selectedCategory === `${category.slug}_${category.id}`
+                ? "active"
+                : ""
+            }
             onClick={() => handleCategoryButtonClick(category.slug)}
           >
             {t(`categories.${sanitizeCategoryKey(category.name)}.name`)}
@@ -352,7 +357,10 @@ const Shop = () => {
                       onClick={() => toggleWishlist(product.listingId)}
                       aria-label={t("shop.product.add_wishlist")}
                       style={{
-                        display: product.sellerId === userId ? "none" : "flex",
+                        display:
+                          product.sellerId === Number(sellerProfileId)
+                            ? "none"
+                            : "flex",
                       }}
                     >
                       <FiHeart />
@@ -375,44 +383,45 @@ const Shop = () => {
                       </span>
                     </div>
 
-                    <div className="shop-product-card__bottom">
+                                 <div className="shop-product-card__bottom">
                       <div>
                         <strong>{formatPrice(product.newPrice) || 0} zł</strong>
-
-                        <del>{formatPrice(product.oldPrice) || 0} zł</del>
+                        {product.oldPrice && <del>{formatPrice(product.oldPrice) || 0} zł</del>}
                       </div>
-                      {product.negotiable &&
-                        (!username || product.sellerId !== userId) && (
-                          <button
-                            className="make_offer"
-                            onClick={() => handleMakeOffer(product)}
-                          >
-                            {t("shop.product.make_offer")}
-                          </button>
-                        )}
 
-                      {!userId || product.sellerId !== userId ? (
+                      {/* If it's the seller's own product, show ONLY the Edit button */}
+                      {Number(sellerProfileId) === product.sellerId ? (
                         <button
                           className="shop-product-card__buy"
-                          aria-label="Kup produkt"
-                          onClick={() => addItemToCart(product.listingId)}
-                        >
-                          <FiShoppingBag />
-                        </button>
-                      ) : (
-                        <button
-                          className="shop-product-card__buy"
-                          aria-label="Kup produkt"
-                          onClick={() =>
-                            navigate(
-                              `/account/listings/${product.listingId}/edit`,
-                            )
-                          }
+                          aria-label="Edytuj produkt"
+                          onClick={() => navigate(`/account/listings/${product.listingId}/edit`)}
                         >
                           <FiEdit />
                         </button>
+                      ) : (
+                        /* If it's a buyer, show both Make Offer (if negotiable) and Buy buttons mutually */
+                        <>
+                          {product.negotiable? (
+                            <button
+                              className="make_offer"
+                              onClick={() => handleMakeOffer(product)}
+                            >
+                              {t("shop.product.make_offer")}
+                            </button>
+                          ) :
+                          <button
+                            className="shop-product-card__buy"
+                            aria-label="Kup produkt"
+                            onClick={() => addItemToCart(product.listingId)}
+                          >
+                            <FiShoppingBag />
+                          </button>
+                        }
+                         
+                        </>
                       )}
                     </div>
+
                   </div>
                 </article>
               );

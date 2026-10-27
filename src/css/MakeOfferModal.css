@@ -1,19 +1,19 @@
 @charset "UTF-8";
 /* ==========================================================================
-   BACKDROP GLASS SCRIM CONTAINER WRAPPER (.mkt-offer-overlay)
+   BACKDROP SCRIM BLUR WRAPPER LAYOUT (.mkt-offer-overlay)
    ========================================================================== */
 .mkt-offer-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(196, 199, 202, 0.3);
+  background-color: rgba(17, 17, 17, 0.45);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px;
+  padding: 16px;
   z-index: 2000;
   box-sizing: border-box;
-  animation: mktOverlayFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: mktOverlayFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 @media (max-width: 480px) {
   .mkt-offer-overlay {
@@ -28,15 +28,15 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 480px;
+  max-width: 460px;
   background-color: #FFFFFF;
   border: 1px solid #e5e5e5;
   border-radius: 20px;
-  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+  box-shadow: 0 20px 50px -12px rgba(17, 17, 17, 0.15);
   overflow: hidden;
   box-sizing: border-box;
-  animation: mktModalSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  /* 🚀 SMALL SCREENS PATCH: Transform card into an fluid full-height screen layout */
+  animation: mktModalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* 📱 SMALL SCREENS MODIFIER: Snaps full viewport height to mimic native app layouts */
 }
 @media (max-width: 480px) {
   .mkt-offer-modal {
@@ -48,22 +48,17 @@
 }
 .mkt-offer-modal {
   /* =========================================================
-     MODAL HEADER LAYER REGIONS
+     MODAL STRUCTURE LAYOUT HEADER SEGMENT
      ========================================================= */
 }
 .mkt-offer-modal__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.25rem;
+  padding: 1.15rem 1.25rem;
   background-color: #f9f9f9;
   border-bottom: 1px solid #e5e5e5;
   flex-shrink: 0;
-}
-@media (min-width: 640px) {
-  .mkt-offer-modal__header {
-    padding: 1.25rem 1.5rem;
-  }
 }
 .mkt-offer-modal__badge {
   display: inline-flex;
@@ -77,11 +72,12 @@
 }
 .mkt-offer-modal__badge svg {
   font-size: 1.1rem;
+  stroke-width: 2.5;
 }
 .mkt-offer-modal__close-btn {
   background: none;
   border: none;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   color: #666666;
   cursor: pointer;
   padding: 6px;
@@ -89,10 +85,10 @@
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 .mkt-offer-modal__close-btn:hover:not(:disabled) {
-  background-color: rgba(15, 23, 42, 0.05);
+  background-color: rgba(17, 17, 17, 0.05);
   color: #111111;
 }
 .mkt-offer-modal__close-btn:disabled {
@@ -100,9 +96,7 @@
   cursor: not-allowed;
 }
 .mkt-offer-modal {
-  /* =========================================================
-     FORM INNER CANVAS LAYOUTS
-     ========================================================= */
+  /* FORM AND LAYOUT DATA WRAPPERS */
 }
 .mkt-offer-modal__form {
   display: flex;
@@ -112,26 +106,16 @@
   flex: 1;
   min-height: 0;
 }
-.mkt-offer-modal {
-  /* =========================================================
-     SCROLLABLE STRUCTURAL INTERNAL COMPONENT BODY
-     ========================================================= */
-}
 .mkt-offer-modal__body {
-  padding: 1.25rem;
+  padding: 1.5rem 1.25rem;
   overflow-y: auto;
   flex: 1;
   box-sizing: border-box;
   -webkit-overflow-scrolling: touch;
   text-align: left;
 }
-@media (min-width: 640px) {
-  .mkt-offer-modal__body {
-    padding: 1.75rem 1.5rem;
-  }
-}
 .mkt-offer-modal__title {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.35rem 0;
   font-size: 1.35rem;
   font-weight: 800;
   color: #111111;
@@ -139,31 +123,26 @@
   line-height: 1.25;
 }
 .mkt-offer-modal__description {
-  margin: 0 0 1.25rem 0;
+  margin: 0 0 1.5rem 0;
   font-size: 0.88rem;
   line-height: 1.5;
   color: #666666;
 }
 .mkt-offer-modal {
   /* =========================================================
-     SUMMARY LEDGER DATA BRIEF BOXES
+     SUMMARY DATAGRID BRIEF BOXES FRAMEWORKS
      ========================================================= */
 }
 .mkt-offer-modal__summary-box {
   background-color: #f9f9f9;
   border: 1px solid #e5e5e5;
   border-radius: 14px;
-  padding: 1rem;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   box-sizing: border-box;
   margin-bottom: 0.5rem;
-}
-@media (min-width: 640px) {
-  .mkt-offer-modal__summary-box {
-    padding: 1.25rem;
-  }
 }
 .mkt-offer-modal__summary-row {
   display: flex;
@@ -175,32 +154,29 @@
 }
 .mkt-offer-modal__summary-row--total {
   border-top: 1px dashed #e5e5e5;
-  padding-top: 0.75rem;
+  padding-top: 0.85rem;
   margin-top: 0.25rem;
   color: #111111;
 }
 .mkt-offer-modal__summary-label {
   font-weight: 600;
-  text-align: left;
 }
 .mkt-offer-modal__summary-value {
   font-weight: 700;
   color: #111111;
-  text-align: right;
   word-break: break-word;
 }
 .mkt-offer-modal__summary-value--price {
   font-size: 1.05rem;
-  color: #111111;
 }
 .mkt-offer-modal__summary-value--price-reduced {
   font-size: 1.15rem;
-  font-weight: 800;
+  font-weight: 850;
   color: #16a34a;
 }
 .mkt-offer-modal {
   /* =========================================================
-     THE OFFERS CUSTOM AMOUNT INPUT GROUPS
+     FORM entry BARGAINING AMOUNT FIELDS
      ========================================================= */
 }
 .mkt-offer-modal__offer-field {
@@ -212,11 +188,11 @@
   box-sizing: border-box;
 }
 .mkt-offer-modal__field-label {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #666666;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
 }
 .mkt-offer-modal__input-wrapper {
   position: relative;
@@ -232,7 +208,7 @@
   border: 1px solid #cbd5e1;
   border-radius: 10px;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #111111;
   box-sizing: border-box;
@@ -241,7 +217,7 @@
 .mkt-offer-modal__input:focus {
   outline: none;
   border-color: #66704A;
-  box-shadow: 0 0 0 3px rgba(102, 112, 74, 0.12);
+  box-shadow: 0 0 0 3px rgba(104, 118, 75, 0.12);
 }
 .mkt-offer-modal__input:disabled {
   background-color: #f9f9f9;
@@ -262,49 +238,49 @@
   right: 14px;
   font-weight: 700;
   font-size: 0.95rem;
-  color: #64748b;
+  color: #666666;
   pointer-events: none;
 }
 .mkt-offer-modal {
   /* =========================================================
-     ITEMIZED RECEIPT INTERIOR BREAKDOWN GROUPS (.animate-pop)
+     ITEMIZED BREAKDOWN RECEIPT GRID REGIONS
      ========================================================= */
 }
 .mkt-offer-modal__breakdown-container {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.85rem;
   margin-top: 0.25rem;
 }
 .mkt-offer-modal__breakdown-table {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.7rem;
   width: 100%;
 }
 .mkt-offer-modal__success-msg {
-  padding: 0.65rem 0.85rem;
+  padding: 0.75rem 1rem;
   background-color: #f0fdf4;
-  border: 1px solid rgba(22, 163, 74, 0.15);
-  color: #15803d;
+  border: 1px solid rgba(22, 163, 74, 0.12);
+  color: #166534;
   font-size: 0.82rem;
   font-weight: 700;
   border-radius: 8px;
-  line-height: 1.4;
+  line-height: 1.45;
   text-align: center;
 }
 .mkt-offer-modal {
   /* =========================================================
-     LIVE TELEMETRY FAULT WARNING ALERT BANNERS
+     LIVE RECONCILIATION DATA FAULT ALERTS
      ========================================================= */
 }
 .mkt-offer-modal__error {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 1rem;
-  padding: 10px 12px;
+  margin-top: 1.25rem;
+  padding: 10px 14px;
   background-color: #FDF2F2;
   border: 1px solid rgba(194, 75, 75, 0.12);
   border-radius: 10px;
@@ -313,16 +289,97 @@
   font-weight: 600;
   line-height: 1.4;
   box-sizing: border-box;
-  animation: mktAlertReveal 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: mktAlertPop 0.22s ease-out;
 }
 .mkt-offer-modal__error svg {
   font-size: 1.1rem;
   flex-shrink: 0;
 }
 .mkt-offer-modal {
+  /* ==========================================================================
+      REFACTORED: DUAL-ACTION CONSOLE INTERFACE LAYOUT (.mkt-offer-modal_cta)
+     ========================================================================== */
+}
+.mkt-offer-modal_cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+@media (min-width: 640px) {
+  .mkt-offer-modal_cta {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+}
+.mkt-offer-modal_cta_checkout, .mkt-offer-modal_cta_add {
+  border-inline-style: true;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 44px;
+  padding: 0 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (max-width: 640px) {
+  .mkt-offer-modal_cta_checkout, .mkt-offer-modal_cta_add {
+    width: 100%;
+  }
+}
+.mkt-offer-modal_cta_checkout svg, .mkt-offer-modal_cta_add svg {
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: transform 0.18s ease;
+}
+.mkt-offer-modal_cta {
+  /* 🟢 Secure Direct Payment Allocation Action Row Trigger Button Style */
+}
+.mkt-offer-modal_cta_checkout {
+  background-color: #66704A;
+  border: none;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.15);
+  font-weight: 500;
+}
+.mkt-offer-modal_cta_checkout:hover {
+  background-color: #2a2e1c;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.25);
+}
+.mkt-offer-modal_cta_checkout:hover svg {
+  transform: translateX(3px);
+}
+.mkt-offer-modal_cta_checkout:active {
+  transform: translateY(0);
+}
+.mkt-offer-modal_cta {
+  /* ⚪ Secondary Local Basket Storage Injection Action Button Style */
+}
+.mkt-offer-modal_cta_add {
+  background-color: #ffffff;
+  border: 1px solid #66704A;
+  color: #66704A;
+}
+.mkt-offer-modal_cta_add:hover {
+  background-color: #f9f9f9;
+  color: #525F3C;
+  border-color: #525F3C;
+}
+.mkt-offer-modal_cta_add:hover svg {
+  transform: translateX(2px);
+}
+.mkt-offer-modal {
   /* =========================================================
-     TACTILE CONTROL ACTIONS INTERACTIVE FOOTER LAYOUT
-     ========================================================= */
+  TACTILE CONTROL ACTIONS INTERACTIVE FOOTER FOOTERS
+  ========================================================= */
 }
 .mkt-offer-modal__footer {
   display: flex;
@@ -330,18 +387,11 @@
   justify-content: flex-end;
   gap: 0.75rem;
   border-top: 1px solid #e5e5e5;
-  padding: 1rem 1.25rem;
+  padding: 1.15rem 1.25rem;
   background-color: #f9f9f9;
   flex-shrink: 0;
   box-sizing: border-box;
-}
-@media (min-width: 640px) {
-  .mkt-offer-modal__footer {
-    padding: 1.25rem 1.5rem;
-  }
-}
-.mkt-offer-modal__footer {
-  /* 🚀 SMALL SCREENS PATCH: Convert action buttons into fluid, stacked tap targets */
+  /* Stack standalone confirm/cancel triggers inside un-accepted views layout */
 }
 @media (max-width: 480px) {
   .mkt-offer-modal__footer {
@@ -350,9 +400,8 @@
     padding: 1.25rem;
     gap: 10px;
   }
-  .mkt-offer-modal__footer .mkt-offer-modal__btn {
+  .mkt-offer-modal__footer > button, .mkt-offer-modal__footer > .mkt-offer-modal_cta {
     width: 100% !important;
-    max-width: 100% !important;
   }
 }
 .mkt-offer-modal__btn {
@@ -366,9 +415,16 @@
   font-size: 0.9rem;
   font-weight: 700;
   border-radius: 12px;
+  border: none;
   cursor: pointer;
   box-sizing: border-box;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: none;
+}
+@media (max-width: 640px) {
+  .mkt-offer-modal__btn {
+    width: 100%;
+  }
 }
 .mkt-offer-modal__btn:disabled {
   opacity: 0.45;
@@ -384,44 +440,26 @@
 .mkt-offer-modal__btn--cancel:hover:not(:disabled) {
   background-color: #f1f5f9;
   color: #0f172a;
+  border-color: #94a3b8;
 }
-.mkt-offer-modal__btn--parent, .mkt-offer-modal__btn--confirm {
+.mkt-offer-modal__btn--confirm {
   background-color: #66704A;
-  border: none;
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(102, 112, 74, 0.12);
 }
-.mkt-offer-modal__btn--parent:hover:not(:disabled), .mkt-offer-modal__btn--confirm:hover:not(:disabled) {
-  background-color: rgb(85.2193548387, 93.5741935484, 61.8258064516);
+.mkt-offer-modal__btn--confirm:hover:not(:disabled) {
+  background-color: #525F3C;
   transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(102, 112, 74, 0.22);
 }
-.mkt-offer-modal__btn--parent:active:not(:disabled), .mkt-offer-modal__btn--confirm:active:not(:disabled) {
+.mkt-offer-modal__btn--confirm:active:not(:disabled) {
   transform: translateY(0);
-}
-.mkt-offer-modal__btn--cart {
-  width: 100%;
-  background-color: #16a34a;
-  border: none;
-  color: #ffffff;
-  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.15);
-}
-.mkt-offer-modal__btn--cart:hover:not(:disabled) {
-  background-color: #15803d;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.25);
-}
-.mkt-offer-modal__btn--cart:active:not(:disabled) {
-  transform: translateY(0);
-}
-.mkt-offer-modal__btn--cart svg {
-  font-size: 1rem;
 }
 
 /* ==========================================================================
-SYSTEM MOTION CONFIGURATIONS TIMING (KEYFRAMES GLIDES)
+SYSTEM MOTION TIMING TRANSITIONS (KEYFRAMES SELECTIONS)
 ========================================================================== */
-@keyframes mktOverlayFade {
+@keyframes mktOverlayFadeIn {
   from {
     opacity: 0;
   }
@@ -432,28 +470,14 @@ SYSTEM MOTION CONFIGURATIONS TIMING (KEYFRAMES GLIDES)
 @keyframes mktModalSlideUp {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.97);
+    transform: translateY(16px) scale(0.98);
   }
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
-.animate-pop {
-  animation: mktBreakdownPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-}
-
-@keyframes mktBreakdownPop {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-@keyframes mktAlertReveal {
+@keyframes mktAlertPop {
   from {
     opacity: 0;
     transform: translateY(-3px);
@@ -463,7 +487,21 @@ SYSTEM MOTION CONFIGURATIONS TIMING (KEYFRAMES GLIDES)
     transform: translateY(0);
   }
 }
-/* Accessibility Guidelines Breakout: Screen Reader Reduced Motion Overrides */
+.animate-pop {
+  animation: mktBreakdownPopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes mktBreakdownPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* Screen Reader Accessibility Settings Overrides Gates */
 @media (prefers-reduced-motion: reduce) {
   .mkt-offer-modal,
   .mkt-offer-overlay,
@@ -471,10 +509,10 @@ SYSTEM MOTION CONFIGURATIONS TIMING (KEYFRAMES GLIDES)
   .animate-pop {
     animation: none !important;
   }
+  .mkt-offer-modal_cta_checkout,
+  .mkt-offer-modal_cta_add,
   .mkt-offer-modal__btn {
     transition: none !important;
-  }
-  .mkt-offer-modal__btn:active {
     transform: none !important;
   }
 }/*# sourceMappingURL=MakeOfferModal.css.map */

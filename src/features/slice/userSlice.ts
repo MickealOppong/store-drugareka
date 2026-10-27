@@ -10,6 +10,7 @@ let initialState: any= {
   userId: parseInt(CookieService.get("id") as string, 10) || -1,
   email: CookieService.get("email") || "",
   roles:getRolesCookie(),
+  sellerId:CookieService.get("profile_id") || "",
   hasAddress: CookieService.get("hasAddress") || "",
   address: {
     street: "",
@@ -34,6 +35,7 @@ const userSlice = createSlice({
         lastName,
         roles,
         address,
+        sellerId
       } = payload;
       const { token, refreshToken } = tokenDto;
      
@@ -43,10 +45,12 @@ const userSlice = createSlice({
       state.userId = userId;
       state.firstName = firstName;
       state.lastName = lastName;
+            state.sellerId = sellerId
       state.hasAddress =address!==null ? "true" : "false";
 
       //  Persistent for 7 days
       CookieService.set("email", email, 7);
+        CookieService.set("profile_id", sellerId, 7);
       CookieService.set("id", String(userId), 7);
       CookieService.set("fname", firstName, 7);
       CookieService.set("lname", lastName, 7);
@@ -62,6 +66,7 @@ const userSlice = createSlice({
         firstName,
         lastName,
         roles,
+        sellerId,
        address,
       } = payload;
 
@@ -72,6 +77,7 @@ const userSlice = createSlice({
       state.userId = userId;
       state.firstName = firstName;
       state.lastName = lastName;
+      state.sellerId = sellerId
       state.hasAddress =address!==null? "true" : "false";
 
       //  Persistent for 7 days
@@ -79,6 +85,7 @@ const userSlice = createSlice({
       CookieService.set("id", String(userId), 7);
       CookieService.set("fname", firstName, 7);
       CookieService.set("lname", lastName, 7);
+        CookieService.set("profile_id", sellerId, 7);
       CookieService.set("hasAddress", state.hasAddress, 7);
       CookieService.set("roles", JSON.stringify(roles), 7);
     },
@@ -95,6 +102,7 @@ const userSlice = createSlice({
       CookieService.remove("id");
       CookieService.remove("fname");
       CookieService.remove("lname");
+           CookieService.remove("profile_id");
       CookieService.remove("tk");
       CookieService.remove("rtk");
       CookieService.remove("roles");
