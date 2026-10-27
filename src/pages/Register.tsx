@@ -4,16 +4,15 @@ import {
   FiCalendar,
   FiLock,
   FiMail,
-  FiUser
+  FiUser,
 } from "react-icons/fi";
 
 import { Link, useNavigate } from "react-router-dom";
 import "../css/Register.css";
-import logoKasoa from './../assets/logo-kasoa.webp';
+import logoKasoa from "./../assets/logo-kasoa.webp";
 
 import { useTranslation } from "react-i18next";
 import { useAddUserMutation } from "../features/api/authApi";
-import type { TErrorResponse } from "../types/TErrorResponse";
 import type { TValidationErrors } from "../types/TVallidationErrors";
 
 const Register = () => {
@@ -66,13 +65,13 @@ const Register = () => {
     const password = formValues.password as string;
     const email = formValues.email as string;
 
-    console.log({firstName,lastName,dob,password,email});
-    
+    console.log({ firstName, lastName, dob, password, email });
+
     if (isTermsAccepted) {
       try {
         // 1. .unwrap() forces RTK-Query to throw an error if the HTTP status is not 2xx
 
-       const response= await register({
+        const response = await register({
           firstName,
           lastName,
           dob,
@@ -80,13 +79,13 @@ const Register = () => {
           password,
           isTermsAccepted,
         }).unwrap();
-        
+
         // 2. SUCCESS FLOW: Since we unwrapped, we know the backend returned a 2xx success code
         //console.log('Registration Successful:', payload);
 
-        if(response.data===true){
+        if (response.data === true) {
           // Redirect the user right away
-            navigate("/login");
+          navigate("/login");
         }
       } catch (error: any) {
         const { status } = error as {
@@ -122,15 +121,24 @@ const Register = () => {
 
         // Handle Client-Side Field Validation Errors (403 Forbidden)
         if (status === 403) {
-          // const errorResponse = error  as FetchBaseQueryError;
-          const errorData = error as { status: number; data: TErrorResponse };
-          const errors = errorData.data.error as TValidationErrors;
-          const { firstName, lastName, password, dob, email } = errors;
-          setEmailError(() => email);
-          setPasswordError(() => password);
-          setFirstNameError(() => firstName);
-          setLastNameError(() => lastName);
-          setDobError(() => dob);
+          const errorData = error as {
+            status: number;
+            data: {
+              message?: TValidationErrors | string;
+            };
+          };
+
+          const errors = errorData.data?.message;
+
+          if (errors && typeof errors === "object") {
+            setEmailError(errors.email);
+            setPasswordError(errors.password);
+            setFirstNameError(errors.firstName);
+            setLastNameError(errors.lastName);
+            setDobError(errors.dob);
+          } else if (typeof errors === "string") {
+            setFetchError(errors);
+          }
         }
       }
     } else {
@@ -158,7 +166,11 @@ const Register = () => {
         <div className="register-card">
           {/* BRAND */}
           <div className="brand">
-               <img src={logoKasoa} alt="" style={{width:'30px',height:'30px'}}/>
+            <img
+              src={logoKasoa}
+              alt=""
+              style={{ width: "30px", height: "30px" }}
+            />
             <h1>{t("STORE.BRAND_NAME")}</h1>
           </div>
 
@@ -289,7 +301,7 @@ const Register = () => {
                     autoComplete="new-password"
                     onFocus={handlePasswordInputFocus}
                     required
-                    defaultValue={''}
+                    defaultValue={""}
                   />
                 </div>
               </div>
@@ -310,12 +322,22 @@ const Register = () => {
               />
               <span>
                 {t("RegisterPage.fields.terms_and_privacy.link")}{" "}
-                <Link to="/terms" className="legal-link" target="_blank">
+                <Link
+                  to="/terms"
+                  className="legal-link"
+                  target="_blank"
+                >
                   {t("RegisterPage.fields.terms_and_privacy.terms")}{" "}
                 </Link>{" "}
                 {t("RegisterPage.fields.terms_and_privacy.and")}{" "}
-                <Link to="/privacy" className="legal-link" target="_blank">
-                  {t("RegisterPage.fields.terms_and_privacy.privacy_policy")}{" "}
+                <Link
+                  to="/privacy"
+                  className="legal-link"
+                  target="_blank"
+                >
+                  {t(
+                    "RegisterPage.fields.terms_and_privacy.privacy_policy",
+                  )}{" "}
                 </Link>
                 {t("RegisterPage.fields.terms_and_privacy.brand_name")}
               </span>
@@ -327,7 +349,7 @@ const Register = () => {
               type="submit"
               className="register-btn"
             >
-        {t("RegisterPage.fields.submit_btn")}
+              {t("RegisterPage.fields.submit_btn")}
               <FiArrowRight />
             </button>
           </form>
@@ -335,7 +357,10 @@ const Register = () => {
           {/* LOGIN */}
           <div className="login-link">
             <span>{t("RegisterPage.fields.login_prompt.text")}</span>
-            <Link to={"/login"}> {t("RegisterPage.fields.login_prompt.link")}</Link>
+            <Link to={"/login"}>
+              {" "}
+              {t("RegisterPage.fields.login_prompt.link")}
+            </Link>
           </div>
         </div>
       </div>
