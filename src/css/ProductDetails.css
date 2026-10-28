@@ -41,6 +41,7 @@
   margin-bottom: 1.75rem;
   width: 100%;
   box-sizing: border-box;
+  margin-top: 4rem;
 }
 @media (min-width: 640px) {
   .product-details__nav-header {
