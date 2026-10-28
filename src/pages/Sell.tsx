@@ -21,8 +21,8 @@ const Sell = () => {
   const { t } = useTranslation();
 
   const buttonRedirectPath = roles.includes("ROLE_ADMIN") 
-    ? "/account/admin" 
-    : "/account/user/";
+    ? "/account/admin/listings" 
+    : "/account/listings/me/";
 
   return (
  <main>
