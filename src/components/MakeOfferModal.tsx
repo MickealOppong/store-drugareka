@@ -142,6 +142,9 @@ export const MakeOfferModal = ({
         offer: numericOffer,
       }).unwrap()) as TResponseDto;
 
+      console.log(response);
+      
+
       const { message: apiMessage, httpStatus, data } = response;
 
       if (httpStatus !== 200 || !data) {

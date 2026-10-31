@@ -883,7 +883,8 @@
       "terms_link": "Zapoznaj się z regulaminem serwisu"
     },
     "header": {
-      "title": "Koszyk"
+      "title": "Koszyk",
+      "shipping_cost": "Koszt wysyłki paczki"
     },
     "summary": {
       "title": "Podsumowanie zamówienia",

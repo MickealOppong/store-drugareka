@@ -893,7 +893,8 @@
       "terms_link": "Read our marketplace terms"
     },
     "header": {
-      "title": "Cart"
+      "title": "Cart",
+      "shipping_cost":"Package shipping cost"
     },
     "summary": {
       "title": "Order summary",

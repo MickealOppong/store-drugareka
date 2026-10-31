@@ -127,7 +127,7 @@ handleShippingMethodChange()
                 <div className="cart-seller-shipping-footer flex items-center justify-between mt-3 pt-3 border-t border-dashed border-gray-200 text-sm">
                   <span className="flex items-center gap-1.5 text-gray-500 font-medium">
                     <FiTruck className="text-teal-700" />
-                    {t("cart.seller.shipping_cost", {
+                    {t("cart.header.shipping_cost", {
                       defaultValue: "Package Shipping Cost",
                     })}
                     :
@@ -146,8 +146,9 @@ handleShippingMethodChange()
             );
           })}
 
-          <CartAddressManager savedAddress={cart.address} />
           <ShippingMethodSelector selectedMethod={shippingMethod} onChange={onShippingMethodChange}/>
+          <CartAddressManager savedAddress={cart.address} />
+
         </div>
 
         {/* Order summary */}

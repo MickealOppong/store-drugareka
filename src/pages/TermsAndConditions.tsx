@@ -429,6 +429,28 @@ const TermsAndConditions: React.FC = () => {
           </p>
 
           <p className="terms-page__text">
+            Jeżeli zgłoszenie Kupującego zostanie uznane za uzasadnione,
+            Sprzedający ponosi koszty związane z takim zwrotem, w tym koszt
+            przesyłki zwrotnej oraz inne uzasadnione koszty obsługi zwrotu
+            i rozliczenia płatności, które zgodnie z zasadami dostawcy
+            płatności nie podlegają zwrotowi. Koszty te nie obciążają
+            Kupującego i mogą zostać rozliczone z kwot należnych
+            Sprzedającemu, z zastrzeżeniem bezwzględnie obowiązujących
+            przepisów prawa.
+          </p>
+
+          <p className="terms-page__text">
+            Opłata serwisowa Kasoa.pl za usługę obsługi i organizacji
+            transakcji nie podlega zwrotowi w przypadku uzasadnionego zwrotu
+            Towaru, w zakresie, w jakim usługa, za którą opłata została
+            pobrana, została już wykonana, a zatrzymanie opłaty jest
+            dopuszczalne na podstawie obowiązujących przepisów prawa.
+            Postanowienie to nie wyłącza prawa Kupującego do otrzymania
+            zwrotu jakiejkolwiek kwoty, której zwrot jest wymagany przez
+            bezwzględnie obowiązujące przepisy prawa.
+          </p>
+
+          <p className="terms-page__text">
             Adres Operatora do korespondencji oraz zgłoszeń związanych
             z procedurą zwrotu:
           </p>
@@ -687,6 +709,30 @@ const TermsAndConditions: React.FC = () => {
             transferu i ich statusów w zakresie niezbędnym do obsługi
             transakcji, rozliczeń i rozpatrywania zgłoszeń.
           </p>
+
+          <p className="terms-page__text">
+            Ostateczna kwota wypłaty należna Sprzedającemu może zostać
+            pomniejszona o opłaty pobierane przez Stripe w związku z realizacją
+            transferu środków na połączone konto Sprzedającego, jeżeli takie
+            opłaty mają zastosowanie do danej transakcji. Wysokość tych opłat
+            zależy od taryfy, konfiguracji oraz zasad Stripe. Sprzedający
+            otrzymuje rozliczenie kwoty wypłaty z uwzględnieniem opłat
+            i potrąceń, które zgodnie z Regulaminem oraz informacjami
+            przedstawionymi przed transakcją obciążają Sprzedającego.
+          </p>
+
+          <p className="terms-page__text">
+            Jeżeli po opłaceniu Zamówienia Sprzedający anuluje Zamówienie
+            z przyczyn leżących po jego stronie, Sprzedający ponosi koszt
+            opłat pobranych przez Stripe w związku ze zwrotem płatności
+            Kupującemu, w zakresie, w jakim opłaty te nie podlegają zwrotowi
+            przez Stripe. Kwota takich kosztów może zostać uwzględniona
+            w rozliczeniu Sprzedającego lub potrącona z należnych mu środków,
+            o ile jest to prawnie dopuszczalne i zostało przedstawione
+            Sprzedającemu przed zawarciem transakcji. Sprzedający nie ponosi
+            kosztów wynikających z błędu KASAWA ani z okoliczności, za które
+            zgodnie z prawem odpowiada KASAWA.
+          </p>
         </section>
 
         {/* 15 */}
@@ -821,6 +867,17 @@ const TermsAndConditions: React.FC = () => {
             W przypadku anulowania Zamówienia, jeżeli płatność została
             wcześniej dokonana, środki zostaną zwrócone Kupującemu zgodnie
             z zasadami właściwymi dla zastosowanego sposobu płatności.
+          </p>
+
+          <p className="terms-page__text">
+            Jeżeli anulowanie opłaconego Zamówienia następuje z inicjatywy
+            Sprzedającego lub z przyczyn leżących po jego stronie, Sprzedający
+            ponosi niepodlegające zwrotowi przez Stripe opłaty związane
+            z wykonaniem zwrotu płatności Kupującemu, zgodnie z zasadami
+            określonymi w pkt 14 Regulaminu. Nie dotyczy to sytuacji,
+            w których anulowanie wynika z okoliczności, za które odpowiada
+            KASAWA lub Kupujący, chyba że bezwzględnie obowiązujące przepisy
+            prawa stanowią inaczej.
           </p>
         </section>
 
