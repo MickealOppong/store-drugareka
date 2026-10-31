@@ -1,55 +1,69 @@
 import React, { useState } from "react";
-import { FiEye, FiFlag, FiSearch } from "react-icons/fi";
+import { FiEye, FiFlag, FiSearch, FiX } from "react-icons/fi";
 import { Link, useSearchParams } from "react-router-dom";
 
-import Pagination from '../components/Pagination';
+import OrderCancelModal from "../components/OrderCancelModal";
+import Pagination from "../components/Pagination";
+import '../css/GenericViewLayout.css';
 import { useGetStoreOrdersQuery } from "../features/api/itemApi";
 import type { TOrdersDto } from "../types/TOrdersDto";
 import { formatPrice } from "../util/util";
 
-
 const AdminOrderView: React.FC = () => {
   const [search, setSearch] = useState("");
   const [searchParams] = useSearchParams();
-  
+  const [canceelModalOpen, setCancelModalOpen] = useState<boolean>(false);
+  const [selectedOrder, setSelectedOrder] = useState<TOrdersDto>();
+
   const page = parseInt(searchParams.get("page") || "1");
 
   // ISOLATED API COMPONENT FETCH
   const { data, isLoading, isError } = useGetStoreOrdersQuery({
     page,
-    size:5,
+    size: 12,
   });
 
   const orders = (data?.orders as TOrdersDto[]) || [];
-
-
-  
 
   // ISOLATED SEARCH FILTER ENGINE
   const filteredList = orders.filter((order) => {
     const query = search;
 
-  
     if (!query) return true;
     return (
       String(order.orderNumber || order.id).includes(query) ||
       order.buyer?.toLowerCase().includes(query.toLowerCase())
     );
-  })
-  
+  });
+
+  const cancelModal = (order: TOrdersDto) => {
+    setSelectedOrder(order);
+    setCancelModalOpen(true);
+  };
+
+  const closeCancelModal = () => {
+    setCancelModalOpen(false);
+  };
 
   return (
     <>
-        {/* =================================================
+      {/* =================================================
                 UNIVERSAL STATIC HEADER BLOCK
             ================================================== */}
-     <header className="panel-view__header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-           <div>
-             <span className="panel-view__eyebrow">Orders</span>
-             <h1 className="panel-view__title">All Orders</h1>
-             <p className="panel-view__description">Manage listing orders.</p>
-           </div>
-         </header>
+      <header
+        className="panel-view__header"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <div>
+          <span className="panel-view__eyebrow">Orders</span>
+          <h1 className="panel-view__title">All Orders</h1>
+          <p className="panel-view__description">Manage listing orders.</p>
+        </div>
+      </header>
       {/* LOCALIZED INDEPENDENT TOOLBAR */}
       <div className="panel-view__toolbar">
         <div className="panel-view__search-wrapper">
@@ -67,7 +81,9 @@ const AdminOrderView: React.FC = () => {
       </div>
 
       {isError && (
-        <div className="panel-view__error-box">Unable to fetch sales records.</div>
+        <div className="panel-view__error-box">
+          Unable to fetch sales records.
+        </div>
       )}
 
       <section className="panel-view__content-card">
@@ -76,7 +92,11 @@ const AdminOrderView: React.FC = () => {
         ) : filteredList.length === 0 ? (
           <div className="panel-view__empty-state">
             <div className="panel-view__empty-title">No order found</div>
-            <p>{search ? "No sales match your search." : "Your sales records will appear here."}</p>
+            <p>
+              {search
+                ? "No sales match your search."
+                : "Your sales records will appear here."}
+            </p>
           </div>
         ) : (
           <div className="panel-view__scroll-table-container">
@@ -84,9 +104,10 @@ const AdminOrderView: React.FC = () => {
               <thead>
                 <tr>
                   <th>Order</th>
-                       <th>Seller</th>
+                  <th>Seller</th>
                   <th>Buyer</th>
                   <th>Subtotal</th>
+                  <th>Service charge</th>
                   <th>Shipping</th>
                   <th>Total</th>
                   <th>Status</th>
@@ -95,16 +116,22 @@ const AdminOrderView: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredList.map((order,index) => (
+                {filteredList.map((order, index) => (
                   <tr key={index}>
                     <td>
                       <span className="data-table__text font-semibold text-main">
                         #{order.orderNumber || order.id}
                       </span>
                     </td>
-                      <td>
+                    <td>
                       <div className="data-table__user-profile">
-                        <span className="data-table__avatar-badge" style={{ backgroundColor: "#e2e8f0", color: "#475569" }}>
+                        <span
+                          className="data-table__avatar-badge"
+                          style={{
+                            backgroundColor: "#e2e8f0",
+                            color: "#475569",
+                          }}
+                        >
                           {order.seller?.charAt(0)?.toUpperCase()}
                         </span>
                         <span>{order.seller}</span>
@@ -112,25 +139,45 @@ const AdminOrderView: React.FC = () => {
                     </td>
                     <td>
                       <div className="data-table__user-profile">
-                        <span className="data-table__avatar-badge" style={{ backgroundColor: "#e2e8f0", color: "#475569" }}>
+                        <span
+                          className="data-table__avatar-badge"
+                          style={{
+                            backgroundColor: "#e2e8f0",
+                            color: "#475569",
+                          }}
+                        >
                           {order.buyer?.charAt(0)?.toUpperCase()}
                         </span>
                         <span>{order.buyer}</span>
                       </div>
                     </td>
                     <td>
-                      <span className="data-table__text">{formatPrice(order.price)} {order.currency}</span>
-                    </td>
-                    <td>
-                      <span className="data-table__text">{formatPrice(order.shipping)} {order.currency}</span>
-                    </td>
-                    <td>
-                      <span className="data-table__text font-bold text-primary">
-                        {formatPrice(order.price+ order.shipping)} {order.currency}
+                      <span className="data-table__text">
+                        {formatPrice(order.price)} {order.currency}
                       </span>
                     </td>
                     <td>
-                      <span className={`status-badge status-badge--${order.orderStatus?.toLowerCase().replace(/_/g, "-")}`}>
+                      <span className="data-table__text">
+                        {formatPrice(order.serviceCharge)} {order.currency}
+                      </span>
+                    </td>
+                    <td>
+                      <span className="data-table__text">
+                        {formatPrice(order.shipping)} {order.currency}
+                      </span>
+                    </td>
+                    <td>
+                      <span className="data-table__text font-bold text-primary">
+                        {formatPrice(
+                          order.price + order.shipping + order.serviceCharge,
+                        )}{" "}
+                        {order.currency}
+                      </span>
+                    </td>
+                    <td>
+                      <span
+                        className={`status-badge status-badge--${order.orderStatus?.toLowerCase().replace(/_/g, "-")}`}
+                      >
                         {order.orderStatus?.replace(/_/g, " ")}
                       </span>
                     </td>
@@ -141,12 +188,27 @@ const AdminOrderView: React.FC = () => {
                     </td>
                     <td>
                       <div className="data-table__actions">
-                        <Link to={`/account/orders/${order.id}`} className="data-table__action-link" title="View Details">
+                        <Link
+                          to={`/account/orders/${order.id}/details`}
+                          className="data-table__action-link"
+                          title="View Details"
+                        >
                           <FiEye />
                         </Link>
-                        <Link to={`/account/complaints/new/${order.id}`} className="data-table__action-link" title="File Dispute">
+                        <Link
+                          to={`/account/complaints/new/${order.id}`}
+                          className="data-table__action-link"
+                          title="File Dispute"
+                        >
                           <FiFlag />
                         </Link>
+                        <button
+                          type="button"
+                          className="data-table__actions__btn data-table__actions__btn--cancel"
+                          onClick={() => cancelModal(order)}
+                        >
+                          <FiX />
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -156,9 +218,24 @@ const AdminOrderView: React.FC = () => {
           </div>
         )}
       </section>
+      {canceelModalOpen && (
+        <OrderCancelModal
+          orderData={selectedOrder as TOrdersDto}
+          isOpen={canceelModalOpen}
+          onButtonClick={closeCancelModal}
+        />
+      )}
 
       {/* LOCALIZED PACING HOOKS */}
-      {data && <Pagination accumulated={data.accumulatedItems} page={page} totalPage={data.totalPages} size={data.pageSize} totalElements={data?.totalElements}/>}
+      {data && (
+        <Pagination
+          accumulated={data.accumulatedItems}
+          page={page}
+          totalPage={data.totalPages}
+          size={data.pageSize}
+          totalElements={data?.totalElements}
+        />
+      )}
     </>
   );
 };

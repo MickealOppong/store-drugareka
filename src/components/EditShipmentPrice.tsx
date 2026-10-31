@@ -1,10 +1,11 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 import {
-    FiAlertCircle,
-    FiCheckCircle,
-    FiDollarSign,
-    FiLayers,
-    FiTruck,
+  FiAlertCircle,
+  FiCheckCircle,
+  FiDollarSign,
+  FiLayers,
+  FiTruck,
 } from "react-icons/fi";
 import { useNavigate, useParams, useRevalidator } from "react-router";
 import "../css/ShippingPrice.css";
@@ -14,6 +15,7 @@ import type { TShipmentPriceInput } from "../types/TShipmentPriceInput";
 
 const EditShipmentPrice = () => {
   const { revalidate } = useRevalidator();
+    const {t} = useTranslation()
   const{id}=useParams<{id:string}>()
 
   const [formData, setFormData] = useState<TShipmentPriceInput>({
@@ -168,7 +170,7 @@ useEffect(()=>{
                 {SHIPPING_METHOD.map((method) => (
                     
                      <option key={method.value} value={method.value}>
-                    {method.method}
+                         {t(`cart.shipping_selector.${method.method}`)}
                   </option>
                 ))}
               </select>

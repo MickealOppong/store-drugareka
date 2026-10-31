@@ -172,7 +172,7 @@
 .mkt-offer-modal__summary-value--price-reduced {
   font-size: 1.15rem;
   font-weight: 850;
-  color: #16a34a;
+  color: #66704A;
 }
 .mkt-offer-modal {
   /* =========================================================
@@ -302,7 +302,7 @@
 }
 .mkt-offer-modal_cta {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 12px;
   width: 100%;
   box-sizing: border-box;
@@ -322,7 +322,7 @@
   gap: 0.5rem;
   height: 44px;
   padding: 0 1.5rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
   border-radius: 12px;
   cursor: pointer;
@@ -405,7 +405,7 @@
   }
 }
 .mkt-offer-modal__btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;

@@ -6,7 +6,7 @@ import { FiArrowUpLeft, FiX } from "react-icons/fi";
 import { useGetPurchaseDetailsQuery } from "../features/api/itemApi";
 import type { TOrdersDto } from "../types/TOrdersDto";
 import { formatPrice } from "../util/util";
-import BuyerOrderCancellationModal from "./BuyerOrderCancellationModla";
+import BuyerOrderCancellationModal from "./BuyerOrderCancellationModal";
 import OrderReturnModal from "./OrderReturnModal";
 import OrderTimeline from "./OrderTimeline";
 
@@ -178,7 +178,7 @@ const OrderDetails = () => {
                         >
                           <FiArrowUpLeft />
                         </button>
-                        <button
+                        <button style={{display:'none'}}
                           type="button"
                           className="data-table__actions__btn data-table__actions__btn--cancel"
                           onClick={() => cancelModal(order)}

@@ -1,12 +1,14 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiArrowRight, FiInfo, FiTruck } from "react-icons/fi";
 import "../css/Cart.css";
+import { useUpdateCartShippingMethodMutation } from "../features/api/cartApi";
 import type { TCart, TCartItem } from "../types/TCart";
 import { formatPrice } from "../util/util";
 import CartAddressManager from "./CartAddressManager";
 import CartItemCard from "./CartItemCard";
+import ShippingMethodSelector from "./ShippingMethodSelector";
 
 interface CartProps {
   cart: TCart;
@@ -23,6 +25,29 @@ const Cart: React.FC<CartProps> = ({
 }) => {
   const { t } = useTranslation();
 
+ const [updateCartShippingMethod] = useUpdateCartShippingMethodMutation()
+
+  const[shippingMethod,setShippingMethod]=useState<string>(cart.shippingMethod)
+
+const onShippingMethodChange= (selected:string)=>{
+  setShippingMethod(selected)
+
+}
+
+  const handleShippingMethodChange =async()=>{
+   try {
+    await updateCartShippingMethod(shippingMethod)
+  } catch (error) {
+    
+  }
+}
+
+useEffect(()=>{
+handleShippingMethodChange()
+},[shippingMethod])
+
+
+  
   const sellerGroups = Object.values(
     cart.cartItemList.reduce<Record<number, TCartItem[]>>(
       (groups, item) => {
@@ -122,6 +147,7 @@ const Cart: React.FC<CartProps> = ({
           })}
 
           <CartAddressManager savedAddress={cart.address} />
+          <ShippingMethodSelector selectedMethod={shippingMethod} onChange={onShippingMethodChange}/>
         </div>
 
         {/* Order summary */}

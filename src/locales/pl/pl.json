@@ -641,7 +641,8 @@
         "shipped": "Wysłane",
         "delivered": "Dostarczone",
         "cancelled": "Anulowane",
-        "processing": "W trakcie przetwarzania"
+        "processing": "W trakcie przetwarzania",
+          "returned":"Zwrócone"
       }
     },
     "actions": {
@@ -771,7 +772,8 @@
         "processing": "W trakcie przetwarzania",
         "Ready_for_review": "Gotowe do weryfikacji",
         "reversed": "Cofnięte",
-        "transferred": "Przelane"
+        "transferred": "Przelane",
+      "charge_back": "Obciążenie zwrotne (Chargeback)"
       }
 
     }
@@ -928,6 +930,16 @@
     "timer": {
       "expired": "Czas rezerwacji minął",
       "holding": "Rezerwacja: {{time}}"
+    },
+    "shipping_selector": {
+      "title": "Sposób dostawy",
+      "description": "Wybierz formę nadania i doręczenia przesyłki.",
+      "locker_title": "Automat paczkowy",
+      "locker_desc": "InPost Paczkomat, DPD Pickup",
+      "home_title": "Dostawa kurierska",
+      "home_desc": "Kurier bezpośrednio pod Twój adres",
+           "inpost_courier":"InPost courier",
+      "dpd":"DPD"
     }
   },
   "product_details": {
@@ -1523,7 +1535,14 @@
       "missing_fields": "Proszę uzupełnić wszystkie wymagane pola adresu odbioru paczki.",
       "no_items": "Proszę wybrać co najmniej jeden produkt do nadania przesyłki.",
       "network_fallback": "Wystąpił nieoczekiwany błąd sieciowy podczas komunikacji z systemem logistycznym DPD."
-    }
+    },
+    "success": {
+  "title": "Wysyłka potwierdzona",
+  "description": "Zlecenie odbioru przesyłki przez kuriera zostało pomyślnie przesłane."
+},"already_confirmed": {
+  "title": "Wysyłka została już potwierdzona",
+  "description": "Ta wysyłka została już potwierdzona. Nie są wymagane żadne dalsze działania."
+}
   },
   "cookie_banner": {
     "title": "Szanujemy Twoją Prywatność",

@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useTranslation } from "react-i18next";
 import {
   FiAlertCircle,
   FiCheckCircle,
@@ -14,6 +15,7 @@ import type { TShipmentPriceInput } from "../types/TShipmentPriceInput";
 
 const ShipmentPriceManager = () => {
   const { revalidate } = useRevalidator();
+  const {t} = useTranslation()
 
   const [formData, setFormData] = useState<TShipmentPriceInput>({
     itemSize: "",
@@ -149,7 +151,7 @@ const ShipmentPriceManager = () => {
                 {SHIPPING_METHOD.map((method) => (
                     
                      <option key={method.value} value={method.value}>
-                    {method.method}
+                    {t(`cart.shipping_selector.${method.method}`)}
                   </option>
                 ))}
               </select>

@@ -642,7 +642,8 @@
         "shipped": "Shipped",
         "delivered": "Delivered",
         "cancelled": "Cancelled",
-        "processing": "Processing"
+        "processing": "Processing",
+        "returned":"Returned"
       }
     },
     "actions": {
@@ -781,7 +782,8 @@
         "processing":"Processing",
         "Ready_for_review":"Ready for review",
         "reversed":"Reversed",
-        "transferred":"Transferred"
+        "transferred":"Transferred",
+        "charge_back":"Charge back"
       }
     }
   },
@@ -933,7 +935,16 @@
           "label": "Postal code",
           "placeholder": "e.g. 90-001"
         }
-      }
+      }, "shipping_selector": {
+      "title": "Delivery Method",
+      "description": "Choose how you want your package dispatched.",
+      "locker_title": "Parcel Locker",
+      "locker_desc": "InPost Paczkomat, DPD Pickup",
+      "home_title": "Home Delivery",
+      "home_desc": "Courier directly to your door",
+      "inpost_courier":"InPost courier",
+      "dpd":"DPD"
+    }
     },
     "timer": {
       "expired": "Reservation time expired",
@@ -1571,6 +1582,13 @@
       "missing_fields": "Please fill in all required pickup address fields.",
       "no_items": "Please select at least one product to dispatch.",
       "network_fallback": "An unexpected network error occurred while communicating with the DPD logistics engine."
+    },
+    "success":{
+      "title":"Shipment confirmed",
+      "description":"Your courier collection request has been submitted successfully."
+    },  "already_confirmed":{
+      "title":"Shipment already confirmed",
+      "description":"This shipment has already been confirmed. No further action is required."
     }
   },
   "cookie_banner": {

@@ -138,7 +138,7 @@
   margin-bottom: 0.5rem;
 }
 .panel-view__scroll-table-container {
-  overflow-x: auto;
+  overflow: auto;
   width: 100%;
 }
 

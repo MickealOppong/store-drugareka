@@ -87,6 +87,16 @@ export const cartApi = createApi({
       }),
       invalidatesTags: ["cart"],
     }),
+      updateCartShippingMethod: build.mutation<void, string>({
+      query: (shippingMethod) => ({
+        url: `/api/cart/shipping/method`,
+        params:{
+          shippingMethod
+        },
+        method: "PUT",
+      }),
+      invalidatesTags: ["cart"],
+    }),
   }),
 });
 export const {
@@ -98,5 +108,6 @@ export const {
   useLazyGetBuyerCartQuery,
   useMergeCartMutation,
   useLazyGetCartCountQuery,
-  useAddToCartOfferMutation
+  useAddToCartOfferMutation,
+  useUpdateCartShippingMethodMutation
 } = cartApi;

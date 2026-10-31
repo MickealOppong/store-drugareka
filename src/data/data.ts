@@ -14,12 +14,22 @@ export const SHIPPING_METHOD = [
   {
     id: 1,
     value: "inpost",
-    method: "InPost courier",
+    method: "inpost_courier",
   },
   {
     id: 2,
     value: "dpd",
-    method: "DPD",
+    method: "dpd",
+  },
+   {
+    id: 3,
+    value: "locker",
+    method: "locker_title",
+  },
+    {
+    id: 3,
+    value: "courier",
+    method: "home_title",
   },
 ];
 

@@ -25,8 +25,6 @@ export const ReturnConfirmation = () => {
 
 
 
-
-
   const handleConfirm = async () => {
     if (!token) return;
     

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { FiCheckCircle, FiEdit, FiMapPin, FiX } from "react-icons/fi";
 import '../css/CartAddress.css';
@@ -53,29 +53,39 @@ const CartAddressManager: React.FC<CartAddressManagerProps> = ({ savedAddress })
     }
   };
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
+
+const handleFormSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrors({ street: "", city: "", postalCode: "", contact: "" });
+
+    setErrors({
+        street: "",
+        city: "",
+        postalCode: "",
+        contact: ""
+    });
 
     try {
-   await createAddress(addressForm).unwrap();
-      setEditMode(false);
+        await createAddress(addressForm).unwrap();
+        setEditMode(false);
+
     } catch (err: any) {
-      console.error("Address validation constraint block caught:", err);
-      
-      // Capture Spring Boot MethodArgumentNotValidException structured map payloads
-      if (err?.status === 403 && err?.data?.error) {
-        const backendErrors = err.data.error;
-        setErrors({
-          street: backendErrors.street || "",
-          city: backendErrors.city || "",
-          postalCode: backendErrors.postalCode || "",
-          contact: backendErrors.contact || "",
-        });
-        setEditMode(true);
-      }
+        console.error("Address submission failed:");
+
+        const backendErrors = err?.data?.message;
+
+        if (err?.status === 403 && backendErrors) {
+            setErrors({
+                street: backendErrors.street ?? "",
+                city: backendErrors.city ?? "",
+                postalCode: backendErrors.postalCode ?? "",
+                contact: backendErrors.contact ?? ""
+            });
+
+            setEditMode(true);
+        }
     }
-  };
+};
 
   return (
     <div className="cart-address-block">

@@ -44,6 +44,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ item, onRemove }) => {
         </footer>
       </div>
     </article>
+    
   );
 };
 

@@ -5,6 +5,7 @@ export type TCart = {
   cartId: number;
   status: string;
   address:TAddress
+  shippingMethod:string
   cartItemList:TCartItem[]
 };
 

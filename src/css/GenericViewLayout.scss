@@ -1,141 +1,161 @@
 @use "sass:color";
-@use 'variables.scss' as Variables;
+@use "variables.scss" as Variables;
 
 // --------------------------------------------------
 // GLOBAL WRAPPER GRID PARSING
 // --------------------------------------------------
 .panel-view {
-    @include Variables.container; // Adapts directly to your 1280px master layout rules
-    padding-top: 2rem;
-    padding-bottom: 4rem;
-    font-family: Variables.$font-sans;
-   
+  @include Variables.container; // Adapts directly to your 1280px master layout rules
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  font-family: Variables.$font-sans;
 
-    &__header {
-        margin-bottom: 2rem;
+  &__header {
+    margin-bottom: 2rem;
+  }
+
+  &__eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: Variables.$color-primary;
+  }
+
+  &__title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: Variables.$color-text-main;
+    margin: 0.25rem 0 0.5rem 0;
+  }
+
+  &__description {
+    font-size: 15px;
+    color: Variables.$color-text-muted;
+    margin: 0;
+  }
+
+  &__tab-group {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid Variables.$color-border;
+    margin-bottom: 2rem;
+  }
+
+  &__tab-btn {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    background: none;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    color: Variables.$color-text-muted;
+    cursor: pointer;
+    position: relative;
+    transition: Variables.$transition-default;
+
+    &:hover {
+      color: Variables.$color-primary;
     }
 
-    &__eyebrow {
-        font-size: 13px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: Variables.$color-primary;
-    }
+    &.is-active {
+      color: Variables.$color-primary;
+      font-weight: 600;
 
-    &__title {
-        font-size: 2.25rem;
-        font-weight: 700;
-        color: Variables.$color-text-main;
-        margin: 0.25rem 0 0.5rem 0;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: Variables.$color-primary; // Sage green emphasis line
+      }
     }
+  }
 
-    &__description {
-        font-size: 15px;
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__search-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: Variables.$background;
+    border: 1px solid Variables.$color-border;
+    border-radius: 12px;
+    padding: 0 1rem;
+    width: 100%;
+    max-width: 380px;
+    height: 44px;
+    box-sizing: border-box;
+
+    svg {
+      color: Variables.$color-secondary;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    input {
+      border: none;
+      outline: none;
+      background: none;
+      width: 100%;
+      font-family: inherit;
+      font-size: 14px;
+      color: Variables.$color-text-main;
+      &::placeholder {
         color: Variables.$color-text-muted;
-        margin: 0;
+      }
     }
+  }
 
-    &__tab-group {
-        display: flex;
-        gap: 0.5rem;
-        border-bottom: 1px solid Variables.$color-border;
-        margin-bottom: 2rem;
-    }
+  &__metrics-counter {
+    font-size: 14px;
+    color: Variables.$color-secondary;
+    font-weight: 500;
+  }
 
-    &__tab-btn {
-        font-family: inherit;
-        font-size: 15px;
-        font-weight: 500;
-        background: none;
-        border: none;
-        padding: 0.75rem 1.25rem;
-        color: Variables.$color-text-muted;
-        cursor: pointer;
-        position: relative;
-        transition: Variables.$transition-default;
+  &__error-box {
+    background-color: rgba(Variables.$color-accent, 0.07);
+    border: 1px solid Variables.$color-accent;
+    color: Variables.$color-accent;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+  }
 
-        &:hover { color: Variables.$color-primary; }
+  &__content-card {
+    background-color: Variables.$background;
+    border: 1px solid Variables.$color-border;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+    overflow: hidden;
+    width: 100%;
+  }
 
-        &.is-active {
-            color: Variables.$color-primary;
-            font-weight: 600;
-
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: -1px;
-                left: 0;
-                right: 0;
-                height: 2px;
-                background-color: Variables.$color-primary; // Sage green emphasis line
-            }
-        }
-    }
-
-    &__toolbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        margin-bottom: 1.25rem;
-    }
-
-    &__search-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        background-color: Variables.$background;
-        border: 1px solid Variables.$color-border;
-        border-radius: 12px;
-        padding: 0 1rem;
-        width: 100%;
-        max-width: 380px;
-        height: 44px;
-        box-sizing: border-box;
-
-        svg { color: Variables.$color-secondary; font-size: 18px; flex-shrink: 0; }
-        input {
-            border: none; outline: none; background: none; width: 100%;
-            font-family: inherit; font-size: 14px; color: Variables.$color-text-main;
-            &::placeholder { color: Variables.$color-text-muted; }
-        }
-    }
-
-    &__metrics-counter {
-        font-size: 14px;
-        color: Variables.$color-secondary;
-        font-weight: 500;
-    }
-
-    &__error-box {
-        background-color: rgba(Variables.$color-accent, 0.07);
-        border: 1px solid Variables.$color-accent;
-        color: Variables.$color-accent;
-        padding: 1rem;
-        border-radius: 12px;
-        margin-bottom: 1.5rem;
-        font-size: 14px;
-    }
-
-    &__content-card {
-        background-color: Variables.$background;
-        border: 1px solid Variables.$color-border;
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
-        overflow: hidden;
-        width: 100%;
-    }
-
-    &__loading-overlay, &__empty-state {
-        padding: 4rem 2rem; text-align: center; color: Variables.$color-text-muted;
-    }
-    &__empty-title {
-        font-size: 18px; font-weight: 600; color: Variables.$color-text-main; margin-bottom: 0.5rem;
-    }
-    &__scroll-table-container { overflow-x: auto; width: 100%; }
+  &__loading-overlay,
+  &__empty-state {
+    padding: 4rem 2rem;
+    text-align: center;
+    color: Variables.$color-text-muted;
+  }
+  &__empty-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: Variables.$color-text-main;
+    margin-bottom: 0.5rem;
+  }
+  &__scroll-table-container {
+    overflow: auto;
+    width: 100%;
+  }
 }
-
 
 .data-table__cell {
   padding: 12px 16px;
@@ -145,7 +165,7 @@
   text-align: left;
   box-sizing: border-box;
 
-  // 🚀 NESTED BUTTON HOOK CONTROLS
+  //  NESTED BUTTON HOOK CONTROLS
   button {
     display: inline-flex;
     align-items: center;
@@ -174,7 +194,10 @@
       color: #dc2626; // Vivid threat alert crimson
 
       svg {
-        transform: translate(-1px, -1px); // Subtle dynamic shift following the FiArrowUpLeft vector direction
+        transform: translate(
+          -1px,
+          -1px
+        ); // Subtle dynamic shift following the FiArrowUpLeft vector direction
       }
     }
 
@@ -184,113 +207,171 @@
   }
 }
 
-
 // --------------------------------------------------
 // REUSABLE MASTER LAYOUT DATA TABLE MODULE
 // --------------------------------------------------
 .data-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
 
-    thead {
-        background-color: Variables.$color-bg-light;
-        border-bottom: 1px solid Variables.$color-border;
+  thead {
+    background-color: Variables.$color-bg-light;
+    border-bottom: 1px solid Variables.$color-border;
 
-        th {
-            padding: 1rem 1.25rem;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: Variables.$color-text-muted;
-        }
+    th {
+      padding: 1rem 1.25rem;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: Variables.$color-text-muted;
     }
+  }
 
-    tbody tr {
-        border-bottom: 1px solid Variables.$color-border;
-        transition: background-color 0.15s ease;
-        &:last-child { border-bottom: none; }
-        &:hover { background-color: Variables.$background-2; }
+  tbody tr {
+    border-bottom: 1px solid Variables.$color-border;
+    transition: background-color 0.15s ease;
+    &:last-child {
+      border-bottom: none;
     }
-
-    td { padding: 1rem 1.25rem; vertical-align: middle; }
-
-    &__text {
-        font-size: 14px; color: Variables.$color-text-main; white-space: nowrap;
-        &.font-semibold { font-weight: 500; }
-        &.font-bold { font-weight: 600; }
-        &.text-main { color: Variables.$color-text-main; }
-        &.text-primary { color: Variables.$color-primary; }
-        &.text-muted { color: Variables.$color-text-muted; }
+    &:hover {
+      background-color: Variables.$background-2;
     }
+  }
 
-    &__user-profile {
-        display: flex; align-items: center; gap: 0.75rem;
-        font-size: 14px; font-weight: 500; white-space: nowrap;
+  td {
+    padding: 1rem 1.25rem;
+    vertical-align: middle;
+  }
+
+  &__text {
+    font-size: 14px;
+    color: Variables.$color-text-main;
+    white-space: nowrap;
+    &.font-semibold {
+      font-weight: 500;
     }
-
-    &__avatar-badge {
-        display: flex; align-items: center; justify-content: center;
-        width: 28px; height: 28px; border-radius: 50%;
-        background-color: color.adjust(Variables.$color-primary, $lightness: 42%); color: Variables.$color-primary;
-        font-size: 12px; font-weight: 700;
+    &.font-bold {
+      font-weight: 600;
     }
-
-    &__actions { display: flex; align-items: center; justify-content: center; }
-    &__actions-header { text-align: center; }
-
-    &__action-link {
-        display: flex; align-items: center; justify-content: center;
-        width: 36px; height: 36px; border: 1px solid Variables.$color-border; border-radius: 8px;
-        background-color: Variables.$background; color: Variables.$color-secondary; transition: Variables.$transition-default;
-        
-        svg { font-size: 16px; }
-        &:hover {
-            border-color: Variables.$color-primary; color: Variables.$color-primary;
-            background-color: color.adjust(Variables.$color-primary, $lightness: 50%); transform: translateY(-1px);
-        }
+    &.text-main {
+      color: Variables.$color-text-main;
     }
+    &.text-primary {
+      color: Variables.$color-primary;
+    }
+    &.text-muted {
+      color: Variables.$color-text-muted;
+    }
+  }
+
+  &__user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  &__avatar-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: color.adjust(Variables.$color-primary, $lightness: 42%);
+    color: Variables.$color-primary;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__actions-header {
+    text-align: center;
+  }
+
+  &__action-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid Variables.$color-border;
+    border-radius: 8px;
+    background-color: Variables.$background;
+    color: Variables.$color-secondary;
+    transition: Variables.$transition-default;
+
+    svg {
+      font-size: 16px;
+    }
+    &:hover {
+      border-color: Variables.$color-primary;
+      color: Variables.$color-primary;
+      background-color: color.adjust(Variables.$color-primary, $lightness: 50%);
+      transform: translateY(-1px);
+    }
+  }
 }
 
 // --------------------------------------------------
 // REUSABLE CONTEXT-DRIVEN STATUS BADGES
 // --------------------------------------------------
 .status-badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.25px;
-    white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25px;
+  white-space: nowrap;
 
-    // Default Fallback Color Tone (Pending / Processing states)
-    background-color: #fef3c7;
-    color: #d97706;
+  // Default Fallback Color Tone (Pending / Processing states)
+  background-color: #fef3c7;
+  color: #d97706;
 
-    &--shipped, &--in-transit {
-        background-color: #dbeafe; color: #2563eb;
-    }
-    &--completed, &--delivered, &--label-ready {
-        background-color: Variables.$color-safety-bg; color: Variables.$color-safety-text;
-    }
-    &--disputed, &--cancelled, &--expired {
-        background-color: rgba(Variables.$color-accent, 0.08); color: Variables.$color-accent;
-    }
+  &--shipped,
+  &--in-transit {
+    background-color: #dbeafe;
+    color: #2563eb;
+  }
+  &--completed,
+  &--delivered,
+  &--label-ready {
+    background-color: Variables.$color-safety-bg;
+    color: Variables.$color-safety-text;
+  }
+  &--disputed,
+  &--cancelled,
+  &--expired {
+    background-color: rgba(Variables.$color-accent, 0.08);
+    color: Variables.$color-accent;
+  }
 }
 
 // Media breakout query responsiveness
 @media (max-width: Variables.$breakpoint-md) {
-    .panel-view {
-        &__toolbar { flex-direction: column; align-items: flex-start; }
-        &__search-wrapper { max-width: 100%; }
+  .panel-view {
+    &__toolbar {
+      flex-direction: column;
+      align-items: flex-start;
     }
+    &__search-wrapper {
+      max-width: 100%;
+    }
+  }
 }
 
- // 🚀 Inherits layout transitions and brand design parameters
+// 🚀 Inherits layout transitions and brand design parameters
 
 /* ==========================================================================
    MULTI-ACTION SELECTION MATRIX COLUMN (.data-table__actions)
@@ -340,7 +421,6 @@
     }
   }
 
-
   &__action-link--dispute {
     &:hover {
       color: #d97706; // Highly accessible Amber alert tone for complaints
@@ -348,7 +428,6 @@
       border-color: rgba(#d97706, 0.2);
     }
   }
-
 
   &__btn--cancel {
     &:hover {
@@ -485,6 +564,6 @@
     }
   }
 }
-.message--error{
+.message--error {
   color: rebeccapurple;
 }

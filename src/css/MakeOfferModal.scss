@@ -186,7 +186,7 @@
     &--price-reduced {
       font-size: 1.15rem;
       font-weight: 850;
-      color: #16a34a; // Sharp commercial success green focus pricing display
+      color: Variables.$color-primary;
     }
   }
 
@@ -321,10 +321,11 @@
      ========================================================================== */
   &_cta {
     display: flex;
-    flex-direction: column; // Default to fluid touch stacks layout rows on small viewports
+    flex-direction: row;
     gap: 12px;
     width: 100%;
     box-sizing: border-box;
+  
  
 
     @include Variables.media-up(Variables.$breakpoint-sm) {
@@ -342,7 +343,7 @@
       gap: 0.5rem;
       height: Variables.$touch-target-min; // Enforces standard minimum 48px tactile limits guidelines
       padding: 0 1.5rem;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 700;
       border-radius: 12px;
       cursor: pointer;
@@ -426,7 +427,7 @@ TACTILE CONTROL ACTIONS INTERACTIVE FOOTER FOOTERS
 
 
   &__btn {
-    display: inline-flex;
+  display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
@@ -444,6 +445,7 @@ TACTILE CONTROL ACTIONS INTERACTIVE FOOTER FOOTERS
     background-color: none;
     @media (max-width: Variables.$breakpoint-sm) {
       width: 100%;
+  
     }
     &:disabled {
       opacity: 0.45;

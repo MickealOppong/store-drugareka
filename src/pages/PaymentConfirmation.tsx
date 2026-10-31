@@ -195,7 +195,7 @@ export const PaymentConfirmation: React.FC = () => {
             </a>
           </p>
 
-          <Link to="/shop" className="payment-status__cta-btn">
+          <Link to="/account/user" className="payment-status__cta-btn">
             <FiShoppingBag /> {t("payment_confirmation.success.cta_continue")}
           </Link>
         </section>
