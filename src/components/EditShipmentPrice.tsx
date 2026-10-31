@@ -23,6 +23,7 @@ const EditShipmentPrice = () => {
     shippingMethod: "",
     price: "0.00",
     active: true,
+    discount:"0.00"
   });
 
 
@@ -36,6 +37,7 @@ setFormData(response.data? response.data as  TShipmentPriceInput:{
     shippingMethod: "",
     price: "0.00",
     active: true,
+    discount:"0.00"
   })
 }
   
@@ -72,6 +74,18 @@ useEffect(()=>{
     }
   };
 
+    const handleDiscountChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d*\.?\d{0,2}$/.test(value) || value === "") {
+      setFormData((prev) => ({
+        ...prev,
+        discount: value,
+      }));
+      setSaveSuccess(false);
+      setSubmissionError(null);
+    }
+  };
+
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
@@ -92,7 +106,8 @@ useEffect(()=>{
         shippingMethod: formData.shippingMethod,
         price: formData.price,
         active: formData.active,
-        id:parseInt(String(id))
+        id:parseInt(String(id)),
+        discount:formData.discount ||"0.00"
     };      
 
     try {
@@ -191,6 +206,28 @@ useEffect(()=>{
                   placeholder="0.00"
                   value={formData.price}
                   onChange={handlePriceChange}
+                  disabled={isSubmitting}
+                  required
+                  className="shipment-price-manager__price-input"
+                />
+              </div>
+            </div>
+
+
+            {/* PROMOTIONAL DISOCUNT VALUE INPUT */}
+            <div className="shipment-price-manager__field shipment-price-manager__field--price">
+              <label htmlFor="price" className="shipment-price-manager__label">
+                <FiDollarSign /> Gross Flat Rate (Price PLN) *
+              </label>
+              <div className="shipment-price-manager__price-wrapper">
+                <span className="shipment-price-manager__currency">PLN</span>
+                <input
+                  id="price"
+                  type="text"
+                  inputMode="decimal"
+                  placeholder="0.00"
+                  value={formData.discount}
+                  onChange={handleDiscountChange}
                   disabled={isSubmitting}
                   required
                   className="shipment-price-manager__price-input"

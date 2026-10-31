@@ -165,3 +165,69 @@ export const STATUS_LIST = [
   { id: "reversed", label: "Reversed" },
   { id: "transferred", label: "Transferred" }
 ];
+
+
+export const DELIVERY_OPTIONS = [
+  // DPD
+  {
+    id:1,
+    value: 'DPD_PICKUP',
+    label: 'DPD Pickup',
+  },
+  {
+    id:2,
+    value: 'DPD_COURIER_PICKUP',
+    label: 'DPD Courier Pickup',
+  },
+  {
+    id:3,
+    value: 'DPD_PICKUP_TO_ADDRESS',
+    label: 'DPD Pickup to Address',
+  },
+  {
+    id:4,
+    value: 'DPD_CLASSIC_COURIER',
+    label: 'DPD Classic Courier',
+  },
+
+  // InPost
+  {
+    id:5,
+    value: 'INPOST_LOCKER',
+    label: 'InPost Parcel Locker',
+  },
+  {
+    id:6,
+    value: 'INPOST_COURIER',
+    label: 'InPost Courier',
+  }, {
+    id:6,
+    value: 'OTHER',
+    label: 'Quotation',
+  },
+];
+
+export const CHECKOUT_OPTIONS = [
+  // DPD
+  {
+    id:1,
+    value: 'DPD_PICKUP',
+    label: "Pickup",
+    desc:'Pickup from a designated point',
+  },
+  {
+    id:3,
+    value: 'DPD_CLASSIC_COURIER',
+    label: 'Home Courier',
+        desc:'Home delivery by Courier',
+  },
+
+  // InPost
+  {
+    id:2,
+    value: 'INPOST_LOCKER',
+    label: 'Parcel Locker',
+      desc:'Collect from Locker',
+  },
+  
+];

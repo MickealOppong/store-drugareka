@@ -131,6 +131,7 @@ const couriers = data as TCourierResponse[] || [];
                   <th>Shipping size</th>
                   <th>Shipping method</th>
                    <th>Price</th>
+                    <th>Discount</th>
                     <th>Active</th>
                   <th className="data-table__actions-header">Actions</th>
                 </tr>
@@ -168,6 +169,13 @@ const couriers = data as TCourierResponse[] || [];
                     <td>
                       <span className="data-table__text text-muted">
                         {formatPrice(parseFloat(courier.price))}
+                      </span>
+                    </td>
+
+                       {/* PROMOTIONAL DISCOUNT*/}
+                    <td>
+                      <span className="data-table__text text-muted">
+                        {formatPrice(parseFloat(courier.discount))}
                       </span>
                     </td>
 

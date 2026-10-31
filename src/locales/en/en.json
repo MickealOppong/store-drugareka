@@ -209,8 +209,8 @@
       }
     },
 
-    "tickets_events":{
-        "name": "Tickets & Events",
+    "tickets_events": {
+      "name": "Tickets & Events",
       "subcategories": {
         "concerts_festivals": "Concerts & Festivals",
         "cinema": "Cinema",
@@ -229,7 +229,7 @@
         "winter_sports": "Winter Sports",
         "water_sports": "Water Sports",
         "football": "Football",
-        "bicycles":"Bicycles",
+        "bicycles": "Bicycles",
         "racket_sports": "Racket Sports",
         "outdoor_equipment": "Outdoor Equipment",
         "games_play": "Games & Play",
@@ -353,18 +353,18 @@
       }
     }
   },
-"product_conditions": {
-  "new": "New",
-  "almost_new": "Almost new",
-  "open_new": "Open but new",
-  "new_other": "New (Other / Long-term storage)",
-  "excellent_condition": "Excellent",
-  "very_good": "Very good",
-  "good": "Good",
-  "used_good": "Used — Good condition",
-  "used": "Used",
-  "acceptable": "Acceptable"
-},
+  "product_conditions": {
+    "new": "New",
+    "almost_new": "Almost new",
+    "open_new": "Open but new",
+    "new_other": "New (Other / Long-term storage)",
+    "excellent_condition": "Excellent",
+    "very_good": "Very good",
+    "good": "Good",
+    "used_good": "Used — Good condition",
+    "used": "Used",
+    "acceptable": "Acceptable"
+  },
   "shop": {
     "header": {
       "title": "Find something exceptional",
@@ -395,7 +395,7 @@
       "add_wishlist": "Add to favorites",
       "buy_btn": "Buy product",
       "edit_btn": "Edit listing",
-      "make_offer":"Make an offer"
+      "make_offer": "Make an offer"
     },
     "filter_drawer": {
       "title": "Filters",
@@ -643,7 +643,7 @@
         "delivered": "Delivered",
         "cancelled": "Cancelled",
         "processing": "Processing",
-        "returned":"Returned"
+        "returned": "Returned"
       }
     },
     "actions": {
@@ -715,7 +715,7 @@
         "shipped_at": "Sent",
         "delivered_at": "Delivered",
         "tracking_number": "Tracking Number",
-        "confirmation_status":"Confirmation status",
+        "confirmation_status": "Confirmation status",
         "status": "Status",
         "action": "Action"
       }
@@ -764,7 +764,7 @@
         "payout_id": "Settlement ID",
         "order": "Order",
         "status": "Status",
-        "transfer_id":"Transfer id",
+        "transfer_id": "Transfer id",
         "currency": "Currency",
         "total": "Amount",
         "actions": "Actions"
@@ -778,12 +778,12 @@
         "cancelled": "Cancelled",
         "created": "Created",
         "refund": "Refund",
-        "approved":"Approved",
-        "processing":"Processing",
-        "Ready_for_review":"Ready for review",
-        "reversed":"Reversed",
-        "transferred":"Transferred",
-        "charge_back":"Charge back"
+        "approved": "Approved",
+        "processing": "Processing",
+        "Ready_for_review": "Ready for review",
+        "reversed": "Reversed",
+        "transferred": "Transferred",
+        "charge_back": "Charge back"
       }
     }
   },
@@ -861,7 +861,7 @@
   "navigation": {
     "menu": {
       "shop": "Shop",
-         "listings": "Product listings",
+      "listings": "Product listings",
       "categories": "Categories",
       "sell": "Sell with us"
     },
@@ -894,7 +894,7 @@
     },
     "header": {
       "title": "Cart",
-      "shipping_cost":"Package shipping cost"
+      "shipping_cost": "Package shipping cost"
     },
     "summary": {
       "title": "Order summary",
@@ -903,7 +903,7 @@
       "service_charge": "Service charge",
       "total": "Total",
       "checkout_btn": "Secure payment",
-      "add_cart":"Add to cart",
+      "add_cart": "Add to cart",
       "address_warning": "Please add a delivery address to unlock payment options."
     },
     "item": {
@@ -936,26 +936,48 @@
           "label": "Postal code",
           "placeholder": "e.g. 90-001"
         }
-      }, "shipping_selector": {
-      "title": "Delivery Method",
-      "description": "Choose how you want your package dispatched.",
-      "locker_title": "Parcel Locker",
-      "locker_desc": "InPost Paczkomat, DPD Pickup",
-      "home_title": "Home Delivery",
-      "home_desc": "Courier directly to your door",
-      "inpost_courier":"InPost courier",
-      "dpd":"DPD"
-    }
+      },
+      "shipping_selector": {
+        "title": "Delivery Method",
+        "description": "Choose how you want your package dispatched.",
+        "locker_title": "Parcel Locker",
+        "locker_desc": "InPost Paczkomat, DPD Pickup",
+        "home_title": "Home Delivery",
+        "home_desc": "Courier directly to your door"
+      }
     },
     "timer": {
       "expired": "Reservation time expired",
       "holding": "Reservation: {{time}}"
+    },
+       "deliveryOptions": {
+        "DPD_PICKUP": "DPD Pickup",
+        "DPD_COURIER_PICKUP": "DPD Courier Pickup",
+        "DPD_PICKUP_TO_ADDRESS": "DPD Pickup to Address",
+        "DPD_CLASSIC_COURIER": "DPD Classic Courier",
+        "INPOST_LOCKER": "InPost Parcel Locker",
+        "INPOST_COURIER": "InPost Courier",
+        "OTHER":"Other"
+      },
+      "checkoutOptions": {
+    "DPD_PICKUP": {
+      "label": "Pickup Point",
+      "desc": "Collect your parcel from a designated pickup point."
+    },
+    "DPD_CLASSIC_COURIER": {
+      "label": "Home Courier",
+      "desc": "Home delivery by courier."
+    },
+    "INPOST_LOCKER": {
+      "label": "Parcel Locker",
+      "desc": "Collect your parcel from an InPost Parcel Locker."
     }
+  }
   },
   "product_details": {
     "loading": "Loading product details...",
-      "header": "Więcej od tego sprzedawcy",
-  "title": "Odkryj więcej przedmiotów od tego sprzedawcy",
+    "header": "Więcej od tego sprzedawcy",
+    "title": "Odkryj więcej przedmiotów od tego sprzedawcy",
     "nav": {
       "back": "Back",
       "shop_crumb": "Shop"
@@ -964,12 +986,12 @@
       "condition": "Condition",
       "availability": "Availability",
       "delivery": "Delivery",
-      "weight":"Weight",
-      "height":"Height",
-      "width":"Width",
-      "depth":"Depth",
-      "year":"Year of Manufacture",
-      "item_number":"OEM / Part number / Item number"
+      "weight": "Weight",
+      "height": "Height",
+      "width": "Width",
+      "depth": "Depth",
+      "year": "Year of Manufacture",
+      "item_number": "OEM / Part number / Item number"
     },
     "pricing": {
       "savings": "You save {{amount}} zł ({{percent}}%)"
@@ -1048,7 +1070,7 @@
       },
       "price": {
         "price": "Price",
-         "min_price": "Minimum price acceptable"
+        "min_price": "Minimum price acceptable"
       },
       "quantity": {
         "label": "Quantity"
@@ -1078,15 +1100,15 @@
         "label": "Shipping information",
         "placeholder": "e.g. Shipping within 2-3 business days. Shipping costs are covered by the buyer."
       },
-      "dimension":{
-        "width":"Width",
-        "height":"Height",
-        "depth":"Depth"
+      "dimension": {
+        "width": "Width",
+        "height": "Height",
+        "depth": "Depth"
       },
-      "automotive":{
-        "oem_number":"OEM number / Part number/ Item number",
-        "year":"Year of Manufacture",
-        "model":"Model"
+      "automotive": {
+        "oem_number": "OEM number / Part number/ Item number",
+        "year": "Year of Manufacture",
+        "model": "Model"
       },
       "cargo_sizes": {
         "label": "Item size",
@@ -1099,7 +1121,7 @@
         }
       }
     },
-    
+
     "sidebar": {
       "status": {
         "title": "Product status",
@@ -1322,7 +1344,7 @@
       "seller_btn": "List a product for sale"
     }
   },
-"user_profile": {
+  "user_profile": {
     "header": {
       "badge": "Account",
       "title": "Your profile",
@@ -1444,7 +1466,7 @@
     "fields": {
       "checkbox_label": "Mark payout for update",
       "date_label": "Payment Execution Date (paidAt)",
-      "payout_status":"Payout status"
+      "payout_status": "Payout status"
     },
     "warning": {
       "bold": "Accounting rule:",
@@ -1508,9 +1530,9 @@
       "server_error": "A server error occurred while registering the return.",
       "processing": "Processing..."
     },
- "labels": {
+    "labels": {
       "select_images_label": "Evidence images",
-      "upload_btn":"Add image"
+      "upload_btn": "Add image"
     },
     "actions": {
       "cancel": "Cancel",
@@ -1584,12 +1606,13 @@
       "no_items": "Please select at least one product to dispatch.",
       "network_fallback": "An unexpected network error occurred while communicating with the DPD logistics engine."
     },
-    "success":{
-      "title":"Shipment confirmed",
-      "description":"Your courier collection request has been submitted successfully."
-    },  "already_confirmed":{
-      "title":"Shipment already confirmed",
-      "description":"This shipment has already been confirmed. No further action is required."
+    "success": {
+      "title": "Shipment confirmed",
+      "description": "Your courier collection request has been submitted successfully."
+    },
+    "already_confirmed": {
+      "title": "Shipment already confirmed",
+      "description": "This shipment has already been confirmed. No further action is required."
     }
   },
   "cookie_banner": {
@@ -1607,8 +1630,8 @@
   "make_offer_modal": {
     "header": {
       "badge": "Make an offer",
-      "title":"Order summary",
-      "message":"Review your order before proceeding to secure payment."
+      "title": "Order summary",
+      "message": "Review your order before proceeding to secure payment."
     },
     "body": {
       "title": "Bargain a Price",
@@ -1632,7 +1655,7 @@
       "generic_error": "Unable to process offer. Please refresh and try again."
     }
   },
-"auth": {
+  "auth": {
     "reset": {
       "set_title": "Set New Password",
       "set_description": "Please configure your secure alternative credentials profile below.",
@@ -1661,7 +1684,7 @@
       "loading": "Loading Catalog Tree...",
       "error": "Failed to load category layout fields.",
       "title": "Top categories",
-      "no_categories":"No categories available.",
+      "no_categories": "No categories available.",
       "all_listing": "All Available Listings"
     },
     "header": {
@@ -1679,5 +1702,4 @@
       "clear_btn": "Clear Active Filters"
     }
   }
-
 }

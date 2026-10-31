@@ -25,7 +25,7 @@
       "title": "Czego szukasz?",
       "view_all": "Wszystkie kategorie"
     },
-     "closing_cta": {
+    "closing_cta": {
       "eyebrow": "DRUGA RĘKA",
       "title_line1": "Kupuj mądrzej.",
       "title_line2": "Daj rzeczom drugie życie.",
@@ -249,7 +249,7 @@
         "bicycles_accessories": "Rowery i akcesoria",
         "fitness_gym": "Fitness i siłownia",
         "running": "Bieganie",
-            "bicycles":"Rowery",
+        "bicycles": "Rowery",
         "hiking_camping": "Turystyka i camping",
         "winter_sports": "Sporty zimowe",
         "water_sports": "Sporty wodne",
@@ -353,18 +353,18 @@
     }
   },
 
-"product_conditions": {
-  "new": "Nowy",
-  "almost_new": "Prawie nowy",
-  "open_new": "Otwarty, ale nowy",
-  "new_other": "Nowy (inny / długo przechowywany)",
-  "excellent_condition": "Doskonały",
-  "very_good": "Bardzo dobry",
-  "good": "Dobry",
-  "used_good": "Używany — w dobrym stanie",
-  "used": "Używany",
-  "acceptable": "Zadowalający"
-},
+  "product_conditions": {
+    "new": "Nowy",
+    "almost_new": "Prawie nowy",
+    "open_new": "Otwarty, ale nowy",
+    "new_other": "Nowy (inny / długo przechowywany)",
+    "excellent_condition": "Doskonały",
+    "very_good": "Bardzo dobry",
+    "good": "Dobry",
+    "used_good": "Używany — w dobrym stanie",
+    "used": "Używany",
+    "acceptable": "Zadowalający"
+  },
   "shop": {
     "header": {
       "title": "Znajdź coś wyjątkowego",
@@ -395,7 +395,7 @@
       "add_wishlist": "Dodaj do ulubionych",
       "buy_btn": "Kup produkt",
       "edit_btn": "Edytuj ofertę",
-      "make_offer":"Złożyć ofertę"
+      "make_offer": "Złożyć ofertę"
     },
     "filter_drawer": {
       "title": "Filtry",
@@ -642,7 +642,7 @@
         "delivered": "Dostarczone",
         "cancelled": "Anulowane",
         "processing": "W trakcie przetwarzania",
-          "returned":"Zwrócone"
+        "returned": "Zwrócone"
       }
     },
     "actions": {
@@ -705,7 +705,7 @@
         "address": "Adres dostawy",
         "shipped_at": "Wysłano",
         "delivered_at": "Dostarczone",
-         "confirmation_status":"Status potwierdzenia",
+        "confirmation_status": "Status potwierdzenia",
         "tracking_number": "Numer przesyłki",
         "status": "Status",
         "action": "Akcja"
@@ -752,14 +752,14 @@
     "table": {
       "headers": {
         "seller": "Sprzedawca",
-  "transfer_id": "Identyfikator przelewu",
+        "transfer_id": "Identyfikator przelewu",
         "order": "Zamówienie",
         "status": "Status",
         "currency": "Waluta",
         "total": "Kwota",
         "actions": "Ackje"
       },
-         "statuses": {
+      "statuses": {
         "pending": "Oczekujące",
         "pending_payout": "Oczekuje na płatność",
         "paid": "Opłacone",
@@ -773,9 +773,8 @@
         "Ready_for_review": "Gotowe do weryfikacji",
         "reversed": "Cofnięte",
         "transferred": "Przelane",
-      "charge_back": "Obciążenie zwrotne (Chargeback)"
+        "charge_back": "Obciążenie zwrotne (Chargeback)"
       }
-
     }
   },
   "STORE": {
@@ -852,7 +851,7 @@
   "navigation": {
     "menu": {
       "shop": "Kupuj",
-         "listings": "Oferty produktów",
+      "listings": "Oferty produktów",
       "categories": "Kategorie",
       "sell": "Sprzedawaj z nami"
     },
@@ -938,15 +937,36 @@
       "locker_title": "Automat paczkowy",
       "locker_desc": "InPost Paczkomat, DPD Pickup",
       "home_title": "Dostawa kurierska",
-      "home_desc": "Kurier bezpośrednio pod Twój adres",
-           "inpost_courier":"InPost courier",
-      "dpd":"DPD"
+      "home_desc": "Kurier bezpośrednio pod Twój adres"
+    },
+    "deliveryOptions": {
+      "DPD_PICKUP": "DPD Pickup",
+      "DPD_COURIER_PICKUP": "DPD Kurier – odbiór od nadawcy, dostawa do punktu",
+      "DPD_PICKUP_TO_ADDRESS": "DPD Pickup – dostawa pod adres",
+      "DPD_CLASSIC_COURIER": "DPD Kurier – dostawa pod adres",
+      "INPOST_LOCKER": "Paczkomat InPost",
+      "INPOST_COURIER": "Kurier InPost",
+      "OTHER":"Inne"
+    },
+    "checkoutOptions": {
+    "DPD_PICKUP": {
+      "label": "Punkt odbioru",
+      "desc": "Odbierz paczkę w wybranym punkcie odbioru."
+    },
+    "DPD_CLASSIC_COURIER": {
+      "label": "Kurier do domu",
+      "desc": "Dostawa paczki kurierem pod wskazany adres."
+    },
+    "INPOST_LOCKER": {
+      "label": "Paczkomat InPost",
+      "desc": "Odbierz paczkę z wybranego Paczkomatu InPost."
     }
+  }
   },
   "product_details": {
     "loading": "Ładowanie szczegółów produktu...",
-    "header":"More from this seller",
-    "title":"Discover more items from this seller",
+    "header": "More from this seller",
+    "title": "Discover more items from this seller",
     "nav": {
       "back": "Wstecz",
       "shop_crumb": "Kupuj"
@@ -955,12 +975,12 @@
       "condition": "Stan",
       "availability": "Dostępność",
       "delivery": "Doręczenie",
-       "weight": "Waga",
-  "height": "Wysokość",
-  "width": "Szerokość",
-  "depth": "Głębokość",
-  "year": "Rok produkcji",
-  "item_number": "Numer OEM / Numer części / Numer artykułu"
+      "weight": "Waga",
+      "height": "Wysokość",
+      "width": "Szerokość",
+      "depth": "Głębokość",
+      "year": "Rok produkcji",
+      "item_number": "Numer OEM / Numer części / Numer artykułu"
     },
     "pricing": {
       "savings": "Oszczędzasz {{amount}} zł ({{percent}}%)"
@@ -1039,7 +1059,7 @@
       },
       "price": {
         "price": "Cena",
-          "min_price": "Minimalna akceptowana cena"
+        "min_price": "Minimalna akceptowana cena"
       },
       "quantity": {
         "label": "Ilość"
@@ -1064,16 +1084,16 @@
           "palette": "Przesyłka Paletowa (Ciężka)"
         }
       },
-       "dimension": {
-    "width": "Szerokość",
-    "height": "Wysokość",
-    "depth": "Głębokość"
-  },
-  "automotive": {
-    "oem_number": "Numer OEM / Numer części / Numer produktu",
-    "year": "Rok produkcji",
-    "model": "Model"
-  },
+      "dimension": {
+        "width": "Szerokość",
+        "height": "Wysokość",
+        "depth": "Głębokość"
+      },
+      "automotive": {
+        "oem_number": "Numer OEM / Numer części / Numer produktu",
+        "year": "Rok produkcji",
+        "model": "Model"
+      },
       "shipping_info": {
         "label": "Informacje o wysyłce",
         "placeholder": "np. Wysyłka w ciągu 2–3 dni roboczych. Koszt wysyłki pokrywa kupujący."
@@ -1081,12 +1101,12 @@
       "cargo_sizes": {
         "label": "Rozmiar paczki",
         "placeholder": "Wybierz gabaryt przedmiotu (Rozmiar paczki)",
-    "item_size": {
-  "small_up_10kg": "Mały – do 10 kg",
-  "medium_up_20kg": "Średni – do 20 kg",
-  "large_up_50kg": "Duży – do 50 kg",
-  "heavy_above_50kg": "Ciężki – powyżej 50 kg"
-}
+        "item_size": {
+          "small_up_10kg": "Mały – do 10 kg",
+          "medium_up_20kg": "Średni – do 20 kg",
+          "large_up_50kg": "Duży – do 50 kg",
+          "heavy_above_50kg": "Ciężki – powyżej 50 kg"
+        }
       }
     },
 
@@ -1275,7 +1295,7 @@
       "seller_btn": "Wystaw produkt na sprzedaż"
     }
   },
-"user_profile": {
+  "user_profile": {
     "header": {
       "badge": "Konto",
       "title": "Twój profil",
@@ -1395,7 +1415,7 @@
       "amount_label": "Kwota do Rozliczenia:"
     },
     "fields": {
-  "checkbox_label": "Zaznacz wypłatę do aktualizacji",
+      "checkbox_label": "Zaznacz wypłatę do aktualizacji",
       "date_label": "Data Realizacji Przelewu (paidAt)",
       "payout_status": "Status wypłaty"
     },
@@ -1456,9 +1476,9 @@
       "not_as_described": "Towar niezgodny ze specyfikacją lub opisem",
       "other": "Inny powód (Wymaga uzasadnienia)"
     },
-  "labels": {
+    "labels": {
       "select_images_label": "Zdjęcia dowodowe",
-      "upload_btn":"Dodaj zdjęcie"
+      "upload_btn": "Dodaj zdjęcie"
     },
     "validation": {
       "required_reason": "Proszę wpisać uzasadnienie zwrotu.",
@@ -1538,12 +1558,13 @@
       "network_fallback": "Wystąpił nieoczekiwany błąd sieciowy podczas komunikacji z systemem logistycznym DPD."
     },
     "success": {
-  "title": "Wysyłka potwierdzona",
-  "description": "Zlecenie odbioru przesyłki przez kuriera zostało pomyślnie przesłane."
-},"already_confirmed": {
-  "title": "Wysyłka została już potwierdzona",
-  "description": "Ta wysyłka została już potwierdzona. Nie są wymagane żadne dalsze działania."
-}
+      "title": "Wysyłka potwierdzona",
+      "description": "Zlecenie odbioru przesyłki przez kuriera zostało pomyślnie przesłane."
+    },
+    "already_confirmed": {
+      "title": "Wysyłka została już potwierdzona",
+      "description": "Ta wysyłka została już potwierdzona. Nie są wymagane żadne dalsze działania."
+    }
   },
   "cookie_banner": {
     "title": "Szanujemy Twoją Prywatność",
@@ -1585,7 +1606,7 @@
       "generic_error": "Nie udało się zapisać oferty. Odśwież stronę i spróbuj ponownie."
     }
   },
- "auth": {
+  "auth": {
     "reset": {
       "set_title": "Ustaw nowe hasło",
       "set_description": "Skonfiguruj poniżej nowe bezpieczne dane uwierzytelniające do swojego profilu konta.",
@@ -1651,7 +1672,7 @@
       "loading": "Ładowanie drzewa kategorii...",
       "error": "Nie udało się załadować układu kategorii.",
       "title": "Najpopularniejsze kategorie",
-       "no_categories":"Brak kategorie",
+      "no_categories": "Brak kategorie",
       "all_listing": "Wszystkie dostępne oferty"
     },
     "header": {

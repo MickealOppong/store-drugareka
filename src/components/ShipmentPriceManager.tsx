@@ -9,7 +9,7 @@ import {
 } from "react-icons/fi";
 import { useNavigate, useRevalidator } from "react-router";
 import "../css/ShippingPrice.css";
-import { ITEM_SIZE, SHIPPING_METHOD } from "../data/data";
+import { DELIVERY_OPTIONS, ITEM_SIZE } from "../data/data";
 import { useAddCourierPriceMutation } from "../features/api/itemApi";
 import type { TShipmentPriceInput } from "../types/TShipmentPriceInput";
 
@@ -22,6 +22,7 @@ const ShipmentPriceManager = () => {
     shippingMethod: "",
     price: "0.00",
     active: true,
+    discount:"0.00"
   });
 
   const [isSubmitting, setIsLoading] = useState<boolean>(false);
@@ -53,6 +54,18 @@ const ShipmentPriceManager = () => {
     }
   };
 
+    const handleDiscountChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d*\.?\d{0,2}$/.test(value) || value === "") {
+      setFormData((prev) => ({
+        ...prev,
+        discount: value,
+      }));
+      setSaveSuccess(false);
+      setSubmissionError(null);
+    }
+  };
+
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
@@ -73,6 +86,7 @@ const ShipmentPriceManager = () => {
         shippingMethod: formData.shippingMethod,
         price: formData.price,
         active: formData.active,
+        discount:formData.discount||"0.00"
     };
        
 
@@ -87,7 +101,7 @@ const ShipmentPriceManager = () => {
       if(status===500){
         setSubmissionError("Server error,please check data and try again")
       }
-      const {itemSize,shippingMethod,price,category} =  err?.data.error as {itemSize:string,shippingMethod:string,price:number,category:string}
+      const {itemSize,shippingMethod,price,category} =  err?.data.message as {itemSize:string,shippingMethod:string,price:number,category:string}
       setSubmissionError(`${itemSize?itemSize:''} \n${shippingMethod?shippingMethod:''}\n${price}\n${category?category:''}`);
     } finally {
       setIsLoading(false);
@@ -148,10 +162,10 @@ const ShipmentPriceManager = () => {
                 className="shipment-price-manager__select"
               >
                 <option value="" disabled>Select option</option>
-                {SHIPPING_METHOD.map((method) => (
+                {DELIVERY_OPTIONS.map((method) => (
                     
                      <option key={method.value} value={method.value}>
-                    {t(`cart.shipping_selector.${method.method}`)}
+                    {t(`cart.deliveryOptions.${method.value}`)}
                   </option>
                 ))}
               </select>
@@ -172,6 +186,27 @@ const ShipmentPriceManager = () => {
                   placeholder="0.00"
                   value={formData.price}
                   onChange={handlePriceChange}
+                  disabled={isSubmitting}
+                  required
+                  className="shipment-price-manager__price-input"
+                />
+              </div>
+            </div>
+
+              {/* CURRENCY GROSS VALUE INPUT */}
+            <div className="shipment-price-manager__field shipment-price-manager__field--price">
+              <label htmlFor="price" className="shipment-price-manager__label">
+                <FiDollarSign /> Promotional discount (Price PLN) *
+              </label>
+              <div className="shipment-price-manager__price-wrapper">
+                <span className="shipment-price-manager__currency">PLN</span>
+                <input
+                  id="discount"
+                  type="text"
+                  inputMode="decimal"
+                  placeholder="0.00"
+                  value={formData.discount}
+                  onChange={handleDiscountChange}
                   disabled={isSubmitting}
                   required
                   className="shipment-price-manager__price-input"

@@ -3,5 +3,6 @@ export type TCourierResponse={
     itemSize: string
       shippingMethod: string
       price: string;
+      discount: string;
       active: boolean;
 }
