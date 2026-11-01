@@ -282,7 +282,6 @@ export const Categories: React.FC = () => {
     );
   }
 
-console.log({sellerProfileId,username});
 
     
   return (

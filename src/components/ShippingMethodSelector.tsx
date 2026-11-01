@@ -66,7 +66,7 @@ export const ShippingMethodSelector: React.FC<ShippingMethodSelectorProps> = ({
           <button
             key={option.label}
             type="button"
-            className={`mkt-shipping-option ${selectedMethod === option.value? "mkt-shipping-option--selected" : ""}`}
+            className={`mkt-shipping-option ${selectedMethod === option.value || selectedMethod === 'other'? "mkt-shipping-option--selected" : ""}`}
             onClick={() => onChange(option.value)}
             aria-pressed={selectedMethod === option.label}
           >
@@ -90,6 +90,32 @@ export const ShippingMethodSelector: React.FC<ShippingMethodSelectorProps> = ({
           </button>
         ))}
       </div>
+
+      {(() => {
+        const normalizedMethod = (selectedMethod || "").toUpperCase().replace(/[^A-Z]/g, "");
+        const isPersonalCollection =
+          normalizedMethod.includes("PERSONAL") || normalizedMethod.includes("COLLECTION");
+
+        return isPersonalCollection ? (
+          <div
+            className="mkt-shipping-selector__collection-disclaimer"
+            role="alert"
+            aria-live="polite"
+          >
+            <strong>
+              {t("cart.shipping_selector.personal_collection_disclaimer_title", {
+                defaultValue: "Personal collection — important notice",
+              })}
+            </strong>
+            <p>
+              {t("cart.shipping_selector.personal_collection_disclaimer", {
+                defaultValue:
+                  "By choosing personal collection, you acknowledge that collection is arranged and undertaken at your own risk. KASAWA sp. z o.o., the operator of Kasoa.pl, is not responsible for incidents, injury, loss, damage or disputes arising from or in connection with the personal collection process, to the extent permitted by applicable law.",
+              })}
+            </p>
+          </div>
+        ) : null;
+      })()}
     </div>
   );
 };

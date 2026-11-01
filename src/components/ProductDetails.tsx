@@ -5,24 +5,32 @@ import {
   FiAlertCircle,
   FiArrowLeft,
   FiHeart,
+  FiMapPin,
   FiRefreshCw,
   FiShield,
   FiShoppingBag,
   FiTag,
-  FiTruck
+  FiTruck,
 } from "react-icons/fi";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import defImage from '../assets/default.jpeg';
+import defImage from "../assets/default.jpeg";
 import "../css/ProductDetails.css";
 
 import {
   useAddWishListMutation,
   useGetWishListsQuery,
 } from "../features/api/itemApi";
-import { useGetListingBySlugQuery, useGetSellerListingQuery } from "../features/api/storeApi";
+import {
+  useGetListingBySlugQuery,
+  useGetSellerListingQuery,
+} from "../features/api/storeApi";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
-import { formatPrice, sanitizeBackendKey, sanitizeCategoryKey } from "../util/util";
+import {
+  formatPrice,
+  sanitizeBackendKey,
+  sanitizeCategoryKey,
+} from "../util/util";
 import Footer from "./Footer";
 import Loading from "./Loading";
 import MakeOfferModal from "./MakeOfferModal";
@@ -50,8 +58,6 @@ const ProductDetails = () => {
     currentPrice: number;
   } | null>(null);
 
-
-
   const [addToWish] = useAddWishListMutation();
   const { data: wishlist = [] } = useGetWishListsQuery();
   const wishlists = wishlist.map((item) => item.productSlug);
@@ -63,13 +69,16 @@ const ProductDetails = () => {
   /**
    * fetch product
    */
-  const { data: product, isLoading: productLoading } = useGetListingBySlugQuery(String(slug));
+  const { data: product, isLoading: productLoading } = useGetListingBySlugQuery(
+    String(slug),
+  );
 
-    //get listings from this seller
-    const sellerId = product?.sellerId;
-    const {data:sellerListings=[],isLoading:isProductsLoading} = useGetSellerListingQuery(Number(sellerId),{skip:!sellerId})
+  console.log(product);
 
-    
+  //get listings from this seller
+  const sellerId = product?.sellerId;
+  const { data: sellerListings = [], isLoading: isProductsLoading } =
+    useGetSellerListingQuery(Number(sellerId), { skip: !sellerId });
 
   const toggleWishlist = async (listingId: number) => {
     if (!username) return navigate("/login");
@@ -213,60 +222,78 @@ const ProductDetails = () => {
               </span>
             </div>
 
-                <div className="product-details__condition-badge">
+       
+
+            <div className="product-details__condition-badge">
               <span>
                 {t("product_details.info.weight")}:{" "}
-                <strong>{product.itemSize.split("_").join(' ')}</strong>
+                <strong>{product.itemSize.split("_").join(" ")}</strong>
               </span>
             </div>
 
-                {
-                  product.height && <div className="product-details__condition-badge">
-              <span>
-                {t("product_details.info.height")}:{" "}
-                <strong>{`${product.height} cm`}</strong>
-              </span>
-            </div>
-                }
-             {
-              product.width &&  <div className="product-details__condition-badge">
-              <span>
-                {t("product_details.info.width")}:{" "}
-                <strong>{`${product.width} cm`}</strong>
-              </span>
-            </div>
-             }
+            {product.height && (
+              <div className="product-details__condition-badge">
+                <span>
+                  {t("product_details.info.height")}:{" "}
+                  <strong>{`${product.height} cm`}</strong>
+                </span>
+              </div>
+            )}
+            {product.width && (
+              <div className="product-details__condition-badge">
+                <span>
+                  {t("product_details.info.width")}:{" "}
+                  <strong>{`${product.width} cm`}</strong>
+                </span>
+              </div>
+            )}
 
-                {
-              product.depth &&  <div className="product-details__condition-badge">
-              <span>
-                {t("product_details.info.depth")}:{" "}
-                <strong>{`${product.depth} cm`}</strong>
-              </span>
-            </div>
-             }
+            {product.depth && (
+              <div className="product-details__condition-badge">
+                <span>
+                  {t("product_details.info.depth")}:{" "}
+                  <strong>{`${product.depth} cm`}</strong>
+                </span>
+              </div>
+            )}
 
-                 {
-              product.itemNumber &&  <div className="product-details__condition-badge">
-              <span>
-                {t("product_details.info.item_number")}:{" "}
-                <strong>{product.itemNumber}</strong>
-              </span>
-            </div>
-             }
+            {product.itemNumber && (
+              <div className="product-details__condition-badge">
+                <span>
+                  {t("product_details.info.item_number")}:{" "}
+                  <strong>{product.itemNumber}</strong>
+                </span>
+              </div>
+            )}
 
-                   {
-              product.productionYear &&  <div className="product-details__condition-badge">
-              <span>
-                {t("product_details.info.year")}:{" "}
-                <strong>{product.productionYear}</strong>
-              </span>
-            </div>
-             }
+            {product.productionYear && (
+              <div className="product-details__condition-badge">
+                <span>
+                  {t("product_details.info.year")}:{" "}
+                  <strong>{product.productionYear}</strong>
+                </span>
+              </div>
+            )}
 
             <p className="product-details__narrative-description">
               {product.productDescription}
             </p>
+
+                 {product.personalCollectionAvailable &&
+              product.collectionCity?.trim() && (
+                <div className="product-details__personal-collection">
+                  <FiMapPin />
+                  <div>
+                    <strong>
+                      {t("product_details.personal_collection.title")}
+                    </strong>
+                    <p>
+                      {t("product_details.personal_collection.message")}{" "}
+                      <strong>{product.collectionCity}</strong>
+                    </p>
+                  </div>
+                </div>
+              )}
 
             {/* FINANCIAL PRICING SUMMARY GROUPS */}
             <div className="product-details__pricing-matrix">
@@ -328,7 +355,6 @@ const ProductDetails = () => {
           </div>
         </article>
 
-
         {/* =====================================================
                3. TRUST STATEMENT VALUE BAR PROPOSITIONS
             ====================================================== */}
@@ -366,45 +392,54 @@ const ProductDetails = () => {
           </div>
         </section>
 
-
         {/* =====================================================
               3.a SAME PRODUCTS FROM SELLER
             ====================================================== */}
-     {
-      isProductsLoading?<Loading/>:
-         <section className="products section" >
-                  <div className="section-heading">
-                    <div>
-                      <span className="section-eyebrow">{t("product_details.header")}</span>
-                      <h2>{t("product_details.title")}</h2>
-                    </div>
-                  </div>
-        
-                  <div className="product-grid">
-                    {sellerListings.map((product) => (
-                      <Link
-                        key={product.listingId}
-                        to={`/shop/listing/${product.productSlug}`}
-                        className="product-card"
-                      >
-                     <div className="product-card__media">
-                      <img src={product?.media[0].image? product?.media[0].image :defImage } alt={product.productName}   />
-                  
-                        </div>
-        
-                        <div className="product-card__info">
-                          <span className="product-card__condition">
-                             {t(`product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`)}
-                          </span>
-                          <h3>{product.productName}</h3>
-                          <strong>{formatPrice(product.newPrice)} zl</strong>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </section>
+        {isProductsLoading ? (
+          <Loading />
+        ) : (
+          <section className="products section">
+            <div className="section-heading">
+              <div>
+                <span className="section-eyebrow">
+                  {t("product_details.header")}
+                </span>
+                <h2>{t("product_details.title")}</h2>
+              </div>
+            </div>
 
-     }
+            <div className="product-grid">
+              {sellerListings.map((product) => (
+                <Link
+                  key={product.listingId}
+                  to={`/shop/listing/${product.productSlug}`}
+                  className="product-card"
+                >
+                  <div className="product-card__media">
+                    <img
+                      src={
+                        product?.media[0].image
+                          ? product?.media[0].image
+                          : defImage
+                      }
+                      alt={product.productName}
+                    />
+                  </div>
+
+                  <div className="product-card__info">
+                    <span className="product-card__condition">
+                      {t(
+                        `product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`,
+                      )}
+                    </span>
+                    <h3>{product.productName}</h3>
+                    <strong>{formatPrice(product.newPrice)} zl</strong>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* =====================================================
                4. COMPONENT FOOTER FEATURED PRODUCTS SLIDER 
@@ -416,9 +451,12 @@ const ProductDetails = () => {
       </section>
     );
   } else {
- return (
+    return (
       <div className="product-details__error-state">
-        <div className="product-details__error-message" role="alert">
+        <div
+          className="product-details__error-message"
+          role="alert"
+        >
           <FiAlertCircle className="product-details__error-icon" />
           <span>{t("product_details.error.generic")}</span>
         </div>

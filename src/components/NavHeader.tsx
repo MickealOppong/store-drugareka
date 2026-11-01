@@ -73,7 +73,7 @@ const NavHeader = () => {
         </Link>
 
         <nav className="nav-header__navigation">
-          <Link to="/shop" className="nav-header__nav-link">
+          <Link to={`/shop?category=all_0`} className="nav-header__nav-link">
             {t("navigation.menu.shop")}
           </Link>
           <Link to="/shop/categories" className="nav-header__nav-link">

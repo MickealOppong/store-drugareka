@@ -24,6 +24,7 @@ const Cart: React.FC<CartProps> = ({
   onCheckout,
 }) => {
   const { t } = useTranslation();
+  const[fetchError,setFetchError] = useState<string>('')
 
  const [updateCartShippingMethod] = useUpdateCartShippingMethodMutation()
 
@@ -36,11 +37,25 @@ const onShippingMethodChange= (selected:string)=>{
 
   const handleShippingMethodChange =async()=>{
    try {
-    await updateCartShippingMethod(shippingMethod)
-  } catch (error) {
+    const response = await updateCartShippingMethod(shippingMethod)
     
+    if(response.error){
+ const dto = response?.error as {data:any, staus:number}
+  const {message} = dto.data as {error:string,message:string,status:number}
+  
+      setFetchError(message)
+      return;
+    }
+   
+         setFetchError('')   
+
+   
+  } catch (err:any) {
+      setFetchError("cos nie tak pozszło \n Something went wrong")
   }
 }
+
+
 
 useEffect(()=>{
 handleShippingMethodChange()
@@ -88,8 +103,8 @@ handleShippingMethodChange()
         </h1>
       </header>
 {
-  error && <div className="cart-page__error">
-    <p >{error}</p>
+  error || fetchError && <div className="cart-page__error">
+    <p >{error || fetchError}</p>
   </div>
 }
       <section className="cart-workspace">

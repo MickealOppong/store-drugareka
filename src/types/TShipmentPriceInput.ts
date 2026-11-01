@@ -7,5 +7,6 @@ export interface TShipmentPriceInput {
   shippingMethod: string
   price: string;
   discount: string;
+  buyerOption:string
   active: boolean;
 }

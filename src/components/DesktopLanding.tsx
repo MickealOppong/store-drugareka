@@ -77,7 +77,7 @@ if(isLoading){
             <p>{t("landing.hero.description")}</p>
 
             <div className="hero__actions">
-              <Link to="/shop" className="button button--primary">
+              <Link  to="/shop?category=all_0" className="button button--primary">
                 {t("landing.hero.cta_shop")}
                 <FiArrowRight />
               </Link>
@@ -311,7 +311,7 @@ if(isLoading){
   </h2>
 
   <Link
-    to="/shop"
+     to="/shop?category=all_0"
    className="button button--primary"
   >
     <span>{t("landing.closing_cta.cta", { defaultValue: "Explore the store" })}</span>

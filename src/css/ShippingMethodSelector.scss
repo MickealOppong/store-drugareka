@@ -146,3 +146,47 @@
     outline-offset: 2px;
   }
 }
+
+
+/* Personal collection disclaimer */
+.mkt-shipping-selector {
+  &__collection-disclaimer {
+    margin-top: 1rem;
+    padding: 1rem 1.125rem;
+    border: 1px solid #e3c98a;
+    border-left: 4px solid #b7791f;
+    border-radius: 10px;
+    background: #fffaf0;
+    color: #493719;
+
+    strong {
+      display: block;
+      margin: 0 0 0.4rem;
+      color: #493719;
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      overflow-wrap: break-word;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .mkt-shipping-selector {
+    &__collection-disclaimer {
+      margin-top: 0.75rem;
+      padding: 0.875rem;
+      border-radius: 8px;
+
+      p {
+        font-size: 0.8125rem;
+      }
+    }
+  }
+}

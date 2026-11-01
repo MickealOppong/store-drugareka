@@ -13,6 +13,8 @@ export type TProductData={
     sku: string;
     minPrice:string
     shippingInfo: string;
+       personalCollectionAvailable?: boolean;
+      collectionCity: string;
     status:string;
     imageSortOrder:number[],
     shippingMethod:string,

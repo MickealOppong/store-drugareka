@@ -1,632 +1,697 @@
-@use "sass:color";
-@use "Variables.scss"; // Imports Spruce, Mint, Alabaster, and Ink design tokens
-
-// Local design parameters synchronized with your marketplace dashboard theme
-$ap-radius-large: 12px;
-$ap-radius-small: 8px;
-$ap-physics-cubic: cubic-bezier(0.16, 1, 0.3, 1);
-
 .add-product {
   min-height: 100%;
   padding: 1.5rem 1.25rem;
-  background-color: Variables.$color-bg-light; // Cool Alabaster background
-  color: Variables.$color-text-main; // Deep Matte Ink text
-  font-family: Variables.$font-sans;
+  background-color: #f9f9f9;
+  color: #111111;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   box-sizing: border-box;
-
-  @include Variables.media-up(Variables.$breakpoint-md) {
+}
+@media (min-width: 768px) {
+  .add-product {
     padding: 2rem;
   }
-
+}
+.add-product {
   /* ==========================================================================
      TOP CONTROL ACTION HEADER
      ========================================================================== */
-  &__header {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    margin-bottom: 2rem;
-    max-width: Variables.$max-width-content;
-    width: 100%;
-
-    @include Variables.media-up(Variables.$breakpoint-sm) {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
-  }
-
-  &__header-left {
-    display: flex;
+}
+.add-product__header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  max-width: 1280px;
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .add-product__header {
+    flex-direction: row;
     align-items: center;
-    gap: 12px;
-    min-width: 0;
-
-    h1 {
-      margin: 0 0 2px 0;
-      font-size: 1.75rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.2;
-      color: Variables.$color-text-main;
-    }
-
-    p {
-      margin: 0;
-      font-size: 13px;
-      color: Variables.$color-text-muted; // Muted Zinc Grey
-    }
+    justify-content: space-between;
   }
-
-&__error-container {
+}
+.add-product__header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.add-product__header-left h1 {
+  margin: 0 0 2px 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: #111111;
+}
+.add-product__header-left p {
+  margin: 0;
+  font-size: 13px;
+  color: #666666;
+}
+.add-product__error-container {
   margin: 0 0 1.5rem;
   padding: 0;
-
-  white-space: pre-line; 
+  white-space: pre-line;
   animation: errorShake 0.4s ease-in-out;
-
-  span {
-    display: block;
-    padding: 0.875rem 1rem;
-    border: 1px solid #fecaca;
-    border-left: 4px solid #dc2626;
-    border-radius: 8px;
-    background-color: #fef2f2;
-    color: #991b1b;
-    font-size: 0.875rem;
-    line-height: 1.6;
-    font-weight: 500;
-    overflow-wrap: anywhere;
-    white-space: pre-line;
-  }
-
-  &:has(span) {
-    margin-bottom: 1.5rem;
-  }
-
-
 }
-
-
-  &__back {
-    width: 40px;
-    height: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid Variables.$color-border;
-    border-radius: $ap-radius-small;
-    background: Variables.$background;
-    color: Variables.$color-secondary; // Granite grey tracking accent
-    text-decoration: none;
-    box-shadow: 0 1px 2px rgba(13, 19, 19, 0.02);
-    transition: Variables.$transition-default;
-    flex-shrink: 0;
-
-    svg {
-      font-size: 16px;
-      stroke-width: 2.25;
-    }
-
-    &:hover {
-      border-color: Variables.$color-primary;
-      background: Variables.$color-primary-light; // Soft Mint Tint
-      color: Variables.$color-primary; // Deep Spruce
-      transform: translateX(-1px);
-    }
+.add-product__error-container span {
+  display: block;
+  padding: 0.875rem 1rem;
+  border: 1px solid #fecaca;
+  border-left: 4px solid #dc2626;
+  border-radius: 8px;
+  background-color: #fef2f2;
+  color: #991b1b;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+.add-product__error-container:has(span) {
+  margin-bottom: 1.5rem;
+}
+.add-product__back {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #767676;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(13, 19, 19, 0.02);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+.add-product__back svg {
+  font-size: 16px;
+  stroke-width: 2.25;
+}
+.add-product__back:hover {
+  border-color: #66704A;
+  background: #393c2e;
+  color: #66704A;
+  transform: translateX(-1px);
+}
+.add-product__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .add-product__header-actions {
+    width: auto;
   }
-
-  &__header-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-
-    @include Variables.media-up(Variables.$breakpoint-sm) {
-      width: auto;
-    }
+}
+.add-product__draft-btn, .add-product__publish-btn {
+  flex: 1;
+  min-height: 42px;
+  padding: 0 1.25rem;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+@media (min-width: 640px) {
+  .add-product__draft-btn, .add-product__publish-btn {
+    flex: 0 0 auto;
   }
-
-  &__draft-btn,
-  &__publish-btn {
-    flex: 1;
-    min-height: 42px;
-    padding: 0 1.25rem;
-    border-radius: $ap-radius-small;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: Variables.$transition-default;
-    outline: none;
-
-    @include Variables.media-up(Variables.$breakpoint-sm) {
-      flex: 0 0 auto;
-    }
-
-    &:active {
-      transform: translateY(1px);
-    }
-  }
-
-  &__draft-btn {
-    border: 1px solid Variables.$color-border;
-    background: Variables.$background;
-    color: Variables.$color-secondary;
-
-    &:hover {
-      border-color: color.adjust(Variables.$color-border, $lightness: -12%);
-      background-color: Variables.$color-bg-light;
-    }
-  }
-
-  &__publish-btn {
-    border: none;
-    background: Variables.$color-primary;
-    color: Variables.$color-text-light;
-    box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
-
-    &:hover {
-      background: Variables.$color-primary-dark;
-      box-shadow: 0 6px 16px rgba(15, 31, 31, 0.22);
-    }
-  }
-
+}
+.add-product__draft-btn:active, .add-product__publish-btn:active {
+  transform: translateY(1px);
+}
+.add-product__draft-btn {
+  border: 1px solid #e5e5e5;
+  background: #FFFFFF;
+  color: #767676;
+}
+.add-product__draft-btn:hover {
+  border-color: rgb(198.4, 198.4, 198.4);
+  background-color: #f9f9f9;
+}
+.add-product__publish-btn {
+  border: none;
+  background: #66704A;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(30, 58, 58, 0.15);
+}
+.add-product__publish-btn:hover {
+  background: #2a2e1c;
+  box-shadow: 0 6px 16px rgba(15, 31, 31, 0.22);
+}
+.add-product {
   /* ==========================================================================
      ASYMMETRIC GRID STRUCTURE
      ========================================================================== */
-  &__layout {
+}
+.add-product__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 1280px;
+  width: 100%;
+}
+@media (min-width: 1024px) {
+  .add-product__layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+}
+.add-product__main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-width: 0;
+}
+.add-product__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .add-product__sidebar {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    max-width: Variables.$max-width-content;
-    width: 100%;
-
-    @include Variables.media-up(Variables.$breakpoint-lg) {
-      grid-template-columns: minmax(0, 1fr) 300px;
-    }
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  &__main {
+}
+@media (min-width: 1024px) {
+  .add-product__sidebar {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    min-width: 0; // Protects grid layout from expanding on wide imagery streams
+    position: sticky;
+    top: 1.5rem;
   }
-
-  &__sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    width: 100%;
-
-    @include Variables.media-up(Variables.$breakpoint-md) {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    @include Variables.media-up(Variables.$breakpoint-lg) {
-      display: flex;
-      flex-direction: column;
-      position: sticky;
-      top: 1.5rem; // Locks panels on viewport scroll track
-    }
-  }
-
+}
+.add-product {
   /* ==========================================================================
      SHARED CONTENT CARDS FRAMEWORKS
      ========================================================================== */
-  .product-section,
-  .product-card {
-    background: Variables.$background;
-    border: 1px solid Variables.$color-border;
-    border-radius: $ap-radius-large;
-    box-shadow: 0 2px 8px rgba(13, 19, 19, 0.01);
-    box-sizing: border-box;
-
-  }
-
-  .product-card {
-    padding: 1.25rem;
-
-    &__header {
-      margin-bottom: 1rem;
-
-      h3 {
-        margin: 0;
-        font-size: 13px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: Variables.$color-text-main;
-      }
-    }
-  }
-
-  .product-section {
-    padding: 1.5rem;
-   
-
-    &__header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-
-      h2 {
-        margin: 0 0 4px 0;
-        font-size: 16px;
-        font-weight: 800;
-        letter-spacing: -0.01em;
-        color: Variables.$color-text-main;
-      }
-
-      p {
-        margin: 0;
-        font-size: 12.5px;
-        color: Variables.$color-text-muted;
-        line-height: 1.5;
-      }
-
-      > span {
-        padding: 4px 8px;
-        border-radius: 10px;
-        background: Variables.$color-bg-light;
-        color: Variables.$color-text-muted;
-        font-size: 11px;
-        font-weight: 700;
-      }
-    }
-
-    .shippingInfo{
-      margin-top: 12px;
-    }
-  }
-
+}
+.add-product .product-section,
+.add-product .product-card {
+  background: #FFFFFF;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(13, 19, 19, 0.01);
+  box-sizing: border-box;
+}
+.add-product .product-card {
+  padding: 1.25rem;
+}
+.add-product .product-card__header {
+  margin-bottom: 1rem;
+}
+.add-product .product-card__header h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #111111;
+}
+.add-product .product-section {
+  padding: 1.5rem;
+}
+.add-product .product-section__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.add-product .product-section__header h2 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #111111;
+}
+.add-product .product-section__header p {
+  margin: 0;
+  font-size: 12.5px;
+  color: #666666;
+  line-height: 1.5;
+}
+.add-product .product-section__header > span {
+  padding: 4px 8px;
+  border-radius: 10px;
+  background: #f9f9f9;
+  color: #666666;
+  font-size: 11px;
+  font-weight: 700;
+}
+.add-product .product-section .shippingInfo {
+  margin-top: 12px;
+}
+.add-product {
   /* ==========================================================================
      MEDIA UPLOADER IMAGERY PIPELINES
      ========================================================================== */
-  .product-images {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-
-    @include Variables.media-up(Variables.$breakpoint-sm) {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
+}
+.add-product .product-images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (min-width: 640px) {
+  .add-product .product-images {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-
-  .product-image,
-  .product-image__upload {
-    position: relative;
-    aspect-ratio: 1 / 1;
-    border-radius: 8px;
-    overflow: hidden;
-    box-sizing: border-box;
-  }
-
-  .product-image {
-    border: 1px solid Variables.$color-border;
-    background: Variables.$color-bg-light;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    &__remove {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      width: 26px;
-      height: 26px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      border-radius: 50%;
-      background: rgba(13, 19, 19, 0.75);
-      color: Variables.$color-text-light;
-      cursor: pointer;
-      backdrop-filter: blur(4px);
-      transition: Variables.$transition-default;
-
-      &:hover {
-        background: Variables.$color-text-muted;
-        transform: scale(1.05);
-      }
-    }
-
-    &__primary {
-      position: absolute;
-      left: 6px;
-      bottom: 6px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.9);
-      color: Variables.$color-primary;
-      font-size: 10px;
-      font-weight: 700;
-      line-height: 1;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    }
-  }
-
-  .product-image__upload {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    border: 1.5px dashed color.adjust(Variables.$color-border, $lightness: -5%);
-    background: Variables.$background;
-    color: Variables.$color-text-muted;
-    cursor: pointer;
-    transition: Variables.$transition-default;
-
-    &:hover {
-      border-color: Variables.$color-secondary;
-      background: Variables.$color-success-bg;
-    }
-
-    input[type="file"] {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    svg {
-      font-size: 20px;
-      color: Variables.$color-primary;
-      margin-bottom: 2px;
-    }
-
-    span {
-      font-size: 12px;
-      font-weight: 700;
-      color: Variables.$color-secondary;
-    }
-
-    small {
-      font-size: 10px;
-      color: color.adjust(Variables.$color-text-muted, $lightness: 10%);
-    }
-  }
-
+}
+.add-product .product-image,
+.add-product .product-image__upload {
+  position: relative;
+  aspect-ratio: 1/1;
+  border-radius: 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.add-product .product-image {
+  border: 1px solid #e5e5e5;
+  background: #f9f9f9;
+}
+.add-product .product-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+.add-product .product-image__remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(13, 19, 19, 0.75);
+  color: #ffffff;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.add-product .product-image__remove:hover {
+  background: #666666;
+  transform: scale(1.05);
+}
+.add-product .product-image__primary {
+  position: absolute;
+  left: 6px;
+  bottom: 6px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #66704A;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.add-product .product-image__upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 1.5px dashed rgb(216.25, 216.25, 216.25);
+  background: #FFFFFF;
+  color: #666666;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.add-product .product-image__upload:hover {
+  border-color: #767676;
+  background: #EDF7F3;
+}
+.add-product .product-image__upload input[type=file] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.add-product .product-image__upload svg {
+  font-size: 20px;
+  color: #66704A;
+  margin-bottom: 2px;
+}
+.add-product .product-image__upload span {
+  font-size: 12px;
+  font-weight: 700;
+  color: #767676;
+}
+.add-product .product-image__upload small {
+  font-size: 10px;
+  color: rgb(127.5, 127.5, 127.5);
+}
+.add-product {
   /* ==========================================================================
      UNIVERSAL INPUT STRUCTURE FIELDS
      ========================================================================== */
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-
-    @include Variables.media-up(Variables.$breakpoint-sm) {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    width: 100%;
-    box-sizing: border-box;
-
-    &--full {
-      @include Variables.media-up(Variables.$breakpoint-sm) {
-        grid-column: 1 / -1;
-      }
-    }
-
-    label {
-      font-size: 13px;
-      font-weight: 600;
-      color: Variables.$color-secondary;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      box-sizing: border-box;
-      border: 1px solid Variables.$color-border;
-      border-radius: 8px;
-      outline: none;
-      background: Variables.$background;
-      color: Variables.$color-text-main;
-      font: inherit;
-      font-size: 13px;
-      transition: Variables.$transition-default;
-
-      &::placeholder {
-        color: color.adjust(Variables.$color-text-muted, $lightness: 15%);
-      }
-
-      &:hover {
-        border-color: color.adjust(Variables.$color-border, $lightness: -10%);
-      }
-
-      &:focus {
-        border-color: Variables.$color-primary;
-        box-shadow: 0 0 0 3px rgba(30, 58, 58, 0.08);
-      }
-    }
-
-    input,
-    select {
-      height: 42px;
-      padding: 0 12px;
-    }
-
-    select {
-      cursor: pointer;
-      background-color: Variables.$background;
-    }
-
-    textarea {
-      min-height: 100px;
-      padding: 10px 12px;
-      resize: vertical;
-      line-height: 1.5;
-    }
-
-    &__hint {
-      font-size: 11px;
-      color: color.adjust(Variables.$color-text-muted, $lightness: 10%);
-      margin-top: -2px;
-    }
-
-    &__error-msg {
-      display: block;
-      color: Variables.$color-error; // Radiant Crimson error channel
-      font-size: 11px;
-      font-weight: 600;
-      margin-top: 1px;
-    }
-  }
-  .input-with-prefix {
-    position: relative;
-    width: 100%;
-    span {
-      position: absolute;
-      top: 50%;
-      left: 12px;
-      transform: translateY(-50%);
-      color: Variables.$color-text-muted;
-      font-size: 13px;
-      font-weight: 700;
-      pointer-events: none;
-      z-index: 2;
-    }
-    input {
-      padding-left: 32px; // Clear view clearance to protect the currency prefix metric
-    }
-  }
-  /* ==========================================================================SIDEBAR STATUS SUB-WIDGET COMPONENTS========================================================================== */
-  .status-option {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px;
-    border: 1px solid Variables.$color-border;
-    border-radius: 8px;
-    background: Variables.$color-bg-light;
-    &__icon {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: Variables.$color-safety-text;
-      // Glacial Mint Accent Ring
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-      span.primary {
-        width: 6px;
-        height: 6px;
-        display: block;
-        border-radius: 50%;
-        background: Variables.$color-bg-light;
-      }
-    }
-    &__message {
-      min-width: 0;
-      strong {
-        display: block;
-        font-size: 12px;
-        font-weight: 700;
-        color: Variables.$color-text-main;
-        margin-bottom: 2px;
-      }
-      p {
-        margin: 0;
-        font-size: 11px;
-        color: Variables.$color-text-muted;
-        line-height: 1.4;
-      }
-    }
-  }
-  .product-tips {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    li {
-      position: relative;
-      padding-left: 14px;
-      font-size: 11.5px;
-      line-height: 1.45;
-      color: Variables.$color-secondary;
-      &::before {
-        content: "";
-        position: absolute;
-        top: 6px;
-        left: 0;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: Variables.$color-accent; // High-conversion radiant pop key
-      }
-    }
-  }
-  .product-preview {
-    border: 1px solid Variables.$color-border;
-    border-radius: 8px;
-    background: Variables.$background;
-    overflow: hidden;
-    &__image {
-      aspect-ratio: 16 / 13;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: Variables.$color-bg-light;
-      color: color.adjust(Variables.$color-text-muted, $lightness: 15%);
-      font-size: 28px;
-      overflow: hidden;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-    }
-    &__content {
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      span {
-        font-size: 10px;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: Variables.$color-text-muted;
-        letter-spacing: 0.5px;
-        margin-bottom: 4px;
-      }
-      h4 {
-        margin: 0 0 6px 0;
-        font-size: 13px;
-        font-weight: 600;
-        color: Variables.$color-text-main;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-      strong {
-        font-size: 15px;
-        font-weight: 800;
-        color: Variables.$color-primary;
-      }
-    }
+}
+.add-product .form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+@media (min-width: 640px) {
+  .add-product .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+.add-product .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+@media (min-width: 640px) {
+  .add-product .form-field--full {
+    grid-column: 1/-1;
+  }
+}
+.add-product .form-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #767676;
+}
+.add-product .form-field input,
+.add-product .form-field select,
+.add-product .form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  outline: none;
+  background: #FFFFFF;
+  color: #111111;
+  font: inherit;
+  font-size: 13px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.add-product .form-field input::-moz-placeholder, .add-product .form-field select::-moz-placeholder, .add-product .form-field textarea::-moz-placeholder {
+  color: rgb(140.25, 140.25, 140.25);
+}
+.add-product .form-field input::placeholder,
+.add-product .form-field select::placeholder,
+.add-product .form-field textarea::placeholder {
+  color: rgb(140.25, 140.25, 140.25);
+}
+.add-product .form-field input:hover,
+.add-product .form-field select:hover,
+.add-product .form-field textarea:hover {
+  border-color: rgb(203.5, 203.5, 203.5);
+}
+.add-product .form-field input:focus,
+.add-product .form-field select:focus,
+.add-product .form-field textarea:focus {
+  border-color: #66704A;
+  box-shadow: 0 0 0 3px rgba(30, 58, 58, 0.08);
+}
+.add-product .form-field input,
+.add-product .form-field select {
+  height: 42px;
+  padding: 0 12px;
+}
+.add-product .form-field select {
+  cursor: pointer;
+  background-color: #FFFFFF;
+}
+.add-product .form-field textarea {
+  min-height: 100px;
+  padding: 10px 12px;
+  resize: vertical;
+  line-height: 1.5;
+}
+.add-product .form-field__hint {
+  font-size: 11px;
+  color: rgb(127.5, 127.5, 127.5);
+  margin-top: -2px;
+}
+.add-product .form-field__error-msg {
+  display: block;
+  color: #C24B4B;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 1px;
+}
+.add-product .input-with-prefix {
+  position: relative;
+  width: 100%;
+}
+.add-product .input-with-prefix span {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #666666;
+  font-size: 13px;
+  font-weight: 700;
+  pointer-events: none;
+  z-index: 2;
+}
+.add-product .input-with-prefix input {
+  padding-left: 32px;
+}
+.add-product {
+  /* ==========================================================================SIDEBAR STATUS SUB-WIDGET COMPONENTS========================================================================== */
+}
+.add-product .status-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+.add-product .status-option__icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #16a34a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.add-product .status-option__icon span.primary {
+  width: 6px;
+  height: 6px;
+  display: block;
+  border-radius: 50%;
+  background: #f9f9f9;
+}
+.add-product .status-option__message {
+  min-width: 0;
+}
+.add-product .status-option__message strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 2px;
+}
+.add-product .status-option__message p {
+  margin: 0;
+  font-size: 11px;
+  color: #666666;
+  line-height: 1.4;
+}
+.add-product .product-tips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.add-product .product-tips li {
+  position: relative;
+  padding-left: 14px;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #767676;
+}
+.add-product .product-tips li::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #e11d48;
+}
+.add-product .product-preview {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  background: #FFFFFF;
+  overflow: hidden;
+}
+.add-product .product-preview__image {
+  aspect-ratio: 16/13;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9f9f9;
+  color: rgb(140.25, 140.25, 140.25);
+  font-size: 28px;
+  overflow: hidden;
+}
+.add-product .product-preview__image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+.add-product .product-preview__content {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+.add-product .product-preview__content span {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #666666;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.add-product .product-preview__content h4 {
+  margin: 0 0 6px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111111;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.add-product .product-preview__content strong {
+  font-size: 15px;
+  font-weight: 800;
+  color: #66704A;
+}/*# sourceMappingURL=AddListing.css.map */
+
+
+/* ==========================================================================
+   PERSONAL COLLECTION
+   ========================================================================== */
+
+.add-product .personal-collection-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  background: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.add-product .personal-collection-section .form-field {
+  gap: 7px;
+}
+
+.add-product .personal-collection-section .personal-collection-toggle {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 10px;
+  margin: 0;
+  color: #111111;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.add-product .personal-collection-section .personal-collection-toggle input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-grid;
+  place-content: center;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  border: 1.5px solid #b8b8b8;
+  border-radius: 4px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-product .personal-collection-section .personal-collection-toggle input[type="checkbox"]::before {
+  content: "";
+  width: 8px;
+  height: 4px;
+  border: solid #ffffff;
+  border-width: 0 0 2px 2px;
+  transform: rotate(-45deg) scale(0);
+  transition: transform 0.15s ease-in-out;
+}
+
+.add-product .personal-collection-section .personal-collection-toggle input[type="checkbox"]:checked {
+  border-color: #66704A;
+  background: #66704A;
+}
+
+.add-product .personal-collection-section .personal-collection-toggle input[type="checkbox"]:checked::before {
+  transform: rotate(-45deg) scale(1);
+}
+
+.add-product .personal-collection-section .personal-collection-toggle input[type="checkbox"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 112, 74, 0.18);
+}
+
+.add-product .personal-collection-section .form-field > small {
+  display: block;
+  max-width: 680px;
+  margin: 0;
+  color: #767676;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.add-product .personal-collection-section input[type="text"] {
+  max-width: 520px;
+}
+
+.add-product .personal-collection-section .form-field:has(input[type="text"]) {
+  padding-top: 1rem;
+  border-top: 1px solid #e5e5e5;
+}
+
+@media (max-width: 639px) {
+  .add-product .personal-collection-section {
+    padding: 0.875rem;
+  }
+
+  .add-product .personal-collection-section input[type="text"] {
+    max-width: none;
+  }
+}
+

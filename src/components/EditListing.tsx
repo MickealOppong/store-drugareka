@@ -3,8 +3,11 @@ import { useTranslation } from "react-i18next";
 import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "../css/AddListing.css";
-import { ITEM_SIZE } from "../data/data";
-import { useEditListingMutation, useLazyGetListingQuery } from "../features/api/itemApi";
+import { COLLECTION_CITIES, ITEM_SIZE } from "../data/data";
+import {
+  useEditListingMutation,
+  useLazyGetListingQuery,
+} from "../features/api/itemApi";
 
 import {
   useGetAllConditionsQuery,
@@ -27,9 +30,14 @@ const EditListing = () => {
   const { listingId } = useParams<{ listingId: string }>();
   const [images, setImages] = useState<TFile[]>([]);
   const { data: conditions } = useGetAllConditionsQuery();
-  const [getListing] = useLazyGetListingQuery()
+  const [getListing] = useLazyGetListingQuery();
+  const[isCollectAvailable,setIsCollectAvailable] =useState<boolean>(false)
+  
 
-  const [category, setCategory] = useState<{name:string,path:string}>({name:'',path:''});
+  const [category, setCategory] = useState<{ name: string; path: string }>({
+    name: "",
+    path: "",
+  });
   const roles = useAppSelector((state) => state.userSlice.roles);
 
   /**
@@ -45,9 +53,9 @@ const EditListing = () => {
 
   async function fetchListing() {
     const response = await getListing(parseInt(listingId as string));
+    
 
     const listing = response.data as TListTrans;
-
 
     const mediaObj: TFile[] = await Promise.all(
       listing.media.map(async (item) => {
@@ -84,27 +92,31 @@ const EditListing = () => {
       },
       description: listing.productDescription,
       price: String(listing.newPrice),
-      quantity: "1",
       condition: listing.productCondition,
       brand: listing.brand,
-    minPrice:String(listing.minPrice),
+      minPrice: String(listing.minPrice),
       sku: listing.sku || "EA",
       shippingInfo: listing.shipping,
       status: listing.inventoryStatus,
       images: [],
       imageSortOrder: [],
+      quantity: String(listing.quantity),
       shippingMethod: listing.shippingMethod,
       itemSize: listing.itemSize,
-           model: listing.model,
-          itemNumber: listing.itemNumber,
-          width: String(listing.width),
-          height: String(listing.height),
-          depth: String(listing.depth ),
-           yearMade: String(listing.productionYear),
+      model: listing.model,
+      collectionCity:listing.collectionCity||"",
+      itemNumber: listing.itemNumber,
+      width: String(listing.width),
+      height: String(listing.height),
+      depth: String(listing.depth),
+      yearMade: String(listing.productionYear),
     });
 
+    setIsCollectAvailable(Boolean(listing.personalCollectionAvailable))
     setCategory(listing.category);
   }
+
+  
 
   useEffect(() => {
     fetchListing();
@@ -117,13 +129,13 @@ const EditListing = () => {
   /**
    * Errors
    */
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
   /**
    * * crud hooks
    */
   const [editLisitng] = useEditListingMutation();
 
-   const [formData, setFormData] = useState<TProductData>({
+  const [formData, setFormData] = useState<TProductData>({
     id: 1,
     name: "",
     category: {
@@ -144,16 +156,18 @@ const EditListing = () => {
     itemSize: "",
     yearMade: "",
     model: "",
-    minPrice:'',
+    minPrice: "",
     itemNumber: "",
     width: "",
     height: "",
     depth: "",
+       personalCollectionAvailable: false,
+      collectionCity: ''
   });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setError('')
+    setError("");
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -162,7 +176,7 @@ const EditListing = () => {
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setError('')
+    setError("");
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -171,7 +185,7 @@ const EditListing = () => {
 
   const handleTextInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setError('')
+    setError("");
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -189,6 +203,8 @@ const EditListing = () => {
     setImages((prev) => [...prev, ...newImages]);
   };
 
+
+
   /**
    * REMOVE IMAGE
    * @param index
@@ -196,6 +212,9 @@ const EditListing = () => {
   const removeImage = (index: number) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
+
+
+  
 
   /**
    *  FORM SUBMIT
@@ -206,6 +225,7 @@ const EditListing = () => {
     handleSubmit(action);
   };
   const handleSubmit = async (action: string) => {
+
     const productData: TProductData = {
       ...formData,
       images,
@@ -215,15 +235,16 @@ const EditListing = () => {
 
     const dataToSend = new FormData();
     dataToSend.append("name", productData.name);
-      dataToSend.append("id",String( listingId));
+    dataToSend.append("id", String(listingId));
     dataToSend.append("description", productData.description);
     dataToSend.append("condition", productData.condition);
     dataToSend.append("shippingInfo", productData.shippingInfo);
     dataToSend.append("brand", productData.brand);
+    dataToSend.append("quantity", String(productData.quantity));
     dataToSend.append("status", productData.status);
     dataToSend.append("categoryPath", category.path);
-    dataToSend.append("price", productData.price||'0.00');
-    dataToSend.append("minPrice", productData.minPrice||'0.00');
+    dataToSend.append("price", productData.price || "0.00");
+    dataToSend.append("minPrice", productData.minPrice || "0.00");
     dataToSend.append("sku", productData.sku);
     dataToSend.append("itemSize", productData.itemSize);
     dataToSend.append("productionYear", productData.yearMade);
@@ -232,18 +253,23 @@ const EditListing = () => {
     dataToSend.append("width", productData.width);
     dataToSend.append("height", productData.height);
     dataToSend.append("depth", productData.depth);
+    dataToSend.append("personalCollectionAvailable",
+      String(isCollectAvailable),
+    );
+    dataToSend.append(
+      "collectionCity",
+      formData.collectionCity
+    );
 
     images.forEach((file, index) => {
       dataToSend.append("images", file.file);
       dataToSend.append("imageSortOrder", String(index));
     });
 
-   // console.log(Object.fromEntries(dataToSend));
-    
+    //console.log(Object.fromEntries(dataToSend));
 
     try {
       const response = await editLisitng(dataToSend);
-
 
       if (response.data?.httpStatus === 200) {
         if (roles.includes("ROLE_ADMIN")) {
@@ -253,7 +279,7 @@ const EditListing = () => {
         }
       }
 
-         if (response.error) {
+      if (response.error) {
         const errorResponse = response.error as {
           data?: {
             message?: any;
@@ -278,7 +304,7 @@ const EditListing = () => {
               messages.push(error);
             });
           }
-    
+
           setError(errors.join("\n"));
         }
       }
@@ -286,10 +312,8 @@ const EditListing = () => {
   };
 
   const handleCategoryChange = (category: string, path: string) => {
-    setCategory({name:category,path});
+    setCategory({ name: category, path });
   };
-
-  
 
   return (
     <main className="add-product">
@@ -428,7 +452,7 @@ const EditListing = () => {
                       name="name"
                       type="text"
                       placeholder={t("add_listing.fields.name.placeholder")}
-                      value={formData.name||''}
+                      value={formData.name || ""}
                       onChange={handleInputChange}
                       required
                     />
@@ -451,7 +475,7 @@ const EditListing = () => {
                   <select
                     id="condition"
                     name="condition"
-                    value={formData.condition||''}
+                    value={formData.condition || ""}
                     onChange={handleSelectChange}
                   >
                     <option
@@ -485,7 +509,7 @@ const EditListing = () => {
                     name="model"
                     type="text"
                     placeholder={""}
-                    value={formData.model||''}
+                    value={formData.model || ""}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -499,7 +523,7 @@ const EditListing = () => {
                     name="itemNumber"
                     type="text"
                     placeholder={""}
-                    value={formData.itemNumber ||''}
+                    value={formData.itemNumber || ""}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -513,7 +537,7 @@ const EditListing = () => {
                     name="yearMade"
                     type="text"
                     placeholder={""}
-                    value={formData.yearMade||''}
+                    value={formData.yearMade || ""}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -531,7 +555,7 @@ const EditListing = () => {
                       placeholder={t(
                         "add_listing.fields.description.placeholder",
                       )}
-                      value={formData.description||''}
+                      value={formData.description || ""}
                       onChange={handleTextInputChange}
                     />
 
@@ -575,7 +599,7 @@ const EditListing = () => {
                   </div>
                 </div>
 
-                   <div className="form-field">
+                <div className="form-field">
                   <label htmlFor="price">
                     {t("add_listing.fields.price.min_price")}
                   </label>
@@ -596,7 +620,6 @@ const EditListing = () => {
                     />
                   </div>
                 </div>
-                
 
                 <div className="form-field">
                   <label htmlFor="quantity">
@@ -609,7 +632,7 @@ const EditListing = () => {
                     type="number"
                     min="1"
                     placeholder="1"
-                    value={formData.quantity||1}
+                    value={formData.quantity}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -620,7 +643,7 @@ const EditListing = () => {
                   </label>
                   <SearchSelect
                     brands={brands as TbrandResponse[]}
-                    value={formData.brand ||''}
+                    value={formData.brand || ""}
                     onChange={handleSelectChange}
                   />
                 </div>
@@ -635,7 +658,7 @@ const EditListing = () => {
                     name="sku"
                     type="text"
                     placeholder={t("add_listing.fields.sku.placeholder")}
-                    value={formData.sku||''}
+                    value={formData.sku || ""}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -650,6 +673,55 @@ const EditListing = () => {
                 </div>
               </div>
 
+              {/* Personal collection */}
+              <div className="personal-collection-section">
+                <div className="form-field">
+                  <label
+                    className="personal-collection-toggle"
+                    htmlFor="personalCollectionAvailable"
+                  >
+                    <input
+                      id="personalCollectionAvailable"
+                      name="personalCollectionAvailable"
+                      type="checkbox"
+                      checked={isCollectAvailable}
+                      onChange={(e)=>setIsCollectAvailable(e.target.checked)}
+                    />
+                   <span>{t("add_listing.fields.shipping_info.personal_collection.header")}</span>
+                  </label>
+                  <small>
+                                    {t("add_listing.fields.shipping_info.personal_collection.sub_header")}
+                  </small>
+                </div>
+
+                 {isCollectAvailable && (
+                  <div className="form-field">
+                    <label htmlFor="collectionCity">{t("add_listing.fields.shipping_info.personal_collection.city")}</label>
+                       <select
+                                         id="collectionCity"
+                                         name="collectionCity"
+                                         value={formData.collectionCity||''}
+                                         onChange={handleSelectChange}
+                                         required={formData.personalCollectionAvailable}
+                                       >
+                                         <option value="">{t("add_listing.fields.shipping_info.personal_collection.label")}</option>
+                   
+                                         {COLLECTION_CITIES.map((city) => (
+                                           <option
+                                             key={city.label}
+                                             value={city.label}
+                                           >
+                                             {city.label}
+                                           </option>
+                                         ))}
+                                       </select>
+                    <small>
+                  {t("add_listing.fields.shipping_info.personal_collection.info")}
+                    </small>
+                  </div>
+                )}
+              </div>
+
               {/** ITEM SIZE */}
               <div className="form-field">
                 <label htmlFor="shippingMethod">
@@ -659,7 +731,7 @@ const EditListing = () => {
                 <select
                   id="itemSize"
                   name="itemSize"
-                  value={formData.itemSize||''}
+                  value={formData.itemSize || ""}
                   onChange={handleSelectChange}
                 >
                   <option

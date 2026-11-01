@@ -932,12 +932,14 @@
       "holding": "Rezerwacja: {{time}}"
     },
     "shipping_selector": {
-      "title": "Sposób dostawy",
-      "description": "Wybierz formę nadania i doręczenia przesyłki.",
-      "locker_title": "Automat paczkowy",
-      "locker_desc": "InPost Paczkomat, DPD Pickup",
+      "title": "Metoda dostawy",
+      "description": "Wybierz sposób dostarczenia przesyłki.",
+      "locker_title": "Paczkomat",
+      "locker_desc": "InPost Paczkomat, punkt odbioru DPD",
       "home_title": "Dostawa kurierska",
-      "home_desc": "Kurier bezpośrednio pod Twój adres"
+      "home_desc": "Kurier dostarczy przesyłkę bezpośrednio pod Twoje drzwi.",
+      "personal_collection_disclaimer_title": "Odbiór osobisty — ważna informacja",
+      "personal_collection_disclaimer": "Wybierając odbiór osobisty, przyjmujesz do wiadomości, że odbywa się on na Twoje własne ryzyko. KASAWA sp. z o.o., operator serwisu Kasoa.pl, nie ponosi odpowiedzialności za zdarzenia, obrażenia, utratę lub uszkodzenie mienia ani spory wynikające z odbioru osobistego lub z nim związane — w zakresie dozwolonym przez obowiązujące przepisy prawa."
     },
     "deliveryOptions": {
       "DPD_PICKUP": "DPD Pickup",
@@ -946,31 +948,40 @@
       "DPD_CLASSIC_COURIER": "DPD Kurier – dostawa pod adres",
       "INPOST_LOCKER": "Paczkomat InPost",
       "INPOST_COURIER": "Kurier InPost",
-      "OTHER":"Inne"
+      "OTHER": "Inne"
     },
     "checkoutOptions": {
-    "DPD_PICKUP": {
-      "label": "Punkt odbioru",
-      "desc": "Odbierz paczkę w wybranym punkcie odbioru."
-    },
-    "DPD_CLASSIC_COURIER": {
-      "label": "Kurier do domu",
-      "desc": "Dostawa paczki kurierem pod wskazany adres."
-    },
-    "INPOST_LOCKER": {
-      "label": "Paczkomat InPost",
-      "desc": "Odbierz paczkę z wybranego Paczkomatu InPost."
+      "PICKUP": {
+        "label": "Punkt odbioru",
+        "desc": "Odbierz paczkę w wybranym punkcie odbioru."
+      },
+      "HOME_COURIER": {
+        "label": "Kurier do domu",
+        "desc": "Dostawa paczki kurierem pod wskazany adres."
+      },
+      "PARCEL_LOCKER": {
+        "label": "Paczkomat InPost",
+        "desc": "Odbierz paczkę z wybranego Paczkomatu."
+      },
+      "PERSONAL_PICKUP": {
+        "label": "Odbiór osobisty",
+        "desc": "Odbierz przesyłkę w punkcie wymiany wyznaczonym przez sprzedawcę."
+      }
     }
-  }
   },
   "product_details": {
-    "loading": "Ładowanie szczegółów produktu...",
-    "header": "More from this seller",
-    "title": "Discover more items from this seller",
-    "nav": {
-      "back": "Wstecz",
-      "shop_crumb": "Kupuj"
-    },
+ "loading": "Ładowanie szczegółów produktu...",
+"header": "Więcej od tego sprzedawcy",
+"title": "Odkryj więcej produktów tego sprzedawcy",
+"nav": {
+  "back": "Wstecz",
+  "shop_crumb": "Sklep"
+}
+    ,
+    "personal_collection": {
+  "title": "Dostępny odbiór osobisty",
+  "message": "Chcesz uniknąć kosztów dostawy? Możesz odebrać ten przedmiot w:"
+},
     "info": {
       "condition": "Stan",
       "availability": "Dostępność",
@@ -1096,7 +1107,14 @@
       },
       "shipping_info": {
         "label": "Informacje o wysyłce",
-        "placeholder": "np. Wysyłka w ciągu 2–3 dni roboczych. Koszt wysyłki pokrywa kupujący."
+        "placeholder": "np. Wysyłka w ciągu 2–3 dni roboczych. Koszt wysyłki pokrywa kupujący.",
+        "personal_collection": {
+          "header": "Zezwól na odbiór osobisty",
+          "label":"Wybierz miasto",
+          "sub_header": "Umożliw kupującym osobisty odbiór tego przedmiotu zamiast dostawy kurierskiej.",
+          "city": "Miasto odbioru",
+          "info": "Kupujący zobaczą miasto przed dokonaniem płatności. Dokładny adres odbioru zostanie poproszony po dokonaniu płatności i udostępniony kupującemu po potwierdzeniu odbioru przez Ciebie."
+        }
       },
       "cargo_sizes": {
         "label": "Rozmiar paczki",
@@ -1104,7 +1122,8 @@
         "item_size": {
           "small_up_10kg": "Mały – do 10 kg",
           "medium_up_20kg": "Średni – do 20 kg",
-          "large_up_50kg": "Duży – do 50 kg",
+          "large_up_30kg": "Duży – do 30 kg",
+          "xlarge_up_50kg": "Bardzo duży - do 50kg",
           "heavy_above_50kg": "Ciężki – powyżej 50 kg"
         }
       }

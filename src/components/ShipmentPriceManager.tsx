@@ -9,7 +9,7 @@ import {
 } from "react-icons/fi";
 import { useNavigate, useRevalidator } from "react-router";
 import "../css/ShippingPrice.css";
-import { DELIVERY_OPTIONS, ITEM_SIZE } from "../data/data";
+import { CHECKOUT_OPTIONS, DELIVERY_OPTIONS, ITEM_SIZE } from "../data/data";
 import { useAddCourierPriceMutation } from "../features/api/itemApi";
 import type { TShipmentPriceInput } from "../types/TShipmentPriceInput";
 
@@ -22,7 +22,8 @@ const ShipmentPriceManager = () => {
     shippingMethod: "",
     price: "0.00",
     active: true,
-    discount:"0.00"
+    discount:"0.00",
+    buyerOption:""
   });
 
   const [isSubmitting, setIsLoading] = useState<boolean>(false);
@@ -86,7 +87,8 @@ const ShipmentPriceManager = () => {
         shippingMethod: formData.shippingMethod,
         price: formData.price,
         active: formData.active,
-        discount:formData.discount||"0.00"
+        discount:formData.discount||"0.00",
+        buyerOption:formData.buyerOption.replace(" ","_")
     };
        
 
@@ -166,6 +168,29 @@ const ShipmentPriceManager = () => {
                     
                      <option key={method.value} value={method.value}>
                     {t(`cart.deliveryOptions.${method.value}`)}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+             {/* LOGISTICS CARRIER METHOD SELECTOR */}
+            <div className="shipment-price-manager__field">
+              <label htmlFor="shippingMethod" className="shipment-price-manager__label">
+                <FiTruck /> Checkout options *
+              </label>
+              <select
+                id="buyerOption"
+                name="buyerOption"
+                value={formData.buyerOption}
+                onChange={handleSelectChange}
+                disabled={isSubmitting}
+                className="shipment-price-manager__select"
+              >
+                <option value="" disabled>Select option</option>
+                {CHECKOUT_OPTIONS.map((method) => (
+                    
+                     <option key={method.label} value={method.label}>
+                    {t(`cart.checkoutOptions.${method.value}.label`)}
                   </option>
                 ))}
               </select>

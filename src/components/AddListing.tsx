@@ -4,7 +4,7 @@ import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/AddListing.css";
-import { ITEM_SIZE } from "../data/data";
+import { COLLECTION_CITIES, ITEM_SIZE } from "../data/data";
 import { useAddListingMutation } from "../features/api/itemApi";
 import {
   useGetAllConditionsQuery,
@@ -25,6 +25,8 @@ type TFile = {
 const AddListing = () => {
   const [images, setImages] = useState<TFile[]>([]);
   const [error, setError] = useState<string>('');
+  const [personalCollectionAvailable, setPersonalCollectionAvailable] = useState(false);
+  const [collectionCity, setCollectionCity] = useState("");
 
   /**
    * Brand query
@@ -72,6 +74,7 @@ const AddListing = () => {
     width: "",
     height: "",
     depth: "",
+    collectionCity:''
   });
 
   /**
@@ -145,6 +148,15 @@ const AddListing = () => {
   const handleSubmit = async (action: string) => {
     setError("");
 
+    if (
+      action === "PUBLISH" &&
+      personalCollectionAvailable &&
+      !collectionCity.trim()
+    ) {
+      setError("Please enter the city where buyers can collect this item.");
+      return;
+    }
+
     const productData: TProductData = {
       ...formData,
       images,
@@ -159,6 +171,7 @@ const AddListing = () => {
     dataToSend.append("shippingInfo", productData.shippingInfo);
     dataToSend.append("brand", productData.brand);
     dataToSend.append("status", productData.status);
+    dataToSend.append("quantity",String(productData.quantity));
     dataToSend.append("categoryPath", categoryPath);
     dataToSend.append("price", productData.price);
     dataToSend.append("minPrice", productData.minPrice);
@@ -170,6 +183,14 @@ const AddListing = () => {
     dataToSend.append("width", productData.width);
     dataToSend.append("height", productData.height);
     dataToSend.append("depth", productData.depth);
+    dataToSend.append(
+      "personalCollectionAvailable",
+      String(personalCollectionAvailable)
+    );
+    dataToSend.append(
+      "collectionCity",
+      personalCollectionAvailable ? collectionCity.trim() : ""
+    );
 
     images.forEach((file, index) => {
       dataToSend.append("images", file.file);
@@ -593,6 +614,55 @@ const AddListing = () => {
                 <div>
                   <h2>{t("add_listing.sections.shipping.title")}</h2>
                 </div>
+              </div>
+
+              {/* Personal collection */}
+              <div className="personal-collection-section">
+                <div className="form-field">
+                  <label className="personal-collection-toggle" htmlFor="personalCollectionAvailable">
+                    <input
+                      id="personalCollectionAvailable"
+                      name="personalCollectionAvailable"
+                      type="checkbox"
+                      checked={personalCollectionAvailable}
+                      onChange={(e) => {
+                        const enabled = e.target.checked;
+                        setPersonalCollectionAvailable(enabled);
+                        if (!enabled) setCollectionCity("");
+                      }}
+                    />
+                    <span>{t("add_listing.fields.shipping_info.personal_collection.header")}</span>
+                  </label>
+                  <small>
+                    {t("add_listing.fields.shipping_info.personal_collection.sub_header")}
+                  </small>
+                </div>
+
+                {personalCollectionAvailable && (
+                  <div className="form-field">
+                    <label htmlFor="collectionCity">{t("add_listing.fields.shipping_info.personal_collection.city")}</label>
+                       <select
+                                         id="collectionCity"
+                                         value={collectionCity}
+                                         onChange={(e) => setCollectionCity(e.target.value)}
+                                         required={personalCollectionAvailable}
+                                       >
+                                         <option value="">{t("add_listing.fields.shipping_info.personal_collection.label")}</option>
+                   
+                                         {COLLECTION_CITIES.map((city) => (
+                                           <option
+                                             key={city.value}
+                                             value={city.value}
+                                           >
+                                             {city.label}
+                                           </option>
+                                         ))}
+                                       </select>
+                    <small>
+                  {t("add_listing.fields.shipping_info.personal_collection.info")}
+                    </small>
+                  </div>
+                )}
               </div>
 
               {/** ITEM SIZE */}

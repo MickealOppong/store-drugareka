@@ -24,11 +24,11 @@ const Footer = ()=>{
           <div>
             <h4>{t("landing.footer.heading_shop")}</h4>
 
-            <Link to="/shop">{t("landing.footer.link_all_products")}</Link>
+            <Link  to="/shop?category=all_0">{t("landing.footer.link_all_products")}</Link>
 
             <Link to="/shop/categories">{t("landing.footer.link_categories")}</Link>
 
-            <Link to="/shop">{t("landing.footer.link_new_arrivals")}</Link>
+            <Link  to="/shop?category=all_0">{t("landing.footer.link_new_arrivals")}</Link>
           </div>
 
           <div>

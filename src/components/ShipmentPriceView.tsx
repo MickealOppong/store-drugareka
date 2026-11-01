@@ -130,6 +130,7 @@ const couriers = data as TCourierResponse[] || [];
                   <th>Id</th>
                   <th>Shipping size</th>
                   <th>Shipping method</th>
+                     <th>Checkout option</th>
                    <th>Price</th>
                     <th>Discount</th>
                     <th>Active</th>
@@ -162,6 +163,13 @@ const couriers = data as TCourierResponse[] || [];
                     <td>
                       <span className="data-table__text text-muted">
                         {formatEnumToString(courier.shippingMethod)|| "—"}
+                      </span>
+                    </td>
+
+                       {/* CHECKOUT */}
+                    <td>
+                      <span className="data-table__text text-muted">
+                        {courier.buyerOption|| "—"}
                       </span>
                     </td>
 

@@ -9,7 +9,7 @@ import {
 } from "react-icons/fi";
 import { useNavigate, useParams, useRevalidator } from "react-router";
 import "../css/ShippingPrice.css";
-import { ITEM_SIZE, SHIPPING_METHOD } from "../data/data";
+import { CHECKOUT_OPTIONS, DELIVERY_OPTIONS, ITEM_SIZE } from "../data/data";
 import { useEditCourierPriceMutation, useLazyGetShipmentPriceQuery } from "../features/api/itemApi";
 import type { TShipmentPriceInput } from "../types/TShipmentPriceInput";
 
@@ -23,7 +23,8 @@ const EditShipmentPrice = () => {
     shippingMethod: "",
     price: "0.00",
     active: true,
-    discount:"0.00"
+    discount:"0.00",
+    buyerOption:""
   });
 
 
@@ -37,7 +38,8 @@ setFormData(response.data? response.data as  TShipmentPriceInput:{
     shippingMethod: "",
     price: "0.00",
     active: true,
-    discount:"0.00"
+    discount:"0.00",
+    buyerOption:""
   })
 }
   
@@ -107,25 +109,37 @@ useEffect(()=>{
         price: formData.price,
         active: formData.active,
         id:parseInt(String(id)),
-        discount:formData.discount ||"0.00"
+        discount:formData.discount ||"0.00",
+         buyerOption:formData.buyerOption.replace(" ","_")
     };      
 
+    
     try {
       await addCourierPrice(payload).unwrap();
       setSaveSuccess(true);
       revalidate();
       navigate(-1)
     } catch (err: any) {
-      console.error("Failed to propagate updated logistics matrix data down to DB:", err);
-      const {status} =err as {status:number,data:any}
-      if(status===500){
-        setSubmissionError("Server error,please check data and try again")
-      }
-      const {itemSize,shippingMethod,price,category} =  err?.data.error as {itemSize:string,shippingMethod:string,price:number,category:string}
-      setSubmissionError(`${itemSize?itemSize:''} \n${shippingMethod?shippingMethod:''}\n${price}\n${category?category:''}`);
-    } finally {
-      setIsLoading(false);
-    }
+
+  const status = err?.status;
+  const message = err?.data?.message;
+
+  if (status === 400) {
+    setSubmissionError(
+      message || "Invalid shipping configuration. Please check your data."
+    );
+    return;
+  }
+
+  if (status === 500) {
+    setSubmissionError("Server error. Please check the data and try again.");
+    return;
+  }
+
+  setSubmissionError(
+    message || "Unable to save shipping configuration. Please try again."
+  );
+}
   };
 
   return (
@@ -161,7 +175,7 @@ useEffect(()=>{
               >
                   <option value="" disabled>Select option</option>
                 {ITEM_SIZE.map((size) => (
-                  <option key={size.id} value={size.value}>
+                  <option key={size.id} value={size.value.toUpperCase()}>
                     {size.name}
                   </option>
                 ))}
@@ -182,14 +196,37 @@ useEffect(()=>{
                 className="shipment-price-manager__select"
               >
                 <option value="" disabled>Select option</option>
-                {SHIPPING_METHOD.map((method) => (
+                {DELIVERY_OPTIONS.map((method) => (
                     
                      <option key={method.value} value={method.value}>
-                         {t(`cart.shipping_selector.${method.method}`)}
+                         {t(`cart.deliveryOptions.${method.value}`)}
                   </option>
                 ))}
               </select>
             </div>
+
+             {/* LOGISTICS CARRIER METHOD SELECTOR */}
+                     <div className="shipment-price-manager__field">
+                       <label htmlFor="shippingMethod" className="shipment-price-manager__label">
+                         <FiTruck /> Checkout options *
+                       </label>
+                       <select
+                         id="buyerOption"
+                         name="buyerOption"
+                         value={formData.buyerOption}
+                         onChange={handleSelectChange}
+                         disabled={isSubmitting}
+                         className="shipment-price-manager__select"
+                       >
+                         <option value="" disabled>Select option</option>
+                         {CHECKOUT_OPTIONS.map((method) => (
+                             
+                              <option key={method.label} value={method.value}>
+                             {t(`cart.checkoutOptions.${method.value}.label`)}
+                           </option>
+                         ))}
+                       </select>
+                     </div>
 
 
             {/* CURRENCY GROSS VALUE INPUT */}

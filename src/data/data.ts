@@ -46,14 +46,18 @@ export const ITEM_SIZE = [
   },
   {
     id: 3,
-    value: "large_up_50kg",
-    name: "Large - up to 50kg",
+    value: "large_up_30kg",
+    name: "Large - up to 30kg",
   },
   {
     id: 4,
-    value: "heavy_above_50kg",
-    name: "Heavy - over 50kg",
-  },
+    value: "xlarge_up_50kg",
+    name: "xlarge - up to 50kg",
+  },{
+    id:5,
+    value:"heavy_above_50kg",
+    name:"Heavy - over 50kg"
+  }
 ];
 
 
@@ -211,13 +215,13 @@ export const CHECKOUT_OPTIONS = [
   // DPD
   {
     id:1,
-    value: 'DPD_PICKUP',
+    value: 'PICKUP',
     label: "Pickup",
     desc:'Pickup from a designated point',
   },
   {
     id:3,
-    value: 'DPD_CLASSIC_COURIER',
+    value: 'HOME_COURIER',
     label: 'Home Courier',
         desc:'Home delivery by Courier',
   },
@@ -225,9 +229,69 @@ export const CHECKOUT_OPTIONS = [
   // InPost
   {
     id:2,
-    value: 'INPOST_LOCKER',
+    value: 'PARCEL_LOCKER',
     label: 'Parcel Locker',
       desc:'Collect from Locker',
   },
   
+   {
+    id:4,
+    value: 'PERSONAL_PICKUP',
+    label: 'Personal pickup',
+      desc:'Collect from seller',
+  },
 ];
+
+
+export const COLLECTION_CITIES = [
+  { value: "warszawa", label: "Warszawa" },
+  { value: "krakow", label: "Kraków" },
+  { value: "lodz", label: "Łódź" },
+  { value: "wroclaw", label: "Wrocław" },
+  { value: "poznan", label: "Poznań" },
+  { value: "gdansk", label: "Gdańsk" },
+  { value: "szczecin", label: "Szczecin" },
+  { value: "bydgoszcz", label: "Bydgoszcz" },
+  { value: "lublin", label: "Lublin" },
+  { value: "bialystok", label: "Białystok" },
+  { value: "katowice", label: "Katowice" },
+  { value: "gdynia", label: "Gdynia" },
+  { value: "czestochowa", label: "Częstochowa" },
+  { value: "radom", label: "Radom" },
+  { value: "torun", label: "Toruń" },
+  { value: "sosnowiec", label: "Sosnowiec" },
+  { value: "rzeszow", label: "Rzeszów" },
+  { value: "kielce", label: "Kielce" },
+  { value: "gliwice", label: "Gliwice" },
+  { value: "olsztyn", label: "Olsztyn" },
+  { value: "zabrze", label: "Zabrze" },
+  { value: "bytom", label: "Bytom" },
+  { value: "bielsko-biala", label: "Bielsko-Biała" },
+  { value: "zielona-gora", label: "Zielona Góra" },
+  { value: "rybnik", label: "Rybnik" },
+  { value: "ruda-slaska", label: "Ruda Śląska" },
+  { value: "tychy", label: "Tychy" },
+  { value: "opole", label: "Opole" },
+  { value: "gorzow-wielkopolski", label: "Gorzów Wielkopolski" },
+  { value: "dabrowa-gornicza", label: "Dąbrowa Górnicza" },
+  { value: "plock", label: "Płock" },
+  { value: "elblag", label: "Elbląg" },
+  { value: "tarnow", label: "Tarnów" },
+  { value: "koszalin", label: "Koszalin" },
+  { value: "wloclawek", label: "Włocławek" },
+  { value: "chorzow", label: "Chorzów" },
+  { value: "legnica", label: "Legnica" },
+  { value: "grudziadz", label: "Grudziądz" },
+  { value: "nowy-sacz", label: "Nowy Sącz" },
+  { value: "kalisz", label: "Kalisz" },
+  { value: "jaworzno", label: "Jaworzno" },
+  { value: "slupsk", label: "Słupsk" },
+  { value: "jastrzebie-zdroj", label: "Jastrzębie-Zdrój" },
+  { value: "jelenia-gora", label: "Jelenia Góra" },
+  { value: "konin", label: "Konin" },
+  { value: "piotrkow-trybunalski", label: "Piotrków Trybunalski" },
+  { value: "inowroclaw", label: "Inowrocław" },
+  { value: "lubin", label: "Lubin" },
+  { value: "ostrow-wielkopolski", label: "Ostrów Wielkopolski" },
+  { value: "stargard", label: "Stargard" },
+] as const;

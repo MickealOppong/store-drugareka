@@ -73,7 +73,7 @@ const {data:listings=[]} = useGetLandingListingQuery()
           </p>
 
           <div className="mobile-hero__actions">
-            <Link to="/shop" className="mobile-button mobile-button--primary">
+            <Link  to="/shop?category=all_0" className="mobile-button mobile-button--primary">
               <span>{t("landing.hero.cta_shop")}</span>
               <FiArrowRight />
             </Link>
@@ -308,7 +308,7 @@ const {data:listings=[]} = useGetLandingListingQuery()
   </h2>
 
   <Link
-    to="/shop"
+    to="/shop?category=all_0"
     className="mobile-button mobile-button--primary"
   >
     <span>{t("landing.closing_cta.cta", { defaultValue: "Explore the store" })}</span>

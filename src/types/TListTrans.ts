@@ -13,6 +13,7 @@ export type TListTrans = {
     name:string,
     path:string
   }
+  quantity:number,
   shippingCost:number,
   serviceCharge:number
 
@@ -25,7 +26,8 @@ minPrice:number
   media:TMedia[]
 sku:string
   productDescription: string;
-
+   personalCollectionAvailable: boolean;
+      collectionCity?: string;
 
   productCondition: string;
   shippingMethod:string

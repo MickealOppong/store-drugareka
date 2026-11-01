@@ -651,4 +651,63 @@ SYSTEM MOTION TIMING TRANSITIONS (KEYFRAMES SELECTIONS)
     transition: none !important;
     transform: none !important;
   }
+}
+/* ==========================================================================
+   PERSONAL COLLECTION AVAILABILITY NOTICE
+   Shown on the product page when personal collection is enabled and a city
+   has been provided. The exact collection address remains undisclosed.
+   ========================================================================== */
+.product-details__personal-collection {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  margin: 1rem 0;
+  padding: 14px 16px;
+  box-sizing: border-box;
+  border: 1px solid rgba(102, 112, 74, 0.28);
+  border-left: 4px solid #66704A;
+  border-radius: 10px;
+  background-color: rgb(207.7161290323, 213.3451612903, 191.9548387097);
+  color: #111111;
+}
+.product-details__personal-collection > svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  font-size: 1.2rem;
+  color: #66704A;
+}
+.product-details__personal-collection > div {
+  min-width: 0;
+}
+.product-details__personal-collection > div > strong {
+  display: block;
+  margin: 0;
+  color: #111111;
+  font-size: 0.92rem;
+  font-weight: 750;
+  line-height: 1.4;
+}
+.product-details__personal-collection p {
+  margin: 5px 0 0;
+  color: #666666;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.product-details__personal-collection p strong {
+  display: inline;
+  color: #66704A;
+  font-weight: 750;
+}
+
+@media (max-width: 480px) {
+  .product-details__personal-collection {
+    gap: 10px;
+    margin: 0.85rem 0;
+    padding: 12px;
+  }
+  .product-details__personal-collection p {
+    font-size: 0.82rem;
+  }
 }/*# sourceMappingURL=ProductDetails.css.map */

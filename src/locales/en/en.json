@@ -937,14 +937,16 @@
           "placeholder": "e.g. 90-001"
         }
       },
-      "shipping_selector": {
-        "title": "Delivery Method",
-        "description": "Choose how you want your package dispatched.",
-        "locker_title": "Parcel Locker",
-        "locker_desc": "InPost Paczkomat, DPD Pickup",
-        "home_title": "Home Delivery",
-        "home_desc": "Courier directly to your door"
-      }
+    "shipping_selector": {
+  "title": "Delivery Method",
+  "description": "Choose how you want your package dispatched.",
+  "locker_title": "Parcel Locker",
+  "locker_desc": "InPost Paczkomat, DPD Pickup",
+  "home_title": "Home Delivery",
+  "home_desc": "Courier directly to your door",
+  "personal_collection_disclaimer_title": "Personal Collection — Important Notice",
+  "personal_collection_disclaimer": "By choosing personal collection, you acknowledge that collection is arranged and undertaken at your own risk. KASAWA sp. z o.o., the operator of Kasoa.pl, is not responsible for incidents, injury, loss, damage or disputes arising from or in connection with the personal collection process, to the extent permitted by applicable law."
+}
     },
     "timer": {
       "expired": "Reservation time expired",
@@ -960,28 +962,36 @@
         "OTHER":"Other"
       },
       "checkoutOptions": {
-    "DPD_PICKUP": {
+    "PICKUP": {
       "label": "Pickup Point",
       "desc": "Collect your parcel from a designated pickup point."
     },
-    "DPD_CLASSIC_COURIER": {
+    "HOME_COURIER": {
       "label": "Home Courier",
       "desc": "Home delivery by courier."
     },
-    "INPOST_LOCKER": {
+    "PARCEL_LOCKER": {
       "label": "Parcel Locker",
-      "desc": "Collect your parcel from an InPost Parcel Locker."
+      "desc": "Collect your parcel from a Parcel Locker."
+    },
+     "PERSONAL_PICKUP": {
+      "label": "Personal pickup",
+      "desc": "Collect your parcel from seller designated point of exchange."
     }
   }
   },
   "product_details": {
     "loading": "Loading product details...",
-    "header": "Więcej od tego sprzedawcy",
-    "title": "Odkryj więcej przedmiotów od tego sprzedawcy",
+    "header": "More from this seller",
+    "title": "Discover more items from this seller",
     "nav": {
       "back": "Back",
       "shop_crumb": "Shop"
     },
+"personal_collection": {
+  "title": "Personal collection available",
+  "message": "Want to avoid shipping costs? You can collect this item in:"
+},
     "info": {
       "condition": "Condition",
       "availability": "Availability",
@@ -1098,7 +1108,14 @@
       },
       "shipping_info": {
         "label": "Shipping information",
-        "placeholder": "e.g. Shipping within 2-3 business days. Shipping costs are covered by the buyer."
+        "placeholder": "e.g. Shipping within 2-3 business days. Shipping costs are covered by the buyer.",
+        "personal_collection":{
+          "header":"Allow personal colelction",
+          "label":"Choose a city",
+         "sub_header":"Allow buyers collect this item instead of choosing courier delivery.",
+         "city":"Collection city",
+         "info":"Buyers will see the city before payment. The exact collection point will be requested from you and shared with the buyer after payment and your confirmation."
+        }
       },
       "dimension": {
         "width": "Width",
@@ -1116,7 +1133,8 @@
         "item_size": {
           "small_up_10kg": "Small - up to 10kg",
           "medium_up_20kg": "Medium - up to 20kg",
-          "large_up_50kg": "Large - up to 50kg",
+          "large_up_30kg": "Large - up to 30kg",
+          "xlarge_up_50kg": "Extra large - up to 50kg",
           "heavy_above_50kg": "Heavy - over 50kg"
         }
       }

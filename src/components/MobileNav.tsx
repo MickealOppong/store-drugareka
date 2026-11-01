@@ -205,7 +205,7 @@ const MobileNav = () => {
 
             <div className="mn-drawer__nav">
               <Link
-                to="/shop"
+                to="/shop?category=all_0"
                 className="mn-drawer__nav-link"
                 onClick={closeMenu}
               >
