@@ -1124,7 +1124,7 @@
           "medium_up_20kg": "Średni – do 20 kg",
           "large_up_30kg": "Duży – do 30 kg",
           "xlarge_up_50kg": "Bardzo duży - do 50kg",
-          "heavy_above_50kg": "Ciężki – powyżej 50 kg"
+          "heavy_over_50kg": "Ciężki – powyżej 50 kg"
         }
       }
     },

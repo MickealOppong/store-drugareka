@@ -55,7 +55,7 @@ export const ITEM_SIZE = [
     name: "xlarge - up to 50kg",
   },{
     id:5,
-    value:"heavy_above_50kg",
+    value:"heavy_over_50kg",
     name:"Heavy - over 50kg"
   }
 ];

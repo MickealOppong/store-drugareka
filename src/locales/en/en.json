@@ -1135,7 +1135,7 @@
           "medium_up_20kg": "Medium - up to 20kg",
           "large_up_30kg": "Large - up to 30kg",
           "xlarge_up_50kg": "Extra large - up to 50kg",
-          "heavy_above_50kg": "Heavy - over 50kg"
+          "heavy_over_50kg": "Heavy - over 50kg"
         }
       }
     },
