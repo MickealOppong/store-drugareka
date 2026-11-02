@@ -2,7 +2,7 @@
 @use "Variables.scss" as Variables;
 
 /* ==========================================================================
-   MOBILE-FIRST MARKETPLACE STICKY NAVIGATION HEADER
+   MOBILE-FIRST MARKETPLACE STICKY NAVIGATION HEADER (.mn-header)
    ========================================================================== */
 .mn-header {
   position: sticky;
@@ -11,8 +11,12 @@
   right: 0;
   z-index: 500; 
   width: 100%;
-  //background-color: Variables.$background;
-  background-color: rebeccapurple;
+  
+  /* 🚀 FIXED: Set fixed layout height tracking to perfectly eliminate ghost empty spacing gaps underneath */
+  height: Variables.$header-height-mobile; 
+  
+  /* 🚀 FIXED: Stripped out the rebeccapurple test variable to restore clean design tokens system blend */
+  background-color: Variables.$background;
   border-bottom: 1px solid Variables.$color-border;
   font-family: Variables.$font-sans;
   box-sizing: border-box;
@@ -22,7 +26,8 @@
   }
 
   &__inner {
-    position:fixed;
+    position: fixed;
+    top: 0; // 🚀 FIXED: Pin inner container directly to the viewport top edge limit boundary
     left: 0;
     right: 0;
     z-index: 510;
@@ -33,6 +38,7 @@
     padding: 0 16px;
     background-color: Variables.$background;
     box-sizing: border-box;
+    border-bottom: 1px solid Variables.$color-border;
   }
 
   &__actions {
@@ -111,7 +117,7 @@
 }
 
 /* ==========================================================================
-   MARKETPLACE BRAND IDENTITY SIGNATURE
+   MARKETPLACE BRAND IDENTITY SIGNATURE (.mn-brand)
    ========================================================================== */
 .mn-brand {
   display: inline-flex;
@@ -137,7 +143,7 @@
 }
 
 /* ==========================================================================
-   TOUCH-OPTIMIZED NAVIGATION DRAWER SYSTEM
+   TOUCH-OPTIMIZED NAVIGATION DRAWER SYSTEM (.mn-drawer)
    ========================================================================== */
 .mn-drawer {
   position: fixed;
@@ -151,7 +157,6 @@
   gap: 16px;
   width: 100%;
   
-
   height: calc(100vh - #{Variables.$header-height-mobile});
   height: calc(100dvh - #{Variables.$header-height-mobile});
   
@@ -205,6 +210,7 @@
 
   &__category-content {
     min-width: 0;
+   
     
     // Insulates third-party customized category sub-trees from causing container blowouts
     > * {
@@ -242,7 +248,6 @@
       border-bottom: 0;
     }
 
-    /* 🚀 FIXED: Replaced layout-shifting padding transitions with smooth hardware-accelerated text translations */
     &:hover {
       background-color: Variables.$color-bg-light;
       color: Variables.$color-primary;
@@ -275,7 +280,7 @@
 
       &:hover {
         background-color: Variables.$color-bg-light;
-        .mn-drawer__link-text { transform: none; } // Bypasses default translation values for clean button symmetry
+        .mn-drawer__link-text { transform: none; } 
       }
     }
   }

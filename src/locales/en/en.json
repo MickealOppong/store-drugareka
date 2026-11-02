@@ -90,10 +90,15 @@
       "message": "We couldn't find any items matching your active category profile. Try expanding your search queries or resetting the active parameters.",
       "clear_btn": "Clear Active filters"
     },
+      "collection":{
+         "collection_available":"Seller allows personal collection",
+      "city_list":"Collection location"
+      },
     "header": {
       "title": "Categories",
       "text_label": "Product category",
       "placeholder_text": "Select category"
+  
     },
     "electronics": {
       "name": "Electronics",
@@ -354,7 +359,10 @@
     }
   },
   "product_conditions": {
-    "new": "New",
+    "title":"Product condition",
+    "clear":"Clear",
+   "conditions":{
+     "new": "New",
     "almost_new": "Almost new",
     "open_new": "Open but new",
     "new_other": "New (Other / Long-term storage)",
@@ -364,6 +372,7 @@
     "used_good": "Used — Good condition",
     "used": "Used",
     "acceptable": "Acceptable"
+   }
   },
   "shop": {
     "header": {
@@ -1709,7 +1718,7 @@
       "title": "Categories"
     },
     "condition_search": {
-      "label": "Search products by name, price or condition",
+      "label": "Search products",
       "placeholder": "e.g. New, Like new, Good",
       "clear": "Clear search",
       "no_results": "No products match your search."

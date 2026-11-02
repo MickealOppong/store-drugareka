@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiHeart, FiShoppingBag, FiUser } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+// 🚀 THE NAVIGATION FIX: Imported NavLink instead of standard Link for automatic state matching
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "../css/NavHeader.css";
 import { appName } from "../data/data";
 import { useLogoutMutation } from "../features/api/authApi";
@@ -25,8 +26,6 @@ const NavHeader = () => {
   const { data: cartCounter } = useGetCartCountQuery(undefined, { skip: !email });
   const { data: wishlistCounter } = useGetWishlistCountQuery(undefined, { skip: !email });
 
-
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const refreshToken = localStorage.getItem("rtk") as string;
@@ -36,7 +35,7 @@ const NavHeader = () => {
     try {
       await logout(refreshToken).unwrap();
       dispatch(logoutUser());
-          dispatch(userApi.util.resetApiState());
+      dispatch(userApi.util.resetApiState());
       navigate("/");
     } catch (error) {
       console.error("Logout transaction lifecycle exception:", error);
@@ -64,7 +63,6 @@ const NavHeader = () => {
   }
 
   return (
-  
     <header className="nav-header">
       <div className="nav-header__inner">
         
@@ -72,16 +70,36 @@ const NavHeader = () => {
           {appName} <span>.pl</span>
         </Link>
 
+        {/* 🚀 REFACTORED WORKSPACE ROUTING TRAILER ARRAYS */}
         <nav className="nav-header__navigation">
-          <Link to={`/shop?category=all_0`} className="nav-header__nav-link">
-            {t("navigation.menu.shop")}
-          </Link>
-          <Link to="/shop/categories" className="nav-header__nav-link">
-            {t("navigation.menu.categories")}
-          </Link>
-          <Link to="/sell" className="nav-header__nav-link nav-header__nav-link--sell">
-            {t("navigation.menu.sell")}
-          </Link>
+          <NavLink 
+            to="/shop" 
+            // 🚀 AUTOMATED ACTIVE HOOK: Applies specialized modifiers conditionally depending on url tracks matches
+            className={({ isActive }) => 
+              `nav-header__nav-link ${isActive ? "nav-header__nav-link--active" : ""}`
+            }
+            end // Stops route greedy matches matching subcategory children tracks loops unexpectedly
+          >
+            {t("navigation.menu.shop", "Shop")}
+          </NavLink>
+          
+          <NavLink 
+            to="/shop/categories" 
+            className={({ isActive }) => 
+              `nav-header__nav-link ${isActive ? "nav-header__nav-link--active" : ""}`
+            }
+          >
+            {t("navigation.menu.categories", "Categories")}
+          </NavLink>
+          
+          <NavLink 
+            to="/sell" 
+            className={({ isActive }) => 
+              `nav-header__nav-link nav-header__nav-link--sell ${isActive ? "nav-header__nav-link--active" : ""}`
+            }
+          >
+            {t("navigation.menu.sell", "Sell")}
+          </NavLink>
         </nav>
 
         <div className="nav-header__actions">

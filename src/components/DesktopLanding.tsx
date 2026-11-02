@@ -167,7 +167,7 @@ if(isLoading){
             {topCategories.map((category) => (
               <Link
                 key={category.id}
-                to={`/shop?category=${category.slug}`}
+                to={`/shop?category=${category.slug}_${category.id}`}
                 className="category-card"
               >
                 <img src={category.image} alt={category.name} />

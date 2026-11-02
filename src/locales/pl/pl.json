@@ -90,6 +90,10 @@
       "message": "Nie mogliśmy znaleźć żadnych przedmiotów pasujących do Twojego aktywnego profilu kategorii. Spróbuj rozszerzyć zapytania lub zresetować aktywne parametry.",
       "clear_btn": "Wyczyść aktywne filtry"
     },
+          "collection": {
+  "collection_available": "Sprzedawca umożliwia odbiór osobisty",
+  "city_list": "Lokalizacja odbioru"
+},
     "header": {
       "title": "Kategorie",
       "placeholder_text": "Wybierz kategorię",
@@ -353,17 +357,21 @@
     }
   },
 
-  "product_conditions": {
-    "new": "Nowy",
-    "almost_new": "Prawie nowy",
-    "open_new": "Otwarty, ale nowy",
-    "new_other": "Nowy (inny / długo przechowywany)",
-    "excellent_condition": "Doskonały",
-    "very_good": "Bardzo dobry",
-    "good": "Dobry",
-    "used_good": "Używany — w dobrym stanie",
-    "used": "Używany",
-    "acceptable": "Zadowalający"
+"product_conditions": {
+    "title": "Stan produktu",
+    "clear": "Wyczyść",
+    "conditions": {
+      "new": "Nowy",
+      "almost_new": "Prawie nowy",
+      "open_new": "Otwarty, ale nowy",
+      "new_other": "Nowy (Inny / Magazynowany)",
+      "excellent_condition": "Doskonały",
+      "very_good": "Bardzo dobry",
+      "good": "Dobry",
+      "used_good": "Używany — stan dobry",
+      "used": "Używany",
+      "acceptable": "Zadowalający"
+    }
   },
   "shop": {
     "header": {
@@ -1698,7 +1706,7 @@
       "title": "Kategorie"
     },
     "condition_search": {
-      "label": "Szukaj produktów według nazwy, ceny lub stanu",
+      "label": "Szukaj produktów",
       "placeholder": "np. Nowy, Jak nowy, Dobry",
       "clear": "Wyczyść wyszukiwanie",
       "no_results": "Żadne produkty nie pasują do wyszukiwania."

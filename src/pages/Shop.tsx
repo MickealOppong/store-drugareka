@@ -1,21 +1,21 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   FiChevronDown,
   FiEdit,
   FiHeart,
   FiSearch,
   FiShoppingBag,
-  FiSliders,
-  FiX,
+  FiX
 } from "react-icons/fi";
 
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Loading, Pagination } from "../components";
 import { ErrorToast } from "../components/ErrorTaost";
 import MakeOfferodal from "../components/MakeOfferModal";
 import SEO from "../components/SEO";
 import "../css/Shop.css";
+import { COLLECTION_CITIES } from "../data/data";
 import {
   useAddWishListMutation,
   useGetWishListsQuery,
@@ -28,6 +28,7 @@ import { useAddToCart } from "../hooks/useAddTocart";
 import { useRecentViews } from "../hooks/useRecentViews";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
+import type { TQueryDto } from "../types/TQueryDto";
 import {
   formatPrice,
   sanitizeBackendKey,
@@ -51,29 +52,48 @@ const Shop = () => {
   const { addItemToCart, isLoading: addCartLoading, error } = useAddToCart();
   const { addView } = useRecentViews();
 
-  // 1. Core State Trackers synchronized natively with standard parameters
-  const [search, setSearch] = useState<string>("");
-  const [sort, setSort] = useState<string>("newest");
-  const [showFilters, setShowFilters] = useState<boolean>(false);
+    const { search, pathname } = useLocation();
 
-  const page = parseInt(searchParams.get("page") || "1");
+  //GENERIC SEARCH
+    const [searchTerm, setSearchTerm] = useState<string>("");
+    const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+  
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setDebouncedSearch(searchTerm.trim());
+      }, 500);
+  
+      return () => clearTimeout(timer);
+    }, [searchTerm]);
+
+  // 1. Core State Trackers synchronized natively with standard parameters
+  const [sort, setSort] = useState<string>("newest");
 
   // Safely extract the default active category from URL line, falling back to global state
-  const selectedCategory = searchParams.get("category") || "all";
+    const page = parseInt(searchParams.get("page") || "1", 10);
+    const selectedCategory = searchParams.get("category") || "all";
+    const selectedCollectionCity = searchParams.get("collectionCity") || "";
+    const isCollectionAvailable =
+      searchParams.get("isCollectionAvailable") || "false";
+  
+    const queryDto: TQueryDto = {
+      category: selectedCategory,
+      collectionCity: selectedCollectionCity,
+      isCollectionAvailable: isCollectionAvailable === "true" ? true : false,
+      search: debouncedSearch,
+      page,
+      size: 50,
+    };
 
-  const request = {
-    queryCategory: selectedCategory,
-    page,
-    size: 50,
-  };
 
   // Replaced useLazy Query hooks entirely. These automatically trigger an optimized
   // backend network fetch pass the split second a user mounts or lands on this route path!
   const { data, isLoading: isProductsLoading } = useGetStoreListingsFeedQuery(
-    request,
+    queryDto,
     { refetchOnFocus: true, refetchOnMountOrArgChange: true },
   );
   const products = data?.listings || [];
+  
 
   const { data: categories = [] } = useGetAllParentCategoriesQuery();
 
@@ -92,16 +112,6 @@ const Shop = () => {
   // ==========================================================================
   const filteredProducts = useMemo(() => {
     let result = [...products];
-
-    // Search Text Parsing Layer
-    if (search.trim()) {
-      const query = search.toLowerCase();
-      result = result.filter(
-        (product) =>
-          product.brand.toLowerCase().includes(query) ||
-          product.productName.toLowerCase().includes(query),
-      );
-    }
 
     // Chronological and Pricing Sorting Configurations
     switch (sort) {
@@ -138,7 +148,7 @@ const Shop = () => {
         break;
     }
     return result;
-  }, [products, search, sort]);
+  }, [products, searchTerm, sort]);
 
   // ==========================================================================
   // ACTION CONTROLLER HOOK HANDLERS
@@ -177,6 +187,18 @@ const Shop = () => {
     }
   };
 
+    const hanldeSelectedCityParam = (city: string) => {
+    const searchParams = new URLSearchParams(search);
+    searchParams.set("collectionCity", city);
+    navigate(`${pathname}?${searchParams.toString()}`);
+  };
+
+  const hanldeIsAvailableParam = (selected: boolean) => {
+    const searchParams = new URLSearchParams(search);
+    searchParams.set("isCollectionAvailable", String(selected));
+    navigate(`${pathname}?${searchParams.toString()}`);
+  };
+
   return (
     <main className="shop-page">
       <SEO
@@ -200,14 +222,14 @@ const Shop = () => {
           <FiSearch />
           <input
             type="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder={t("shop.header.search_placeholder")}
           />
           {search && (
             <button
               type="button"
-              onClick={() => setSearch("")}
+              onClick={() => setSearchTerm("")}
             >
               <FiX />
             </button>
@@ -242,6 +264,66 @@ const Shop = () => {
         ))}
       </section>
 
+        {/** FILTER BY CITY FOR PRODUCTS WITH PERSONAL COLLECTION ENABLED */}
+                  <div className="collection-city-filter">
+                    <div>
+                      <label htmlFor="isCollectionAvialable">
+                        {t("categories.collection.collection_available")}
+                      </label>
+                      <input
+                        type="checkbox"
+                        id="isCollectionAvailable"
+                        checked={isCollectionAvailable === "true" ? true : false}
+                        name="isCollectionAvailable"
+                        onChange={(e) => hanldeIsAvailableParam(e.target.checked)}
+                      />
+                    </div>
+                    <div className="collection-city-filter__header">
+                      <span className="collection-city-filter__title">
+                        {t("categories.collection.city_list")}
+                      </span>
+      
+                      {selectedCollectionCity && (
+                        <button
+                          type="button"
+                          className="collection-city-filter__clear"
+                          onClick={() => hanldeSelectedCityParam("")}
+                        >
+                          {t("catalog-browser.location.clear", {
+                            defaultValue: "Clear",
+                          })}
+                          <FiX />
+                        </button>
+                      )}
+                    </div>
+      
+                    <article>
+                      <div className="collection-city-filter__options">
+                        {COLLECTION_CITIES.map((city) => {
+                          const isSelected = selectedCollectionCity === city.label;
+      
+                          return (
+                            <button
+                              key={city.value}
+                              type="button"
+                              className={`collection-city-filter__option ${
+                                isSelected ? "is-selected" : ""
+                              }`}
+                              onClick={() =>
+                                hanldeSelectedCityParam(isSelected ? "" : city.label)
+                              }
+                              aria-pressed={isSelected}
+                            >
+                              <span>{city.label}</span>
+      
+                              {isSelected && <FiX aria-hidden="true" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </article>
+                  </div>
+
       {/* =====================================================
                 TOOLBAR
             ====================================================== */}
@@ -253,14 +335,7 @@ const Shop = () => {
         </div>
 
         <div className="shop-page__toolbar-actions">
-          {/* MOBILE FILTER */}
-          <button
-            className="shop-page__filter-button"
-            onClick={() => setShowFilters(true)}
-          >
-            <FiSliders />
-            {t("shop.toolbar.filters")}
-          </button>
+         
 
           {/* SORT */}
           <div className="shop-page__sort">
@@ -309,7 +384,6 @@ const Shop = () => {
               <p>{t("shop.empty.description")}</p>
               <button
                 onClick={() => {
-                  setSearch("");
                   handleCategoryButtonClick("all");
                 }}
               >
@@ -378,7 +452,7 @@ const Shop = () => {
                     <div className="shop-product-card__condition">
                       <span>
                         {t(
-                          `product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`,
+                          `product_conditions.conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`,
                         )}
                       </span>
                     </div>
@@ -448,55 +522,6 @@ const Shop = () => {
           size={data?.pageSize}
           totalElements={data?.totalElements}
         />
-      )}
-
-      {/* =====================================================
-                MOBILE FILTER DRAWER
-            ====================================================== */}
-
-      {showFilters && (
-        <div className="shop-filter-drawer">
-          <div
-            className="shop-filter-drawer__backdrop"
-            onClick={() => setShowFilters(false)}
-          />
-
-          <div className="shop-filter-drawer__panel">
-            <div className="shop-filter-drawer__header">
-              <h2>{t("shop.filter_drawer.title")}</h2>
-
-              <button onClick={() => setShowFilters(false)}>
-                <FiX />
-              </button>
-            </div>
-
-            <div className="shop-filter-drawer__body">
-              <label>{t("shop.filter_drawer.label")}</label>
-
-              <select
-                value={selectedCategory}
-                onChange={(e) => {
-                  handleCategoryButtonClick(e.target.value);
-
-                  setShowFilters(false);
-                }}
-              >
-                <option value="all">
-                  {t("shop.filter_drawer.all_option")}
-                </option>
-
-                {categories.map((category) => (
-                  <option
-                    key={category.id}
-                    value={category.slug}
-                  >
-                    {t(`categories.${sanitizeCategoryKey(category.name)}.name`)}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
       )}
     </main>
   );

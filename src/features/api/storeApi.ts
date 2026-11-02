@@ -6,6 +6,7 @@ import type { TListTrans } from "../../types/TListTrans";
 import type { TResponseDto } from "../../types/TResponseDto";
 
 import type { TCategoryTreeDto } from "../../types/TCategoryTreeDto";
+import type { TQueryDto } from "../../types/TQueryDto";
 import type { TSellingActivity } from "../../types/TSellingActivity";
 import { CookieService } from "../../util/util";
 import { baseUrl } from "./baseUrl";
@@ -35,20 +36,14 @@ export const storeApi = createApi({
         url: "/api/store/listings",
       }),
     }),
-    getStoreListingsFeed: build.query<
-      TListPageDto,
-      { queryCategory: string; page: number; size: number }
-    >({
-      query: ({ queryCategory, page, size }) => ({
-        url: `/api/store/store-listing`,
-        params: {
-          queryCategory,
-          page,
-          size,
-        },
-      }),
-      providesTags: ["listings"],
-    }),
+getStoreListingsFeed: build.query<TListPageDto, TQueryDto>({
+  query: (params) => ({
+    url: `/api/store/store-listing`,
+    method: "GET",
+    params,
+  }),
+  providesTags: ["listings"],
+}),
     getAllParentCategories: build.query<TCategoryReponse[], void>({
       query: () => ({
         url: "/api/store/parent-categories",
@@ -174,5 +169,6 @@ export const {
   useIsReturnConfirmedQuery,
   useConfirmReturnMutation,
   useGetListingBySlugQuery,
-  useGetSellerListingQuery
+  useGetSellerListingQuery,
+  useLazyGetStoreListingsFeedQuery
 } = storeApi;

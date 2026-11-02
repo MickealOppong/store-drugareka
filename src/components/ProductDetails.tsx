@@ -28,8 +28,7 @@ import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
 import {
   formatPrice,
-  sanitizeBackendKey,
-  sanitizeCategoryKey,
+  sanitizeBackendKey
 } from "../util/util";
 import Footer from "./Footer";
 import Loading from "./Loading";
@@ -132,7 +131,7 @@ const ProductDetails = () => {
           </button>
           <span className="product-details__category-crumb">
             {t("product_details.nav.shop_crumb")} /{" "}
-            {t(`categories.${sanitizeCategoryKey(product.category.name)}.name`)}
+           {t(`categories.${product.category.path.split('/')[1]}.name`)}
           </span>
         </header>
 

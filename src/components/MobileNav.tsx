@@ -20,6 +20,7 @@ import { userApi } from "../features/api/userApi";
 import { logoutUser } from "../features/slice/userSlice";
 import { useAppSelector } from "../store";
 import CategoryTree from "./CategoryTree";
+import ConditionFilter from "./ConditionFilter";
 import Loading from "./Loading";
 import Search from "./Search";
 
@@ -186,11 +187,12 @@ const MobileNav = () => {
           {/* Top section: product categories */}
           <section className="mn-drawer__categories">
             <div className="mn-drawer__section-heading">
-              <Link to={'/shop/categories'}>{t("navigation.menu.categories")}</Link>
+              <Link to={'/shop/categories?category=all_0'}>{t("navigation.menu.categories")}</Link>
             </div>
 
             <div className="mn-drawer__category-content">
               <CategoryTree />
+              <ConditionFilter />
             </div>
           </section>
 

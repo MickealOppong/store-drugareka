@@ -7,21 +7,20 @@
 .mkt-offer-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(
-    Variables.$color-text-main,
-    0.45
-  ); // Dynamic brand-context drop mask
-  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
-  z-index: 2000; // Sits safely above active navigation elements
   box-sizing: border-box;
-  animation: mktOverlayFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 2000;
+  animation: mktOverlayFadeIn 0.2s
+    cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
   @media (max-width: 480px) {
-    padding: 0; // Seamless edge grid optimization for mobile screens
+    padding: 0;
   }
 }
 
