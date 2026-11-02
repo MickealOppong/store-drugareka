@@ -24,6 +24,7 @@
   padding: 1.25rem 1rem 3rem;
   box-sizing: border-box;
 
+  /* 🚀 DESKTOP RE-ARRANGEMENT: Transform into split-screen multi-column matrix layout */
   @include Variables.media-up(Variables.$breakpoint-lg) {
     grid-template-columns: 240px minmax(0, 1fr);
     gap: 2.5rem;
@@ -50,16 +51,15 @@
   }
 
   /* =========================================================
-     UNIFIED ASIDE SIDEBAR HOUSING SYSTEM PANEL 
+     🚀 FIXED: UNIFIED ADIDE SIDEBAR WITH DISMISSIVE RESPONSIVE GATES
      ========================================================= */
   &__sidebar {
-    display: none;
+    display: none; // 🚀 CRUCIAL: Hidden by default on all small and medium screens!
     align-self: start;
     position: sticky;
     top: 1.5rem;
-    display: flex;
     flex-direction: column;
-    gap: 1.5rem; // Elegant uniform breathing room between filters
+    gap: 1.5rem; // Uniform layout distribution rhythm between separate sections
     width: 100%;
     max-height: calc(100vh - 3rem);
     overflow-y: auto;
@@ -70,6 +70,7 @@
     box-shadow: 0 4px 20px -2px rgba(32, 38, 24, 0.02);
     box-sizing: border-box;
 
+    /* 🚀 SEAMLESS ACTIVATION GATES: Only render on desktop viewports */
     @include Variables.media-up(Variables.$breakpoint-lg) {
       display: flex;
     }
@@ -144,7 +145,7 @@
     }
   }
 
-  /* EMPTY RESULT CARDS PRESENTATION DESK */
+  /* EMPTY SEED ALERT CHANNELS PLACEMENT PANEL */
   &__empty-feed {
     display: flex;
     width: 100%;
@@ -280,6 +281,7 @@
     }
   }
 
+  /* Nested Layer Offsets */
   &__sub-branch {
     list-style: none;
     margin: 2px 0 4px 0;
@@ -379,7 +381,7 @@
   }
 }
 
-/* COMPACT CHIP SELECTION CHIPS PILLS */
+/* COMPACT FILTERS SELECTION CHIPS PILLS CHIPS */
 .mkt-condition-chip {
   display: inline-flex;
   align-items: center;
@@ -412,16 +414,13 @@
     font-size: 0.8rem;
     color: #94a3b8;
     flex-shrink: 0;
-    transition: color 0.15s ease, transform 0.15s ease;
-    
-    svg { display: block; }
-  }
-
-  &--selected {
-    background-color: Variables.$color-primary; // 🌿 Rich Earthy Olive Green Accent
-    border-color: Variables.$color-primary;
-    color: #ffffff;
-
+transition: color 0.15s ease, transform 0.15s ease;
+svg { display: block; }
+}
+&--selected {
+background-color: Variables.$color-primary; // 🌿 Theme Olive Accent Focus
+border-color: Variables.$color-primary;
+color: #ffffff;
 .mkt-condition-chip__indicator {
 color: #ffffff;
 transform: scale(1.02);
@@ -675,7 +674,7 @@ svg { font-size: 0.9rem; }
 }
 &__options {
 display: flex;
-flex-wrap: wrap; // Auto wrapping space efficiency
+flex-wrap: wrap;
 gap: 8px;
 width: 100%;
 }

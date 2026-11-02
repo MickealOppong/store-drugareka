@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* ==========================================================================
    MASTER FEED WORKSPACE CATALOG CANVAS (.catalog-page)
    ========================================================================== */
@@ -20,6 +21,7 @@
   margin: 0 auto;
   padding: 1.25rem 1rem 3rem;
   box-sizing: border-box;
+  /* 🚀 DESKTOP RE-ARRANGEMENT: Transform into split-screen multi-column matrix layout */
 }
 @media (min-width: 1024px) {
   .catalog-browser {
@@ -46,7 +48,7 @@
 }
 .catalog-browser {
   /* =========================================================
-     UNIFIED ASIDE SIDEBAR HOUSING SYSTEM PANEL 
+     🚀 FIXED: UNIFIED ADIDE SIDEBAR WITH DISMISSIVE RESPONSIVE GATES
      ========================================================= */
 }
 .catalog-browser__sidebar {
@@ -54,7 +56,6 @@
   align-self: start;
   position: sticky;
   top: 1.5rem;
-  display: flex;
   flex-direction: column;
   gap: 1.5rem;
   width: 100%;
@@ -66,6 +67,7 @@
   padding: 1.5rem 1.25rem;
   box-shadow: 0 4px 20px -2px rgba(32, 38, 24, 0.02);
   box-sizing: border-box;
+  /* 🚀 SEAMLESS ACTIVATION GATES: Only render on desktop viewports */
 }
 @media (min-width: 1024px) {
   .catalog-browser__sidebar {
@@ -142,7 +144,7 @@
   color: rgb(203.5, 203.5, 203.5);
 }
 .catalog-browser {
-  /* EMPTY RESULT CARDS PRESENTATION DESK */
+  /* EMPTY SEED ALERT CHANNELS PLACEMENT PANEL */
 }
 .catalog-browser__empty-feed {
   display: flex;
@@ -270,6 +272,9 @@
 .mkt-category-tree__trigger-link--expanded svg {
   transform: rotate(90deg);
 }
+.mkt-category-tree {
+  /* Nested Layer Offsets */
+}
 .mkt-category-tree__sub-branch {
   list-style: none;
   margin: 2px 0 4px 0;
@@ -359,7 +364,7 @@
   box-sizing: border-box;
 }
 
-/* COMPACT CHIP SELECTION CHIPS PILLS */
+/* COMPACT FILTERS SELECTION CHIPS PILLS CHIPS */
 .mkt-condition-chip {
   display: inline-flex;
   align-items: center;
