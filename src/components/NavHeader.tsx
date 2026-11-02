@@ -70,11 +70,11 @@ const NavHeader = () => {
           {appName} <span>.pl</span>
         </Link>
 
-        {/* 🚀 REFACTORED WORKSPACE ROUTING TRAILER ARRAYS */}
+        {/*  REFACTORED WORKSPACE ROUTING TRAILER ARRAYS */}
         <nav className="nav-header__navigation">
           <NavLink 
-            to="/shop" 
-            // 🚀 AUTOMATED ACTIVE HOOK: Applies specialized modifiers conditionally depending on url tracks matches
+            to="/shop?category=all_0" 
+        
             className={({ isActive }) => 
               `nav-header__nav-link ${isActive ? "nav-header__nav-link--active" : ""}`
             }
@@ -84,7 +84,7 @@ const NavHeader = () => {
           </NavLink>
           
           <NavLink 
-            to="/shop/categories" 
+            to="/shop/categories?category=all_0" 
             className={({ isActive }) => 
               `nav-header__nav-link ${isActive ? "nav-header__nav-link--active" : ""}`
             }

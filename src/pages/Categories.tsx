@@ -123,6 +123,8 @@ export const Categories: React.FC = () => {
     nextParams.delete("collectionCity");
     nextParams.delete("isCollectionAvailable");
     nextParams.set("page", "1");
+     nextParams.delete("condition");
+     nextParams.set("category",'all_0');
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
   };
 
@@ -555,7 +557,7 @@ export const Categories: React.FC = () => {
 
                         <div className="category-product-card__condition">
                           <span>
-                            {t(`product_conditions.${conditionKey}`, {
+                            {t(`product_conditions.conditions.${conditionKey}`, {
                               defaultValue: product.productCondition,
                             })}
                           </span>
