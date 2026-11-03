@@ -6,6 +6,7 @@ import type { TListTrans } from "../../types/TListTrans";
 import type { TResponseDto } from "../../types/TResponseDto";
 
 import type { TCategoryTreeDto } from "../../types/TCategoryTreeDto";
+import type { TConditionResponse } from "../../types/TConditionResponse";
 import type { TQueryDto } from "../../types/TQueryDto";
 import type { TSellingActivity } from "../../types/TSellingActivity";
 import { CookieService } from "../../util/util";
@@ -29,7 +30,7 @@ export const storeApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["listings", "categories", "listing", "wishlists"],
+  tagTypes: ["listings", "categories", "listing", "wishlists",'conditions'],
   endpoints: (build) => ({
     getStoreListings: build.query<TListTrans[], void>({
       query: () => ({
@@ -150,6 +151,12 @@ getStoreListingsFeed: build.query<TListPageDto, TQueryDto>({
         },
       }),
     }),
+       getAllConditions: build.query<TConditionResponse[], void>({
+          query: () => ({
+            url: "/api/store/all",
+          }),
+          providesTags: ["conditions"],
+        }),
    
   }),
 });
@@ -170,5 +177,6 @@ export const {
   useConfirmReturnMutation,
   useGetListingBySlugQuery,
   useGetSellerListingQuery,
-  useLazyGetStoreListingsFeedQuery
+  useLazyGetStoreListingsFeedQuery,
+  useGetAllConditionsQuery
 } = storeApi;

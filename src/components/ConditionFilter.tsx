@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FiCheckCircle, FiPlus, FiX } from "react-icons/fi";
 import { useLocation, useNavigate } from "react-router";
 import "../css/ConditionFilter.css";
-import { useGetAllConditionsQuery } from "../features/api/transApi";
+import { useGetAllConditionsQuery } from "../features/api/storeApi";
 
 
 export const ConditionFilter= () => {
@@ -15,6 +15,8 @@ export const ConditionFilter= () => {
   // CRUD RTK lazy query and mutation triggers
   const {data:conditions=[]}= useGetAllConditionsQuery();
   const[selectedCondition,setSelectedCondition]=useState<string>('')
+
+  
 
   const handleToggleCondition = (condition:string) => {
     setSelectedCondition(condition)
