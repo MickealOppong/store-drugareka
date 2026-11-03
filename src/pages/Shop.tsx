@@ -201,6 +201,16 @@ const Shop = () => {
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 
+  const handleClearFilters = () => {
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.delete("collectionCity");
+    nextParams.delete("isCollectionAvailable");
+    nextParams.set("page", "1");
+     nextParams.delete("condition");
+     nextParams.set("category",'all_0');
+    navigate(`${window.location.pathname}?${nextParams.toString()}`);
+  };
+
   return (
     <main className="shop-page">
       <SEO
@@ -386,7 +396,7 @@ const Shop = () => {
               <p>{t("shop.empty.description")}</p>
               <button
                 onClick={() => {
-                  handleCategoryButtonClick("all");
+                  handleClearFilters()
                 }}
               >
                 {t("shop.empty.clear_btn")}
