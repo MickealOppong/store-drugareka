@@ -1,0 +1,94 @@
+@charset "UTF-8";
+/* ==========================================================================
+   SLEEK INLINE TRUST RIBBON BAR CONTAINER (.payment-trust-bar)
+   ========================================================================== */
+.payment-trust-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: auto;
+  max-width: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  /* Secure Indicator Micro Ribbon */
+}
+.payment-trust-bar__secure-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #66704A;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.payment-trust-bar__secure-tag svg {
+  font-size: 0.85rem;
+  stroke-width: 2.5;
+}
+.payment-trust-bar__divider {
+  width: 1px;
+  height: 14px;
+  background-color: rgb(213.7, 213.7, 213.7);
+  flex-shrink: 0;
+}
+.payment-trust-bar {
+  /* Compact Horizontal Badge Flex Track */
+}
+.payment-trust-bar__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+@media (min-width: 768px) {
+  .payment-trust-bar__grid {
+    display: flex;
+  }
+}
+.payment-trust-bar__grid::-webkit-scrollbar {
+  display: none;
+}
+
+/* ==========================================================================
+    🚀 UNIFORM BOLD & CLEAR TARGET BADGES (.payment-trust-badge)
+   ========================================================================== */
+.payment-trust-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 🚀 THE UNIFORM PROPORTIONS FIX: Enforces a matching square envelope geometry */
+  height: 38px;
+  width: 54px;
+  padding: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  /* CRISP CONTRAST & BOLD SHARPENING FILTERS EXCLUSIVELY FOR SMALL SCREENS */
+}
+.payment-trust-badge img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0.2px 0px 0px rgba(15, 23, 42, 0.5)) drop-shadow(-0.2px 0px 0px rgba(15, 23, 42, 0.5));
+}
+.payment-trust-badge:hover {
+  transform: scale(1.05) translateY(-0.5px);
+  border-color: rgb(203.5, 203.5, 203.5);
+}
+
+/* Screen Reader Reduced Motions Overrides */
+@media (prefers-reduced-motion: reduce) {
+  .payment-trust-badge {
+    transition: none !important;
+  }
+  .payment-trust-badge:hover {
+    transform: none !important;
+  }
+}/*# sourceMappingURL=PaymentMethods.css.map */

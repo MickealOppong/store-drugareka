@@ -72,6 +72,7 @@ const Shop = () => {
   // Safely extract the default active category from URL line, falling back to global state
     const page = parseInt(searchParams.get("page") || "1", 10);
     const selectedCategory = searchParams.get("category") || "all";
+      const condition= searchParams.get("condition") || "";
     const selectedCollectionCity = searchParams.get("collectionCity") || "";
     const isCollectionAvailable =
       searchParams.get("isCollectionAvailable") || "false";
@@ -81,6 +82,7 @@ const Shop = () => {
       collectionCity: selectedCollectionCity,
       isCollectionAvailable: isCollectionAvailable === "true" ? true : false,
       search: debouncedSearch,
+      condition,
       page,
       size: 50,
     };

@@ -226,7 +226,9 @@ const ProductDetails = () => {
             <div className="product-details__condition-badge">
               <span>
                 {t("product_details.info.weight")}:{" "}
-                <strong>{product.itemSize.split("_").join(" ")}</strong>
+                <strong>   {t(
+                          `add_listing.fields.cargo_sizes.item_size.${product.itemSize.toLowerCase()}`,
+                        )}</strong>
               </span>
             </div>
 

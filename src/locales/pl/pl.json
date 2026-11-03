@@ -64,6 +64,7 @@
     "footer": {
       "tagline": "Lepszy sposób na kupowanie i sprzedawanie rzeczy z drugiej ręki.",
       "heading_shop": "Kupić",
+        "secure_payment":"Opcje płatnosci",
       "heading_sell": "Sprzedać",
       "heading_help": "Pomoc",
       "link_all_products": "Wszystkie produkty",
@@ -983,7 +984,7 @@
 "title": "Odkryj więcej produktów tego sprzedawcy",
 "nav": {
   "back": "Wstecz",
-  "shop_crumb": "Sklep"
+  "shop_crumb": "Kategorie"
 }
     ,
     "personal_collection": {
@@ -1115,7 +1116,7 @@
       },
       "shipping_info": {
         "label": "Informacje o wysyłce",
-        "placeholder": "np. Wysyłka w ciągu 2–3 dni roboczych. Koszt wysyłki pokrywa kupujący.",
+     "placeholder": "Wpisz dodatkowe informacje o wysyłce i dostawie...",
         "personal_collection": {
           "header": "Zezwól na odbiór osobisty",
           "label":"Wybierz miasto",

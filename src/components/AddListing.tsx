@@ -435,7 +435,7 @@ const AddListing = () => {
                           value={condition.name}
                         >
                           {t(
-                            `product_conditions.${sanitizeBackendKey(condition.name.toLowerCase())}`,
+                            `product_conditions.conditions.${sanitizeBackendKey(condition.name.toLowerCase())}`,
                           )}
                         </option>
                       );

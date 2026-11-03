@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import '../css/Footer.css';
 import { appName } from "../data/data";
 import LanguageSwitcher from "./LanguageSwitcher";
+import PaymentMethods from "./PaymentMethods";
 
 const Footer = ()=>{
     const {t }=useTranslation();
@@ -18,6 +19,8 @@ const Footer = ()=>{
           </Link>
 
           <p>{t("landing.footer.tagline")}</p>
+              <PaymentMethods/>
+       
         </div>
 
         <div className="landing-footer__links">
@@ -48,6 +51,9 @@ const Footer = ()=>{
             <Link to="/terms">{t("landing.footer.terms")}</Link>
             <Link to="/privacy">{t("landing.footer.privacy")}</Link>
           </div>
+        </div >
+        <div className="landing-footer__payments">
+         
         </div>
         <LanguageSwitcher/>
       </footer>

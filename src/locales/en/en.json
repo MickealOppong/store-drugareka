@@ -63,6 +63,7 @@
     },
     "footer": {
       "tagline": "A better way to buy and sell second-hand products.",
+      "secure_payment":"Payment options",
       "heading_shop": "Shop",
       "heading_sell": "Sell",
       "heading_help": "Help",
@@ -995,7 +996,7 @@
     "title": "Discover more items from this seller",
     "nav": {
       "back": "Back",
-      "shop_crumb": "Shop"
+      "shop_crumb": "Category"
     },
 "personal_collection": {
   "title": "Personal collection available",
@@ -1117,7 +1118,7 @@
       },
       "shipping_info": {
         "label": "Shipping information",
-        "placeholder": "e.g. Shipping within 2-3 business days. Shipping costs are covered by the buyer.",
+        "placeholder": "Any information in connection with shipment and delivery?",
         "personal_collection":{
           "header":"Allow personal colelction",
           "label":"Choose a city",
