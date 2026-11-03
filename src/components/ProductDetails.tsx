@@ -415,6 +415,7 @@ const ProductDetails = () => {
                   key={product.listingId}
                   to={`/shop/listing/${product.productSlug}`}
                   className="product-card"
+                    onClick={() => window.scrollTo(0, 0)}
                 >
                   <div className="product-card__media">
                     <img
