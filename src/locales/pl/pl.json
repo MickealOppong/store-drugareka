@@ -378,7 +378,7 @@
     "header": {
       "title": "Znajdź coś wyjątkowego",
       "description": "Rzeczy z drugiej ręki w atrakcyjnych cenach.",
-      "search_placeholder": "Szukaj produktów, marek..."
+      "search_placeholder": "Szukaj produktów..."
     },
     "categories": {
       "all": "Wszystkie"
@@ -1708,7 +1708,7 @@
     },
     "condition_search": {
       "label": "Szukaj produktów",
-      "placeholder": "np. Nowy, Jak nowy, Dobry",
+      "placeholder": "Tu szukaj",
       "clear": "Wyczyść wyszukiwanie",
       "no_results": "Żadne produkty nie pasują do wyszukiwania."
     },

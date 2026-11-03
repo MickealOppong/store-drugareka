@@ -17,7 +17,7 @@ flex-direction: column;
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    font-size: 0.65rem;
+    font-size: 0.95rem;
     font-weight: 800;
     color: Variables.$color-primary; // 🌿 Olive green security tag lines
     letter-spacing: 0.06em;
@@ -38,8 +38,7 @@ flex-direction: column;
 
   /* Compact Horizontal Badge Flex Track */
   &__grid {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
+    display: flex;
     align-items: center;
     gap: 8px; // Snug high-density layout spacing
     overflow-x: auto;
@@ -66,7 +65,7 @@ flex-direction: column;
   
   /* 🚀 THE UNIFORM PROPORTIONS FIX: Enforces a matching square envelope geometry */
   height: 38px; 
-  width: 54px; 
+  width: auto;
   padding: 6px; // Internal padding keeps all logo proportions looking balanced and readable
   cursor: pointer;
   flex-shrink: 0;

@@ -47,12 +47,6 @@ const ShipmentStatusModal: React.FC<ShipmentStatusModalProps> = ({ shipment, onC
     if (!status || isCurrentlyProcessing) return; 
     setErrorLog(""); 
 
-    // Validation Guard: Tracking number mandate check
-    if ((status === "SHIPPED" || status === "DELIVERED" || status === "RETURNED") && !trackingNumber.trim()) {
-      setErrorLog(t("logistics_modal.validation.tracking_required"));
-      return;
-    }
-
     // Validation Guard: Calendar deadline check
     if (!isCreatedOrAwaiting && !createdAt) {
       setErrorLog(t("logistics_modal.validation.date_required"));
