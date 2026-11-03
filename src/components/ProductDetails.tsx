@@ -196,7 +196,7 @@ const ProductDetails = () => {
                 {t("product_details.info.condition")}:{" "}
                 <strong>
                   {t(
-                    `product_conditions.${getConditionSlug(product.productCondition)}`,
+                    `product_conditions.conditions.${getConditionSlug(product.productCondition)}`,
                     { defaultValue: product.productCondition },
                   )}
                 </strong>
@@ -430,7 +430,7 @@ const ProductDetails = () => {
                   <div className="product-card__info">
                     <span className="product-card__condition">
                       {t(
-                        `product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`,
+                        `product_conditions.conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`,
                       )}
                     </span>
                     <h3>{product.productName}</h3>
