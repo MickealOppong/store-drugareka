@@ -173,13 +173,13 @@ export const transApi = createApi({
     }),
     getAdminPayouts: build.query<
       TListPagePayout,
-      { page: number; size: number; status: String; search: string }
+      { page: number; size: number;query: string }
     >({
-      query: ({ page, size }) => ({
+      query: ({ page, size}) => ({
         url: "/api/users/payouts",
         params: {
           page,
-          size,
+          size
         },
       }),
     }),
@@ -192,11 +192,11 @@ export const transApi = createApi({
         method: "POST",
       }),
     }),
-    allPayouts: build.query<TListPagePayout, { page: number; size: number }>({
-      query: ({page,size}) => ({
+    allPayouts: build.query<TListPagePayout, { page: number; size: number;query:string }>({
+      query: ({page,size,query}) => ({
         url: "/api/payouts/seller-payouts",
         params:{
-            page,size
+            page,size,query
         }
       }),
       providesTags:['payouts']

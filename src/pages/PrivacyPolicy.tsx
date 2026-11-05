@@ -56,7 +56,7 @@ const PrivacyPolicy: React.FC = () => {
           </p>
 
           <p>
-            E-mail: kasawa.corp@gmail.com | Tel.: +48 722 364 131
+            E-mail: privacy@kasoa.pl | Tel.: +48 722 364 131
           </p>
         </div>
       </header>

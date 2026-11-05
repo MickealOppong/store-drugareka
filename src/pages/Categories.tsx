@@ -78,7 +78,7 @@ export const Categories: React.FC = () => {
 
   const page = parseInt(searchParams.get("page") || "1", 10);
   const selectedCategory = searchParams.get("category") || "all";
-  const condition= searchParams.get("condition") || "";
+  const condition = searchParams.get("condition") || "";
   const selectedCollectionCity = searchParams.get("collectionCity") || "";
   const isCollectionAvailable =
     searchParams.get("isCollectionAvailable") || "false";
@@ -123,8 +123,8 @@ export const Categories: React.FC = () => {
     nextParams.delete("collectionCity");
     nextParams.delete("isCollectionAvailable");
     nextParams.set("page", "1");
-     nextParams.delete("condition");
-     nextParams.set("category",'all_0');
+    nextParams.delete("condition");
+    nextParams.set("category", "all_0");
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
   };
 
@@ -557,9 +557,12 @@ export const Categories: React.FC = () => {
 
                         <div className="category-product-card__condition">
                           <span>
-                            {t(`product_conditions.conditions.${conditionKey}`, {
-                              defaultValue: product.productCondition,
-                            })}
+                            {t(
+                              `product_conditions.conditions.${conditionKey}`,
+                              {
+                                defaultValue: product.productCondition,
+                              },
+                            )}
                           </span>
                           {product.negotiable &&
                             (!sellerProfileId ||
@@ -578,11 +581,23 @@ export const Categories: React.FC = () => {
               BOTTOM REGION: PRICE MARKERS & INTERACTIVE ACTION BUTTONCTAS
               ========================================================================== */}
                         <div className="category-product-card__bottom">
-                          <div>
-                            <strong>{formatPrice(newPrice) || 0} zł</strong>
-                            {oldPrice > 0 && (
-                              <del>{formatPrice(oldPrice) || 0} zł</del>
+                          <div className="shop-product-card__price">
+                            <strong>
+                              {formatPrice(
+                                product.newPrice + (product.serviceCharge ?? 0),
+                              )}{" "}
+                              zł
+                            </strong>
+
+                            {product.serviceCharge > 0 && (
+                              <span className="shop-product-card__service">
+                                w tym opłata serwisowa
+                              </span>
                             )}
+
+                            <span className="shop-product-card__delivery">
+                              Dostawa płatna dodatkowo
+                            </span>
                           </div>
 
                           {!product.negotiable &&

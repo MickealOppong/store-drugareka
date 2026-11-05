@@ -11,9 +11,11 @@ import Pagination from "./Pagination";
 
 const UserProductView = () => {
     const [searchParams,] = useSearchParams();
+      const [search, setSearch] = useState("");
   // Read active pagination location straight from URL parameters (1-indexed base)
   const page = parseInt(searchParams.get("page" )as string)||1;
-  const { data, isLoading: productsLoading,error:productError} = useGetMylistingsQuery({ page, size:5 },{refetchOnFocus:true,refetchOnMountOrArgChange:true});
+  const { data, isLoading: productsLoading,error:productError} = useGetMylistingsQuery({query:search, page, size:5 },
+    {refetchOnFocus:true,refetchOnMountOrArgChange:true});
   
 
   const navigate = useNavigate()
@@ -24,10 +26,10 @@ const UserProductView = () => {
   const [deleteProduct]=useDeleteListingMutation();
   
   const productListings = data?.productList as TListTrans[];
-  const [search, setSearch] = useState("");
+  
+
   const [deletingId] = useState<number | null>(null);
   const [error,] = useState('')
-
 
 
 
@@ -71,9 +73,7 @@ const UserProductView = () => {
   /*
    * Filtering logic calculation based on input string
    */
-  const filteredList = productListings.filter((product) =>
-    product.productName?.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredList = productListings;
 
   return (
     <main className="panel-view">

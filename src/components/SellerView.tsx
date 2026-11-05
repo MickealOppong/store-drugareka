@@ -25,20 +25,16 @@ const SellerView =() => {
   const { data, isLoading, isError } = useGetSaleOrdersQuery({
     page,
     size: 5,
+    query:search
   });
 
 
   const orders = (data?.orders as TOrdersDto[]) || [];
 
+  
+
   // ISOLATED SEARCH FILTER ENGINE
-  const filteredList = orders.filter((order) => {
-    const query = search.toLowerCase().trim();
-    if (!query) return true;
-    return (
-      String(order.orderNumber || order.id).includes(query) ||
-      order.buyer?.toLowerCase().includes(query)
-    );
-  });
+  const filteredList = orders;
 
   const openModal = (order: TOrdersDto) => {
     setSelectedOrder(order);

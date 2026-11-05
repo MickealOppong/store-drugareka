@@ -53,7 +53,7 @@ const TermsAndConditions: React.FC = () => {
             KRS: 0001269876 | NIP: 7712946929 | REGON: 54582126100000
           </p>
           <p>
-            E-mail: kasawa.corp@gmail.com | Tel.: +48 722 364 131
+            E-mail: support@kasoa.pl | Tel.: +48 722 364 131
           </p>
         </div>
 

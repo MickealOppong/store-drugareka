@@ -21,6 +21,7 @@ const BuyerView: React.FC = () => {
   const { data, isLoading, isError } = useGetPurchaseOrdersQuery({
     page,
     size:5,
+    query:search
   });
 
 
@@ -29,14 +30,9 @@ const BuyerView: React.FC = () => {
   const orders = (data?.orders as TOrdersDto[]) || [];
 
   // ISOLATED SEARCH FILTER ENGINE
-  const filteredList = orders.filter((order) => {
-    const query = search.toLowerCase().trim();
-    if (!query) return true;
-    return (
-      String(order.orderNumber.toLowerCase() || order.price).includes(query) ||
-      order.seller?.toLowerCase().includes(query)
-    );
-  });
+  const filteredList = orders;
+
+  
 
   return (
     <>

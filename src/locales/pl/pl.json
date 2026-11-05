@@ -404,7 +404,9 @@
       "add_wishlist": "Dodaj do ulubionych",
       "buy_btn": "Kup produkt",
       "edit_btn": "Edytuj ofertę",
-      "make_offer": "Złożyć ofertę"
+      "make_offer": "Złożyć ofertę",
+       "service_charge_included": "w tym opłata serwisowa",
+  "delivery_cost_extra": "Dostawa płatna dodatkowo"
     },
     "filter_drawer": {
       "title": "Filtry",

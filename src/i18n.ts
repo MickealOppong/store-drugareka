@@ -21,7 +21,7 @@ i18n
     
     // If a user's device is set to an unsupported language (e.g., German 'de' or Spanish 'es'),
     // it skips guessing loops and gracefully snaps flush onto English.
-    fallbackLng: 'en', 
+    fallbackLng: 'pl', 
 
     // Forces regional variants (like 'pl-PL' or 'en-US') to simplify down to their 2-letter roots ('pl', 'en')
     nonExplicitSupportedLngs: true,

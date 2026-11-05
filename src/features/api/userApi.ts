@@ -99,25 +99,26 @@ export const userApi = createApi({
         url: `/api/users/roles`,
       }),
     }),
-    getMyPayouts: build.query<TListPagePayout, { page: number; size: number }>({
-      query: ({ page, size }) => ({
+    getMyPayouts: build.query<TListPagePayout, { page: number; size: number ,query:string}>({
+      query: ({ page, size,query }) => ({
         url: "/api/users/payouts",
         params: {
           page,
-          size,
+          size,query
         },
       }),
     }),
     getShipments: build.query<
       TListShipmentPage,
-      { page: number; size: number; type: string }
+      { page: number; size: number; type: string,query:string }
     >({
-      query: ({ page, size, type }) => ({
+      query: ({ page, size, type ,query}) => ({
         url: "/api/shipment/shipments",
         params: {
           page,
           size,
           type,
+          query
         },
       }),
     }),

@@ -20,15 +20,15 @@ const SellerPayout = () => {
   const page = parseInt(searchParams.get("page") || "1");
 
   // Read data stream array from user API query injection
-  const { data} = useGetMyPayoutsQuery({page,size:5});
+  const { data} = useGetMyPayoutsQuery({page,size:5,query:search});
 
   const payouts = data?.payouts || []
   /*
    * Filter calculation stream based on search criteria
    */
-  const filteredPayouts = payouts.filter((payout) =>
-    payout.orderNumber?.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredPayouts = payouts;
+
+  
 
   
 

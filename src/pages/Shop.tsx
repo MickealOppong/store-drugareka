@@ -5,11 +5,16 @@ import {
   FiHeart,
   FiSearch,
   FiShoppingBag,
-  FiX
+  FiX,
 } from "react-icons/fi";
 
 import { useTranslation } from "react-i18next";
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { Loading, Pagination } from "../components";
 import { ErrorToast } from "../components/ErrorTaost";
 import MakeOfferodal from "../components/MakeOfferModal";
@@ -52,41 +57,40 @@ const Shop = () => {
   const { addItemToCart, isLoading: addCartLoading, error } = useAddToCart();
   const { addView } = useRecentViews();
 
-    const { search, pathname } = useLocation();
+  const { search, pathname } = useLocation();
 
   //GENERIC SEARCH
-    const [searchTerm, setSearchTerm] = useState<string>("");
-    const [debouncedSearch, setDebouncedSearch] = useState<string>("");
-  
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        setDebouncedSearch(searchTerm.trim());
-      }, 500);
-  
-      return () => clearTimeout(timer);
-    }, [searchTerm]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchTerm.trim());
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   // 1. Core State Trackers synchronized natively with standard parameters
   const [sort, setSort] = useState<string>("newest");
 
   // Safely extract the default active category from URL line, falling back to global state
-    const page = parseInt(searchParams.get("page") || "1", 10);
-    const selectedCategory = searchParams.get("category") || "all";
-      const condition= searchParams.get("condition") || "";
-    const selectedCollectionCity = searchParams.get("collectionCity") || "";
-    const isCollectionAvailable =
-      searchParams.get("isCollectionAvailable") || "false";
-  
-    const queryDto: TQueryDto = {
-      category: selectedCategory,
-      collectionCity: selectedCollectionCity,
-      isCollectionAvailable: isCollectionAvailable === "true" ? true : false,
-      search: debouncedSearch,
-      condition,
-      page,
-      size: 50,
-    };
+  const page = parseInt(searchParams.get("page") || "1", 10);
+  const selectedCategory = searchParams.get("category") || "all";
+  const condition = searchParams.get("condition") || "";
+  const selectedCollectionCity = searchParams.get("collectionCity") || "";
+  const isCollectionAvailable =
+    searchParams.get("isCollectionAvailable") || "false";
 
+  const queryDto: TQueryDto = {
+    category: selectedCategory,
+    collectionCity: selectedCollectionCity,
+    isCollectionAvailable: isCollectionAvailable === "true" ? true : false,
+    search: debouncedSearch,
+    condition,
+    page,
+    size: 50,
+  };
 
   // Replaced useLazy Query hooks entirely. These automatically trigger an optimized
   // backend network fetch pass the split second a user mounts or lands on this route path!
@@ -95,7 +99,7 @@ const Shop = () => {
     { refetchOnFocus: true, refetchOnMountOrArgChange: true },
   );
   const products = data?.listings || [];
-  
+  console.log(products);
 
   const { data: categories = [] } = useGetAllParentCategoriesQuery();
 
@@ -107,8 +111,6 @@ const Shop = () => {
     (state) => state.userSlice,
   );
 
-
-  
   // ==========================================================================
   // HIGH-PERFORMANCE CLIENT FILTERS MEMOIZATION MATRIX
   // ==========================================================================
@@ -189,7 +191,7 @@ const Shop = () => {
     }
   };
 
-    const hanldeSelectedCityParam = (city: string) => {
+  const hanldeSelectedCityParam = (city: string) => {
     const searchParams = new URLSearchParams(search);
     searchParams.set("collectionCity", city);
     navigate(`${pathname}?${searchParams.toString()}`);
@@ -206,336 +208,352 @@ const Shop = () => {
     nextParams.delete("collectionCity");
     nextParams.delete("isCollectionAvailable");
     nextParams.set("page", "1");
-     nextParams.delete("condition");
-     nextParams.set("category",'all_0');
+    nextParams.delete("condition");
+    nextParams.set("category", "all_0");
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
   };
 
   return (
-    <main className="shop-page">
-      <SEO
-        title="Kupuj i sprzedawaj na Kasoa"
-        description="Odkrywaj wyjątkowe produkty na Kasoa.pl. Wystawiaj przedmioty na sprzedaż bez negocjacji i bez bezpośredniego kontaktu z kupującymi."
-        canonical="https://kasoa.pl/"
-      />
-      {/* =====================================================
+    <>
+      <main className="shop-page">
+        <SEO
+          title="Kupuj i sprzedawaj na Kasoa"
+          description="Odkrywaj wyjątkowe produkty na Kasoa.pl. Wystawiaj przedmioty na sprzedaż bez negocjacji i bez bezpośredniego kontaktu z kupującymi."
+          canonical="https://kasoa.pl/"
+        />
+        {/* =====================================================
                 SHOP HEADER
             ====================================================== */}
 
-      <section className="shop-page__header">
-        <div className="shop-page__heading">
-          <span className="shop-page__eyebrow">Druga Ręka</span>
-          <h1>{t("shop.header.title")}</h1>
-          <p>{t("shop.header.description")}</p>
-        </div>
+        <section className="shop-page__header">
+          <div className="shop-page__heading">
+            <span className="shop-page__eyebrow">Druga Ręka</span>
+            <h1>{t("shop.header.title")}</h1>
+            <p>{t("shop.header.description")}</p>
+          </div>
 
-        {/* SEARCH */}
-        <div className="shop-page__search">
-          <FiSearch />
-          <input
-            type="search"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder={t("shop.header.search_placeholder")}
-          />
-          {search && (
-            <button
-              type="button"
-              onClick={() => setSearchTerm("")}
-            >
-              <FiX />
-            </button>
-          )}
-        </div>
-      </section>
+          {/* SEARCH */}
+          <div className="shop-page__search">
+            <FiSearch />
+            <input
+              type="search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder={t("shop.header.search_placeholder")}
+            />
+            {search && (
+              <button
+                type="button"
+                onClick={() => setSearchTerm("")}
+              >
+                <FiX />
+              </button>
+            )}
+          </div>
+        </section>
 
-      {/* =====================================================
+        {/* =====================================================
                 CATEGORY NAVIGATION
             ====================================================== */}
 
-      <section className="shop-page__categories">
-        <button
-          className={selectedCategory === "all_0" ? "active" : ""}
-          onClick={() => handleCategoryButtonClick("all")}
-        >
-          {t("shop.categories.all")}
-        </button>
-
-        {categories.map((category) => (
+        <section className="shop-page__categories">
           <button
-            key={category.id}
-            className={
-              selectedCategory === `${category.slug}_${category.id}`
-                ? "active"
-                : ""
-            }
-            onClick={() => handleCategoryButtonClick(category.slug)}
+            className={selectedCategory === "all_0" ? "active" : ""}
+            onClick={() => handleCategoryButtonClick("all")}
           >
-            {t(`categories.${sanitizeCategoryKey(category.name)}.name`)}
+            {t("shop.categories.all")}
           </button>
-        ))}
-      </section>
+
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              className={
+                selectedCategory === `${category.slug}_${category.id}`
+                  ? "active"
+                  : ""
+              }
+              onClick={() => handleCategoryButtonClick(category.slug)}
+            >
+              {t(`categories.${sanitizeCategoryKey(category.name)}.name`)}
+            </button>
+          ))}
+        </section>
 
         {/** FILTER BY CITY FOR PRODUCTS WITH PERSONAL COLLECTION ENABLED */}
-                  <div className="collection-city-filter">
-                    <div>
-                      <label htmlFor="isCollectionAvialable">
-                        {t("categories.collection.collection_available")}
-                      </label>
-                      <input
-                        type="checkbox"
-                        id="isCollectionAvailable"
-                        checked={isCollectionAvailable === "true" ? true : false}
-                        name="isCollectionAvailable"
-                        onChange={(e) => hanldeIsAvailableParam(e.target.checked)}
-                      />
-                    </div>
-                    <div className="collection-city-filter__header">
-                      <span className="collection-city-filter__title">
-                        {t("categories.collection.city_list")}
-                      </span>
-      
-                      {selectedCollectionCity && (
-                        <button
-                          type="button"
-                          className="collection-city-filter__clear"
-                          onClick={() => hanldeSelectedCityParam("")}
-                        >
-                          {t("catalog-browser.location.clear", {
-                            defaultValue: "Clear",
-                          })}
-                          <FiX />
-                        </button>
-                      )}
-                    </div>
-      
-                    <article>
-                      <div className="collection-city-filter__options">
-                        {COLLECTION_CITIES.map((city) => {
-                          const isSelected = selectedCollectionCity === city.label;
-      
-                          return (
-                            <button
-                              key={city.value}
-                              type="button"
-                              className={`collection-city-filter__option ${
-                                isSelected ? "is-selected" : ""
-                              }`}
-                              onClick={() =>
-                                hanldeSelectedCityParam(isSelected ? "" : city.label)
-                              }
-                              aria-pressed={isSelected}
-                            >
-                              <span>{city.label}</span>
-      
-                              {isSelected && <FiX aria-hidden="true" />}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </article>
-                  </div>
+        <div className="collection-city-filter">
+          <div>
+            <label htmlFor="isCollectionAvialable">
+              {t("categories.collection.collection_available")}
+            </label>
+            <input
+              type="checkbox"
+              id="isCollectionAvailable"
+              checked={isCollectionAvailable === "true" ? true : false}
+              name="isCollectionAvailable"
+              onChange={(e) => hanldeIsAvailableParam(e.target.checked)}
+            />
+          </div>
+          <div className="collection-city-filter__header">
+            <span className="collection-city-filter__title">
+              {t("categories.collection.city_list")}
+            </span>
 
-      {/* =====================================================
+            {selectedCollectionCity && (
+              <button
+                type="button"
+                className="collection-city-filter__clear"
+                onClick={() => hanldeSelectedCityParam("")}
+              >
+                {t("catalog-browser.location.clear", {
+                  defaultValue: "Clear",
+                })}
+                <FiX />
+              </button>
+            )}
+          </div>
+
+          <article>
+            <div className="collection-city-filter__options">
+              {COLLECTION_CITIES.map((city) => {
+                const isSelected = selectedCollectionCity === city.label;
+
+                return (
+                  <button
+                    key={city.value}
+                    type="button"
+                    className={`collection-city-filter__option ${
+                      isSelected ? "is-selected" : ""
+                    }`}
+                    onClick={() =>
+                      hanldeSelectedCityParam(isSelected ? "" : city.label)
+                    }
+                    aria-pressed={isSelected}
+                  >
+                    <span>{city.label}</span>
+
+                    {isSelected && <FiX aria-hidden="true" />}
+                  </button>
+                );
+              })}
+            </div>
+          </article>
+        </div>
+
+        {/* =====================================================
                 TOOLBAR
             ====================================================== */}
 
-      <section className="shop-page__toolbar">
-        <div className="shop-page__result-count">
-          <strong>{filteredProducts.length}</strong>
-          <span> {t("shop.toolbar.products_count")}</span>
-        </div>
+        <section className="shop-page__toolbar">
+          <div className="shop-page__result-count">
+            <strong>{filteredProducts.length}</strong>
+            <span> {t("shop.toolbar.products_count")}</span>
+          </div>
 
-        <div className="shop-page__toolbar-actions">
-         
-
-          {/* SORT */}
-          <div className="shop-page__sort">
-            <span>{t("shop.toolbar.sort_label")}</span>
-            <div>
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value)}
-              >
-                <option value="newest">
-                  {t("shop.toolbar.sort_options.newest")}
-                </option>
-                <option value="oldest">
-                  {t("shop.toolbar.sort_options.oldest")}
-                </option>
-                <option value="price-low">
-                  {t("shop.toolbar.sort_options.price_low")}
-                </option>
-                <option value="price-high">
-                  {t("shop.toolbar.sort_options.price_high")}
-                </option>
-                <option value="discount">
-                  {t("shop.toolbar.sort_options.discount")}
-                </option>
-              </select>
-              <FiChevronDown />
+          <div className="shop-page__toolbar-actions">
+            {/* SORT */}
+            <div className="shop-page__sort">
+              <span>{t("shop.toolbar.sort_label")}</span>
+              <div>
+                <select
+                  value={sort}
+                  onChange={(e) => setSort(e.target.value)}
+                >
+                  <option value="newest">
+                    {t("shop.toolbar.sort_options.newest")}
+                  </option>
+                  <option value="oldest">
+                    {t("shop.toolbar.sort_options.oldest")}
+                  </option>
+                  <option value="price-low">
+                    {t("shop.toolbar.sort_options.price_low")}
+                  </option>
+                  <option value="price-high">
+                    {t("shop.toolbar.sort_options.price_high")}
+                  </option>
+                  <option value="discount">
+                    {t("shop.toolbar.sort_options.discount")}
+                  </option>
+                </select>
+                <FiChevronDown />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {error && <ErrorToast errorMessage={error} />}
+        {error && <ErrorToast errorMessage={error} />}
 
-      {/* =====================================================
+        {/* =====================================================
                 PRODUCTS
             ====================================================== */}
 
-      {isProductsLoading || addCartLoading ? (
-        <Loading />
-      ) : (
-        <section className="shop-page__products">
-          {filteredProducts.length === 0 ? (
-            <div className="shop-page__empty">
-              <FiSearch />
-              <h2>{t("shop.empty.title")}</h2>
-              <p>{t("shop.empty.description")}</p>
-              <button
-                onClick={() => {
-                  handleClearFilters()
-                }}
-              >
-                {t("shop.empty.clear_btn")}
-              </button>
-            </div>
-          ) : (
-            filteredProducts.map((product) => {
-              const isWishlisted = wishlists.includes(product.listingId);
-
-              const discount =
-                product.oldPrice > 0 && product.oldPrice > product.newPrice
-                  ? Math.round(
-                      ((product.oldPrice - product.newPrice) /
-                        product.oldPrice) *
-                        100,
-                    )
-                  : 0;
-
-              return (
-                <article
-                  className="shop-product-card"
-                  key={product.listingId}
+        {isProductsLoading || addCartLoading ? (
+          <Loading />
+        ) : (
+          <section className="shop-page__products">
+            {filteredProducts.length === 0 ? (
+              <div className="shop-page__empty">
+                <FiSearch />
+                <h2>{t("shop.empty.title")}</h2>
+                <p>{t("shop.empty.description")}</p>
+                <button
+                  onClick={() => {
+                    handleClearFilters();
+                  }}
                 >
-                  {/* IMAGE */}
-                  <div className="shop-product-card__media">
-                    <Link
-                      to={`/shop/listing/${product.productSlug}`}
-                      className="shop-product-card__image-link"
-                    >
-                      <img
-                        src={product?.media[0]?.image}
-                        alt={product.productName}
-                        loading="lazy"
-                        onClick={() => addView(product.listingId)}
-                      />
-                    </Link>
+                  {t("shop.empty.clear_btn")}
+                </button>
+              </div>
+            ) : (
+              filteredProducts.map((product) => {
+                const isWishlisted = wishlists.includes(product.listingId);
 
-                    <span className="shop-product-card__discount">
-                      -{discount}%
-                    </span>
+                const discount =
+                  product.oldPrice > 0 && product.oldPrice > product.newPrice
+                    ? Math.round(
+                        ((product.oldPrice - product.newPrice) /
+                          product.oldPrice) *
+                          100,
+                      )
+                    : 0;
 
-                    <button
-                      className={`shop-product-card__wishlist ${isWishlisted ? "active" : ""}`}
-                      onClick={() => toggleWishlist(product.listingId)}
-                      aria-label={t("shop.product.add_wishlist")}
-                      style={{
-                        display:
-                          product.sellerId === Number(sellerProfileId)
-                            ? "none"
-                            : "flex",
-                      }}
-                    >
-                      <FiHeart />
-                    </button>
-                  </div>
+                return (
+                  <article
+                    className="shop-product-card"
+                    key={product.listingId}
+                  >
+                    {/* IMAGE */}
+                    <div className="shop-product-card__media">
+                      <Link
+                        to={`/shop/listing/${product.productSlug}`}
+                        className="shop-product-card__image-link"
+                      >
+                        <img
+                          src={product?.media[0]?.image}
+                          alt={product.productName}
+                          loading="lazy"
+                          onClick={() => addView(product.listingId)}
+                        />
+                      </Link>
 
-                  {/* CONTENT */}
-                  <div className="shop-product-card__content">
-                    <span className="shop-product-card__brand">
-                      {product.brand}
-                    </span>
-
-                    <h2>{product.productName}</h2>
-
-                    <div className="shop-product-card__condition">
-                      <span>
-                        {t(
-                          `product_conditions.conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`,
-                        )}
+                      <span className="shop-product-card__discount">
+                        -{discount}%
                       </span>
+
+                      <button
+                        className={`shop-product-card__wishlist ${isWishlisted ? "active" : ""}`}
+                        onClick={() => toggleWishlist(product.listingId)}
+                        aria-label={t("shop.product.add_wishlist")}
+                        style={{
+                          display:
+                            product.sellerId === Number(sellerProfileId)
+                              ? "none"
+                              : "flex",
+                        }}
+                      >
+                        <FiHeart />
+                      </button>
                     </div>
 
-                                 <div className="shop-product-card__bottom">
-                      <div>
-                        <strong>{formatPrice(product.newPrice) || 0} zł</strong>
-                        {product.oldPrice && <del>{formatPrice(product.oldPrice) || 0} zł</del>}
+                    {/* CONTENT */}
+                    <div className="shop-product-card__content">
+                      <span className="shop-product-card__brand">
+                        {product.brand}
+                      </span>
+
+                      <h2>{product.productName}</h2>
+
+                      <div className="shop-product-card__condition">
+                        <span>
+                          {t(
+                            `product_conditions.conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`,
+                          )}
+                        </span>
                       </div>
 
-                      {/* If it's the seller's own product, show ONLY the Edit button */}
-                      {Number(sellerProfileId) === product.sellerId ? (
-                        <button
-                          className="shop-product-card__buy"
-                          aria-label="Edytuj produkt"
-                          onClick={() => navigate(`/account/listings/${product.listingId}/edit`)}
-                        >
-                          <FiEdit />
-                        </button>
-                      ) : (
-                        /* If it's a buyer, show both Make Offer (if negotiable) and Buy buttons mutually */
-                        <>
-                          {product.negotiable? (
-                            <button
-                              className="make_offer"
-                              onClick={() => handleMakeOffer(product)}
-                            >
-                              {t("shop.product.make_offer")}
-                            </button>
-                          ) :
+                      <div className="shop-product-card__bottom">
+                       <div className="shop-product-card__price">
+  <strong>
+    {formatPrice(
+      product.newPrice + (product.serviceCharge ?? 0),
+    )} zł
+  </strong>
+
+  {product.serviceCharge > 0 && (
+    <span className="shop-product-card__service">
+      {t('shop.product.service_charge_included')}
+    </span>
+  )}
+
+  <span className="shop-product-card__delivery">
+    {t('shop.product.delivery_cost_extra')}
+  </span>
+</div>
+
+                        {/* If it's the seller's own product, show ONLY the Edit button */}
+                        {Number(sellerProfileId) === product.sellerId ? (
                           <button
                             className="shop-product-card__buy"
-                            aria-label="Kup produkt"
-                            onClick={() => addItemToCart(product.listingId)}
+                            aria-label="Edytuj produkt"
+                            onClick={() =>
+                              navigate(
+                                `/account/listings/${product.listingId}/edit`,
+                              )
+                            }
                           >
-                            <FiShoppingBag />
+                            <FiEdit />
                           </button>
-                        }
-                         
-                        </>
-                      )}
+                        ) : (
+                          /* If it's a buyer, show both Make Offer (if negotiable) and Buy buttons mutually */
+                          <>
+                            {product.negotiable ? (
+                              <button
+                                className="make_offer"
+                                onClick={() => handleMakeOffer(product)}
+                              >
+                                {t("shop.product.make_offer")}
+                              </button>
+                            ) : (
+                              <button
+                                className="shop-product-card__buy"
+                                aria-label="Kup produkt"
+                                onClick={() => addItemToCart(product.listingId)}
+                              >
+                                <FiShoppingBag />
+                              </button>
+                            )}
+                          </>
+                        )}
+                      </div>
                     </div>
+                  </article>
+                );
+              })
+            )}
+          </section>
+        )}
+        {/** MAKE OFFER MODAL */}
+        {openModal && (
+          <MakeOfferodal
+            isNegotiable={Boolean(modalData?.isNegotiable)}
+            productName={modalData?.name || ""}
+            id={modalData?.id || 0}
+            currentPrice={modalData?.currentPrice || 0}
+            isOpen={openModal}
+            onButtonClick={onModalButtonClick}
+          />
+        )}
+        {data && (
+          <Pagination
+            accumulated={data.accumulatedItems}
+            page={page}
+            totalPage={data?.totalPages}
+            size={data?.pageSize}
+            totalElements={data?.totalElements}
+          />
+        )}
+      </main>
 
-                  </div>
-                </article>
-              );
-            })
-          )}
-        </section>
-      )}
-      {/** MAKE OFFER MODAL */}
-      {openModal && (
-        <MakeOfferodal
-          isNegotiable={Boolean(modalData?.isNegotiable)}
-          productName={modalData?.name || ""}
-          id={modalData?.id || 0}
-          currentPrice={modalData?.currentPrice || 0}
-          isOpen={openModal}
-          onButtonClick={onModalButtonClick}
-        />
-      )}
-      {data && (
-        <Pagination
-          accumulated={data.accumulatedItems}
-          page={page}
-          totalPage={data?.totalPages}
-          size={data?.pageSize}
-          totalElements={data?.totalElements}
-        />
-      )}
-    </main>
+    </>
   );
 };
 

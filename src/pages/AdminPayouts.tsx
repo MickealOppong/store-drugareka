@@ -20,7 +20,7 @@ const AdminPayout = () => {
   const page = parseInt(searchParams.get("page") || "1");
 
   // Read data stream array from user API query injection
-  const { data} = useAllPayoutsQuery({page,size:5});
+  const { data} = useAllPayoutsQuery({page,size:10,query:search});
 
   const payouts = data?.payouts || []
   /*

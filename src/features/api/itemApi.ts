@@ -62,11 +62,11 @@ export const itemApi = createApi({
       invalidatesTags:['products']
     }),
 
-    getMylistings: build.query<TListPageDto, {page:number,size:number}>({
-      query: ({page,size}) => ({
+    getMylistings: build.query<TListPageDto, {query:string,page:number,size:number}>({
+      query: ({page,size,query}) => ({
         url: "/api/item/products/me",
         params:{
-          page,size
+          page,size,query
         }
       }),
       providesTags:['products']
@@ -132,11 +132,11 @@ export const itemApi = createApi({
       }),
       providesTags:['wishlists']
     }),
-      getPurchaseOrders: build.query<TOrderPageDto,{page:number,size:number}>({
-      query: ({page,size}) => ({
+      getPurchaseOrders: build.query<TOrderPageDto,{query:string,page:number,size:number}>({
+      query: ({query,page,size}) => ({
         url: "/api/orders/buying",
         params:{
-          page,size,
+          page,size,query
         }
       }),
       providesTags:['orders']
@@ -150,20 +150,20 @@ export const itemApi = createApi({
       }),
       providesTags:['orders']
     }),
-          getSaleOrders: build.query<TOrderPageDto,{page:number,size:number}>({
-      query: ({page,size}) => ({
+          getSaleOrders: build.query<TOrderPageDto,{query:string,page:number,size:number}>({
+      query: ({page,size,query}) => ({
         url: "/api/orders/selling",
         params:{
-          page,size,
+          page,size,query
         }
       }),
       providesTags:['orders']
     }),
-          getStoreOrders: build.query<TOrderPageDto,{page:number,size:number}>({
-      query: ({page,size}) => ({
+          getStoreOrders: build.query<TOrderPageDto,{query?:string,page:number,size:number}>({
+      query: ({page,size,query}) => ({
         url: "/api/orders/orders",
         params:{
-          page,size,
+          page,size,query
         }
       }),
       providesTags:['orders']

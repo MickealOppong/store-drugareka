@@ -80,6 +80,7 @@ useEffect(() => {
     page,
     size: 5,
     type: activeTab,
+    query:search
   },{refetchOnMountOrArgChange:true});
 
   
@@ -92,11 +93,8 @@ useEffect(() => {
   /**
    * Search by delivery address.
    */
-  const filteredList = shipments.filter((item) =>
-    item.deliveryAddress
-      ?.toLowerCase()
-      .includes(search.toLowerCase())
-  );
+  const filteredList = shipments;
+
 
   /**
    * Open shipment status modal.

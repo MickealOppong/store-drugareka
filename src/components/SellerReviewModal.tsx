@@ -38,16 +38,46 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
   const disputeId = data?.id;
   const returnUpheld = (data?.status === "AWAITING_RETURN_PAYMENT") || (data?.status==="RETURN_UPHELD") ||(data?.status==="APPROVED");
 
-  async function fetchComplaint(){
-    const response = await getComplaint(orderNumber);
-    setData(response.data)
-  }
+  // Load the complaint for the currently selected order. Reset all order-specific
+  // state first so data from the previously selected order is never displayed.
+  useEffect(() => {
+    let isCurrentRequest = true;
 
+    setData(undefined);
+    setAlertError("");
+    setComment("");
+    setIsProcessing(false);
+    setProcessingAction(null);
+    setOriginalIdx(0);
+    setComplaintIdx(0);
+    setFullscreenImage(null);
 
-  
-  useEffect(()=>{
-fetchComplaint()
-  },[orderNumber,isOpen])
+    if (isOpen && orderNumber) {
+      const loadComplaint = async () => {
+        try {
+          const response = await getComplaint(orderNumber);
+          if (isCurrentRequest) {
+            setData(response.data);
+          }
+        } catch {
+          if (isCurrentRequest) {
+            setAlertError(
+              t("complaint_modal.errors.generic", {
+                defaultValue: "Coś poszło nie tak. Spróbuj ponownie.",
+              }),
+            );
+          }
+        }
+      };
+
+      void loadComplaint();
+    }
+
+    return () => {
+      // Ignore responses belonging to an order that is no longer selected.
+      isCurrentRequest = false;
+    };
+  }, [orderNumber, isOpen, getComplaint, t]);
   //mutation hook
   const [updateDisputeStatus] = useUpdateOrderDisputeMutation();
 
@@ -57,6 +87,7 @@ fetchComplaint()
   // Form states tracking controls
   const [comment, setComment] = useState<string>("");
   const [isSubmitting, setIsProcessing] = useState<boolean>(false);
+  const [processingAction, setProcessingAction] = useState<"APPROVE" | "REJECT" | "CHECKOUT" | null>(null);
 
   // Active Index States for carousel loops independently handled
   const [originalIdx, setOriginalIdx] = useState<number>(0);
@@ -99,6 +130,7 @@ fetchComplaint()
     if (!isOpen) {
       setComment("");
       setIsProcessing(false);
+      setProcessingAction(null);
     }
   }, [isOpen]);
 
@@ -145,7 +177,11 @@ fetchComplaint()
     if (isSubmitting || !comment.trim()) return;
 
     setIsProcessing(true);
+    setProcessingAction(actionType);
     setAlertError("");
+
+    // Keep the loading state active after a successful checkout URL is received.
+    let redirectStarted = false;
 
     try {
       const response = await updateDisputeStatus({
@@ -170,44 +206,77 @@ fetchComplaint()
         ).unwrap()) as TResponseDto;
 
         if (checkoutResponse.httpStatus !== 200 || !checkoutResponse.data) {
-          setAlertError(checkoutResponse.message || t("complaint_modal.errors.checkout_create", { defaultValue: "Nie udało się utworzyć sesji płatności." }));
+          setAlertError(
+            checkoutResponse.message ||
+              t("complaint_modal.errors.checkout_create", {
+                defaultValue: "Nie udało się utworzyć sesji płatności.",
+              }),
+          );
           return;
         }
 
+        redirectStarted = true;
         window.location.assign(checkoutResponse.data);
         return;
       }
 
-      setAlertError(response.data?.message || t("complaint_modal.errors.decision_failed", { defaultValue: "Nie udało się zakończyć rozpatrywania reklamacji." }));
+      setAlertError(
+        response.data?.message ||
+          t("complaint_modal.errors.decision_failed", {
+            defaultValue: "Nie udało się zakończyć rozpatrywania reklamacji.",
+          }),
+      );
     } catch (error: unknown) {
       setAlertError(getErrorMessage(error));
     } finally {
-      setIsProcessing(false);
+      if (!redirectStarted) {
+        setIsProcessing(false);
+        setProcessingAction(null);
+      }
     }
   };
 
   const handleCheckout = async () => {
     if (!disputeId || isSubmitting) {
-      setAlertError(t("complaint_modal.errors.checkout_unavailable", { defaultValue: "Reklamacja lub płatność za przesyłkę zwrotną jest niedostępna." }));
+      setAlertError(
+        t("complaint_modal.errors.checkout_unavailable", {
+          defaultValue:
+            "Reklamacja lub płatność za przesyłkę zwrotną jest niedostępna.",
+        }),
+      );
       return;
     }
 
     setIsProcessing(true);
+    setProcessingAction("CHECKOUT");
     setAlertError("");
 
+    let redirectStarted = false;
+
     try {
-      const checkoutResponse = (await checkoutShippingCost(Number(disputeId)).unwrap()) as TResponseDto;
+      const checkoutResponse = (await checkoutShippingCost(
+        Number(disputeId),
+      ).unwrap()) as TResponseDto;
 
       if (checkoutResponse.httpStatus !== 200 || !checkoutResponse.data) {
-        setAlertError(checkoutResponse.message || t("complaint_modal.errors.checkout_create", { defaultValue: "Nie udało się utworzyć sesji płatności." }));
+        setAlertError(
+          checkoutResponse.message ||
+            t("complaint_modal.errors.checkout_create", {
+              defaultValue: "Nie udało się utworzyć sesji płatności.",
+            }),
+        );
         return;
       }
 
+      redirectStarted = true;
       window.location.assign(checkoutResponse.data);
     } catch (error: unknown) {
       setAlertError(getErrorMessage(error));
     } finally {
-      setIsProcessing(false);
+      if (!redirectStarted) {
+        setIsProcessing(false);
+        setProcessingAction(null);
+      }
     }
   };
 
@@ -385,7 +454,20 @@ fetchComplaint()
               onClick={handleCheckout}
               disabled={isSubmitting || !disputeId}
             >
-              {isSubmitting ? t("complaint_modal.buttons.processing", { defaultValue: "Przetwarzanie..." }) : t("complaint_modal.buttons.order_courier", { defaultValue: "Zamów kuriera" })}
+              {isSubmitting ? (
+                <>
+                  <span className="cmp-spinner" aria-hidden="true" />
+                  <span>
+                    {t("complaint_modal.buttons.redirecting", {
+                      defaultValue: "Przekierowanie do płatności...",
+                    })}
+                  </span>
+                </>
+              ) : (
+                t("complaint_modal.buttons.order_courier", {
+                  defaultValue: "Zamów kuriera",
+                })
+              )}
             </button>
           </div>
         ) :
@@ -430,9 +512,13 @@ fetchComplaint()
                   onClick={() => handleDecisionSubmit("REJECT")}
                   disabled={isSubmitting || !comment.trim()}
                 >
-                  {t("complaint_modal.footer.buttons.reject", {
-                    defaultValue: "Odrzuć reklamację",
-                  })}
+                  {isSubmitting && processingAction === "REJECT"
+                    ? t("complaint_modal.buttons.processing", {
+                        defaultValue: "Przetwarzanie...",
+                      })
+                    : t("complaint_modal.footer.buttons.reject", {
+                        defaultValue: "Odrzuć reklamację",
+                      })}
                 </button>
                 <button
                   type="button"
@@ -440,9 +526,20 @@ fetchComplaint()
                   onClick={() => handleDecisionSubmit("APPROVE")}
                   disabled={isSubmitting || !comment.trim()}
                 >
-                  {t("complaint_modal.footer.buttons.approve", {
-                    defaultValue: "Zamów kuriera",
-                  })}
+                  {isSubmitting && processingAction === "APPROVE" ? (
+                    <>
+                      <span className="cmp-spinner" aria-hidden="true" />
+                      <span>
+                        {t("complaint_modal.buttons.redirecting", {
+                          defaultValue: "Przekierowanie do płatności...",
+                        })}
+                      </span>
+                    </>
+                  ) : (
+                    t("complaint_modal.footer.buttons.approve", {
+                      defaultValue: "Zamów kuriera",
+                    })
+                  )}
                 </button>
               </div>
             </form>

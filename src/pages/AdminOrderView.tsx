@@ -21,20 +21,17 @@ const AdminOrderView: React.FC = () => {
   const { data, isLoading, isError } = useGetStoreOrdersQuery({
     page,
     size: 12,
+    query:search
   });
+
+
 
   const orders = (data?.orders as TOrdersDto[]) || [];
 
-  // ISOLATED SEARCH FILTER ENGINE
-  const filteredList = orders.filter((order) => {
-    const query = search;
+ 
 
-    if (!query) return true;
-    return (
-      String(order.orderNumber || order.id).includes(query) ||
-      order.buyer?.toLowerCase().includes(query.toLowerCase())
-    );
-  });
+  // ISOLATED SEARCH FILTER ENGINE
+  const filteredList = orders;
 
   const cancelModal = (order: TOrdersDto) => {
     setSelectedOrder(order);

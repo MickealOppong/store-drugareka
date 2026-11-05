@@ -405,7 +405,9 @@
       "add_wishlist": "Add to favorites",
       "buy_btn": "Buy product",
       "edit_btn": "Edit listing",
-      "make_offer": "Make an offer"
+      "make_offer": "Make an offer",
+     "service_charge_included": "Service charge included",
+  "delivery_cost_extra": "Delivery paid separately"
     },
     "filter_drawer": {
       "title": "Filters",

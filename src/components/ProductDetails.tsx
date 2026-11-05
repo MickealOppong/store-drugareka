@@ -72,7 +72,7 @@ const ProductDetails = () => {
     String(slug),
   );
 
-  console.log(product);
+
 
   //get listings from this seller
   const sellerId = product?.sellerId;
