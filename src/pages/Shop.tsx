@@ -17,7 +17,6 @@ import MakeOfferodal from "../components/MakeOfferModal";
 import ProductListing from "../components/ProductListing";
 import SEO from "../components/SEO";
 import ShopBanner from "../components/ShopBanner";
-import '../css/ProductListimg.css';
 import "../css/Shop.css";
 import { COLLECTION_CITIES } from "../data/data";
 import {
