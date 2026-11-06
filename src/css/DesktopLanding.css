@@ -6,7 +6,7 @@
 }
 
 .landing-center {
-  width: min(1440px, 95%);
+  width: min(1440px, 100%);
   margin: 0 auto;
   color: #111111;
   background: #fff;
