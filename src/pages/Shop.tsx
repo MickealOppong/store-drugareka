@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import { Loading, Pagination } from "../components";
 import { ErrorToast } from "../components/ErrorTaost";
+import Footer from "../components/Footer";
 import MakeOfferodal from "../components/MakeOfferModal";
 import ProductListing from "../components/ProductListing";
 import SEO from "../components/SEO";
@@ -436,6 +437,7 @@ const Shop = () => {
             totalElements={data?.totalElements}
           />
         )}
+        <Footer/>
       </main>
 
     </>

@@ -7,6 +7,7 @@
 .landing-footer {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 2.5rem;
   width: 100%;
   padding: 4rem 1.5rem 3rem;
@@ -14,6 +15,9 @@
   border-top: 1px solid Variables.$color-border;
   font-family: Variables.$font-sans;
   box-sizing: border-box;
+
+    width: min(1440px, 100%);
+  margin: 0 auto;
 
   @include Variables.media-up(Variables.$breakpoint-lg) {
     flex-direction: row;

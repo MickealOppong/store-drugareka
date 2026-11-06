@@ -4,6 +4,7 @@
 /* ==========================================================================
    MASTER FEED WORKSPACE CATALOG CANVAS (.catalog-page)
    ========================================================================== */
+
 .catalog-page {
   min-height: 100vh;
   min-height: 100dvh;
@@ -12,6 +13,8 @@
   color: Variables.$color-text-main;
   font-family: Variables.$font-sans;
   box-sizing: border-box;
+    width: min(1440px, 95%);
+  margin: 0 auto;
 }
 
 .catalog-browser {
@@ -24,7 +27,7 @@
   padding: 1.25rem 1rem 3rem;
   box-sizing: border-box;
 
-  /* 🚀 DESKTOP RE-ARRANGEMENT: Transform into split-screen multi-column matrix layout */
+
   @include Variables.media-up(Variables.$breakpoint-lg) {
     grid-template-columns: 240px minmax(0, 1fr);
     gap: 2.5rem;

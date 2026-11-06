@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  FiArrowRight,
-  FiSearch,
-  FiX,
-} from "react-icons/fi";
+import { FiArrowRight, FiSearch, FiX } from "react-icons/fi";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { ConditionFilter, Loading } from "../components";
 import CategoryTree from "../components/CategoryTree";
+import Footer from "../components/Footer";
 import MakeOfferModal from "../components/MakeOfferModal";
 import ProductListing from "../components/ProductListing";
 import SEO from "../components/SEO";
@@ -219,7 +216,7 @@ export const Categories: React.FC = () => {
   }
 
   return (
-    <>
+    <main >
       <SEO
         title={
           parent
@@ -389,8 +386,8 @@ export const Categories: React.FC = () => {
 
               <article>
                 <div className="collection-city-filter__options">
-                  {COLLECTION_CITIES.toSorted((a,b)=>{
-                     return  a.label.localeCompare(b.label, "pl")
+                  {COLLECTION_CITIES.toSorted((a, b) => {
+                    return a.label.localeCompare(b.label, "pl");
                   }).map((city) => {
                     const isSelected = selectedCollectionCity === city.label;
 
@@ -508,8 +505,10 @@ export const Categories: React.FC = () => {
             )}
           </div>
         </div>
+
       </section>
-    </>
+    <Footer/>
+    </main>
   );
 };
 
