@@ -93,7 +93,9 @@
     },
       "collection":{
          "collection_available":"Seller allows personal collection",
-      "city_list":"Collection location"
+      "city_list":"Collection location",
+      "clear_location":"Clear",
+      "collection_description":"Want to save on delivery costs? Discover products you can collect in person near you."
       },
     "header": {
       "title": "Categories",

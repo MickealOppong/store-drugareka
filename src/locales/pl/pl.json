@@ -93,7 +93,9 @@
     },
           "collection": {
   "collection_available": "Sprzedawca umożliwia odbiór osobisty",
-  "city_list": "Lokalizacja odbioru"
+  "city_list": "Lokalizacja odbioru",
+  "clear_location": "Wyczyść",
+"collection_description": "Chcesz zaoszczędzić na dostawie? Odkrywaj produkty, które możesz odebrać osobiście w swojej okolicy."
 },
     "header": {
       "title": "Kategorie",

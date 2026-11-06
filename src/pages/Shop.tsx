@@ -228,6 +228,7 @@ useEffect(() => {
 
   return () => cancelAnimationFrame(frame);
 }, [hash, pathname, search, isProductsLoading, products.length]);
+
   return (
     <>
       <main className="shop-page">
@@ -292,66 +293,75 @@ useEffect(() => {
         </section>
 
         {/** FILTER BY CITY FOR PRODUCTS WITH PERSONAL COLLECTION ENABLED */}
-        <div className="collection-city-filter">
-          <div>
-            <label htmlFor="isCollectionAvialable">
-              {t("categories.collection.collection_available")}
-            </label>
-            <input
-              type="checkbox"
-              id="isCollectionAvailable"
-              checked={isCollectionAvailable === "true" ? true : false}
-              name="isCollectionAvailable"
-              onChange={(e) => hanldeIsAvailableParam(e.target.checked)}
-            />
-          </div>
-          <div className="collection-city-filter__header">
-            <span className="collection-city-filter__title">
-              {t("categories.collection.city_list")}
-            </span>
+      <div className="collection-city-filter">
+  <div className="collection-city-filter__toggle">
+    <div className="collection-city-filter__info">
+      <strong>
+        {t("categories.collection.collection_available")}
+      </strong>
+      <span>
+        {t("categories.collection.collection_description", {
+          defaultValue:
+            "Find products you can collect directly from the seller.",
+        })}
+      </span>
+    </div>
 
-            {selectedCollectionCity && (
+    <input
+      type="checkbox"
+      id="isCollectionAvailable"
+      checked={isCollectionAvailable === "true"}
+      onChange={(e) => hanldeIsAvailableParam(e.target.checked)}
+    />
+  </div>
+
+  {isCollectionAvailable === "true" && (
+    <div className="collection-city-filter__locations">
+      <div className="collection-city-filter__header">
+        <span className="collection-city-filter__title">
+          {t("categories.collection.city_list")}
+        </span>
+
+        {selectedCollectionCity && (
+          <button
+            type="button"
+            onClick={() => hanldeSelectedCityParam("")}
+          >
+            {t("categories.collection.clear_location")}
+            <FiX />
+          </button>
+        )}
+      </div>
+
+      <div className="collection-city-filter__options">
+        {COLLECTION_CITIES
+          .toSorted((a, b) => a.label.localeCompare(b.label, "pl"))
+          .map((city) => {
+            const isSelected = selectedCollectionCity === city.label;
+
+            return (
               <button
+                key={city.value}
                 type="button"
-                className="collection-city-filter__clear"
-                onClick={() => hanldeSelectedCityParam("")}
+                className={`collection-city-filter__option ${
+                  isSelected ? "is-selected" : ""
+                }`}
+                onClick={() =>
+                  hanldeSelectedCityParam(
+                    isSelected ? "" : city.label
+                  )
+                }
+                aria-pressed={isSelected}
               >
-                {t("catalog-browser.location.clear", {
-                  defaultValue: "Clear",
-                })}
-                <FiX />
+                {city.label}
+                {isSelected && <FiX />}
               </button>
-            )}
-          </div>
-
-          <article>
-            <div className="collection-city-filter__options">
-              {COLLECTION_CITIES.toSorted((a,b)=>{
-                  return  a.label.localeCompare(b.label, "pl")
-              }).map((city) => {
-                const isSelected = selectedCollectionCity === city.label;
-
-                return (
-                  <button
-                    key={city.value}
-                    type="button"
-                    className={`collection-city-filter__option ${
-                      isSelected ? "is-selected" : ""
-                    }`}
-                    onClick={() =>
-                      hanldeSelectedCityParam(isSelected ? "" : city.label)
-                    }
-                    aria-pressed={isSelected}
-                  >
-                    <span>{city.label}</span>
-
-                    {isSelected && <FiX aria-hidden="true" />}
-                  </button>
-                );
-              })}
-            </div>
-          </article>
-        </div>
+            );
+          })}
+      </div>
+    </div>
+  )}
+</div>
 
         {/* =====================================================
                 TOOLBAR

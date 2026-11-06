@@ -630,56 +630,89 @@ HIGH-DENSITY GEOMETRIC CITIES FILTER PANEL COMPONENT (.collection-city-filter)
 .collection-city-filter {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
   width: 100%;
   margin-bottom: 2rem;
-  padding: 1.25rem;
-  background-color: #f9f9f9;
-  border: 1px solid #e5e5e5;
-  border-radius: 14px;
+  padding: 0;
+  background: #f0f6ef;
+  border: 1px solid rgba(104, 118, 75, 0.3);
+  border-left: 4px solid #66704A;
+  border-radius: 12px;
   box-sizing: border-box;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.collection-city-filter > div:first-child {
+.collection-city-filter:hover {
+  border-color: #66704A;
+  box-shadow: 0 3px 12px rgba(57, 60, 46, 0.07);
+}
+.collection-city-filter {
+  /* Main visible collection option */
+}
+.collection-city-filter__toggle {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 1.25rem;
+  cursor: pointer;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
-  cursor: pointer;
 }
-.collection-city-filter > div:first-child label {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #111111;
-  cursor: pointer;
-}
-.collection-city-filter > div:first-child input[type=checkbox] {
-  width: 18px;
-  height: 18px;
+.collection-city-filter__toggle input[type=checkbox] {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
   margin: 0;
   accent-color: #66704A;
   cursor: pointer;
+}
+.collection-city-filter__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.collection-city-filter__info strong {
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: #111111;
+  line-height: 1.3;
+}
+.collection-city-filter__info span {
+  max-width: 540px;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: #666666;
+}
+.collection-city-filter {
+  /* Location options — visible only when enabled */
+}
+.collection-city-filter__locations {
+  padding: 0 1.25rem 1.15rem;
+  border-top: 1px solid rgba(104, 118, 75, 0.2);
+  animation: collectionReveal 0.2s ease-out;
 }
 .collection-city-filter__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid #e5e5e5;
-  padding-top: 10px;
-  margin-top: 2px;
+  gap: 0.75rem;
+  padding: 0.85rem 0 0.75rem;
 }
 .collection-city-filter__title {
   font-size: 0.78rem;
-  font-weight: 700;
-  color: #666666;
+  font-weight: 800;
+  color: #111111;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.045em;
 }
-.collection-city-filter__clear {
+.collection-city-filter__header button {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  padding: 3px 6px;
   background: transparent;
   border: none;
   color: #66704A;
@@ -687,14 +720,9 @@ HIGH-DENSITY GEOMETRIC CITIES FILTER PANEL COMPONENT (.collection-city-filter)
   font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 4px;
 }
-.collection-city-filter__clear:hover {
-  background-color: rgba(104, 118, 75, 0.08);
-}
-.collection-city-filter__clear svg {
-  font-size: 0.9rem;
+.collection-city-filter__header button:hover {
+  text-decoration: underline;
 }
 .collection-city-filter__options {
   display: flex;
@@ -706,36 +734,26 @@ HIGH-DENSITY GEOMETRIC CITIES FILTER PANEL COMPONENT (.collection-city-filter)
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  height: 32px;
+  min-height: 34px;
   padding: 0 12px;
-  background-color: #ffffff;
+  background: #ffffff;
   border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  border-radius: 20px;
   font-family: inherit;
   font-size: 0.82rem;
   font-weight: 600;
   color: #475569;
   cursor: pointer;
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.collection-city-filter__option svg {
-  font-size: 0.85rem;
-  color: #94a3b8;
+  transition: all 0.15s ease;
 }
 .collection-city-filter__option:hover {
-  border-color: #94a3b8;
+  border-color: #66704A;
   color: #111111;
 }
 .collection-city-filter__option.is-selected {
-  background-color: #66704A;
+  background: #66704A;
   border-color: #66704A;
   color: #ffffff;
-}
-.collection-city-filter__option.is-selected svg {
-  color: #ffffff;
-}
-.collection-city-filter__option:focus-visible {
-  outline: 2px solid #66704A;
 }
 
 /* ==========================================================================
