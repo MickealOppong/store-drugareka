@@ -413,6 +413,7 @@
       "buy_btn": "Kup produkt",
       "edit_btn": "Edytuj ofertę",
       "make_offer": "Złożyć ofertę",
+        "add_to_cart":"Dodaj do koszyka",
        "service_charge_included": "w tym opłata serwisowa",
   "delivery_cost_extra": "Dostawa płatna dodatkowo"
     },

@@ -148,6 +148,8 @@ export const Categories: React.FC = () => {
     return searchBranches(catalogTree);
   };
 
+
+
   const extractCategoryPath = (path: string) => {
     if (!path) return { parent: null, child: null };
 
@@ -183,6 +185,7 @@ export const Categories: React.FC = () => {
     }
   };
 
+
   const hanldeSelectedCityParam = (city: string) => {
     const searchParams = new URLSearchParams(search);
     searchParams.set("collectionCity", city);
@@ -195,6 +198,8 @@ export const Categories: React.FC = () => {
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 
+
+
   if (isLoading) {
     return (
       <div className="catalog-browser__loading">
@@ -204,6 +209,24 @@ export const Categories: React.FC = () => {
       </div>
     );
   }
+
+  const {hash} = useLocation();
+
+  useEffect(() => {
+  if (hash !== "#category-products" || isProductsLoading) return;
+
+  const frame = requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.getElementById("category-products")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  });
+
+  return () => cancelAnimationFrame(frame);
+}, [hash, pathname, search, isProductsLoading, products.length]);
+
 
   if (error) {
     return (
@@ -271,8 +294,9 @@ export const Categories: React.FC = () => {
               <div className="top-categories-grid">
                 {topCategories.map((category) => (
                   <Link
+                  id="products"
                     key={category.id}
-                    to={`/shop/categories?category=${category.slug}_${category.id}`}
+                    to={`/shop/categories?category=${category.slug}_${category.id}#category-products`}
                     className="category-card"
                   >
                     <img
@@ -474,7 +498,7 @@ export const Categories: React.FC = () => {
                 </button>
               </div>
             ) : (
-              <div className="category-page__products">
+              <div className="category-page__products" id="category-products">
                 {products.map((product) => (
                   <ProductListing
                     key={product.listingId}
