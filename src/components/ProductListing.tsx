@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { FiEdit, FiHeart, FiShoppingBag, FiTruck } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-import '../css/ProductListimg.css';
+import '../css/ProductListing.css';
 
 import type { TListTrans } from "../types/TListTrans";
 import { formatPrice, sanitizeBackendKey } from "../util/util";
