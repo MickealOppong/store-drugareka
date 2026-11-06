@@ -158,7 +158,7 @@ const Shop = () => {
     nextParams.set("category", categorySlug);
     // Navigating automatically shifts the reactive 'selectedCategory' token, re-firing the query
     navigate(
-      `${location.pathname}?${nextParams.toString()}_${category ? category.id : "0"}`,
+      `${location.pathname}?${nextParams.toString()}_${category ? category.id : "0"}#shop-products`,
     );
   };
 
@@ -208,6 +208,26 @@ const Shop = () => {
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
   };
 
+const {hash} = useLocation()
+
+useEffect(() => {
+  if (hash !== "#shop-products" || isProductsLoading) return;
+
+  const frame = requestAnimationFrame(() => {
+    const element = document.getElementById("shop-products");
+    if (!element) return;
+
+    const position =
+      element.getBoundingClientRect().top + window.scrollY - 100;
+
+    window.scrollTo({
+      top: position,
+      behavior: "smooth",
+    });
+  });
+
+  return () => cancelAnimationFrame(frame);
+}, [hash, pathname, search, isProductsLoading, products.length]);
   return (
     <>
       <main className="shop-page">

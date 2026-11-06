@@ -195,9 +195,29 @@ export const Categories: React.FC = () => {
   const hanldeIsAvailableParam = (selected: boolean) => {
     const searchParams = new URLSearchParams(search);
     searchParams.set("isCollectionAvailable", String(selected));
-    navigate(`${pathname}?${searchParams.toString()}`);
+    navigate(`${pathname}?${searchParams.toString()}#category-products`);
   };
 
+const {hash} = useLocation()
+
+useEffect(() => {
+  if (hash !== "#category-products" || isProductsLoading) return;
+
+  const frame = requestAnimationFrame(() => {
+    const element = document.getElementById("category-products");
+    if (!element) return;
+
+    const position =
+      element.getBoundingClientRect().top + window.scrollY - 100;
+
+    window.scrollTo({
+      top: position,
+      behavior: "smooth",
+    });
+  });
+
+  return () => cancelAnimationFrame(frame);
+}, [hash, pathname, search, isProductsLoading, products.length]);
 
 
   if (isLoading) {
@@ -210,22 +230,6 @@ export const Categories: React.FC = () => {
     );
   }
 
-  const {hash} = useLocation();
-
-  useEffect(() => {
-  if (hash !== "#category-products" || isProductsLoading) return;
-
-  const frame = requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      document.getElementById("category-products")?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    });
-  });
-
-  return () => cancelAnimationFrame(frame);
-}, [hash, pathname, search, isProductsLoading, products.length]);
 
 
   if (error) {
