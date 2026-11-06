@@ -1,0 +1,217 @@
+@use "sass:color";
+@use "Variables.scss" as Variables;
+
+/* ==========================================================================
+   MASTER MARKETING DISPLAY HERO BANNER WRAPPER (.shop-banner)
+   ========================================================================== */
+.shop-banner {
+  display: flex;
+  flex-direction: column-reverse; // Content text flows above the asset image on mobile viewports
+  width: 100%;
+  background-color: Variables.$background-3; // Gentle sage wash backdrop fill matrix
+  border: 1px solid Variables.$color-border;
+  border-radius: 20px;
+  overflow: hidden;
+  box-sizing: border-box;
+  font-family: Variables.$font-sans;
+  margin: 1.5rem 0 2.5rem 0;
+
+  @include Variables.media-up(Variables.$breakpoint-lg) {
+    display: grid;
+ 
+    grid-template-columns: 1fr 1.5fr; 
+    align-items: center;
+    flex-direction: row;
+    margin: 2rem 0 3.5rem 0;
+    min-height: 380px; // Raised overall minimum height boundary parameters
+  }
+
+  /* =========================================================
+     LEFT LAYOUT PANEL DESCRIPTIONAL DATA BLOCK (.shop-banner__content)
+     ========================================================= */
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 2rem 1.5rem;
+    box-sizing: border-box;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      padding: 2.5rem;
+    }
+
+    @include Variables.media-up(Variables.$breakpoint-lg) {
+      padding: 3rem 2.5rem 3rem 4rem; // Tailored padding rules to cushion dense layouts text columns
+    }
+
+    /* Core Category Badge Tag Eyebrows */
+    .shop-banner__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: Variables.$color-primary; // 🌿 Rich Earthy Olive Accent
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+
+      svg {
+        font-size: 0.95rem;
+        stroke-width: 2.25;
+      }
+    }
+
+    /* Heading Layout Hierarchies Typography */
+    h2 {
+      margin: 0 0 0.75rem 0;
+      font-size: 1.5rem;
+      font-weight: 850;
+      color: Variables.$color-text-main;
+      letter-spacing: -0.035em;
+      line-height: 1.2;
+
+      @include Variables.media-up(Variables.$breakpoint-sm) {
+        font-size: 1.85rem;
+      }
+
+      @include Variables.media-up(Variables.$breakpoint-lg) {
+        font-size: 2.2rem;
+      }
+    }
+
+    p {
+      margin: 0 0 1.75rem 0;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: Variables.$color-text-muted;
+      max-width: 440px;
+    }
+  }
+
+  /* =========================================================
+     PRIMARY ESCAPE CALL-TO-ACTION ANCHOR (.shop-banner__cta)
+     ========================================================= */
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: Variables.$touch-target-min; // Enforces standard minimum 48px mobile touch thresholds
+    padding: 0 1.75rem;
+    background-color: Variables.$color-primary;
+    color: Variables.$color-text-light;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(104, 118, 75, 0.16);
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+
+    @media (max-width: Variables.$breakpoint-sm) {
+      width: 100%; // Spans full horizontal rows footprint on small mobile handset screens
+    }
+
+    svg {
+      font-size: 1.1rem;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    &:hover {
+      background-color: Variables.$color-primary-hover; // Deep forest hover tone
+      box-shadow: 0 6px 18px rgba(104, 118, 75, 0.24);
+
+      svg {
+        transform: translateX(4px); // Forward glide arrow micro-interaction
+      }
+    }
+
+    &:active {
+      transform: scale(0.985); // Haptic press feel response scaling
+    }
+
+    &:focus-visible {
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 3px;
+    }
+  }
+
+  /* Secondary Information Meta Guidelines Notes */
+  &__note {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: Variables.$color-text-muted;
+    letter-spacing: 0.01em;
+
+    @media (max-width: Variables.$breakpoint-sm) {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  /* =========================================================
+     RIGHT LAYOUT PANEL MARKETING VISUAL CANVAS (.shop-banner__visual)
+     ========================================================= */
+  &__visual {
+    position: relative;
+    width: 100%;
+    
+    /* 🚀 THE FIXED HEIGHT FIX: Raised height bounds on small screens to expand asset visibility */
+    height: 240px; 
+    
+    background-color: rgba(Variables.$color-primary, 0.04);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      height: 320px; // Expanded visual aspect ratio area footprint on tablets
+    }
+
+    @include Variables.media-up(Variables.$breakpoint-lg) {
+      width: 100%;
+      height: 100%;
+      min-height: 380px;
+      align-self: stretch;
+    }
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // Fills layout frame space symmetrically without blurring pixels
+    object-position: center;
+    
+    @include Variables.media-up(Variables.$breakpoint-lg) {
+      position: absolute;
+      inset: 0;
+    }
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY OVERRIDES: PREFERS REDUCED MOTION GATES
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .shop-banner__cta {
+    transition: none !important;
+    &:active { transform: none !important; }
+    &:hover svg { transform: none !important; }
+  }
+}
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

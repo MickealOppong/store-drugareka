@@ -294,4 +294,4 @@ export const COLLECTION_CITIES = [
   { value: "lubin", label: "Lubin" },
   { value: "ostrow-wielkopolski", label: "Ostrów Wielkopolski" },
   { value: "stargard", label: "Stargard" },
-] as const;
+]

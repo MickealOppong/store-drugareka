@@ -26,13 +26,11 @@ import {
 } from "../features/api/storeApi";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
-import {
-  formatPrice,
-  sanitizeBackendKey
-} from "../util/util";
+import { formatPrice, sanitizeBackendKey } from "../util/util";
 import Footer from "./Footer";
 import Loading from "./Loading";
 import MakeOfferModal from "./MakeOfferModal";
+import PaymentMethods from "./PaymentMethods";
 import SEO from "./SEO";
 
 // Helper function to safely translate backend condition data strings to localized dictionary keys
@@ -72,7 +70,7 @@ const ProductDetails = () => {
     String(slug),
   );
 
-
+  console.log(product);
 
   //get listings from this seller
   const sellerId = product?.sellerId;
@@ -107,11 +105,9 @@ const ProductDetails = () => {
   }
 
   if (product) {
-    // Dynamic values derivation layer
-    const savingsAmount = product?.newPrice - product?.oldPrice;
-    const savingsPercent = Math.round(
-      (savingsAmount / product?.oldPrice) * 100,
-    );
+    const serviceCharge = product.serviceCharge ?? 0;
+    const buyerPrice = product.newPrice + serviceCharge;
+    const deliveryCost = product.shippingCost ?? 0;
 
     return (
       <section className="product-details">
@@ -131,7 +127,7 @@ const ProductDetails = () => {
           </button>
           <span className="product-details__category-crumb">
             {t("product_details.nav.shop_crumb")} /{" "}
-           {t(`categories.${product.category.path.split('/')[1]}.name`)}
+            {t(`categories.${product.category.path.split("/")[1]}.name`)}
           </span>
         </header>
 
@@ -221,14 +217,15 @@ const ProductDetails = () => {
               </span>
             </div>
 
-       
-
             <div className="product-details__condition-badge">
               <span>
                 {t("product_details.info.weight")}:{" "}
-                <strong>   {t(
-                          `add_listing.fields.cargo_sizes.item_size.${product.itemSize.toLowerCase()}`,
-                        )}</strong>
+                <strong>
+                  {" "}
+                  {t(
+                    `add_listing.fields.cargo_sizes.item_size.${product.itemSize.toLowerCase()}`,
+                  )}
+                </strong>
               </span>
             </div>
 
@@ -280,7 +277,7 @@ const ProductDetails = () => {
               {product.productDescription}
             </p>
 
-                 {product.personalCollectionAvailable &&
+            {product.personalCollectionAvailable &&
               product.collectionCity?.trim() && (
                 <div className="product-details__personal-collection">
                   <FiMapPin />
@@ -295,27 +292,30 @@ const ProductDetails = () => {
                   </div>
                 </div>
               )}
+            {/** PAYMENT METHOD */}
 
-            {/* FINANCIAL PRICING SUMMARY GROUPS */}
+            <PaymentMethods />
+            {/* BUYER PRICE AND DELIVERY INFORMATION */}
             <div className="product-details__pricing-matrix">
               <div className="product-details__price-row">
                 <strong className="product-details__deal-price">
-                  {formatPrice(product.newPrice)} zł
+                  {formatPrice(buyerPrice)} zł
                 </strong>
-                {product.oldPrice > product.newPrice && (
-                  <del className="product-details__strike-price">
-                    {formatPrice(product.oldPrice)} zł
-                  </del>
-                )}
               </div>
-              {product.newPrice > product.oldPrice && (
-                <p className="product-details__savings-banner">
-                  {t("product_details.pricing.savings", {
-                    amount: formatPrice(savingsAmount),
-                    percent: savingsPercent,
-                  })}
-                </p>
+
+              {serviceCharge > 0 && (
+                <span className="product-details__service">
+                  {t("shop.product.service_charge_included")}
+                </span>
               )}
+
+              <div className="product-details__delivery">
+                <FiTruck aria-hidden="true" />
+                <span>
+                  {t("shop.product.delivery_cost_extra")}
+                  {deliveryCost > 0 && `: ${formatPrice(deliveryCost)} zł`}
+                </span>
+              </div>
             </div>
 
             {/* ECO-SYSTEM SECURITY ASSURANCES BADGES */}
@@ -415,7 +415,7 @@ const ProductDetails = () => {
                   key={product.listingId}
                   to={`/shop/listing/${product.productSlug}`}
                   className="product-card"
-                    onClick={() => window.scrollTo(0, 0)}
+                  onClick={() => window.scrollTo(0, 0)}
                 >
                   <div className="product-card__media">
                     <img

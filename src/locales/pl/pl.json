@@ -383,6 +383,14 @@
     "categories": {
       "all": "Wszystkie"
     },
+    "banner": {
+  "eyebrow": "Odkryj Kasoa",
+  "title": "Wielkie otwarcie. Zapłać mniej.",
+  "description": "Odkrywaj wyjątkowe produkty i korzystaj z okazji na Kasoa.",
+  "cta": "Odkryj produkty",
+  "note": "Ciekawe znaleziska. Atrakcyjne ceny.",
+  "visual_tag": "Wyjątkowe okazje"
+},
     "toolbar": {
       "products_count": "produktów",
       "filters": "Filtry",

@@ -2,16 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FiArrowRight,
-  FiEdit,
-  FiHeart,
   FiSearch,
-  FiShoppingBag,
   FiX,
 } from "react-icons/fi";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { ConditionFilter, Loading } from "../components";
 import CategoryTree from "../components/CategoryTree";
 import MakeOfferModal from "../components/MakeOfferModal";
+import ProductListing from "../components/ProductListing";
 import SEO from "../components/SEO";
 import "../css/Categories.css";
 import { COLLECTION_CITIES } from "../data/data";
@@ -28,11 +26,7 @@ import { useAddToCart } from "../hooks/useAddTocart";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
 import type { TQueryDto } from "../types/TQueryDto";
-import {
-  formatPrice,
-  sanitizeBackendKey,
-  sanitizeCategoryKey,
-} from "../util/util";
+import { sanitizeCategoryKey } from "../util/util";
 
 export const Categories: React.FC = () => {
   const { t } = useTranslation();
@@ -395,7 +389,9 @@ export const Categories: React.FC = () => {
 
               <article>
                 <div className="collection-city-filter__options">
-                  {COLLECTION_CITIES.map((city) => {
+                  {COLLECTION_CITIES.toSorted((a,b)=>{
+                     return  a.label.localeCompare(b.label, "pl")
+                  }).map((city) => {
                     const isSelected = selectedCollectionCity === city.label;
 
                     return (
@@ -482,172 +478,33 @@ export const Categories: React.FC = () => {
               </div>
             ) : (
               <div className="category-page__products">
-                {products.map((product) => {
-                  const isWishlisted = wishlists.includes(product.listingId);
-                  const oldPrice = product.oldPrice;
-                  const newPrice = product.newPrice;
-
-                  const discount =
-                    oldPrice > 0
-                      ? Math.round(((oldPrice - newPrice) / oldPrice) * 100)
-                      : 0;
-
-                  const conditionKey = sanitizeBackendKey(
-                    product.productCondition.toLowerCase(),
-                  );
-
-                  return (
-                    <article
-                      className="category-product-card"
-                      key={product.listingId}
-                    >
-                      {/* ==========================================================================
-            MEDIA REGION: THUMBNAILS, DISCOUNTS & WISHLIST OVERLAYS
-            ========================================================================== */}
-                      <div className="category-product-card__media">
-                        <Link
-                          to={`/shop/listing/${product.productSlug}`}
-                          className="category-product-card__image-link"
-                        >
-                          <img
-                            src={product?.media?.[0]?.image}
-                            alt={product.productName}
-                            loading="lazy"
-                          />
-                        </Link>
-
-                        {discount > 0 && (
-                          <span className="category-product-card__discount">
-                            -{discount}%
-                          </span>
-                        )}
-
-                        <button
-                          type="button"
-                          className={`category-product-card__wishlist ${isWishlisted ? "active" : ""}`}
-                          onClick={() => toggleWishlist(product.listingId)}
-                          aria-label={t("shop.product.add_wishlist", {
-                            defaultValue: "Add to wishlist",
-                          })}
-                          aria-pressed={isWishlisted}
-                          style={{
-                            display:
-                              product.sellerId === sellerProfileId
-                                ? "none"
-                                : "flex",
-                          }}
-                        >
-                          <FiHeart />
-                        </button>
-                      </div>
-
-                      {/* ==========================================================================
-            CONTENT REGION: METADATA & TYPOGRAPHY INFO HIERARCHIES
-            ========================================================================== */}
-                      <div className="category-product-card__content">
-                        <span className="category-product-card__brand">
-                          {product.brand}
-                        </span>
-
-                        <h2>
-                          <Link to={`/shop/listing/${product.listingId}`}>
-                            {product.productName}
-                          </Link>
-                        </h2>
-
-                        <div className="category-product-card__condition">
-                          <span>
-                            {t(
-                              `product_conditions.conditions.${conditionKey}`,
-                              {
-                                defaultValue: product.productCondition,
-                              },
-                            )}
-                          </span>
-                          {product.negotiable &&
-                            (!sellerProfileId ||
-                              product.sellerId !== sellerProfileId) && (
-                              <button
-                                type="button"
-                                className="nake-offer-btn"
-                                onClick={() => handleMakeOffer(product)}
-                              >
-                                {t("shop.product.make_offer")}
-                              </button>
-                            )}
-                        </div>
-
-                        {/* ==========================================================================
-              BOTTOM REGION: PRICE MARKERS & INTERACTIVE ACTION BUTTONCTAS
-              ========================================================================== */}
-                        <div className="category-product-card__bottom">
-                          <div className="shop-product-card__price">
-                            <strong>
-                              {formatPrice(
-                                product.newPrice + (product.serviceCharge ?? 0),
-                              )}{" "}
-                              zł
-                            </strong>
-
-                            {product.serviceCharge > 0 && (
-                              <span className="shop-product-card__service">
-                                w tym opłata serwisowa
-                              </span>
-                            )}
-
-                            <span className="shop-product-card__delivery">
-                              Dostawa płatna dodatkowo
-                            </span>
-                          </div>
-
-                          {!product.negotiable &&
-                            (!sellerProfileId ||
-                              product.sellerId !== sellerProfileId) && (
-                              <button
-                                type="button"
-                                className="category-product-card__buy"
-                                aria-label={t("shop.product.add_to_cart", {
-                                  defaultValue: "Add to cart",
-                                })}
-                                onClick={() => addItemToCart(product.listingId)}
-                              >
-                                <FiShoppingBag />
-                              </button>
-                            )}
-                          {sellerProfileId &&
-                            product.sellerId === sellerProfileId && (
-                              <button
-                                type="button"
-                                className="category-product-card__buy"
-                                aria-label={t("shop.product.edit_listing", {
-                                  defaultValue: "Edit listing",
-                                })}
-                                onClick={() =>
-                                  navigate(
-                                    `/account/listings/${product.listingId}/edit`,
-                                  )
-                                }
-                              >
-                                <FiEdit />
-                              </button>
-                            )}
-                        </div>
-                      </div>
-                      {/** MAKE OFFER MODAL */}
-                      {openModal && (
-                        <MakeOfferModal
-                          productName={modalData?.name || ""}
-                          id={modalData?.id || 0}
-                          currentPrice={modalData?.currentPrice || 0}
-                          isOpen={openModal}
-                          onButtonClick={onModalButtonClick}
-                          isNegotiable={Boolean(modalData?.isNegotiable)}
-                        />
-                      )}
-                    </article>
-                  );
-                })}
+                {products.map((product) => (
+                  <ProductListing
+                    key={product.listingId}
+                    product={product}
+                    isWishlisted={wishlists.includes(product.listingId)}
+                    isOwner={product.sellerId === sellerProfileId}
+                    variant="category"
+                    onToggleWishlist={toggleWishlist}
+                    onMakeOffer={handleMakeOffer}
+                    onAddToCart={addItemToCart}
+                    onEdit={(listingId) =>
+                      navigate(`/account/listings/${listingId}/edit`)
+                    }
+                  />
+                ))}
               </div>
+            )}
+
+            {openModal && (
+              <MakeOfferModal
+                productName={modalData?.name || ""}
+                id={modalData?.id || 0}
+                currentPrice={modalData?.currentPrice || 0}
+                isOpen={openModal}
+                onButtonClick={onModalButtonClick}
+                isNegotiable={Boolean(modalData?.isNegotiable)}
+              />
             )}
           </div>
         </div>

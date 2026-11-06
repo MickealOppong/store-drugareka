@@ -1,0 +1,226 @@
+@charset "UTF-8";
+/* ==========================================================================
+   MASTER MARKETING DISPLAY HERO BANNER WRAPPER (.shop-banner)
+   ========================================================================== */
+.shop-banner {
+  display: flex;
+  flex-direction: column-reverse;
+  width: 100%;
+  background-color: rgba(252, 252, 253, 0.9);
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  overflow: hidden;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin: 1.5rem 0 2.5rem 0;
+}
+@media (min-width: 1024px) {
+  .shop-banner {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    align-items: center;
+    flex-direction: row;
+    margin: 2rem 0 3.5rem 0;
+    min-height: 380px;
+  }
+}
+.shop-banner {
+  /* =========================================================
+     LEFT LAYOUT PANEL DESCRIPTIONAL DATA BLOCK (.shop-banner__content)
+     ========================================================= */
+}
+.shop-banner__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+}
+@media (min-width: 640px) {
+  .shop-banner__content {
+    padding: 2.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .shop-banner__content {
+    padding: 3rem 2.5rem 3rem 4rem;
+  }
+}
+.shop-banner__content {
+  /* Core Category Badge Tag Eyebrows */
+}
+.shop-banner__content .shop-banner__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #66704A;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.75rem;
+}
+.shop-banner__content .shop-banner__eyebrow svg {
+  font-size: 0.95rem;
+  stroke-width: 2.25;
+}
+.shop-banner__content {
+  /* Heading Layout Hierarchies Typography */
+}
+.shop-banner__content h2 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.5rem;
+  font-weight: 850;
+  color: #111111;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+}
+@media (min-width: 640px) {
+  .shop-banner__content h2 {
+    font-size: 1.85rem;
+  }
+}
+@media (min-width: 1024px) {
+  .shop-banner__content h2 {
+    font-size: 2.2rem;
+  }
+}
+.shop-banner__content p {
+  margin: 0 0 1.75rem 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #666666;
+  max-width: 440px;
+}
+.shop-banner {
+  /* =========================================================
+     PRIMARY ESCAPE CALL-TO-ACTION ANCHOR (.shop-banner__cta)
+     ========================================================= */
+}
+.shop-banner__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 1.75rem;
+  background-color: #66704A;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(104, 118, 75, 0.16);
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+@media (max-width: 640px) {
+  .shop-banner__cta {
+    width: 100%;
+  }
+}
+.shop-banner__cta svg {
+  font-size: 1.1rem;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.shop-banner__cta:hover {
+  background-color: #525F3C;
+  box-shadow: 0 6px 18px rgba(104, 118, 75, 0.24);
+}
+.shop-banner__cta:hover svg {
+  transform: translateX(4px);
+}
+.shop-banner__cta:active {
+  transform: scale(0.985);
+}
+.shop-banner__cta:focus-visible {
+  outline: 2px solid #66704A;
+  outline-offset: 3px;
+}
+.shop-banner {
+  /* Secondary Information Meta Guidelines Notes */
+}
+.shop-banner__note {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #666666;
+  letter-spacing: 0.01em;
+}
+@media (max-width: 640px) {
+  .shop-banner__note {
+    width: 100%;
+    text-align: center;
+  }
+}
+.shop-banner {
+  /* =========================================================
+     RIGHT LAYOUT PANEL MARKETING VISUAL CANVAS (.shop-banner__visual)
+     ========================================================= */
+}
+.shop-banner__visual {
+  position: relative;
+  width: 100%;
+  /* 🚀 THE FIXED HEIGHT FIX: Raised height bounds on small screens to expand asset visibility */
+  height: 240px;
+  background-color: rgba(102, 112, 74, 0.04);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+@media (min-width: 640px) {
+  .shop-banner__visual {
+    height: 320px;
+  }
+}
+@media (min-width: 1024px) {
+  .shop-banner__visual {
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+    align-self: stretch;
+  }
+}
+.shop-banner__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+@media (min-width: 1024px) {
+  .shop-banner__image {
+    position: absolute;
+    inset: 0;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY OVERRIDES: PREFERS REDUCED MOTION GATES
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .shop-banner__cta {
+    transition: none !important;
+  }
+  .shop-banner__cta:active {
+    transform: none !important;
+  }
+  .shop-banner__cta:hover svg {
+    transform: none !important;
+  }
+}
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}/*# sourceMappingURL=ShopBanner.css.map */

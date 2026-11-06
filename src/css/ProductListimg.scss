@@ -1,0 +1,339 @@
+@use "sass:color";
+@use "Variables.scss" as Variables;
+
+/*
+ * Shared product card styles.
+ * Imported by ProductListing.tsx so Shop and Categories use one card design.
+ */
+.shop-product-card,
+.category-product-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border: 1px solid Variables.$color-border;
+  border-radius: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    border-color: color.adjust(Variables.$color-border, $lightness: -6%);
+    box-shadow: 0 10px 25px -5px rgba(32, 37, 30, 0.05);
+
+    .shop-product-card__image-link img,
+    .category-product-card__image-link img {
+      transform: scale(1.035);
+    }
+  }
+
+  &__media {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1 / 0.98;
+    padding: 10px;
+    overflow: hidden;
+    box-sizing: border-box;
+    background-color: Variables.$color-bg-light;
+  }
+
+  &__image-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  }
+
+  &__discount {
+    position: absolute;
+    z-index: 2;
+    top: 8px;
+    left: 8px;
+    padding: 3px 6px;
+    border-radius: 5px;
+    background-color: Variables.$color-accent;
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 800;
+  }
+
+  &__wishlist {
+    position: absolute;
+    z-index: 2;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.92);
+    color: Variables.$color-text-muted;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.15s ease, background-color 0.15s ease;
+
+    &:hover,
+    &.active {
+      color: Variables.$color-accent;
+    }
+
+    &.active svg {
+      fill: Variables.$color-accent;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    padding: 0.85rem;
+    box-sizing: border-box;
+    text-align: left;
+
+    h2 {
+      display: -webkit-box;
+      min-height: 2.8em;
+      margin: 0.25rem 0 0.5rem;
+      overflow: hidden;
+      color: Variables.$color-text-main;
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.4;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+          color: Variables.$color-primary;
+        }
+      }
+    }
+  }
+
+  &__brand {
+    width: 100%;
+    overflow: hidden;
+    color: Variables.$color-text-muted;
+    font-size: 0.68rem;
+    font-weight: 750;
+    letter-spacing: 0.04em;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  &__condition {
+    margin-bottom: 0.75rem;
+
+    span {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background-color: Variables.$color-bg-light;
+      color: Variables.$color-primary;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+  }
+
+  /* Price and action controls are stacked to prevent narrow buttons. */
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.7rem;
+    width: 100%;
+    min-width: 0;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid Variables.$color-bg-light;
+    box-sizing: border-box;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+
+    > button {
+      width: 100%;
+      min-width: 0;
+      min-height: 36px;
+      flex: 1 1 auto;
+      box-sizing: border-box;
+    }
+  }
+
+  &__buy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 36px;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    background-color: #ffffff;
+    color: Variables.$color-primary;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+
+    svg {
+      flex: 0 0 auto;
+    }
+
+    &:hover {
+      border-color: Variables.$color-primary;
+      background-color: Variables.$color-primary;
+      color: #ffffff;
+    }
+  }
+}
+
+/* The component uses this class for the displayed price in both variants. */
+.shop-product-card__price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+
+  strong {
+    color: Variables.$color-text-main;
+    font-size: 1.08rem;
+    font-weight: 850;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.shop-product-card__service {
+  display: inline-block;
+  max-width: 100%;
+  margin-top: 4px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #f0fdf4;
+  color: #15803d;
+  font-size: 0.65rem;
+  font-weight: 700;
+  white-space: normal;
+}
+
+.shop-product-card__delivery {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  margin-top: 3px;
+  overflow-wrap: anywhere;
+  color: Variables.$color-text-muted;
+  font-size: 0.68rem;
+  font-weight: 500;
+
+  
+}
+
+.shop-product-card__actions .make_offer,
+.category-product-card__actions .nake-offer-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  width: 100%;
+  min-width: 0;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid Variables.$color-primary;
+  border-radius: 9px;
+  background-color: #ffffff;
+  color: Variables.$color-primary;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    border-color: Variables.$color-primary-hover;
+    background-color: Variables.$color-bg-light;
+    color: Variables.$color-primary-hover;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-product-card,
+  .category-product-card {
+    border-radius: 12px;
+
+    &__media {
+      padding: 7px;
+    }
+
+    &__content {
+      padding: 0.7rem;
+
+      h2 {
+        min-height: 2.6em;
+        margin-bottom: 0.4rem;
+        font-size: 0.82rem;
+      }
+    }
+
+    &__bottom {
+      gap: 0.6rem;
+      padding-top: 0.65rem;
+    }
+
+    &__price strong {
+      font-size: 1rem;
+    }
+
+    &__actions > button {
+      min-height: 34px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shop-product-card,
+  .category-product-card,
+  .shop-product-card__image-link img,
+  .category-product-card__image-link img {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* ==========================================================================
-   MASTER SINGLE PRODUCT CONTAINER (.product-details)
+   MASTER SINGLE PRODUCT MAIN VIEW CONTAINER (.product-details)
    ========================================================================== */
 .product-details {
   width: 100%;
@@ -20,16 +20,16 @@
 }
 .product-details .section-eyebrow, .product-details__brand-label {
   display: inline-block;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
   color: #66704A;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   margin-bottom: 0.5rem;
 }
 
 /* ==========================================================================
-   1. STRUCTURAL BREADCRUMB HEADER NAV
+   1. BREADCRUMB STEERING HEADER NAVIGATION
    ========================================================================== */
 .product-details__nav-header {
   display: flex;
@@ -41,7 +41,6 @@
   margin-bottom: 1.75rem;
   width: 100%;
   box-sizing: border-box;
-  margin-top: 4rem;
 }
 @media (min-width: 640px) {
   .product-details__nav-header {
@@ -78,7 +77,7 @@
 }
 
 /* ==========================================================================
-   2. PRIMARY SINGLE PRODUCT ASYMMETRIC GRID CONTAINER
+   2. PRIMARY ASYMMETRIC GRID CANVAS WRAPPER (.product-details__main-wrapper)
    ========================================================================== */
 .product-details__main-wrapper {
   display: flex;
@@ -95,7 +94,7 @@
   }
 }
 
-/* MEDIA Showcase Display Frames */
+/* LEFT COLUMN — MEDIA VISUAL SHOWCASE FRAMES */
 .product-details__media-showcase {
   display: flex;
   flex-direction: column;
@@ -168,7 +167,7 @@
   transform: scale(0.96);
 }
 
-/* INTERACTIVE SPECIFICATIONS METRICS DETAIL COLUMN */
+/* RIGHT COLUMN — INTERACTIVE SPECIFICATIONS META INFO PANEL */
 .product-details__content-panel {
   display: flex;
   flex-direction: column;
@@ -185,7 +184,7 @@
 .product-details__content-panel .product-details__product-title {
   margin: 0 0 1rem 0;
   font-size: 1.65rem;
-  font-weight: 800;
+  font-weight: 850;
   color: #111111;
   letter-spacing: -0.035em;
   line-height: 1.2;
@@ -205,10 +204,10 @@
   width: 100%;
 }
 
-/* GRANULAR TECHNICAL SPECIFICATION MICRO BADGES */
+/* TECHNICAL SPECIFICATION TAG METADATA BADGES (.product-details__condition-badge) */
 .product-details__condition-badge {
   display: inline-flex;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.45rem;
   margin-right: 0.35rem;
 }
 .product-details__condition-badge span {
@@ -225,12 +224,53 @@
   font-weight: 700;
 }
 
-/* FINANCIAL PRICING GROUPS */
+/* SECURE PERSONAL COLLECTION PHYSICAL LOCATION BANNER LAYER */
+.product-details__personal-collection {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: #fffbef;
+  border: 1px solid #fef3c7;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 0.5rem 0 1.25rem 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.product-details__personal-collection svg {
+  font-size: 1.2rem;
+  color: #d97706;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.product-details__personal-collection div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.product-details__personal-collection div strong {
+  font-size: 0.88rem;
+  font-weight: 750;
+  color: #92400e;
+}
+.product-details__personal-collection div p {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: #b45309;
+}
+.product-details__personal-collection div p strong {
+  display: inline;
+  color: #78350f;
+  font-weight: 800;
+}
+
+/* FINANCIAL TOTALIZER PRICING BLOCKS */
 .product-details__pricing-matrix {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-top: 0.5rem;
+  margin: 1.5rem 0 0.5rem 0;
   width: 100%;
 }
 
@@ -246,25 +286,38 @@
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
 }
-.product-details__price-row .product-details__strike-price {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #666666;
-  font-variant-numeric: tabular-nums;
-}
 
-.product-details__savings-banner {
-  margin: 0;
-  font-size: 0.8rem;
+/* Premium Minimalist Ribbon Wash Badges */
+.product-details__service {
+  display: inline-block;
+  font-size: 0.65rem;
   font-weight: 700;
-  color: #b45309;
-  background-color: #fef3c7;
-  padding: 4px 8px;
-  border-radius: 5px;
+  color: #15803d;
+  background-color: #f0fdf4;
+  padding: 3px 8px;
+  border-radius: 4px;
   align-self: flex-start;
+  margin-top: 2px;
+  white-space: nowrap;
 }
 
-/* ASSURANCES SECURITY EMBLEM BAR */
+.product-details__delivery {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #666666;
+  margin: 6px 0 0 0;
+  text-align: left;
+  width: 100%;
+}
+.product-details__delivery svg {
+  font-size: 1rem;
+  color: #66704A;
+}
+
+/* APPLICATION ESCROW PROTECTION GUARANTEES STRIP */
 .product-details__safety-strip {
   display: flex;
   align-items: center;
@@ -273,7 +326,7 @@
   border: 1px solid rgba(104, 118, 75, 0.15);
   border-radius: 12px;
   padding: 12px 14px;
-  margin: 1.25rem 0;
+  margin: 1rem 0 1.5rem;
   width: 100%;
   box-sizing: border-box;
 }
@@ -290,7 +343,7 @@
   font-weight: 600;
 }
 
-/* FIXED-SIZE ACTION CONSOLE LAYER BUTTONS BUTTONS */
+/* FIXED-SIZE ACTION CONSOLE LAYER CTAS */
 .product-details__action-row {
   display: flex;
   align-items: center;
@@ -298,6 +351,7 @@
   width: 100%;
   margin-top: 0.5rem;
   box-sizing: border-box;
+  /* Full-width responsive stack breakout reserved exclusively for tiny device viewports */
 }
 @media (max-width: 480px) {
   .product-details__action-row {
@@ -310,7 +364,7 @@
   }
 }
 .product-details__action-row .product-details__buy-now-btn {
-  width: 180px;
+  width: 50%;
   height: 44px;
   flex-shrink: 0;
   display: inline-flex;
@@ -336,7 +390,7 @@
   transform: scale(0.985);
 }
 .product-details__action-row .product-details__wishlist-btn {
-  width: 140px;
+  width: 50%;
   height: 44px;
   flex-shrink: 0;
   display: inline-flex;
@@ -378,8 +432,9 @@
 }
 
 /* ==========================================================================
-   3. VALUE PROPOSITIONS BAR MATRIX LAYOUT
-   ========================================================================== */
+3. VALUE PROPOSITIONS STRIP ASSURANCES LOGISTICS BAR
+ROW TRACK ON HANDSETS / COLUMN GRID TRACKS ON DESKTOPS
+========================================================================== */
 .product-details__trust-bar {
   display: flex;
   width: 100%;
@@ -387,7 +442,7 @@
   border-top: 1px solid #e5e5e5;
   padding-top: 2.5rem;
   box-sizing: border-box;
-  /* 🚀 MOBILE CONFIGURATION: Fluid touch horizontal scroll path loop tracks */
+  /* MOBILE PROFILE MAPS: Arranged as an horizontal swipable carousel line ribbon track */
   flex-direction: row;
   overflow-x: auto;
   gap: 24px;
@@ -409,7 +464,7 @@
   box-sizing: border-box;
 }
 .product-details__trust-bar {
-  /* 🚀 DESKTOP ORIENTATION RE-ARRANGEMENT: Transform into columns grids layout */
+  /* DESKTOP VIEWPORTS LAYOUT: Re-orients into side-by-side columns blocks */
 }
 @media (min-width: 1024px) {
   .product-details__trust-bar {
@@ -449,7 +504,7 @@
 }
 
 /* ==========================================================================
-3.a 🚀 NEW: SAME PRODUCTS FROM SELLER REVELATION CAROUSEL CARD FEEDS (.products)
+3.a SAME PRODUCTS FROM SELLER CAROUSEL LOOP FEED CODES (.products)
 ========================================================================== */
 .products.section {
   width: 100%;
@@ -473,7 +528,7 @@
   letter-spacing: -0.025em;
 }
 .products.section {
-  /* Responsive adaptive product loop cards feed track grids mapping */
+  /* Symmetrical grid tracks allocations for responsive multi variant catalog layout views */
 }
 .products.section .product-grid {
   display: grid;
@@ -571,28 +626,8 @@
   transform: scale(1.035);
 }
 
-@media (max-width: 480px) {
-  .products.section {
-    margin-top: 2.5rem;
-    padding-top: 2rem;
-  }
-  .products.section .product-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.65rem;
-  }
-  .products.section .product-card {
-    min-width: 0;
-    border-radius: 10px;
-  }
-  .products.section .product-card__media {
-    padding: 6px;
-  }
-  .products.section .product-card__info {
-    padding: 0.65rem;
-  }
-}
 /* ==========================================================================
-4. SLEEK HIGH-FIDELITY COMPACT FAULT ERROR BANNERS
+4. SLEEK HIGH-FIDELITY COMPACT SYSTEM RUNTIME FAULT ERROR BANNER
 ========================================================================== */
 .product-details__error-state {
   display: flex;
@@ -629,9 +664,7 @@
   color: rgb(185.6763485477, 62.9236514523, 62.9236514523);
 }
 
-/* ==========================================================================
-SYSTEM MOTION TIMING TRANSITIONS (KEYFRAMES SELECTIONS)
-========================================================================== */
+/* Hardware Entry Animation timing framework metrics rules */
 @keyframes prodDetailsErrorPop {
   from {
     opacity: 0;
@@ -642,7 +675,7 @@ SYSTEM MOTION TIMING TRANSITIONS (KEYFRAMES SELECTIONS)
     transform: translateY(0) scale(1);
   }
 }
-/* Screen Reader Reduced Motions Fallback Overrides Gates */
+/* Screen Reader Reduced Motion Accessibility Guidelines Overrides Gates */
 @media (prefers-reduced-motion: reduce) {
   .product-details__error-message,
   .product-details__thumb-trigger,
@@ -650,64 +683,5 @@ SYSTEM MOTION TIMING TRANSITIONS (KEYFRAMES SELECTIONS)
     animation: none !important;
     transition: none !important;
     transform: none !important;
-  }
-}
-/* ==========================================================================
-   PERSONAL COLLECTION AVAILABILITY NOTICE
-   Shown on the product page when personal collection is enabled and a city
-   has been provided. The exact collection address remains undisclosed.
-   ========================================================================== */
-.product-details__personal-collection {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  width: 100%;
-  margin: 1rem 0;
-  padding: 14px 16px;
-  box-sizing: border-box;
-  border: 1px solid rgba(102, 112, 74, 0.28);
-  border-left: 4px solid #66704A;
-  border-radius: 10px;
-  background-color: rgb(207.7161290323, 213.3451612903, 191.9548387097);
-  color: #111111;
-}
-.product-details__personal-collection > svg {
-  flex: 0 0 auto;
-  margin-top: 2px;
-  font-size: 1.2rem;
-  color: #66704A;
-}
-.product-details__personal-collection > div {
-  min-width: 0;
-}
-.product-details__personal-collection > div > strong {
-  display: block;
-  margin: 0;
-  color: #111111;
-  font-size: 0.92rem;
-  font-weight: 750;
-  line-height: 1.4;
-}
-.product-details__personal-collection p {
-  margin: 5px 0 0;
-  color: #666666;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-}
-.product-details__personal-collection p strong {
-  display: inline;
-  color: #66704A;
-  font-weight: 750;
-}
-
-@media (max-width: 480px) {
-  .product-details__personal-collection {
-    gap: 10px;
-    margin: 0.85rem 0;
-    padding: 12px;
-  }
-  .product-details__personal-collection p {
-    font-size: 0.82rem;
   }
 }/*# sourceMappingURL=ProductDetails.css.map */

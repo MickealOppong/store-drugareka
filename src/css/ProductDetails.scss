@@ -2,7 +2,7 @@
 @use "Variables.scss" as Variables;
 
 /* ==========================================================================
-   MASTER SINGLE PRODUCT CONTAINER (.product-details)
+   MASTER SINGLE PRODUCT MAIN VIEW CONTAINER (.product-details)
    ========================================================================== */
 .product-details {
   width: 100%;
@@ -20,17 +20,17 @@
   .section-eyebrow,
   &__brand-label {
     display: inline-block;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 800;
     text-transform: uppercase;
-    color: Variables.$color-primary; // 🌿 Organic Olive Green Theme Accent
-    letter-spacing: 0.1em;
+    color: Variables.$color-primary; // 🌿 Rich Earthy Olive Green Accent
+    letter-spacing: 0.08em;
     margin-bottom: 0.5rem;
   }
 }
 
 /* ==========================================================================
-   1. STRUCTURAL BREADCRUMB HEADER NAV
+   1. BREADCRUMB STEERING HEADER NAVIGATION
    ========================================================================== */
 .product-details__nav-header {
   display: flex;
@@ -42,7 +42,6 @@
   margin-bottom: 1.75rem;
   width: 100%;
   box-sizing: border-box;
-  margin-top: 4rem;
 
   @include Variables.media-up(Variables.$breakpoint-sm) {
     flex-direction: row;
@@ -82,7 +81,7 @@
 }
 
 /* ==========================================================================
-   2. PRIMARY SINGLE PRODUCT ASYMMETRIC GRID CONTAINER
+   2. PRIMARY ASYMMETRIC GRID CANVAS WRAPPER (.product-details__main-wrapper)
    ========================================================================== */
 .product-details__main-wrapper {
   display: flex;
@@ -98,7 +97,7 @@
   }
 }
 
-/* MEDIA Showcase Display Frames */
+/* LEFT COLUMN — MEDIA VISUAL SHOWCASE FRAMES */
 .product-details__media-showcase {
   display: flex;
   flex-direction: column;
@@ -129,7 +128,7 @@
   .product-details__main-image {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain;
+    object-fit: contain; // Guarantees product item borders never compress or distort edges
     display: block;
     mix-blend-mode: multiply;
   }
@@ -154,7 +153,9 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    transition: border-color 0.15s ease, transform 0.1s ease;
+    transition:
+      border-color 0.15s ease,
+      transform 0.1s ease;
 
     img {
       max-width: 100%;
@@ -173,7 +174,7 @@
   }
 }
 
-/* INTERACTIVE SPECIFICATIONS METRICS DETAIL COLUMN */
+/* RIGHT COLUMN — INTERACTIVE SPECIFICATIONS META INFO PANEL */
 .product-details__content-panel {
   display: flex;
   flex-direction: column;
@@ -189,7 +190,7 @@
   .product-details__product-title {
     margin: 0 0 1rem 0;
     font-size: 1.65rem;
-    font-weight: 800;
+    font-weight: 850;
     color: Variables.$color-text-main;
     letter-spacing: -0.035em;
     line-height: 1.2;
@@ -210,11 +211,11 @@
   }
 }
 
-/* GRANULAR TECHNICAL SPECIFICATION MICRO BADGES */
+/* TECHNICAL SPECIFICATION TAG METADATA BADGES (.product-details__condition-badge) */
 .product-details__condition-badge {
   display: inline-flex;
-  margin-bottom: 0.5rem;
-  margin-right: 0.35rem; // Flexible horizontal spacing allocation for dense properties loops
+  margin-bottom: 0.45rem;
+  margin-right: 0.35rem; // Dense wrap logical cushion clearances
 
   span {
     font-size: 0.85rem;
@@ -232,12 +233,58 @@
   }
 }
 
-/* FINANCIAL PRICING GROUPS */
+/* SECURE PERSONAL COLLECTION PHYSICAL LOCATION BANNER LAYER */
+.product-details__personal-collection {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: #fffbef; // Gentle amber wash layer for notice pop focus parameters
+  border: 1px solid #fef3c7;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 0.5rem 0 1.25rem 0;
+  width: 100%;
+  box-sizing: border-box;
+
+  svg {
+    font-size: 1.2rem;
+    color: #d97706; // Amber accent icon sync
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    strong {
+      font-size: 0.88rem;
+      font-weight: 750;
+      color: #92400e;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.82rem;
+      line-height: 1.4;
+      color: #b45309;
+
+      strong {
+        display: inline;
+        color: #78350f;
+        font-weight: 800;
+      }
+    }
+  }
+}
+
+/* FINANCIAL TOTALIZER PRICING BLOCKS */
 .product-details__pricing-matrix {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-top: 0.5rem;
+  margin: 1.5rem 0 0.5rem 0;
   width: 100%;
 }
 
@@ -253,36 +300,49 @@
     letter-spacing: -0.03em;
     font-variant-numeric: tabular-nums;
   }
+}
 
-  .product-details__strike-price {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: Variables.$color-text-muted;
-    font-variant-numeric: tabular-nums;
+/* Premium Minimalist Ribbon Wash Badges */
+.product-details__service {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #15803d;
+  background-color: #f0fdf4; // Lightweight emerald wash ribbon
+  padding: 3px 8px;
+  border-radius: 4px;
+  align-self: flex-start;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+.product-details__delivery {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: Variables.$color-text-muted;
+  margin: 6px 0 0 0;
+  text-align: left;
+  width: 100%;
+
+  svg {
+    font-size: 1rem;
+    color: Variables.$color-primary;
   }
 }
 
-.product-details__savings-banner {
-  margin: 0;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #b45309;
-  background-color: #fef3c7;
-  padding: 4px 8px;
-  border-radius: 5px;
-  align-self: flex-start;
-}
-
-/* ASSURANCES SECURITY EMBLEM BAR */
+/* APPLICATION ESCROW PROTECTION GUARANTEES STRIP */
 .product-details__safety-strip {
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: #f0f7f4;
+  background-color: #f0f7f4; // Gentle safe escrow soft green tint
   border: 1px solid rgba(104, 118, 75, 0.15);
   border-radius: 12px;
   padding: 12px 14px;
-  margin: 1.25rem 0;
+  margin: 1rem 0 1.5rem;
   width: 100%;
   box-sizing: border-box;
 
@@ -301,7 +361,7 @@
   }
 }
 
-/* FIXED-SIZE ACTION CONSOLE LAYER BUTTONS BUTTONS */
+/* FIXED-SIZE ACTION CONSOLE LAYER CTAS */
 .product-details__action-row {
   display: flex;
   align-items: center;
@@ -310,19 +370,20 @@
   margin-top: 0.5rem;
   box-sizing: border-box;
 
+  /* Full-width responsive stack breakout reserved exclusively for tiny device viewports */
   @media (max-width: 480px) {
     flex-direction: column;
     gap: 10px;
-    
-    & > button { 
-      width: 100% !important; 
+
+    & > button {
+      width: 100% !important;
       max-width: 100% !important;
     }
   }
 
   .product-details__buy-now-btn {
-    width: 180px; // Fixed spatial footprint parameter tokens
-    height: Variables.$touch-target-min; // Enforces global tactile standard minimum boundaries (48px)
+    width: 50%; // Enforces a solid, uniform fixed width allocation grid footprint
+    height: Variables.$touch-target-min; // Connects to strict 48px tactile touch boundaries limits
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
@@ -337,20 +398,25 @@
     font-weight: 700;
     cursor: pointer;
     box-shadow: 0 4px 14px rgba(Variables.$color-primary, 0.16);
-    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      transform 0.1s ease,
+      box-shadow 0.2s ease;
 
     &:hover {
-      background-color: Variables.$color-primary-hover;
+      background-color: Variables.$color-primary-hover; // Deep forest branding shift state
       box-shadow: 0 6px 20px rgba(Variables.$color-primary, 0.24);
     }
 
     &:active {
-      transform: scale(0.985);
+      transform: scale(
+        0.985
+      ); // Tactical compression micro-interaction scale feedback
     }
   }
 
   .product-details__wishlist-btn {
-    width: 140px; // Fixed spatial footprint parameter tokens
+    width: 50%; // Enforces a solid, uniform fixed width allocation grid footprint
     height: Variables.$touch-target-min;
     flex-shrink: 0;
     display: inline-flex;
@@ -366,28 +432,23 @@
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-
     svg {
       font-size: 1.15rem;
       transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     &:hover {
       background-color: Variables.$color-bg-light;
       color: #0f172a;
       border-color: #94a3b8;
     }
-
     &--active {
       background-color: #fff1f2;
       border-color: #fecdd3;
       color: #e11d48;
-
       svg {
         fill: #e11d48;
         transform: scale(1.08);
       }
-
       &:hover {
         background-color: #ffe4e6;
         color: #be123c;
@@ -396,10 +457,10 @@
     }
   }
 }
-
 /* ==========================================================================
-   3. VALUE PROPOSITIONS BAR MATRIX LAYOUT
-   ========================================================================== */
+3. VALUE PROPOSITIONS STRIP ASSURANCES LOGISTICS BAR
+ROW TRACK ON HANDSETS / COLUMN GRID TRACKS ON DESKTOPS
+========================================================================== */
 .product-details__trust-bar {
   display: flex;
   width: 100%;
@@ -407,309 +468,229 @@
   border-top: 1px solid Variables.$color-border;
   padding-top: 2.5rem;
   box-sizing: border-box;
-
-  /* 🚀 MOBILE CONFIGURATION: Fluid touch horizontal scroll path loop tracks */
+  /* MOBILE PROFILE MAPS: Arranged as an horizontal swipable carousel line ribbon track */
   flex-direction: row;
   overflow-x: auto;
   gap: 24px;
   padding-left: 4px;
   padding-right: 4px;
   scroll-snap-type: x mandatory;
--webkit-overflow-scrolling: touch;
-scrollbar-width: none;
-&::-webkit-scrollbar {
-display: none;
-}
-.product-details__trust-item {
-scroll-snap-align: start;
-flex: 0 0 240px;
-display: flex;
-align-items: flex-start;
-gap: 12px;
-box-sizing: border-box;
-}
-/* 🚀 DESKTOP ORIENTATION RE-ARRANGEMENT: Transform into columns grids layout */
-@include Variables.media-up(Variables.$breakpoint-lg) {
-display: grid;
-grid-template-columns: repeat(4, minmax(0, 1fr));
-gap: 24px;
-overflow-x: visible;
-scroll-snap-type: none;
-.product-details__trust-item {
-flex: none;
-width: auto;
-}
-}
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none; // Truncates webkit layout scrollbars completely out of trust bars
+  }
+  .product-details__trust-item {
+    scroll-snap-align: start;
+    flex: 0 0 240px; // Insulates width parameters block size, forcing grid cards feel natively
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    box-sizing: border-box;
+  }
+  /* DESKTOP VIEWPORTS LAYOUT: Re-orients into side-by-side columns blocks */
+  @include Variables.media-up(Variables.$breakpoint-lg) {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    overflow-x: visible;
+    scroll-snap-type: none;
+    .product-details__trust-item {
+      flex: none;
+      width: auto;
+    }
+  }
 }
 .product-details__trust-icon {
-font-size: 1.35rem;
-color: Variables.$color-primary;
-margin-top: 2px;
-flex-shrink: 0;
+  font-size: 1.35rem;
+  color: Variables.$color-primary;
+  margin-top: 2px;
+  flex-shrink: 0;
 }
 .product-details__trust-text-group {
-display: flex;
-flex-direction: column;
-gap: 2px;
-strong { font-size: 0.9rem; font-weight: 750; color: Variables.$color-text-main; }
-span { font-size: 0.82rem; line-height: 1.4; color: Variables.$color-text-muted; }
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  strong {
+    font-size: 0.9rem;
+    font-weight: 750;
+    color: Variables.$color-text-main;
+  }
+  span {
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: Variables.$color-text-muted;
+  }
 }
 /* ==========================================================================
-3.a 🚀 NEW: SAME PRODUCTS FROM SELLER REVELATION CAROUSEL CARD FEEDS (.products)
+3.a SAME PRODUCTS FROM SELLER CAROUSEL LOOP FEED CODES (.products)
 ========================================================================== */
 .products.section {
-width: 100%;
-margin: 4rem 0 3rem;
-border-top: 1px solid Variables.$color-border;
-padding-top: 3rem;
-box-sizing: border-box;
-.section-heading {
-display: flex;
-align-items: center;
-justify-content: space-between;
-margin-bottom: 1.75rem;
-text-align: left;
-h2 {
-margin: 0;
-font-size: 1.25rem;
-font-weight: 800;
-color: Variables.$color-text-main;
-letter-spacing: -0.025em;
-}
-}
-/* Responsive adaptive product loop cards feed track grids mapping */
-.product-grid {
-display: grid;
-grid-template-columns: repeat(2, minmax(0, 1fr));
-gap: 1rem;
-width: 100%;
-box-sizing: border-box;
-@include Variables.media-up(Variables.$breakpoint-sm) {
-grid-template-columns: repeat(3, minmax(0, 1fr));
-gap: 1.25rem;
-}
-@include Variables.media-up(Variables.$breakpoint-lg) {
-grid-template-columns: repeat(4, minmax(0, 1fr));
-gap: 1.5rem;
-}
-}
-/* Catalog Product Line Item Structural Wrapper Nodes */
-.product-card {
-display: flex;
-flex-direction: column;
-background-color: Variables.$background;
-border: 1px solid Variables.$color-border;
-border-radius: 12px;
-overflow: hidden;
-text-decoration: none;
-box-sizing: border-box;
-transition: border-color 0.15s ease, box-shadow 0.15s ease;
-&__media {
-display: flex;
-align-items: center;
-justify-content: center;
-width: 100%;
-aspect-ratio: 1 / 0.95;
-background-color: Variables.$color-bg-light;
-padding: 12px;
-box-sizing: border-box;
-overflow: hidden;
-img {
-max-width: 100%;
-max-height: 100%;
-object-fit: contain;
-transition: transform 0.22s ease;
-}
-}
-&__info {
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 0.85rem 1rem 1rem;
-text-align: left;
-box-sizing: border-box;
-h3 {
-margin: 0.25rem 0 0.5rem 0;
-font-size: 0.88rem;
-font-weight: 600;
-color: Variables.$color-text-main;
-line-height: 1.4;
-display: -webkit-box;
-overflow: hidden;
--webkit-line-clamp: 2;
-line-clamp: 2;
--webkit-box-orient: vertical;
-min-height: 2.8em;
-}
-strong {
-font-size: 0.95rem;
-font-weight: 800;
-color: Variables.$color-text-main;
-}
-}
-&__condition {
-display: inline-block;
-font-size: 0.68rem;
-font-weight: 700;
-color: Variables.$color-primary;
-background-color: Variables.$color-bg-light;
-padding: 2px 6px;
-border-radius: 4px;
-text-transform: uppercase;
-letter-spacing: 0.02em;
-}
-&:hover {
-border-color: color.adjust(Variables.$color-border, $lightness: -8%);
-box-shadow: 0 8px 24px rgba(30, 38, 24, 0.05);
-.product-card__media img {
-transform: scale(1.035); // Delicate image drift tracking magnification micro-interaction
-}
-}
-}
-}
-
-@media (max-width: 480px) {
-  .products.section {
-    margin-top: 2.5rem;
-    padding-top: 2rem;
-
-    .product-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.65rem;
+  width: 100%;
+  margin: 4rem 0 3rem;
+  border-top: 1px solid Variables.$color-border;
+  padding-top: 3rem;
+  box-sizing: border-box;
+  .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.75rem;
+    text-align: left;
+    h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: Variables.$color-text-main;
+      letter-spacing: -0.025em;
     }
-
-    .product-card {
-      min-width: 0;
-      border-radius: 10px;
-
-      &__media {
-        padding: 6px;
+  }
+  /* Symmetrical grid tracks allocations for responsive multi variant catalog layout views */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+    @include Variables.media-up(Variables.$breakpoint-lg) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+  }
+  /* Catalog Product Line Item Structural Wrapper Nodes */
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    background-color: Variables.$background;
+    border: 1px solid Variables.$color-border;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+    &__media {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      aspect-ratio: 1 / 0.95;
+      background-color: Variables.$color-bg-light;
+      padding: 12px;
+      box-sizing: border-box;
+      overflow: hidden;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        transition: transform 0.22s ease;
       }
-
-      &__info {
-        padding: 0.65rem;
+    }
+    &__info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0.85rem 1rem 1rem;
+      text-align: left;
+      box-sizing: border-box;
+      h3 {
+        margin: 0.25rem 0 0.5rem 0;
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: Variables.$color-text-main;
+        line-height: 1.4;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        min-height: 2.8em;
+      }
+      strong {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: Variables.$color-text-main;
+      }
+    }
+    &__condition {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: Variables.$color-primary;
+      background-color: Variables.$color-bg-light;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    &:hover {
+      border-color: color.adjust(Variables.$color-border, $lightness: -8%);
+      box-shadow: 0 8px 24px rgba(30, 38, 24, 0.05);
+      .product-card__media img {
+        transform: scale(1.035);
       }
     }
   }
 }
-
 /* ==========================================================================
-4. SLEEK HIGH-FIDELITY COMPACT FAULT ERROR BANNERS
+4. SLEEK HIGH-FIDELITY COMPACT SYSTEM RUNTIME FAULT ERROR BANNER
 ========================================================================== */
 .product-details__error-state {
-display: flex;
-align-items: center;
-justify-content: center;
-min-height: 45vh;
-width: 100%;
-padding: 2rem 1rem;
-box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 45vh;
+  width: 100%;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
 }
 .product-details__error-message {
-display: inline-flex;
-align-items: center;
-gap: 0.65rem;
-padding: 0.85rem 1.25rem;
-background-color: Variables.$color-error-bg;
-border: 1px solid rgba(Variables.$color-error, 0.14);
-border-radius: 12px;
-color: Variables.$color-error;
-font-family: Variables.$font-sans;
-font-size: 0.88rem;
-font-weight: 600;
-line-height: 1.45;
-text-align: left;
-max-width: 460px;
-box-shadow: 0 4px 12px rgba(Variables.$color-error, 0.03);
-box-sizing: border-box;
-animation: prodDetailsErrorPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
-.product-details__error-icon {
-font-size: 1.15rem;
-flex-shrink: 0;
-color: color.adjust(Variables.$color-error, $lightness: -4%);
-}
-}
-/* ==========================================================================
-SYSTEM MOTION TIMING TRANSITIONS (KEYFRAMES SELECTIONS)
-========================================================================== */
-@keyframes prodDetailsErrorPop {
-from { opacity: 0; transform: translateY(6px) scale(0.98); }
-to { opacity: 1; transform: translateY(0) scale(1); }
-}
-/* Screen Reader Reduced Motions Fallback Overrides Gates */
-@media (prefers-reduced-motion: reduce) {
-.product-details__error-message,
-.product-details__thumb-trigger,
-.product-card__media img {
-animation: none !important;
-transition: none !important;
-transform: none !important;
-}
-}
-
-
-/* ==========================================================================
-   PERSONAL COLLECTION AVAILABILITY NOTICE
-   Shown on the product page when personal collection is enabled and a city
-   has been provided. The exact collection address remains undisclosed.
-   ========================================================================== */
-.product-details__personal-collection {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  width: 100%;
-  margin: 1rem 0;
-  padding: 14px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1.25rem;
+  background-color: Variables.$color-error-bg;
+  border: 1px solid rgba(Variables.$color-error, 0.14);
+  border-radius: 12px;
+  color: Variables.$color-error;
+  font-family: Variables.$font-sans;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: left;
+  max-width: 460px;
+  box-shadow: 0 4px 12px rgba(Variables.$color-error, 0.03);
   box-sizing: border-box;
-  border: 1px solid color.adjust(Variables.$color-primary, $alpha: -0.72);
-  border-left: 4px solid Variables.$color-primary;
-  border-radius: 10px;
-  background-color: color.adjust(Variables.$color-primary, $lightness: 43%);
-  color: Variables.$color-text-main;
-
-  > svg {
-    flex: 0 0 auto;
-    margin-top: 2px;
-    font-size: 1.2rem;
-    color: Variables.$color-primary;
-  }
-
-  > div {
-    min-width: 0;
-  }
-
-  > div > strong {
-    display: block;
-    margin: 0;
-    color: Variables.$color-text-main;
-    font-size: 0.92rem;
-    font-weight: 750;
-    line-height: 1.4;
-  }
-
-  p {
-    margin: 5px 0 0;
-    color: Variables.$color-text-muted;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    overflow-wrap: anywhere;
-
-    strong {
-      display: inline;
-      color: Variables.$color-primary;
-      font-weight: 750;
-    }
+  animation: prodDetailsErrorPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  .product-details__error-icon {
+    font-size: 1.15rem;
+    flex-shrink: 0;
+    color: color.adjust(Variables.$color-error, $lightness: -4%);
   }
 }
-
-@media (max-width: 480px) {
-  .product-details__personal-collection {
-    gap: 10px;
-    margin: 0.85rem 0;
-    padding: 12px;
-
-    p {
-      font-size: 0.82rem;
-    }
+/* Hardware Entry Animation timing framework metrics rules */
+@keyframes prodDetailsErrorPop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+/* Screen Reader Reduced Motion Accessibility Guidelines Overrides Gates */
+@media (prefers-reduced-motion: reduce) {
+  .product-details__error-message,
+  .product-details__thumb-trigger,
+  .product-card__media img {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
   }
 }

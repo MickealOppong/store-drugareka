@@ -384,6 +384,14 @@
     "categories": {
       "all": "All"
     },
+    "banner": {
+  "eyebrow": "Discover Kasoa",
+  "title": "Grand Opening. Pay less.",
+  "description": "Discover unique products and great deals on Kasoa.",
+  "cta": "Explore products",
+  "note": "Unique finds. Great prices.",
+  "visual_tag": "Great finds"
+},
     "toolbar": {
       "products_count": "products",
       "filters": "Filters",

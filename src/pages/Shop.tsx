@@ -1,24 +1,23 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   FiChevronDown,
-  FiEdit,
-  FiHeart,
   FiSearch,
-  FiShoppingBag,
   FiX,
 } from "react-icons/fi";
 
 import { useTranslation } from "react-i18next";
 import {
-  Link,
   useLocation,
   useNavigate,
-  useSearchParams,
+  useSearchParams
 } from "react-router-dom";
 import { Loading, Pagination } from "../components";
 import { ErrorToast } from "../components/ErrorTaost";
 import MakeOfferodal from "../components/MakeOfferModal";
+import ProductListing from "../components/ProductListing";
 import SEO from "../components/SEO";
+import ShopBanner from "../components/ShopBanner";
+import '../css/ProductListimg.css';
 import "../css/Shop.css";
 import { COLLECTION_CITIES } from "../data/data";
 import {
@@ -34,11 +33,7 @@ import { useRecentViews } from "../hooks/useRecentViews";
 import { useAppSelector } from "../store";
 import type { TListTrans } from "../types/TListTrans";
 import type { TQueryDto } from "../types/TQueryDto";
-import {
-  formatPrice,
-  sanitizeBackendKey,
-  sanitizeCategoryKey,
-} from "../util/util";
+import { sanitizeCategoryKey } from "../util/util";
 
 const Shop = () => {
   //translation hook
@@ -99,7 +94,7 @@ const Shop = () => {
     { refetchOnFocus: true, refetchOnMountOrArgChange: true },
   );
   const products = data?.listings || [];
-  console.log(products);
+
 
   const { data: categories = [] } = useGetAllParentCategoriesQuery();
 
@@ -241,16 +236,13 @@ const Shop = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder={t("shop.header.search_placeholder")}
             />
-            {search && (
-              <button
-                type="button"
-                onClick={() => setSearchTerm("")}
-              >
-                <FiX />
-              </button>
-            )}
+         
           </div>
         </section>
+
+         {/* SHOP HEADER */}
+
+        <ShopBanner/>
 
         {/* =====================================================
                 CATEGORY NAVIGATION
@@ -314,7 +306,9 @@ const Shop = () => {
 
           <article>
             <div className="collection-city-filter__options">
-              {COLLECTION_CITIES.map((city) => {
+              {COLLECTION_CITIES.toSorted((a,b)=>{
+                  return  a.label.localeCompare(b.label, "pl")
+              }).map((city) => {
                 const isSelected = selectedCollectionCity === city.label;
 
                 return (
@@ -389,7 +383,7 @@ const Shop = () => {
         {isProductsLoading || addCartLoading ? (
           <Loading />
         ) : (
-          <section className="shop-page__products">
+          <section className="shop-page__products"   id="shop-products">
             {filteredProducts.length === 0 ? (
               <div className="shop-page__empty">
                 <FiSearch />
@@ -404,130 +398,22 @@ const Shop = () => {
                 </button>
               </div>
             ) : (
-              filteredProducts.map((product) => {
-                const isWishlisted = wishlists.includes(product.listingId);
-
-                const discount =
-                  product.oldPrice > 0 && product.oldPrice > product.newPrice
-                    ? Math.round(
-                        ((product.oldPrice - product.newPrice) /
-                          product.oldPrice) *
-                          100,
-                      )
-                    : 0;
-
-                return (
-                  <article
-                    className="shop-product-card"
-                    key={product.listingId}
-                  >
-                    {/* IMAGE */}
-                    <div className="shop-product-card__media">
-                      <Link
-                        to={`/shop/listing/${product.productSlug}`}
-                        className="shop-product-card__image-link"
-                      >
-                        <img
-                          src={product?.media[0]?.image}
-                          alt={product.productName}
-                          loading="lazy"
-                          onClick={() => addView(product.listingId)}
-                        />
-                      </Link>
-
-                      <span className="shop-product-card__discount">
-                        -{discount}%
-                      </span>
-
-                      <button
-                        className={`shop-product-card__wishlist ${isWishlisted ? "active" : ""}`}
-                        onClick={() => toggleWishlist(product.listingId)}
-                        aria-label={t("shop.product.add_wishlist")}
-                        style={{
-                          display:
-                            product.sellerId === Number(sellerProfileId)
-                              ? "none"
-                              : "flex",
-                        }}
-                      >
-                        <FiHeart />
-                      </button>
-                    </div>
-
-                    {/* CONTENT */}
-                    <div className="shop-product-card__content">
-                      <span className="shop-product-card__brand">
-                        {product.brand}
-                      </span>
-
-                      <h2>{product.productName}</h2>
-
-                      <div className="shop-product-card__condition">
-                        <span>
-                          {t(
-                            `product_conditions.conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`,
-                          )}
-                        </span>
-                      </div>
-
-                      <div className="shop-product-card__bottom">
-                       <div className="shop-product-card__price">
-  <strong>
-    {formatPrice(
-      product.newPrice + (product.serviceCharge ?? 0),
-    )} zł
-  </strong>
-
-  {product.serviceCharge > 0 && (
-    <span className="shop-product-card__service">
-      {t('shop.product.service_charge_included')}
-    </span>
-  )}
-
-  <span className="shop-product-card__delivery">
-    {t('shop.product.delivery_cost_extra')}
-  </span>
-</div>
-
-                        {/* If it's the seller's own product, show ONLY the Edit button */}
-                        {Number(sellerProfileId) === product.sellerId ? (
-                          <button
-                            className="shop-product-card__buy"
-                            aria-label="Edytuj produkt"
-                            onClick={() =>
-                              navigate(
-                                `/account/listings/${product.listingId}/edit`,
-                              )
-                            }
-                          >
-                            <FiEdit />
-                          </button>
-                        ) : (
-                          /* If it's a buyer, show both Make Offer (if negotiable) and Buy buttons mutually */
-                          <>
-                            {product.negotiable ? (
-                              <button
-                                className="make_offer"
-                                onClick={() => handleMakeOffer(product)}
-                              >
-                                {t("shop.product.make_offer")}
-                              </button>
-                            ) : (
-                              <button
-                                className="shop-product-card__buy"
-                                aria-label="Kup produkt"
-                                onClick={() => addItemToCart(product.listingId)}
-                              >
-                                <FiShoppingBag />
-                              </button>
-                            )}
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  </article>
-                );
-              })
+              filteredProducts.map((product) => (
+                <ProductListing
+                  key={product.listingId}
+                  product={product}
+                  isWishlisted={wishlists.includes(product.listingId)}
+                  isOwner={Number(sellerProfileId) === product.sellerId}
+                  variant="shop"
+                  onToggleWishlist={toggleWishlist}
+                  onMakeOffer={handleMakeOffer}
+                  onAddToCart={addItemToCart}
+                  onEdit={(listingId) =>
+                    navigate(`/account/listings/${listingId}/edit`)
+                  }
+                  onView={addView}
+                />
+              ))
             )}
           </section>
         )}

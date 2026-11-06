@@ -19,12 +19,13 @@
   box-sizing: border-box;
   display: none; // Hidden on mobile views by default
 
+
   @include Variables.media-up(Variables.$breakpoint-lg) {
     display: block;
   }
 
   &__inner {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0.75rem 1rem;
     display: flex;
@@ -85,6 +86,7 @@
     display: inline-flex;
     align-items: center;
     min-height: Variables.$touch-target-min;
+  
 
     &:hover {
       color: Variables.$color-primary;
@@ -93,13 +95,14 @@
     &.active {
       font-weight: 600;
       color: Variables.$color-primary;
+  
     }
 
     // Highlight accent styling custom-tailored for the seller funnel prompt
     &--sell {
-      color: Variables.$color-accent;
+      //color: Variables.$color-accent;
       font-weight: 600;
-
+     color: Variables.$color-accent !important;
 
       &:hover {
         color: color.scale(Variables.$color-accent, $lightness: -10%);
