@@ -12,6 +12,7 @@ import {
   useSearchParams
 } from "react-router-dom";
 import { Loading, Pagination } from "../components";
+import CookieBanner from "../components/CookieBanner";
 import { ErrorToast } from "../components/ErrorTaost";
 import Footer from "../components/Footer";
 import MakeOfferodal from "../components/MakeOfferModal";
@@ -470,6 +471,7 @@ useEffect(() => {
           />
         )}
         <Footer/>
+        <CookieBanner/>
       </main>
 
     </>
