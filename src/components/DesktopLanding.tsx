@@ -9,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 
 import "../css/DesktopLanding.css";
-import { useGetLandingListingQuery, useGetTop6ProductCategoriesQuery } from "../features/api/storeApi";
+import { useGetTop6ProductCategoriesQuery } from "../features/api/storeApi";
 import { sanitizeCategoryKey } from "../util/util";
 import hero from "./../assets/hero-large.png";
 import heroSmall from "./../assets/hero-small.png";
@@ -21,7 +21,6 @@ export default function DesktopLanding() {
   const { t } = useTranslation();
 
   // Curated products for the editorial showcase.
-  const { data: listings = [] } = useGetLandingListingQuery();
   const { data: topCategories = [] } = useGetTop6ProductCategoriesQuery();
 
   return (
