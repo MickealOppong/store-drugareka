@@ -10,13 +10,12 @@ import {
   DeliveryConfirmation,
   ErrorPage,
   Help,
-  Landing,
   Login,
   PaymentConfirmation,
   Register,
   ResetPassword,
-  Sell,
   SellerPayout,
+  SellWithUs,
   SharedLayout,
   Shipment,
   Shop,
@@ -74,7 +73,7 @@ function App() {
       children: [
         {
           index: true,
-          element: <Landing />,
+          element: <Shop />,
           loader: landingLoader(store),
         },
         {
@@ -83,7 +82,7 @@ function App() {
         },
         {
           path: "sell", 
-          element: <Sell />,
+          element: <SellWithUs />,
         },
         {
           path: "shop/listing/:slug",

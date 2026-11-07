@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiCheckCircle, FiPlus, FiX } from "react-icons/fi";
 import { useLocation, useNavigate } from "react-router";
@@ -16,7 +16,10 @@ export const ConditionFilter= () => {
   const {data:conditions=[]}= useGetAllConditionsQuery();
   const[selectedCondition,setSelectedCondition]=useState<string>('')
 
-  
+  useEffect(()=>{
+    const condition = searchParams.get("condition") || "";
+    setSelectedCondition(condition)
+  },[pathname])
 
   const handleToggleCondition = (condition:string) => {
     setSelectedCondition(condition)
@@ -27,8 +30,8 @@ export const ConditionFilter= () => {
   const handleClearAll = () => {
    setSelectedCondition('')
   
-    searchParams.set("condition", '');
-    navigate(`${pathname}?${searchParams.toString()}`);
+    searchParams.delete("condition");
+    navigate(`${pathname}?${searchParams.toString()}#category-products`);
   };
 
   return (

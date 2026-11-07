@@ -106,6 +106,7 @@ const Shop = () => {
     (state) => state.userSlice,
   );
 
+  
   // ==========================================================================
   // HIGH-PERFORMANCE CLIENT FILTERS MEMOIZATION MATRIX
   // ==========================================================================
@@ -204,6 +205,7 @@ const Shop = () => {
     nextParams.delete("isCollectionAvailable");
     nextParams.set("page", "1");
     nextParams.delete("condition");
+      nextParams.delete("brand");
     nextParams.set("category", "all_0");
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
   };

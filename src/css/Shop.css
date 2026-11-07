@@ -281,13 +281,13 @@
 @media (min-width: 640px) {
   .shop-page__products {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.25rem;
+    gap: 6px;
   }
 }
 @media (min-width: 1024px) {
   .shop-page__products {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 1.5rem;
+    gap: 6px;
   }
 }
 

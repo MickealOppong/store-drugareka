@@ -19,6 +19,7 @@ import { useGetWishlistCountQuery } from "../features/api/itemApi";
 import { userApi } from "../features/api/userApi";
 import { logoutUser } from "../features/slice/userSlice";
 import { useAppSelector } from "../store";
+import BrandFilter from "./BrandFilter";
 import CategoryTree from "./CategoryTree";
 import ConditionFilter from "./ConditionFilter";
 import Loading from "./Loading";
@@ -110,7 +111,7 @@ const MobileNav = () => {
     <header className="mn-header">
       <div className="mn-header__inner">
         <Link
-          to="/"
+          to="/shop?category=all_0"
           className="mn-brand"
           onClick={closeMenu}
           style={{ textTransform: "uppercase" }}
@@ -193,6 +194,7 @@ const MobileNav = () => {
             <div className="mn-drawer__category-content">
               <CategoryTree />
               <ConditionFilter />
+              <BrandFilter/>
             </div>
           </section>
 

@@ -95,6 +95,7 @@ const userSlice = createSlice({
       state.roles = [];
       state.firstName = "";
       state.lastName = "";
+      state.sellerId=''
 
 
       //Clear the cookie references on user sign-out

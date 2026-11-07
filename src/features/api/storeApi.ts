@@ -5,6 +5,7 @@ import type { TListPageDto } from "../../types/TListPageDto";
 import type { TListTrans } from "../../types/TListTrans";
 import type { TResponseDto } from "../../types/TResponseDto";
 
+import type { TbrandResponse } from "../../types/TBrandResponse";
 import type { TCategoryTreeDto } from "../../types/TCategoryTreeDto";
 import type { TConditionResponse } from "../../types/TConditionResponse";
 import type { TQueryDto } from "../../types/TQueryDto";
@@ -30,7 +31,7 @@ export const storeApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["listings", "categories", "listing", "wishlists",'conditions'],
+  tagTypes: ["listings", "categories", "listing", "wishlists",'conditions','brands'],
   endpoints: (build) => ({
     getStoreListings: build.query<TListTrans[], void>({
       query: () => ({
@@ -157,7 +158,13 @@ getStoreListingsFeed: build.query<TListPageDto, TQueryDto>({
           }),
           providesTags: ["conditions"],
         }),
-   
+      fetchBrands: build.query<TbrandResponse[],string>({
+         query: (category) => ({
+           url: "/api/store/brands",
+           params:{category}
+         }),
+         providesTags: ["brands"],
+       }),
   }),
 });
 export const {
@@ -178,5 +185,6 @@ export const {
   useGetListingBySlugQuery,
   useGetSellerListingQuery,
   useLazyGetStoreListingsFeedQuery,
-  useGetAllConditionsQuery
+  useGetAllConditionsQuery,
+  useFetchBrandsQuery
 } = storeApi;

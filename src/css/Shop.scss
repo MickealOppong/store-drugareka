@@ -292,12 +292,12 @@
 
     @include Variables.media-up(Variables.$breakpoint-sm) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.25rem;
+      gap: 6px;
     }
 
     @include Variables.media-up(Variables.$breakpoint-lg) {
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 1.5rem;
+    gap: 6px;
     }
   }
 }

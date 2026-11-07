@@ -66,7 +66,7 @@ const NavHeader = () => {
     <header className="nav-header">
       <div className="nav-header__inner">
         
-        <Link to="/" className="nav-header__brand" style={{ textTransform: 'uppercase' }}>
+        <Link to="/shop?category=all_0" className="nav-header__brand" style={{ textTransform: 'uppercase' }}>
           {appName} <span>.pl</span>
         </Link>
 

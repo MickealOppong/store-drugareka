@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FiArrowRight, FiSearch, FiX } from "react-icons/fi";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { ConditionFilter, Loading } from "../components";
+import BrandFilter from "../components/BrandFilter";
 import CategoryTree from "../components/CategoryTree";
 import Footer from "../components/Footer";
 import MakeOfferModal from "../components/MakeOfferModal";
@@ -70,19 +71,24 @@ export const Categories: React.FC = () => {
   const page = parseInt(searchParams.get("page") || "1", 10);
   const selectedCategory = searchParams.get("category") || "all";
   const condition = searchParams.get("condition") || "";
+  const brand = searchParams.get("brand") || "";
   const selectedCollectionCity = searchParams.get("collectionCity") || "";
   const isCollectionAvailable =
     searchParams.get("isCollectionAvailable") || "false";
 
+
+    
   const queryDto: TQueryDto = {
     category: selectedCategory,
     collectionCity: selectedCollectionCity,
     isCollectionAvailable: isCollectionAvailable === "true" ? true : false,
     search: debouncedSearch,
     condition,
+    brand,
     page,
     size: 50,
   };
+
 
   //top categories
   const { data: topCategories = [] } = useGetTop8ProductCategoriesQuery();
@@ -106,7 +112,11 @@ export const Categories: React.FC = () => {
     },
   );
 
+
   const products = data?.listings || [];
+
+  console.log(products);
+  
 
   const handleClearFilters = () => {
     setSelectedSubCat(null);
@@ -115,6 +125,7 @@ export const Categories: React.FC = () => {
     nextParams.delete("isCollectionAvailable");
     nextParams.set("page", "1");
     nextParams.delete("condition");
+      nextParams.delete("brand");
     nextParams.set("category", "all_0");
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
   };
@@ -280,6 +291,7 @@ useEffect(() => {
 
             <CategoryTree />
             <ConditionFilter />
+             <BrandFilter />
           </aside>
 
           {/* PRODUCT FEED */}
