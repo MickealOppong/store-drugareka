@@ -242,6 +242,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem 1rem;
+padding: 1rem;
 
   &__item {
     display: flex;
@@ -270,11 +271,14 @@
 // ==========================================================================
 // 7. CATEGORIES CARDS GRID (`.mobile-categories`)
 // ==========================================================================
-
+.mobile-categories{
+     padding: 1rem;
+}
 .mobile-category-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr); // Neat clean 2x2 layout blocks
   gap: 0.75rem;
+
 }
 
 .mobile-category-card {
@@ -283,6 +287,7 @@
   border-radius: 6px;
   overflow: hidden;
   background-color: Variables.$color-bg-light;
+
 
   &__overlay {
     position: absolute;
@@ -318,6 +323,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.25rem 0.75rem;
+       
 }
 
 .mobile-product-card {
@@ -397,6 +403,7 @@
   display: flex;
   flex-direction: column;
   gap: 3rem;
+        padding: 1rem;
   &__content {
     .mobile-section-eyebrow {
       color: rgba(255, 255, 255, 0.45);
@@ -438,6 +445,7 @@
   display: flex;
   gap: 1rem;
   align-items: flex-start;
+
   span {
     font-size: 1.25rem;
     font-weight: 700;
@@ -464,6 +472,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+      padding: 1rem;
   .mobile-section-eyebrow {
     margin-bottom: 0.75rem;
   }
@@ -487,6 +496,7 @@
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  
   &__brand {
     p {
       margin-top: 0.75rem;

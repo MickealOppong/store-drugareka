@@ -247,23 +247,23 @@ useEffect(() => {
             <h1>{t("shop.header.title")}</h1>
             <p>{t("shop.header.description")}</p>
           </div>
-
-          {/* SEARCH */}
-          <div className="shop-page__search">
-            <FiSearch />
-            <input
-              type="search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder={t("shop.header.search_placeholder")}
-            />
-         
-          </div>
         </section>
 
          {/* SHOP HEADER */}
 
         <ShopBanner/>
+
+        {/* SEARCH — directly after the banner, before product discovery controls */}
+        <div className="shop-page__search">
+          <FiSearch />
+          <input
+            type="search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder={t("shop.header.search_placeholder")}
+            aria-label={t("shop.header.search_placeholder")}
+          />
+        </div>
 
         {/* =====================================================
                 CATEGORY NAVIGATION

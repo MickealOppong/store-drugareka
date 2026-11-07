@@ -1,72 +1,44 @@
 import { useTranslation } from "react-i18next";
 import {
   FiArrowRight,
-  FiEdit,
   FiRefreshCw,
   FiShield,
-  FiShoppingBag,
   FiTag,
-  FiTruck
+  FiTruck,
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import defImage from '../assets/default.jpeg';
-import '../css/DesktopLanding.css';
+
+import "../css/DesktopLanding.css";
 import { useGetLandingListingQuery, useGetTop6ProductCategoriesQuery } from "../features/api/storeApi";
-import { useAddToCart } from "../hooks/useAddTocart";
-import { useAppSelector } from "../store";
-import { formatPrice, sanitizeBackendKey, sanitizeCategoryKey } from "../util/util";
-import hero from './../assets/hero-large.png';
-import heroSmall from './../assets/hero-small.png';
+import { sanitizeCategoryKey } from "../util/util";
+import hero from "./../assets/hero-large.png";
+import heroSmall from "./../assets/hero-small.png";
 import CookieBanner from "./CookieBanner";
 import Footer from "./Footer";
-import Loading from "./Loading";
 import SEO from "./SEO";
 
 export default function DesktopLanding() {
-const {data:topCategories=[],isLoading} = useGetTop6ProductCategoriesQuery()
+  const { t } = useTranslation();
 
-/**
- *  selected products
- */
-const {data:listings=[]} = useGetLandingListingQuery()
+  // Curated products for the editorial showcase.
+  const { data: listings = [] } = useGetLandingListingQuery();
+  const { data: topCategories = [] } = useGetTop6ProductCategoriesQuery();
 
-
-/**
- *  ADD TO CART
- */
-const {addItemToCart} = useAddToCart()
-
-
-  //user id
-  const userId = useAppSelector((state) => state.userSlice.userId);
-  
-
-/**
- * Translation
- */
-const {t} = useTranslation()
-
-if(isLoading){
-  return <Loading/>
-}
-    
   return (
     <main className="landing-page">
-         <SEO
+      <SEO
         title="Kupuj i sprzedawaj na Kasoa"
-        description="Odkrywaj wyjątkowe produkty na Kasoa.pl. Wystawiaj przedmioty na sprzedaż bez negocjacji i bez bezpośredniego kontaktu z kupującymi."
+        description="Odkrywaj produkty z drugiej ręki na Kasoa.pl. Przeglądaj oferty, proponuj własną cenę i korzystaj z wygodnej obsługi transakcji."
         canonical="https://kasoa.pl/"
       />
-      <div className="landing-center">
-              
 
-         
-        {/* =====================================================
-                  HERO
-            ====================================================== */}
+      <div className="landing-center">
+        {/* HERO */}
         <section className="hero">
           <div className="hero__content">
-            <span className="hero__eyebrow">{t("landing.hero.eyebrow")}</span>
+            <span className="hero__eyebrow">
+              {t("landing.hero.eyebrow")}
+            </span>
 
             <h1>
               {t("landing.hero.title_line1")}
@@ -77,7 +49,7 @@ if(isLoading){
             <p>{t("landing.hero.description")}</p>
 
             <div className="hero__actions">
-              <Link  to="/shop?category=all_0" className="button button--primary">
+              <Link to="/shop?category=all_0" className="button button--primary">
                 {t("landing.hero.cta_shop")}
                 <FiArrowRight />
               </Link>
@@ -90,7 +62,12 @@ if(isLoading){
 
           <div className="hero__visual">
             <div className="hero-card hero-card--large">
-              <img src={hero} alt="Second-hand fashion" />
+              <img
+                src={hero}
+                alt={t("landing.hero.image_alt", {
+                  defaultValue: "Różnorodne produkty z drugiej ręki",
+                })}
+              />
             </div>
 
             <div className="hero-card hero-card--small">
@@ -107,11 +84,8 @@ if(isLoading){
           </div>
         </section>
 
-       {/* =====================================================
-                TRUST BAR
-            ====================================================== */}
-
- <section className="trust-bar">
+        {/* TRUST BAR */}
+        <section className="trust-bar">
           <div className="trust-item">
             <FiShield />
             <div>
@@ -145,113 +119,54 @@ if(isLoading){
           </div>
         </section>
 
+        {/* CATEGORIES */}
+        {topCategories.length > 0 && (
+          <section className="categories section">
+            <div className="section-heading">
+              <div>
+                <span className="section-eyebrow">
+                  {t("landing.categories.eyebrow")}
+                </span>
+                <h2>{t("landing.categories.title")}</h2>
+              </div>
 
-      {/* =====================================================
-                CATEGORIES
-            ====================================================== */}
-
- <section className="categories section">
-          <div className="section-heading">
-            <div>
-              <span className="section-eyebrow">{t("landing.categories.eyebrow")}</span>
-              <h2>{t("landing.categories.title")}</h2>
+              <Link to="/shop/categories">
+                {t("landing.categories.view_all")}
+                <FiArrowRight />
+              </Link>
             </div>
 
-            <Link to="/shop/categories">
-              {t("landing.categories.view_all")}
-              <FiArrowRight />
-            </Link>
-          </div>
-
-          <div className="category-grid">
-            {topCategories.map((category) => (
-              <Link
-                key={category.id}
-                to={`/shop?category=${category.slug}_${category.id}`}
-                className="category-card"
-              >
-                <img src={category.image} alt={category.name} />
-                <div className="category-card__overlay">
-                  <h3> {t(`categories.${sanitizeCategoryKey(category.name)}.name`)}</h3>
-                  <FiArrowRight />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-      {/* =====================================================
-                NEW ARRIVALS
-            ====================================================== */}
-
-<section className="products section" style={{display:'none'}}>
-          <div className="section-heading">
-            <div>
-              <span className="section-eyebrow">{t("landing.new_arrivals.eyebrow")}</span>
-              <h2>{t("landing.new_arrivals.title")}</h2>
+            <div className="category-grid">
+              {topCategories.map((category) => (
+                <Link
+                  key={category.id}
+                  to={`/shop?category=${category.slug}_${category.id}`}
+                  className="category-card"
+                >
+                  <img src={category.image} alt={category.name} loading="lazy" />
+                  <div className="category-card__overlay">
+                    <h3>
+                      {t(
+                        `categories.${sanitizeCategoryKey(category.name)}.name`,
+                      )}
+                    </h3>
+                    <FiArrowRight />
+                  </div>
+                </Link>
+              ))}
             </div>
+          </section>
+        )}
 
-            <Link to="/shop">
-              {t("landing.new_arrivals.view_all")}
-              <FiArrowRight />
-            </Link>
-          </div>
+        {/* EDITORIAL PRODUCT DISCOVERY
+            These cards are intentionally simple links: no cart, wishlist or offer actions. */}
 
-          <div className="product-grid">
-            {listings.map((product) => (
-              <Link
-                key={product.listingId}
-                to={`/shop/listing/${product.listingId}`}
-                className="product-card"
-              >
-             <div className="product-card__media">
-              <img src={product?.media[0]?.image ? product.media[0].image :defImage} alt={product.productName}   />
-                 {
-                  !userId || userId!==product.sellerId? <button
-                    className="product-card__favorite"
-                    aria-label={`Add ${product.productName} to wishlist`}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      addItemToCart(product.listingId)
-                    }}
-                  >
-                  
-          <FiShoppingBag/>
-                  </button>: <button
-                    className="product-card__favorite"
-                    aria-label={`Add ${product.productName} to wishlist`}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      addItemToCart(product.listingId)
-                    }}
-                  >
-                  
-          <FiEdit />
-                  </button>
-                 }
-                </div>
-
-                <div className="product-card__info">
-                  <span className="product-card__condition">
-                     {t(`product_conditions.${sanitizeBackendKey(product.productCondition.toLowerCase())}`)}
-                  </span>
-                  <h3>{product.productName}</h3>
-                  <strong>{formatPrice(product.newPrice)} zl</strong>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-      {/* =====================================================
-                SELLER CTA
-            ====================================================== */}
-
-  <section className="seller-section">
+        {/* SELLER CTA */}
+        <section className="seller-section">
           <div className="seller-section__content">
-            <span className="section-eyebrow">{t("landing.seller_cta.eyebrow")}</span>
-            <span className="section-eyebrow">{t("landing.seller_cta.sub-eyebrow-1")}</span>
-            <span className="section-eyebrow">{t("landing.seller_cta.sub-eyebrow-2")}</span>
+            <span className="section-eyebrow">
+              {t("landing.seller_cta.eyebrow")}
+            </span>
 
             <h2>
               {t("landing.seller_cta.title_line1")}
@@ -294,38 +209,34 @@ if(isLoading){
           </div>
         </section>
 
-      {/* =====================================================
-                FINAL CTA
-            ====================================================== */}
+        {/* FINAL CTA */}
+        <section className="final-cta">
+          <span className="section-eyebrow">
+            {t("landing.closing_cta.eyebrow", { defaultValue: "DRUGA RĘKA" })}
+          </span>
 
+          <h2>
+            {t("landing.closing_cta.title_line1", {
+              defaultValue: "Kupuj lepiej.",
+            })}
+            <br />
+            {t("landing.closing_cta.title_line2", {
+              defaultValue: "Daj przedmiotom drugie życie.",
+            })}
+          </h2>
 
-<section className="final-cta">
-  <span className="section-eyebrow">
-    {t("landing.closing_cta.eyebrow", { defaultValue: "DRUGA RĘKA" })}
-  </span>
+          <Link to="/shop?category=all_0" className="button button--primary">
+            <span>
+              {t("landing.closing_cta.cta", {
+                defaultValue: "Odkryj sklep",
+              })}
+            </span>
+            <FiArrowRight />
+          </Link>
+        </section>
 
-  <h2>
-    {t("landing.closing_cta.title_line1", { defaultValue: "Shop better." })}
-    <br />
-    {t("landing.closing_cta.title_line2", { defaultValue: "Give things another life." })}
-  </h2>
-
-  <Link
-     to="/shop?category=all_0"
-   className="button button--primary"
-  >
-    <span>{t("landing.closing_cta.cta", { defaultValue: "Explore the store" })}</span>
-    <FiArrowRight />
-  </Link>
-</section>
-
-
-      {/* =====================================================
-                FOOTER
-            ====================================================== */}
-
-<Footer/>
-<CookieBanner/>
+        <Footer />
+        <CookieBanner />
       </div>
     </main>
   );
