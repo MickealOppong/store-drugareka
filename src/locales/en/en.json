@@ -78,6 +78,13 @@
       "privacy": "Privacy policy"
     }
   },
+       "delivery_methods": {
+      "title": "Delivery methods",
+      "pickup_point": "Pickup point",
+      "home_delivery": "Home delivery",
+      "parcel_locker": "Parcel locker",
+      "personal_collection": "Personal collection"
+    },
   "categories": {
     "feed": {
       "title": "Popular categories",

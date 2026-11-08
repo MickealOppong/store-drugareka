@@ -78,6 +78,13 @@
       "privacy": "Polityka prywatności"
     }
   },
+    "delivery_methods": {
+      "title": "Metody dostawy",
+      "pickup_point": "Punkt odbioru",
+      "home_delivery": "Dostawa do domu",
+      "parcel_locker": "Paczkomat",
+      "personal_collection": "Odbiór osobisty"
+    },
   "categories": {
     "feed": {
       "title": "Popularne kategorie",

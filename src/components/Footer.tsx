@@ -1,62 +1,77 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import '../css/Footer.css';
+import "../css/Footer.css";
 import { appName } from "../data/data";
+import DeliveryMethods from "./DeliveryMethod";
 import LanguageSwitcher from "./LanguageSwitcher";
 import PaymentMethods from "./PaymentMethods";
+import SocialLinks from "./SocialLinks";
 
-const Footer = ()=>{
-    const {t }=useTranslation();
-    
-    return (
-              <footer className="landing-footer">
+const Footer = () => {
+  const { t } = useTranslation();
+
+  return (
+    <footer className="landing-footer">
+    <div>
         <div className="landing-footer__brand">
-          <Link
-            to="/"
-            className="brand-link"
-          >
-            {appName}<span>.pl</span>
+        <Link
+          to="/"
+          className="brand-link"
+        >
+          {appName}
+          <span>.pl</span>
+        </Link>
+
+        <p>{t("landing.footer.tagline")}</p>
+      </div>
+
+      <div className="landing-footer__links">
+        <div>
+          <h4>{t("landing.footer.heading_shop")}</h4>
+
+          <Link to="/shop?category=all_0">
+            {t("landing.footer.link_all_products")}
           </Link>
 
-          <p>{t("landing.footer.tagline")}</p>
-              <PaymentMethods/>
-       
+          <Link to="/shop/categories">
+            {t("landing.footer.link_categories")}
+          </Link>
+
+          <Link to="/shop?category=all_0">
+            {t("landing.footer.link_new_arrivals")}
+          </Link>
         </div>
 
-        <div className="landing-footer__links">
-          <div>
-            <h4>{t("landing.footer.heading_shop")}</h4>
+        <div>
+          <h4>{t("landing.footer.heading_sell")}</h4>
 
-            <Link  to="/shop?category=all_0">{t("landing.footer.link_all_products")}</Link>
+          <Link to="/sell">{t("landing.footer.link_how_it_works")}</Link>
 
-            <Link to="/shop/categories">{t("landing.footer.link_categories")}</Link>
-
-            <Link  to="/shop?category=all_0">{t("landing.footer.link_new_arrivals")}</Link>
-          </div>
-
-          <div>
-            <h4>{t("landing.footer.heading_sell")}</h4>
-
-            <Link to="/sell">{t("landing.footer.link_how_it_works")}</Link>
-
-            <Link to="/account/user">{t("landing.footer.link_start_selling")}</Link>
-          </div>
-
-          <div>
-            <h4>{t("landing.footer.heading_help")}</h4>
-
-            <Link to="/help">{t("landing.footer.link_help_centre")}</Link>
-
-            <Link to="/contact">{t("landing.footer.link_contact")}</Link>
-            <Link to="/terms">{t("landing.footer.terms")}</Link>
-            <Link to="/privacy">{t("landing.footer.privacy")}</Link>
-          </div>
-        </div >
-        <div className="landing-footer__payments">
-         
+          <Link to="/account/user">
+            {t("landing.footer.link_start_selling")}
+          </Link>
         </div>
-        <LanguageSwitcher/>
-      </footer>
-    )
-}
+
+        <div>
+          <h4>{t("landing.footer.heading_help")}</h4>
+
+          <Link to="/help">{t("landing.footer.link_help_centre")}</Link>
+
+          <Link to="/contact">{t("landing.footer.link_contact")}</Link>
+          <Link to="/terms">{t("landing.footer.terms")}</Link>
+          <Link to="/privacy">{t("landing.footer.privacy")}</Link>
+        </div>
+      </div>
+      <div className="landing-footer__info">
+        <PaymentMethods />
+        <SocialLinks />
+      </div>
+    </div>
+    <div>
+      <DeliveryMethods/>
+    </div>
+      <LanguageSwitcher />
+    </footer>
+  );
+};
 export default Footer;

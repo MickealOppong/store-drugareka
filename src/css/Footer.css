@@ -1,66 +1,100 @@
+@charset "UTF-8";
 /* ==========================================================================
-   MASTER LANDING PAGE FOOTER CORE CONTAINER (.landing-footer)
+   MASTER LANDING FOOTER CANVAS WRAPPER (.landing-footer)
    ========================================================================== */
 .landing-footer {
+  width: 100%;
+  background-color: #ffffff;
+  border-top: 1px solid #e5e5e5;
+  padding: 4rem 16px 3rem;
+  margin-top: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 2.5rem;
-  width: 100%;
-  padding: 4rem 1.5rem 3rem;
-  background-color: #FFFFFF;
-  border-top: 1px solid #e5e5e5;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   box-sizing: border-box;
-  width: min(1440px, 100%);
-  margin: 0 auto;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-@media (min-width: 1024px) {
+@media (min-width: 640px) {
   .landing-footer {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 4rem;
-    padding: 5rem 2rem 4rem;
+    padding: 5rem 32px 3.5rem;
+    gap: 3rem;
   }
 }
 .landing-footer {
-  /* =========================================================
-      NEW: SLEEK HIGH-FIDELITY BRAND LOGO STYLING (.brand)
-     ========================================================= */
+  /* Shared Context Typography Column Headers */
 }
-.landing-footer .brand-link {
-  display: inline-flex;
-  align-items: center;
-  font-size: 1.5rem;
-  font-weight: 850;
-  color: #66704A;
-  text-decoration: none;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.landing-footer .brand-link span {
-  font-weight: 400;
-  color: #666666;
-  transition: color 0.2s ease;
-}
-.landing-footer .brand-link:hover {
-  color: rgb(79.6258064516, 87.4322580645, 57.7677419355);
-  transform: translateY(-0.5px);
-}
-.landing-footer .brand-link:hover span {
-  color: #66704A;
-}
-.landing-footer .brand-link:focus-visible {
-  outline: 2px solid #66704A;
-  outline-offset: 4px;
-  border-radius: 4px;
+.landing-footer h4 {
+  margin: 0 0 1rem 0;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #111111;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 .landing-footer {
-  /* =========================================================
-     NAVIGATION TILES LINKS CLUSTER (.landing-footer__links)
-     ========================================================= */
+  /* Internal anchor routing link specifications */
+}
+.landing-footer a {
+  color: #666666;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+.landing-footer a:hover {
+  color: #66704A;
+}
+.landing-footer {
+  /* ==========================================================================
+     🚀 SECTION A: CORE BRAND & LINK GRID TRACK PANEL (First Master Child Div)
+     ========================================================================== */
+}
+.landing-footer > div:first-of-type {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+@media (min-width: 1024px) {
+  .landing-footer > div:first-of-type {
+    display: grid;
+    grid-template-columns: 1.1fr 1.9fr;
+    gap: 4rem;
+    align-items: start;
+  }
+}
+.landing-footer {
+  /* BRAND IDENTITY COMPONENT SIGNATURE CONTAINER */
+}
+.landing-footer__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  max-width: 320px;
+}
+.landing-footer__brand .brand-link {
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #66704A;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.landing-footer__brand .brand-link span {
+  color: #666666;
+  font-weight: 400;
+}
+.landing-footer__brand p {
+  margin: 0.65rem 0 0 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #666666;
+}
+.landing-footer {
+  /* INTERNAL LINK ROUTING NAVIGATION GROUPS */
 }
 .landing-footer__links {
   display: grid;
@@ -72,75 +106,105 @@
 @media (min-width: 640px) {
   .landing-footer__links {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem 2rem;
   }
-}
-@media (min-width: 1024px) {
-  .landing-footer__links {
-    max-width: 680px;
-  }
-}
-.landing-footer__links {
-  /* Sub-section Link Matrix Nodes Column Rows */
 }
 .landing-footer__links > div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 0.65rem;
   text-align: left;
-  gap: 0.75rem;
-}
-.landing-footer__links > div h4 {
-  margin: 0 0 0.5rem 0;
-  font-size: 0.8rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: #111111;
-  letter-spacing: 0.06em;
-}
-.landing-footer__links > div a {
-  font-size: 0.88rem;
-  font-weight: 550;
-  color: #666666;
-  text-decoration: none;
-  position: relative;
-  padding: 2px 0;
-  transition: color 0.15s ease;
-  /* Interactive modern bottom border tracking underline accent bounce */
-}
-.landing-footer__links > div a::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1.5px;
-  background-color: #66704A;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.landing-footer__links > div a:hover {
-  color: #66704A;
-}
-.landing-footer__links > div a:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-.landing-footer__links > div a:focus-visible {
-  outline: 2px solid #66704A;
-  outline-offset: 2px;
-  border-radius: 4px;
 }
 .landing-footer {
-  /* Language Switcher Dropdown Alignment Adaptations Overlay */
+  /* PAYMENT TRUST BAR & SOCIAL CONTAINER CONNECTOR */
 }
-.landing-footer .language-switcher, .landing-footer > .language-switcher-container {
+.landing-footer__info {
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 1.75rem;
+  margin-top: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+@media (max-width: 640px) {
+  .landing-footer__info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
+.landing-footer__info {
+  /* Embedded Component Alignment Overrides */
+}
+.landing-footer__info .payment-trust-bar {
+  margin: 0;
+}
+.landing-footer__info .social-links {
+  flex-shrink: 0;
+}
+.landing-footer {
+  /* ==========================================================================
+     🚀 SECTION B: COMPACT DELIVERY METHODS STATUS TRACK PANEL (Second Master Child Div)
+     ========================================================================== */
+}
+.landing-footer > div:nth-of-type(2) {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-top: 1px dashed #e5e5e5;
+  padding-top: 1.75rem;
+  box-sizing: border-box;
+}
+.landing-footer {
+  /* ==========================================================================
+     🚀 SECTION C: LANGUAGE SWITCHER CAP CONSOLE OVERRIDE
+     ========================================================================== */
+}
+.landing-footer .language-switcher {
   align-self: flex-start;
-  margin-top: 1rem;
+  margin: 0 auto 0 0;
+  max-width: 1280px;
+  width: 100%;
 }
 @media (min-width: 1024px) {
-  .landing-footer .language-switcher, .landing-footer > .language-switcher-container {
-    align-self: flex-end;
-    margin-top: 0;
+  .landing-footer .language-switcher {
+    padding-left: calc((100% - 1280px) / 2);
+  }
+}
+
+/* ==========================================================================
+   📱 COMPACT HANDSET DEVICES FLUID CALIBRATIONS (max-width: 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .landing-footer {
+    padding: 3rem 12px 2.5rem;
+    gap: 2rem;
+  }
+  .landing-footer > div:first-of-type {
+    gap: 2rem;
+  }
+  .landing-footer__links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 1rem;
+  }
+  .landing-footer h4 {
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+  }
+  .landing-footer a {
+    font-size: 0.82rem;
+  }
+  .landing-footer__info {
+    padding-top: 1.5rem;
+  }
+  .landing-footer__info .payment-trust-bar {
+    width: 100%;
+    display: inline-flex;
   }
 }/*# sourceMappingURL=Footer.css.map */

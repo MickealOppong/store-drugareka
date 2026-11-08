@@ -229,11 +229,16 @@ useEffect(() => {
   return (
     <>
       <main className="shop-page">
-        <SEO
-          title="Kupuj i sprzedawaj na Kasoa"
-          description="Odkrywaj wyjątkowe produkty na Kasoa.pl. Wystawiaj przedmioty na sprzedaż bez negocjacji i bez bezpośredniego kontaktu z kupującymi."
-          canonical="https://kasoa.pl/"
-        />
+      <SEO
+  title="Kasoa.pl – Kupuj i sprzedawaj produkty z drugiej ręki"
+  description="Odkrywaj wyjątkowe okazje na Kasoa.pl! Kupuj i sprzedawaj odzież damską i męską, elektronikę, części samochodowe,meble produkty dla dzieci, dom i ogród oraz wiele więcej."
+  canonical="https://kasoa.pl/"
+/>
+<SEO
+  title="Kasoa.pl – Buy and Sell Second-Hand Products"
+  description="Discover great deals on Kasoa.pl! Buy and sell second-hand clothing, electronics, car parts, children's products,furniture, home and garden items, and much more."
+  canonical="https://kasoa.pl/"
+/>
         {/* =====================================================
                 SHOP HEADER
             ====================================================== */}

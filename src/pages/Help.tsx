@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiArrowRight, FiChevronDown, FiChevronUp, FiHelpCircle, FiShoppingBag, FiTag } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../store";
 import "./../css/Help.css";
 
 interface FAQItem {
@@ -14,13 +13,10 @@ interface FAQItem {
 
 const Help = () => {
   const { t } = useTranslation();
-  const roles = useAppSelector((state) => state.userSlice.roles) || [];
   const [activeFaqId, setActiveFaqId] = useState<string | null>(null);
   const [activeRoleTab, setActiveRoleTab] = useState<"buyer" | "seller">("buyer");
 
-  const buttonRedirectPath = roles.includes("ROLE_ADMIN") 
-    ? "/account/admin" 
-    : "/account";
+  const buttonRedirectPath =  "/account";
 
 
   const faqs: FAQItem[] = [

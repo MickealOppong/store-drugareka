@@ -1,0 +1,124 @@
+@use "sass:color";
+@use "Variables.scss" as Variables;
+
+/* ==========================================================================
+   MASTER SOCIAL SHARING RIBBON CONTROLLER (.social-links)
+   ========================================================================== */
+.social-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px; // Spatial cushion clearance between wrapper elements
+  box-sizing: border-box;
+
+  /* =========================================================
+     🚀 NEW: REPAIRED PARENT WRAPPER HOUSING GATES
+     Prevents the custom wrapper divs from splitting the layout vertically
+     ========================================================= */
+  .instagram,
+  .facebook,
+  .tiktok {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  /* ==========================================================================
+     TACTILE COMPONENT BUTTON TOKENS (.social-links__item)
+     ========================================================================== */
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* 🚀 TOUCH ENVELOPE CONTROLS: Strict 38px tap target metrics */
+    width: 38px;
+    height: 38px;
+    
+    background-color: Variables.$color-bg-light; // Gentle sage/moss baseline backdrop wash
+    border: 1px solid Variables.$color-border;
+    border-radius: 50%; // Perfect circular silhouette geometry
+    color: Variables.$color-text-muted; // Monochromatic default baseline layout state
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    
+    /* Anti-aliasing text crisp sharpening variables */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+    svg {
+      display: block;
+      font-size: 1.15rem; // Symmetrically balanced vector dimensions inside circle
+      stroke-width: 1.5;
+      transition: transform 0.2s ease;
+    }
+
+    /* Tactile mobile haptic scale compression micro-interaction */
+    &:active {
+      transform: scale(0.95);
+    }
+
+    /* Accessible focus rings */
+    &:focus-visible {
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 3px;
+    }
+
+    /* =========================================================
+       🚀 PERMANENT BRAND GLIDE MODIFIERS (ON HOVER TRANSLATIONS)
+       ========================================================= */
+    &--instagram {
+      &:hover {
+        background-color: #fff5f6; // Soft warm pink tint canvas wash
+        border-color: #fccc63; // Instagram brand orange border trace lines
+        color: #e1306c; // Instagram corporate brand magenta focus color
+
+        svg {
+          transform: rotate(6deg) scale(1.05); // Playful tilt feedback logic
+        }
+      }
+    }
+
+    &--facebook {
+      &:hover {
+        background-color: #eff5ff; // Soft digital clear blue wash backdrop
+        border-color: rgba(24, 119, 242, 0.15);
+        color: #1877f2; // Official Facebook blue branding hex
+
+        svg {
+          transform: translateY(-1px);
+        }
+      }
+    }
+
+    &--tiktok {
+      &:hover {
+        background-color: #000000;
+        border-color: #000000;
+        color: #ffffff; // High-contrast clean white accent over black surface base
+
+        svg {
+          transform: scale(1.08);
+          
+          /* Elegant neon digital chromatic abrasion effect simulation filter rules */
+          filter: drop-shadow(1px 0px 0px #00f2fe) 
+                  drop-shadow(-1px 0px 0px #fe0946);
+        }
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY OVERRIDES: PREFERS REDUCED MOTION GATES
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .social-links__item {
+    transition: none !important;
+    &:active { transform: none !important; }
+    &:hover svg { transform: none !important; filter: none !important; }
+  }
+}

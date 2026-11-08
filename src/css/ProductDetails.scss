@@ -132,7 +132,7 @@
   box-sizing: border-box;
 
   @include Variables.media-up(Variables.$breakpoint-md) {
-    width: 50%;
+    width: 100%;
     position: sticky;
     top: 24px;
   }

@@ -1,0 +1,112 @@
+@charset "UTF-8";
+/* ==========================================================================
+   MASTER SOCIAL SHARING RIBBON CONTROLLER (.social-links)
+   ========================================================================== */
+.social-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  /* =========================================================
+     🚀 NEW: REPAIRED PARENT WRAPPER HOUSING GATES
+     Prevents the custom wrapper divs from splitting the layout vertically
+     ========================================================= */
+}
+.social-links .instagram,
+.social-links .facebook,
+.social-links .tiktok {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.social-links {
+  /* ==========================================================================
+     TACTILE COMPONENT BUTTON TOKENS (.social-links__item)
+     ========================================================================== */
+}
+.social-links__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 🚀 TOUCH ENVELOPE CONTROLS: Strict 38px tap target metrics */
+  width: 38px;
+  height: 38px;
+  background-color: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 50%;
+  color: #666666;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  /* Anti-aliasing text crisp sharpening variables */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.social-links__item svg {
+  display: block;
+  font-size: 1.15rem;
+  stroke-width: 1.5;
+  transition: transform 0.2s ease;
+}
+.social-links__item {
+  /* Tactile mobile haptic scale compression micro-interaction */
+}
+.social-links__item:active {
+  transform: scale(0.95);
+}
+.social-links__item {
+  /* Accessible focus rings */
+}
+.social-links__item:focus-visible {
+  outline: 2px solid #66704A;
+  outline-offset: 3px;
+}
+.social-links__item {
+  /* =========================================================
+     🚀 PERMANENT BRAND GLIDE MODIFIERS (ON HOVER TRANSLATIONS)
+     ========================================================= */
+}
+.social-links__item--instagram:hover {
+  background-color: #fff5f6;
+  border-color: #fccc63;
+  color: #e1306c;
+}
+.social-links__item--instagram:hover svg {
+  transform: rotate(6deg) scale(1.05);
+}
+.social-links__item--facebook:hover {
+  background-color: #eff5ff;
+  border-color: rgba(24, 119, 242, 0.15);
+  color: #1877f2;
+}
+.social-links__item--facebook:hover svg {
+  transform: translateY(-1px);
+}
+.social-links__item--tiktok:hover {
+  background-color: #000000;
+  border-color: #000000;
+  color: #ffffff;
+}
+.social-links__item--tiktok:hover svg {
+  transform: scale(1.08);
+  /* Elegant neon digital chromatic abrasion effect simulation filter rules */
+  filter: drop-shadow(1px 0px 0px #00f2fe) drop-shadow(-1px 0px 0px #fe0946);
+}
+
+/* ==========================================================================
+   ACCESSIBILITY OVERRIDES: PREFERS REDUCED MOTION GATES
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .social-links__item {
+    transition: none !important;
+  }
+  .social-links__item:active {
+    transform: none !important;
+  }
+  .social-links__item:hover svg {
+    transform: none !important;
+    filter: none !important;
+  }
+}/*# sourceMappingURL=SocialLinks.css.map */

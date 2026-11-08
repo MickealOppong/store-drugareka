@@ -129,7 +129,7 @@
 }
 @media (min-width: 768px) {
   .product-details__media-showcase {
-    width: 50%;
+    width: 100%;
     position: sticky;
     top: 24px;
   }

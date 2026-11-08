@@ -40,7 +40,7 @@ export const ContactForm: React.FC = () => {
               </div>
               <div className="contact-form-page__text-wrapper">
                 <strong>{t("contact_form.info_card.email_title")}</strong>
-                <p>kasawa.corp@gmail.com</p>
+                <p>kontakt@kasoa.pl</p>
                 <a 
                   href={mailtoUri} 
                   className="contact-form-page__action-anchor"

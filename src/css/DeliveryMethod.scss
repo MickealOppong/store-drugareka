@@ -1,0 +1,87 @@
+@use "sass:color";
+@use "Variables.scss" as Variables;
+
+/* ==========================================================================
+   STATIC SHIPPING SUMMARY COMPONENT BLOCK WRAPPER (.delivery-methods)
+   ========================================================================== */
+.delivery-methods {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: Variables.$font-sans;
+  text-align: left;
+
+  /* Symmetrical Typography Module Header Title */
+  &__title {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: Variables.$color-text-main;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Inline horizontal flexible wrapping options track container */
+  &__list {
+    display: flex;
+    flex-wrap: wrap; // Auto wraps items cleanly on thin mobile handset displays
+    gap: 8px 12px;  // Responsive clearance cushions bounding columns and rows
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ==========================================================================
+     COMPACT STATIC LINE CARRIER ROW TILES (.delivery-methods__item)
+     ========================================================================== */
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; // Fixed horizontal gap between vector emblem and word strings
+    min-height: 32px; // Low profile footprint preserving workspace vertical room
+    box-sizing: border-box;
+
+    /* Structural Text Option Label */
+    > span:last-child {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: Variables.$color-text-muted;
+      white-space: nowrap;
+    }
+  }
+
+  /* VECTOR ICON BASE EMBLEM EMBED CONTRAST REGION */
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: Variables.$color-bg-light; // Gentle sage-gray backdrop fill wash
+    color: Variables.$color-primary; // 🌿 Rich Earthy Botanical Olive Green Accent Anchor
+    border: 1px solid Variables.$color-border;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    flex-shrink: 0; // Completely locks layout width against horizontal squeezing rules
+
+    svg {
+      display: block;
+      stroke-width: 2.25;
+    }
+  }
+}
+
+/* ==========================================================================
+   📱 COMPACT MICRO VIEWPORTS ADJUSTMENTS (max-width: 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .delivery-methods {
+    &__list {
+      gap: 8px 10px; // Snug grid parameters layout tracking compression on handsets
+    }
+
+    &__item > span:last-child {
+      font-size: 0.8rem;
+    }
+  }
+}
