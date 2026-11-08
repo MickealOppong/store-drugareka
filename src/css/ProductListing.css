@@ -1,30 +1,30 @@
-/*
- * Shared product card styles.
- * Imported by ProductListing.tsx so Shop and Categories use one card design.
- */
+@charset "UTF-8";
+/* ==========================================================================
+   1. CORE CONTAINER INFRASTRUCTURE HOUSING WRAPPERS
+   ========================================================================== */
 .shop-product-card,
 .category-product-card {
   display: flex;
   flex-direction: column;
-  min-width: 0;
-  height: 100%;
-  overflow: hidden;
-  box-sizing: border-box;
   background-color: #ffffff;
   border: 1px solid #e5e5e5;
   border-radius: 14px;
+  overflow: hidden;
+  box-sizing: border-box;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .shop-product-card:hover,
 .category-product-card:hover {
   border-color: rgb(213.7, 213.7, 213.7);
-  box-shadow: 0 10px 25px -5px rgba(32, 37, 30, 0.05);
+  box-shadow: 0 12px 30px -5px rgba(32, 37, 24, 0.04);
 }
-.shop-product-card:hover .shop-product-card__image-link img,
-.shop-product-card:hover .category-product-card__image-link img,
-.category-product-card:hover .shop-product-card__image-link img,
-.category-product-card:hover .category-product-card__image-link img {
+.shop-product-card:hover img,
+.category-product-card:hover img {
   transform: scale(1.035);
+}
+.shop-product-card,
+.category-product-card {
+  /* MEDIA SHOWCASE PRESENTATION FRAMES */
 }
 .shop-product-card__media,
 .category-product-card__media {
@@ -34,60 +34,64 @@
   justify-content: center;
   width: 100%;
   aspect-ratio: 1/0.98;
-  padding: 10px;
-  overflow: hidden;
-  box-sizing: border-box;
   background-color: #f9f9f9;
+  padding: 12px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 .shop-product-card__image-link,
 .category-product-card__image-link {
   display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: 100%;
+  align-items: center;
+  justify-content: center;
 }
-.shop-product-card__image-link img,
-.category-product-card__image-link img {
-  display: block;
+.shop-product-card img,
+.category-product-card img {
   max-width: 100%;
   max-height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
+  display: block;
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.shop-product-card,
+.category-product-card {
+  /* COMMERCIAL BADGE OVERLAYS */
 }
 .shop-product-card__discount,
 .category-product-card__discount {
   position: absolute;
+  top: 10px;
+  left: 10px;
   z-index: 2;
-  top: 8px;
-  left: 8px;
   padding: 3px 6px;
   border-radius: 5px;
   background-color: #e11d48;
   color: #ffffff;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 800;
 }
 .shop-product-card__wishlist,
 .category-product-card__wishlist {
   position: absolute;
+  top: 10px;
+  right: 10px;
   z-index: 2;
-  top: 8px;
-  right: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 32px;
   height: 32px;
   padding: 0;
-  border: 1px solid rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(15, 23, 42, 0.05);
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: #ffffff;
   color: #666666;
-  font-size: 1rem;
+  font-size: 1.05rem;
   cursor: pointer;
-  transition: color 0.15s ease, background-color 0.15s ease;
+  transition: all 0.15s ease;
 }
 .shop-product-card__wishlist:hover, .shop-product-card__wishlist.active,
 .category-product-card__wishlist:hover,
@@ -98,29 +102,33 @@
 .category-product-card__wishlist.active svg {
   fill: #e11d48;
 }
+.shop-product-card,
+.category-product-card {
+  /* CENTRAL METADATA DESCRIPTION LAYER CONTENT PANEL */
+}
 .shop-product-card__content,
 .category-product-card__content {
+  position: relative;
   display: flex;
-  flex: 1;
   flex-direction: column;
-  min-width: 0;
-  padding: 0.85rem;
+  flex: 1;
+  padding: 1rem;
   box-sizing: border-box;
   text-align: left;
 }
 .shop-product-card__content h2,
 .category-product-card__content h2 {
-  display: -webkit-box;
-  min-height: 2.8em;
-  margin: 0.25rem 0 0.5rem;
-  overflow: hidden;
-  color: #111111;
-  font-size: 0.9rem;
+  margin: 0.25rem 0 0.65rem 0;
+  font-size: 0.92rem;
   font-weight: 600;
-  line-height: 1.4;
-  -webkit-box-orient: vertical;
+  line-height: 1.45;
+  color: #111111;
+  display: -webkit-box;
+  overflow: hidden;
   -webkit-line-clamp: 2;
   line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-height: 2.9em;
 }
 .shop-product-card__content h2 a,
 .category-product-card__content h2 a {
@@ -133,165 +141,182 @@
 }
 .shop-product-card__brand,
 .category-product-card__brand {
-  width: 100%;
-  overflow: hidden;
-  color: #666666;
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 750;
-  letter-spacing: 0.04em;
-  text-overflow: ellipsis;
+  color: #666666;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
+  width: 100%;
+}
+.shop-product-card,
+.category-product-card {
+  /* ==========================================================================
+     🚀 REFACTORED: DYNAMIC HORIZONTAL FLEX METRICS LINE BLOCK
+     Merges Condition Badging and Action Controls into an aligned row segment
+     ========================================================================== */
 }
 .shop-product-card__condition,
 .category-product-card__condition {
-  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 0.85rem;
+  box-sizing: border-box;
+  /* Condition Token Label */
 }
 .shop-product-card__condition span,
 .category-product-card__condition span {
   display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 750;
+  color: #66704A;
+  background-color: #f9f9f9;
   padding: 2px 6px;
   border-radius: 4px;
-  background-color: #f9f9f9;
-  color: #66704A;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
   text-transform: uppercase;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
-.shop-product-card,
-.category-product-card {
-  /* Price and action controls are stacked to prevent narrow buttons. */
-}
-.shop-product-card__bottom,
-.category-product-card__bottom {
+
+/* ==========================================================================
+   ACTIONS CONTROLS HOUSING NESTED WITHIN HORIZONTAL ROW
+   ========================================================================== */
+.product-listing__actions {
+  position: absolute;
+  top: 0;
+  right: 10px;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0.7rem;
-  width: 100%;
-  min-width: 0;
-  margin-top: auto;
-  padding-top: 0.75rem;
-  border-top: 1px solid #f9f9f9;
-  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
 }
-.shop-product-card__actions,
-.category-product-card__actions {
-  display: flex;
-  align-items: stretch;
-  width: 100%;
-  min-width: 0;
-}
-.shop-product-card__actions > button,
-.category-product-card__actions > button {
-  width: 100%;
-  min-width: 0;
-  min-height: 36px;
-  flex: 1 1 auto;
-  box-sizing: border-box;
-}
-.shop-product-card__buy,
-.category-product-card__buy {
+.product-listing__action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
-  min-height: 36px;
-  padding: 0.45rem 0.7rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 9px;
-  background-color: #ffffff;
-  color: #66704A;
-  font-family: inherit;
-  font-size: 0.9rem;
-  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+  flex-shrink: 0;
 }
-.shop-product-card__buy svg,
-.category-product-card__buy svg {
-  flex: 0 0 auto;
-}
-.shop-product-card__buy:hover,
-.category-product-card__buy:hover {
-  border-color: #66704A;
-  background-color: #66704A;
-  color: #ffffff;
+.product-listing__action svg {
+  display: block;
 }
 
-/* The component uses this class for the displayed price in both variants. */
-.shop-product-card__price {
+/* 🚀 CLEAN MINIMALIST CART TRIGGER: Strips background/borders completely flat */
+.shop-product-card__buy,
+.category-product-card__buy {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  color: #66704A;
+  font-size: 1.15rem;
+  height: auto;
+  width: auto;
+  box-shadow: none !important;
+  transition: color 0.15s cubic-bezier(0.16, 1, 0.3, 1), transform 0.1s ease;
+}
+.shop-product-card__buy:hover:not(:disabled),
+.category-product-card__buy:hover:not(:disabled) {
+  color: #525F3C;
+  transform: scale(1.08);
+}
+.shop-product-card__buy:active:not(:disabled),
+.category-product-card__buy:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* 🟢 IS-OWNER SELLER EDIT MODIFIER TRIGGER BUTTON
+   Preserves a professional clean pill format for admin view actions exclusively */
+.product-listing__action:has(svg:not(.fa-shopping-cart)) {
+  height: 32px;
+  padding: 0 10px;
+  background-color: #ffffff;
+  color: #111111;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: all 0.15s ease;
+}
+.product-listing__action:has(svg:not(.fa-shopping-cart)) span {
+  display: inline-block;
+  margin-left: 4px;
+}
+.product-listing__action:has(svg:not(.fa-shopping-cart)):hover {
+  background-color: #2a2e1c;
+  color: #FFFFFF;
+  border-radius: 10%;
+}
+
+/* ==========================================================================
+   3. HIGH-END PRICING MATRIX WINDOW FOOTER (.product-listing__footer)
+   ========================================================================== */
+.product-listing__footer {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  min-width: 0;
+  gap: 4px;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f9f9f9;
+  margin-top: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
-.shop-product-card__price strong {
-  color: #111111;
-  font-size: 1.08rem;
+.product-listing__price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.product-listing__price strong {
+  font-size: 1.15rem;
   font-weight: 850;
+  color: #111111;
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1.1;
   font-variant-numeric: tabular-nums;
 }
 
+/* Premium Minimalist Ribbon Wash Badges */
 .shop-product-card__service {
   display: inline-block;
-  max-width: 100%;
-  margin-top: 4px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background-color: #f0fdf4;
-  color: #15803d;
   font-size: 0.65rem;
   font-weight: 700;
-  white-space: normal;
+  color: #15803d;
+  background-color: #f0fdf4;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 4px;
+  white-space: nowrap;
 }
 
 .shop-product-card__delivery {
   display: flex;
   align-items: center;
-  gap: 6px;
-  max-width: 100%;
-  margin-top: 3px;
-  overflow-wrap: anywhere;
-  color: #666666;
+  gap: 4px;
   font-size: 0.68rem;
   font-weight: 500;
+  color: #666666;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+.shop-product-card__delivery svg {
+  font-size: 0.85rem;
+  color: #666666;
 }
 
-.shop-product-card__actions .make_offer,
-.category-product-card__actions .nake-offer-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 36px;
-  width: 100%;
-  min-width: 0;
-  padding: 0.45rem 0.7rem;
-  border: 1px solid #66704A;
-  border-radius: 9px;
-  background-color: #ffffff;
-  color: #66704A;
-  font-family: inherit;
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  text-align: center;
-  text-transform: uppercase;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-}
-.shop-product-card__actions .make_offer:hover,
-.category-product-card__actions .nake-offer-btn:hover {
-  border-color: #525F3C;
-  background-color: #f9f9f9;
-  color: #525F3C;
-}
-
+/* ==========================================================================
+   📱 MOBILE HOUSING RE-ALIGNMENTS (max-width: 480px)
+   ========================================================================== */
 @media (max-width: 480px) {
   .shop-product-card,
   .category-product-card {
@@ -299,38 +324,42 @@
   }
   .shop-product-card__media,
   .category-product-card__media {
-    padding: 7px;
+    padding: 8px;
   }
   .shop-product-card__content,
   .category-product-card__content {
-    padding: 0.7rem;
+    padding: 0.75rem;
   }
   .shop-product-card__content h2,
   .category-product-card__content h2 {
-    min-height: 2.6em;
-    margin-bottom: 0.4rem;
     font-size: 0.82rem;
+    min-height: 2.7em;
+    margin-bottom: 0.4rem;
   }
-  .shop-product-card__bottom,
-  .category-product-card__bottom {
-    gap: 0.6rem;
+  .product-listing__footer {
     padding-top: 0.65rem;
   }
-  .shop-product-card__price strong,
-  .category-product-card__price strong {
+  .product-listing__price strong {
     font-size: 1rem;
   }
-  .shop-product-card__actions > button,
-  .category-product-card__actions > button {
-    min-height: 34px;
+  .product-listing {
+    /* Seller edit control fallback compression on handsets handsets */
+  }
+  .product-listing__action:has(span) {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 6px;
+  }
+  .product-listing__action:has(span) span {
+    display: none !important;
   }
 }
+/* Screen Reader Reduced Motion Safeguards Overrides Gates */
 @media (prefers-reduced-motion: reduce) {
   .shop-product-card,
   .category-product-card,
-  .shop-product-card__image-link img,
-  .category-product-card__image-link img {
-    animation: none !important;
+  img {
     transition: none !important;
     transform: none !important;
   }

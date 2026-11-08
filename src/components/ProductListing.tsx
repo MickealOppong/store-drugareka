@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
-import { FiEdit, FiHeart, FiShoppingBag, FiTruck } from "react-icons/fi";
+import { FiEdit, FiHeart, FiShoppingCart, FiTruck } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-import '../css/ProductListing.css';
+import "../css/ProductListing.css";
 
 import type { TListTrans } from "../types/TListTrans";
 import { formatPrice, sanitizeBackendKey } from "../util/util";
@@ -13,7 +13,6 @@ interface ProductListingProps {
   isOwner: boolean;
   variant?: "shop" | "category";
   onToggleWishlist: (listingId: number) => void;
-  onMakeOffer: (product: TListTrans) => void;
   onAddToCart: (listingId: number) => void;
   onEdit: (listingId: number) => void;
   onView?: (listingId: number) => void;
@@ -25,7 +24,6 @@ const ProductListing = ({
   isOwner,
   variant = "shop",
   onToggleWishlist,
-  onMakeOffer,
   onAddToCart,
   onEdit,
   onView,
@@ -41,8 +39,11 @@ const ProductListing = ({
       : 0;
 
   const displayedPrice = product.newPrice + (product.serviceCharge ?? 0);
-
   const cardClass = isCategory ? "category-product-card" : "shop-product-card";
+
+  const addToCartLabel = t("shop.product.add_to_cart", {
+    defaultValue: "Add to cart",
+  });
 
   return (
     <article className={cardClass}>
@@ -102,6 +103,34 @@ const ProductListing = ({
           </span>
         </div>
 
+        <div className={`${cardClass}__actions product-listing__actions`}>
+          {isOwner ? (
+            <button
+              type="button"
+              className={`${cardClass}__buy product-listing__action`}
+              aria-label={t("shop.product.edit_listing", {
+                defaultValue: "Edit listing",
+              })}
+              onClick={() => onEdit(product.listingId)}
+            >
+              <FiEdit />
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                className={`${cardClass}__buy product-listing__action`}
+                aria-label={addToCartLabel}
+                title={addToCartLabel}
+                onClick={() => onAddToCart(product.listingId)}
+              >
+                <FiShoppingCart aria-hidden="true" />
+              </button>
+
+            </>
+          )}
+        </div>
+
         <div className={`${cardClass}__bottom product-listing__footer`}>
           <div className="shop-product-card__price product-listing__price">
             <strong>{formatPrice(displayedPrice)} zł</strong>
@@ -113,45 +142,9 @@ const ProductListing = ({
             )}
 
             <span className="shop-product-card__delivery">
-              <FiTruck/>
+              <FiTruck />
               {t("shop.product.delivery_cost_extra")}
             </span>
-          </div>
-
-          <div className={`${cardClass}__actions product-listing__actions`}>
-            {isOwner ? (
-              <button
-                type="button"
-                className={`${cardClass}__buy product-listing__action`}
-                aria-label={t("shop.product.edit_listing", {
-                  defaultValue: "Edit listing",
-                })}
-                onClick={() => onEdit(product.listingId)}
-              >
-                <FiEdit />
-                <span>{t("shop.product.edit_listing", { defaultValue: "Edit listing" })}</span>
-              </button>
-            ) : product.negotiable ? (
-              <button
-                type="button"
-                className={`${isCategory ? "nake-offer-btn" : "make_offer"} product-listing__action`}
-                onClick={() => onMakeOffer(product)}
-              >
-                {t("shop.product.make_offer")}
-              </button>
-            ) : (
-              <button
-                type="button"
-                className={`${cardClass}__buy product-listing__action`}
-                aria-label={t("shop.product.add_to_cart", {
-                  defaultValue: "Add to cart",
-                })}
-                onClick={() => onAddToCart(product.listingId)}
-              >
-                <FiShoppingBag />
-                <span>{t("shop.product.add_to_cart", { defaultValue: "Add to cart" })}</span>
-              </button>
-            )}
           </div>
         </div>
       </div>

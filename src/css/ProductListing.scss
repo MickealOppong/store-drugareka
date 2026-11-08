@@ -1,33 +1,30 @@
 @use "sass:color";
 @use "Variables.scss" as Variables;
 
-/*
- * Shared product card styles.
- * Imported by ProductListing.tsx so Shop and Categories use one card design.
- */
+/* ==========================================================================
+   1. CORE CONTAINER INFRASTRUCTURE HOUSING WRAPPERS
+   ========================================================================== */
 .shop-product-card,
 .category-product-card {
   display: flex;
   flex-direction: column;
-  min-width: 0;
-  height: 100%;
-  overflow: hidden;
-  box-sizing: border-box;
   background-color: #ffffff;
   border: 1px solid Variables.$color-border;
   border-radius: 14px;
+  overflow: hidden;
+  box-sizing: border-box;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 
   &:hover {
     border-color: color.adjust(Variables.$color-border, $lightness: -6%);
-    box-shadow: 0 10px 25px -5px rgba(32, 37, 30, 0.05);
-
-    .shop-product-card__image-link img,
-    .category-product-card__image-link img {
-      transform: scale(1.035);
+    box-shadow: 0 12px 30px -5px rgba(32, 37, 24, 0.04);
+    
+    img {
+      transform: scale(1.035); // Fluid hardware-accelerated micro-zoom interaction
     }
   }
 
+  /* MEDIA SHOWCASE PRESENTATION FRAMES */
   &__media {
     position: relative;
     display: flex;
@@ -35,305 +32,322 @@
     justify-content: center;
     width: 100%;
     aspect-ratio: 1 / 0.98;
-    padding: 10px;
-    overflow: hidden;
-    box-sizing: border-box;
     background-color: Variables.$color-bg-light;
+    padding: 12px;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   &__image-link {
     display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
     height: 100%;
-
-    img {
-      display: block;
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+    align-items: center;
+    justify-content: center;
   }
 
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; // Safeguards product images against distortion traps
+    display: block;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* COMMERCIAL BADGE OVERLAYS */
   &__discount {
     position: absolute;
+    top: 10px;
+    left: 10px;
     z-index: 2;
-    top: 8px;
-    left: 8px;
     padding: 3px 6px;
     border-radius: 5px;
     background-color: Variables.$color-accent;
     color: #ffffff;
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-weight: 800;
   }
 
   &__wishlist {
     position: absolute;
+    top: 10px;
+    right: 10px;
     z-index: 2;
-    top: 8px;
-    right: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 32px;
     height: 32px;
     padding: 0;
-    border: 1px solid rgba(15, 23, 42, 0.06);
+    border: 1px solid rgba(15, 23, 42, 0.05);
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.92);
+    background-color: #ffffff;
     color: Variables.$color-text-muted;
-    font-size: 1rem;
+    font-size: 1.05rem;
     cursor: pointer;
-    transition: color 0.15s ease, background-color 0.15s ease;
+    transition: all 0.15s ease;
 
-    &:hover,
-    &.active {
-      color: Variables.$color-accent;
-    }
-
-    &.active svg {
-      fill: Variables.$color-accent;
-    }
+    &:hover, &.active { color: #e11d48; }
+    &.active svg { fill: #e11d48; }
   }
 
+  /* CENTRAL METADATA DESCRIPTION LAYER CONTENT PANEL */
   &__content {
+    position: relative;
     display: flex;
-    flex: 1;
     flex-direction: column;
-    min-width: 0;
-    padding: 0.85rem;
+    flex: 1;
+    padding: 1rem;
     box-sizing: border-box;
     text-align: left;
 
-
     h2 {
-      display: -webkit-box;
-      min-height: 2.8em;
-      margin: 0.25rem 0 0.5rem;
-      overflow: hidden;
-      color: Variables.$color-text-main;
-      font-size: 0.9rem;
+      margin: 0.25rem 0 0.65rem 0;
+      font-size: 0.92rem;
       font-weight: 600;
-      line-height: 1.4;
-      -webkit-box-orient: vertical;
+      line-height: 1.45;
+      color: Variables.$color-text-main;
+      display: -webkit-box;
+      overflow: hidden;
       -webkit-line-clamp: 2;
       line-clamp: 2;
+      -webkit-box-orient: vertical;
+      min-height: 2.9em; // Harmonizes box proportions across rows
 
       a {
         color: inherit;
         text-decoration: none;
-
-        &:hover {
-          color: Variables.$color-primary;
-        }
+        &:hover { color: Variables.$color-primary; }
       }
     }
   }
 
   &__brand {
-    width: 100%;
-    overflow: hidden;
-    color: Variables.$color-text-muted;
-    font-size: 0.68rem;
+    font-size: 0.7rem;
     font-weight: 750;
-    letter-spacing: 0.04em;
-    text-overflow: ellipsis;
+    color: Variables.$color-text-muted;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
+    width: 100%;
   }
 
+  /* ==========================================================================
+     🚀 REFACTORED: DYNAMIC HORIZONTAL FLEX METRICS LINE BLOCK
+     Merges Condition Badging and Action Controls into an aligned row segment
+     ========================================================================== */
   &__condition {
-    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; // Spreads parameters flatly across edges
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 0.85rem;
+    box-sizing: border-box;
 
+    /* Condition Token Label */
     span {
       display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 750;
+      color: Variables.$color-primary; // 🌿 Native Olive Green Branding
+      background-color: Variables.$color-bg-light;
       padding: 2px 6px;
       border-radius: 4px;
-      background-color: Variables.$color-bg-light;
-      color: Variables.$color-primary;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
       text-transform: uppercase;
-    }
-  }
-
-  /* Price and action controls are stacked to prevent narrow buttons. */
-  &__bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.7rem;
-    width: 100%;
-    min-width: 0;
-    margin-top: auto;
-    padding-top: 0.75rem;
-    border-top: 1px solid Variables.$color-bg-light;
-    box-sizing: border-box;
-  }
-
-  &__actions {
-    display: flex;
-    align-items: stretch;
-    width: 100%;
-    min-width: 0;
-
-    > button {
-      width: 100%;
+      letter-spacing: 0.02em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       min-width: 0;
-      min-height: 36px;
-      flex: 1 1 auto;
-      box-sizing: border-box;
     }
   }
+}
 
-  &__buy {
+/* ==========================================================================
+   ACTIONS CONTROLS HOUSING NESTED WITHIN HORIZONTAL ROW
+   ========================================================================== */
+.product-listing {
+  &__actions {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0; // 🚀 CRUCIAL: Stops parent container from crunching actions track
+  }
+
+  &__action {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.45rem;
-    min-height: 36px;
-    padding: 0.45rem 0.7rem;
-    border: 1px solid #cbd5e1;
-    border-radius: 9px;
-    background-color: #ffffff;
-    color: Variables.$color-primary;
-    font-family: inherit;
-    font-size: 0.9rem;
-    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    box-sizing: border-box;
+    font-family: inherit;
+    flex-shrink: 0; // 🚀 CRUCIAL: Blocks text squeeze loops
 
     svg {
-      flex: 0 0 auto;
+      display: block;
+    }
+  }
+}
+
+/* 🚀 CLEAN MINIMALIST CART TRIGGER: Strips background/borders completely flat */
+.shop-product-card__buy,
+.category-product-card__buy {
+  background: transparent;
+  border: none;           
+  padding: 4px;
+  color: Variables.$color-primary;
+  font-size: 1.15rem; 
+  height: auto;
+  width: auto;
+  box-shadow: none !important;
+  transition: color 0.15s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.1s ease;
+           
+
+  &:hover:not(:disabled) {
+    color: Variables.$color-primary-hover; // Earthy deep forest shift
+    transform: scale(1.08);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+/* 🟢 IS-OWNER SELLER EDIT MODIFIER TRIGGER BUTTON
+   Preserves a professional clean pill format for admin view actions exclusively */
+.product-listing__action {
+  &:has(svg:not(.fa-shopping-cart)) {
+    height: 32px;
+    padding: 0 10px;
+    background-color: #ffffff;
+  
+    color: Variables.$color-text-main;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    transition: all 0.15s ease;
+
+
+
+    span {
+      display: inline-block;
+      margin-left: 4px;
     }
 
     &:hover {
-      border-color: Variables.$color-primary;
-      background-color: Variables.$color-primary;
-      color: #ffffff;
+      background-color: Variables.$color-primary-dark;
+      color: Variables.$background ;
+      border-radius: 10%;
+      //border: #94a3b8;
     }
   }
 }
 
-/* The component uses this class for the displayed price in both variants. */
-.shop-product-card__price {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 0;
+/* ==========================================================================
+   3. HIGH-END PRICING MATRIX WINDOW FOOTER (.product-listing__footer)
+   ========================================================================== */
+.product-listing {
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding-top: 0.75rem;
+    border-top: 1px solid Variables.$color-bg-light;
+    margin-top: auto; // Locks section down straight onto the bottom edge
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-  strong {
-    color: Variables.$color-text-main;
-    font-size: 1.08rem;
-    font-weight: 850;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    font-variant-numeric: tabular-nums;
+  &__price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+
+    strong {
+      font-size: 1.15rem;
+      font-weight: 850;
+      color: Variables.$color-text-main;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
   }
 }
 
+/* Premium Minimalist Ribbon Wash Badges */
 .shop-product-card__service {
   display: inline-block;
-  max-width: 100%;
-  margin-top: 4px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background-color: #f0fdf4;
-  color: #15803d;
   font-size: 0.65rem;
   font-weight: 700;
-  white-space: normal;
+  color: #15803d;
+  background-color: #f0fdf4; // Lightweight emerald ribbon wash fill instead of heavy blocks
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 4px;
+  white-space: nowrap;
 }
 
 .shop-product-card__delivery {
   display: flex;
   align-items: center;
-  gap: 6px;
-  max-width: 100%;
-  margin-top: 3px;
-  overflow-wrap: anywhere;
-  color: Variables.$color-text-muted;
+  gap: 4px;
   font-size: 0.68rem;
   font-weight: 500;
+  color: Variables.$color-text-muted;
+  margin-top: 4px;
+  white-space: nowrap;
 
-  
-}
-
-.shop-product-card__actions .make_offer,
-.category-product-card__actions .nake-offer-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 36px;
-  width: 100%;
-  min-width: 0;
-  padding: 0.45rem 0.7rem;
-  border: 1px solid Variables.$color-primary;
-  border-radius: 9px;
-  background-color: #ffffff;
-  color: Variables.$color-primary;
-  font-family: inherit;
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  text-align: center;
-  text-transform: uppercase;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-
-  &:hover {
-    border-color: Variables.$color-primary-hover;
-    background-color: Variables.$color-bg-light;
-    color: Variables.$color-primary-hover;
+  svg {
+    font-size: 0.85rem;
+    color: Variables.$color-text-muted;
   }
 }
 
+/* ==========================================================================
+   📱 MOBILE HOUSING RE-ALIGNMENTS (max-width: 480px)
+   ========================================================================== */
 @media (max-width: 480px) {
   .shop-product-card,
   .category-product-card {
     border-radius: 12px;
-
-    &__media {
-      padding: 7px;
+    
+    &__media { padding: 8px; }
+    &__content { 
+      padding: 0.75rem; 
+      h2 { font-size: 0.82rem; min-height: 2.7em; margin-bottom: 0.4rem; } 
     }
+  }
 
-    &__content {
-      padding: 0.7rem;
+  .product-listing {
+    &__footer { padding-top: 0.65rem; }
+    &__price strong { font-size: 1rem; }
 
-      h2 {
-        min-height: 2.6em;
-        margin-bottom: 0.4rem;
-        font-size: 0.82rem;
-      }
-    }
-
-    &__bottom {
-      gap: 0.6rem;
-      padding-top: 0.65rem;
-    }
-
-    &__price strong {
-      font-size: 1rem;
-    }
-
-    &__actions > button {
-      min-height: 34px;
+    /* Seller edit control fallback compression on handsets handsets */
+    &__action:has(span) {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border-radius: 6px;
+      span { display: none !important; }
     }
   }
 }
 
+/* Screen Reader Reduced Motion Safeguards Overrides Gates */
 @media (prefers-reduced-motion: reduce) {
   .shop-product-card,
   .category-product-card,
-  .shop-product-card__image-link img,
-  .category-product-card__image-link img {
-    animation: none !important;
+  img {
     transition: none !important;
     transform: none !important;
   }

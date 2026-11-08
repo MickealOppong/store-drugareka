@@ -2,7 +2,7 @@
 @use "Variables.scss" as Variables;
 
 /* ==========================================================================
-   MASTER SINGLE PRODUCT MAIN VIEW CONTAINER (.product-details)
+   MASTER SINGLE PRODUCT CONTAINER LAYOUT (.product-details)
    ========================================================================== */
 .product-details {
   width: 100%;
@@ -16,21 +16,47 @@
     padding: 24px 32px;
   }
 
-  /* Shared Context Eyebrows */
+  /* Shared Typography Eyebrows */
   .section-eyebrow,
   &__brand-label {
     display: inline-block;
     font-size: 0.72rem;
     font-weight: 800;
     text-transform: uppercase;
-    color: Variables.$color-primary; // 🌿 Rich Earthy Olive Green Accent
+    color: Variables.$color-primary; // 🌿 Organic Olive Green Theme Accent
     letter-spacing: 0.08em;
     margin-bottom: 0.5rem;
+  }
+
+
+  /* =========================================================
+     Error
+     ========================================================= */
+  &__error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    padding: 10px 14px;
+    background-color: Variables.$color-error-bg;
+    border: 1px solid rgba(Variables.$color-error, 0.12);
+    border-radius: 10px;
+    color: Variables.$color-error;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.4;
+    box-sizing: border-box;
+    animation: mktAlertPop 0.22s ease-out;
+
+    svg {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
   }
 }
 
 /* ==========================================================================
-   1. BREADCRUMB STEERING HEADER NAVIGATION
+   1. STRUCTURAL BREADCRUMB HEADER NAV
    ========================================================================== */
 .product-details__nav-header {
   display: flex;
@@ -81,7 +107,7 @@
 }
 
 /* ==========================================================================
-   2. PRIMARY ASYMMETRIC GRID CANVAS WRAPPER (.product-details__main-wrapper)
+   2. PRIMARY SINGLE PRODUCT ASYMMETRIC GRID WORKSPACE WRAPPER
    ========================================================================== */
 .product-details__main-wrapper {
   display: flex;
@@ -97,7 +123,7 @@
   }
 }
 
-/* LEFT COLUMN — MEDIA VISUAL SHOWCASE FRAMES */
+/* LEFT COLUMN — MEDIA CAROUSEL Showcase VIEWPORT */
 .product-details__media-showcase {
   display: flex;
   flex-direction: column;
@@ -128,7 +154,7 @@
   .product-details__main-image {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; // Guarantees product item borders never compress or distort edges
+    object-fit: contain;
     display: block;
     mix-blend-mode: multiply;
   }
@@ -174,7 +200,7 @@
   }
 }
 
-/* RIGHT COLUMN — INTERACTIVE SPECIFICATIONS META INFO PANEL */
+/* RIGHT COLUMN — INTERACTIVE DATA PROPERTIES PANEL CONTENT SLOT */
 .product-details__content-panel {
   display: flex;
   flex-direction: column;
@@ -211,11 +237,11 @@
   }
 }
 
-/* TECHNICAL SPECIFICATION TAG METADATA BADGES (.product-details__condition-badge) */
+/* PRODUCT SPECIFICATION GRANULAR TAGS METADATA BADGES */
 .product-details__condition-badge {
   display: inline-flex;
   margin-bottom: 0.45rem;
-  margin-right: 0.35rem; // Dense wrap logical cushion clearances
+  margin-right: 0.35rem;
 
   span {
     font-size: 0.85rem;
@@ -233,12 +259,12 @@
   }
 }
 
-/* SECURE PERSONAL COLLECTION PHYSICAL LOCATION BANNER LAYER */
+/* SECURE LOCAL ONSITE COURIER DELIVERY NOTICE STRIP */
 .product-details__personal-collection {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  background-color: #fffbef; // Gentle amber wash layer for notice pop focus parameters
+  background-color: #fffbef; // Light warm amber reminder tone wash fill matrix
   border: 1px solid #fef3c7;
   border-radius: 12px;
   padding: 12px 14px;
@@ -248,7 +274,7 @@
 
   svg {
     font-size: 1.2rem;
-    color: #d97706; // Amber accent icon sync
+    color: #d97706;
     flex-shrink: 0;
     margin-top: 2px;
   }
@@ -263,13 +289,11 @@
       font-weight: 750;
       color: #92400e;
     }
-
     p {
       margin: 0;
       font-size: 0.82rem;
       line-height: 1.4;
       color: #b45309;
-
       strong {
         display: inline;
         color: #78350f;
@@ -279,7 +303,7 @@
   }
 }
 
-/* FINANCIAL TOTALIZER PRICING BLOCKS */
+/* FINANCIAL TOTALIZER PRICING SUMMARY LAYOUT */
 .product-details__pricing-matrix {
   display: flex;
   flex-direction: column;
@@ -302,13 +326,12 @@
   }
 }
 
-/* Premium Minimalist Ribbon Wash Badges */
 .product-details__service {
   display: inline-block;
   font-size: 0.65rem;
   font-weight: 700;
   color: #15803d;
-  background-color: #f0fdf4; // Lightweight emerald wash ribbon
+  background-color: #f0fdf4; // Premium subtle emerald service ribbon wash fill
   padding: 3px 8px;
   border-radius: 4px;
   align-self: flex-start;
@@ -320,25 +343,24 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: Variables.$color-text-muted;
   margin: 6px 0 0 0;
   text-align: left;
-  width: 100%;
 
   svg {
     font-size: 1rem;
-    color: Variables.$color-primary;
+    color: Variables.$color-text-muted;
   }
 }
 
-/* APPLICATION ESCROW PROTECTION GUARANTEES STRIP */
+/* TRUST ESCROW PROTECTION GUARANTEES SUB CONTAINER STRIP */
 .product-details__safety-strip {
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: #f0f7f4; // Gentle safe escrow soft green tint
+  background-color: #f0f7f4;
   border: 1px solid rgba(104, 118, 75, 0.15);
   border-radius: 12px;
   padding: 12px 14px;
@@ -361,17 +383,20 @@
   }
 }
 
-/* FIXED-SIZE ACTION CONSOLE LAYER CTAS */
+/* ==========================================================================
+   TACTILE CONTROL TRANSACTION ACTION PANEL CONSOLE ROW (.product-details__action-row)
+   ========================================================================== */
 .product-details__action-row {
   display: flex;
   align-items: center;
+  flex-direction: column;
   gap: 12px;
   width: 100%;
   margin-top: 0.5rem;
   box-sizing: border-box;
 
-  /* Full-width responsive stack breakout reserved exclusively for tiny device viewports */
-  @media (max-width: 480px) {
+  /* Stack actions vertically to maximize tap parameters space on tight viewports */
+  @media (max-width: 640px) {
     flex-direction: column;
     gap: 10px;
 
@@ -381,61 +406,80 @@
     }
   }
 
-  .product-details__buy-now-btn {
-    width: 50%; // Enforces a solid, uniform fixed width allocation grid footprint
-    height: Variables.$touch-target-min; // Connects to strict 48px tactile touch boundaries limits
+  /* Shared action buttons tactile structural configurations template baseline */
+  & > button {
+    height: Variables.$touch-target-min; // Enforces global strict 48px touch guidelines targets
     flex-shrink: 0;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background-color: Variables.$color-primary;
-    color: Variables.$color-text-light;
-    border: none;
     border-radius: 12px;
     font-family: inherit;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(Variables.$color-primary, 0.16);
+    box-sizing: border-box;
     transition:
-      background-color 0.2s ease,
+      background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+      color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.1s ease,
       box-shadow 0.2s ease;
 
-    &:hover {
-      background-color: Variables.$color-primary-hover; // Deep forest branding shift state
-      box-shadow: 0 6px 20px rgba(Variables.$color-primary, 0.24);
+    svg {
+      font-size: 1.1rem;
+      flex-shrink: 0;
     }
 
     &:active {
-      transform: scale(
-        0.985
-      ); // Tactical compression micro-interaction scale feedback
+      transform: scale(0.985);
     }
   }
 
+  /* 🛒 PRIMARY CHECKOUT CTA BUTTON — ULTIMATE CONVERSION PRIORITY */
+  .product-details__buy-now-btn {
+    width: 100%; // Solid fixed geometric spatial asset assignment limits
+    background-color: Variables.$color-primary;
+    color: Variables.$color-text-light;
+    border: none;
+    box-shadow: 0 4px 14px rgba(Variables.$color-primary, 0.16);
+
+    &:hover {
+      background-color: Variables.$color-primary-hover; // Earth forest dark wash state
+      box-shadow: 0 6px 20px rgba(Variables.$color-primary, 0.24);
+    }
+  }
+  /* ==========================================================================
+🌿 🚀 NEW REFACTORED: HIGH-END SPOTLIGHT BARGAINING CTA BUTTON OVERRIDE
+========================================================================== */
+  .product-details__make-offer-btn {
+    width: 100%; // Tailored proportional fixed horizontal layout width parameter
+    background-color: #ffffff;
+    border: 2px solid Variables.$color-primary;
+    color: Variables.$color-primary;
+    box-shadow: 0 4px 12px rgba(104, 118, 75, 0.04);
+    svg {
+      color: Variables.$color-primary;
+      transition: transform 0.2s ease;
+    }
+    &:hover {
+      background-color: Variables.$color-primary-dark;
+      color: Variables.$background;
+      border-color: Variables.$color-primary-hover;
+      box-shadow: 0 6px 16px rgba(104, 118, 75, 0.1);
+      svg {
+        
+        transform: rotate(-12deg) scale(1.08); // Elegant spotlight angle tag tilt interaction loop feedback
+      }
+    }
+  }
+  /* AUXILIARY REACTIONARY LIFE ICON ACTION (Wishlist Link Button) */
   .product-details__wishlist-btn {
-    width: 50%; // Enforces a solid, uniform fixed width allocation grid footprint
-    height: Variables.$touch-target-min;
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    width:100%;
     background-color: Variables.$background;
     border: 1px solid #cbd5e1;
     color: #475569;
-    font-family: inherit;
-    font-size: 0.9rem;
-    font-weight: 700;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-    svg {
-      font-size: 1.15rem;
-      transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-    }
     &:hover {
       background-color: Variables.$color-bg-light;
       color: #0f172a;
@@ -458,8 +502,7 @@
   }
 }
 /* ==========================================================================
-3. VALUE PROPOSITIONS STRIP ASSURANCES LOGISTICS BAR
-ROW TRACK ON HANDSETS / COLUMN GRID TRACKS ON DESKTOPS
+3. VALUE PROPOSITIONS HORIZONTAL VALUE ASSURANCES BAR LAYOUT
 ========================================================================== */
 .product-details__trust-bar {
   display: flex;
@@ -468,7 +511,7 @@ ROW TRACK ON HANDSETS / COLUMN GRID TRACKS ON DESKTOPS
   border-top: 1px solid Variables.$color-border;
   padding-top: 2.5rem;
   box-sizing: border-box;
-  /* MOBILE PROFILE MAPS: Arranged as an horizontal swipable carousel line ribbon track */
+  /* MOBILE RESPONSIVE LAYOUTS: Inline swipable horizontal carousel ribbon */
   flex-direction: row;
   overflow-x: auto;
   gap: 24px;
@@ -478,17 +521,17 @@ ROW TRACK ON HANDSETS / COLUMN GRID TRACKS ON DESKTOPS
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   &::-webkit-scrollbar {
-    display: none; // Truncates webkit layout scrollbars completely out of trust bars
+    display: none;
   }
   .product-details__trust-item {
     scroll-snap-align: start;
-    flex: 0 0 240px; // Insulates width parameters block size, forcing grid cards feel natively
+    flex: 0 0 240px;
     display: flex;
     align-items: flex-start;
     gap: 12px;
     box-sizing: border-box;
   }
-  /* DESKTOP VIEWPORTS LAYOUT: Re-orients into side-by-side columns blocks */
+  /* DESKTOP VIEWPORTS ADAPTIVITY GATES COLUMN TRANSFORMATION */
   @include Variables.media-up(Variables.$breakpoint-lg) {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -523,7 +566,7 @@ ROW TRACK ON HANDSETS / COLUMN GRID TRACKS ON DESKTOPS
   }
 }
 /* ==========================================================================
-3.a SAME PRODUCTS FROM SELLER CAROUSEL LOOP FEED CODES (.products)
+3.a SAME PRODUCTS FROM SELLER REVELATION PROFILE FEED (.products)
 ========================================================================== */
 .products.section {
   width: 100%;
@@ -545,7 +588,6 @@ ROW TRACK ON HANDSETS / COLUMN GRID TRACKS ON DESKTOPS
       letter-spacing: -0.025em;
     }
   }
-  /* Symmetrical grid tracks allocations for responsive multi variant catalog layout views */
   .product-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -561,7 +603,6 @@ ROW TRACK ON HANDSETS / COLUMN GRID TRACKS ON DESKTOPS
       gap: 1.5rem;
     }
   }
-  /* Catalog Product Line Item Structural Wrapper Nodes */
   .product-card {
     display: flex;
     flex-direction: column;
@@ -638,7 +679,7 @@ ROW TRACK ON HANDSETS / COLUMN GRID TRACKS ON DESKTOPS
   }
 }
 /* ==========================================================================
-4. SLEEK HIGH-FIDELITY COMPACT SYSTEM RUNTIME FAULT ERROR BANNER
+4. SLEEK HIGH-FIDELITY FAULT RUNTIME ERROR RIBBON INFRASTRUCTURE
 ========================================================================== */
 .product-details__error-state {
   display: flex;
@@ -673,7 +714,7 @@ ROW TRACK ON HANDSETS / COLUMN GRID TRACKS ON DESKTOPS
     color: color.adjust(Variables.$color-error, $lightness: -4%);
   }
 }
-/* Hardware Entry Animation timing framework metrics rules */
+/* Entry macro animation keys frames timings profiles */
 @keyframes prodDetailsErrorPop {
   from {
     opacity: 0;
@@ -684,11 +725,12 @@ ROW TRACK ON HANDSETS / COLUMN GRID TRACKS ON DESKTOPS
     transform: translateY(0) scale(1);
   }
 }
-/* Screen Reader Reduced Motion Accessibility Guidelines Overrides Gates */
+/* Screen Reader Reduced Motions Gates Accessibility Overrides */
 @media (prefers-reduced-motion: reduce) {
   .product-details__error-message,
   .product-details__thumb-trigger,
-  .product-card__media img {
+  .product-card__media img,
+  .product-details__action-row > button {
     animation: none !important;
     transition: none !important;
     transform: none !important;

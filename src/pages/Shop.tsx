@@ -15,7 +15,6 @@ import { Loading, Pagination } from "../components";
 import CookieBanner from "../components/CookieBanner";
 import { ErrorToast } from "../components/ErrorTaost";
 import Footer from "../components/Footer";
-import MakeOfferodal from "../components/MakeOfferModal";
 import ProductListing from "../components/ProductListing";
 import SEO from "../components/SEO";
 import ShopBanner from "../components/ShopBanner";
@@ -32,21 +31,12 @@ import {
 import { useAddToCart } from "../hooks/useAddTocart";
 import { useRecentViews } from "../hooks/useRecentViews";
 import { useAppSelector } from "../store";
-import type { TListTrans } from "../types/TListTrans";
 import type { TQueryDto } from "../types/TQueryDto";
 import { sanitizeCategoryKey } from "../util/util";
 
 const Shop = () => {
   //translation hook
   const { t } = useTranslation();
-
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [modalData, setModalData] = useState<{
-    name: string;
-    id: number;
-    currentPrice: number;
-    isNegotiable: boolean;
-  } | null>(null);
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -170,11 +160,14 @@ const Shop = () => {
   };
 
   //handle modal state
+  /*
   const onModalButtonClick = () => {
     setOpenModal(false);
   };
+  */
 
   //handle make offer click
+  /*
   const handleMakeOffer = (product: TListTrans) => {
     if (!email) return navigate("/login");
     if (product) {
@@ -187,6 +180,7 @@ const Shop = () => {
       setOpenModal(true);
     }
   };
+  */
 
   const hanldeSelectedCityParam = (city: string) => {
     const searchParams = new URLSearchParams(search);
@@ -439,7 +433,6 @@ useEffect(() => {
                   isOwner={Number(sellerProfileId) === product.sellerId}
                   variant="shop"
                   onToggleWishlist={toggleWishlist}
-                  onMakeOffer={handleMakeOffer}
                   onAddToCart={addItemToCart}
                   onEdit={(listingId) =>
                     navigate(`/account/listings/${listingId}/edit`)
@@ -450,17 +443,8 @@ useEffect(() => {
             )}
           </section>
         )}
-        {/** MAKE OFFER MODAL */}
-        {openModal && (
-          <MakeOfferodal
-            isNegotiable={Boolean(modalData?.isNegotiable)}
-            productName={modalData?.name || ""}
-            id={modalData?.id || 0}
-            currentPrice={modalData?.currentPrice || 0}
-            isOpen={openModal}
-            onButtonClick={onModalButtonClick}
-          />
-        )}
+
+ 
         {data && (
           <Pagination
             accumulated={data.accumulatedItems}
