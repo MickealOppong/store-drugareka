@@ -234,11 +234,6 @@ useEffect(() => {
   description="Odkrywaj wyjątkowe okazje na Kasoa.pl! Kupuj i sprzedawaj odzież damską i męską, elektronikę, części samochodowe,meble produkty dla dzieci, dom i ogród oraz wiele więcej."
   canonical="https://kasoa.pl/"
 />
-<SEO
-  title="Kasoa.pl – Buy and Sell Second-Hand Products"
-  description="Discover great deals on Kasoa.pl! Buy and sell second-hand clothing, electronics, car parts, children's products,furniture, home and garden items, and much more."
-  canonical="https://kasoa.pl/"
-/>
         {/* =====================================================
                 SHOP HEADER
             ====================================================== */}
