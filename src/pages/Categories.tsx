@@ -22,7 +22,6 @@ import {
 } from "../features/api/storeApi";
 import { useAddToCart } from "../hooks/useAddTocart";
 import { useAppSelector } from "../store";
-import type { TListTrans } from "../types/TListTrans";
 import type { TQueryDto } from "../types/TQueryDto";
 import { sanitizeCategoryKey } from "../util/util";
 
@@ -182,19 +181,7 @@ export const Categories: React.FC = () => {
     setOpenModal(false);
   };
 
-  //handle make offer click
-  const handleMakeOffer = (product: TListTrans) => {
-    if (!username) return navigate("/login");
-    if (product) {
-      setModalData({
-        name: product.productName,
-        id: product.listingId,
-        currentPrice: product.newPrice,
-        isNegotiable: product.negotiable,
-      });
-      setOpenModal(true);
-    }
-  };
+
 
 
   const hanldeSelectedCityParam = (city: string) => {
@@ -532,7 +519,6 @@ useEffect(() => {
                     isOwner={product.sellerId === sellerProfileId}
                     variant="category"
                     onToggleWishlist={toggleWishlist}
-                    onMakeOffer={handleMakeOffer}
                     onAddToCart={addItemToCart}
                     onEdit={(listingId) =>
                       navigate(`/account/listings/${listingId}/edit`)
