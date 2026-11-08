@@ -6,7 +6,6 @@ import { ConditionFilter, Loading } from "../components";
 import BrandFilter from "../components/BrandFilter";
 import CategoryTree from "../components/CategoryTree";
 import Footer from "../components/Footer";
-import MakeOfferModal from "../components/MakeOfferModal";
 import ProductListing from "../components/ProductListing";
 import SEO from "../components/SEO";
 import "../css/Categories.css";
@@ -49,15 +48,6 @@ export const Categories: React.FC = () => {
 
   const { data: wishlist = [] } = useGetWishListsQuery();
   const wishlists = wishlist.map((item) => item.listingId);
-
-  //make offer modal
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [modalData, setModalData] = useState<{
-    name: string;
-    id: number;
-    currentPrice: number;
-    isNegotiable: boolean;
-  } | null>(null);
 
   const [selectedSubCat, setSelectedSubCat] = useState<number | null>(null);
 
@@ -176,10 +166,6 @@ export const Categories: React.FC = () => {
   // Usage Example:
   const { parent, child } = extractCategoryPath(category ? category.path : "");
 
-  //handle modal state
-  const onModalButtonClick = () => {
-    setOpenModal(false);
-  };
 
 
 
@@ -526,17 +512,6 @@ useEffect(() => {
                   />
                 ))}
               </div>
-            )}
-
-            {openModal && (
-              <MakeOfferModal
-                productName={modalData?.name || ""}
-                id={modalData?.id || 0}
-                currentPrice={modalData?.currentPrice || 0}
-                isOpen={openModal}
-                onButtonClick={onModalButtonClick}
-                isNegotiable={Boolean(modalData?.isNegotiable)}
-              />
             )}
           </div>
         </div>
