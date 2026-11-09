@@ -233,13 +233,15 @@
 
   /* EMPTY RESULT CARDS PRESENTATION WORKSPACE */
   &__empty {
-    display: flex;
+     display:flex;
+    width: 100%;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    padding: 5rem 1.5rem;
-    border: 1px dashed Variables.$color-border;
+    padding: 4rem 1.5rem;
+    border: 1px solid Variables.$color-border;
     border-radius: 16px;
+    background: #ffffff;
+    text-align: center;
     box-sizing: border-box;
 
     svg {

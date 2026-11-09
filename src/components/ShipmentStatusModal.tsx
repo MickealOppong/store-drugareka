@@ -20,7 +20,7 @@ export interface ShipmentRequest {
   createdAt: string;
 }
 
-const SHIPMENT_STATUSES = ["AWAITING_SHIPMENT", "SHIPPED", "DELIVERED", "RETURNED", "CREATED"] as const; 
+const SHIPMENT_STATUSES = ["AWAITING_SHIPMENT", "SHIPPED", "DELIVERED", "RETURNED", "CREATED","REJECTED"] as const; 
 
 const ShipmentStatusModal: React.FC<ShipmentStatusModalProps> = ({ shipment, onClose, onSaveSuccess, type }) => {
   const { t } = useTranslation(); 

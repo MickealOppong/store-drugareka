@@ -410,7 +410,7 @@ useEffect(() => {
         {isProductsLoading || addCartLoading ? (
           <Loading />
         ) : (
-          <section className="shop-page__products"   id="shop-products">
+          <section >
             {filteredProducts.length === 0 ? (
               <div className="shop-page__empty">
                 <FiSearch />
@@ -425,7 +425,9 @@ useEffect(() => {
                 </button>
               </div>
             ) : (
-              filteredProducts.map((product) => (
+            <div className="shop-page__products"   id="shop-products">
+              {
+                  filteredProducts.map((product) => (
                 <ProductListing
                   key={product.listingId}
                   product={product}
@@ -440,6 +442,8 @@ useEffect(() => {
                   onView={addView}
                 />
               ))
+              }
+            </div>
             )}
           </section>
         )}
