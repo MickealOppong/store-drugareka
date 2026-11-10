@@ -3,7 +3,6 @@ export { default as Chat } from "./Chat"
 export { default as ErrorPage } from "./ErrorPage"
 export { default as Landing } from "./Landing"
 export { default as Login } from "./Login"
-export { default as Sell } from "./Sell"
 export { default as TermsAndConditions } from "./TermsAndConditions"
 
 export { default as AccountLayout } from "./AccountLayout"
