@@ -14,4 +14,5 @@ export type TOrdersDto = {
   deliveryStatus?:string
   trackingNumber?:string
   deliveryUpdatedAt:Date
+  shippingMethod:string
 };

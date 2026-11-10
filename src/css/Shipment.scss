@@ -1,0 +1,454 @@
+@use "sass:color";
+@use "Variables.scss" as Variables;
+
+/* ==========================================================================
+   MASTER ADMIN & LOGISTICS PANEL CONTAINER (.panel-view)
+   ========================================================================== */
+.panel-view {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
+  box-sizing: border-box;
+  font-family: Variables.$font-sans;
+  color: Variables.$color-text-main;
+  text-align: left;
+
+  @include Variables.media-up(Variables.$breakpoint-sm) {
+    padding: 2.25rem 2rem 5rem;
+  }
+
+  /* =========================================================
+     1. VIEW HEADER & TYPOGRAPHY HIERARCHY
+     ========================================================= */
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid Variables.$color-border;
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: Variables.$color-primary;
+    margin-bottom: 0.35rem;
+  }
+
+  &__title {
+    margin: 0 0 0.4rem;
+    font-size: 1.5rem;
+    font-weight: 850;
+    color: Variables.$color-text-main;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      font-size: 1.95rem;
+    }
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: Variables.$color-text-muted;
+    max-width: 680px;
+  }
+
+  /* =========================================================
+     2. TAB SWITCHER PILL CONSOLE (.panel-view__switcher-wrapper)
+     ========================================================= */
+  &__switcher-wrapper {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 6px;
+    background-color: Variables.$color-bg-light;
+    border: 1px solid Variables.$color-border;
+    border-radius: 14px;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      width: auto;
+    }
+  }
+
+  &__switch-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex: 1;
+    min-height: 40px;
+    padding: 0 1.15rem;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: Variables.$color-text-muted;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      flex: none;
+    }
+
+    svg {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    &:hover:not(&--active) {
+      color: Variables.$color-text-main;
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    &--active {
+      background-color: #ffffff;
+      color: Variables.$color-primary;
+      border-color: Variables.$color-border;
+      box-shadow: 0 2px 8px rgba(32, 38, 24, 0.05);
+    }
+
+    &:focus-visible {
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 2px;
+    }
+  }
+
+  /* =========================================================
+     3. SEARCH & METRICS TOOLBAR (.panel-view__toolbar)
+     ========================================================= */
+  &__toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 1.25rem;
+    width: 100%;
+    box-sizing: border-box;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 420px;
+
+    svg {
+      position: absolute;
+      left: 14px;
+      font-size: 1.05rem;
+      color: Variables.$color-text-muted;
+      pointer-events: none;
+    }
+
+    input {
+      width: 100%;
+      height: 44px;
+      padding: 0 1rem 0 2.65rem;
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: Variables.$color-text-main;
+      box-sizing: border-box;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+      &::placeholder {
+        color: #94a3b8;
+        font-weight: 500;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: Variables.$color-primary;
+        box-shadow: 0 0 0 3px Variables.$color-primary-alpha;
+      }
+    }
+  }
+
+  &__metrics-counter {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    padding: 6px 12px;
+    background-color: Variables.$color-bg-light;
+    border: 1px solid Variables.$color-border;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: Variables.$color-text-muted;
+    white-space: nowrap;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      align-self: center;
+    }
+  }
+
+  /* =========================================================
+     4. STATUS STATES: ERROR, LOADING & EMPTY VIEWS
+     ========================================================= */
+  &__error-box {
+    padding: 0.9rem 1.15rem;
+    margin-bottom: 1.25rem;
+    background-color: Variables.$color-error-bg;
+    border: 1px solid rgba(Variables.$color-error, 0.18);
+    border-radius: 12px;
+    color: Variables.$color-error;
+    font-size: 0.88rem;
+    font-weight: 650;
+  }
+
+  &__content-card {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid Variables.$color-border;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px -4px rgba(32, 38, 24, 0.03);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  &__loading-overlay {
+    padding: 4rem 1.5rem;
+    text-align: center;
+    font-size: 0.92rem;
+    font-weight: 650;
+    color: Variables.$color-text-muted;
+  }
+
+  &__empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4.5rem 1.5rem;
+    text-align: center;
+
+    p {
+      margin: 0;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: Variables.$color-text-muted;
+      max-width: 420px;
+    }
+  }
+
+  &__empty-title {
+    margin: 0 0 0.45rem;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: Variables.$color-text-main;
+  }
+
+  /* =========================================================
+     5. RESPONSIVE HORIZONTAL SCROLL DATA TABLE
+     ========================================================= */
+  &__scroll-table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: thin;
+    scrollbar-color: color.adjust(Variables.$color-border, $lightness: -8%) transparent;
+
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: color.adjust(Variables.$color-border, $lightness: -8%);
+      border-radius: 8px;
+    }
+  }
+}
+
+/* ==========================================================================
+   LOGISTICS DATA TABLE ARCHITECTURE (.data-table)
+   ========================================================================== */
+.data-table {
+  width: 100%;
+  min-width: 1060px; // Guarantees generous column readability on mobile swipe
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.85rem;
+
+  thead {
+    background-color: Variables.$color-bg-light;
+    border-bottom: 1px solid Variables.$color-border;
+
+    th {
+      padding: 0.9rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: Variables.$color-text-muted;
+      white-space: nowrap;
+    }
+  }
+
+  &__actions-header {
+    text-align: right;
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid Variables.$color-border;
+      transition: background-color 0.15s ease;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: rgba(Variables.$color-primary, 0.025);
+      }
+    }
+
+    td {
+      padding: 1rem;
+      vertical-align: middle;
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+
+  &__text {
+    display: inline-block;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: Variables.$color-text-main;
+    white-space: nowrap;
+
+    &.font-semibold {
+      font-weight: 750;
+    }
+
+    &.text-main {
+      color: Variables.$color-text-main;
+    }
+
+    &.text-muted {
+      color: Variables.$color-text-muted;
+      font-weight: 550;
+    }
+
+    &--wrap {
+      white-space: normal;
+      min-width: 140px;
+      max-width: 240px;
+      word-break: break-word;
+    }
+  }
+
+  /* TACTILE EDIT ACTION TRIGGER BUTTON */
+  &__action-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    color: Variables.$color-primary;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover {
+      background-color: Variables.$color-primary;
+      border-color: Variables.$color-primary;
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(104, 118, 75, 0.18);
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
+
+    &:focus-visible {
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 2px;
+    }
+  }
+}
+
+/* ==========================================================================
+   SEMANTIC SHIPMENT STATUS BADGE PILLS (.status-badge)
+   ========================================================================== */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 800;
+text-transform: uppercase;
+letter-spacing: 0.03em;
+white-space: nowrap;
+background-color: Variables.$color-bg-light;
+color: Variables.$color-text-muted;
+border: 1px solid Variables.$color-border;
+&--delivered,
+&--completed {
+background-color: #f0fdf4;
+border-color: #bbf7d0;
+color: #15803d;
+}
+&--shipped,
+&--in-transit {
+background-color: #eff6ff;
+border-color: #bfdbfe;
+color: #1d4ed8;
+}
+&--pending,
+&--processing,
+&--awaiting-shipment {
+background-color: #fffbeb;
+border-color: #fde68a;
+color: #b45309;
+}
+&--cancelled,
+&--failed,
+&--returned {
+background-color: Variables.$color-error-bg;
+border-color: rgba(Variables.$color-error, 0.22);
+color: Variables.$color-error;
+}
+}
+/* ==========================================================================
+ACCESSIBILITY OVERRIDES: PREFERS REDUCED MOTION GATES
+========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+.panel-view__switch-btn,
+.data-table__action-link,
+.data-table tbody tr {
+transition: none !important;
+transform: none !important;
+}
+}

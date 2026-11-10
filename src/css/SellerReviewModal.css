@@ -1,0 +1,581 @@
+/* ==========================================================================
+   1. MODAL BACKDROP OVERLAY (.cmp-modal-overlay)
+   ========================================================================== */
+.cmp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background-color: rgba(17, 17, 17, 0.52);
+  backdrop-filter: blur(4px);
+  box-sizing: border-box;
+  animation: cmpOverlayFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@media (max-width: 640px) {
+  .cmp-modal-overlay {
+    padding: 0;
+  }
+}
+
+/* ==========================================================================
+   2. MAIN MODAL SHELL (.cmp-modal)
+   ========================================================================== */
+.cmp-modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 960px;
+  max-height: 92vh;
+  max-height: 92dvh;
+  background-color: #FFFFFF;
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  box-shadow: 0 24px 60px -12px rgba(17, 17, 17, 0.2);
+  overflow: hidden;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  animation: cmpModalSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@media (max-width: 640px) {
+  .cmp-modal {
+    max-width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+    border: none;
+  }
+}
+.cmp-modal {
+  /* =========================================================
+     HEADER BAR (.cmp-modal__header)
+     ========================================================= */
+}
+.cmp-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 1rem 1.25rem;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #e5e5e5;
+  flex-shrink: 0;
+}
+@media (min-width: 640px) {
+  .cmp-modal__header {
+    padding: 1.15rem 1.5rem;
+  }
+}
+.cmp-modal__badge {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #111111;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cmp-modal__badge svg {
+  font-size: 1.1rem;
+  color: #e11d48;
+  flex-shrink: 0;
+}
+.cmp-modal__order-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #66704A;
+  letter-spacing: 0.02em;
+}
+.cmp-modal__close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  color: #666666;
+  font-size: 1.25rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.cmp-modal__close-btn:hover {
+  background-color: rgba(17, 17, 17, 0.06);
+  color: #111111;
+}
+.cmp-modal {
+  /* =========================================================
+     COMPARISON SPLIT PANELS BODY (.cmp-modal__body)
+     ========================================================= */
+}
+.cmp-modal__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+  padding: 1.25rem;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+}
+@media (min-width: 768px) {
+  .cmp-modal__body {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+}
+.cmp-modal {
+  /* =========================================================
+     RUNTIME ALERT STRIP (.cmp-modal__alert)
+     ========================================================= */
+}
+.cmp-modal__alert {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0 1.25rem 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #FDF2F2;
+  border: 1px solid rgba(194, 75, 75, 0.18);
+  border-radius: 10px;
+  color: #C24B4B;
+  font-size: 0.85rem;
+  font-weight: 650;
+  line-height: 1.4;
+  text-align: left;
+  flex-shrink: 0;
+}
+@media (min-width: 768px) {
+  .cmp-modal__alert {
+    margin: 0 1.5rem 1rem;
+  }
+}
+.cmp-modal__alert svg {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+.cmp-modal {
+  /* =========================================================
+     FOOTER CONTAINER & COURIER PAYMENT BAR (.cmp-modal__footer)
+     ========================================================= */
+}
+.cmp-modal__footer {
+  padding: 1.15rem 1.25rem;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e5e5e5;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+@media (min-width: 768px) {
+  .cmp-modal__footer {
+    padding: 1.25rem 1.5rem;
+  }
+}
+.cmp-modal__footer--courier {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  text-align: left;
+}
+@media (min-width: 640px) {
+  .cmp-modal__footer--courier {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+}
+.cmp-modal__footer--courier p {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: #111111;
+}
+
+/* ==========================================================================
+   3. INDIVIDUAL IMAGE EVIDENCE PANELS (.cmp-panel)
+   ========================================================================== */
+.cmp-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+.cmp-panel__title-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: left;
+}
+.cmp-panel__title-bar svg {
+  font-size: 1rem;
+  color: #66704A;
+  flex-shrink: 0;
+}
+.cmp-panel__title-bar h3 {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #111111;
+  line-height: 1.3;
+}
+.cmp-panel--complaint .cmp-panel__title-bar svg {
+  color: #e11d48;
+}
+.cmp-panel--complaint .cmp-panel__display-frame {
+  border-color: rgba(225, 29, 72, 0.25);
+}
+.cmp-panel__display-frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 4/3;
+  background-color: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.cmp-panel__display-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.cmp-panel__zoom-trigger {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.92);
+  border: 1px solid #e5e5e5;
+  border-radius: 9px;
+  color: #111111;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+.cmp-panel__zoom-trigger:hover {
+  background-color: #ffffff;
+  color: #66704A;
+  transform: scale(1.06);
+}
+.cmp-panel__controls {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  background-color: rgba(255, 255, 255, 0.94);
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.cmp-panel__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: #111111;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.cmp-panel__arrow:hover {
+  background-color: #f9f9f9;
+  color: #66704A;
+}
+.cmp-panel__indicator {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #111111;
+  font-variant-numeric: tabular-nums;
+  padding: 0 2px;
+}
+
+/* ==========================================================================
+   4. DECISION COMMENT FORM & ACTION BUTTONS (.cmp-footer-form)
+   ========================================================================== */
+.cmp-footer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+.cmp-footer-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+  text-align: left;
+}
+.cmp-footer-form__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.cmp-footer-form__label svg {
+  font-size: 0.95rem;
+  color: #66704A;
+}
+.cmp-footer-form__textarea {
+  width: 100%;
+  min-height: 76px;
+  max-height: 140px;
+  padding: 0.75rem 0.9rem;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #111111;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.cmp-footer-form__textarea::-moz-placeholder {
+  color: #94a3b8;
+}
+.cmp-footer-form__textarea::placeholder {
+  color: #94a3b8;
+}
+.cmp-footer-form__textarea:focus {
+  outline: none;
+  border-color: #66704A;
+  box-shadow: 0 0 0 3px rgba(104, 118, 75, 0.12);
+}
+.cmp-footer-form__textarea:disabled {
+  background-color: #f9f9f9;
+  cursor: not-allowed;
+}
+.cmp-footer-form__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .cmp-footer-form__actions {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+}
+.cmp-footer-form__actions > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  height: 44px;
+  padding: 0 1.4rem;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 750;
+  border-radius: 12px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (min-width: 640px) {
+  .cmp-footer-form__actions > button {
+    width: auto;
+    min-width: 165px;
+  }
+}
+.cmp-footer-form__actions > button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.cmp-footer-form__actions > button:not([class]) {
+  background-color: #66704A;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(102, 112, 74, 0.14);
+}
+.cmp-footer-form__actions > button:not([class]):hover:not(:disabled) {
+  background-color: #525F3C;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(102, 112, 74, 0.22);
+}
+.cmp-footer-form__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 44px;
+  padding: 0 1.4rem;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 750;
+  border-radius: 12px;
+  cursor: pointer;
+  box-sizing: border-box;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cmp-footer-form__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.cmp-footer-form__btn--reject {
+  background-color: #ffffff;
+  border: 1px solid rgba(194, 75, 75, 0.35);
+  color: #C24B4B;
+}
+.cmp-footer-form__btn--reject:hover:not(:disabled) {
+  background-color: #FDF2F2;
+  border-color: #C24B4B;
+}
+.cmp-footer-form__btn--approve {
+  background-color: #66704A;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(102, 112, 74, 0.14);
+}
+.cmp-footer-form__btn--approve:hover:not(:disabled) {
+  background-color: #525F3C;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(102, 112, 74, 0.22);
+}
+
+/* ==========================================================================
+5. INLINE LOADING SPINNER (.cmp-spinner)
+========================================================================== */
+.cmp-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: cmpSpin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+6. FULLSCREEN IMAGE LIGHTBOX OVERLAY (.cmp-lightbox-overlay)
+========================================================================== */
+.cmp-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(6px);
+  box-sizing: border-box;
+  animation: cmpOverlayFadeIn 0.2s ease forwards;
+}
+
+.cmp-lightbox-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 92vw;
+  max-height: 90vh;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: zoom-out;
+}
+.cmp-lightbox-close img {
+  display: block;
+  max-width: 100%;
+  max-height: 88vh;
+  border-radius: 12px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  cursor: default;
+}
+
+/* ==========================================================================
+7. KEYFRAME ANIMATIONS & REDUCED MOTION OVERRIDES
+========================================================================== */
+@keyframes cmpOverlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes cmpModalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes cmpSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cmp-modal-overlay,
+  .cmp-modal,
+  .cmp-lightbox-overlay {
+    animation: none !important;
+  }
+  .cmp-footer-form__btn,
+  .cmp-panel__zoom-trigger {
+    transition: none !important;
+    transform: none !important;
+  }
+}/*# sourceMappingURL=SellerReviewModal.css.map */

@@ -5,10 +5,19 @@
 // GLOBAL WRAPPER GRID PARSING
 // --------------------------------------------------
 .panel-view {
-  @include Variables.container; // Adapts directly to your 1280px master layout rules
+  @include Variables.container;
   padding-top: 2rem;
   padding-bottom: 4rem;
   font-family: Variables.$font-sans;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
   &__header {
     margin-bottom: 2rem;
@@ -35,6 +44,9 @@
     margin: 0;
   }
 
+  // --------------------------------------------------
+  // UNDERLINE TABS (Legacy / Standard Panels)
+  // --------------------------------------------------
   &__tab-group {
     display: flex;
     gap: 0.5rem;
@@ -69,8 +81,63 @@
         left: 0;
         right: 0;
         height: 2px;
-        background-color: Variables.$color-primary; // Sage green emphasis line
+        background-color: Variables.$color-primary;
       }
+    }
+  }
+
+  // --------------------------------------------------
+  // PILL SWITCHER TABS (Shipment & Logistics Views)
+  // --------------------------------------------------
+  &__switcher-wrapper {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.375rem;
+    background-color: Variables.$color-bg-light;
+    border: 1px solid Variables.$color-border;
+    border-radius: 14px;
+    margin-bottom: 1.75rem;
+  }
+
+  &__switch-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 40px;
+    padding: 0.5rem 1.15rem;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: Variables.$color-text-muted;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: Variables.$transition-default;
+
+    svg {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    &:hover:not(&--active) {
+      color: Variables.$color-text-main;
+      background-color: rgba(255, 255, 255, 0.65);
+    }
+
+    &--active {
+      background-color: Variables.$background;
+      color: Variables.$color-primary;
+      border-color: Variables.$color-border;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    &:focus-visible {
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 2px;
     }
   }
 
@@ -93,13 +160,18 @@
     width: 100%;
     max-width: 380px;
     height: 44px;
-    box-sizing: border-box;
+
+    &:focus-within {
+      border-color: Variables.$color-primary;
+      box-shadow: 0 0 0 3px Variables.$color-primary-alpha;
+    }
 
     svg {
       color: Variables.$color-secondary;
       font-size: 18px;
       flex-shrink: 0;
     }
+
     input {
       border: none;
       outline: none;
@@ -108,6 +180,7 @@
       font-family: inherit;
       font-size: 14px;
       color: Variables.$color-text-main;
+
       &::placeholder {
         color: Variables.$color-text-muted;
       }
@@ -145,15 +218,19 @@
     text-align: center;
     color: Variables.$color-text-muted;
   }
+
   &__empty-title {
     font-size: 18px;
     font-weight: 600;
     color: Variables.$color-text-main;
     margin-bottom: 0.5rem;
   }
+
   &__scroll-table-container {
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     width: 100%;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -163,9 +240,7 @@
   color: Variables.$color-text-main;
   vertical-align: middle;
   text-align: left;
-  box-sizing: border-box;
 
-  //  NESTED BUTTON HOOK CONTROLS
   button {
     display: inline-flex;
     align-items: center;
@@ -179,7 +254,6 @@
     border-radius: 6px;
     cursor: pointer;
     outline: none;
-    box-sizing: border-box;
     transition: all 0.15s Variables.$transition-default;
 
     svg {
@@ -187,17 +261,13 @@
       transition: transform 0.15s ease;
     }
 
-    // High-visibility hover micro-interaction for return/cancellation actions
     &:hover {
-      background-color: #fef2f2; // Soft crimson tint alert hue backing
+      background-color: #fef2f2;
       border-color: #fca5a5;
-      color: #dc2626; // Vivid threat alert crimson
+      color: #dc2626;
 
       svg {
-        transform: translate(
-          -1px,
-          -1px
-        ); // Subtle dynamic shift following the FiArrowUpLeft vector direction
+        transform: translate(-1px, -1px);
       }
     }
 
@@ -226,15 +296,18 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: Variables.$color-text-muted;
+      white-space: nowrap;
     }
   }
 
   tbody tr {
     border-bottom: 1px solid Variables.$color-border;
     transition: background-color 0.15s ease;
+
     &:last-child {
       border-bottom: none;
     }
+
     &:hover {
       background-color: Variables.$background-2;
     }
@@ -246,23 +319,38 @@
   }
 
   &__text {
+    display: inline-block;
     font-size: 14px;
     color: Variables.$color-text-main;
     white-space: nowrap;
+
     &.font-semibold {
       font-weight: 500;
     }
+
     &.font-bold {
       font-weight: 600;
     }
+
     &.text-main {
       color: Variables.$color-text-main;
     }
+
     &.text-primary {
       color: Variables.$color-primary;
     }
+
     &.text-muted {
       color: Variables.$color-text-muted;
+    }
+
+    // Allows long delivery addresses and tracking strings in Shipments to wrap cleanly
+    &--wrap {
+      white-space: normal;
+      min-width: 140px;
+      max-width: 240px;
+      line-height: 1.4;
+      word-break: break-word;
     }
   }
 
@@ -292,278 +380,241 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
+    width: max-content;
+
+    &__action-link,
+    &__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      background-color: #ffffff;
+      border: 1px solid Variables.$color-border;
+      border-radius: 8px;
+      color: Variables.$color-text-muted;
+      font-size: 1.05rem;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+      svg {
+        transition: transform 0.2s ease;
+      }
+
+      &:hover {
+        background-color: Variables.$color-bg-light;
+        color: Variables.$color-primary;
+        border-color: rgba(Variables.$color-primary, 0.3);
+
+        svg {
+          transform: scale(1.05);
+        }
+      }
+
+      &:active {
+        transform: scale(0.96);
+      }
+    }
+
+    &__action-link--dispute {
+      &:hover {
+        color: #d97706;
+        background-color: #fef3c7;
+        border-color: rgba(#d97706, 0.2);
+      }
+    }
+
+    &__btn--cancel {
+      &:hover {
+        color: #e11d48;
+        background-color: #fff1f2;
+        border-color: rgba(#e11d48, 0.2);
+      }
+    }
   }
+
   &__actions-header {
     text-align: center;
   }
 
+  // Standalone Action Button (Used in Shipment.tsx edit column)
   &__action-link {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 36px;
     height: 36px;
+    padding: 0;
     border: 1px solid Variables.$color-border;
     border-radius: 8px;
     background-color: Variables.$background;
     color: Variables.$color-secondary;
+    cursor: pointer;
     transition: Variables.$transition-default;
 
     svg {
       font-size: 16px;
     }
+
     &:hover {
       border-color: Variables.$color-primary;
       color: Variables.$color-primary;
-      background-color: color.adjust(Variables.$color-primary, $lightness: 50%);
-      transform: translateY(-1px);
-    }
-  }
+background-color: color.adjust(Variables.$color-primary, $lightness: 50%);
+transform: translateY(-1px);
 }
-
+&:active {
+transform: scale(0.96);
+}
+}
+}
 // --------------------------------------------------
 // REUSABLE CONTEXT-DRIVEN STATUS BADGES
 // --------------------------------------------------
 .status-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.25px;
-  white-space: nowrap;
-
-  // Default Fallback Color Tone (Pending / Processing states)
-  background-color: #fef3c7;
-  color: #d97706;
-
-  &--shipped,
-  &--in-transit {
-    background-color: #dbeafe;
-    color: #2563eb;
-  }
-  &--completed,
-  &--delivered,
-  &--label-ready {
-    background-color: Variables.$color-safety-bg;
-    color: Variables.$color-safety-text;
-  }
-  &--disputed,
-  &--cancelled,
-  &--expired {
-    background-color: rgba(Variables.$color-accent, 0.08);
-    color: Variables.$color-accent;
-  }
+display: inline-flex;
+align-items: center;
+padding: 0.25rem 0.75rem;
+border-radius: 20px;
+font-size: 12px;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.25px;
+white-space: nowrap;
+// Default Fallback Color Tone (Pending / Processing states)
+background-color: #fef3c7;
+color: #d97706;
+&--shipped,
+&--in-transit {
+background-color: #dbeafe;
+color: #2563eb;
 }
-
-// Media breakout query responsiveness
-@media (max-width: Variables.$breakpoint-md) {
-  .panel-view {
-    &__toolbar {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    &__search-wrapper {
-      max-width: 100%;
-    }
-  }
+&--completed,
+&--delivered,
+&--label-ready {
+background-color: Variables.$color-safety-bg;
+color: Variables.$color-safety-text;
 }
-
-// 🚀 Inherits layout transitions and brand design parameters
-
-/* ==========================================================================
-   MULTI-ACTION SELECTION MATRIX COLUMN (.data-table__actions)
-   ========================================================================== */
-.data-table__actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem; // Seamless spacing buffer between button paths
-  width: max-content;
-  box-sizing: border-box;
-
-  // Generic shared base layer styles for all sub-links and button clicks
-  &__action-link,
-  &__btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    padding: 0;
-    background-color: #ffffff;
-    border: 1px solid Variables.$color-border;
-    border-radius: 8px;
-    color: Variables.$color-text-muted;
-    font-size: 1.05rem;
-    cursor: pointer;
-    outline: none;
-    box-sizing: border-box;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-
-    svg {
-      transition: transform 0.2s ease;
-    }
-
-    &:hover {
-      background-color: Variables.$color-bg-light;
-      color: Variables.$color-primary; // Flagship Sage Green highlight hover frame
-      border-color: rgba(Variables.$color-primary, 0.3);
-
-      svg {
-        transform: scale(1.05); // Premium snappy micro-zoom interaction
-      }
-    }
-
-    &:active {
-      transform: scale(0.96);
-    }
-  }
-
-  &__action-link--dispute {
-    &:hover {
-      color: #d97706; // Highly accessible Amber alert tone for complaints
-      background-color: #fef3c7;
-      border-color: rgba(#d97706, 0.2);
-    }
-  }
-
-  &__btn--cancel {
-    &:hover {
-      color: #e11d48; // Crisp marketing crimson error alert red
-      background-color: #fff1f2;
-      border-color: rgba(#e11d48, 0.2);
-    }
-  }
+&--disputed,
+&--cancelled,
+&--expired,
+&--returned {
+background-color: rgba(Variables.$color-accent, 0.08);
+color: Variables.$color-accent;
 }
-
+}
 // --------------------------------------------------
 // SMALL-SCREEN WIDTH OPTIMIZATION
-// Keep the desktop container unchanged while allowing
-// panels and tables to use more of the available mobile width.
 // --------------------------------------------------
-.panel-view {
-  width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-}
-
-.panel-view *,
-.panel-view *::before,
-.panel-view *::after {
-  box-sizing: border-box;
-}
-
 @media (max-width: Variables.$breakpoint-md) {
-  .panel-view {
-    // Override excess side padding from the shared container mixin.
-    width: 100%;
-    max-width: 100%;
-    padding: 1.25rem 0.75rem 2.5rem;
-
-    &__header {
-      margin-bottom: 1.25rem;
-    }
-
-    &__title {
-      font-size: clamp(1.5rem, 6vw, 2rem);
-      overflow-wrap: anywhere;
-    }
-
-    &__description {
-      overflow-wrap: anywhere;
-    }
-
-    &__tab-group {
-      width: 100%;
-      max-width: 100%;
-      gap: 0.25rem;
-      margin-bottom: 1.25rem;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    &__tab-btn {
-      flex: 0 0 auto;
-      padding: 0.7rem 0.85rem;
-      white-space: nowrap;
-    }
-
-    &__toolbar {
-      width: 100%;
-      min-width: 0;
-      gap: 0.75rem;
-      align-items: stretch;
-    }
-
-    &__search-wrapper {
-      width: 100%;
-      min-width: 0;
-      max-width: none;
-    }
-
-    &__content-card {
-      width: 100%;
-      min-width: 0;
-      border-radius: 12px;
-    }
-
-    &__scroll-table-container {
-      width: 100%;
-      max-width: 100%;
-      overflow-x: auto;
-      overscroll-behavior-x: contain;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    &__loading-overlay,
-    &__empty-state {
-      padding: 2.5rem 1rem;
-    }
-  }
-
-  .data-table {
-    // Keep columns readable; scroll the table inside its container
-    // instead of allowing it to widen the entire page.
-    width: 100%;
-    min-width: 640px;
-
-    thead th,
-    td {
-      padding: 0.75rem 0.85rem;
-    }
-  }
-
-  .data-table__cell {
-    padding: 0.65rem 0.75rem;
-  }
+.panel-view {
+width: 100%;
+max-width: 100%;
+padding: 1.25rem 0.75rem 2.5rem;
+&__header {
+margin-bottom: 1.25rem;
 }
-
+&__title {
+font-size: clamp(1.5rem, 6vw, 2rem);
+overflow-wrap: anywhere;
+}
+&__description {
+overflow-wrap: anywhere;
+}
+&__tab-group {
+width: 100%;
+max-width: 100%;
+gap: 0.25rem;
+margin-bottom: 1.25rem;
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+}
+&__tab-btn {
+flex: 0 0 auto;
+padding: 0.7rem 0.85rem;
+white-space: nowrap;
+}
+&__switcher-wrapper {
+display: flex;
+width: 100%;
+margin-bottom: 1.25rem;
+}
+&__switch-btn {
+flex: 1 1 auto;
+padding: 0.5rem 0.85rem;
+font-size: 13px;
+}
+&__toolbar {
+width: 100%;
+min-width: 0;
+gap: 0.75rem;
+flex-direction: column;
+align-items: stretch;
+}
+&__search-wrapper {
+width: 100%;
+min-width: 0;
+max-width: none;
+}
+&__content-card {
+width: 100%;
+min-width: 0;
+border-radius: 12px;
+}
+&__scroll-table-container {
+width: 100%;
+max-width: 100%;
+overflow-x: auto;
+overscroll-behavior-x: contain;
+-webkit-overflow-scrolling: touch;
+}
+&__loading-overlay,
+&__empty-state {
+padding: 2.5rem 1rem;
+}
+}
+.data-table {
+width: 100%;
+min-width: 860px;
+thead th,
+td {
+padding: 0.75rem 0.85rem;
+}
+}
+.data-table__cell {
+padding: 0.65rem 0.75rem;
+}
+}
 @media (max-width: 480px) {
-  .panel-view {
-    padding: 1rem 0.5rem 2rem;
-
-    &__eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.08em;
-    }
-
-    &__title {
-      font-size: 1.4rem;
-    }
-
-    &__tab-btn {
-      padding: 0.65rem 0.7rem;
-      font-size: 14px;
-    }
-
-    &__error-box {
-      padding: 0.8rem;
-      overflow-wrap: anywhere;
-    }
-  }
+.panel-view {
+padding: 1rem 0.5rem 2rem;
+&__eyebrow {
+font-size: 11px;
+letter-spacing: 0.08em;
+}
+&__title {
+font-size: 1.4rem;
+}
+&__tab-btn {
+padding: 0.65rem 0.7rem;
+font-size: 14px;
+}
+&__switcher-wrapper {
+flex-direction: column;
+}
+&__switch-btn {
+width: 100%;
+}
+&__error-box {
+padding: 0.8rem;
+overflow-wrap: anywhere;
+}
+}
 }
 .message--error {
-  color: rebeccapurple;
+color: Variables.$color-accent;
+font-size: 14px;
+font-weight: 600;
 }

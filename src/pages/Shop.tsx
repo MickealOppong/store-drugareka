@@ -231,7 +231,7 @@ useEffect(() => {
       <main className="shop-page">
       <SEO
   title="Kasoa.pl – Kupuj i sprzedawaj produkty z drugiej ręki"
-  description="Odkrywaj wyjątkowe okazje na Kasoa.pl! Kupuj i sprzedawaj odzież damską i męską, elektronikę, części samochodowe,meble, produkty dla dzieci, dom i ogród oraz wiele więcej."
+  description="Masz przedmioty, których już nie potrzebujesz — używane lub nowe, pozostające w dobrym stanie? Kupuj i sprzedawaj odzież damską i męską, elektronikę, części samochodowe,meble, produkty dla dzieci, dom i ogród oraz wiele więcej."
   canonical="https://kasoa.pl/"
 />
         {/* =====================================================

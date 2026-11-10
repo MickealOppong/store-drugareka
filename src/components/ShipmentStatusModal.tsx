@@ -1,6 +1,7 @@
 import React, { useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next"; // 🚀 Import translation hook tools
 import { FiCalendar, FiMessageSquare, FiSave, FiTruck, FiX } from "react-icons/fi";
+//import '../css/Shipment.css';
 import '../css/ShipmentStatusModal.css';
 import { useUpdateReturnShipmentStatusMutation, useUpdateShipmentStatusMutation } from "../features/api/itemApi";
 import type { TShipment } from "../types/TShipment";
@@ -101,7 +102,7 @@ const ShipmentStatusModal: React.FC<ShipmentStatusModalProps> = ({ shipment, onC
               {t("logistics_modal.header.title", { id: shipment.id })}
             </h3> 
             <span className="logistics-modal__subtitle">
-              {t("logistics_modal.header.seller", { name: shipment.seller })}
+              {t(`logistics_modal.header.${shipment.seller.replace(" ","_").toLowerCase()}`)}
             </span> 
           </div>
           <button

@@ -11,7 +11,6 @@ import { useSearchParams } from "react-router-dom";
 import { ShipmentStatusModal } from "../components";
 import "../css/GenericViewLayout.css";
 import { useGetShipmentsQuery } from "../features/api/userApi";
-import { useAppSelector } from "../store";
 import type { TShipment } from "../types/TShipment";
 
 const Shipment = () => {
@@ -37,10 +36,7 @@ useEffect(() => {
   }
 }, [searchParams, setSearchParamsState, activeTab, activePage]);
 
-  /**
-   * User roles
-   */
-  const roles = useAppSelector((state) => state.userSlice.roles);
+
 
   /**
    * Status modal
@@ -90,6 +86,7 @@ useEffect(() => {
    */
   const shipments = (data?.shipments as TShipment[]) || [];
 
+  
   /**
    * Search by delivery address.
    */
@@ -142,16 +139,7 @@ useEffect(() => {
       {/* =================================================
           TAB SWITCHER
       ================================================== */}
-      <div
-        className="panel-view__switcher-wrapper"
-        style={{
-          display: "flex",
-          gap: "8px",
-          marginBottom: "20px",
-          borderBottom: "1px solid #e0e7e6",
-          paddingBottom: "12px",
-        }}
-      >
+      <div className="panel-view__switcher-wrapper">
         {/* OUTGOING */}
         <button
           type="button"
@@ -160,25 +148,11 @@ useEffect(() => {
               ? "panel-view__switch-btn--active"
               : ""
           }`}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            padding: "8px 16px",
-            borderRadius: "6px",
-            fontSize: "14px",
-            fontWeight: "700",
-            border: "1px solid #1e3a3a",
-            cursor: "pointer",
-            backgroundColor:
-              activeTab === "ACTUAL" ? "#1e3a3a" : "#ffffff",
-            color:
-              activeTab === "ACTUAL" ? "#ffffff" : "#1e3a3a",
-          }}
+
           onClick={() => handleTabChange("ACTUAL")}
         >
           <FiTruck />
-          Przesyłki Wychodzące
+        {t('shipments.tabs.outgoing')}
         </button>
 
         {/* RETURNS */}
@@ -189,25 +163,11 @@ useEffect(() => {
               ? "panel-view__switch-btn--active"
               : ""
           }`}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            padding: "8px 16px",
-            borderRadius: "6px",
-            fontSize: "14px",
-            fontWeight: "700",
-            border: "1px solid #1e3a3a",
-            cursor: "pointer",
-            backgroundColor:
-              activeTab === "RETURN" ? "#1e3a3a" : "#ffffff",
-            color:
-              activeTab === "RETURN" ? "#ffffff" : "#1e3a3a",
-          }}
+
           onClick={() => handleTabChange("RETURN")}
         >
           <FiCornerDownLeft />
-          Paczki Zwrotne (Disputes)
+        {t('shipments.tabs.returns')}
         </button>
       </div>
 
@@ -223,7 +183,7 @@ useEffect(() => {
             placeholder={
               activeTab === "ACTUAL"
                 ? t("shipments.toolbar.search_placeholder")
-                : "Szukaj według adresu zwrotnego..."
+                : "Szukaj..."
             }
             value={search}
             onChange={(event) => setSearch(event.target.value)}
@@ -335,9 +295,8 @@ useEffect(() => {
               <tbody>
                 {filteredList.map((item) => {
                   const normalizedStatusClass =
-                    item.status
-                      ?.toLowerCase()
-                      .replace(/_/g, "-");
+                     item.status?.toLowerCase()
+                      .replace(/_/g, "-")|| "";
 
                   return (
                     <tr key={item.id}>
@@ -351,67 +310,37 @@ useEffect(() => {
                       {/* SELLER / BUYER */}
                       <td>
                         <span className="data-table__text text-muted">
-                          {item.seller}
+                          {t(`shipments.${item?.seller.replace(" ","_")?.toLowerCase()}`)}
                         </span>
                       </td>
 
                       {/* ADDRESS */}
                       <td>
-                        <span
-                          className="data-table__text"
-                          style={{
-                            whiteSpace: "normal",
-                            wordBreak: "break-word",
-                            minWidth: "180px",
-                            display: "inline-block",
-                          }}
-                        >
+                        <span className="data-table__text data-table__text--wrap">
                           {item.deliveryAddress}
                         </span>
                       </td>
 
                       {/* TRACKING NUMBER */}
                       <td>
-                        <span
-                          className="data-table__text"
-                          style={{
-                            whiteSpace: "normal",
-                            wordBreak: "break-word",
-                            minWidth: "180px",
-                            display: "inline-block",
-                          }}
-                        >
+                        <span className="data-table__text data-table__text--wrap">
                           {item.trackingNumber || "-"}
                         </span>
                       </td>
 
                         {/* CONFIRMATION STATUS*/}
                       <td>
-                        <span
-                          className="data-table__text"
-                          style={{
-                            whiteSpace: "normal",
-                            wordBreak: "break-word",
-                            minWidth: "180px",
-                            display: "inline-block",
-                          }}
-                        >
-                          {item.confirmationStatus|| "-"}
+                        <span className="data-table__text data-table__text--wrap">
+                      {t(
+                            `shipments.${item?.confirmationStatus?.toLowerCase()}`,"-"
+                          )}
                         </span>
                       </td>
 
                         {/* ITEM SIZE*/}
                       <td>
                        {
-                        item.itemSize && <span
-                          className="data-table__text"
-                          style={{
-                            whiteSpace: "normal",
-                            wordBreak: "break-word",
-                            minWidth: "180px",
-                            display: "inline-block",
-                          }}
-                        >
+                        item.itemSize && <span className="data-table__text data-table__text--wrap">
                            {t(`add_listing.fields.cargo_sizes.item_size.${item.itemSize.toLowerCase()}`)}
                         </span>
                        }
@@ -445,30 +374,17 @@ useEffect(() => {
                           className={`status-badge status-badge--${normalizedStatusClass}`}
                         >
                           {t(
-                            `buyer_view.table.statuses.${item.status?.toLowerCase()}`,
-                            {
-                              defaultValue:
-                                item.status?.replace(
-                                  /_/g,
-                                  " "
-                                ),
-                            }
+                            `buyer_view.table.statuses.${item.status?.toLowerCase()}`
                           )}
                         </span>
                       </td>
 
                       {/* ACTION */}
-                      {(roles.includes("ROLE_ADMIN") ||
-                        item.status !== "DELIVERED") && (
-                        <td>
+                       <td>
                           <button
                             type="button"
                             className="data-table__action-link"
-                            style={{
-                              background: "none",
-                              border: "none",
-                              cursor: "pointer",
-                            }}
+ 
                             title={t(
                               "shipments.actions.edit_hint"
                             )}
@@ -479,13 +395,6 @@ useEffect(() => {
                             <FiEdit />
                           </button>
                         </td>
-                      )}
-
-                      {/* Empty action cell when no action is available */}
-                      {roles.includes("ROLE_ADMIN") === false &&
-                        item.status === "DELIVERED" && (
-                          <td />
-                        )}
                     </tr>
                   );
                 })}

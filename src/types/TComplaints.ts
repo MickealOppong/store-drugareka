@@ -19,4 +19,5 @@ export type TComplaints={
     buyerComment:string
     listingImages:string[],
     images:string[]
+    shippingMethod:string
 }

@@ -29,6 +29,9 @@ const BuyerView: React.FC = () => {
 
   const orders = (data?.orders as TOrdersDto[]) || [];
 
+
+  
+
   // ISOLATED SEARCH FILTER ENGINE
   const filteredList = orders;
 
@@ -96,7 +99,7 @@ const BuyerView: React.FC = () => {
                         <span className="data-table__avatar-badge">
                           {order.seller?.charAt(0)?.toUpperCase()}
                         </span>
-                        <span>{order.seller}</span>
+                        <span>{t(`buyer_view.${order.seller.replace(" ","_").toLowerCase()}`)}</span>
                       </div>
                     </td>
                     <td>

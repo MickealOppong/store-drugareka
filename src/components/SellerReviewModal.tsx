@@ -10,6 +10,7 @@ import {
   FiX,
 } from "react-icons/fi";
 import defImage from "../assets/default.jpeg";
+import '../css/SellerReviewModal.css';
 import { useStripeShippingCostCheckoutMutation } from "../features/api/checkoutApi";
 import {
   useLazyGetBuyerComplaintQuery,
@@ -236,6 +237,50 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
     }
   };
 
+
+    const handleDecisionSubmitForPersonalCollection = async (actionType: "APPROVE" | "REJECT") => {
+    if (isSubmitting || !comment.trim()) return;
+
+    setIsProcessing(true);
+    setProcessingAction(actionType);
+    setAlertError("");
+
+    // Keep the loading state active after a successful checkout URL is received.
+    let redirectStarted = false;
+
+    try {
+      const response = await updateDisputeStatus({
+        orderNumber,
+        decision: actionType,
+        reason: comment.trim(),
+      });
+
+      if ("error" in response) {
+        setAlertError(getErrorMessage(response.error));
+        return;
+      }
+
+      if (response.data?.httpStatus === 200) {
+        onClose();
+        return;
+      }
+
+      setAlertError(
+        response.data?.message ||
+          t("complaint_modal.errors.decision_failed", {
+            defaultValue: "Nie udało się zakończyć rozpatrywania reklamacji.",
+          }),
+      );
+    } catch (error: unknown) {
+      setAlertError(getErrorMessage(error));
+    } finally {
+      if (!redirectStarted) {
+        setIsProcessing(false);
+        setProcessingAction(null);
+      }
+    }
+  };
+
   const handleCheckout = async () => {
     if (!disputeId || isSubmitting) {
       setAlertError(
@@ -280,6 +325,9 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
     }
   };
 
+
+
+  
   if(isFetching){
     return <Loading/>
   }
@@ -443,33 +491,44 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
              ==================================================== */}
 
         {
-          returnUpheld ? (
-          <div className="cmp-modal__footer cmp-modal__footer--courier">
-            <p>{t("complaint_modal.return_upheld_message", {
-              defaultValue: "Administrator uznał reklamację. Opłać koszt przesyłki zwrotnej, aby zamówić kuriera.",
-            })}</p>
-            <button
-              type="button"
-              className="cmp-footer-form__btn cmp-footer-form__btn--approve"
-              onClick={handleCheckout}
-              disabled={isSubmitting || !disputeId}
-            >
-              {isSubmitting ? (
-                <>
-                  <span className="cmp-spinner" aria-hidden="true" />
-                  <span>
-                    {t("complaint_modal.buttons.redirecting", {
-                      defaultValue: "Przekierowanie do płatności...",
-                    })}
-                  </span>
-                </>
-              ) : (
-                t("complaint_modal.buttons.order_courier", {
-                  defaultValue: "Zamów kuriera",
-                })
-              )}
-            </button>
-          </div>
+         returnUpheld ? (
+    <div className="cmp-modal__footer cmp-modal__footer--courier">
+      <p>
+        {data?.shippingMethod === "PERSONAL_PICKUP"
+          ? t("complaint_modal.return_upheld_personal_pickup_message", {
+              defaultValue: "Administrator uznał reklamację."
+            })
+          : t("complaint_modal.return_upheld_message", {
+              defaultValue:
+                "Administrator uznał reklamację. Opłać koszt przesyłki zwrotnej, aby zamówić kuriera."
+            })}
+      </p>
+
+      {data?.shippingMethod !== "PERSONAL_PICKUP" && (
+        <button
+          type="button"
+          className="cmp-footer-form__btn cmp-footer-form__btn--approve"
+          onClick={handleCheckout}
+          disabled={isSubmitting || !disputeId}
+        >
+          {isSubmitting ? (
+            <>
+              <span className="cmp-spinner" aria-hidden="true" />
+              <span>
+                {t("complaint_modal.buttons.redirecting", {
+                  defaultValue: "Przekierowanie do płatności..."
+                })}
+              </span>
+            </>
+          ) : (
+            t("complaint_modal.buttons.order_courier", {
+              defaultValue: "Zamów kuriera"
+            })
+          )}
+        </button>
+      )}
+    </div>
+  
         ) :
             <footer className="cmp-modal__footer">
             <form
@@ -520,7 +579,16 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
                         defaultValue: "Odrzuć reklamację",
                       })}
                 </button>
-                <button
+              {
+                data?.shippingMethod==="PERSONAL_PICKUP"?
+                <button type="button" 
+                 onClick={() => handleDecisionSubmitForPersonalCollection("APPROVE")}>
+                  { t("complaint_modal.footer.buttons.approve", {
+                      defaultValue: "Approve",
+                    })}
+                </button>
+                :
+                 <button
                   type="button"
                   className="cmp-footer-form__btn cmp-footer-form__btn--approve"
                   onClick={() => handleDecisionSubmit("APPROVE")}
@@ -536,11 +604,12 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
                       </span>
                     </>
                   ) : (
-                    t("complaint_modal.footer.buttons.approve", {
+                    t("complaint_modal.footer.buttons.approve_order", {
                       defaultValue: "Zamów kuriera",
                     })
                   )}
                 </button>
+              }
               </div>
             </form>
           </footer>

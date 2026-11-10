@@ -135,7 +135,7 @@ const SellerView =() => {
                         >
                           {order.buyer?.charAt(0)?.toUpperCase()}
                         </span>
-                        <span>{order.buyer}</span>
+                        <span>{t(`seller_view.${order.buyer.replace(" ","_").toLowerCase()}`)}</span>
                       </div>
                     </td>
                     <td>

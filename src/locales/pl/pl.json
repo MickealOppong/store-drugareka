@@ -570,7 +570,8 @@
           "shipped": "Wysłane",
           "draft": "Szkic",
           "available": "Dostępne",
-          "reserved": "Zarezerwowane"
+          "reserved": "Zarezerwowane",
+          "rejected":"Odrzucone"
         }
       }
     },
@@ -640,6 +641,7 @@
     }
   },
   "buyer_view": {
+    "private_person":"Osoba prywatnośc",
     "toolbar": {
       "search_placeholder": "Szukaj zakupów...",
       "count_singular": "zakup",
@@ -671,7 +673,9 @@
         "delivered": "Dostarczone",
         "cancelled": "Anulowane",
         "processing": "W trakcie przetwarzania",
-        "returned": "Zwrócone"
+        "returned": "Zwrócone",
+        "rejected":"Odrzucone",
+        "confirmed":"Potwiedzone"
       }
     },
     "actions": {
@@ -680,6 +684,7 @@
     }
   },
   "seller_view": {
+        "private_person":"Osoba prywatnośc",
     "toolbar": {
       "search_placeholder": "Szukaj sprzedaży...",
       "count_singular": "sprzedaż",
@@ -708,40 +713,59 @@
       "file_dispute": "Zgłoś spór / problem"
     }
   },
-  "shipments": {
+"shipments": {
+  "confirmed":"Potwiedzone",
+  "private_person":"Osoba prywatnośc",
     "header": {
-      "eyebrow": "Przesyłki",
-      "title": "Wysyłki zamówień",
-      "description": "Zarządzaj dostawami i logistyką."
+      "eyebrow": "Logistyka",
+      "eyebrow_returns": "Zwroty",
+      "title": "Przesyłki Wychodzące",
+      "title_returns": "Logistyka Zwrotów Towaru",
+      "description": "Zarządzaj wysyłkami wychodzącymi, śledź statusy doręczeń i aktualizuj numery nadania.",
+      "description_returns": "Zarządzaj przesyłkami zwrotnymi generowanymi przez kupujących w ramach procedur reklamacji."
+    },
+    "tabs": {
+      "outgoing": "Przesyłki Wychodzące",
+      "returns": "Paczki Zwrotne"
     },
     "toolbar": {
-      "search_placeholder": "Szukaj adresu dostawy...",
-      "count_singular": "wpis",
-      "count_plural": "wpisów"
-    },
-    "empty": {
-      "title": "Brak wyników",
-      "search_desc": "Nie znaleziono przesyłek spełniających kryteria wyszukiwania.",
-      "default_desc": "Brak aktywnych przesyłek w systemie."
+      "search_placeholder": "Szukaj...",
+      "search_placeholder_returns": "Szukaj...",
+      "count_singular": "przesyłka",
+      "count_plural": "przesyłek"
     },
     "table": {
-      "loading": "Loading shipments...",
-      "error": "Nie udało się pobrać danych wysyłek.",
+      "loading": "Ładowanie przesyłek...",
+      "error": "Nie udało się załadować przesyłek. Spróbuj ponownie.",
       "headers": {
         "order": "Zamówienie",
         "seller": "Sprzedawca",
-        "size": "Rozmair paczki",
-        "address": "Adres dostawy",
-        "shipped_at": "Wysłano",
-        "delivered_at": "Dostarczone",
-        "confirmation_status": "Status potwierdzenia",
-        "tracking_number": "Numer przesyłki",
+        "buyer_returning": "Kupujący (Zwracający)",
+        "address": "Adres Dostawy",
+        "return_address": "Adres Odbioru Zwrotu",
+        "tracking_number": "Numer Śledzenia",
+        "confirmation_status": "Status Potwierdzenia",
+        "size": "Rozmiar Paczki",
+        "shipped_at": "Data Nadania",
+        "shipped_at_return": "Nadano Zwrot",
+        "delivered_at": "Data Doręczenia",
+        "delivered_at_return": "Odebrano Zwrot",
         "status": "Status",
         "action": "Akcja"
+      },
+      "statuses":{
+        "confirmed":"Potwiedzone"
       }
     },
+    "empty": {
+      "title": "Brak przesyłek wychodzących",
+      "title_returns": "Brak przesyłek zwrotnych",
+      "search_desc": "Żadna przesyłka nie pasuje do podanego wyszukiwania.",
+      "default_desc": "W systemie nie zarejestrowano obecnie żadnych aktywnych przesyłek wychodzących.",
+      "default_desc_returns": "W systemie nie zarejestrowano obecnie żadnych aktywnych zwrotów logistycznych."
+    },
     "actions": {
-      "edit_hint": "Edytuj status wysyłki"
+      "edit_hint": "Edytuj status przesyłki"
     }
   },
   "wishlist": {
@@ -802,7 +826,8 @@
         "Ready_for_review": "Gotowe do weryfikacji",
         "reversed": "Cofnięte",
         "transferred": "Przelane",
-        "charge_back": "Obciążenie zwrotne (Chargeback)"
+        "charge_back": "Obciążenie zwrotne (Chargeback)",
+      "recouped": "Odzyskano"
       }
     }
   },
@@ -1541,7 +1566,7 @@
   "logistics_modal": {
     "header": {
       "title": "Aktualizacja Przesyłki #{{id}}",
-      "seller": "Sprzedawca: {{name}}"
+       "private_person": "Osoba prywatnośc"
     },
     "fields": {
       "status_label": "Status logistyczny paczki",
@@ -1557,7 +1582,9 @@
       "shipped": "Wysłane",
       "delivered": "Dostarczone",
       "returned": "Zwrócone",
-      "created": "Utworzone"
+      "created": "Utworzone",
+      "rejected":"Odrzucone",
+          "confirmed":"Potwiedzone"
     },
     "validation": {
       "tracking_required": "Wymagane jest podanie numeru śledzenia przesyłki (np. InPost) przed oznaczeniem paczki jako wysłana.",
@@ -1711,7 +1738,8 @@
       "placeholder": "Wprowadź uzasadnienie administracyjne dla tej decyzji...",
       "buttons": {
         "reject": "Odrzuć reklamację",
-        "approve": "Zamów kuriera"
+        "approve_order": "Zamów kuriera",
+        "approve": "Zatwierdź"
       }
     }
   },
