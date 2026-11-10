@@ -1,101 +1,117 @@
-@use "sass:color";
 @use "Variables.scss" as Variables;
 
 /* ==========================================================================
-   SLEEK INLINE TRUST RIBBON BAR CONTAINER (.payment-trust-bar)
+   MINIMAL BORDERLESS PAYMENT TRUST BAR (.payment-trust-bar)
    ========================================================================== */
 .payment-trust-bar {
-display: flex;
-flex-direction: column;
-  gap: 12px;
-  width: auto;
-  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-sizing: border-box;
   font-family: Variables.$font-sans;
 
-  /* Secure Indicator Micro Ribbon */
+ 
+
+  /* =========================================================
+     SECURE LOCK TITLE HEADER (.payment-trust-bar__secure-tag)
+     ========================================================= */
   &__secure-tag {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    font-size: 0.95rem;
+    gap: 6px;
+    font-size: 0.72rem;
     font-weight: 800;
-    color: Variables.$color-primary; // 🌿 Olive green security tag lines
-    letter-spacing: 0.06em;
+    color: Variables.$color-primary;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     white-space: nowrap;
-    
+
     svg {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       stroke-width: 2.5;
+      flex-shrink: 0;
     }
   }
 
-  &__divider {
-    width: 1px;
-    height: 14px;
-    background-color: color.adjust(Variables.$color-border, $lightness: -6%);
-    flex-shrink: 0;
-  }
-
-  /* Compact Horizontal Badge Flex Track */
+  /* =========================================================
+     RESPONSIVE BORDERLESS ICON GRID (.payment-trust-bar__grid)
+     ========================================================= */
   &__grid {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     align-items: center;
-    gap: 8px; // Snug high-density layout spacing
-    overflow-x: auto;
-    scrollbar-width: none; // Hides desktop scrollbars out of ribbon containers
+    gap: 12px 14px;
+    width: 100%;
+    box-sizing: border-box;
 
-  @media (min-width:768px) {
-     display: flex;
-  }
-
-    &::-webkit-scrollbar {
-      display: none; // Completely flushes mobile scroll ribbons
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 18px;
     }
   }
 }
 
 /* ==========================================================================
-    🚀 UNIFORM BOLD & CLEAR TARGET BADGES (.payment-trust-badge)
+   BORDERLESS SVG BADGE ITEMS (.payment-trust-badge)
    ========================================================================== */
 .payment-trust-badge {
   display: flex;
   align-items: center;
-  justify-content: center;
-
-  
-  /* 🚀 THE UNIFORM PROPORTIONS FIX: Enforces a matching square envelope geometry */
-  height: 38px; 
-  width: auto;
-  padding: 6px; // Internal padding keeps all logo proportions looking balanced and readable
-  cursor: pointer;
-  flex-shrink: 0;
+  justify-content: flex-start;
+  width: 100%;
+  height: 26px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
   box-sizing: border-box;
-  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* CRISP CONTRAST & BOLD SHARPENING FILTERS EXCLUSIVELY FOR SMALL SCREENS */
+  @include Variables.media-up(Variables.$breakpoint-sm) {
+    width: 44px;
+    height: 56px;
+    justify-content: center;
+  }
+
   img {
     display: block;
-    height: 100%;
     width: 100%;
+    height: 100%;
+    max-width: 44px;
+    max-height: 100%;
     object-fit: contain;
-    image-rendering: -webkit-optimize-contrast; 
-    image-rendering: crisp-edges;
-
-    filter: drop-shadow(0.2px 0px 0px rgba(15, 23, 42, 0.5)) 
-            drop-shadow(-0.2px 0px 0px rgba(15, 23, 42, 0.5));
+    image-rendering: -webkit-optimize-contrast;
+    filter: contrast(1.06);
   }
 
   &:hover {
-    transform: scale(1.05) translateY(-0.5px);
-    border-color: color.adjust(Variables.$color-border, $lightness: -10%);
+    transform: translateY(-1px);
   }
 
+  &--przelew24 img {
+    max-width: 55px;
+   
+  }
+
+  &--blik img {
+    max-width: 38px;
+  }
 }
 
-/* Screen Reader Reduced Motions Overrides */
+/* ==========================================================================
+   ACCESSIBILITY OVERRIDES: PREFERS REDUCED MOTION GATES
+   ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .payment-trust-badge {
     transition: none !important;
-    &:hover { transform: none !important; }
+    &:hover {
+      transform: none !important;
+    }
   }
 }

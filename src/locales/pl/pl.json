@@ -1319,55 +1319,107 @@
       "go_back": "Wróć"
     }
   },
+
   "help": {
     "header": {
       "eyebrow": "Centrum pomocy",
       "title": "Jak działa Kasoa.pl?",
-      "description": "Znajdź odpowiedzi na najczęściej zadawane pytania dotyczące kupowania, sprzedawania i naszego bezpiecznego systemu ochrony Escrow."
+      "description": "Dowiedz się wszystkiego o kupowaniu i sprzedawaniu rzeczy używanych na Kasoa.pl, bezpiecznych płatnościach, dostawie, odbiorze osobistym i wypłatach dla sprzedających."
     },
     "tabs": {
       "buyer": "Jestem kupującym",
-      "seller": "Jestem sprzedawcą"
+      "seller": "Jestem sprzedającym"
     },
     "faqs": {
       "buyer": {
         "process": {
-          "question": "Jak kupić wyjątkowe produkty na Kasoa.pl?",
-          "answer": "Wybierz interesujący Cię produkt z katalogu i dodaj go do koszyka. Ponieważ oferujemy wyjątkowe produkty dostępne w pojedynczych egzemplarzach, produkt zostanie tymczasowo zarezerwowany dla Ciebie. Następnie przejdź do kasy, podaj adres dostawy i bezpiecznie sfinalizuj transakcję kartą za pośrednictwem Stripe."
+          "question": "Jak kupić przedmiot na Kasoa.pl?",
+          "answer": "Przeglądaj katalog i wybierz interesujący Cię przedmiot. Ponieważ większość ofert dotyczy unikalnych, pojedynczych egzemplarzy, dodanie przedmiotu do koszyka powoduje jego tymczasową rezerwację. Następnie przejdź do kasy, wybierz dostępną metodę dostawy, podaj wymagane dane i bezpiecznie opłać zamówienie za pośrednictwem naszego operatora płatności Stripe. Cena sprzedającego, opłata serwisowa Kasoa oraz ewentualne koszty dostawy są przedstawione oddzielnie przed potwierdzeniem zakupu."
         },
-        "escrow": {
-          "question": "Jak chronione są moje pieniądze podczas zakupu?",
-          "answer": "Kasoa.pl korzysta z zaawansowanego systemu ochrony Escrow. Po dokonaniu płatności środki są bezpiecznie przechowywane na niezależnym, zablokowanym rachunku technicznym. Sprzedawca nie otrzyma wypłaty, dopóki przesyłka nie zostanie dostarczona, a Ty ręcznie nie potwierdzisz jej odbioru w swoim panelu."
+        "payment": {
+          "question": "Jak działa ochrona płatności?",
+          "answer": "Twoja płatność jest przetwarzana za pośrednictwem Stripe na koncie platformy Kasoa. Sprzedający nie otrzymuje środków ze sprzedaży bezpośrednio po dokonaniu przez Ciebie płatności. Kasoa koordynuje obsługę płatności i rozliczenie ze sprzedającym, a przelew na jego połączone konto Stripe jest inicjowany dopiero po spełnieniu odpowiednich warunków realizacji zamówienia i potwierdzenia. Proces ten zapewnia dodatkową kontrolę nad przebiegiem transakcji."
         },
         "shipping": {
-          "question": "Co muszę zrobić, aby otrzymać przesyłkę od sprzedawcy?",
-          "answer": "Podczas finalizacji zakupu musisz podać jedynie adres dostawy. Sprzedawca wyśle przesyłkę na wskazany adres zgodnie z naszymi wytycznymi dotyczącymi realizacji. Gdy przesyłka będzie w drodze, otrzymasz wiadomość e-mail z unikalnym linkiem do śledzenia i weryfikacji."
+          "question": "Jak działa dostawa?",
+          "answer": "Jeśli wybierzesz dostawę kurierską, sprzedający odpowiada za przygotowanie i wysłanie przedmiotu zgodnie z ustaleniami dotyczącymi dostawy udostępnionymi przez Kasoa. Sprzedający otrzymuje odpowiednie instrukcje wysyłki oraz etykietę, jeśli jest wymagana. Przesyłkę możesz śledzić za pomocą udostępnionych informacji o jej statusie. Dostawa kurierska odbywa się na warunkach właściwego przewoźnika."
+        },
+        "collection": {
+          "question": "Czy mogę odebrać przedmiot osobiście?",
+          "answer": "Tak, jeśli sprzedający udostępnia taką możliwość. Po wybraniu odbioru osobistego podczas składania zamówienia przedstawimy Ci zasady i warunki odbioru przed dokonaniem płatności. Kasoa udostępnia informacje niezbędne do zorganizowania odbioru, w tym dane sprzedającego dotyczące miejsca odbioru. Przed zaakceptowaniem przedmiotu dokładnie sprawdź jego stan. Jeśli odmówisz przyjęcia przedmiotu, sprzedający powinien odpowiednio zaktualizować status zamówienia. Następnie zgłoś reklamację lub zainicjuj odpowiednią procedurę zwrotu za pośrednictwem swojego konta Kasoa, podając przyczynę i dołączając dowody, na przykład zdjęcia."
+        },
+        "confirmation": {
+          "question": "Kiedy należy potwierdzić otrzymanie przedmiotu?",
+          "answer": "Potwierdź odbiór dopiero wtedy, gdy otrzymasz przedmiot i będziesz mieć możliwość sprawdzenia jego stanu. Skorzystaj z linku potwierdzającego lub odpowiedniej opcji dostępnej na Twoim koncie. Jeśli zauważysz problem z przedmiotem, zgłoś go za pośrednictwem konta i przedstaw opis oraz dowody, zamiast potwierdzać, że wszystko jest w porządku."
+        },
+        "returns": {
+          "question": "Czy mogę zwrócić przedmiot, jeśli zmienię zdanie?",
+          "answer": "Zakupy od sprzedających prywatnych co do zasady nie podlegają automatycznemu 14-dniowemu prawu odstąpienia od umowy, które przysługuje w przypadku wielu zakupów od przedsiębiorców. Sama zmiana zdania lub rezygnacja z przedmiotu nie daje automatycznie prawa do zwrotu ani refundacji. Jeśli uważasz, że sprzedający nie wywiązał się ze swoich obowiązków lub przedmiot istotnie różni się od przedstawionego w ofercie, zgłoś reklamację za pośrednictwem swojego konta Kasoa. Twoje prawa i dostępne środki ochrony zależą od okoliczności sprawy oraz obowiązujących przepisów."
+        },
+        "misrepresentation": {
+          "question": "Co zrobić, jeśli przedmiot jest niezgodny z opisem?",
+          "answer": "Jeśli uważasz, że przedmiot istotnie różni się od opisu lub przedstawionych zdjęć, zgłoś problem za pośrednictwem swojego konta Kasoa. Wyjaśnij, na czym polega niezgodność, i dołącz zdjęcia lub inne dowody. Reklamacja zostanie rozpatrzona na podstawie treści oferty, dostępnej korespondencji, stanowiska sprzedającego i przedstawionych dowodów. Ewentualne roszczenia dotyczące zakupu przedmiotu są odrębne od opłaty serwisowej Kasoa, która dotyczy usług świadczonych przez Kasoa."
+        },
+        "cancellation": {
+          "question": "Co się stanie, jeśli sprzedający anuluje zamówienie lub nie zrealizuje sprzedaży?",
+          "answer": "Jeśli sprzedający anuluje zamówienie lub nie zrealizuje sprzedaży przed dostawą albo odbiorem osobistym, kupujący otrzymuje zwrot kwoty zapłaconej za przedmiot. Opłata serwisowa Kasoa jest rozliczana oddzielnie i nie podlega automatycznemu zwrotowi z powodu anulowania zamówienia lub niewywiązania się sprzedającego z obowiązków. Ewentualne koszty dostawy są rozliczane odrębnie, zgodnie z warunkami właściwej usługi dostawy."
+        },
+        "service_charge": {
+          "question": "Czy opłata serwisowa Kasoa podlega zwrotowi?",
+          "answer": "Opłata serwisowa Kasoa dotyczy usług świadczonych przez Kasoa w celu obsługi transakcji. Jest ona niezależna od obowiązku sprzedającego dotyczącego realizacji sprzedaży oraz od obowiązku przewoźnika dotyczącego dostarczenia przesyłki. Dlatego anulowanie zamówienia lub niewywiązanie się sprzedającego z obowiązków, a także problemy związane z przewozem, takie jak zagubienie, opóźnienie lub uszkodzenie przesyłki, same w sobie nie uprawniają do zwrotu opłaty serwisowej Kasoa. Zwrot może być rozpatrzony w przypadku, gdy Kasoa nie wykona usługi, za którą pobrano opłatę. Każdy przypadek jest oceniany z uwzględnieniem faktycznie świadczonej usługi i obowiązujących warunków."
+        },
+        "delivery_problems": {
+          "question": "Co zrobić, jeśli wystąpi problem z dostawą kurierską?",
+          "answer": "Dostawa kurierska odbywa się na warunkach określonych przez przewoźnika. Jeśli przesyłka jest opóźniona, zaginęła lub została uszkodzona, zgłoś problem za pośrednictwem swojego konta Kasoa, aby można było przeprowadzić odpowiednią procedurę dotyczącą dostawy. Niewywiązanie się przewoźnika z obowiązku dostarczenia przesyłki nie oznacza automatycznie, że Kasoa nie wykonała własnej usługi. Sposób rozliczenia kosztów dostawy, ewentualnego odszkodowania i innych roszczeń zależy od warunków dostawy oraz okoliczności sprawy."
         }
       },
       "seller": {
         "listing": {
-          "question": "Jak wystawić produkt na sprzedaż?",
-          "answer": "Zaloguj się na swoje konto, kliknij „Sprzedaj przedmiot” i wypełnij formularz oferty. Dodaj jasne zdjęcia produktu, dokładnie określ jego aktualny stan, wybierz kategorię i podaj kwotę netto, którą chcesz otrzymać ze sprzedaży."
+         
+  "question": "How do I add a product for sale?",
+  "answer": "Create an account or log in to Kasoa.pl. Go to 'My Products' in your account and select 'Add Product'. Complete the required information, provide an accurate description, select the item's condition and category, upload clear photographs and specify the price you want to receive from the sale. Make sure the description and photographs accurately represent the item's actual condition."
+
         },
         "pricing": {
-          "question": "Czy pobieracie opłaty za wystawienie produktów w katalogu?",
-          "answer": "Wystawianie produktów jest w 100% bezpłatne. Podajesz oczekiwaną kwotę wypłaty „X”, a wszelkie prowizje operacyjne platformy lub opłaty za obsługę transakcji są dynamicznie doliczane po stronie kupującego podczas finalizacji zakupu."
+          "question": "Jak działa ustalanie ceny i opłata serwisowa Kasoa?",
+          "answer": "Wystawianie przedmiotów na Kasoa jest bezpłatne. Samodzielnie określasz cenę sprzedaży, którą chcesz otrzymać. Twoja cena jest wyświetlana w ofercie, a odpowiednia opłata serwisowa Kasoa jest doliczana osobno po stronie kupującego podczas składania zamówienia. Przed dokonaniem zakupu kupujący widzi całkowitą kwotę do zapłaty."
+        },
+        "verification": {
+          "question": "Czy muszę zweryfikować swoją tożsamość, aby otrzymywać płatności?",
+          "answer": "Tak. Aby otrzymywać środki ze sprzedaży, musisz przejść wymaganą weryfikację sprzedającego oraz proces rejestracji konta Stripe Connect. Proces weryfikacji znajdziesz w swoim profilu na koncie Kasoa. Stripe może poprosić Cię o dane potwierdzające tożsamość i inne informacje przed umożliwieniem przelewów na Twoje połączone konto."
+        },
+        "shipping": {
+          "question": "Co muszę zrobić po sprzedaży przedmiotu?",
+          "answer": "Po złożeniu zamówienia postępuj zgodnie z instrukcjami realizacji dostępnymi na Twoim koncie. W przypadku dostawy kurierskiej odpowiednio zabezpiecz przedmiot, skorzystaj z udostępnionych rozwiązań wysyłkowych i etykiety, jeśli ma zastosowanie, a następnie nadaj przesyłkę w wymaganym terminie. Wprowadź lub potwierdź numer przesyłki, gdy system o to poprosi. W przypadku odbioru osobistego postępuj zgodnie z ustaleniami dotyczącymi odbioru i prawidłowo aktualizuj status zamówienia."
         },
         "payout": {
-          "question": "Kiedy środki trafią na moje dostępne saldo wypłat?",
-          "answer": "Po wysłaniu przesyłki zaloguj się do panelu konta, przejdź do „Wysyłki” i od razu wprowadź numer przesyłki. Środki zostaną automatycznie uwolnione i zaksięgowane na Twoim saldzie wypłat, gdy tylko kupujący kliknie link potwierdzający odbiór."
+          "question": "Kiedy otrzymam pieniądze ze sprzedaży?",
+          "answer": "Środki ze sprzedaży nie są przekazywane natychmiast po dokonaniu płatności przez kupującego. Kasoa inicjuje przelew na Twoje połączone konto Stripe po spełnieniu odpowiednich warunków realizacji i potwierdzenia zamówienia. Przed otrzymaniem przelewów musisz ukończyć weryfikację Stripe. Gdy środki zostaną przekazane na saldo Twojego konta Stripe, dalsza wypłata na rachunek bankowy odbywa się zgodnie z ustawieniami wypłat Twojego konta Stripe."
+        },
+        "fees": {
+          "question": "Czy obowiązują opłaty za przetwarzanie płatności lub inne potrącenia?",
+          "answer": "Opłatę serwisową Kasoa ponosi kupujący. Jest ona odrębna od ustalonej przez Ciebie ceny sprzedaży. Koszty przetwarzania płatności i inne odpowiednie koszty transakcyjne mogą wpływać na kwotę przekazywaną na Twoje konto, zgodnie z regulaminem platformy. Wszelkie obowiązujące potrącenia są uwzględniane w odpowiednim rozliczeniu. Opłaty operatora płatności naliczone w związku z anulowanymi lub zwróconymi transakcjami mogą pozostać należne operatorowi i mogą być odzyskiwane zgodnie z obowiązującym regulaminem platformy."
+        },
+        "cancellation": {
+          "question": "Co się stanie, jeśli nie będę mógł zrealizować zamówienia?",
+          "answer": "Jeśli nie możesz zrealizować zamówienia, jak najszybciej zaktualizuj jego status i poinformuj Kasoa. Płatność kupującego za przedmiot zostanie zwrócona zgodnie z obowiązującą procedurą anulowania. Anulowanie zamówienia przez sprzedającego nie oznacza automatycznie obowiązku zwrotu przez Kasoa opłaty serwisowej pobranej od kupującego. Nieodzyskane koszty przetwarzania płatności związane z transakcją mogą być rozliczane zgodnie z regulaminem platformy."
+        },
+        "accuracy": {
+          "question": "Za co odpowiadam, wystawiając przedmiot na sprzedaż?",
+          "answer": "Musisz mieć prawo do sprzedaży przedmiotu i podać jego uczciwy oraz dokładny opis. Ujawnij wszelkie wady, uszkodzenia, brakujące części i inne istotne informacje. Dodaj zdjęcia przedstawiające rzeczywisty przedmiot. Jeśli kupujący zgłosi reklamację, oferta, korespondencja i przedstawione dowody mogą zostać przeanalizowane w celu ustalenia, czy przedmiot został prawidłowo opisany."
         }
       }
     },
     "cta": {
-      "buyer_title": "Gotowy na wyjątkowe okazje?",
-      "buyer_desc": "Przeglądaj tysiące zweryfikowanych ofert vintage, elektroniki i wyposażenia domu z pełną ochroną Escrow.",
+      "buyer_title": "Gotowy, aby znaleźć coś wyjątkowego?",
+      "buyer_desc": "Odkrywaj używaną odzież, elektronikę, wyposażenie domu i inne wyjątkowe przedmioty na Kasoa.pl. Korzystaj z uporządkowanego procesu płatności i realizacji zamówień.",
       "buyer_btn": "Przejdź do sklepu",
-      "seller_title": "Masz rzeczy, których już nie używasz?",
-      "seller_desc": "Zamień niepotrzebne ubrania lub dodatkowe wyposażenie na gotówkę. Daj swoim rzeczom drugą szansę już dziś.",
-      "seller_btn": "Wystaw produkt na sprzedaż"
+      "seller_title": "Masz przedmioty, których już nie używasz?",
+      "seller_desc": "Daj swoim używanym rzeczom drugie życie. Wystaw je bezpłatnie i otrzymaj ustaloną przez siebie cenę sprzedaży po pomyślnej realizacji transakcji.",
+      "seller_btn": "Wystaw przedmiot na sprzedaż"
     }
-  },
+  }
+,
   "user_profile": {
     "header": {
       "badge": "Konto",

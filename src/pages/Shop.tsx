@@ -250,17 +250,7 @@ useEffect(() => {
 
         <ShopBanner/>
 
-        {/* SEARCH — directly after the banner, before product discovery controls */}
-        <div className="shop-page__search">
-          <FiSearch />
-          <input
-            type="search"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder={t("shop.header.search_placeholder")}
-            aria-label={t("shop.header.search_placeholder")}
-          />
-        </div>
+    
 
         {/* =====================================================
                 CATEGORY NAVIGATION
@@ -360,6 +350,18 @@ useEffect(() => {
   )}
 </div>
 
+          {/* SEARCH — directly after the banner, before product discovery controls */}
+        <div className="shop-page__search">
+          <FiSearch />
+          <input
+            type="search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder={t("shop.header.search_placeholder")}
+            aria-label={t("shop.header.search_placeholder")}
+          />
+        </div>
+
         {/* =====================================================
                 TOOLBAR
             ====================================================== */}
@@ -402,6 +404,8 @@ useEffect(() => {
         </section>
 
         {error && <ErrorToast errorMessage={error} />}
+
+  
 
         {/* =====================================================
                 PRODUCTS

@@ -1371,7 +1371,7 @@
     "header": {
       "eyebrow": "Help Center",
       "title": "How does Kasoa.pl work?",
-      "description": "Find answers to the most frequently asked questions regarding buying, selling, and our secure escrow protection system."
+      "description": "Everything you need to know about buying and selling pre-owned items on Kasoa.pl, secure payments, delivery, personal collection and seller payouts."
     },
     "tabs": {
       "buyer": "I am a Buyer",
@@ -1380,42 +1380,93 @@
     "faqs": {
       "buyer": {
         "process": {
-          "question": "How do I buy unique items on Kasoa.pl?",
-          "answer": "Select the item you are interested in from the catalog and add it to your shopping cart. Since we offer unique 1-of-1 items, the product will be temporarily reserved for you. Then proceed to checkout, fill in your delivery address, and complete the transaction securely with your card via Stripe."
+          "question": "How do I buy an item on Kasoa.pl?",
+          "answer": "Browse the catalogue and select the item you want. Because listings generally represent unique, one-of-a-kind items, adding an item to your cart temporarily reserves it for you. Proceed to checkout, choose an available delivery method, provide the required details and pay securely through our payment provider, Stripe. The seller's price, Kasoa service charge and applicable delivery costs are displayed separately before you confirm your purchase."
         },
-        "escrow": {
-          "question": "How is my money protected during a purchase?",
-          "answer": "Kasoa.pl utilizes an advanced Escrow protection system. After making a payment, your funds are securely held in an independent, frozen technical account. The seller will not receive the payout until the package is delivered and you manually confirm receipt in your dashboard."
+        "payment": {
+          "question": "How does payment protection work?",
+          "answer": "Your payment is processed through Stripe on the Kasoa platform. The seller does not receive the sale proceeds immediately after you pay. Kasoa coordinates the payment and seller settlement, and the transfer to the seller's connected Stripe account is initiated only after the applicable fulfilment and confirmation conditions have been met. This process provides an additional layer of coordination between payment and fulfilment."
         },
         "shipping": {
-          "question": "What do I need to receive a package from a seller?",
-          "answer": "During checkout, you only need to provide your fulfillment delivery address. The seller will ship the package to that specific address using our platform fulfillment guidelines. Once the parcel is in transit, you will receive an email update containing a unique verification tracking link."
+          "question": "How does delivery work?",
+          "answer": "When you choose courier delivery, the seller is responsible for preparing and dispatching the item using the delivery arrangements provided through Kasoa. The seller receives the relevant shipping instructions and label where applicable. You can follow the shipment using the tracking information provided. Courier delivery is subject to the applicable carrier's terms and conditions."
+        },
+        "collection": {
+          "question": "Can I collect an item personally?",
+          "answer": "Yes, where personal collection is offered. If you choose this option at checkout, the collection arrangements and applicable conditions are presented before you complete payment. Kasoa provides the information needed to arrange collection, including the seller's collection details. Please inspect the item carefully before accepting it. If you reject the item, the seller should update the order status accordingly. You must then initiate the relevant complaint or return process through your Kasoa account and provide the reason and supporting evidence, such as photographs where appropriate."
+        },
+        "confirmation": {
+          "question": "When should I confirm that I have received my item?",
+          "answer": "Confirm receipt only after you have received the item and had the opportunity to check it. Use the confirmation link or the relevant option in your account. If there is a problem with the item, report it through your account and provide a description and supporting evidence rather than confirming that everything is satisfactory."
+        },
+        "returns": {
+          "question": "Can I return an item if I change my mind?",
+          "answer": "Purchases from private sellers are generally not subject to the automatic 14-day withdrawal right that applies to many purchases from businesses. Changing your mind or no longer wanting an item does not automatically entitle you to a return or a refund. If you believe the seller has failed to meet their obligations or the item is materially different from its listing, submit a complaint through your Kasoa account. Your rights and any available remedies will depend on the circumstances and applicable law."
+        },
+        "misrepresentation": {
+          "question": "What if the item is not as described?",
+          "answer": "If you believe an item is materially different from its description or photographs, report the problem through your Kasoa account. Explain what is wrong and provide photographs or other supporting evidence. The complaint will be assessed using the listing, available communications, the seller's response and the evidence provided. Any remedy relating to the purchase of the item is separate from the Kasoa service charge, which relates to the service provided by Kasoa."
+        },
+        "cancellation": {
+          "question": "What happens if a seller cancels an order or fails to fulfil it?",
+          "answer": "If the seller cancels an order or fails to fulfil the sale before delivery or personal collection, the buyer is entitled to a refund of the amount paid for the item. The Kasoa service charge is separate and is not automatically refundable because of the seller's cancellation or failure. Any applicable delivery costs are handled separately according to the relevant delivery arrangements and terms."
+        },
+        "service_charge": {
+          "question": "Is the Kasoa service charge refundable?",
+          "answer": "The Kasoa service charge covers the services provided by Kasoa in facilitating your transaction. It is separate from the seller's responsibility to fulfil the sale and the courier's responsibility to deliver the parcel. Therefore, a seller's cancellation or failure to fulfil an order, or a courier-related problem such as loss, delay or damage to a parcel, does not by itself entitle you to a refund of the Kasoa service charge. A refund may be considered where Kasoa itself fails to provide the service for which the charge was collected. Each case is assessed according to the service provided and the applicable terms."
+        },
+        "delivery_problems": {
+          "question": "What happens if there is a problem with courier delivery?",
+          "answer": "Courier delivery is provided subject to the carrier's terms and conditions. If a parcel is delayed, lost or damaged, report the issue through your Kasoa account so that the relevant delivery process can be followed. A courier's failure to deliver does not automatically mean that Kasoa has failed to provide its own service. The handling of delivery charges, compensation and any other remedies depends on the applicable delivery arrangements and circumstances."
         }
       },
       "seller": {
         "listing": {
-          "question": "How can I list a product for sale?",
-          "answer": "Log into your account, click 'Sell an Item', and fill out the listing form. Upload bright, clear images of your item, accurately select its current product condition, choose a category, and specify the net payout amount you want to earn from the sale."
+         
+  "question": "How do I add a product for sale?",
+  "answer": "Create an account or log in to Kasoa.pl. Go to 'My Products' in your account and select 'Add Product'. Complete the required information, provide an accurate description, select the item's condition and category, upload clear photographs and specify the price you want to receive from the sale. Make sure the description and photographs accurately represent the item's actual condition."
+
         },
         "pricing": {
-          "question": "Do you charge any fees for listing items in the catalog?",
-          "answer": "Listing items is 100% free. You declare your desired payout amount 'X', and any platform operational commissions or transaction handling fees are dynamically appended on the buyer's side during checkout."
+          "question": "How does pricing and the Kasoa service charge work?",
+          "answer": "Listing an item on Kasoa is free. You specify the seller price you want to receive. This price is displayed in the listing, and the applicable Kasoa service charge is added separately on the buyer's side during checkout. The buyer sees the total payable amount before completing the purchase."
+        },
+        "verification": {
+          "question": "Do I need to verify my identity to receive payments?",
+          "answer": "Yes. To receive sale proceeds, you must complete the required seller verification and Stripe Connect onboarding process. You can access the seller verification process through your account profile. Stripe may request identity and other information before enabling transfers to your connected account."
+        },
+        "shipping": {
+          "question": "What do I need to do after someone buys my item?",
+          "answer": "Once an order is placed, follow the fulfilment instructions in your account. For courier delivery, prepare the item securely, use the shipping arrangements and label provided where applicable, and dispatch it within the required timeframe. Enter or confirm the shipment tracking information when requested. For personal collection, follow the collection arrangements and update the order status accurately."
         },
         "payout": {
-          "question": "When will the funds reach my active Payout balance?",
-          "answer": "After shipping the package, log into your account dashboard, navigate to 'Shipments', and enter the tracking number right away. The funds will automatically be released and credited to your Payout balance as soon as the buyer clicks the confirmation link."
+          "question": "When will I receive the money from a sale?",
+          "answer": "Sale proceeds are not transferred immediately after a buyer pays. Kasoa initiates the transfer to your connected Stripe account after the applicable fulfilment and confirmation conditions have been satisfied. You must complete Stripe verification before receiving transfers. Once the transfer reaches your connected Stripe balance, any subsequent withdrawal to your bank account is handled through Stripe according to your account's payout settings."
+        },
+        "fees": {
+          "question": "Are there any payment processing fees or deductions?",
+          "answer": "The Kasoa service charge is paid by the buyer and is separate from your seller price. Payment processing costs and other applicable transaction costs may affect the amount transferred to you in accordance with the marketplace terms. Where deductions apply, they are reflected in the relevant settlement information. Payment processing fees incurred on cancelled or refunded transactions may remain payable to the payment provider and may be recovered in accordance with the applicable marketplace terms."
+        },
+        "cancellation": {
+          "question": "What happens if I cannot fulfil an order?",
+          "answer": "If you cannot fulfil an order, update its status and notify Kasoa as soon as possible. The buyer's payment for the item will be refunded in accordance with the applicable cancellation process. A seller cancellation does not automatically create an obligation for Kasoa to refund its service charge to the buyer. Unrecovered payment processing costs associated with the transaction may also be handled in accordance with the marketplace terms."
+        },
+        "accuracy": {
+          "question": "What are my responsibilities when listing an item?",
+          "answer": "You must be entitled to sell the item and provide an honest, accurate description. Disclose defects, damage, missing parts and other relevant information. Upload photographs that represent the actual item. If a buyer raises a complaint, the listing, communications and supporting evidence may be reviewed to determine whether the item was accurately represented."
         }
       }
     },
     "cta": {
-      "buyer_title": "Ready to hunt for unique deals?",
-      "buyer_desc": "Browse thousands of verified vintage pieces, electronics, and home equipment listings with complete escrow protection.",
+      "buyer_title": "Ready to find something special?",
+      "buyer_desc": "Explore pre-owned clothing, electronics, home equipment and other unique finds on Kasoa.pl, with a structured payment and fulfilment process.",
       "buyer_btn": "Go to shop",
       "seller_title": "Have items you no longer use?",
-      "seller_desc": "Turn unneeded wardrobe pieces or extra equipment into fast cash. Give your pre-loved items a second chance today.",
-      "seller_btn": "List a product for sale"
+      "seller_desc": "Give your pre-loved items a second life. List them for free and receive your chosen seller price when the sale is successfully fulfilled.",
+      "seller_btn": "List an item for sale"
     }
-  },
+  }
+,
   "user_profile": {
     "header": {
       "badge": "Account",

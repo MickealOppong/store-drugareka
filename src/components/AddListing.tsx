@@ -652,7 +652,7 @@ const AddListing = () => {
                                          {COLLECTION_CITIES.map((city) => (
                                            <option
                                              key={city.value}
-                                             value={city.value}
+                                             value={city.label}
                                            >
                                              {city.label}
                                            </option>

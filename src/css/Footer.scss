@@ -121,19 +121,24 @@
     grid-column: 1 / -1; // Spans full horizontal dashboard limits on link grid grids tracks
     display: flex;
     align-items: center;
+    width: 100%;
     justify-content: space-between;
+  align-items: center;
     flex-wrap: wrap;
     gap: 1.25rem;
     border-top: 1px solid Variables.$color-border;
     padding-top: 1.75rem;
     margin-top: 0.5rem;
-    width: 100%;
+  
     box-sizing: border-box;
+
+
 
     @media (max-width: 640px) {
       flex-direction: column;
       align-items: flex-start; // Stack rows flush on narrow smartphone handsets viewports
       gap: 1.5rem;
+   
     }
 
     /* Embedded Component Alignment Overrides */

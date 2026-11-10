@@ -34,7 +34,7 @@ const SellWithUs = () => {
     <main className="sell-with-us-page sell-with-us-page">
       <SEO
         title="Sprzedaj z nami na Kasoa"
-        description="Wystaw przedmiot na Kasoa. Ustal oczekiwaną kwotę, a my zajmiemy się obsługą transakcji i dostawy."
+  description="Masz przedmioty, których już nie potrzebujesz — używane lub nowe, pozostające w dobrym stanie? Kupuj i sprzedawaj odzież damską i męską, elektronikę, części samochodowe,meble, produkty dla dzieci, dom i ogród oraz wiele więcej."
         canonical="https://kasoa.pl/sell"
       />
 
@@ -141,7 +141,7 @@ const SellWithUs = () => {
               {topCategories.map((category) => (
                 <Link
                   key={category.id}
-                  to={`/shop?category=${category.slug}_${category.id}`}
+                  to={`/shop?category=${category.slug}_${category.id}#category-products`}
                   className="sell-with-us-page__category-card"
                 >
                   <img
