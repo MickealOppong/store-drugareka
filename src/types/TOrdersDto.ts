@@ -7,6 +7,7 @@ export type TOrdersDto = {
   createdAt: Date;
   paidAt: Date;
   seller: string;
+  productName:string
   orderNumber: string;
   price: number;
   shipping:number,

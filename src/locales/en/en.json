@@ -708,7 +708,8 @@
         "total": "Total",
         "status": "Status",
         "created": "Created",
-        "action": "Action"
+        "action": "Action",
+            "product_name":"Product name"
       }
     },
     "actions": {
@@ -1273,7 +1274,8 @@
         "order_status": "Status",
         "tracking_number": "Tracking Number",
         "delivery_status": "Delivery Status",
-        "service_charge": "Service charge"
+        "service_charge": "Service charge",
+        "product_name":"Product name"
       }
     }
   },

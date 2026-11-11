@@ -106,6 +106,7 @@ const SellerView =() => {
                 <tr>
                   <th>{t("seller_view.table.headers.order")}</th>
                   <th>{t("seller_view.table.headers.buyer")}</th>
+                      <th>{t("seller_view.table.headers.product_name")}</th>
                   <th>{t("seller_view.table.headers.subtotal")}</th>
                   <th>{t("seller_view.table.headers.shipping")}</th>
                   <th>{t("seller_view.table.headers.total")}</th>
@@ -137,6 +138,11 @@ const SellerView =() => {
                         </span>
                         <span>{t(`seller_view.${order.buyer.replace(" ","_").toLowerCase()}`)}</span>
                       </div>
+                    </td>
+                       <td>
+                      <span className="data-table__text">
+                        {order.productName}
+                      </span>
                     </td>
                     <td>
                       <span className="data-table__text">

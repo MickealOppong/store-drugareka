@@ -103,6 +103,7 @@ const AdminOrderView: React.FC = () => {
                   <th>Order</th>
                   <th>Seller</th>
                   <th>Buyer</th>
+                     <th>Product</th>
                   <th>Subtotal</th>
                   <th>Service charge</th>
                   <th>Shipping</th>
@@ -147,6 +148,11 @@ const AdminOrderView: React.FC = () => {
                         </span>
                         <span>{order.buyer}</span>
                       </div>
+                    </td>
+                     <td>
+                      <span className="data-table__text">
+                       {order.productName}
+                      </span>
                     </td>
                     <td>
                       <span className="data-table__text">

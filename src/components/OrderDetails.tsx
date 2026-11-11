@@ -25,6 +25,8 @@ const OrderDetails = () => {
 
   const orders = (data as TOrdersDto[]) || [];
 
+  console.log(orders);
+  
   const totalCost = orders.reduce((accumulator, currentOrder) => {
     return (
       accumulator +
@@ -95,6 +97,7 @@ const OrderDetails = () => {
                 <tr>
                   <th>{t("order_details.table.headers.order")}</th>
                   <th>{t("order_details.table.headers.seller")}</th>
+                    <th>{t("order_details.table.headers.product_name")}</th>
                   <th>{t("order_details.table.headers.subtotal")}</th>
                   <th>{t("order_details.table.headers.shipping")}</th>
                   <th>{t("order_details.table.headers.service_charge")}</th>
@@ -117,8 +120,13 @@ const OrderDetails = () => {
                         <span className="data-table__avatar-badge">
                           {order.seller?.charAt(0)?.toUpperCase()}
                         </span>
-                        <span>{order.seller}</span>
+                        <span>{t(`buyer_view.${order.seller.replace(" ","_").toLowerCase()}`)}</span>
                       </div>
+                    </td>
+                        <td>
+                      <span className="data-table__text">
+                       {order.productName}
+                      </span>
                     </td>
                     <td>
                       <span className="data-table__text">

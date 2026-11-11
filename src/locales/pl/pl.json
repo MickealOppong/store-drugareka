@@ -706,7 +706,8 @@
         "total": "Suma",
         "status": "Status",
         "created": "Utworzono",
-        "action": "Akcja"
+        "action": "Akcja",
+          "product_name":"Nazwa produktu"
       }
     },
     "actions": {
@@ -1226,7 +1227,8 @@
         "order_status": "Status",
         "tracking_number": "Numer przesyłki",
         "delivery_status": "Status dostawy",
-        "service_charge": "Opłata serwisowa"
+        "service_charge": "Opłata serwisowa",
+            "product_name":"Nazwa produktu"
       }
     }
   },
