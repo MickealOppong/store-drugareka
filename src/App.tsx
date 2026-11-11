@@ -62,6 +62,7 @@ import StripeReturnKYCHandler from "./pages/StripeReturnKYCHandler";
 
 import { loader as accountLoader } from './../src/pages/AccountLayout';
 import EditShipmentPrice from "./components/EditShipmentPrice";
+import AdminShipments from "./pages/AdminShipments";
 import Complaints from "./pages/Complaints";
 
 function App() {
@@ -219,7 +220,7 @@ function App() {
         },
         {
           path: "admin/shipments",
-          element: <Shipment />,
+          element: <AdminShipments />,
         },
         {
           path: "admin/listings",
