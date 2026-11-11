@@ -421,7 +421,7 @@
       "add_wishlist": "Dodaj do ulubionych",
       "buy_btn": "Kup produkt",
       "edit_btn": "Edytuj ofertę",
-      "make_offer": "Złożyć ofertę",
+      "make_offer": "Złóż ofertę",
         "add_to_cart":"Dodaj do koszyka",
        "service_charge_included": "w tym opłata serwisowa",
   "delivery_cost_extra": "Dostawa płatna dodatkowo"
@@ -947,7 +947,9 @@
       "add_cart": "Dodaj do koszyka",
       "service_charge": "Opłata Serwisowa",
       "checkout_btn": "Bezpieczna płatność",
-      "address_warning": "Dodaj adres dostawy, aby odblokować opcje płatności."
+      "address_warning": "Dodaj adres dostawy, aby odblokować opcje płatności.",
+      "shipping_message": "Możesz odebrać przedmiot osobiście za darmo, wybierając odbiór osobisty podczas składania zamówienia."
+
     },
     "item": {
       "remove_hint": "Remove item from cart",

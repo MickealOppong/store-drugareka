@@ -231,6 +231,7 @@ const handleBuyNow = async (listingId: number) => {
           shipment={product.shippingCost}
           service={product.serviceCharge}
           onButtonClick={onModalButtonClick}
+          isPerdonalCollectionAvailable={product.personalCollectionAvailable}
         />
       )}
 

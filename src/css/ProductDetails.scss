@@ -462,6 +462,7 @@
     svg {
       color: Variables.$color-primary;
       transition: transform 0.2s ease;
+
     }
     &:hover {
       background-color: Variables.$color-primary-dark;
@@ -469,7 +470,7 @@
       border-color: Variables.$color-primary-hover;
       box-shadow: 0 6px 16px rgba(104, 118, 75, 0.1);
       svg {
-        
+              color: Variables.$background;
         transform: rotate(-12deg) scale(1.08); // Elegant spotlight angle tag tilt interaction loop feedback
       }
     }

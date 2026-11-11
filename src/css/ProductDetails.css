@@ -451,6 +451,7 @@
   box-shadow: 0 6px 16px rgba(104, 118, 75, 0.1);
 }
 .product-details__action-row .product-details__make-offer-btn:hover svg {
+  color: #FFFFFF;
   transform: rotate(-12deg) scale(1.08);
 }
 .product-details__action-row {

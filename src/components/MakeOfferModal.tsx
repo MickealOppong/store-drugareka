@@ -22,6 +22,7 @@ type MakeOfferModalProps = {
   isNegotiable: boolean;
   service?: number;
   shipment?: number;
+  isPerdonalCollectionAvailable:boolean
 };
 
 const RESERVATION_WINDOW_MS = 15 * 60 * 1000;
@@ -42,6 +43,7 @@ const getErrorMessage = (error: unknown, fallback: string): string => {
 export const MakeOfferModal = ({
   isOpen,
   onButtonClick,
+  isPerdonalCollectionAvailable,
   productName,
   currentPrice,
   id,
@@ -395,6 +397,13 @@ export const MakeOfferModal = ({
                           {formatPrice(shipping)} zł
                         </span>
                       </div>
+                          {
+                          isPerdonalCollectionAvailable && 
+                          <div   className="mkt-offer-modal__success-msg"
+                        role="status">
+                            <span>   {t("cart.summary.shipping_message")}</span>
+                          </div>
+                        }
 
                       <div className="mkt-offer-modal__summary-row mkt-offer-modal__summary-row--total">
                         <strong className="mkt-offer-modal__summary-label">

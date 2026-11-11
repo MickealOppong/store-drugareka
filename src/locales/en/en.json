@@ -957,7 +957,8 @@
       "total": "Total",
       "checkout_btn": "Secure payment",
       "add_cart": "Add to cart",
-      "address_warning": "Please add a delivery address to unlock payment options."
+      "address_warning": "Please add a delivery address to unlock payment options.",
+      "shipping_message":"You can collect in person for free by using personal collection at checkout"
     },
     "item": {
       "remove_hint": "Remove item from cart",
