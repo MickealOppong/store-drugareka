@@ -36,7 +36,7 @@ import { useStripeBuyNowMutation } from "../features/api/checkoutApi";
 import Footer from "./Footer";
 import Loading from "./Loading";
 import MakeOfferModal from "./MakeOfferModal";
-import PaymentMethods from "./PaymentMethods";
+import ProductBnpl from "./ProductBnpl";
 import SEO from "./SEO";
 
 // Safely translate backend condition values.
@@ -402,9 +402,6 @@ const handleBuyNow = async (listingId: number) => {
               </div>
             )}
 
-          {/* PAYMENT METHODS */}
-          <PaymentMethods />
-
           {/* PRICE AND DELIVERY */}
           <div className="product-details__pricing-matrix">
             <div className="product-details__price-row">
@@ -429,6 +426,7 @@ const handleBuyNow = async (listingId: number) => {
               </span>
             </div>
           </div>
+          <ProductBnpl/>
 
           {/* BUYER PROTECTION */}
           <div className="product-details__safety-strip">

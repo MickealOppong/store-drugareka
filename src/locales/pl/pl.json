@@ -1033,8 +1033,12 @@
 "nav": {
   "back": "Wstecz",
   "shop_crumb": "Kategorie"
-}
-    ,
+} ,
+ "bnpl":{
+      "title":" Kup teraz. Zapłać później.",
+      "description":"Skorzystaj z elastycznych opcji płatności."
+    },
+    
     "personal_collection": {
   "title": "Dostępny odbiór osobisty",
   "message": "Chcesz uniknąć kosztów dostawy? Możesz odebrać ten przedmiot w:"

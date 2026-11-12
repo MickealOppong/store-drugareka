@@ -1,0 +1,110 @@
+@use "sass:color";
+@use "Variables.scss" as Variables;
+
+/* ==========================================================================
+   KLARNA FLEXIBLE PAYMENTS CALLOUT (.product-bnpl)
+   ========================================================================== */
+.product-bnpl {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  width: 100%;
+  margin: 0.85rem 0 1.25rem;
+  padding: 0.9rem 1rem;
+  background-color: Variables.$background;
+  border: 1px solid Variables.$color-border;
+  border-radius: 12px;
+  font-family: Variables.$font-sans;
+  text-align: left;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+
+  @include Variables.media-up(Variables.$breakpoint-sm) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.95rem 1.15rem;
+  }
+
+  &:hover {
+    border-color: color.adjust(Variables.$color-border, $lightness: -8%);
+  }
+
+  /* =========================================================
+     KLARNA SIGNATURE BADGE PILL (.product-bnpl__brand)
+     ========================================================= */
+  &__brand {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem 0.65rem;
+    background-color: #ffb3c7;
+    border-radius: 7px;
+    flex-shrink: 0;
+    height: 4rem;
+    width: 8rem;
+  }
+
+  &__brand-name {
+    font-family: Variables.$font-sans;
+    font-size: 0.95rem;
+    font-weight: 900;
+    color: #0b051d;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  /* =========================================================
+     TEXTUAL CONTENT BLOCK (.product-bnpl__content)
+     ========================================================= */
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+    flex: 1;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 0.86rem;
+    font-weight: 750;
+    color: Variables.$color-text-main;
+    line-height: 1.35;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: Variables.$color-text-muted;
+    line-height: 1.45;
+  }
+}
+
+/* ==========================================================================
+   COMPACT SMALL-SCREEN REFINEMENTS (max-width: 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .product-bnpl {
+    padding: 0.8rem 0.9rem;
+    gap: 0.55rem;
+
+    &__brand {
+      padding: 0.25rem 0.55rem;
+    }
+
+    &__brand-name {
+      font-size: 0.8rem;
+    }
+
+    &__title {
+      font-size: 0.82rem;
+    }
+
+    &__description {
+      font-size: 0.75rem;
+    }
+  }
+}

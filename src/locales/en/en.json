@@ -1,6 +1,7 @@
 {
   "landing": {
     "hero": {
+      
       "eyebrow": "USED, IN A COMPLETELY NEW EDITION",
       "title_line1": "Good things.",
       "title_line2": "A SECOND CHANCE.",
@@ -1042,6 +1043,11 @@
       "back": "Back",
       "shop_crumb": "Category"
     },
+  "bnpl": {
+  "title": "Buy now. Pay later.",
+  "description": "Take advantage of flexible payment options."
+}
+,
 "personal_collection": {
   "title": "Personal collection available",
   "message": "Want to avoid shipping costs? You can collect this item in:"
