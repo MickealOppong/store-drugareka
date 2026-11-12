@@ -1,5 +1,5 @@
 
-import { useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FiAlertCircle,
@@ -9,6 +9,7 @@ import {
   FiMapPin,
   FiSquare,
   FiTruck,
+  FiXCircle,
 } from "react-icons/fi";
 import { useSearchParams } from "react-router";
 import { Loading } from "../components";
@@ -20,12 +21,16 @@ import {
 } from "../features/api/authApi";
 import type { TShipmentItemResponse } from "../types/TShipmentItemResponse";
 
+type ShipmentResponse = {
+  data: TShipmentItemResponse[] | null;
+  httpStatus: number;
+  message?: string | null;
+};
+
 const ConfirmShipment = () => {
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
-
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
-
   const { t } = useTranslation();
 
   const [triggerCourierDispatch, { error }] =
@@ -35,6 +40,32 @@ const ConfirmShipment = () => {
     isLoading: itemLoading,
     data,
   } = useGetSellerShipmentsQuery(token as string);
+
+  const response = data as ShipmentResponse | undefined;
+
+  console.log(data);
+  
+
+  const products = (response?.data ?? []) as (
+    TShipmentItemResponse & { shipmentMethod?: string }
+  )[];
+
+  const responseMessage = (response?.message ?? "").toLocaleLowerCase("pl-PL");
+
+  // API response states
+  const isCancelled =
+    responseMessage.includes("anulowan");
+
+  const isAlreadyConfirmed =
+    responseMessage.includes("confirmed") ||
+    responseMessage.includes("potwierdzon");
+
+  const hasNoItems = !itemLoading && products.length === 0;
+
+  // All returned shipment items share the same shipment method.
+  const shipmentMethod = products[0]?.shipmentMethod;
+
+  const isPersonalPickup = shipmentMethod === "PERSONAL_PICKUP";
 
   // Seller address form states
   const [name, setName] = useState("");
@@ -51,27 +82,10 @@ const ConfirmShipment = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // All items returned for this shipment share the same shipment method.
-  // Use the first item to determine the confirmation workflow.
-  const products = (data?.data ?? []) as (
-    TShipmentItemResponse & { shipmentMethod?: string }
-  )[];
-
-  const shipmentMethod = products[0]?.shipmentMethod;
-
-  const isPersonalPickup =
-    shipmentMethod === "PERSONAL_PICKUP"
-
-    
-
-  const handleFormSubmit = async (
-    e: ChangeEvent<HTMLFormElement>
-  ) => {
+  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setValidationError(null);
 
-    // Both courier collection and personal pickup require
-    // the seller to confirm their address.
     if (
       !name.trim() ||
       !street.trim() ||
@@ -103,56 +117,29 @@ const ConfirmShipment = () => {
       country,
     };
 
-    // Seller address is required for both shipment methods.
-    formData.append(
-      "pickupAddress.street",
-      address.street
-    );
-
-    formData.append(
-      "pickupAddress.city",
-      address.city
-    );
-
-    formData.append(
-      "pickupAddress.postalCode",
-      address.postalCode
-    );
-
-    formData.append(
-      "pickupAddress.country",
-      address.country
-    );
-
-    formData.append(
-      "pickupAddress.contact",
-      address.contact
-    );
+    formData.append("pickupAddress.street", address.street);
+    formData.append("pickupAddress.city", address.city);
+    formData.append("pickupAddress.postalCode", address.postalCode);
+    formData.append("pickupAddress.country", address.country);
+    formData.append("pickupAddress.contact", address.contact);
 
     formData.append("comment", instructions);
     formData.append("name", name);
     formData.append("token", String(token));
-    formData.append(
-      "shipmentIds",
-      String(selectedItems)
-    );
+    formData.append("shipmentIds", String(selectedItems));
 
     try {
       setIsLoading(true);
 
-      const response =
-        await triggerCourierDispatch(formData).unwrap();
-        
+      const result = await triggerCourierDispatch(formData).unwrap();
 
-      if (response) {
+      if (result === true) {
         setIsSuccess(true);
-           
       }
     } catch (err: unknown) {
       console.error("Shipment confirmation failed:", err);
-         setIsSuccess(false);
+      setIsSuccess(false);
     } finally {
-          setIsSuccess(false);
       setIsLoading(false);
     }
   };
@@ -170,11 +157,58 @@ const ConfirmShipment = () => {
       ? (error.data as any)?.message
       : t("confirm_shipment.errors.network_fallback");
 
-  if (isLoading) {
+  if (itemLoading || isLoading) {
     return <Loading />;
   }
 
-  // Successful confirmation
+  // Cancelled order: HTTP 200, empty data, cancellation message.
+  if (isCancelled) {
+    return (
+      <div className="al-confirm-shipment__status-page">
+        <div className="al-confirm-shipment__cancelled">
+          <FiXCircle className="al-confirm-shipment__status-icon" />
+
+          <h1>
+          {data?.message}
+          </h1>
+
+          <p>
+            {t(
+              "confirm_shipment.cancelled.description",
+              "Nie musisz już podejmować żadnych działań związanych z wysyłką tego zamówienia."
+            )}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Shipment already confirmed.
+  if (isAlreadyConfirmed) {
+    return (
+      <div className="al-confirm-shipment__status-page">
+        <div className="al-confirm-shipment__success">
+          <FiCheckSquare className="al-confirm-shipment__status-icon" />
+
+          <h1>
+            {t(
+              "confirm_shipment.already_confirmed.title",
+              "Wysyłka została potwierdzona"
+            )}
+          </h1>
+
+          <p>
+            {t(
+              "confirm_shipment.already_confirmed.description",
+              "Dane wysyłki zostały już potwierdzone."
+            )}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Successful confirmation submitted by the seller.
   if (isSuccess) {
     return (
       <div className="al-confirm-shipment__status-page">
@@ -184,43 +218,41 @@ const ConfirmShipment = () => {
           <h1>
             {t(
               "confirm_shipment.success.title",
-              "Shipment confirmed"
+              "Wysyłka została potwierdzona"
             )}
           </h1>
 
           <p>
             {isPersonalPickup
               ? t(
-                  "confirm_shipment.personal_pickup.success.description",
+                  "confirm_shipment.personal_pickup.success.description"
                 )
-              : t(
-                  "confirm_shipment.success.description",
-                )}
+              : t("confirm_shipment.success.description")}
           </p>
         </div>
       </div>
     );
   }
 
-  // Already confirmed
-  if (data?.data === "CONFIRMED") {
+  // No active shipment items and no explicit cancellation message.
+  if (hasNoItems) {
     return (
-     <div className="al-confirm-shipment__status-page">
-        <div className="al-confirm-shipment__success">
-          <FiCheckSquare className="al-confirm-shipment__status-icon" />
+      <div className="al-confirm-shipment__status-page">
+        <div className="al-confirm-shipment__cancelled">
+          <FiInfo className="al-confirm-shipment__status-icon" />
 
           <h1>
             {t(
-              "confirm_shipment.already_confirmed.title",
-              "Shipment confirmed"
+              "confirm_shipment.no_items.title",
+              "Brak produktów do wysłania"
             )}
           </h1>
 
           <p>
-         {t(
-                  "confirm_shipment.already_confirmed.description",
-                
-                )}
+            {t(
+              "confirm_shipment.no_items.description",
+              "Nie znaleziono aktywnych produktów przypisanych do tej wysyłki."
+            )}
           </p>
         </div>
       </div>
@@ -234,11 +266,8 @@ const ConfirmShipment = () => {
       <div className="al-confirm-shipment__summary-pane">
         <h2 className="al-confirm-shipment__section-title">
           <FiBox />{" "}
-
           {isPersonalPickup
-            ? t(
-                "confirm_shipment.personal_pickup.title"
-              )
+            ? t("confirm_shipment.personal_pickup.title")
             : t("confirm_shipment.title_step_1")}
         </h2>
 
@@ -248,15 +277,13 @@ const ConfirmShipment = () => {
           <div>
             <h4>
               {isPersonalPickup
-                ? t(
-                    "confirm_shipment.personal_pickup.title")
+                ? t("confirm_shipment.personal_pickup.title")
                 : t("confirm_shipment.banner_title")}
             </h4>
 
             <p>
               {isPersonalPickup
-                ? t(
-                    "confirm_shipment.personal_pickup.banner_desc")
+                ? t("confirm_shipment.personal_pickup.banner_desc")
                 : t("confirm_shipment.banner_desc")}
             </p>
           </div>
@@ -267,89 +294,69 @@ const ConfirmShipment = () => {
       <div className="al-confirm-shipment__workspace-pane">
 
         {/* Products selection */}
-        {itemLoading ? (
-          <div className="al-confirm-shipment__products-card-loading">
-            <Loading />
+        <div className="al-confirm-shipment__products-card">
 
-            <p
-              style={{
-                textAlign: "center",
-                marginTop: "12px",
-                fontSize: "14px",
-                color: "#666",
-              }}
-            >
-              {t("confirm_shipment.loading_items")}
-            </p>
+          <h2 className="al-confirm-shipment__section-title">
+            <FiBox />{" "}
+            {t("confirm_shipment.select_products")}
+          </h2>
+
+          <div className="al-confirm-shipment_warning">
+            <span>
+              {"*"}
+              {t("confirm_shipment.warning")}
+            </span>
           </div>
-        ) : (
-          <div className="al-confirm-shipment__products-card">
 
-            <h2 className="al-confirm-shipment__section-title">
-              <FiBox />{" "}
-              {t("confirm_shipment.select_products")}
-            </h2>
+          <div className="al-confirm-shipment__products-list">
+            {products.map((item) => {
+              const isChecked = selectedItems.includes(
+                item.shipmentId
+              );
 
-            <div className="al-confirm-shipment_warning">
-              <span>
-                {"*"}
-                {t("confirm_shipment.warning")}
-              </span>
-            </div>
+              return (
+                <div
+                  key={item.shipmentId}
+                  className={`al-confirm-shipment__product-row ${
+                    isChecked
+                      ? "al-confirm-shipment__product-row--selected"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    toggleItemSelection(item.shipmentId)
+                  }
+                >
+                  <div className="al-confirm-shipment__product-info">
+                    <p className="al-confirm-shipment__product-name">
+                      {t("confirm_shipment.product_label")}:{" "}
+                      {item.productName}
+                    </p>
 
-            <div className="al-confirm-shipment__products-list">
-              {products.map((item) => {
-                const isChecked = selectedItems.includes(
-                  item.shipmentId
-                );
-
-                return (
-                  <div
-                    key={item.shipmentId}
-                    className={`al-confirm-shipment__product-row ${
-                      isChecked
-                        ? "al-confirm-shipment__product-row--selected"
-                        : ""
-                    }`}
-                    onClick={() =>
-                      toggleItemSelection(item.shipmentId)
-                    }
-                  >
-                    <div className="al-confirm-shipment__product-info">
-                      <p className="al-confirm-shipment__product-name">
-                        {t("confirm_shipment.product_label")}:{" "}
-                        {item.productName}
-                      </p>
-
-                      <span className="al-confirm-shipment__product-sub">
-                        {t("confirm_shipment.verified_status")}
-                      </span>
-                    </div>
-
-                    <div className="al-confirm-shipment__checkbox-wrapper">
-                      {isChecked ? (
-                        <FiCheckSquare className="checkbox-icon active" />
-                      ) : (
-                        <FiSquare className="checkbox-icon" />
-                      )}
-                    </div>
+                    <span className="al-confirm-shipment__product-sub">
+                      {t("confirm_shipment.verified_status")}
+                    </span>
                   </div>
-                );
-              })}
-            </div>
+
+                  <div className="al-confirm-shipment__checkbox-wrapper">
+                    {isChecked ? (
+                      <FiCheckSquare className="checkbox-icon active" />
+                    ) : (
+                      <FiSquare className="checkbox-icon" />
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        )}
+        </div>
 
         {/* Seller address confirmation */}
         <div className="al-confirm-shipment__form-pane">
 
           <h2 className="al-confirm-shipment__section-title">
             <FiMapPin />{" "}
-
             {isPersonalPickup
-              ? t(
-                  "confirm_shipment.personal_pickup.address_title"
-                )
+              ? t("confirm_shipment.personal_pickup.address_title")
               : t("confirm_shipment.title_step_2")}
           </h2>
 
@@ -357,7 +364,6 @@ const ConfirmShipment = () => {
             onSubmit={handleFormSubmit}
             className="al-confirm-shipment__form"
           >
-
             <div className="al-confirm-shipment__form-grid">
 
               {/* Seller name */}
@@ -552,21 +558,15 @@ const ConfirmShipment = () => {
                 className="cart-address-save-btn al-confirm-shipment__submit-btn"
                 disabled={isLoading || selectedItems.length === 0}
               >
-                {isPersonalPickup ? (
-                  <FiMapPin />
-                ) : (
-                  <FiTruck />
-                )}
+                {isPersonalPickup ? <FiMapPin /> : <FiTruck />}
 
                 <span>
-                  {isLoading
-                    ? t("confirm_shipment.buttons.submit_loading")
-                    : isPersonalPickup
-                      ? t(
-                          "confirm_shipment.personal_pickup.confirm_button",
-                          "Confirm pickup address"
-                        )
-                      : t("confirm_shipment.buttons.submit_ready")}
+                  {isPersonalPickup
+                    ? t(
+                        "confirm_shipment.personal_pickup.confirm_button",
+                        "Potwierdź adres odbioru"
+                      )
+                    : t("confirm_shipment.buttons.submit_ready")}
                 </span>
               </button>
 

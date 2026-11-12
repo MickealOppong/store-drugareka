@@ -1655,59 +1655,61 @@
     }
   },
   "confirm_shipment": {
-    "title_step_1": "1. Potwierdzenie wysyłki",
-    "title_step_2": "2. Adres odbioru przesyłki przez kuriera",
-    "banner_title": "Brak konieczności drukowania etykiety!",
-    "banner_desc": "Po zatwierdzeniu zlecenia, kurier przyjedzie pod Twój adres z już wydrukowanym listem przewozowym w celu dostawy do kupującego.",
-    "select_products": "Wybierz przedmioty do spakowania",
-    "warning": "Niezaznaczone produkty zostaną anulowane, a środki zwrócone kupującemu.",
+    "title_step_1": "Informacje o wysyłce",
+    "title_step_2": "Potwierdź adres odbioru",
+    "banner_title": "Przygotuj przesyłkę",
+    "banner_desc": "Potwierdź adres odbioru i wybierz produkty, które są gotowe do przekazania kurierowi.",
+    "select_products": "Wybierz produkty",
+    "warning": "Zaznacz wszystkie produkty, które są gotowe do wysyłki.",
     "product_label": "Produkt",
-    "verified_status": "Zweryfikowany do wysyłki",
-    "loading_items": "Ładowanie danych przesyłki...",
+    "verified_status": "Oczekuje na potwierdzenie wysyłki",
     "fields": {
-      "sender_name": "Imię i Nazwisko nadawcy *",
-      "street": "Ulica i numer domu / mieszkania *",
-      "postal_code": "Kod pocztowy *",
-      "city": "Miasto *",
-      "phone": "Twój telefon kontaktowy dla kuriera *",
-      "country": "Kraj *",
-      "notes": "Wskazówki podjazdu dla kierowcy (Opcjonalnie)"
+      "sender_name": "Imię i nazwisko",
+      "street": "Ulica i numer domu",
+      "postal_code": "Kod pocztowy",
+      "city": "Miasto",
+      "phone": "Numer telefonu",
+      "country": "Kraj",
+      "notes": "Dodatkowe informacje"
     },
     "placeholders": {
-      "street": "np. ul. Piotrkowska 45 m. 12",
-      "postal_code": "np. 90-001",
-      "city": "np. Łódź",
-      "phone": "np. +48 500 600 700"
+      "street": "np. Główna 12/4",
+      "postal_code": "np. 00-001",
+      "city": "np. Warszawa",
+      "phone": "np. +48 123 456 789"
     },
     "buttons": {
-      "submit_ready": "Potwierdzam Gotowość - Zamów Kuriera",
-      "submit_loading": "Zamawianie Kuriera DPD..."
+      "submit_loading": "Potwierdzanie...",
+      "submit_ready": "Potwierdź adres odbioru"
     },
     "errors": {
-      "missing_fields": "Proszę uzupełnić wszystkie wymagane pola adresu odbioru paczki.",
-      "no_items": "Proszę wybrać co najmniej jeden produkt do nadania przesyłki.",
-      "network_fallback": "Wystąpił nieoczekiwany błąd sieciowy podczas komunikacji z systemem logistycznym DPD."
+      "missing_fields": "Uzupełnij wszystkie wymagane pola adresowe.",
+      "no_items": "Wybierz co najmniej jeden produkt.",
+      "network_fallback": "Wystąpił błąd. Spróbuj ponownie."
     },
     "success": {
       "title": "Wysyłka potwierdzona",
-      "description": "Zlecenie odbioru przesyłki przez kuriera zostało pomyślnie przesłane."
+      "description": "Dziękujemy. Adres odbioru został potwierdzony. Zorganizujemy odbiór przesyłki."
+    },
+    "cancelled": {
+      "description": "Nie musisz już podejmować żadnych działań związanych z wysyłką tego zamówienia."
+    },
+    "already_confirmed": {
+      "title": "Wysyłka została już potwierdzona",
+      "description": "Dane wysyłki zostały już potwierdzone."
+    },
+    "no_items": {
+      "title": "Brak produktów do wysłania",
+      "description": "Nie znaleziono aktywnych produktów przypisanych do tej wysyłki."
     },
     "personal_pickup": {
-  "title": "Odbiór osobisty",
-  "banner_title": "Odbiór osobisty",
-  "address_title": "Potwierdź adres odbioru",
-  "banner_desc": "To zamówienie zostało złożone z odbiorem osobistym. Potwierdź adres, pod którym kupujący może odebrać przedmiot.",
-  "success": {
-    "title": "Adres odbioru potwierdzony",
-    "description": "Szczegóły odbioru osobistego zostały pomyślnie przesłane."
-  },
- "confirm_button": "Potwierdź adres odbioru"
-
-}
-,
-    "already_confirmed": {
-      "title": "Wysyłka lub odbiór osobisty zostały już potwierdzone",
-     "description": "To zgłoszenie zostało już potwierdzone. Nie są wymagane żadne dalsze działania."
+      "title": "Odbiór osobisty",
+      "address_title": "Potwierdź adres odbioru osobistego",
+      "banner_desc": "Potwierdź swój adres, aby kupujący mógł odebrać produkty osobiście.",
+      "confirm_button": "Potwierdź adres odbioru",
+      "success": {
+        "description": "Dziękujemy. Adres odbioru osobistego został potwierdzony. Kupujący może teraz uzgodnić odbiór produktów."
+      }
     }
   },
   "cookie_banner": {
