@@ -89,6 +89,7 @@
   cursor: pointer;
   transition: all 0.2s Variables.$transition-default;
   outline: none;
+  
 
   &.is-active {
     background-color: #ffffff; // Card surface background color
@@ -207,4 +208,8 @@
   text-decoration: none;
   font-weight: 700;
   color:Variables.$background;
+  background-color:Variables.$color-primary;
+  padding: 1rem;
+  border-radius: 12px;
+
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { FiExternalLink, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import Footer from "../components/Footer";
 import '../css/ContactForm.css';
 
 export const ContactForm: React.FC = () => {
@@ -10,6 +11,7 @@ export const ContactForm: React.FC = () => {
   const mailtoUri = "mailto:admin.kasoa.pl@gmail.com";
 
   return (
+<>
     <main className="contact-form-page">
       {/* =====================================================
           HEADER TITLE BLOCK
@@ -80,6 +82,8 @@ export const ContactForm: React.FC = () => {
 
       </section>
     </main>
+    <Footer/>
+</>
   );
 };
 

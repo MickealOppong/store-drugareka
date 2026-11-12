@@ -10,6 +10,7 @@ import {
   FiTag
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 import "./../css/Help.css";
 
 interface FAQItem {
@@ -155,6 +156,7 @@ const Help = () => {
   };
 
   return (
+    <>
     <main className="help-center">
 
       {/* ================= HEADER ================= */}
@@ -276,6 +278,8 @@ const Help = () => {
       </section>
 
     </main>
+    <Footer/>
+    </>
   );
 };
 
