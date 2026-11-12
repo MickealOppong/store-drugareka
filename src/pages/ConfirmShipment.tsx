@@ -146,10 +146,13 @@ const ConfirmShipment = () => {
 
       if (response) {
         setIsSuccess(true);
+           
       }
     } catch (err: unknown) {
       console.error("Shipment confirmation failed:", err);
+         setIsSuccess(false);
     } finally {
+          setIsSuccess(false);
       setIsLoading(false);
     }
   };
