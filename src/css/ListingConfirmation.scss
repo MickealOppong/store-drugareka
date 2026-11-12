@@ -1,0 +1,147 @@
+@use "sass:color";
+@use "Variables.scss" as Variables;
+
+/* ==========================================================================
+   MASTER LISTING CONFIRMATION PAGE WRAPPER (.listing-confirmation)
+   ========================================================================== */
+.listing-confirmation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 65vh;
+  min-height: 65dvh;
+  padding: 2rem 1rem;
+  background-color: Variables.$background;
+  font-family: Variables.$font-sans;
+  box-sizing: border-box;
+
+  @include Variables.media-up(Variables.$breakpoint-sm) {
+    padding: 3rem 2rem;
+  }
+
+  /* =========================================================
+     CENTERED CONFIRMATION CARD (.listing-confirmation__card)
+     ========================================================= */
+  &__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 480px;
+    padding: 2.25rem 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid Variables.$color-border;
+    border-radius: 20px;
+    box-shadow: 0 12px 32px -8px rgba(32, 38, 24, 0.06);
+    text-align: center;
+    box-sizing: border-box;
+    animation: confirmationCardPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      padding: 2.75rem 2.25rem;
+    }
+
+    /* Visual Status Emblem Badge (Rendered automatically via CSS) */
+    &::before {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      margin-bottom: 0.35rem;
+      border-radius: 50%;
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+  }
+
+  /* =========================================================
+     TYPOGRAPHY HIERARCHY
+     ========================================================= */
+  &__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 850;
+    color: Variables.$color-text-main;
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      font-size: 1.45rem;
+    }
+  }
+
+  &__description {
+    margin: 0;
+    max-width: 380px;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: Variables.$color-text-muted;
+  }
+
+  /* =========================================================
+     SUCCESS MODIFIER (.listing-confirmation--success)
+     ========================================================= */
+  &--success {
+    .listing-confirmation__card {
+      background-color: #fbfcfa;
+      border-color: rgba(Variables.$color-primary, 0.25);
+
+      &::before {
+        content: "✓";
+        background-color: Variables.$color-primary;
+        color: Variables.$color-text-light;
+        box-shadow: 0 6px 16px rgba(Variables.$color-primary, 0.2);
+      }
+    }
+
+    .listing-confirmation__title {
+      color: color.adjust(Variables.$color-primary, $lightness: -14%);
+    }
+  }
+
+  /* =========================================================
+     ERROR MODIFIER (.listing-confirmation--error)
+     ========================================================= */
+  &--error {
+    .listing-confirmation__card {
+      background-color: Variables.$color-error-bg;
+      border-color: rgba(Variables.$color-error, 0.2);
+
+      &::before {
+        content: "!";
+        background-color: rgba(Variables.$color-error, 0.12);
+        color: Variables.$color-error;
+      }
+    }
+
+    .listing-confirmation__title {
+      color: color.adjust(Variables.$color-error, $lightness: -6%);
+    }
+  }
+}
+
+/* ==========================================================================
+   ANIMATION & ACCESSIBILITY OVERRIDES
+   ========================================================================== */
+@keyframes confirmationCardPop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .listing-confirmation__card {
+    animation: none !important;
+  }
+}

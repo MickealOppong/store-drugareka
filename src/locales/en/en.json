@@ -708,8 +708,7 @@
         "total": "Total",
         "status": "Status",
         "created": "Created",
-        "action": "Action",
-            "product_name":"Product name"
+        "action": "Action"
       }
     },
     "actions": {
@@ -1704,7 +1703,7 @@
     "title_step_1": "1. Shipment Confirmation",
     "title_step_2": "2. Courier Pickup Collection Address",
     "banner_title": "No need to print a label!",
-    "banner_desc": "Once the order is confirmed, the DPD courier will arrive at your address with a pre-printed waybill for delivery to the buyer.",
+    "banner_desc": "Once the order is confirmed, the courier will arrive at your address with a pre-printed waybill for delivery to the buyer.",
     "select_products": "Select items to pack",
     "warning": "Unselected item will be cancelled and funds returned to buyer",
     "product_label": "Product",
@@ -1738,9 +1737,20 @@
       "title": "Shipment confirmed",
       "description": "Your courier collection request has been submitted successfully."
     },
+    "personal_pickup":{
+      "title":"Personal pickup",
+      "banner_title":"Personal collection",
+      "address_title":"Confirm pickup address",
+      "banner_desc":  "This order is arranged for personal pickup. Please confirm the address where the buyer can collect the item.",
+       "success": {
+      "title": "Shipment confirmed",
+      "description": "Your courier collection request has been submitted successfully."
+    },
+    "confirm_button":"Confirm pickup address"
+    },
     "already_confirmed": {
-      "title": "Shipment already confirmed",
-      "description": "This shipment has already been confirmed. No further action is required."
+      "title": "Shipment or personal pickup already confirmed",
+      "description": "This request has already been confirmed. No further action is required."
     }
   },
   "cookie_banner": {
@@ -1829,5 +1839,22 @@
       "message": "We couldn't find any items matching your active category profile. Try expanding your search queries or resetting the active parameters.",
       "clear_btn": "Clear Active Filters"
     }
-  }
+  },
+  
+  "listing_confirmation": {
+    "availability": {
+      "success_title": "Listing confirmed, product is back to store",
+      "success_description": "Your item is active again and visible to buyers.",
+      "error_title": "Something went wrong",
+      "error_description": "Either the link has expired or the product has already been confirmed."
+    },
+    "mark_as_sold": {
+      "success_title": "Product marked as sold",
+      "success_description": "Listing removed from the store. Thank you!",
+      "error_title": "Failed to update product",
+      "error_description": "Something went wrong. The link may have expired or already been used."
+    }
+  
+}
+
 }

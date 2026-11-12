@@ -165,6 +165,20 @@ getStoreListingsFeed: build.query<TListPageDto, TQueryDto>({
          }),
          providesTags: ["brands"],
        }),
+         confirmAvailability: build.mutation<boolean,string>({
+         query: (token) => ({
+           url: "/api/listings/availability/confirm",
+           params:{token},
+                  method:"PUT"
+         })
+       }),
+           markAsSold: build.mutation<boolean,string>({
+         query: (token) => ({
+           url: "/api/listings/availability/sold",
+           params:{token},
+           method:"PUT"
+         })
+       }),
   }),
 });
 export const {
@@ -186,5 +200,7 @@ export const {
   useGetSellerListingQuery,
   useLazyGetStoreListingsFeedQuery,
   useGetAllConditionsQuery,
-  useFetchBrandsQuery
+  useFetchBrandsQuery,
+useConfirmAvailabilityMutation,
+  useMarkAsSoldMutation
 } = storeApi;

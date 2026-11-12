@@ -64,6 +64,8 @@ import { loader as accountLoader } from './../src/pages/AccountLayout';
 import EditShipmentPrice from "./components/EditShipmentPrice";
 import AdminShipments from "./pages/AdminShipments";
 import Complaints from "./pages/Complaints";
+import ListingConfirmation from "./pages/LisntingConfirmation";
+import MarkAsSoldConfirmation from "./pages/MarkAsSoldConfirmation";
 
 function App() {
   const router = createBrowserRouter([
@@ -120,6 +122,14 @@ function App() {
      {
       path: "/seller/shipment/create",
       element: <ConfirmShipment />,
+    },
+     {
+      path: "/sold",
+      element: <MarkAsSoldConfirmation />,
+    },
+     {
+      path: "/confirm",
+      element: <ListingConfirmation />,
     },
        {
       path: "/seller/stripe/return",

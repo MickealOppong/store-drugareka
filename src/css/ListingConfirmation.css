@@ -1,0 +1,143 @@
+@charset "UTF-8";
+/* ==========================================================================
+   MASTER LISTING CONFIRMATION PAGE WRAPPER (.listing-confirmation)
+   ========================================================================== */
+.listing-confirmation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 65vh;
+  min-height: 65dvh;
+  padding: 2rem 1rem;
+  background-color: #FFFFFF;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
+}
+@media (min-width: 640px) {
+  .listing-confirmation {
+    padding: 3rem 2rem;
+  }
+}
+.listing-confirmation {
+  /* =========================================================
+     CENTERED CONFIRMATION CARD (.listing-confirmation__card)
+     ========================================================= */
+}
+.listing-confirmation__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 480px;
+  padding: 2.25rem 1.5rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px -8px rgba(32, 38, 24, 0.06);
+  text-align: center;
+  box-sizing: border-box;
+  animation: confirmationCardPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@media (min-width: 640px) {
+  .listing-confirmation__card {
+    padding: 2.75rem 2.25rem;
+  }
+}
+.listing-confirmation__card {
+  /* Visual Status Emblem Badge (Rendered automatically via CSS) */
+}
+.listing-confirmation__card::before {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 0.35rem;
+  border-radius: 50%;
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.listing-confirmation {
+  /* =========================================================
+     TYPOGRAPHY HIERARCHY
+     ========================================================= */
+}
+.listing-confirmation__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 850;
+  color: #111111;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+}
+@media (min-width: 640px) {
+  .listing-confirmation__title {
+    font-size: 1.45rem;
+  }
+}
+.listing-confirmation__description {
+  margin: 0;
+  max-width: 380px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #666666;
+}
+.listing-confirmation {
+  /* =========================================================
+     SUCCESS MODIFIER (.listing-confirmation--success)
+     ========================================================= */
+}
+.listing-confirmation--success .listing-confirmation__card {
+  background-color: #fbfcfa;
+  border-color: rgba(102, 112, 74, 0.25);
+}
+.listing-confirmation--success .listing-confirmation__card::before {
+  content: "✓";
+  background-color: #66704A;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(102, 112, 74, 0.2);
+}
+.listing-confirmation--success .listing-confirmation__title {
+  color: rgb(62.8451612903, 69.0064516129, 45.5935483871);
+}
+.listing-confirmation {
+  /* =========================================================
+     ERROR MODIFIER (.listing-confirmation--error)
+     ========================================================= */
+}
+.listing-confirmation--error .listing-confirmation__card {
+  background-color: #FDF2F2;
+  border-color: rgba(194, 75, 75, 0.2);
+}
+.listing-confirmation--error .listing-confirmation__card::before {
+  content: "!";
+  background-color: rgba(194, 75, 75, 0.12);
+  color: #C24B4B;
+}
+.listing-confirmation--error .listing-confirmation__title {
+  color: rgb(178.0580912863, 60.3419087137, 60.3419087137);
+}
+
+/* ==========================================================================
+   ANIMATION & ACCESSIBILITY OVERRIDES
+   ========================================================================== */
+@keyframes confirmationCardPop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .listing-confirmation__card {
+    animation: none !important;
+  }
+}/*# sourceMappingURL=ListingConfirmation.css.map */

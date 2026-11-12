@@ -1,3 +1,4 @@
+
 import { useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -20,20 +21,22 @@ import {
 import type { TShipmentItemResponse } from "../types/TShipmentItemResponse";
 
 const ConfirmShipment = () => {
-
-  // Tracks selected item values explicitly
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
 
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
 
-
   const { t } = useTranslation();
-  const [triggerDpdDispatch,{error}] =
-    useConfirmShipmentMutation();
-  const { isLoading: itemLoading ,data} =useGetSellerShipmentsQuery(token as string)
 
-  // Seller Collection Address Form States
+  const [triggerCourierDispatch, { error }] =
+    useConfirmShipmentMutation();
+
+  const {
+    isLoading: itemLoading,
+    data,
+  } = useGetSellerShipmentsQuery(token as string);
+
+  // Seller address form states
   const [name, setName] = useState("");
   const [street, setStreet] = useState("");
   const [country, setCountry] = useState("");
@@ -41,37 +44,51 @@ const ConfirmShipment = () => {
   const [postalCode, setPostalCode] = useState("");
   const [phone, setPhone] = useState("");
   const [instructions, setInstructions] = useState("");
-  const [validationError, setValidationError] = useState<string | null>(null);
-  
 
-  const products = data?.data as TShipmentItemResponse[]|[];
+  const [validationError, setValidationError] =
+    useState<string | null>(null);
 
-  
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const[isLoading,setIsLoading]=useState<boolean>(false);
-  const[isSuccess,setIsSucess]=useState<boolean>(false)
-  
+  // All items returned for this shipment share the same shipment method.
+  // Use the first item to determine the confirmation workflow.
+  const products = (data?.data ?? []) as (
+    TShipmentItemResponse & { shipmentMethod?: string }
+  )[];
 
-  const handleFormSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
+  const shipmentMethod = products[0]?.shipmentMethod;
+
+  const isPersonalPickup =
+    shipmentMethod === "PERSONAL_PICKUP"
+
+    
+
+  const handleFormSubmit = async (
+    e: ChangeEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
     setValidationError(null);
 
+    // Both courier collection and personal pickup require
+    // the seller to confirm their address.
     if (
+      !name.trim() ||
       !street.trim() ||
       !city.trim() ||
       !postalCode.trim() ||
       !phone.trim() ||
-      !name.trim()
+      !country.trim()
     ) {
       setValidationError(
-        t("confirm_shipment.errors.missing_fields"),
+        t("confirm_shipment.errors.missing_fields")
       );
       return;
     }
 
     if (selectedItems.length === 0) {
       setValidationError(
-        t("confirm_shipment.errors.no_items"),
+        t("confirm_shipment.errors.no_items")
       );
       return;
     }
@@ -86,26 +103,54 @@ const ConfirmShipment = () => {
       country,
     };
 
-    formData.append("pickupAddress.street", address.street);
-    formData.append("pickupAddress.city", address.city);
-    formData.append("pickupAddress.postalCode", address.postalCode);
-    formData.append("pickupAddress.country", address.country);
-    formData.append("pickupAddress.contact", address.contact);
+    // Seller address is required for both shipment methods.
+    formData.append(
+      "pickupAddress.street",
+      address.street
+    );
+
+    formData.append(
+      "pickupAddress.city",
+      address.city
+    );
+
+    formData.append(
+      "pickupAddress.postalCode",
+      address.postalCode
+    );
+
+    formData.append(
+      "pickupAddress.country",
+      address.country
+    );
+
+    formData.append(
+      "pickupAddress.contact",
+      address.contact
+    );
 
     formData.append("comment", instructions);
     formData.append("name", name);
     formData.append("token", String(token));
-    formData.append("shipmentIds", String(selectedItems));
+    formData.append(
+      "shipmentIds",
+      String(selectedItems)
+    );
 
     try {
-      setIsLoading(true)
-      const response =await triggerDpdDispatch(formData).unwrap();
-      if(response){
-          setIsSucess(response)
-        setIsLoading(false)
+      setIsLoading(true);
+
+      const response =
+        await triggerCourierDispatch(formData).unwrap();
+        
+
+      if (response) {
+        setIsSuccess(true);
       }
-    } catch (err: any) {
-      setIsLoading(false)
+    } catch (err: unknown) {
+      console.error("Shipment confirmation failed:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -113,7 +158,7 @@ const ConfirmShipment = () => {
     setSelectedItems((prev) =>
       prev.includes(id)
         ? prev.filter((item) => item !== id)
-        : [...prev, id],
+        : [...prev, id]
     );
   };
 
@@ -122,77 +167,107 @@ const ConfirmShipment = () => {
       ? (error.data as any)?.message
       : t("confirm_shipment.errors.network_fallback");
 
+  if (isLoading) {
+    return <Loading />;
+  }
 
-if (isLoading) {
-  return <Loading />;
-}
+  // Successful confirmation
+  if (isSuccess) {
+    return (
+      <div className="al-confirm-shipment__status-page">
+        <div className="al-confirm-shipment__success">
+          <FiCheckSquare className="al-confirm-shipment__status-icon" />
 
-if (isSuccess) {
-  return (
-    <div className="al-confirm-shipment__status-page">
-      <div className="al-confirm-shipment__success">
-        <FiCheckSquare className="al-confirm-shipment__status-icon" />
+          <h1>
+            {t(
+              "confirm_shipment.success.title",
+              "Shipment confirmed"
+            )}
+          </h1>
 
-        <h1>{t("confirm_shipment.success.title", "Shipment confirmed")}</h1>
-
-        <p>
-          {t(
-            "confirm_shipment.success.description",
-            "Your courier collection request has been submitted successfully."
-          )}
-        </p>
+          <p>
+            {isPersonalPickup
+              ? t(
+                  "confirm_shipment.personal_pickup.success.description",
+                )
+              : t(
+                  "confirm_shipment.success.description",
+                )}
+          </p>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
-if (data?.data === "CONFIRMED") {
-  return (
-    <div className="al-confirm-shipment__status-page">
-      <div className="al-confirm-shipment__confirmed">
-        <FiInfo className="al-confirm-shipment__status-icon" />
+  // Already confirmed
+  if (data?.data === "CONFIRMED") {
+    return (
+     <div className="al-confirm-shipment__status-page">
+        <div className="al-confirm-shipment__success">
+          <FiCheckSquare className="al-confirm-shipment__status-icon" />
 
-        <h1>
-          {t(
-            "confirm_shipment.already_confirmed.title",
-            "Shipment already confirmed"
-          )}
-        </h1>
+          <h1>
+            {t(
+              "confirm_shipment.already_confirmed.title",
+              "Shipment confirmed"
+            )}
+          </h1>
 
-        <p>
-          {t(
-            "confirm_shipment.already_confirmed.description",
-            "This shipment has already been confirmed. No further action is required."
-          )}
-        </p>
+          <p>
+         {t(
+                  "confirm_shipment.already_confirmed.description",
+                
+                )}
+          </p>
+        </div>
       </div>
-    </div>
-  );
-}
-      
+    );
+  }
+
   return (
     <div className="al-confirm-shipment">
-      {/* LEFT COLUMN: Clean Order Context Banner Elements */}
+
+      {/* LEFT COLUMN: Shipment information */}
       <div className="al-confirm-shipment__summary-pane">
         <h2 className="al-confirm-shipment__section-title">
-          <FiBox /> {t("confirm_shipment.title_step_1")}
+          <FiBox />{" "}
+
+          {isPersonalPickup
+            ? t(
+                "confirm_shipment.personal_pickup.title"
+              )
+            : t("confirm_shipment.title_step_1")}
         </h2>
 
         <div className="al-confirm-shipment__info-banner">
           <FiInfo className="al-confirm-shipment__banner-icon" />
+
           <div>
-            <h4>{t("confirm_shipment.banner_title")}</h4>
-            <p>{t("confirm_shipment.banner_desc")}</p>
+            <h4>
+              {isPersonalPickup
+                ? t(
+                    "confirm_shipment.personal_pickup.title")
+                : t("confirm_shipment.banner_title")}
+            </h4>
+
+            <p>
+              {isPersonalPickup
+                ? t(
+                    "confirm_shipment.personal_pickup.banner_desc")
+                : t("confirm_shipment.banner_desc")}
+            </p>
           </div>
         </div>
       </div>
 
-      {/* RIGHT COLUMN: Stacked Products Selection List and Address Input Card */}
+      {/* RIGHT COLUMN */}
       <div className="al-confirm-shipment__workspace-pane">
-        {/* Products Container Card Block */}
+
+        {/* Products selection */}
         {itemLoading ? (
           <div className="al-confirm-shipment__products-card-loading">
             <Loading />
+
             <p
               style={{
                 textAlign: "center",
@@ -206,17 +281,24 @@ if (data?.data === "CONFIRMED") {
           </div>
         ) : (
           <div className="al-confirm-shipment__products-card">
+
             <h2 className="al-confirm-shipment__section-title">
-              <FiBox /> {t("confirm_shipment.select_products")}
-             
+              <FiBox />{" "}
+              {t("confirm_shipment.select_products")}
             </h2>
-            <div className="al-confirm-shipment_warning" >
-               <span>{'*'}{t("confirm_shipment.warning")}</span>
+
+            <div className="al-confirm-shipment_warning">
+              <span>
+                {"*"}
+                {t("confirm_shipment.warning")}
+              </span>
             </div>
 
             <div className="al-confirm-shipment__products-list">
               {products.map((item) => {
-                const isChecked = selectedItems.includes(item.shipmentId);
+                const isChecked = selectedItems.includes(
+                  item.shipmentId
+                );
 
                 return (
                   <div
@@ -226,7 +308,9 @@ if (data?.data === "CONFIRMED") {
                         ? "al-confirm-shipment__product-row--selected"
                         : ""
                     }`}
-                    onClick={() => toggleItemSelection(item.shipmentId)}
+                    onClick={() =>
+                      toggleItemSelection(item.shipmentId)
+                    }
                   >
                     <div className="al-confirm-shipment__product-info">
                       <p className="al-confirm-shipment__product-name">
@@ -253,17 +337,27 @@ if (data?.data === "CONFIRMED") {
           </div>
         )}
 
-        {/* Courier Pickup Form Address Panel Block */}
+        {/* Seller address confirmation */}
         <div className="al-confirm-shipment__form-pane">
+
           <h2 className="al-confirm-shipment__section-title">
-            <FiMapPin /> {t("confirm_shipment.title_step_2")}
+            <FiMapPin />{" "}
+
+            {isPersonalPickup
+              ? t(
+                  "confirm_shipment.personal_pickup.address_title"
+                )
+              : t("confirm_shipment.title_step_2")}
           </h2>
 
           <form
             onSubmit={handleFormSubmit}
             className="al-confirm-shipment__form"
           >
+
             <div className="al-confirm-shipment__form-grid">
+
+              {/* Seller name */}
               <div className="logistics-modal__field">
                 <label
                   htmlFor="pickup-name"
@@ -286,6 +380,7 @@ if (data?.data === "CONFIRMED") {
                 />
               </div>
 
+              {/* Street */}
               <div className="logistics-modal__field">
                 <label
                   htmlFor="pickup-street"
@@ -298,7 +393,9 @@ if (data?.data === "CONFIRMED") {
                   id="pickup-street"
                   type="text"
                   className="logistics-modal__input"
-                  placeholder={t("confirm_shipment.placeholders.street")}
+                  placeholder={t(
+                    "confirm_shipment.placeholders.street"
+                  )}
                   value={street}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     setStreet(e.target.value)
@@ -308,7 +405,9 @@ if (data?.data === "CONFIRMED") {
                 />
               </div>
 
+              {/* Postal code and city */}
               <div className="al-confirm-shipment__form-row">
+
                 <div className="logistics-modal__field">
                   <label
                     htmlFor="pickup-postal"
@@ -322,7 +421,7 @@ if (data?.data === "CONFIRMED") {
                     type="text"
                     className="logistics-modal__input"
                     placeholder={t(
-                      "confirm_shipment.placeholders.postal_code",
+                      "confirm_shipment.placeholders.postal_code"
                     )}
                     value={postalCode}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -345,7 +444,9 @@ if (data?.data === "CONFIRMED") {
                     id="pickup-city"
                     type="text"
                     className="logistics-modal__input"
-                    placeholder={t("confirm_shipment.placeholders.city")}
+                    placeholder={t(
+                      "confirm_shipment.placeholders.city"
+                    )}
                     value={city}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       setCity(e.target.value)
@@ -356,7 +457,9 @@ if (data?.data === "CONFIRMED") {
                 </div>
               </div>
 
+              {/* Phone and country */}
               <div className="al-confirm-shipment__form-row">
+
                 <div className="logistics-modal__field">
                   <label
                     htmlFor="pickup-phone"
@@ -369,7 +472,9 @@ if (data?.data === "CONFIRMED") {
                     id="pickup-phone"
                     type="tel"
                     className="logistics-modal__input"
-                    placeholder={t("confirm_shipment.placeholders.phone")}
+                    placeholder={t(
+                      "confirm_shipment.placeholders.phone"
+                    )}
                     value={phone}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       setPhone(e.target.value)
@@ -402,6 +507,7 @@ if (data?.data === "CONFIRMED") {
                 </div>
               </div>
 
+              {/* Additional instructions */}
               <div className="logistics-modal__field">
                 <label
                   htmlFor="pickup-notes"
@@ -423,28 +529,44 @@ if (data?.data === "CONFIRMED") {
                 />
               </div>
 
+              {/* Validation and server errors */}
               {(validationError || error) && (
                 <div
                   className="panel-view__error-box style-alert-error"
                   style={{ marginTop: "16px" }}
                 >
                   <FiAlertCircle style={{ flexShrink: 0 }} />
-                  <span>{validationError || serverError}</span>
+
+                  <span>
+                    {validationError || serverError}
+                  </span>
                 </div>
               )}
 
+              {/* Confirmation button */}
               <button
                 type="submit"
                 className="cart-address-save-btn al-confirm-shipment__submit-btn"
-                disabled={isLoading}
+                disabled={isLoading || selectedItems.length === 0}
               >
-                <FiTruck />
+                {isPersonalPickup ? (
+                  <FiMapPin />
+                ) : (
+                  <FiTruck />
+                )}
+
                 <span>
                   {isLoading
                     ? t("confirm_shipment.buttons.submit_loading")
-                    : t("confirm_shipment.buttons.submit_ready")}
+                    : isPersonalPickup
+                      ? t(
+                          "confirm_shipment.personal_pickup.confirm_button",
+                          "Confirm pickup address"
+                        )
+                      : t("confirm_shipment.buttons.submit_ready")}
                 </span>
               </button>
+
             </div>
           </form>
         </div>

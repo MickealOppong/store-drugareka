@@ -1658,7 +1658,7 @@
     "title_step_1": "1. Potwierdzenie wysyłki",
     "title_step_2": "2. Adres odbioru przesyłki przez kuriera",
     "banner_title": "Brak konieczności drukowania etykiety!",
-    "banner_desc": "Po zatwierdzeniu zlecenia, kurier DPD przyjedzie pod Twój adres z już wydrukowanym listem przewozowym w celu dostawy do kupującego.",
+    "banner_desc": "Po zatwierdzeniu zlecenia, kurier przyjedzie pod Twój adres z już wydrukowanym listem przewozowym w celu dostawy do kupującego.",
     "select_products": "Wybierz przedmioty do spakowania",
     "warning": "Niezaznaczone produkty zostaną anulowane, a środki zwrócone kupującemu.",
     "product_label": "Produkt",
@@ -1692,9 +1692,22 @@
       "title": "Wysyłka potwierdzona",
       "description": "Zlecenie odbioru przesyłki przez kuriera zostało pomyślnie przesłane."
     },
+    "personal_pickup": {
+  "title": "Odbiór osobisty",
+  "banner_title": "Odbiór osobisty",
+  "address_title": "Potwierdź adres odbioru",
+  "banner_desc": "To zamówienie zostało złożone z odbiorem osobistym. Potwierdź adres, pod którym kupujący może odebrać przedmiot.",
+  "success": {
+    "title": "Adres odbioru potwierdzony",
+    "description": "Szczegóły odbioru osobistego zostały pomyślnie przesłane."
+  },
+ "confirm_button": "Potwierdź adres odbioru"
+
+}
+,
     "already_confirmed": {
-      "title": "Wysyłka została już potwierdzona",
-      "description": "Ta wysyłka została już potwierdzona. Nie są wymagane żadne dalsze działania."
+      "title": "Wysyłka lub odbiór osobisty zostały już potwierdzone",
+     "description": "To zgłoszenie zostało już potwierdzone. Nie są wymagane żadne dalsze działania."
     }
   },
   "cookie_banner": {
@@ -1821,5 +1834,20 @@
       "message": "Nie znaleźliśmy produktów pasujących do wybranej kategorii. Spróbuj rozszerzyć wyszukiwanie lub wyczyścić aktywne filtry.",
       "clear_btn": "Wyczyść aktywne filtry"
     }
+  },
+  "listing_confirmation": {
+    "availability": {
+      "success_title": "Ogłoszenie potwierdzone, produkt wrócił do sklepu",
+      "success_description": "Twój przedmiot jest ponownie aktywny i widoczny dla kupujących.",
+      "error_title": "Coś poszło nie tak",
+      "error_description": "Link wygasł lub dostępność produktu została już potwierdzona."
+    },
+    "mark_as_sold": {
+      "success_title": "Produkt oznaczony jako sprzedany",
+      "success_description": "Ogłoszenie zostało usunięte ze sklepu. Dziękujemy!",
+      "error_title": "Nie udało się zaktualizować produktu",
+      "error_description": "Coś poszło nie tak. Link mógł wygasnąć lub został już wykorzystany."
+    }
   }
+
 }
