@@ -173,7 +173,7 @@ export const PaymentConfirmation: React.FC = () => {
           </p>
 
           {paymentId && (
-            <div className="payment-status__session-badge">
+            <div className="payment-status__session-badge" style={{display:'none'}}>
               <span>{t("payment_confirmation.success.session_label")}: </span>
               <code>#{paymentId.substring(0,30)}</code>
             </div>
