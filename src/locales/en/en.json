@@ -101,8 +101,9 @@
     },
       "collection":{
          "collection_available":"Seller allows personal collection",
-      "city_list":"Collection location",
+      "placeholder_label":"Collection city",
       "clear_location":"Clear",
+      "select_city":"Select city",
       "collection_description":"Want to save on delivery costs? Discover products you can collect in person near you."
       },
     "header": {
@@ -1050,7 +1051,7 @@
 ,
 "personal_collection": {
   "title": "Personal collection available",
-  "message": "Want to avoid shipping costs? You can collect this item in:"
+  "message": "Want to save shipping cost? You can collect this item in:"
 },
     "info": {
       "condition": "Condition",

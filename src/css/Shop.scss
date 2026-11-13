@@ -2,7 +2,7 @@
 @use "Variables.scss" as Variables;
 
 /* ==========================================================================
-   MASTER FEED WORKSPACE CATALOG CANVAS (.shop-page)
+   MASTER CATALOG FEED CANVAS (.shop-page)
    ========================================================================== */
 .shop-page {
   width: 100%;
@@ -11,13 +11,14 @@
   padding: 1.25rem 1rem 4rem;
   box-sizing: border-box;
   font-family: Variables.$font-sans;
+  color: Variables.$color-text-main;
 
   @include Variables.media-up(Variables.$breakpoint-sm) {
     padding: 2rem 2rem 5rem;
   }
 
   /* =========================================================
-     AESTHETIC MARKETING HERO HEADERS
+     1. SHOP HEADER & TYPOGRAPHY
      ========================================================= */
   &__header {
     display: flex;
@@ -32,7 +33,7 @@
     width: 100%;
 
     h1 {
-      margin: 0 0 0.5rem 0;
+      margin: 0 0 0.5rem;
       font-size: 1.65rem;
       font-weight: 850;
       color: Variables.$color-text-main;
@@ -58,60 +59,13 @@
     font-size: 0.72rem;
     font-weight: 800;
     text-transform: uppercase;
-    color: Variables.$color-primary; // 🌿 Organic Olive Green Theme Accent
+    color: Variables.$color-primary;
     letter-spacing: 0.08em;
     margin-bottom: 0.35rem;
   }
 
   /* =========================================================
-     🚀 REFACTORED: FULL-WIDTH HIGH-LEGIBILITY SEARCH BAR 
-     ========================================================= */
-  &__search {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;             // 🚀 FULL-WIDTH LOCK: Expands to span the complete page width
-    max-width: 100%;         // 🚀 Removes restrictive size caps to allow full expansion
-    margin: 1.5rem 0 2rem;   // Unified vertical clearance framing gaps
-    box-sizing: border-box;
-
-    svg {
-      position: absolute;
-      left: 16px;
-      color: Variables.$color-text-muted;
-      font-size: 1.15rem;
-      pointer-events: none;
-    }
-
-    input[type="search"] {
-      width: 100%;
-      height: 48px;          // Enhanced ergonomics footprint sizing metrics
-      padding: 0 1.5rem 0 2.85rem;
-      background-color: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-radius: 12px;
-      font-family: inherit;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: Variables.$color-text-main;
-      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.01);
-      box-sizing: border-box;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
-
-      &::placeholder {
-        color: #94a3b8;
-      }
-
-      &:focus {
-        outline: none;
-        border-color: Variables.$color-primary;
-        box-shadow: 0 0 0 4px Variables.$color-primary-alpha; // Glowing brand border ring track
-      }
-    }
-  }
-
-  /* =========================================================
-     CATEGORY FILTER SLIDER SLOT BUTTON TILES
+     2. CATEGORY FILTER PILL BAR (.shop-page__categories)
      ========================================================= */
   &__categories {
     display: flex;
@@ -132,8 +86,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      height: 36px;
-      padding: 0 1rem;
+      height: 38px;
+      padding: 0 1.05rem;
       background-color: #ffffff;
       border: 1px solid #cbd5e1;
       border-radius: 20px;
@@ -148,6 +102,7 @@
       &:hover {
         border-color: #94a3b8;
         color: Variables.$color-text-main;
+        background-color: Variables.$color-bg-light;
       }
 
       &.active {
@@ -160,15 +115,64 @@
   }
 
   /* =========================================================
-     DASHBOARD UTILITY NAVIGATION TOOLBAR
+     3. FULL-WIDTH SEARCH BAR (.shop-page__search)
+     ========================================================= */
+  &__search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 1.5rem;
+    box-sizing: border-box;
+
+    svg {
+      position: absolute;
+      left: 16px;
+      color: Variables.$color-text-muted;
+      font-size: 1.15rem;
+      pointer-events: none;
+    }
+
+    input[type="search"] {
+      width: 100%;
+      height: 48px;
+      padding: 0 1.25rem 0 2.85rem;
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: Variables.$color-text-main;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+      box-sizing: border-box;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+      &::placeholder {
+        color: #94a3b8;
+        font-weight: 500;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: Variables.$color-primary;
+        box-shadow: 0 0 0 4px Variables.$color-primary-alpha;
+      }
+    }
+  }
+
+  /* =========================================================
+     4. RESULTS & SORT TOOLBAR (.shop-page__toolbar)
      ========================================================= */
   &__toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
     margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
+    padding-bottom: 0.85rem;
     border-bottom: 1px solid Variables.$color-border;
     width: 100%;
     box-sizing: border-box;
@@ -185,6 +189,12 @@
     }
   }
 
+  &__toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
   &__sort {
     display: flex;
     align-items: center;
@@ -194,6 +204,7 @@
       font-size: 0.85rem;
       font-weight: 700;
       color: Variables.$color-text-muted;
+      white-space: nowrap;
     }
 
     div {
@@ -202,11 +213,11 @@
       align-items: center;
 
       select {
-        height: 36px;
-        padding: 0 2rem 0 0.85rem;
+        height: 38px;
+        padding: 0 2.1rem 0 0.85rem;
         background-color: #ffffff;
         border: 1px solid #cbd5e1;
-        border-radius: 8px;
+        border-radius: 9px;
         font-family: inherit;
         font-size: 0.85rem;
         font-weight: 600;
@@ -214,6 +225,7 @@
         cursor: pointer;
         appearance: none;
         -webkit-appearance: none;
+        transition: border-color 0.15s ease;
 
         &:focus {
           outline: none;
@@ -231,43 +243,45 @@
     }
   }
 
-  /* EMPTY RESULT CARDS PRESENTATION WORKSPACE */
+  /* =========================================================
+     5. EMPTY STATE PANEL (.shop-page__empty)
+     ========================================================= */
   &__empty {
-     display:flex;
-    width: 100%;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4rem 1.5rem;
-    border: 1px solid Variables.$color-border;
+    width: 100%;
+    padding: 4.5rem 1.5rem;
+    background-color: Variables.$color-bg-light;
+    border: 1px dashed Variables.$color-border;
     border-radius: 16px;
-    background: #ffffff;
     text-align: center;
     box-sizing: border-box;
 
     svg {
       font-size: 2.25rem;
       color: #94a3b8;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
 
     h2 {
-      margin: 0 0 0.5rem 0;
+      margin: 0 0 0.5rem;
       font-size: 1.25rem;
       font-weight: 800;
       color: Variables.$color-text-main;
     }
 
     p {
-      margin: 0 0 1.5rem 0;
+      margin: 0 0 1.5rem;
       font-size: 0.88rem;
       color: Variables.$color-text-muted;
-      max-width: 360px;
-      line-height: 1.5;
+      max-width: 380px;
+      line-height: 1.55;
     }
 
     button {
-      height: 38px;
-      padding: 0 1.25rem;
+      height: 40px;
+      padding: 0 1.35rem;
       background-color: Variables.$color-primary;
       color: #ffffff;
       border: none;
@@ -276,80 +290,111 @@
       font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
-      transition: background-color 0.15s ease;
+      transition: background-color 0.15s ease, transform 0.1s ease;
 
-      &:hover { background-color: Variables.$color-primary-hover; }
+      &:hover {
+        background-color: Variables.$color-primary-hover;
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
     }
   }
 
   /* =========================================================
-     CORE CATALOG PRODUCTS LOOP GRID TRACKS
+     6. RESPONSIVE PRODUCT GRID (#shop-products)
      ========================================================= */
   &__products {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr)); // 2 columns fluid layout row allocations on handset views
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
     width: 100%;
     box-sizing: border-box;
-   margin-bottom: 4rem;
+    margin-bottom: 4rem;
 
     @include Variables.media-up(Variables.$breakpoint-sm) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 6px;
+      gap: 1.25rem;
     }
 
     @include Variables.media-up(Variables.$breakpoint-lg) {
       grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 6px;
+      gap: 1.5rem;
     }
   }
 }
-
 /* ==========================================================================
-   REFACTORED HIGH-PRIORITY ONSITE LOCAL COLLECTION PANEL COMPONENT
+   PERSONAL COLLECTION FILTER PANEL (.collection-city-filter)
    ========================================================================== */
 .collection-city-filter {
+  position: relative;
+  z-index: 100; // Ensures dropdown menu floats above .shop-page__search and .shop-page__products
+  overflow: visible; // Prevents clipping of the position: absolute listbox menu
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 1.25rem;
-  background-color: #ffffff;
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 1.25rem;
+  background-color: Variables.$color-bg-light;
   border: 1px solid Variables.$color-border;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(Variables.$color-primary, 0.03); // Saturated branding drop shadow glow
   box-sizing: border-box;
-  margin-bottom: 2rem;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 
-  &--engaged {
-    border-color: rgba(Variables.$color-primary, 0.25);
-    background-color: #fbfcfa; // Gentle premium botanical sage wash fill
-    box-shadow: 0 6px 24px rgba(Variables.$color-primary, 0.06);
+  &:has(input[type="checkbox"]:checked) {
+    background-color: #fbfcfa;
+    border-color: rgba(Variables.$color-primary, 0.3);
+    box-shadow: 0 6px 20px -6px rgba(Variables.$color-primary, 0.08);
   }
 
   &__toggle {
     display: flex;
     align-items: center;
-    gap: 14px;
+    justify-content: space-between;
+    gap: 1rem;
     width: 100%;
     box-sizing: border-box;
-  }
 
-  &__badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    background-color: Variables.$color-bg-light;
-    color: Variables.$color-primary;
-    border-radius: 12px;
-    font-size: 1.25rem;
-    flex-shrink: 0;
+    /* Native Checkbox Styled as a Modern Sliding Toggle Switch */
+    input[type="checkbox"] {
+      position: relative;
+      appearance: none;
+      -webkit-appearance: none;
+      width: 46px;
+      height: 26px;
+      margin: 0;
+      background-color: #cbd5e1;
+      border-radius: 26px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
-    svg {
-      display: block;
-      stroke-width: 2.25;
+      &::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 20px;
+        height: 20px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      &:checked {
+        background-color: Variables.$color-primary;
+
+        &::before {
+          transform: translateX(20px);
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid Variables.$color-primary;
+        outline-offset: 2px;
+      }
     }
   }
 
@@ -366,162 +411,98 @@
       font-weight: 800;
       color: Variables.$color-text-main;
       letter-spacing: -0.01em;
-      line-height: 1.2;
+      line-height: 1.25;
     }
 
     span {
-      font-size: 0.78rem;
-      line-height: 1.4;
+      font-size: 0.8rem;
+      line-height: 1.45;
       color: Variables.$color-text-muted;
       margin-top: 2px;
     }
   }
 
-  /* TACTILE SUB-DRAWER EXPANSION PANEL CONFIGURATION */
+  /* Embedded CollectionCityFilter Dropdown Wrapper */
   &__locations {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    position: relative;
+    z-index: 101;
+    overflow: visible; // Keeps nested dropdown visible outside card borders
     width: 100%;
-    margin-top: 1.25rem;
-    border-top: 1px solid Variables.$color-border;
-    padding-top: 1.15rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed Variables.$color-border;
     box-sizing: border-box;
-  }
+    animation: collectionLocationsReveal 0.18s ease-out both;
 
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    @include Variables.media-up(Variables.$breakpoint-md) {
+      max-width: 420px;
+    }
   }
+}
 
-  &__title {
-    font-size: 0.75rem;
-    font-weight: 800;
-    color: Variables.$color-text-muted;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+/* Opacity-only fade so no transform containing block traps position: absolute menus */
+@keyframes collectionLocationsReveal {
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
 
-  &__clear-action {
-display: inline-flex;
-align-items: center;
-gap: 4px;
-background: transparent;
-border: none;
-color: Variables.$color-primary;
-font-family: inherit;
-font-size: 0.8rem;
-font-weight: 700;
-cursor: pointer;
-padding: 2px 6px;
-border-radius: 4px;
-&:hover {
-background-color: Variables.$color-primary-alpha;
-}
-svg {
-font-size: 0.85rem;
-}
-}
-/* High-legibility horizontal wrapping tags track row layout envelope */
-&__options {
-display: flex;
-flex-wrap: wrap;
-gap: 8px;
-width: 100%;
-box-sizing: border-box;
-}
-&__option {
-display: inline-flex;
-align-items: center;
-gap: 6px;
-height: 32px;
-padding: 0 12px;
-background-color: #ffffff;
-border: 1px solid #cbd5e1;
-border-radius: 8px;
-font-family: inherit;
-font-size: 0.82rem;
-font-weight: 600;
-color: #475569;
-cursor: pointer;
-transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-svg {
-font-size: 0.85rem;
-color: #94a3b8;
-}
-&:hover {
-border-color: #94a3b8;
-color: Variables.$color-text-main;
-background-color: Variables.$color-bg-light;
-}
-&.is-selected {
-background-color: Variables.$color-primary;
-border-color: Variables.$color-primary;
-color: #ffffff;
-svg {
-color: #ffffff;
-}
-&:hover {
-background-color: Variables.$color-primary-hover;
-border-color: Variables.$color-primary-hover;
-}
-}
-}
-}
 /* ==========================================================================
-PREMIUM iOS SLIDER INTERACTION CONTROL SWITCH (.mkt-toggle-switch)
+MOBILE VIEWPORT ADJUSTMENTS (max-width: 480px)
 ========================================================================== */
-.mkt-toggle-switch {
-position: relative;
-display: inline-block;
-width: 44px;
-height: 24px;
-flex-shrink: 0;
-cursor: pointer;
-user-select: none;
-input {
+@media (max-width: 480px) {
+.shop-page {
+padding: 0.85rem 0.65rem 3rem;
+&__header {
+margin-bottom: 1.15rem;
+}
+&__search {
+margin-bottom: 1.15rem;
+input[type="search"] {
+height: 44px;
+font-size: 0.9rem;
+}
+}
+&__toolbar {
+margin-bottom: 1rem;
+}
+&__sort span {
+display: none; // Keeps sort select compact on narrow handsets
+}
+&__products {
+gap: 8px;
+}
+}
+.collection-city-filter {
+padding: 1rem;
+border-radius: 14px;
+&__info strong {
+font-size: 0.9rem;
+}
+&__info span {
+font-size: 0.76rem;
+}
+}
+}
+@keyframes collectionLocationsReveal {
+from {
 opacity: 0;
-width: 0;
-height: 0;
+transform: translateY(-4px);
 }
-&__slider {
-position: absolute;
-inset: 0;
-background-color: #cbd5e1;
-border-radius: 24px;
-transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-&::before {
-content: "";
-position: absolute;
-left: 3px;
-bottom: 3px;
-width: 18px;
-height: 18px;
-background-color: #ffffff;
-border-radius: 50%;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+to {
+opacity: 1;
+transform: translateY(0);
 }
 }
-input:checked + .mkt-toggle-switch__slider {
-background-color: Variables.$color-primary; // 🌿 Slides into your custom Olive Green token natively
-&::before {
-transform: translateX(20px);
-}
-}
-}
-.animate-fade-in {
-animation: mktFadeReveal 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-@keyframes mktFadeReveal {
-from { opacity: 0; transform: translateY(-4px); }
-to { opacity: 1; transform: translateY(0); }
-}
-/* Screen Reader Motion Overrides Guidelines Breakout */
 @media (prefers-reduced-motion: reduce) {
-.animate-fade-in { animation: none !important; }
-.mkt-toggle-switch__slider,
-.mkt-toggle-switch__slider::before { transition: none !important; }
+.collection-city-filter__locations {
+animation: none !important;
+}
+.collection-city-filter__toggle input[type="checkbox"],
+.collection-city-filter__toggle input[type="checkbox"]::before {
+transition: none !important;
+}
 }

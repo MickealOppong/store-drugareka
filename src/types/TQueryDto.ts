@@ -5,6 +5,7 @@ export type TQueryDto={
     isCollectionAvailable?:boolean,
     collectionCity?:string,
     brand?:string,
+    region:string,
     page:number,
     size:number
 }

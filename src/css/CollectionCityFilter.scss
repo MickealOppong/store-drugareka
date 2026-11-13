@@ -1,0 +1,344 @@
+@use "sass:color";
+@use "Variables.scss" as Variables;
+
+/* ==========================================================================
+   COLLECTION CITY & REGION DROPDOWN FILTER (.collection-city-dropdown)
+   ========================================================================== */
+.collection-city-dropdown {
+  position: relative;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+  font-family: Variables.$font-sans;
+  text-align: left;
+  box-sizing: border-box;
+
+  /* =========================================================
+     HEADER ROW WITH LABEL & CLEAR BUTTON (.collection-city-dropdown__header)
+     ========================================================= */
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: Variables.$color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+
+    svg {
+      font-size: 0.95rem;
+      color: Variables.$color-primary;
+      flex-shrink: 0;
+    }
+  }
+
+  /* Clear Action Button (.collection-city-dropdown__btn) */
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 3px 8px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: Variables.$color-primary;
+    text-transform: capitalize;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.15s ease,
+                border-color 0.15s ease,
+                color 0.15s ease;
+
+    svg {
+      font-size: 0.9rem;
+      stroke-width: 2.25;
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      background-color: Variables.$color-primary-alpha;
+      border-color: rgba(Variables.$color-primary, 0.2);
+      color: Variables.$color-primary-hover;
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+
+    &:focus-visible {
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 2px;
+    }
+  }
+
+  /* =========================================================
+     MAIN SELECT TRIGGER BUTTON (.collection-city-dropdown__trigger)
+     ========================================================= */
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
+    height: 46px;
+    padding: 0 0.95rem;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 650;
+    color: Variables.$color-text-main;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease,
+                box-shadow 0.15s ease,
+                background-color 0.15s ease;
+
+    &:hover {
+      border-color: #94a3b8;
+      background-color: Variables.$color-bg-light;
+    }
+
+    &:focus-visible,
+    &.is-open {
+      outline: none;
+      border-color: Variables.$color-primary;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px Variables.$color-primary-alpha;
+    }
+
+    &.is-open .collection-city-dropdown__trigger-icon {
+      transform: rotate(180deg);
+      color: Variables.$color-primary;
+    }
+  }
+
+  &__value,
+  &__placeholder {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  &__placeholder {
+    color: #94a3b8;
+    font-weight: 500;
+  }
+
+  &__trigger-icon {
+    font-size: 1.05rem;
+    color: Variables.$color-text-muted;
+    flex-shrink: 0;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.15s ease;
+  }
+
+  /* =========================================================
+     EXPANDABLE DROPDOWN LISTBOX MENU (.collection-city-dropdown__menu)
+     ========================================================= */
+  &__menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    max-height: 310px;
+    padding: 8px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    background-color: #ffffff;
+    border: 1px solid Variables.$color-border;
+    border-radius: 14px;
+    box-shadow: 0 16px 40px -6px rgba(32, 38, 24, 0.18);
+    box-sizing: border-box;
+
+    scrollbar-width: thin;
+    scrollbar-color: color.adjust(Variables.$color-border, $lightness: -8%) transparent;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: color.adjust(Variables.$color-border, $lightness: -8%);
+      border-radius: 8px;
+    }
+  }
+
+  /* =========================================================
+     VOIVODESHIP / REGION ACCORDION GROUP
+     ========================================================= */
+  &__group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__parent-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__expand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    min-height: 38px;
+    padding: 0.45rem 0.65rem;
+    background: transparent;
+    border: none;
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 0.86rem;
+    font-weight: 750;
+    color: Variables.$color-text-main;
+    text-align: left;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    svg {
+      font-size: 0.95rem;
+      color: Variables.$color-text-muted;
+      flex-shrink: 0;
+    }
+
+    span {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &:hover {
+      background-color: Variables.$color-bg-light;
+      color: Variables.$color-primary;
+
+      svg {
+        color: Variables.$color-primary;
+      }
+    }
+  }
+
+  /* =========================================================
+     NESTED CITY OPTIONS LIST
+     ========================================================= */
+  &__children {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 2px 0 6px 14px;
+    padding-left: 10px;
+    border-left: 1px solid Variables.$color-border;
+    box-sizing: border-box;
+  }
+
+  &__child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+    min-height: 36px;
+    padding: 0.4rem 0.75rem;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.84rem;
+    font-weight: 550;
+    color: Variables.$color-text-muted;
+    text-align: left;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    span {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    svg {
+      font-size: 0.95rem;
+      color: Variables.$color-primary;
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      background-color: Variables.$color-bg-light;
+      color: Variables.$color-text-main;
+    }
+
+    &.is-selected {
+      background-color: Variables.$color-primary-alpha;
+      color: Variables.$color-primary;
+      font-weight: 750;
+    }
+  }
+
+  /* =========================================================
+     HIDDEN NATIVE VALIDATION INPUT
+     ========================================================= */
+  &__validation-input {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+    border: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .collection-city-dropdown {
+    &__menu {
+      max-height: 270px;
+      padding: 6px;
+    }
+
+    &__expand,
+    &__child {
+      min-height: 40px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collection-city-dropdown__trigger-icon,
+  .collection-city-dropdown__btn {
+    transition: none !important;
+  }
+}

@@ -1,6 +1,5 @@
-@charset "UTF-8";
 /* ==========================================================================
-   MASTER FEED WORKSPACE CATALOG CANVAS (.shop-page)
+   MASTER CATALOG FEED CANVAS (.shop-page)
    ========================================================================== */
 .shop-page {
   width: 100%;
@@ -9,6 +8,7 @@
   padding: 1.25rem 1rem 4rem;
   box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #111111;
 }
 @media (min-width: 640px) {
   .shop-page {
@@ -17,7 +17,7 @@
 }
 .shop-page {
   /* =========================================================
-     AESTHETIC MARKETING HERO HEADERS
+     1. SHOP HEADER & TYPOGRAPHY
      ========================================================= */
 }
 .shop-page__header {
@@ -32,7 +32,7 @@
   width: 100%;
 }
 .shop-page__heading h1 {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.5rem;
   font-size: 1.65rem;
   font-weight: 850;
   color: #111111;
@@ -62,54 +62,7 @@
 }
 .shop-page {
   /* =========================================================
-     🚀 REFACTORED: FULL-WIDTH HIGH-LEGIBILITY SEARCH BAR 
-     ========================================================= */
-}
-.shop-page__search {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  max-width: 100%;
-  margin: 1.5rem 0 2rem;
-  box-sizing: border-box;
-}
-.shop-page__search svg {
-  position: absolute;
-  left: 16px;
-  color: #666666;
-  font-size: 1.15rem;
-  pointer-events: none;
-}
-.shop-page__search input[type=search] {
-  width: 100%;
-  height: 48px;
-  padding: 0 1.5rem 0 2.85rem;
-  background-color: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 12px;
-  font-family: inherit;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #111111;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.01);
-  box-sizing: border-box;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-.shop-page__search input[type=search]::-moz-placeholder {
-  color: #94a3b8;
-}
-.shop-page__search input[type=search]::placeholder {
-  color: #94a3b8;
-}
-.shop-page__search input[type=search]:focus {
-  outline: none;
-  border-color: #66704A;
-  box-shadow: 0 0 0 4px rgba(104, 118, 75, 0.12);
-}
-.shop-page {
-  /* =========================================================
-     CATEGORY FILTER SLIDER SLOT BUTTON TILES
+     2. CATEGORY FILTER PILL BAR (.shop-page__categories)
      ========================================================= */
 }
 .shop-page__categories {
@@ -130,8 +83,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 36px;
-  padding: 0 1rem;
+  height: 38px;
+  padding: 0 1.05rem;
   background-color: #ffffff;
   border: 1px solid #cbd5e1;
   border-radius: 20px;
@@ -146,6 +99,7 @@
 .shop-page__categories button:hover {
   border-color: #94a3b8;
   color: #111111;
+  background-color: #f9f9f9;
 }
 .shop-page__categories button.active {
   background-color: #66704A;
@@ -155,16 +109,66 @@
 }
 .shop-page {
   /* =========================================================
-     DASHBOARD UTILITY NAVIGATION TOOLBAR
+     3. FULL-WIDTH SEARCH BAR (.shop-page__search)
+     ========================================================= */
+}
+.shop-page__search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 1.5rem;
+  box-sizing: border-box;
+}
+.shop-page__search svg {
+  position: absolute;
+  left: 16px;
+  color: #666666;
+  font-size: 1.15rem;
+  pointer-events: none;
+}
+.shop-page__search input[type=search] {
+  width: 100%;
+  height: 48px;
+  padding: 0 1.25rem 0 2.85rem;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111111;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.shop-page__search input[type=search]::-moz-placeholder {
+  color: #94a3b8;
+  font-weight: 500;
+}
+.shop-page__search input[type=search]::placeholder {
+  color: #94a3b8;
+  font-weight: 500;
+}
+.shop-page__search input[type=search]:focus {
+  outline: none;
+  border-color: #66704A;
+  box-shadow: 0 0 0 4px rgba(104, 118, 75, 0.12);
+}
+.shop-page {
+  /* =========================================================
+     4. RESULTS & SORT TOOLBAR (.shop-page__toolbar)
      ========================================================= */
 }
 .shop-page__toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-bottom: 1.5rem;
-  padding-bottom: 0.75rem;
+  padding-bottom: 0.85rem;
   border-bottom: 1px solid #e5e5e5;
   width: 100%;
   box-sizing: border-box;
@@ -178,6 +182,11 @@
   color: #111111;
   font-weight: 800;
 }
+.shop-page__toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
 .shop-page__sort {
   display: flex;
   align-items: center;
@@ -187,6 +196,7 @@
   font-size: 0.85rem;
   font-weight: 700;
   color: #666666;
+  white-space: nowrap;
 }
 .shop-page__sort div {
   position: relative;
@@ -194,11 +204,11 @@
   align-items: center;
 }
 .shop-page__sort div select {
-  height: 36px;
-  padding: 0 2rem 0 0.85rem;
+  height: 38px;
+  padding: 0 2.1rem 0 0.85rem;
   background-color: #ffffff;
   border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  border-radius: 9px;
   font-family: inherit;
   font-size: 0.85rem;
   font-weight: 600;
@@ -207,6 +217,7 @@
   -moz-appearance: none;
        appearance: none;
   -webkit-appearance: none;
+  transition: border-color 0.15s ease;
 }
 .shop-page__sort div select:focus {
   outline: none;
@@ -220,41 +231,43 @@
   pointer-events: none;
 }
 .shop-page {
-  /* EMPTY RESULT CARDS PRESENTATION WORKSPACE */
+  /* =========================================================
+     5. EMPTY STATE PANEL (.shop-page__empty)
+     ========================================================= */
 }
 .shop-page__empty {
   display: flex;
-  width: 100%;
   flex-direction: column;
   align-items: center;
-  padding: 4rem 1.5rem;
-  border: 1px solid #e5e5e5;
+  width: 100%;
+  padding: 4.5rem 1.5rem;
+  background-color: #f9f9f9;
+  border: 1px dashed #e5e5e5;
   border-radius: 16px;
-  background: #ffffff;
   text-align: center;
   box-sizing: border-box;
 }
 .shop-page__empty svg {
   font-size: 2.25rem;
   color: #94a3b8;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 .shop-page__empty h2 {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.5rem;
   font-size: 1.25rem;
   font-weight: 800;
   color: #111111;
 }
 .shop-page__empty p {
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 1.5rem;
   font-size: 0.88rem;
   color: #666666;
-  max-width: 360px;
-  line-height: 1.5;
+  max-width: 380px;
+  line-height: 1.55;
 }
 .shop-page__empty button {
-  height: 38px;
-  padding: 0 1.25rem;
+  height: 40px;
+  padding: 0 1.35rem;
   background-color: #66704A;
   color: #ffffff;
   border: none;
@@ -263,14 +276,17 @@
   font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease, transform 0.1s ease;
 }
 .shop-page__empty button:hover {
   background-color: #525F3C;
 }
+.shop-page__empty button:active {
+  transform: scale(0.98);
+}
 .shop-page {
   /* =========================================================
-     CORE CATALOG PRODUCTS LOOP GRID TRACKS
+     6. RESPONSIVE PRODUCT GRID (#shop-products)
      ========================================================= */
 }
 .shop-page__products {
@@ -284,59 +300,83 @@
 @media (min-width: 640px) {
   .shop-page__products {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
+    gap: 1.25rem;
   }
 }
 @media (min-width: 1024px) {
   .shop-page__products {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 6px;
+    gap: 1.5rem;
   }
 }
 
 /* ==========================================================================
-   REFACTORED HIGH-PRIORITY ONSITE LOCAL COLLECTION PANEL COMPONENT
+   PERSONAL COLLECTION FILTER PANEL (.collection-city-filter)
    ========================================================================== */
 .collection-city-filter {
+  position: relative;
+  z-index: 100;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 1.25rem;
-  background-color: #ffffff;
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 1.25rem;
+  background-color: #f9f9f9;
   border: 1px solid #e5e5e5;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(102, 112, 74, 0.03);
   box-sizing: border-box;
-  margin-bottom: 2rem;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
-.collection-city-filter--engaged {
-  border-color: rgba(102, 112, 74, 0.25);
+.collection-city-filter:has(input[type=checkbox]:checked) {
   background-color: #fbfcfa;
-  box-shadow: 0 6px 24px rgba(102, 112, 74, 0.06);
+  border-color: rgba(102, 112, 74, 0.3);
+  box-shadow: 0 6px 20px -6px rgba(102, 112, 74, 0.08);
 }
 .collection-city-filter__toggle {
   display: flex;
   align-items: center;
-  gap: 14px;
+  justify-content: space-between;
+  gap: 1rem;
   width: 100%;
   box-sizing: border-box;
+  /* Native Checkbox Styled as a Modern Sliding Toggle Switch */
 }
-.collection-city-filter__badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  background-color: #f9f9f9;
-  color: #66704A;
-  border-radius: 12px;
-  font-size: 1.25rem;
+.collection-city-filter__toggle input[type=checkbox] {
+  position: relative;
+  -moz-appearance: none;
+       appearance: none;
+  -webkit-appearance: none;
+  width: 46px;
+  height: 26px;
+  margin: 0;
+  background-color: #cbd5e1;
+  border-radius: 26px;
+  cursor: pointer;
   flex-shrink: 0;
+  transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.collection-city-filter__badge svg {
-  display: block;
-  stroke-width: 2.25;
+.collection-city-filter__toggle input[type=checkbox]::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.collection-city-filter__toggle input[type=checkbox]:checked {
+  background-color: #66704A;
+}
+.collection-city-filter__toggle input[type=checkbox]:checked::before {
+  transform: translateX(20px);
+}
+.collection-city-filter__toggle input[type=checkbox]:focus-visible {
+  outline: 2px solid #66704A;
+  outline-offset: 2px;
 }
 .collection-city-filter__info {
   display: flex;
@@ -351,158 +391,81 @@
   font-weight: 800;
   color: #111111;
   letter-spacing: -0.01em;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 .collection-city-filter__info span {
-  font-size: 0.78rem;
-  line-height: 1.4;
+  font-size: 0.8rem;
+  line-height: 1.45;
   color: #666666;
   margin-top: 2px;
 }
 .collection-city-filter {
-  /* TACTILE SUB-DRAWER EXPANSION PANEL CONFIGURATION */
+  /* Embedded CollectionCityFilter Dropdown Wrapper */
 }
 .collection-city-filter__locations {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  margin-top: 1.25rem;
-  border-top: 1px solid #e5e5e5;
-  padding-top: 1.15rem;
-  box-sizing: border-box;
-}
-.collection-city-filter__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-.collection-city-filter__title {
-  font-size: 0.75rem;
-  font-weight: 800;
-  color: #666666;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.collection-city-filter__clear-action {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: transparent;
-  border: none;
-  color: #66704A;
-  font-family: inherit;
-  font-size: 0.8rem;
-  font-weight: 700;
-  cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-.collection-city-filter__clear-action:hover {
-  background-color: rgba(104, 118, 75, 0.12);
-}
-.collection-city-filter__clear-action svg {
-  font-size: 0.85rem;
-}
-.collection-city-filter {
-  /* High-legibility horizontal wrapping tags track row layout envelope */
-}
-.collection-city-filter__options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  width: 100%;
-  box-sizing: border-box;
-}
-.collection-city-filter__option {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  height: 32px;
-  padding: 0 12px;
-  background-color: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #475569;
-  cursor: pointer;
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.collection-city-filter__option svg {
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-.collection-city-filter__option:hover {
-  border-color: #94a3b8;
-  color: #111111;
-  background-color: #f9f9f9;
-}
-.collection-city-filter__option.is-selected {
-  background-color: #66704A;
-  border-color: #66704A;
-  color: #ffffff;
-}
-.collection-city-filter__option.is-selected svg {
-  color: #ffffff;
-}
-.collection-city-filter__option.is-selected:hover {
-  background-color: #525F3C;
-  border-color: #525F3C;
-}
-
-/* ==========================================================================
-PREMIUM iOS SLIDER INTERACTION CONTROL SWITCH (.mkt-toggle-switch)
-========================================================================== */
-.mkt-toggle-switch {
   position: relative;
-  display: inline-block;
-  width: 44px;
-  height: 24px;
-  flex-shrink: 0;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  z-index: 101;
+  overflow: visible;
+  width: 100%;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #e5e5e5;
+  box-sizing: border-box;
+  animation: collectionLocationsReveal 0.18s ease-out both;
 }
-.mkt-toggle-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.mkt-toggle-switch__slider {
-  position: absolute;
-  inset: 0;
-  background-color: #cbd5e1;
-  border-radius: 24px;
-  transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.mkt-toggle-switch__slider::before {
-  content: "";
-  position: absolute;
-  left: 3px;
-  bottom: 3px;
-  width: 18px;
-  height: 18px;
-  background-color: #ffffff;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.mkt-toggle-switch input:checked + .mkt-toggle-switch__slider {
-  background-color: #66704A;
-}
-.mkt-toggle-switch input:checked + .mkt-toggle-switch__slider::before {
-  transform: translateX(20px);
+@media (min-width: 768px) {
+  .collection-city-filter__locations {
+    max-width: 420px;
+  }
 }
 
-.animate-fade-in {
-  animation: mktFadeReveal 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+/* Opacity-only fade so no transform containing block traps position: absolute menus */
+@keyframes collectionLocationsReveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-
-@keyframes mktFadeReveal {
+/* ==========================================================================
+MOBILE VIEWPORT ADJUSTMENTS (max-width: 480px)
+========================================================================== */
+@media (max-width: 480px) {
+  .shop-page {
+    padding: 0.85rem 0.65rem 3rem;
+  }
+  .shop-page__header {
+    margin-bottom: 1.15rem;
+  }
+  .shop-page__search {
+    margin-bottom: 1.15rem;
+  }
+  .shop-page__search input[type=search] {
+    height: 44px;
+    font-size: 0.9rem;
+  }
+  .shop-page__toolbar {
+    margin-bottom: 1rem;
+  }
+  .shop-page__sort span {
+    display: none;
+  }
+  .shop-page__products {
+    gap: 8px;
+  }
+  .collection-city-filter {
+    padding: 1rem;
+    border-radius: 14px;
+  }
+  .collection-city-filter__info strong {
+    font-size: 0.9rem;
+  }
+  .collection-city-filter__info span {
+    font-size: 0.76rem;
+  }
+}
+@keyframes collectionLocationsReveal {
   from {
     opacity: 0;
     transform: translateY(-4px);
@@ -512,13 +475,12 @@ PREMIUM iOS SLIDER INTERACTION CONTROL SWITCH (.mkt-toggle-switch)
     transform: translateY(0);
   }
 }
-/* Screen Reader Motion Overrides Guidelines Breakout */
 @media (prefers-reduced-motion: reduce) {
-  .animate-fade-in {
+  .collection-city-filter__locations {
     animation: none !important;
   }
-  .mkt-toggle-switch__slider,
-  .mkt-toggle-switch__slider::before {
+  .collection-city-filter__toggle input[type=checkbox],
+  .collection-city-filter__toggle input[type=checkbox]::before {
     transition: none !important;
   }
 }/*# sourceMappingURL=Shop.css.map */

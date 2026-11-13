@@ -68,11 +68,11 @@ getStoreListingsFeed: build.query<TListPageDto, TQueryDto>({
       }),
       providesTags: ["listing"],
     }),
-       getListingBySlug: build.query<TListTrans, string>({
-      query: (slug) => ({
+       getListingBySlug: build.query<TListTrans, {slug:string,id:number}>({
+      query: ({slug,id}) => ({
         url: `/api/store/listing/slug`,
         params: {
-         slug
+         slug,id
         },
       }),
       providesTags: ["listing"],

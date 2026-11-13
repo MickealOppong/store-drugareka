@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "../css/AddListing.css";
-import { COLLECTION_CITIES, ITEM_SIZE } from "../data/data";
+import { ITEM_SIZE } from "../data/data";
 import {
   useEditListingMutation,
   useLazyGetListingQuery,
@@ -19,6 +19,7 @@ import type { TListTrans } from "../types/TListTrans";
 import type { TProductData } from "../types/TProductData";
 import { sanitizeBackendKey } from "../util/util";
 import CategoryDropdownSelect from "./CategoryDropdownSelect";
+import CityDropdownSelect from "./CityDropdownSelect";
 import SearchSelect from "./SearchSelect";
 
 export type TFile = {
@@ -32,7 +33,7 @@ const EditListing = () => {
   const { data: conditions } = useGetAllConditionsQuery();
   const [getListing] = useLazyGetListingQuery();
   const[isCollectAvailable,setIsCollectAvailable] =useState<boolean>(false)
-  
+    const [collectionCity, setCollectionCity] = useState("");
 
   const [category, setCategory] = useState<{ name: string; path: string }>({
     name: "",
@@ -104,7 +105,7 @@ const EditListing = () => {
       shippingMethod: listing.shippingMethod,
       itemSize: listing.itemSize,
       model: listing.model,
-      collectionCity:listing.collectionCity||"",
+      collectionCity:'',
       itemNumber: listing.itemNumber,
       width: String(listing.width),
       height: String(listing.height),
@@ -113,6 +114,7 @@ const EditListing = () => {
     });
 
     setIsCollectAvailable(Boolean(listing.personalCollectionAvailable))
+    setCollectionCity(listing.collectionCity?listing.collectionCity:'')
     setCategory(listing.category);
   }
 
@@ -258,7 +260,7 @@ const EditListing = () => {
     );
     dataToSend.append(
       "collectionCity",
-      formData.collectionCity
+      collectionCity
     );
 
     images.forEach((file, index) => {
@@ -266,7 +268,7 @@ const EditListing = () => {
       dataToSend.append("imageSortOrder", String(index));
     });
 
-    //console.log(Object.fromEntries(dataToSend));
+    console.log(Object.fromEntries(dataToSend));
 
     try {
       const response = await editLisitng(dataToSend);
@@ -314,6 +316,11 @@ const EditListing = () => {
   const handleCategoryChange = (category: string, path: string) => {
     setCategory({ name: category, path });
   };
+
+      const handleCityChange = (city:string,region:String) => {
+    setCollectionCity(`${city},${region}`)
+  };
+
 
   return (
     <main className="add-product">
@@ -695,30 +702,7 @@ const EditListing = () => {
                 </div>
 
                  {isCollectAvailable && (
-                  <div className="form-field">
-                    <label htmlFor="collectionCity">{t("add_listing.fields.shipping_info.personal_collection.city")}</label>
-                       <select
-                                         id="collectionCity"
-                                         name="collectionCity"
-                                         value={formData.collectionCity||''}
-                                         onChange={handleSelectChange}
-                                         required={formData.personalCollectionAvailable}
-                                       >
-                                         <option value="">{t("add_listing.fields.shipping_info.personal_collection.label")}</option>
-                   
-                                         {COLLECTION_CITIES.map((city) => (
-                                           <option
-                                             key={city.label}
-                                             value={city.label}
-                                           >
-                                             {city.label}
-                                           </option>
-                                         ))}
-                                       </select>
-                    <small>
-                  {t("add_listing.fields.shipping_info.personal_collection.info")}
-                    </small>
-                  </div>
+                 <CityDropdownSelect name={"collectionCity"} value={collectionCity.split(",")[0]} onChange={handleCityChange}/>
                 )}
               </div>
 

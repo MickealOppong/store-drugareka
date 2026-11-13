@@ -98,12 +98,14 @@
       "message": "Nie mogliśmy znaleźć żadnych przedmiotów pasujących do Twojego aktywnego profilu kategorii. Spróbuj rozszerzyć zapytania lub zresetować aktywne parametry.",
       "clear_btn": "Wyczyść aktywne filtry"
     },
-          "collection": {
+"collection": {
   "collection_available": "Sprzedawca umożliwia odbiór osobisty",
-  "city_list": "Lokalizacja odbioru",
+  "placeholder_label": "Miasto odbioru",
   "clear_location": "Wyczyść",
-"collection_description": "Chcesz zaoszczędzić na dostawie? Odkrywaj produkty, które możesz odebrać osobiście w swojej okolicy."
+  "select_city": "Wybierz miasto",
+  "collection_description": "Chcesz zaoszczędzić na dostawie? możesz odebrać osobiście w swojej okolicy."
 },
+
     "header": {
       "title": "Kategorie",
       "placeholder_text": "Wybierz kategorię",
@@ -1041,7 +1043,7 @@
     
     "personal_collection": {
   "title": "Dostępny odbiór osobisty",
-  "message": "Chcesz uniknąć kosztów dostawy? Możesz odebrać ten przedmiot w:"
+  "message": "Chcesz zaoszczędzić na dostawie? Możesz odebrać ten produkt w:"
 },
     "info": {
       "condition": "Stan",

@@ -1,17 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  FiChevronDown,
-  FiSearch,
-  FiX,
-} from "react-icons/fi";
+import { FiChevronDown, FiSearch } from "react-icons/fi";
 
 import { useTranslation } from "react-i18next";
-import {
-  useLocation,
-  useNavigate,
-  useSearchParams
-} from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Loading, Pagination } from "../components";
+import { CollectionCityFilter } from "../components/CollectionCityFilter";
 import CookieBanner from "../components/CookieBanner";
 import { ErrorToast } from "../components/ErrorTaost";
 import Footer from "../components/Footer";
@@ -19,7 +12,6 @@ import ProductListing from "../components/ProductListing";
 import SEO from "../components/SEO";
 import ShopBanner from "../components/ShopBanner";
 import "../css/Shop.css";
-import { COLLECTION_CITIES } from "../data/data";
 import {
   useAddWishListMutation,
   useGetWishListsQuery,
@@ -65,6 +57,7 @@ const Shop = () => {
   const selectedCategory = searchParams.get("category") || "all";
   const condition = searchParams.get("condition") || "";
   const selectedCollectionCity = searchParams.get("collectionCity") || "";
+  const region = searchParams.get("region") || "";
   const isCollectionAvailable =
     searchParams.get("isCollectionAvailable") || "false";
 
@@ -74,6 +67,7 @@ const Shop = () => {
     isCollectionAvailable: isCollectionAvailable === "true" ? true : false,
     search: debouncedSearch,
     condition,
+    region,
     page,
     size: 50,
   };
@@ -86,7 +80,6 @@ const Shop = () => {
   );
   const products = data?.listings || [];
 
-
   const { data: categories = [] } = useGetAllParentCategoriesQuery();
 
   const { data: wishlist = [] } = useGetWishListsQuery();
@@ -97,7 +90,6 @@ const Shop = () => {
     (state) => state.userSlice,
   );
 
-  
   // ==========================================================================
   // HIGH-PERFORMANCE CLIENT FILTERS MEMOIZATION MATRIX
   // ==========================================================================
@@ -182,12 +174,6 @@ const Shop = () => {
   };
   */
 
-  const hanldeSelectedCityParam = (city: string) => {
-    const searchParams = new URLSearchParams(search);
-    searchParams.set("collectionCity", city);
-    navigate(`${pathname}?${searchParams.toString()}`);
-  };
-
   const hanldeIsAvailableParam = (selected: boolean) => {
     const searchParams = new URLSearchParams(search);
     searchParams.set("isCollectionAvailable", String(selected));
@@ -200,40 +186,41 @@ const Shop = () => {
     nextParams.delete("isCollectionAvailable");
     nextParams.set("page", "1");
     nextParams.delete("condition");
-      nextParams.delete("brand");
+    nextParams.delete("region");
+    nextParams.delete("brand");
     nextParams.set("category", "all_0");
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
   };
 
-const {hash} = useLocation()
+  const { hash } = useLocation();
 
-useEffect(() => {
-  if (hash !== "#shop-products" || isProductsLoading) return;
+  useEffect(() => {
+    if (hash !== "#shop-products" || isProductsLoading) return;
 
-  const frame = requestAnimationFrame(() => {
-    const element = document.getElementById("shop-products");
-    if (!element) return;
+    const frame = requestAnimationFrame(() => {
+      const element = document.getElementById("shop-products");
+      if (!element) return;
 
-    const position =
-      element.getBoundingClientRect().top + window.scrollY - 100;
+      const position =
+        element.getBoundingClientRect().top + window.scrollY - 100;
 
-    window.scrollTo({
-      top: position,
-      behavior: "smooth",
+      window.scrollTo({
+        top: position,
+        behavior: "smooth",
+      });
     });
-  });
 
-  return () => cancelAnimationFrame(frame);
-}, [hash, pathname, search, isProductsLoading, products.length]);
+    return () => cancelAnimationFrame(frame);
+  }, [hash, pathname, search, isProductsLoading, products.length]);
 
   return (
     <>
       <main className="shop-page">
-      <SEO
-  title="Kasoa.pl – Kupuj i sprzedawaj produkty z drugiej ręki"
-  description="Masz przedmioty, których już nie potrzebujesz — używane lub nowe, pozostające w dobrym stanie? Kupuj i sprzedawaj odzież damską i męską, elektronikę, części samochodowe,meble, produkty dla dzieci, dom i ogród oraz wiele więcej."
-  canonical="https://kasoa.pl/"
-/>
+        <SEO
+          title="Kasoa.pl – Kupuj i sprzedawaj produkty z drugiej ręki"
+          description="Masz przedmioty, których już nie potrzebujesz — używane lub nowe, pozostające w dobrym stanie? Kupuj i sprzedawaj odzież damską i męską, elektronikę, części samochodowe,meble, produkty dla dzieci, dom i ogród oraz wiele więcej."
+          canonical="https://kasoa.pl/"
+        />
         {/* =====================================================
                 SHOP HEADER
             ====================================================== */}
@@ -246,11 +233,9 @@ useEffect(() => {
           </div>
         </section>
 
-         {/* SHOP HEADER */}
+        {/* SHOP HEADER */}
 
-        <ShopBanner/>
-
-    
+        <ShopBanner />
 
         {/* =====================================================
                 CATEGORY NAVIGATION
@@ -280,77 +265,37 @@ useEffect(() => {
         </section>
 
         {/** FILTER BY CITY FOR PRODUCTS WITH PERSONAL COLLECTION ENABLED */}
-      <div className="collection-city-filter">
-  <div className="collection-city-filter__toggle">
-    <div className="collection-city-filter__info">
-      <strong>
-        {t("categories.collection.collection_available")}
-      </strong>
-      <span>
-        {t("categories.collection.collection_description", {
-          defaultValue:
-            "Find products you can collect directly from the seller.",
-        })}
-      </span>
-    </div>
+        <div className="collection-city-filter">
+          <div className="collection-city-filter__toggle">
+            <div className="collection-city-filter__info">
+              <strong>{t("categories.collection.collection_available")}</strong>
+              <span>
+                {t("categories.collection.collection_description", {
+                  defaultValue:
+                    "Find products you can collect directly from the seller.",
+                })}
+              </span>
+            </div>
 
-    <input
-      type="checkbox"
-      id="isCollectionAvailable"
-      checked={isCollectionAvailable === "true"}
-      onChange={(e) => hanldeIsAvailableParam(e.target.checked)}
-    />
-  </div>
+            <input
+              type="checkbox"
+              id="isCollectionAvailable"
+              checked={isCollectionAvailable === "true"}
+              onChange={(e) => hanldeIsAvailableParam(e.target.checked)}
+            />
+          </div>
 
-  {isCollectionAvailable === "true" && (
-    <div className="collection-city-filter__locations">
-      <div className="collection-city-filter__header">
-        <span className="collection-city-filter__title">
-          {t("categories.collection.city_list")}
-        </span>
+          {isCollectionAvailable === "true" && (
+            <div className="collection-city-filter__locations">
+              <CollectionCityFilter
+                name={"collectionCity"}
+                value={selectedCollectionCity.split("_")[0]}
+              />
+            </div>
+          )}
+        </div>
 
-        {selectedCollectionCity && (
-          <button
-            type="button"
-            onClick={() => hanldeSelectedCityParam("")}
-          >
-            {t("categories.collection.clear_location")}
-            <FiX />
-          </button>
-        )}
-      </div>
-
-      <div className="collection-city-filter__options">
-        {COLLECTION_CITIES
-          .toSorted((a, b) => a.label.localeCompare(b.label, "pl"))
-          .map((city) => {
-            const isSelected = selectedCollectionCity === city.label;
-
-            return (
-              <button
-                key={city.value}
-                type="button"
-                className={`collection-city-filter__option ${
-                  isSelected ? "is-selected" : ""
-                }`}
-                onClick={() =>
-                  hanldeSelectedCityParam(
-                    isSelected ? "" : city.label
-                  )
-                }
-                aria-pressed={isSelected}
-              >
-                {city.label}
-                {isSelected && <FiX />}
-              </button>
-            );
-          })}
-      </div>
-    </div>
-  )}
-</div>
-
-          {/* SEARCH — directly after the banner, before product discovery controls */}
+        {/* SEARCH — directly after the banner, before product discovery controls */}
         <div className="shop-page__search">
           <FiSearch />
           <input
@@ -405,8 +350,6 @@ useEffect(() => {
 
         {error && <ErrorToast errorMessage={error} />}
 
-  
-
         {/* =====================================================
                 PRODUCTS
             ====================================================== */}
@@ -414,7 +357,7 @@ useEffect(() => {
         {isProductsLoading || addCartLoading ? (
           <Loading />
         ) : (
-          <section >
+          <section>
             {filteredProducts.length === 0 ? (
               <div className="shop-page__empty">
                 <FiSearch />
@@ -429,30 +372,30 @@ useEffect(() => {
                 </button>
               </div>
             ) : (
-            <div className="shop-page__products"   id="shop-products">
-              {
-                  filteredProducts.map((product) => (
-                <ProductListing
-                  key={product.listingId}
-                  product={product}
-                  isWishlisted={wishlists.includes(product.listingId)}
-                  isOwner={Number(sellerProfileId) === product.sellerId}
-                  variant="shop"
-                  onToggleWishlist={toggleWishlist}
-                  onAddToCart={addItemToCart}
-                  onEdit={(listingId) =>
-                    navigate(`/account/listings/${listingId}/edit`)
-                  }
-                  onView={addView}
-                />
-              ))
-              }
-            </div>
+              <div
+                className="shop-page__products"
+                id="shop-products"
+              >
+                {filteredProducts.map((product) => (
+                  <ProductListing
+                    key={product.listingId}
+                    product={product}
+                    isWishlisted={wishlists.includes(product.listingId)}
+                    isOwner={Number(sellerProfileId) === product.sellerId}
+                    variant="shop"
+                    onToggleWishlist={toggleWishlist}
+                    onAddToCart={addItemToCart}
+                    onEdit={(listingId) =>
+                      navigate(`/account/listings/${listingId}/edit`)
+                    }
+                    onView={addView}
+                  />
+                ))}
+              </div>
             )}
           </section>
         )}
 
- 
         {data && (
           <Pagination
             accumulated={data.accumulatedItems}
@@ -462,10 +405,9 @@ useEffect(() => {
             totalElements={data?.totalElements}
           />
         )}
-        <Footer/>
-        <CookieBanner/>
+        <Footer />
+        <CookieBanner />
       </main>
-
     </>
   );
 };

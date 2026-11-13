@@ -13,7 +13,7 @@ import {
   FiTag,
   FiTruck,
 } from "react-icons/fi";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import defImage from "../assets/default.jpeg";
 import "../css/ProductDetails.css";
@@ -51,6 +51,10 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
+  const [searchParams] = useSearchParams();
+
+  const listingId = searchParams.get("listing");
+
   //buy now
     const [buyNow] =
       useStripeBuyNowMutation()
@@ -85,7 +89,7 @@ const [error, setError] = useState<string | null>(null);
   const {
     data: product,
     isLoading: productLoading,
-  } = useGetListingBySlugQuery(String(slug));
+  } = useGetListingBySlugQuery({slug:String(slug),id:parseInt(String(listingId))});
 
   // Seller listings.
   const sellerId = product?.sellerId;

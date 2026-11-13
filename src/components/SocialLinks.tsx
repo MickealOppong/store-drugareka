@@ -33,7 +33,7 @@ const SocialLinks = () => {
   return (
     <div className={`social-links`}>
       {activeSocials.map((social) => (
-       <div className={social.className}>
+       <div className={social.className} key={social.name}>
          <a
           key={social.name}
           href={social.url}

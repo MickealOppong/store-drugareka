@@ -5,11 +5,11 @@ import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import { ConditionFilter, Loading } from "../components";
 import BrandFilter from "../components/BrandFilter";
 import CategoryTree from "../components/CategoryTree";
+import CollectionCityFilter from "../components/CollectionCityFilter";
 import Footer from "../components/Footer";
 import ProductListing from "../components/ProductListing";
 import SEO from "../components/SEO";
 import "../css/Categories.css";
-import { COLLECTION_CITIES } from "../data/data";
 import {
   useAddWishListMutation,
   useGetWishListsQuery,
@@ -61,23 +61,22 @@ export const Categories: React.FC = () => {
   const selectedCategory = searchParams.get("category") || "all";
   const condition = searchParams.get("condition") || "";
   const brand = searchParams.get("brand") || "";
+    const region = searchParams.get("region") || "";
   const selectedCollectionCity = searchParams.get("collectionCity") || "";
   const isCollectionAvailable =
     searchParams.get("isCollectionAvailable") || "false";
 
-
-    
   const queryDto: TQueryDto = {
     category: selectedCategory,
     collectionCity: selectedCollectionCity,
     isCollectionAvailable: isCollectionAvailable === "true" ? true : false,
     search: debouncedSearch,
     condition,
+    region,
     brand,
     page,
     size: 50,
   };
-
 
   //top categories
   const { data: topCategories = [] } = useGetTop8ProductCategoriesQuery();
@@ -101,11 +100,9 @@ export const Categories: React.FC = () => {
     },
   );
 
-
   const products = data?.listings || [];
 
-  console.log(products);
-  
+
 
   const handleClearFilters = () => {
     setSelectedSubCat(null);
@@ -114,7 +111,7 @@ export const Categories: React.FC = () => {
     nextParams.delete("isCollectionAvailable");
     nextParams.set("page", "1");
     nextParams.delete("condition");
-      nextParams.delete("brand");
+    nextParams.delete("brand");
     nextParams.set("category", "all_0");
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
   };
@@ -148,8 +145,6 @@ export const Categories: React.FC = () => {
     return searchBranches(catalogTree);
   };
 
-
-
   const extractCategoryPath = (path: string) => {
     if (!path) return { parent: null, child: null };
 
@@ -166,43 +161,32 @@ export const Categories: React.FC = () => {
   // Usage Example:
   const { parent, child } = extractCategoryPath(category ? category.path : "");
 
-
-
-
-
-  const hanldeSelectedCityParam = (city: string) => {
-    const searchParams = new URLSearchParams(search);
-    searchParams.set("collectionCity", city);
-    navigate(`${pathname}?${searchParams.toString()}`);
-  };
-
   const hanldeIsAvailableParam = (selected: boolean) => {
     const searchParams = new URLSearchParams(search);
     searchParams.set("isCollectionAvailable", String(selected));
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 
-const {hash} = useLocation()
+  const { hash } = useLocation();
 
-useEffect(() => {
-  if (hash !== "#category-products" || isProductsLoading) return;
+  useEffect(() => {
+    if (hash !== "#category-products" || isProductsLoading) return;
 
-  const frame = requestAnimationFrame(() => {
-    const element = document.getElementById("category-products");
-    if (!element) return;
+    const frame = requestAnimationFrame(() => {
+      const element = document.getElementById("category-products");
+      if (!element) return;
 
-    const position =
-      element.getBoundingClientRect().top + window.scrollY - 100;
+      const position =
+        element.getBoundingClientRect().top + window.scrollY - 100;
 
-    window.scrollTo({
-      top: position,
-      behavior: "smooth",
+      window.scrollTo({
+        top: position,
+        behavior: "smooth",
+      });
     });
-  });
 
-  return () => cancelAnimationFrame(frame);
-}, [hash, pathname, search, isProductsLoading, products.length]);
-
+    return () => cancelAnimationFrame(frame);
+  }, [hash, pathname, search, isProductsLoading, products.length]);
 
   if (isLoading) {
     return (
@@ -213,8 +197,6 @@ useEffect(() => {
       </div>
     );
   }
-
-
 
   if (error) {
     return (
@@ -227,7 +209,7 @@ useEffect(() => {
   }
 
   return (
-    <main >
+    <main>
       <SEO
         title={
           parent
@@ -264,7 +246,7 @@ useEffect(() => {
 
             <CategoryTree />
             <ConditionFilter />
-             <BrandFilter />
+            <BrandFilter />
           </aside>
 
           {/* PRODUCT FEED */}
@@ -283,7 +265,7 @@ useEffect(() => {
               <div className="top-categories-grid">
                 {topCategories.map((category) => (
                   <Link
-                  id="products"
+                    id="products"
                     key={category.id}
                     to={`/shop/categories?category=${category.slug}_${category.id}#category-products`}
                     className="category-card"
@@ -325,6 +307,37 @@ useEffect(() => {
               </h4>
             </header>
 
+            {/** FILTER BY CITY FOR PRODUCTS WITH PERSONAL COLLECTION ENABLED */}
+                  <div className="collection-city-filter">
+                    <div className="collection-city-filter__toggle">
+                      <div className="collection-city-filter__info">
+                        <strong>{t("categories.collection.collection_available")}</strong>
+                        <span>
+                          {t("categories.collection.collection_description", {
+                            defaultValue:
+                              "Find products you can collect directly from the seller.",
+                          })}
+                        </span>
+                      </div>
+          
+                      <input
+                        type="checkbox"
+                        id="isCollectionAvailable"
+                        checked={isCollectionAvailable === "true"}
+                        onChange={(e) => hanldeIsAvailableParam(e.target.checked)}
+                      />
+                    </div>
+          
+                    {isCollectionAvailable === "true" && (
+                      <div className="collection-city-filter__locations">
+                        <CollectionCityFilter
+                          name={"collectionCity"}
+                          value={selectedCollectionCity.split("_")[0]}
+                        />
+                      </div>
+                    )}
+                  </div>
+
             {/** GENERIC SEARCH  */}
 
             {!isProductsLoading && (
@@ -364,76 +377,7 @@ useEffect(() => {
               </div>
             )}
 
-            {/** FILTER BY CITY FOR PRODUCTS WITH PERSONAL COLLECTION ENABLED */}
-        <div className="collection-city-filter">
-  <div className="collection-city-filter__toggle">
-    <div className="collection-city-filter__info">
-      <strong>
-        {t("categories.collection.collection_available")}
-      </strong>
-      <span>
-        {t("categories.collection.collection_description", {
-          defaultValue:
-            "Find products you can collect directly from the seller.",
-        })}
-      </span>
-    </div>
-
-    <input
-      type="checkbox"
-      id="isCollectionAvailable"
-      checked={isCollectionAvailable === "true"}
-      onChange={(e) => hanldeIsAvailableParam(e.target.checked)}
-    />
-  </div>
-
-  {isCollectionAvailable === "true" && (
-    <div className="collection-city-filter__locations">
-      <div className="collection-city-filter__header">
-        <span className="collection-city-filter__title">
-          {t("categories.collection.city_list")}
-        </span>
-
-        {selectedCollectionCity && (
-          <button
-            type="button"
-            onClick={() => hanldeSelectedCityParam("")}
-          >
-            {t("categories.collection.clear_location")}
-            <FiX />
-          </button>
-        )}
-      </div>
-
-      <div className="collection-city-filter__options">
-        {COLLECTION_CITIES
-          .toSorted((a, b) => a.label.localeCompare(b.label, "pl"))
-          .map((city) => {
-            const isSelected = selectedCollectionCity === city.label;
-
-            return (
-              <button
-                key={city.value}
-                type="button"
-                className={`collection-city-filter__option ${
-                  isSelected ? "is-selected" : ""
-                }`}
-                onClick={() =>
-                  hanldeSelectedCityParam(
-                    isSelected ? "" : city.label
-                  )
-                }
-                aria-pressed={isSelected}
-              >
-                {city.label}
-                {isSelected && <FiX />}
-              </button>
-            );
-          })}
-      </div>
-    </div>
-  )}
-</div>
+         
 
             {isProductsLoading ? (
               <Loading />
@@ -496,7 +440,10 @@ useEffect(() => {
                 </button>
               </div>
             ) : (
-              <div className="category-page__products" id="category-products">
+              <div
+                className="category-page__products"
+                id="category-products"
+              >
                 {products.map((product) => (
                   <ProductListing
                     key={product.listingId}
@@ -515,9 +462,8 @@ useEffect(() => {
             )}
           </div>
         </div>
-
       </section>
-    <Footer/>
+      <Footer />
     </main>
   );
 };

@@ -4,7 +4,7 @@ import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/AddListing.css";
-import { COLLECTION_CITIES, ITEM_SIZE } from "../data/data";
+import { ITEM_SIZE } from "../data/data";
 import { useAddListingMutation } from "../features/api/itemApi";
 import {
   useGetAllConditionsQuery,
@@ -15,6 +15,7 @@ import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TProductData } from "../types/TProductData";
 import { CookieService, sanitizeBackendKey } from "../util/util";
 import { CategoryDropdownSelect } from "./CategoryDropdownSelect";
+import CityDropdownSelect from "./CityDropdownSelect";
 import SearchSelect from "./SearchSelect";
 
 type TFile = {
@@ -27,6 +28,7 @@ const AddListing = () => {
   const [error, setError] = useState<string>('');
   const [personalCollectionAvailable, setPersonalCollectionAvailable] = useState(false);
   const [collectionCity, setCollectionCity] = useState("");
+  const [cityValue, setCityValue] = useState("");
 
   /**
    * Brand query
@@ -197,8 +199,9 @@ const AddListing = () => {
       dataToSend.append("imageSortOrder", String(index));
     });
 
-    //console.log(Object.fromEntries(dataToSend));
+    console.log(Object.fromEntries(dataToSend));
 
+    
     try {
       const response = await addItem(dataToSend);
  
@@ -248,6 +251,7 @@ const AddListing = () => {
           : "Unable to submit the listing. Please try again.",
       );
     }
+      
   };
 
   const handleCategoryChange = (category: string, path: string) => {
@@ -255,6 +259,10 @@ const AddListing = () => {
     setCategoryPath(path);
   };
 
+    const handleCityChange = (city:string,region:String) => {
+    setCollectionCity(`${city},${region}`)
+    setCityValue(city)
+  };
 
   
 
@@ -637,32 +645,13 @@ const AddListing = () => {
                     {t("add_listing.fields.shipping_info.personal_collection.sub_header")}
                   </small>
                 </div>
-
-                {personalCollectionAvailable && (
-                  <div className="form-field">
-                    <label htmlFor="collectionCity">{t("add_listing.fields.shipping_info.personal_collection.city")}</label>
-                       <select
-                                         id="collectionCity"
-                                         value={collectionCity}
-                                         onChange={(e) => setCollectionCity(e.target.value)}
-                                         required={personalCollectionAvailable}
-                                       >
-                                         <option value="">{t("add_listing.fields.shipping_info.personal_collection.label")}</option>
-                   
-                                         {COLLECTION_CITIES.map((city) => (
-                                           <option
-                                             key={city.value}
-                                             value={city.label}
-                                           >
-                                             {city.label}
-                                           </option>
-                                         ))}
-                                       </select>
-                    <small>
-                  {t("add_listing.fields.shipping_info.personal_collection.info")}
-                    </small>
-                  </div>
-                )}
+               
+               {
+                personalCollectionAvailable && 
+                 <div className="form-field">
+                 <CityDropdownSelect name={"collectionCity"} value={cityValue}    onChange={handleCityChange}/>
+                 </div>
+               }
               </div>
 
               {/** ITEM SIZE */}

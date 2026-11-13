@@ -49,7 +49,7 @@ const ProductListing = ({
     <article className={cardClass}>
       <div className={`${cardClass}__media`}>
         <Link
-          to={`/shop/listing/${product.productSlug}`}
+      to={`/shop/listing/${product.productSlug}?listing=${product.listingId}`}
           className={`${cardClass}__image-link`}
         >
           <img
