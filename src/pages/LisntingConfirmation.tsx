@@ -14,12 +14,10 @@ const ListingConfirmation = () => {
 
   const [updateListingStatus, { isLoading }] = useConfirmAvailabilityMutation();
 
-  useEffect(() => {
-    if (!token) return;
-
     const confirmAvailability = async () => {
-      try {
         setLoading(true);
+      try {
+  
         const response = await updateListingStatus(String(token));
 
         if (response.data === true) {
@@ -27,6 +25,7 @@ const ListingConfirmation = () => {
         } else {
           setSuccess(false);
         }
+              setLoading(false);
       } catch (err) {
         console.error("Failed to confirm listing availability:", err);
         setSuccess(false);
@@ -35,6 +34,8 @@ const ListingConfirmation = () => {
       }
     };
 
+  useEffect(() => {
+    if (!token) return;
     confirmAvailability();
   }, [token, updateListingStatus]);
 
