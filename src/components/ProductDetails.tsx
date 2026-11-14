@@ -181,6 +181,13 @@ const ProductDetails = () => {
   const onCloseButton = () => {
     setOpenEnquiry(false);
   };
+  const handleEnquiry = ()=>{
+      if (!username) {
+      navigate("/login");
+      return;
+    }
+    setOpenEnquiry(true)
+  }
 
   if (productLoading || isCheckoutLoading) {
     return <Loading />;
@@ -474,12 +481,10 @@ const ProductDetails = () => {
                 </button>
               )}
               {/** ENQUIRY */}
-            {
-              username &&
-                <button
+          <button
                 type="button"
                 className="product-details__make-offer-btn"
-                onClick={() => setOpenEnquiry(true)}
+                onClick={() => handleEnquiry()}
               >
                 <FiUser />
                 <span>
@@ -488,7 +493,6 @@ const ProductDetails = () => {
                   })}
                 </span>
               </button>
-            }
 
               {/* WISHLIST */}
               <button
