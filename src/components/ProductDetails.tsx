@@ -557,7 +557,7 @@ const handleBuyNow = async (listingId: number) => {
               .map((item) => (
                 <Link
                   key={item.listingId}
-                  to={`/shop/listing/${item.productSlug}`}
+                  to={`/shop/listing/${item.productSlug}?listing=${item.listingId}`}
                   className="product-card"
                   onClick={() => window.scrollTo(0, 0)}
                 >
