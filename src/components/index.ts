@@ -13,6 +13,7 @@ export { default as ProductView } from "./ProductView";
 export { default as ProtectedRoute } from "./ProtectedRoute";
 export { default as Search } from "./Search";
 export { default as UserView } from "./UserView";
+export { default as VersionChecker } from "./VersionChecker";
 
 export { default as AddBrand } from "./AddBrand";
 export { default as AddCondition } from "./AddContition";

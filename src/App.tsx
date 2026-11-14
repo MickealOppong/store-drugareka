@@ -44,7 +44,8 @@ import {
   ShipmentPriceManager,
   ShipmentPriceView,
   UserProductView,
-  UserView
+  UserView,
+  VersionChecker
 } from "./components";
 import AdminOrderView from "./pages/AdminOrderView";
 import ContactForm from "./pages/ContactForm";
@@ -333,7 +334,10 @@ function App() {
         },
  
   ]);
-  return <RouterProvider router={router} />;
+  return<>
+  <VersionChecker/>
+   <RouterProvider router={router} />;
+  </>
 }
 
 export default App;

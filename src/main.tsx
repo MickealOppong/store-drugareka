@@ -7,6 +7,13 @@ import './css/index.css';
 import './i18n.ts';
 import { store } from './store.ts';
 
+// src/main.tsx
+window.addEventListener("vite:preloadError", (event) => {
+  event.preventDefault();
+  window.location.reload();
+});
+
+
 createRoot(document.getElementById('root')!).render(
   <HelmetProvider>
     <Provider store={store}>

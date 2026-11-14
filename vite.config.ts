@@ -14,4 +14,9 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
   },
+  define: {
+    __APP_VERSION__: JSON.stringify(
+        process.env.RAILWAY_GIT_COMMIT_SHA || "local"
+    )
+}
 });
