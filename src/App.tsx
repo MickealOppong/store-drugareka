@@ -66,6 +66,7 @@ import AdminShipments from "./pages/AdminShipments";
 import Complaints from "./pages/Complaints";
 import ListingConfirmation from "./pages/LisntingConfirmation";
 import MarkAsSoldConfirmation from "./pages/MarkAsSoldConfirmation";
+import Sellers from "./pages/Sellers";
 
 function App() {
   const router = createBrowserRouter([
@@ -257,7 +258,12 @@ function App() {
           path: "admin/brands",
           element: <BrandView />,
         },
+         {
+          path: "admin/sellers",
+          element: <Sellers/>,
+        },
         {
+
           path: "admin/brand/new",
           element: <AddBrand />,
         },

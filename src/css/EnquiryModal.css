@@ -1,0 +1,311 @@
+/* ==========================================================================
+   1. MODAL BACKDROP OVERLAY (.enquiry-modal-overlay)
+   ========================================================================== */
+.enquiry-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgba(17, 17, 17, 0.52);
+  backdrop-filter: blur(4px);
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  animation: enquiryOverlayFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@media (max-width: 480px) {
+  .enquiry-modal-overlay {
+    padding: 12px;
+  }
+}
+
+/* ==========================================================================
+   2. MAIN MODAL CONTAINER (.enquiry-modal)
+   ========================================================================== */
+.enquiry-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  max-height: 92vh;
+  max-height: 92dvh;
+  padding: 1.75rem;
+  background-color: #FFFFFF;
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  box-shadow: 0 24px 60px -12px rgba(17, 17, 17, 0.22);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  text-align: left;
+  animation: enquiryModalEnter 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.enquiry-modal *,
+.enquiry-modal *::before,
+.enquiry-modal *::after {
+  box-sizing: border-box;
+}
+@media (min-width: 640px) {
+  .enquiry-modal {
+    padding: 2rem;
+  }
+}
+.enquiry-modal h2 {
+  margin: 1rem 0 0.35rem;
+  font-size: 1.35rem;
+  font-weight: 850;
+  color: #111111;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+@media (min-width: 640px) {
+  .enquiry-modal h2 {
+    font-size: 1.5rem;
+  }
+}
+.enquiry-modal form {
+  margin-top: 1.35rem;
+}
+.enquiry-modal label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.84rem;
+  font-weight: 750;
+  color: #111111;
+}
+.enquiry-modal textarea {
+  width: 100%;
+  min-height: 116px;
+  padding: 0.8rem 0.95rem;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #111111;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.enquiry-modal textarea::-moz-placeholder {
+  color: #94a3b8;
+}
+.enquiry-modal textarea::placeholder {
+  color: #94a3b8;
+}
+.enquiry-modal textarea:focus {
+  border-color: #66704A;
+  box-shadow: 0 0 0 3px rgba(104, 118, 75, 0.12);
+}
+.enquiry-modal textarea:disabled {
+  background-color: #f9f9f9;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   3. HEADER ICON, CLOSE BUTTON & PRODUCT CONTEXT
+   ========================================================================== */
+.enquiry-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  color: #666666;
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.enquiry-modal-close:hover:not(:disabled) {
+  background-color: rgba(17, 17, 17, 0.08);
+  color: #111111;
+}
+.enquiry-modal-close:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.enquiry-modal-close:focus-visible {
+  outline: 2px solid #66704A;
+  outline-offset: 2px;
+}
+
+.enquiry-modal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background-color: rgba(104, 118, 75, 0.12);
+  color: #66704A;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.enquiry-product-name {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 750;
+  color: #66704A;
+  line-height: 1.4;
+}
+
+.enquiry-description {
+  margin: 0.75rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #666666;
+}
+
+.enquiry-character-count {
+  margin-top: 0.4rem;
+  text-align: right;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #666666;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   4. PRIVACY / DIRECT CONTACT INFO CALLOUT (.enquiry-information)
+   ========================================================================== */
+.enquiry-information {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 1rem;
+  padding: 0.85rem 0.95rem;
+  background-color: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  color: #666666;
+}
+.enquiry-information i,
+.enquiry-information svg {
+  font-size: 1.05rem;
+  color: #66704A;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.enquiry-information p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   5. FOOTER ACTION BUTTONS (.enquiry-modal-actions)
+   ========================================================================== */
+.enquiry-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 1.5rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid #e5e5e5;
+}
+.enquiry-modal-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: 11px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.1s ease, box-shadow 0.18s ease;
+}
+.enquiry-modal-actions button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.enquiry-modal-actions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.enquiry-modal-actions button:focus-visible {
+  outline: 2px solid #66704A;
+  outline-offset: 2px;
+}
+
+.enquiry-cancel-btn {
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  color: #111111;
+}
+.enquiry-cancel-btn:hover:not(:disabled) {
+  background-color: #f9f9f9;
+  border-color: #94a3b8;
+}
+
+.enquiry-submit-btn {
+  border: 1px solid #66704A;
+  background-color: #66704A;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(102, 112, 74, 0.16);
+}
+.enquiry-submit-btn:hover:not(:disabled) {
+  background-color: #525F3C;
+  border-color: #525F3C;
+  box-shadow: 0 6px 16px rgba(102, 112, 74, 0.24);
+}
+
+/* ==========================================================================
+   6. ANIMATIONS & MOBILE RESPONSIVE OVERRIDES
+   ========================================================================== */
+@keyframes enquiryOverlayFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes enquiryModalEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@media (max-width: 480px) {
+  .enquiry-modal {
+    padding: 1.4rem 1.15rem;
+    border-radius: 16px;
+  }
+  .enquiry-modal-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+  .enquiry-modal-actions button {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .enquiry-modal-overlay,
+  .enquiry-modal {
+    animation: none !important;
+  }
+  .enquiry-modal-actions button {
+    transition: none !important;
+    transform: none !important;
+  }
+}/*# sourceMappingURL=EnquiryModal.css.map */

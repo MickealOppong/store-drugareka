@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineSafety } from "react-icons/ai";
@@ -12,8 +11,14 @@ import {
   FiShoppingBag,
   FiTag,
   FiTruck,
+  FiUser,
 } from "react-icons/fi";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
 import defImage from "../assets/default.jpeg";
 import "../css/ProductDetails.css";
@@ -33,6 +38,7 @@ import type { TListTrans } from "../types/TListTrans";
 import { formatPrice, sanitizeBackendKey } from "../util/util";
 
 import { useStripeBuyNowMutation } from "../features/api/checkoutApi";
+import EnquiryModal from "./EnquiryModal";
 import Footer from "./Footer";
 import Loading from "./Loading";
 import MakeOfferModal from "./MakeOfferModal";
@@ -56,16 +62,18 @@ const ProductDetails = () => {
   const listingId = searchParams.get("listing");
 
   //buy now
-    const [buyNow] =
-      useStripeBuyNowMutation()
-const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
-const [error, setError] = useState<string | null>(null);
+  const [buyNow] = useStripeBuyNowMutation();
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Authenticated user.
-  const {email:username,sellerId:sellerProfileId }= useAppSelector((state) => state.userSlice);
+  const { email: username, sellerId: sellerProfileId } = useAppSelector(
+    (state) => state.userSlice,
+  );
 
   // Modal state.
   const [openModal, setOpenModal] = useState(false);
+  const [openEnquiry, setOpenEnquiry] = useState<boolean>(false);
 
   const [modalData, setModalData] = useState<{
     name: string;
@@ -86,20 +94,17 @@ const [error, setError] = useState<string | null>(null);
   const isWishlisted = wishlists.includes(String(slug));
 
   // Product.
-  const {
-    data: product,
-    isLoading: productLoading,
-  } = useGetListingBySlugQuery({slug:String(slug),id:parseInt(String(listingId))});
+  const { data: product, isLoading: productLoading } = useGetListingBySlugQuery(
+    { slug: String(slug), id: parseInt(String(listingId)) },
+  );
 
   // Seller listings.
   const sellerId = product?.sellerId;
 
-  const {
-    data: sellerListings = [],
-    isLoading: isProductsLoading,
-  } = useGetSellerListingQuery(Number(sellerId), {
-    skip: !sellerId,
-  });
+  const { data: sellerListings = [], isLoading: isProductsLoading } =
+    useGetSellerListingQuery(Number(sellerId), {
+      skip: !sellerId,
+    });
 
   const isOwner =
     sellerProfileId != null &&
@@ -139,41 +144,43 @@ const [error, setError] = useState<string | null>(null);
 
   // Buy at the displayed price.
   // Connect this to your existing cart/checkout implementation.
-const handleBuyNow = async (listingId: number) => {
-  if (!username) {
-    navigate("/login");
-    return;
-  }
-
-  if (isCheckoutLoading) return;
-
-  setError(null);
-  setIsCheckoutLoading(true);
-
-  try {
-    const response = await buyNow(listingId);
-
-    const checkoutURL = response?.data?.data;
-
-    if (!checkoutURL) {
-      throw new Error("Checkout URL not returned");
+  const handleBuyNow = async (listingId: number) => {
+    if (!username) {
+      navigate("/login");
+      return;
     }
 
-    window.location.assign(checkoutURL);
-  } catch (err) {
-    console.error("Failed to initiate checkout:", err);
+    if (isCheckoutLoading) return;
 
-    setError(
-      t("checkout.errors.initiation_failed", {
-        defaultValue: "Nie udało się rozpocząć płatności. Spróbuj ponownie.",
-      })
-    );
-  } finally {
-    setIsCheckoutLoading(false);
-  }
-};
+    setError(null);
+    setIsCheckoutLoading(true);
 
+    try {
+      const response = await buyNow(listingId);
 
+      const checkoutURL = response?.data?.data;
+
+      if (!checkoutURL) {
+        throw new Error("Checkout URL not returned");
+      }
+
+      window.location.assign(checkoutURL);
+    } catch (err) {
+      console.error("Failed to initiate checkout:", err);
+
+      setError(
+        t("checkout.errors.initiation_failed", {
+          defaultValue: "Nie udało się rozpocząć płatności. Spróbuj ponownie.",
+        }),
+      );
+    } finally {
+      setIsCheckoutLoading(false);
+    }
+  };
+
+  const onCloseButton = () => {
+    setOpenEnquiry(false);
+  };
 
   if (productLoading || isCheckoutLoading) {
     return <Loading />;
@@ -182,14 +189,16 @@ const handleBuyNow = async (listingId: number) => {
   if (!product) {
     return (
       <div className="product-details__error-state">
-        <div className="product-details__error-message" role="alert">
+        <div
+          className="product-details__error-message"
+          role="alert"
+        >
           <FiAlertCircle className="product-details__error-icon" />
           <span>{t("product_details.error.generic")}</span>
         </div>
       </div>
     );
   }
-  
 
   const serviceCharge = product.serviceCharge ?? 0;
   const buyerPrice = product.newPrice + serviceCharge;
@@ -206,7 +215,7 @@ const handleBuyNow = async (listingId: number) => {
         canonical={`https://kasoa.pl/shop/listing/${product.productSlug}`}
       />
 
-{error && <span className="product-details__error">{error}</span>}
+      {error && <span className="product-details__error">{error}</span>}
       {/* BREADCRUMB HEADER */}
       <header className="product-details__nav-header">
         <button
@@ -241,7 +250,6 @@ const handleBuyNow = async (listingId: number) => {
 
       {/* MAIN PRODUCT */}
       <article className="product-details__main-wrapper">
-
         {/* PRODUCT MEDIA */}
         <div className="product-details__media-showcase">
           <div className="product-details__primary-viewport">
@@ -279,10 +287,7 @@ const handleBuyNow = async (listingId: number) => {
 
         {/* PRODUCT INFORMATION */}
         <div className="product-details__content-panel">
-
-          <span className="product-details__brand-label">
-            {product.brand}
-          </span>
+          <span className="product-details__brand-label">{product.brand}</span>
 
           <h1 className="product-details__product-title">
             {product.productName}
@@ -295,9 +300,9 @@ const handleBuyNow = async (listingId: number) => {
               <strong>
                 {t(
                   `product_conditions.conditions.${getConditionSlug(
-                    product.productCondition
+                    product.productCondition,
                   )}`,
-                  { defaultValue: product.productCondition }
+                  { defaultValue: product.productCondition },
                 )}
               </strong>
             </span>
@@ -310,7 +315,7 @@ const handleBuyNow = async (listingId: number) => {
               <strong>
                 {t(
                   `user_products.table.statuses.${product.inventoryStatus?.toLowerCase()}`,
-                  { defaultValue: product.inventoryStatus }
+                  { defaultValue: product.inventoryStatus },
                 )}
               </strong>
             </span>
@@ -330,7 +335,7 @@ const handleBuyNow = async (listingId: number) => {
               {t("product_details.info.weight")}:{" "}
               <strong>
                 {t(
-                  `add_listing.fields.cargo_sizes.item_size.${product.itemSize?.toLowerCase()}`
+                  `add_listing.fields.cargo_sizes.item_size.${product.itemSize?.toLowerCase()}`,
                 )}
               </strong>
             </span>
@@ -425,12 +430,11 @@ const handleBuyNow = async (listingId: number) => {
 
               <span>
                 {t("shop.product.delivery_cost_extra")}
-                {deliveryCost > 0 &&
-                  `: ${formatPrice(deliveryCost)} zł`}
+                {deliveryCost > 0 && `: ${formatPrice(deliveryCost)} zł`}
               </span>
             </div>
           </div>
-          <ProductBnpl/>
+          <ProductBnpl />
 
           {/* BUYER PROTECTION */}
           <div className="product-details__safety-strip">
@@ -444,7 +448,6 @@ const handleBuyNow = async (listingId: number) => {
           {/* BUYER ACTIONS */}
           {!isOwner && (
             <div className="product-details__action-row">
-
               {/* BUY AT LISTED PRICE */}
               <button
                 type="button"
@@ -452,9 +455,7 @@ const handleBuyNow = async (listingId: number) => {
                 onClick={() => handleBuyNow(product.listingId)}
               >
                 <FiShoppingBag />
-                <span>
-                  {t("product_details.actions.buy_now")}
-                </span>
+                <span>{t("product_details.actions.buy_now")}</span>
               </button>
 
               {/* OPTIONAL NEGOTIATION */}
@@ -472,14 +473,28 @@ const handleBuyNow = async (listingId: number) => {
                   </span>
                 </button>
               )}
+              {/** ENQUIRY */}
+            {
+              username &&
+                <button
+                type="button"
+                className="product-details__make-offer-btn"
+                onClick={() => setOpenEnquiry(true)}
+              >
+                <FiUser />
+                <span>
+                  {t("shop.product.make_request", {
+                    defaultValue: "Request missing information",
+                  })}
+                </span>
+              </button>
+            }
 
               {/* WISHLIST */}
               <button
                 type="button"
                 className={`product-details__wishlist-btn ${
-                  isWishlisted
-                    ? "product-details__wishlist-btn--active"
-                    : ""
+                  isWishlisted ? "product-details__wishlist-btn--active" : ""
                 }`}
                 onClick={() => toggleWishlist(product.listingId)}
               >
@@ -498,7 +513,6 @@ const handleBuyNow = async (listingId: number) => {
 
       {/* TRUST BAR */}
       <section className="product-details__trust-bar">
-
         <div className="product-details__trust-item">
           <FiShield className="product-details__trust-icon" />
 
@@ -572,17 +586,15 @@ const handleBuyNow = async (listingId: number) => {
                     <span className="product-card__condition">
                       {t(
                         `product_conditions.conditions.${sanitizeBackendKey(
-                          item.productCondition.toLowerCase()
+                          item.productCondition.toLowerCase(),
                         )}`,
-                        { defaultValue: item.productCondition }
+                        { defaultValue: item.productCondition },
                       )}
                     </span>
 
                     <h3>{item.productName}</h3>
 
-                    <strong>
-                      {formatPrice(item.newPrice)} zł
-                    </strong>
+                    <strong>{formatPrice(item.newPrice)} zł</strong>
                   </div>
                 </Link>
               ))}
@@ -596,6 +608,14 @@ const handleBuyNow = async (listingId: number) => {
       </section>
 
       <Footer />
+      {openEnquiry && (
+        <EnquiryModal
+          isOpen={openEnquiry}
+          productName={product.productName}
+          listingId={product.listingId}
+          onClose={onCloseButton}
+        />
+      )}
     </section>
   );
 };

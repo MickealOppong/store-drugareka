@@ -427,7 +427,8 @@
       "make_offer": "Make an offer",
       "add_to_ cart":"Add to cart",
      "service_charge_included": "Service charge included",
-  "delivery_cost_extra": "Delivery paid separately"
+  "delivery_cost_extra": "Delivery paid separately",
+        "make_request":"Request for missing information"
     },
     "filter_drawer": {
       "title": "Filters",
@@ -1074,6 +1075,7 @@
       "buy_now": "Buy now",
       "wishlist_add": "Add to watchlist",
       "wishlist_active": "Watching"
+
     },
     "trust": {
       "verified_sub": "All users go through an authorization process",
@@ -1357,7 +1359,8 @@
       "reports": "Reports",
       "analytics": "Analytics",
       "payouts": "Payouts",
-      "courier": "Courier charges"
+      "courier": "Courier charges",
+      "sellers":"Sellers"
     }
   },
   "error_page": {
@@ -1869,6 +1872,20 @@
       "error_description": "Something went wrong. The link may have expired or already been used."
     }
   
-}
+},
+
+  "enquiry_modal": {
+    "close_aria": "Close",
+    "title": "Request missing information",
+    "description": "Missing any information? Ask a question and we will forward it to the seller.",
+    "question_label": "Your question",
+    "question_placeholder": "e.g. any information to determine product fit",
+    "privacy_notice": "The seller will not contact you directly. If they update the listing with the missing details, we will notify you.",
+    "actions": {
+      "cancel": "Cancel",
+      "submit": "Send enquiry",
+      "submitting": "Sending..."
+    }
+  }
 
 }

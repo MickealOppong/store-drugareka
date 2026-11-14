@@ -426,7 +426,8 @@
       "make_offer": "Złóż ofertę",
         "add_to_cart":"Dodaj do koszyka",
        "service_charge_included": "w tym opłata serwisowa",
-  "delivery_cost_extra": "Dostawa płatna dodatkowo"
+  "delivery_cost_extra": "Dostawa płatna dodatkowo",
+        "make_request":"Poproś o brakujące informacje"
     },
     "filter_drawer": {
       "title": "Filtry",
@@ -1310,7 +1311,8 @@
       "reports": "Raporty",
       "analytics": "Analityka",
       "payouts": "Wypłaty",
-      "courier": "Opłaty kurierskie"
+      "courier": "Opłaty kurierskie",
+        "sellers":"Sprzedawcy"
     }
   },
   "error_page": {
@@ -1856,6 +1858,21 @@
       "error_title": "Nie udało się zaktualizować produktu",
       "error_description": "Coś poszło nie tak. Link mógł wygasnąć lub został już wykorzystany."
     }
+  },
+  
+  "enquiry_modal": {
+    "close_aria": "Zamknij",
+    "title": "Poproś o brakujące informacje",
+    "description": "Brakuje Ci jakiejś informacji? Zadaj pytanie, a przekażemy je sprzedającemu.",
+    "question_label": "Twoje pytanie",
+    "question_placeholder": "np. dodatkowe informacje pomagające dopasować produkt",
+    "privacy_notice": "Sprzedający nie skontaktuje się z Tobą bezpośrednio. Jeśli uzupełni ofertę, poinformujemy Cię o jej aktualizacji.",
+    "actions": {
+      "cancel": "Anuluj",
+      "submit": "Wyślij zapytanie",
+      "submitting": "Wysyłanie..."
+    }
   }
+
 
 }

@@ -21,6 +21,7 @@
 
   &__header {
     margin-bottom: 2rem;
+    text-align: left;
   }
 
   &__eyebrow {
@@ -45,7 +46,7 @@
   }
 
   // --------------------------------------------------
-  // UNDERLINE TABS (Legacy / Standard Panels)
+  // UNDERLINE TABS
   // --------------------------------------------------
   &__tab-group {
     display: flex;
@@ -87,7 +88,7 @@
   }
 
   // --------------------------------------------------
-  // PILL SWITCHER TABS (Shipment & Logistics Views)
+  // PILL SWITCHER TABS
   // --------------------------------------------------
   &__switcher-wrapper {
     display: inline-flex;
@@ -190,7 +191,8 @@
   &__metrics-counter {
     font-size: 14px;
     color: Variables.$color-secondary;
-    font-weight: 500;
+    font-weight: 600;
+    white-space: nowrap;
   }
 
   &__error-box {
@@ -231,6 +233,17 @@
     overflow-y: hidden;
     width: 100%;
     -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: thin;
+    scrollbar-color: color.adjust(Variables.$color-border, $lightness: -8%) transparent;
+
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: color.adjust(Variables.$color-border, $lightness: -8%);
+      border-radius: 8px;
+    }
   }
 }
 
@@ -290,7 +303,7 @@
     border-bottom: 1px solid Variables.$color-border;
 
     th {
-      padding: 1rem 1.25rem;
+      padding: 0.95rem 1.15rem;
       font-size: 12px;
       font-weight: 600;
       text-transform: uppercase;
@@ -314,8 +327,11 @@
   }
 
   td {
-    padding: 1rem 1.25rem;
+    padding: 0.95rem 1.15rem;
+    font-size: 14px;
+    color: Variables.$color-text-main;
     vertical-align: middle;
+    white-space: nowrap;
   }
 
   &__text {
@@ -342,9 +358,9 @@
 
     &.text-muted {
       color: Variables.$color-text-muted;
+      font-size: 12.5px;
     }
 
-    // Allows long delivery addresses and tracking strings in Shipments to wrap cleanly
     &--wrap {
       white-space: normal;
       min-width: 140px;
@@ -367,13 +383,51 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
     border-radius: 50%;
     background-color: color.adjust(Variables.$color-primary, $lightness: 42%);
     color: Variables.$color-primary;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
+  }
+
+  // Standalone Text Action Button (Used in SellerProfileView "change status")
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 34px;
+    padding: 0.4rem 0.85rem;
+    background-color: Variables.$background;
+    border: 1px solid Variables.$color-border;
+    border-radius: 8px;
+    color: Variables.$color-primary;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 650;
+    text-transform: capitalize;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: Variables.$transition-default;
+
+    &:hover {
+      background-color: Variables.$color-primary;
+      border-color: Variables.$color-primary;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(Variables.$color-primary, 0.16);
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+
+    &:focus-visible {
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 2px;
+    }
   }
 
   &__actions {
@@ -400,68 +454,58 @@
       outline: none;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
-      svg {
-        transition: transform 0.2s ease;
-      }
-
-      &:hover {
-        background-color: Variables.$color-bg-light;
-        color: Variables.$color-primary;
-        border-color: rgba(Variables.$color-primary, 0.3);
-
-        svg {
-          transform: scale(1.05);
-        }
-      }
-
-      &:active {
-        transform: scale(0.96);
-      }
-    }
-
-    &__action-link--dispute {
-      &:hover {
-        color: #d97706;
-        background-color: #fef3c7;
-        border-color: rgba(#d97706, 0.2);
-      }
-    }
-
-    &__btn--cancel {
-      &:hover {
-        color: #e11d48;
-        background-color: #fff1f2;
-        border-color: rgba(#e11d48, 0.2);
-      }
-    }
-  }
-
-  &__actions-header {
-    text-align: center;
-  }
-
-  // Standalone Action Button (Used in Shipment.tsx edit column)
-  &__action-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    padding: 0;
-    border: 1px solid Variables.$color-border;
-    border-radius: 8px;
-    background-color: Variables.$background;
-    color: Variables.$color-secondary;
-    cursor: pointer;
-    transition: Variables.$transition-default;
-
-    svg {
-      font-size: 16px;
-    }
-
-    &:hover {
-      border-color: Variables.$color-primary;
-      color: Variables.$color-primary;
+svg {
+transition: transform 0.2s ease;
+}
+&:hover {
+background-color: Variables.$color-bg-light;
+color: Variables.$color-primary;
+border-color: rgba(Variables.$color-primary, 0.3);
+svg {
+transform: scale(1.05);
+}
+}
+&:active {
+transform: scale(0.96);
+}
+}
+&__action-link--dispute {
+&:hover {
+color: #d97706;
+background-color: #fef3c7;
+border-color: rgba(#d97706, 0.2);
+}
+}
+&__btn--cancel {
+&:hover {
+color: #e11d48;
+background-color: #fff1f2;
+border-color: rgba(#e11d48, 0.2);
+}
+}
+}
+&__actions-header {
+text-align: center;
+}
+&__action-link {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 36px;
+height: 36px;
+padding: 0;
+border: 1px solid Variables.$color-border;
+border-radius: 8px;
+background-color: Variables.$background;
+color: Variables.$color-secondary;
+cursor: pointer;
+transition: Variables.$transition-default;
+svg {
+font-size: 16px;
+}
+&:hover {
+border-color: Variables.$color-primary;
+color: Variables.$color-primary;
 background-color: color.adjust(Variables.$color-primary, $lightness: 50%);
 transform: translateY(-1px);
 }
@@ -476,14 +520,14 @@ transform: scale(0.96);
 .status-badge {
 display: inline-flex;
 align-items: center;
-padding: 0.25rem 0.75rem;
+padding: 0.25rem 0.7rem;
 border-radius: 20px;
 font-size: 12px;
 font-weight: 600;
 text-transform: uppercase;
 letter-spacing: 0.25px;
 white-space: nowrap;
-// Default Fallback Color Tone (Pending / Processing states)
+// Default Fallback Color Tone (Pending / Processing / Suspended states)
 background-color: #fef3c7;
 color: #d97706;
 &--shipped,
@@ -491,12 +535,19 @@ color: #d97706;
 background-color: #dbeafe;
 color: #2563eb;
 }
+&--active,
 &--completed,
 &--delivered,
 &--label-ready {
 background-color: Variables.$color-safety-bg;
 color: Variables.$color-safety-text;
 }
+&--inactive {
+background-color: Variables.$color-bg-light;
+color: Variables.$color-text-muted;
+border: 1px solid Variables.$color-border;
+}
+&--blocked,
 &--disputed,
 &--cancelled,
 &--expired,

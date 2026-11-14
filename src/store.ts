@@ -8,6 +8,7 @@ import utilSlice from "./features/slice/utilSlice";
 import { cartApi } from "./features/api/cartApi";
 import { checkoutApi } from "./features/api/checkoutApi";
 import { itemApi } from "./features/api/itemApi";
+import { sellerApi } from "./features/api/sellerApi";
 import { storeApi } from "./features/api/storeApi";
 import { transApi } from "./features/api/transApi";
 import { userApi } from "./features/api/userApi";
@@ -21,6 +22,7 @@ export const store = configureStore({
     cartSlice: cartSlice,
     utilSlice: utilSlice,
     [authApi.reducerPath]: authApi.reducer,
+    [sellerApi.reducerPath]: sellerApi.reducer,
     [checkoutApi.reducerPath]: checkoutApi.reducer,
     [itemApi.reducerPath]: itemApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
@@ -40,6 +42,7 @@ export const store = configureStore({
       storeApi.middleware,
       itemApi.middleware,
       cartApi.middleware,
+      sellerApi.middleware
     ]);
   },
   
