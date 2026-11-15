@@ -14,6 +14,7 @@ import {
   PaymentConfirmation,
   Register,
   ResetPassword,
+  SellerListingUpdate,
   SellerPayout,
   SellWithUs,
   SharedLayout,
@@ -62,6 +63,7 @@ import ReturnConfirmation from "./pages/ReturnConfirmation";
 import StripeReturnKYCHandler from "./pages/StripeReturnKYCHandler";
 
 import { loader as accountLoader } from './../src/pages/AccountLayout';
+import EditListingWithToken from "./components/EditListingWithToken";
 import EditShipmentPrice from "./components/EditShipmentPrice";
 import AdminShipments from "./pages/AdminShipments";
 import Complaints from "./pages/Complaints";
@@ -133,6 +135,7 @@ function App() {
       path: "/confirm",
       element: <ListingConfirmation />,
     },
+   
        {
       path: "/seller/stripe/return",
       element: <StripeReturnKYCHandler/>,
@@ -320,6 +323,14 @@ function App() {
       ],
       
     },
+       {
+      path: "/update-listing",
+      element: <SellerListingUpdate />,
+    },
+    {
+          path: "update-listing/:listingId/edit",
+          element: <EditListingWithToken />,
+        },
       {
       path: "/terms",
       element: <TermsAndConditions/>,

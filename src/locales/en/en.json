@@ -1139,7 +1139,16 @@
       "description": {
         "label": "Description",
         "placeholder": "Describe the product, its condition, features and everything the buyer should know...",
-        "hint": "Describe the product accurately and clearly."
+        "hint": "Describe the product accurately and clearly.",
+        "measurement_tips": {
+  "title": "How to measure clothing? (Measure laid flat in cm)",
+  "items": {
+    "tip_1":"Tops & Jackets: Chest width (armpit to armpit), total length (from shoulder), and sleeve length.",
+   "tip_2": "Pants & Skirts: Waist width, hip width, total length, and inseam length (for pants).",
+   "tip_3": "Dresses: Chest width, waist width, hip width, and total length.",
+    "tip_4":"Footwear: Insole length (measured inside from toe to heel)."
+  }
+}
       },
       "price": {
         "price": "Price",
@@ -1875,16 +1884,20 @@
 },
 
   "enquiry_modal": {
-    "close_aria": "Close",
+ "invalid_token_or_link": "The link is invalid or the listing has been marked as sold.",
     "title": "Request missing information",
-    "description": "Missing any information? Ask a question and we will forward it to the seller.",
+    "description": "Missing some information? Ask a question and we'll forward it to the seller.",
     "question_label": "Your question",
-    "question_placeholder": "e.g. any information to determine product fit",
-    "privacy_notice": "The seller will not contact you directly. If they update the listing with the missing details, we will notify you.",
+    "question_placeholder": "e.g. additional information that would help you assess the product",
+    "privacy_notice": "The seller will not contact you directly. If they update the listing, we'll notify you.",
+    "success_title": "Your enquiry has been sent",
+    "success_message": "Thank you for your enquiry. We've forwarded it to the seller. We'll notify you when the listing has been updated.",
+    "close_aria": "Close",
     "actions": {
       "cancel": "Cancel",
+      "submitting": "Sending...",
       "submit": "Send enquiry",
-      "submitting": "Sending..."
+      "close": "Close"
     }
   }
 

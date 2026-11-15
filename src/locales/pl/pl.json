@@ -64,7 +64,7 @@
     "footer": {
       "tagline": "Lepszy sposób na kupowanie i sprzedawanie rzeczy z drugiej ręki.",
       "heading_shop": "Kupić",
-        "secure_payment":"Opcje płatnosci",
+      "secure_payment": "Opcje płatnosci",
       "heading_sell": "Sprzedać",
       "heading_help": "Pomoc",
       "link_all_products": "Wszystkie produkty",
@@ -78,13 +78,13 @@
       "privacy": "Polityka prywatności"
     }
   },
-    "delivery_methods": {
-      "title": "Metody dostawy",
-      "pickup_point": "Punkt odbioru",
-      "home_delivery": "Dostawa do domu",
-      "parcel_locker": "Paczkomat",
-      "personal_collection": "Odbiór osobisty"
-    },
+  "delivery_methods": {
+    "title": "Metody dostawy",
+    "pickup_point": "Punkt odbioru",
+    "home_delivery": "Dostawa do domu",
+    "parcel_locker": "Paczkomat",
+    "personal_collection": "Odbiór osobisty"
+  },
   "categories": {
     "feed": {
       "title": "Popularne kategorie",
@@ -98,13 +98,13 @@
       "message": "Nie mogliśmy znaleźć żadnych przedmiotów pasujących do Twojego aktywnego profilu kategorii. Spróbuj rozszerzyć zapytania lub zresetować aktywne parametry.",
       "clear_btn": "Wyczyść aktywne filtry"
     },
-"collection": {
-  "collection_available": "Sprzedawca umożliwia odbiór osobisty",
-  "placeholder_label": "Miasto odbioru",
-  "clear_location": "Wyczyść",
-  "select_city": "Wybierz miasto",
-  "collection_description": "Chcesz zaoszczędzić na dostawie? możesz odebrać osobiście w swojej okolicy."
-},
+    "collection": {
+      "collection_available": "Sprzedawca umożliwia odbiór osobisty",
+      "placeholder_label": "Miasto odbioru",
+      "clear_location": "Wyczyść",
+      "select_city": "Wybierz miasto",
+      "collection_description": "Chcesz zaoszczędzić na dostawie? możesz odebrać osobiście w swojej okolicy."
+    },
 
     "header": {
       "title": "Kategorie",
@@ -369,7 +369,7 @@
     }
   },
 
-"product_conditions": {
+  "product_conditions": {
     "title": "Stan produktu",
     "clear": "Wyczyść",
     "conditions": {
@@ -395,13 +395,13 @@
       "all": "Wszystkie"
     },
     "banner": {
-  "eyebrow": "Odkryj Kasoa",
-  "title": "Wielkie otwarcie. Zapłać mniej.",
-  "description": "Odkrywaj wyjątkowe produkty i korzystaj z okazji na Kasoa.",
-  "cta": "Odkryj produkty",
-  "note": "Ciekawe znaleziska. Atrakcyjne ceny.",
-  "visual_tag": "Wyjątkowe okazje"
-},
+      "eyebrow": "Odkryj Kasoa",
+      "title": "Wielkie otwarcie. Zapłać mniej.",
+      "description": "Odkrywaj wyjątkowe produkty i korzystaj z okazji na Kasoa.",
+      "cta": "Odkryj produkty",
+      "note": "Ciekawe znaleziska. Atrakcyjne ceny.",
+      "visual_tag": "Wyjątkowe okazje"
+    },
     "toolbar": {
       "products_count": "produktów",
       "filters": "Filtry",
@@ -424,10 +424,10 @@
       "buy_btn": "Kup produkt",
       "edit_btn": "Edytuj ofertę",
       "make_offer": "Złóż ofertę",
-        "add_to_cart":"Dodaj do koszyka",
-       "service_charge_included": "w tym opłata serwisowa",
-  "delivery_cost_extra": "Dostawa płatna dodatkowo",
-        "make_request":"Poproś o brakujące informacje"
+      "add_to_cart": "Dodaj do koszyka",
+      "service_charge_included": "w tym opłata serwisowa",
+      "delivery_cost_extra": "Dostawa płatna dodatkowo",
+      "make_request": "Poproś o brakujące informacje"
     },
     "filter_drawer": {
       "title": "Filtry",
@@ -574,7 +574,7 @@
           "draft": "Szkic",
           "available": "Dostępne",
           "reserved": "Zarezerwowane",
-          "rejected":"Odrzucone"
+          "rejected": "Odrzucone"
         }
       }
     },
@@ -644,7 +644,7 @@
     }
   },
   "buyer_view": {
-    "private_person":"Osoba prywatnośc",
+    "private_person": "Osoba prywatnośc",
     "toolbar": {
       "search_placeholder": "Szukaj zakupów...",
       "count_singular": "zakup",
@@ -677,8 +677,8 @@
         "cancelled": "Anulowane",
         "processing": "W trakcie przetwarzania",
         "returned": "Zwrócone",
-        "rejected":"Odrzucone",
-        "confirmed":"Potwiedzone"
+        "rejected": "Odrzucone",
+        "confirmed": "Potwiedzone"
       }
     },
     "actions": {
@@ -687,7 +687,7 @@
     }
   },
   "seller_view": {
-        "private_person":"Osoba prywatnośc",
+    "private_person": "Osoba prywatnośc",
     "toolbar": {
       "search_placeholder": "Szukaj sprzedaży...",
       "count_singular": "sprzedaż",
@@ -710,16 +710,16 @@
         "status": "Status",
         "created": "Utworzono",
         "action": "Akcja",
-          "product_name":"Nazwa produktu"
+        "product_name": "Nazwa produktu"
       }
     },
     "actions": {
       "file_dispute": "Zgłoś spór / problem"
     }
   },
-"shipments": {
-  "confirmed":"Potwiedzone",
-  "private_person":"Osoba prywatnośc",
+  "shipments": {
+    "confirmed": "Potwiedzone",
+    "private_person": "Osoba prywatnośc",
     "header": {
       "eyebrow": "Logistyka",
       "eyebrow_returns": "Zwroty",
@@ -757,8 +757,8 @@
         "status": "Status",
         "action": "Akcja"
       },
-      "statuses":{
-        "confirmed":"Potwiedzone"
+      "statuses": {
+        "confirmed": "Potwiedzone"
       }
     },
     "empty": {
@@ -831,7 +831,7 @@
         "reversed": "Cofnięte",
         "transferred": "Przelane",
         "charge_back": "Obciążenie zwrotne (Chargeback)",
-      "recouped": "Odzyskano"
+        "recouped": "Odzyskano"
       }
     }
   },
@@ -953,7 +953,6 @@
       "checkout_btn": "Bezpieczna płatność",
       "address_warning": "Dodaj adres dostawy, aby odblokować opcje płatności.",
       "shipping_message": "Możesz odebrać przedmiot osobiście za darmo, wybierając odbiór osobisty podczas składania zamówienia."
-
     },
     "item": {
       "remove_hint": "Remove item from cart",
@@ -1030,22 +1029,22 @@
     }
   },
   "product_details": {
- "loading": "Ładowanie szczegółów produktu...",
-"header": "Więcej od tego sprzedawcy",
-"title": "Odkryj więcej produktów tego sprzedawcy",
-"nav": {
-  "back": "Wstecz",
-  "shop_crumb": "Kategorie"
-} ,
- "bnpl":{
-      "title":" Kup teraz. Zapłać później.",
-      "description":"Skorzystaj z elastycznych opcji płatności."
+    "loading": "Ładowanie szczegółów produktu...",
+    "header": "Więcej od tego sprzedawcy",
+    "title": "Odkryj więcej produktów tego sprzedawcy",
+    "nav": {
+      "back": "Wstecz",
+      "shop_crumb": "Kategorie"
     },
-    
+    "bnpl": {
+      "title": " Kup teraz. Zapłać później.",
+      "description": "Skorzystaj z elastycznych opcji płatności."
+    },
+
     "personal_collection": {
-  "title": "Dostępny odbiór osobisty",
-  "message": "Chcesz zaoszczędzić na dostawie? Możesz odebrać ten produkt w:"
-},
+      "title": "Dostępny odbiór osobisty",
+      "message": "Chcesz zaoszczędzić na dostawie? Możesz odebrać ten produkt w:"
+    },
     "info": {
       "condition": "Stan",
       "availability": "Dostępność",
@@ -1130,7 +1129,16 @@
       "description": {
         "label": "Opis",
         "placeholder": "Opisz produkt, jego stan, cechy i wszystko, co kupujący powinien wiedzieć...",
-        "hint": "Opisz produkt dokładnie i jasno."
+        "hint": "Opisz produkt dokładnie i jasno.",
+    "measurement_tips": {
+  "title": "Jak zmierzyć ubranie? (Mierz na płasko w cm)",
+  "items": {
+    "tip_1": "Góra (koszulki, kurtki): Szerokość pod pachami, długość całkowita (od ramienia) oraz długość rękawa.",
+    "tip_2": "Dół (spodnie, spódnice): Szerokość w pasie, szerokość w biodrach, długość całkowita oraz długość nogawki od kroku.",
+    "tip_3": "Sukienki: Szerokość pod pachami, szerokość w pasie, szerokość w biodrach oraz długość całkowita.",
+    "tip_4": "Obuwie: Długość wkładki (mierzona wewnątrz od czubka do pięty)."
+  }
+}
       },
       "price": {
         "price": "Cena",
@@ -1171,10 +1179,10 @@
       },
       "shipping_info": {
         "label": "Informacje o wysyłce",
-     "placeholder": "Wpisz dodatkowe informacje o wysyłce i dostawie...",
+        "placeholder": "Wpisz dodatkowe informacje o wysyłce i dostawie...",
         "personal_collection": {
           "header": "Zezwól na odbiór osobisty",
-          "label":"Wybierz miasto",
+          "label": "Wybierz miasto",
           "sub_header": "Umożliw kupującym osobisty odbiór tego przedmiotu zamiast dostawy kurierskiej.",
           "city": "Miasto odbioru",
           "info": "Kupujący zobaczą miasto przed dokonaniem płatności. Dokładny adres odbioru zostanie poproszony po dokonaniu płatności i udostępniony kupującemu po potwierdzeniu odbioru przez Ciebie."
@@ -1235,7 +1243,7 @@
         "tracking_number": "Numer przesyłki",
         "delivery_status": "Status dostawy",
         "service_charge": "Opłata serwisowa",
-            "product_name":"Nazwa produktu"
+        "product_name": "Nazwa produktu"
       }
     }
   },
@@ -1312,7 +1320,7 @@
       "analytics": "Analityka",
       "payouts": "Wypłaty",
       "courier": "Opłaty kurierskie",
-        "sellers":"Sprzedawcy"
+      "sellers": "Sprzedawcy"
     }
   },
   "error_page": {
@@ -1387,10 +1395,8 @@
       },
       "seller": {
         "listing": {
-         
-  "question": "How do I add a product for sale?",
-  "answer": "Create an account or log in to Kasoa.pl. Go to 'My Products' in your account and select 'Add Product'. Complete the required information, provide an accurate description, select the item's condition and category, upload clear photographs and specify the price you want to receive from the sale. Make sure the description and photographs accurately represent the item's actual condition."
-
+          "question": "How do I add a product for sale?",
+          "answer": "Create an account or log in to Kasoa.pl. Go to 'My Products' in your account and select 'Add Product'. Complete the required information, provide an accurate description, select the item's condition and category, upload clear photographs and specify the price you want to receive from the sale. Make sure the description and photographs accurately represent the item's actual condition."
         },
         "pricing": {
           "question": "Jak działa ustalanie ceny i opłata serwisowa Kasoa?",
@@ -1430,8 +1436,7 @@
       "seller_desc": "Daj swoim używanym rzeczom drugie życie. Wystaw je bezpłatnie i otrzymaj ustaloną przez siebie cenę sprzedaży po pomyślnej realizacji transakcji.",
       "seller_btn": "Wystaw przedmiot na sprzedaż"
     }
-  }
-,
+  },
   "user_profile": {
     "header": {
       "badge": "Konto",
@@ -1630,7 +1635,7 @@
   "logistics_modal": {
     "header": {
       "title": "Aktualizacja Przesyłki #{{id}}",
-       "private_person": "Osoba prywatnośc"
+      "private_person": "Osoba prywatnośc"
     },
     "fields": {
       "status_label": "Status logistyczny paczki",
@@ -1647,8 +1652,8 @@
       "delivered": "Dostarczone",
       "returned": "Zwrócone",
       "created": "Utworzone",
-      "rejected":"Odrzucone",
-          "confirmed":"Potwiedzone"
+      "rejected": "Odrzucone",
+      "confirmed": "Potwiedzone"
     },
     "validation": {
       "tracking_required": "Wymagane jest podanie numeru śledzenia przesyłki (np. InPost) przed oznaczeniem paczki jako wysłana.",
@@ -1859,20 +1864,22 @@
       "error_description": "Coś poszło nie tak. Link mógł wygasnąć lub został już wykorzystany."
     }
   },
-  
-  "enquiry_modal": {
-    "close_aria": "Zamknij",
+
+ "enquiry_modal": {
+   "invalid_token_or_link": "Link jest nieprawidłowy lub oferta została oznaczona jako sprzedana.",
     "title": "Poproś o brakujące informacje",
     "description": "Brakuje Ci jakiejś informacji? Zadaj pytanie, a przekażemy je sprzedającemu.",
     "question_label": "Twoje pytanie",
     "question_placeholder": "np. dodatkowe informacje pomagające dopasować produkt",
     "privacy_notice": "Sprzedający nie skontaktuje się z Tobą bezpośrednio. Jeśli uzupełni ofertę, poinformujemy Cię o jej aktualizacji.",
+    "success_title": "Zapytanie zostało wysłane",
+    "success_message": "Dziękujemy za zapytanie. Przekazaliśmy je sprzedającemu. Poinformujemy Cię, gdy oferta zostanie uzupełniona.",
+    "close_aria": "Zamknij",
     "actions": {
       "cancel": "Anuluj",
+      "submitting": "Wysyłanie...",
       "submit": "Wyślij zapytanie",
-      "submitting": "Wysyłanie..."
+      "close": "Zamknij"
     }
   }
-
-
 }

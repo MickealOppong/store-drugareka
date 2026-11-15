@@ -43,8 +43,6 @@ const ConfirmShipment = () => {
 
   const response = data as ShipmentResponse | undefined;
 
-  console.log(data);
-  
 
   const products = (response?.data ?? []) as (
     TShipmentItemResponse & { shipmentMethod?: string }

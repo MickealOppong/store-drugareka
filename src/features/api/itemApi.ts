@@ -53,7 +53,7 @@ export const itemApi = createApi({
       }),
       invalidatesTags:['products']
     }),
-       editListing: build.mutation<TResponseDto, FormData>({
+       editListing: build.mutation<boolean, FormData>({
       query: (body) => ({
         url: "/api/item/listing/edit",
         method: "PUT",

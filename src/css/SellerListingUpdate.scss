@@ -1,0 +1,102 @@
+@use "sass:color";
+@use "Variables.scss" as Variables;
+
+/* ==========================================================================
+   SELLER LISTING UPDATE TOKEN VALIDATION VIEW (.seller-token-status)
+   ========================================================================== */
+.seller-token-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 60vh;
+  min-height: 60dvh;
+  padding: 2rem 1rem;
+  background-color: Variables.$background;
+  font-family: Variables.$font-sans;
+  box-sizing: border-box;
+
+  @include Variables.media-up(Variables.$breakpoint-sm) {
+    padding: 3rem 2rem;
+  }
+
+  /* =========================================================
+     CENTERED ERROR CARD (.seller-token-status__card)
+     ========================================================= */
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 460px;
+    padding: 2.25rem 1.5rem;
+    background-color: Variables.$color-error-bg;
+    border: 1px solid rgba(Variables.$color-error, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 12px 32px -8px rgba(Variables.$color-error, 0.08);
+    text-align: center;
+    box-sizing: border-box;
+    animation: sellerTokenCardPop 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      padding: 2.75rem 2.25rem;
+    }
+
+    /* Automatic CSS Alert Emblem */
+    &::before {
+      content: "!";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      margin-bottom: 0.25rem;
+      border-radius: 50%;
+      background-color: rgba(Variables.$color-error, 0.12);
+      color: Variables.$color-error;
+      font-size: 1.45rem;
+      font-weight: 850;
+      line-height: 1;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 850;
+    color: color.adjust(Variables.$color-error, $lightness: -6%);
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      font-size: 1.4rem;
+    }
+  }
+
+  &__description {
+    margin: 0;
+    max-width: 360px;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: Variables.$color-text-muted;
+  }
+}
+
+@keyframes sellerTokenCardPop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seller-token-status__card {
+    animation: none !important;
+  }
+}

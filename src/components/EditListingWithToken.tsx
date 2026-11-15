@@ -1,0 +1,901 @@
+import { useEffect, useState, type ChangeEvent } from "react";
+import { useTranslation } from "react-i18next";
+import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import "../css/AddListing.css";
+import { ITEM_SIZE } from "../data/data";
+import {
+    useEditListingMutation,
+    useLazyGetListingQuery,
+} from "../features/api/sellerApi";
+
+import {
+    useGetAllConditionsQuery,
+    useGetBrandsQuery,
+} from "../features/api/sellerApi";
+import { useAppSelector } from "../store";
+import type { TbrandResponse } from "../types/TBrandResponse";
+import type { TListTrans } from "../types/TListTrans";
+import type { TProductData } from "../types/TProductData";
+import { sanitizeBackendKey } from "../util/util";
+import CategoryDropdownSelect from "./CategoryDropdownSelect";
+import CityDropdownSelect from "./CityDropdownSelect";
+import SearchSelect from "./SearchSelect";
+
+export type TFile = {
+  file: Blob;
+  preview: string;
+};
+
+const EditListingWithToken = () => {
+  const { listingId } = useParams<{ listingId: string }>();
+  const [images, setImages] = useState<TFile[]>([]);
+
+  //conditions
+  const { data: conditions } = useGetAllConditionsQuery();
+  //listings
+  const [getListing] = useLazyGetListingQuery();
+  const[isCollectAvailable,setIsCollectAvailable] =useState<boolean>(false)
+    const [collectionCity, setCollectionCity] = useState("");
+
+  const [category, setCategory] = useState<{ name: string; path: string }>({
+    name: "",
+    path: "",
+  });
+  const roles = useAppSelector((state) => state.userSlice.roles);
+
+  /**
+   * Brand query
+   */
+  const { data: brands = [] } = useGetBrandsQuery();
+
+  
+
+  /**
+   *
+   * TRANSLATION
+   */
+  const { t } = useTranslation();
+
+  async function fetchListing() {
+    const response = await getListing(parseInt(listingId as string));
+    
+    const listing = response.data as TListTrans;
+
+    const mediaObj: TFile[] = await Promise.all(
+      listing.media.map(async (item) => {
+        const res = await fetch(item.image);
+        if (!res.ok)
+          throw new Error(`Failed to download binary asset payload.`);
+
+        const rawBlob = await res.blob();
+
+        // --- EXTRACT YOUR ACTUAL EXTRACTED FILENAME ---
+        const extractedFileName =
+          new URL(item.image).pathname.split("/").pop() || "image.jpg";
+
+        // Instantiate the file object using its real system storage filename parameters
+        const nativeFile = new File([rawBlob], extractedFileName, {
+          type: rawBlob.type,
+        });
+
+        return {
+          file: nativeFile,
+          preview: item.image,
+        };
+      }),
+    );
+
+    setImages(mediaObj);
+
+    setFormData({
+      id: listing.listingId,
+      name: listing.productName,
+      category: {
+        name: listing?.category.name,
+        path: listing?.category.path,
+      },
+      description: listing.productDescription,
+      price: String(listing.newPrice),
+      condition: listing.productCondition,
+      brand: listing.brand,
+      minPrice: String(listing.minPrice),
+      sku: listing.sku || "EA",
+      shippingInfo: listing.shipping,
+      status: listing.inventoryStatus,
+      images: [],
+      imageSortOrder: [],
+      quantity: String(listing.quantity),
+      shippingMethod: listing.shippingMethod,
+      itemSize: listing.itemSize,
+      model: listing.model,
+      collectionCity:'',
+      itemNumber: listing.itemNumber,
+      width: String(listing.width),
+      height: String(listing.height),
+      depth: String(listing.depth),
+      yearMade: String(listing.productionYear),
+    });
+
+    setIsCollectAvailable(Boolean(listing.personalCollectionAvailable))
+    setCollectionCity(listing.collectionCity?listing.collectionCity:'')
+    setCategory(listing.category);
+  }
+
+  
+
+  useEffect(() => {
+    fetchListing();
+  }, [listingId]);
+  /**
+   * * navigate hook
+   */
+
+  const navigate = useNavigate();
+  /**
+   * Errors
+   */
+  const [error, setError] = useState<string>("");
+  /**
+   * * crud hooks
+   */
+  const [editLisitng] = useEditListingMutation();
+
+  const [formData, setFormData] = useState<TProductData>({
+    id: 1,
+    name: "",
+    category: {
+      name: "",
+      path: "",
+    },
+    description: "",
+    price: "2",
+    quantity: "1",
+    condition: "",
+    brand: "",
+    sku: "",
+    shippingInfo: "",
+    status: "",
+    images: [],
+    imageSortOrder: [],
+    shippingMethod: "",
+    itemSize: "",
+    yearMade: "",
+    model: "",
+    minPrice: "",
+    itemNumber: "",
+    width: "",
+    height: "",
+    depth: "",
+       personalCollectionAvailable: false,
+      collectionCity: ''
+  });
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setError("");
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setError("");
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleTextInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setError("");
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files as FileList);
+
+    const newImages = files.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+    }));
+
+    setImages((prev) => [...prev, ...newImages]);
+  };
+
+
+
+  /**
+   * REMOVE IMAGE
+   * @param index
+   */
+  const removeImage = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+
+  
+
+  /**
+   *  FORM SUBMIT
+   *
+   */
+
+  const handleButtonClick = (action: string) => {
+    handleSubmit(action);
+  };
+  const handleSubmit = async (action: string) => {
+
+    const productData: TProductData = {
+      ...formData,
+      images,
+    };
+
+    productData.status = action;
+
+    const dataToSend = new FormData();
+    dataToSend.append("name", productData.name);
+    dataToSend.append("id", String(listingId));
+    dataToSend.append("description", productData.description);
+    dataToSend.append("condition", productData.condition);
+    dataToSend.append("shippingInfo", productData.shippingInfo);
+    dataToSend.append("brand", productData.brand);
+    dataToSend.append("quantity", String(productData.quantity));
+    dataToSend.append("status", productData.status);
+    dataToSend.append("categoryPath", category.path);
+    dataToSend.append("price", productData.price || "0.00");
+    dataToSend.append("minPrice", productData.minPrice || "0.00");
+    dataToSend.append("sku", productData.sku);
+    dataToSend.append("itemSize", productData.itemSize);
+    dataToSend.append("productionYear", productData.yearMade);
+    dataToSend.append("model", productData.model);
+    dataToSend.append("itemNumber", productData.itemNumber);
+    dataToSend.append("width", productData.width);
+    dataToSend.append("height", productData.height);
+    dataToSend.append("depth", productData.depth);
+    dataToSend.append("personalCollectionAvailable",
+      String(isCollectAvailable),
+    );
+    dataToSend.append('token',String(localStorage.getItem('update-token')))
+    dataToSend.append(
+      "collectionCity",
+      collectionCity
+    );
+
+    images.forEach((file, index) => {
+      dataToSend.append("images", file.file);
+      dataToSend.append("imageSortOrder", String(index));
+    });
+
+   // console.log(Object.fromEntries(dataToSend));
+
+    try {
+      const response = await editLisitng(dataToSend);     
+      
+      if (response?.data==true) {
+        localStorage.removeItem('update-token')
+           navigate("/shop");
+      }
+
+      if (response.error) {
+        const errorResponse = response.error as {
+          data?: {
+            message?: any;
+            error?: Record<string, unknown>;
+          };
+          status?: number;
+          message?: string;
+        };
+
+        const messages: string[] = [];
+        const responseMessage = errorResponse.data?.message as
+          | string
+          | Record<string, string>;
+
+        if (typeof responseMessage === "string") {
+          setError(responseMessage);
+        } else {
+          const errors = Object.values(responseMessage);
+
+          if (messages.length === 0 && errorResponse.message) {
+            errors.map((error) => {
+              messages.push(error);
+            });
+          }
+
+          setError(errors.join("\n"));
+        }
+      }
+    } catch (error: any) {}
+  };
+
+  const handleCategoryChange = (category: string, path: string) => {
+    setCategory({ name: category, path });
+  };
+
+      const handleCityChange = (city:string,region:String) => {
+    setCollectionCity(`${city},${region}`)
+  };
+
+
+  const token =         localStorage.getItem('update-token')
+  if(!token){
+    navigate('/shop')
+  }
+
+  return (
+    <main className="add-product">
+      {/* =====================================================
+                HEADER
+            ====================================================== */}
+      <header className="add-product__header">
+        <div className="add-product__header-left">
+          <Link
+            to={"/account/listings/me"}
+            className="add-product__back"
+          >
+            <FiArrowLeft />
+          </Link>
+
+          <div>
+            <h1>{t("add_listing.header.title_edit")}</h1>
+            <p>{t("add_listing.header.subtitle")}</p>
+          </div>
+        </div>
+
+        <div className="add-product__header-actions">
+          <button
+            type="button"
+            className="add-product__draft-btn"
+            onClick={() => handleButtonClick("DRAFT")}
+          >
+            {t("add_listing.header.actions.save_draft")}
+          </button>
+
+          <button
+            type="button"
+            form="add-product-form"
+            className="add-product__publish-btn"
+            onClick={() => handleButtonClick("PUBLISH")}
+          >
+            {t("add_listing.header.actions.publish")}
+          </button>
+        </div>
+      </header>
+      <div
+        className="add-product__error-container"
+        role="alert"
+      >
+        {error && <span className="add-product__error-text">{error}</span>}
+      </div>
+
+      {/* =====================================================
+                FORM
+            ====================================================== */}
+      <form
+        id="add-product-form"
+        className="add-product__form"
+        onSubmit={(e) => e.preventDefault()}
+      >
+        <div className="add-product__layout">
+          {/* =================================================
+                        LEFT COLUMN
+                    ================================================== */}
+          <div className="add-product__main">
+            {/* Product Images */}
+            <section className="product-section">
+              <div className="product-section__header">
+                <div>
+                  <h2>{t("add_listing.sections.images.title")}</h2>
+                  <p>{t("add_listing.sections.images.subtitle")}</p>
+                </div>
+
+                <span>{images.length}/8</span>
+              </div>
+
+              <div className="product-images">
+                {images.map((image, index) => (
+                  <div
+                    className="product-image"
+                    key={index}
+                  >
+                    <img
+                      src={image.preview}
+                      alt={`Product ${index + 1}`}
+                    />
+
+                    <button
+                      type="button"
+                      onClick={() => removeImage(index)}
+                      className="product-image__remove"
+                    >
+                      <FiX />
+                    </button>
+
+                    {index === 0 && (
+                      <span className="product-image__primary">
+                        {t("add_listing.sections.images.main_label")}
+                      </span>
+                    )}
+                  </div>
+                ))}
+
+                {images.length < 8 && (
+                  <label className="product-image__upload">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleImageUpload}
+                    />
+
+                    <FiImage />
+
+                    <span>{t("add_listing.sections.images.add_btn")}</span>
+
+                    <small>{t("add_listing.sections.images.hint")}</small>
+                  </label>
+                )}
+              </div>
+            </section>
+
+            {/* Basic Information */}
+            <section className="product-section">
+              <div className="product-section__header">
+                <div>
+                  <h2>{t("add_listing.sections.info.title")}</h2>
+                  <p>{t("add_listing.sections.info.subtitle")}</p>
+                </div>
+              </div>
+
+              <div className="form-grid">
+                <div>
+                  <div className="form-field form-field--full">
+                    <label htmlFor="name">
+                      {t("add_listing.fields.name.label")}
+                    </label>
+
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder={t("add_listing.fields.name.placeholder")}
+                      value={formData.name || ""}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/** CATEGORY */}
+
+                <CategoryDropdownSelect
+                  onChange={handleCategoryChange}
+                  name={"category"}
+                  value={category.name}
+                />
+
+                <div className="form-field">
+                  <label htmlFor="condition">
+                    {t("add_listing.fields.condition.label")}
+                  </label>
+
+                  <select
+                    id="condition"
+                    name="condition"
+                    value={formData.condition || ""}
+                    onChange={handleSelectChange}
+                  >
+                    <option
+                      value=""
+                      disabled
+                    >
+                      {t("add_listing.fields.condition.placeholder")}
+                    </option>
+
+                    {conditions?.map((condition) => {
+                      return (
+                        <option
+                          key={condition.id}
+                          value={condition.name}
+                        >
+                          {t(
+                            `product_conditions.conditions.${sanitizeBackendKey(condition.name.toLowerCase())}`,
+                          )}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+                <div className="form-field">
+                  <label htmlFor="model">
+                    {t("add_listing.fields.automotive.model")}
+                  </label>
+
+                  <input
+                    id="model"
+                    name="model"
+                    type="text"
+                    placeholder={""}
+                    value={formData.model || ""}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="oem_number">
+                    {t("add_listing.fields.automotive.oem_number")}
+                  </label>
+
+                  <input
+                    id="itemNumber"
+                    name="itemNumber"
+                    type="text"
+                    placeholder={""}
+                    value={formData.itemNumber || ""}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="year">
+                    {t("add_listing.fields.automotive.year")}
+                  </label>
+
+                  <input
+                    id="yearMade"
+                    name="yearMade"
+                    type="text"
+                    placeholder={""}
+                    value={formData.yearMade || ""}
+                    onChange={handleInputChange}
+                  />
+                </div>
+
+                <div>
+                  <div className="form-field form-field--full">
+                    <label htmlFor="description">
+                      {t("add_listing.fields.description.label")}
+                    </label>
+
+                    <textarea
+                      id="description"
+                      name="description"
+                      rows={7}
+                      placeholder={t(
+                        "add_listing.fields.description.placeholder",
+                      )}
+                      value={formData.description || ""}
+                      onChange={handleTextInputChange}
+                    />
+
+                    <span className="form-field__hint">
+                      {t("add_listing.fields.description.hint")}
+                    </span>
+                        <div className="description-guidance">
+                        <strong>{t("add_listing.fields.description.measurement_tips.title")}</strong>
+                        <ul>
+                          <li>{t("add_listing.fields.description.measurement_tips.items.tip_1")}</li>
+                          <li>{t("add_listing.fields.description.measurement_tips.items.tip_2")}</li>
+                          <li>{t("add_listing.fields.description.measurement_tips.items.tip_3")}</li>
+                          <li>{t("add_listing.fields.description.measurement_tips.items.tip_4")}</li>
+                        </ul>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Pricing & Inventory */}
+            <section className="product-section">
+              <div className="product-section__header">
+                <div>
+                  <h2>{t("add_listing.sections.pricing.title")}</h2>
+                  <p>{t("add_listing.sections.pricing.subtitle")}</p>
+                </div>
+              </div>
+
+              <div className="form-grid">
+                <div className="form-field">
+                  <label htmlFor="price">
+                    {t("add_listing.fields.price.price")}
+                  </label>
+
+                  <div className="input-with-prefix">
+                    <span>zł</span>
+
+                    <input
+                      id="price"
+                      name="price"
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      placeholder="0.00"
+                      value={formData.price}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="form-field">
+                  <label htmlFor="price">
+                    {t("add_listing.fields.price.min_price")}
+                  </label>
+
+                  <div className="input-with-prefix">
+                    <span>zł</span>
+
+                    <input
+                      id="minPrice"
+                      name="minPrice"
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      placeholder="0.00"
+                      value={formData.minPrice}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="form-field">
+                  <label htmlFor="quantity">
+                    {t("add_listing.fields.quantity.label")}
+                  </label>
+
+                  <input
+                    id="quantity"
+                    name="quantity"
+                    type="number"
+                    min="1"
+                    placeholder="1"
+                    value={formData.quantity}
+                    onChange={handleInputChange}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="brand">
+                    {t("add_listing.fields.brand.label")}
+                  </label>
+                  <SearchSelect
+                    brands={brands as TbrandResponse[]}
+                    value={formData.brand || ""}
+                    onChange={handleSelectChange}
+                  />
+                </div>
+
+                <div className="form-field">
+                  <label htmlFor="sku">
+                    {t("add_listing.fields.sku.label")}
+                  </label>
+
+                  <input
+                    id="sku"
+                    name="sku"
+                    type="text"
+                    placeholder={t("add_listing.fields.sku.placeholder")}
+                    value={formData.sku || ""}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+            </section>
+
+            {/* Shipping */}
+            <section className="product-section">
+              <div className="product-section__header">
+                <div>
+                  <h2>{t("add_listing.sections.shipping.title")}</h2>
+                </div>
+              </div>
+
+              {/* Personal collection */}
+              <div className="personal-collection-section">
+                <div className="form-field">
+                  <label
+                    className="personal-collection-toggle"
+                    htmlFor="personalCollectionAvailable"
+                  >
+                    <input
+                      id="personalCollectionAvailable"
+                      name="personalCollectionAvailable"
+                      type="checkbox"
+                      checked={isCollectAvailable}
+                      onChange={(e)=>setIsCollectAvailable(e.target.checked)}
+                    />
+                   <span>{t("add_listing.fields.shipping_info.personal_collection.header")}</span>
+                  </label>
+                  <small>
+                                    {t("add_listing.fields.shipping_info.personal_collection.sub_header")}
+                  </small>
+                </div>
+
+                 {isCollectAvailable && (
+                 <CityDropdownSelect name={"collectionCity"} value={collectionCity.split(",")[0]} onChange={handleCityChange}/>
+                )}
+              </div>
+
+              {/** ITEM SIZE */}
+              <div className="form-field">
+                <label htmlFor="shippingMethod">
+                  {t("add_listing.fields.cargo_sizes.label")}
+                </label>
+
+                <select
+                  id="itemSize"
+                  name="itemSize"
+                  value={formData.itemSize || ""}
+                  onChange={handleSelectChange}
+                >
+                  <option
+                    value=""
+                    disabled
+                  >
+                    {t("add_listing.fields.cargo_sizes.placeholder")}
+                  </option>
+
+                  {ITEM_SIZE.map((size) => {
+                    return (
+                      <option
+                        key={size.id}
+                        value={size.value}
+                      >
+                        {t(
+                          `add_listing.fields.cargo_sizes.item_size.${size.value}`,
+                        )}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+
+              <div>
+                <div className="form-field">
+                  <label htmlFor="width">
+                    {t("add_listing.fields.dimension.width")}
+                  </label>
+
+                  <input
+                    id="width"
+                    name="width"
+                    type="text"
+                    placeholder={""}
+                    value={formData.width}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="height">
+                    {t("add_listing.fields.dimension.height")}
+                  </label>
+
+                  <input
+                    id="height"
+                    name="height"
+                    type="text"
+                    placeholder={""}
+                    value={formData.height}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="depth">
+                    {t("add_listing.fields.dimension.depth")}
+                  </label>
+
+                  <input
+                    id="depth"
+                    name="depth"
+                    type="text"
+                    placeholder={""}
+                    value={formData.depth}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+
+              <div className="form-field shippingInfo">
+                <label htmlFor="shippingInfo">
+                  {t("add_listing.fields.shipping_info.label")}
+                </label>
+
+                <textarea
+                  id="shippingInfo"
+                  name="shippingInfo"
+                  rows={4}
+                  placeholder={t(
+                    "add_listing.fields.shipping_info.placeholder",
+                  )}
+                  value={formData.shippingInfo}
+                  onChange={handleTextInputChange}
+                />
+              </div>
+            </section>
+          </div>
+
+          {/* =================================================
+                        RIGHT SIDEBAR
+                    ================================================== */}
+          <aside className="add-product__sidebar">
+            {/* Publish */}
+            <section className="product-card">
+              <div className="product-card__header">
+                <h3>{t("add_listing.sidebar.status.title")}</h3>
+              </div>
+
+              <div className="status-option">
+                <div className="status-option__icon">
+                  <span className="primary" />
+                </div>
+
+                <div className="status-option__message">
+                  <div>
+                    <strong>
+                      {t("add_listing.sidebar.status.publish_label")}
+                    </strong>
+                    <p>{t("add_listing.sidebar.status.publish_desc")}</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Tips */}
+            <section className="product-card">
+              <div className="product-card__header">
+                <h3>{t("add_listing.sidebar.tips.title")}</h3>
+              </div>
+
+              <ul className="product-tips">
+                <li>{t("add_listing.sidebar.tips.tip1")}</li>
+                <li>{t("add_listing.sidebar.tips.tip2")}</li>
+                <li>{t("add_listing.sidebar.tips.tip3")}</li>
+                <li>{t("add_listing.sidebar.tips.tip4")}</li>
+              </ul>
+            </section>
+
+            {/* Preview */}
+            <section className="product-card product-card--preview">
+              <div className="product-card__header">
+                <h3>{t("add_listing.sidebar.preview.title")}</h3>
+              </div>
+
+              <div className="product-preview">
+                <div className="product-preview__image">
+                  {images.length > 0 ? (
+                    <img
+                      src={images[0].preview}
+                      alt="Product preview"
+                    />
+                  ) : (
+                    <FiImage />
+                  )}
+                </div>
+
+                <div className="product-preview__content">
+                  <span>
+                    {formData.category.name ||
+                      t("add_listing.sidebar.preview.fallback_category")}
+                  </span>
+                  <h4>
+                    {formData.name ||
+                      t("add_listing.sidebar.preview.fallback_name")}
+                  </h4>
+                  <strong>{formData.price || "0.00"} zł</strong>
+                </div>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </form>
+    </main>
+  );
+};
+
+export default EditListingWithToken;

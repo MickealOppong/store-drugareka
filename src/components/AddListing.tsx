@@ -85,6 +85,7 @@ const AddListing = () => {
    */
   const { t } = useTranslation();
 
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -264,6 +265,7 @@ const AddListing = () => {
     setCityValue(city)
   };
 
+  console.log(category);
   
 
   return (
@@ -513,6 +515,16 @@ const AddListing = () => {
                     <span className="form-field__hint">
                       {t("add_listing.fields.description.hint")}
                     </span>
+
+                      <div className="description-guidance">
+                        <strong>{t("add_listing.fields.description.measurement_tips.title")}</strong>
+                        <ul>
+                          <li>{t("add_listing.fields.description.measurement_tips.items.tip_1")}</li>
+                          <li>{t("add_listing.fields.description.measurement_tips.items.tip_2")}</li>
+                          <li>{t("add_listing.fields.description.measurement_tips.items.tip_3")}</li>
+                          <li>{t("add_listing.fields.description.measurement_tips.items.tip_4")}</li>
+                        </ul>
+                      </div>
                   </div>
                 </div>
               </div>

@@ -13,7 +13,6 @@ import {
   useGetAllConditionsQuery,
   useGetBrandsQuery,
 } from "../features/api/transApi";
-import { useAppSelector } from "../store";
 import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TListTrans } from "../types/TListTrans";
 import type { TProductData } from "../types/TProductData";
@@ -39,7 +38,7 @@ const EditListing = () => {
     name: "",
     path: "",
   });
-  const roles = useAppSelector((state) => state.userSlice.roles);
+
 
   /**
    * Brand query
@@ -268,17 +267,14 @@ const EditListing = () => {
       dataToSend.append("imageSortOrder", String(index));
     });
 
-    console.log(Object.fromEntries(dataToSend));
+   // console.log(Object.fromEntries(dataToSend));
 
     try {
       const response = await editLisitng(dataToSend);
+      
 
-      if (response.data?.httpStatus === 200) {
-        if (roles.includes("ROLE_ADMIN")) {
-          navigate("/account/admin/listings");
-        } else {
-          navigate("/account/listings/me");
-        }
+      if (response.data===true) {
+           navigate("/account/listings/me");
       }
 
       if (response.error) {
@@ -337,7 +333,7 @@ const EditListing = () => {
           </Link>
 
           <div>
-            <h1>{t("add_listing.header.title_add")}</h1>
+            <h1>{t("add_listing.header.title_edit")}</h1>
             <p>{t("add_listing.header.subtitle")}</p>
           </div>
         </div>
@@ -569,6 +565,15 @@ const EditListing = () => {
                     <span className="form-field__hint">
                       {t("add_listing.fields.description.hint")}
                     </span>
+                        <div className="description-guidance">
+                        <strong>{t("add_listing.fields.description.measurement_tips.title")}</strong>
+                        <ul>
+                          <li>{t("add_listing.fields.description.measurement_tips.items.tip_1")}</li>
+                          <li>{t("add_listing.fields.description.measurement_tips.items.tip_2")}</li>
+                          <li>{t("add_listing.fields.description.measurement_tips.items.tip_3")}</li>
+                          <li>{t("add_listing.fields.description.measurement_tips.items.tip_4")}</li>
+                        </ul>
+                      </div>
                   </div>
                 </div>
               </div>

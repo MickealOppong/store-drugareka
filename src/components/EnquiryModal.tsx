@@ -1,4 +1,5 @@
-import { useState, type ChangeEvent } from "react";
+
+import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { FiInfo, FiMessageSquare, FiX } from "react-icons/fi";
 import "../css/EnquiryModal.css";
@@ -19,18 +20,19 @@ const EnquiryModal = ({
 }: EnquiryModalProps) => {
   const { t } = useTranslation();
   const [question, setQuestion] = useState("");
+  const [success, setSuccess] = useState(false);
   const maxLength = 200;
 
   const [createEnquiry, { isLoading }] = useCreateEnquiryMutation();
 
   if (!isOpen) return null;
 
-  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const trimmedQuestion = question.trim();
 
-    if (!trimmedQuestion || isLoading) return;
+    if (!trimmedQuestion || isLoading || success) return;
 
     try {
       const response = await createEnquiry({
@@ -39,8 +41,8 @@ const EnquiryModal = ({
       }).unwrap();
 
       if (response === true) {
+        setSuccess(true);
         setQuestion("");
-        onClose();
       }
     } catch (error) {
       console.error("Failed to submit enquiry:", error);
@@ -50,6 +52,7 @@ const EnquiryModal = ({
   const handleClose = () => {
     if (isLoading) return;
     setQuestion("");
+    setSuccess(false);
     onClose();
   };
 
@@ -77,80 +80,114 @@ const EnquiryModal = ({
         </div>
 
         <h2 id="enquiry-modal-title">
-          {t("enquiry_modal.title", {
-            defaultValue: "Poproś o brakujące informacje",
-          })}
+          {success
+            ? t("enquiry_modal.success_title", {
+                defaultValue: "Zapytanie zostało wysłane",
+              })
+            : t("enquiry_modal.title", {
+                defaultValue: "Poproś o brakujące informacje",
+              })}
         </h2>
 
         <p className="enquiry-product-name">{productName}</p>
 
-        <p className="enquiry-description">
-          {t("enquiry_modal.description", {
-            defaultValue:
-              "Brakuje Ci jakiejś informacji? Zadaj pytanie, a przekażemy je sprzedającemu.",
-          })}
-        </p>
-
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="enquiry-question">
-            {t("enquiry_modal.question_label", {
-              defaultValue: "Twoje pytanie",
-            })}
-          </label>
-
-          <textarea
-            id="enquiry-question"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            placeholder={t("enquiry_modal.question_placeholder", {
-              defaultValue:
-                "np. dodatkowe informacje pomagające dopasować produkt",
-            })}
-            maxLength={maxLength}
-            rows={5}
-            required
-            disabled={isLoading}
-          />
-
-          <div className="enquiry-character-count">
-            {question.length}/{maxLength}
-          </div>
-
-          <div className="enquiry-information">
+        {success ? (
+          <div className="enquiry-information" role="status">
             <FiInfo aria-hidden="true" />
             <p>
-              {t("enquiry_modal.privacy_notice", {
+              {t("enquiry_modal.success_message", {
                 defaultValue:
-                  "Sprzedający nie skontaktuje się z Tobą bezpośrednio. Jeśli uzupełni ofertę, poinformujemy Cię o jej aktualizacji.",
+                  "Dziękujemy za zapytanie. Przekazaliśmy je sprzedającemu. Poinformujemy Cię, gdy oferta zostanie uzupełniona.",
               })}
             </p>
           </div>
+        ) : (
+          <>
+            <p className="enquiry-description">
+              {t("enquiry_modal.description", {
+                defaultValue:
+                  "Brakuje Ci jakiejś informacji? Zadaj pytanie, a przekażemy je sprzedającemu.",
+              })}
+            </p>
 
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="enquiry-question">
+                {t("enquiry_modal.question_label", {
+                  defaultValue: "Twoje pytanie",
+                })}
+              </label>
+
+              <textarea
+                id="enquiry-question"
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+                placeholder={t("enquiry_modal.question_placeholder", {
+                  defaultValue:
+                    "np. dodatkowe informacje pomagające dopasować produkt",
+                })}
+                maxLength={maxLength}
+                rows={5}
+                required
+                disabled={isLoading}
+              />
+
+              <div className="enquiry-character-count">
+                {question.length}/{maxLength}
+              </div>
+
+              <div className="enquiry-information">
+                <FiInfo aria-hidden="true" />
+                <p>
+                  {t("enquiry_modal.privacy_notice", {
+                    defaultValue:
+                      "Sprzedający nie skontaktuje się z Tobą bezpośrednio. Jeśli uzupełni ofertę, poinformujemy Cię o jej aktualizacji.",
+                  })}
+                </p>
+              </div>
+
+              <div className="enquiry-modal-actions">
+                <button
+                  type="button"
+                  className="enquiry-cancel-btn"
+                  onClick={handleClose}
+                  disabled={isLoading}
+                >
+                  {t("enquiry_modal.actions.cancel", {
+                    defaultValue: "Anuluj",
+                  })}
+                </button>
+
+                <button
+                  type="submit"
+                  className="enquiry-submit-btn"
+                  disabled={!question.trim() || isLoading}
+                >
+                  {isLoading
+                    ? t("enquiry_modal.actions.submitting", {
+                        defaultValue: "Wysyłanie...",
+                      })
+                    : t("enquiry_modal.actions.submit", {
+                        defaultValue: "Wyślij zapytanie",
+                      })}
+                </button>
+              </div>
+            </form>
+          </>
+        )}
+
+        {success && (
           <div className="enquiry-modal-actions">
             <button
               type="button"
-              className="enquiry-cancel-btn"
-              onClick={handleClose}
-              disabled={isLoading}
-            >
-              {t("enquiry_modal.actions.cancel", { defaultValue: "Anuluj" })}
-            </button>
-
-            <button
-              type="submit"
               className="enquiry-submit-btn"
-              disabled={!question.trim() || isLoading}
+              onClick={handleClose}
             >
-              {isLoading
-                ? t("enquiry_modal.actions.submitting", {
-                    defaultValue: "Wysyłanie...",
-                  })
-                : t("enquiry_modal.actions.submit", {
-                    defaultValue: "Wyślij zapytanie",
-                  })}
+              {t("enquiry_modal.actions.close", {
+                defaultValue: "Zamknij",
+              })}
             </button>
           </div>
-        </form>
+        )}
       </div>
     </div>
   );
