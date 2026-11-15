@@ -13,7 +13,6 @@ import {
     useGetAllConditionsQuery,
     useGetBrandsQuery,
 } from "../features/api/sellerApi";
-import { useAppSelector } from "../store";
 import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TListTrans } from "../types/TListTrans";
 import type { TProductData } from "../types/TProductData";
@@ -42,7 +41,7 @@ const EditListingWithToken = () => {
     name: "",
     path: "",
   });
-  const roles = useAppSelector((state) => state.userSlice.roles);
+
 
   /**
    * Brand query
