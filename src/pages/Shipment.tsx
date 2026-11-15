@@ -119,19 +119,19 @@ useEffect(() => {
           <span className="panel-view__eyebrow">
             {activeTab === "ACTUAL"
               ? t("shipments.header.eyebrow")
-              : "Zwroty"}
+              : t("shipments.header.eyebrow_returns")}
           </span>
 
           <h1 className="panel-view__title">
             {activeTab === "ACTUAL"
               ? t("shipments.header.title")
-              : "Logistyka Zwrotów Towaru"}
+              : t("shipments.header.title_returns")}
           </h1>
 
           <p className="panel-view__description">
             {activeTab === "ACTUAL"
               ? t("shipments.header.description")
-              : "Zarządzaj przesyłkami zwrotnymi generowanymi przez kupujących w ramach procedur reklamacji."}
+              : t("shipments.header.description_returns")}
           </p>
         </div>
       </header>
@@ -183,7 +183,7 @@ useEffect(() => {
             placeholder={
               activeTab === "ACTUAL"
                 ? t("shipments.toolbar.search_placeholder")
-                : "Szukaj..."
+                : t("shipments.toolbar.search_placeholder_returns")
             }
             value={search}
             onChange={(event) => setSearch(event.target.value)}
@@ -220,7 +220,7 @@ useEffect(() => {
             <div className="panel-view__empty-title">
               {activeTab === "ACTUAL"
                 ? t("shipments.empty.title")
-                : "Brak przesyłek zwrotnych"}
+                : t("shipments.empty.title_returns")}
             </div>
 
             <p>
@@ -228,7 +228,7 @@ useEffect(() => {
                 ? t("shipments.empty.search_desc")
                 : activeTab === "ACTUAL"
                 ? t("shipments.empty.default_desc")
-                : "W systemie nie zarejestrowano obecnie żadnych aktywnych zwrotów logistycznych."}
+                : t("shipments.empty.default_desc_returns")}
             </p>
           </div>
         ) : (
@@ -243,13 +243,13 @@ useEffect(() => {
                   <th>
                     {activeTab === "ACTUAL"
                       ? t("shipments.table.headers.seller")
-                      : "Kupujący (Zwracający)"}
+                      :  t("shipments.table.headers.buyer_returning")}
                   </th>
 
                   <th>
                     {activeTab === "ACTUAL"
                       ? t("shipments.table.headers.address")
-                      : "Adres Odbioru Zwrotu"}
+                      :t("shipments.table.headers.return_address")}
                   </th>
 
                   <th>
@@ -273,13 +273,15 @@ useEffect(() => {
                   <th>
                     {activeTab === "ACTUAL"
                       ? t("shipments.table.headers.shipped_at")
-                      : "Nadano Zwrot"}
+                      : t("shipments.table.headers.shipped_at_return")
+                      }
                   </th>
 
                   <th>
                     {activeTab === "ACTUAL"
                       ? t("shipments.table.headers.delivered_at")
-                      : "Odebrano Zwrot"}
+                      : t("shipments.table.headers.delivered_at_return")
+                      }
                   </th>
 
                   <th>
