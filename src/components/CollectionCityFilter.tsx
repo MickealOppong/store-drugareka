@@ -101,14 +101,20 @@ export const CollectionCityFilter = ({
   const selectCity = (city: string, region: CityRegion) => {
   
     searchParams.set("collectionCity", `${city}_${region.name}`);
+      localStorage.setItem('default-city',city)
+        localStorage.setItem('default-region',region.name)
     navigate(`${pathname}?${searchParams.toString()}`);
     setIsOpen(false);
   };
 
 const clearCityFilter =()=>{
   searchParams.delete("collectionCity");
+    localStorage.removeItem('isCollection-toggle')
+       localStorage.removeItem('default-city')
+        localStorage.removeItem('default-region')
+       setIsOpen(false);
   navigate(`${pathname}?${searchParams.toString()}`);
-    setIsOpen(false);
+ 
 }
 
   

@@ -57,14 +57,20 @@ export const Categories: React.FC = () => {
     error,
   } = useGetCategoryTreeQuery();
 
+    //default city and region from localStorage
+  const default_city = localStorage.getItem('default-city') || ''
+  const default_region = localStorage.getItem('default-region')||""
+      const default_toggle= localStorage.getItem('isCollection-toggle') ||''
+      
+
   const page = parseInt(searchParams.get("page") || "1", 10);
   const selectedCategory = searchParams.get("category") || "all";
   const condition = searchParams.get("condition") || "";
   const brand = searchParams.get("brand") || "";
-    const region = searchParams.get("region") || "";
-  const selectedCollectionCity = searchParams.get("collectionCity") || "";
+    const region = searchParams.get("region") || default_region;
+  const selectedCollectionCity = searchParams.get("collectionCity") || default_city;
   const isCollectionAvailable =
-    searchParams.get("isCollectionAvailable") || "false";
+    searchParams.get("isCollectionAvailable") || default_toggle;
 
   const queryDto: TQueryDto = {
     category: selectedCategory,
@@ -113,7 +119,11 @@ export const Categories: React.FC = () => {
     nextParams.delete("condition");
     nextParams.delete("brand");
     nextParams.set("category", "all_0");
+    localStorage.removeItem('isCollection-toggle')
+           localStorage.removeItem('default-city')
+        localStorage.removeItem('default-region')
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
+    
   };
 
   const findCategory = () => {
@@ -164,6 +174,7 @@ export const Categories: React.FC = () => {
   const hanldeIsAvailableParam = (selected: boolean) => {
     const searchParams = new URLSearchParams(search);
     searchParams.set("isCollectionAvailable", String(selected));
+      localStorage.setItem('isCollection-toggle',String(selected))
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 

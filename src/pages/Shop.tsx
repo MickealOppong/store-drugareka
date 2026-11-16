@@ -52,14 +52,21 @@ const Shop = () => {
   // 1. Core State Trackers synchronized natively with standard parameters
   const [sort, setSort] = useState<string>("newest");
 
+  //default city and region from localStorage
+  const default_city = localStorage.getItem('default-city') || ''
+  const default_region = localStorage.getItem('default-region')||""
+    const default_toggle= localStorage.getItem('isCollection-toggle') || ''
+
+
   // Safely extract the default active category from URL line, falling back to global state
   const page = parseInt(searchParams.get("page") || "1", 10);
   const selectedCategory = searchParams.get("category") || "all";
   const condition = searchParams.get("condition") || "";
-  const selectedCollectionCity = searchParams.get("collectionCity") || "";
-  const region = searchParams.get("region") || "";
+  const selectedCollectionCity = searchParams.get("collectionCity") || default_city;
+  const region = searchParams.get("region")||  default_region;
   const isCollectionAvailable =
-    searchParams.get("isCollectionAvailable") || "false";
+    searchParams.get("isCollectionAvailable") || default_toggle;
+    
 
   const queryDto: TQueryDto = {
     category: selectedCategory,
@@ -177,6 +184,7 @@ const Shop = () => {
   const hanldeIsAvailableParam = (selected: boolean) => {
     const searchParams = new URLSearchParams(search);
     searchParams.set("isCollectionAvailable", String(selected));
+    localStorage.setItem('isCollection-toggle',String(selected))
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 
@@ -189,7 +197,11 @@ const Shop = () => {
     nextParams.delete("region");
     nextParams.delete("brand");
     nextParams.set("category", "all_0");
+      localStorage.removeItem('isCollection-toggle')
+             localStorage.removeItem('default-city')
+        localStorage.removeItem('default-region')
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
+
   };
 
   const { hash } = useLocation();
