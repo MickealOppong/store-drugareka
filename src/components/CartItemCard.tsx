@@ -40,6 +40,10 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ item, onRemove }) => {
             <p className="cart-item-delivery-label">{t("cart.item.item_price_label")}</p>
             <strong className="cart-item-price">{formatPrice(item.price)} zł</strong>
           </div>
+                <div>
+            <p className="cart-item-delivery-label">{t("cart.item.item_qty_label")}</p>
+            <strong className="cart-item-price">{item.quantity}</strong>
+          </div>
   
         </footer>
       </div>

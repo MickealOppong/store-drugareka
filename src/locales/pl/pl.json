@@ -957,6 +957,7 @@
     "item": {
       "remove_hint": "Remove item from cart",
       "item_price_label": "Cena przedmiotu",
+        "item_qty_label": "Ilości",
       "shipping_cost_label": "Koszt wysyłki"
     },
     "address": {
@@ -1060,7 +1061,7 @@
       "savings": "Oszczędzasz {{amount}} zł ({{percent}}%)"
     },
     "safety": {
-      "return_assurance": "24 godziny na odrzucenie produktu po dostawie i na jego zwrot."
+      "return_assurance": "24 godziny na odrzucenie produktu po dostawie i 3 dni na jego zwrot."
     },
     "actions": {
       "buy_now": "Kup teraz",

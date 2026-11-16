@@ -966,6 +966,7 @@
     "item": {
       "remove_hint": "Remove item from cart",
       "item_price_label": "Item price",
+           "item_qty_label": "Quantity",
       "shipping_cost_label": "Shipping cost"
     },
     "address": {

@@ -7,6 +7,7 @@ import {
   FiHeart,
   FiMapPin,
   FiRefreshCw,
+  FiShare,
   FiShield,
   FiShoppingBag,
   FiTag,
@@ -71,6 +72,8 @@ const ProductDetails = () => {
     (state) => state.userSlice,
   );
 
+  
+
   // Modal state.
   const [openModal, setOpenModal] = useState(false);
   const [openEnquiry, setOpenEnquiry] = useState<boolean>(false);
@@ -118,7 +121,8 @@ const ProductDetails = () => {
       return;
     }
 
-    await addToWish(listingId);
+   await addToWish(listingId);
+     
   };
 
   // Close offer modal.
@@ -142,6 +146,31 @@ const ProductDetails = () => {
     setOpenModal(true);
   };
 
+
+  //share product
+  const handleShare = async () => {
+  const shareData = {
+    title: product?.productSlug,
+    text: `Sprawdź ten produkt na Kasoa.pl`,
+    url: window.location.href,
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else {
+      await navigator.clipboard.writeText(shareData.url);
+      //toast.success("Link skopiowany");
+    }
+  } catch (error) {
+    if (error instanceof Error && error.name !== "AbortError") {
+      await navigator.clipboard.writeText(shareData.url);
+      //toast.success("Link skopiowany");
+    }
+  }
+};
+
+
   // Buy at the displayed price.
   // Connect this to your existing cart/checkout implementation.
   const handleBuyNow = async (listingId: number) => {
@@ -150,7 +179,7 @@ const ProductDetails = () => {
       return;
     }
 
-    if (isCheckoutLoading) return;
+    //if (isCheckoutLoading) return;
 
     setError(null);
     setIsCheckoutLoading(true);
@@ -165,6 +194,7 @@ const ProductDetails = () => {
       }
 
       window.location.assign(checkoutURL);
+        setIsCheckoutLoading(false);
     } catch (err) {
       console.error("Failed to initiate checkout:", err);
 
@@ -173,6 +203,7 @@ const ProductDetails = () => {
           defaultValue: "Nie udało się rozpocząć płatności. Spróbuj ponownie.",
         }),
       );
+        setIsCheckoutLoading(false);
     } finally {
       setIsCheckoutLoading(false);
     }
@@ -260,6 +291,8 @@ const ProductDetails = () => {
         {/* PRODUCT MEDIA */}
         <div className="product-details__media-showcase">
           <div className="product-details__primary-viewport">
+            <button className="product-details__primary-share"
+             onClick={()=>handleShare()}><FiShare/></button>
             <img
               src={activeImage?.image || defImage}
               alt={`${product.productName} - View ${activeImageIdx + 1}`}

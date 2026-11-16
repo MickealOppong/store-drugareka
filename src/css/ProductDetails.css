@@ -1,6 +1,5 @@
-@charset "UTF-8";
 /* ==========================================================================
-   MASTER SINGLE PRODUCT CONTAINER LAYOUT (.product-details)
+   MASTER SINGLE PRODUCT MAIN VIEW CONTAINER (.product-details)
    ========================================================================== */
 .product-details {
   width: 100%;
@@ -15,9 +14,6 @@
     padding: 24px 32px;
   }
 }
-.product-details {
-  /* Shared Typography Eyebrows */
-}
 .product-details .section-eyebrow, .product-details__brand-label {
   display: inline-block;
   font-size: 0.72rem;
@@ -28,33 +24,27 @@
   margin-bottom: 0.5rem;
 }
 .product-details {
-  /* =========================================================
-     Error
-     ========================================================= */
+  /* Inline Checkout Error Callout (.product-details__error) */
 }
 .product-details__error {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 1.25rem;
-  padding: 10px 14px;
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  margin-bottom: 1.25rem;
   background-color: #FDF2F2;
-  border: 1px solid rgba(194, 75, 75, 0.12);
-  border-radius: 10px;
+  border: 1px solid rgba(194, 75, 75, 0.2);
+  border-radius: 12px;
   color: #C24B4B;
-  font-size: 0.82rem;
-  font-weight: 600;
-  line-height: 1.4;
+  font-size: 0.88rem;
+  font-weight: 650;
+  line-height: 1.45;
+  text-align: left;
   box-sizing: border-box;
-  animation: mktAlertPop 0.22s ease-out;
-}
-.product-details__error svg {
-  font-size: 1.1rem;
-  flex-shrink: 0;
 }
 
 /* ==========================================================================
-   1. STRUCTURAL BREADCRUMB HEADER NAV
+   1. BREADCRUMB HEADER STEERING NAVIGATION
    ========================================================================== */
 .product-details__nav-header {
   display: flex;
@@ -102,7 +92,7 @@
 }
 
 /* ==========================================================================
-   2. PRIMARY SINGLE PRODUCT ASYMMETRIC GRID WORKSPACE WRAPPER
+   2. PRIMARY ASYMMETRIC GRID CANVAS WRAPPER
    ========================================================================== */
 .product-details__main-wrapper {
   display: flex;
@@ -115,11 +105,11 @@
   .product-details__main-wrapper {
     flex-direction: row;
     align-items: flex-start;
-    gap: 3rem;
+    gap: 3.5rem;
   }
 }
 
-/* LEFT COLUMN — MEDIA CAROUSEL Showcase VIEWPORT */
+/* LEFT COLUMN: WIDER EXPANDED MEDIA SHOWCASE (56%) */
 .product-details__media-showcase {
   display: flex;
   flex-direction: column;
@@ -129,32 +119,75 @@
 }
 @media (min-width: 768px) {
   .product-details__media-showcase {
-    width: 100%;
+    width: 56%;
     position: sticky;
     top: 24px;
   }
 }
 
 .product-details__primary-viewport {
+  position: relative;
   width: 100%;
   aspect-ratio: 1/1;
   background-color: #f9f9f9;
   border: 1px solid #e5e5e5;
-  border-radius: 16px;
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
   overflow: hidden;
   box-sizing: border-box;
 }
 .product-details__primary-viewport .product-details__main-image {
+  width: 100%;
+  height: 100%;
   max-width: 100%;
   max-height: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   display: block;
-  mix-blend-mode: multiply;
+}
+
+/* Floating Share Button Inside Primary Image Viewport */
+.product-details__primary-share {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid #e5e5e5;
+  border-radius: 50%;
+  color: #111111;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease, transform 0.14s ease;
+}
+.product-details__primary-share svg {
+  display: block;
+  stroke-width: 2.25;
+}
+.product-details__primary-share:hover {
+  background-color: #ffffff;
+  border-color: #66704A;
+  color: #66704A;
+  transform: scale(1.06);
+}
+.product-details__primary-share:active {
+  transform: scale(0.95);
+}
+.product-details__primary-share:focus-visible {
+  outline: 2px solid #66704A;
+  outline-offset: 2px;
 }
 
 .product-details__thumbnails-grid {
@@ -179,10 +212,10 @@
   transition: border-color 0.15s ease, transform 0.1s ease;
 }
 .product-details__thumbnails-grid .product-details__thumb-trigger img {
-  max-width: 100%;
-  max-height: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .product-details__thumbnails-grid .product-details__thumb-trigger:hover {
   border-color: rgb(198.4, 198.4, 198.4);
@@ -192,7 +225,7 @@
   transform: scale(0.96);
 }
 
-/* RIGHT COLUMN — INTERACTIVE DATA PROPERTIES PANEL CONTENT SLOT */
+/* RIGHT COLUMN: CONTENT PANEL (44%) */
 .product-details__content-panel {
   display: flex;
   flex-direction: column;
@@ -203,7 +236,7 @@
 }
 @media (min-width: 768px) {
   .product-details__content-panel {
-    width: 50%;
+    width: 44%;
   }
 }
 .product-details__content-panel .product-details__product-title {
@@ -229,7 +262,7 @@
   width: 100%;
 }
 
-/* PRODUCT SPECIFICATION GRANULAR TAGS METADATA BADGES */
+/* SPECIFICATION TAG BADGES */
 .product-details__condition-badge {
   display: inline-flex;
   margin-bottom: 0.45rem;
@@ -249,7 +282,7 @@
   font-weight: 700;
 }
 
-/* SECURE LOCAL ONSITE COURIER DELIVERY NOTICE STRIP */
+/* PERSONAL COLLECTION CALLOUT */
 .product-details__personal-collection {
   display: flex;
   align-items: flex-start;
@@ -290,7 +323,7 @@
   font-weight: 800;
 }
 
-/* FINANCIAL TOTALIZER PRICING SUMMARY LAYOUT */
+/* PRICING SUMMARY */
 .product-details__pricing-matrix {
   display: flex;
   flex-direction: column;
@@ -340,7 +373,7 @@
   color: #666666;
 }
 
-/* TRUST ESCROW PROTECTION GUARANTEES SUB CONTAINER STRIP */
+/* BUYER PROTECTION STRIP */
 .product-details__safety-strip {
   display: flex;
   align-items: center;
@@ -367,101 +400,98 @@
 }
 
 /* ==========================================================================
-   TACTILE CONTROL TRANSACTION ACTION PANEL CONSOLE ROW (.product-details__action-row)
+   BUYER ACTION BUTTONS ROW (.product-details__action-row)
+   Horizontal row layout across mobile and desktop viewports
    ========================================================================== */
 .product-details__action-row {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
-  flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   width: 100%;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
   box-sizing: border-box;
-  /* Stack actions vertically to maximize tap parameters space on tight viewports */
 }
-@media (max-width: 640px) {
+@media (min-width: 640px) {
   .product-details__action-row {
-    flex-direction: column;
     gap: 10px;
   }
-  .product-details__action-row > button {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-}
-.product-details__action-row {
-  /* Shared action buttons tactile structural configurations template baseline */
 }
 .product-details__action-row > button {
   height: 44px;
-  flex-shrink: 0;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
+  padding: 0 0.95rem;
   border-radius: 12px;
   font-family: inherit;
-  font-size: 0.92rem;
+  font-size: 0.85rem;
   font-weight: 700;
+  width: 100%;
   cursor: pointer;
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
   box-sizing: border-box;
-  transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.1s ease, box-shadow 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (min-width: 640px) {
+  .product-details__action-row > button {
+    padding: 0 1.15rem;
+    font-size: 0.88rem;
+    gap: 8px;
+  }
 }
 .product-details__action-row > button svg {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   flex-shrink: 0;
+}
+.product-details__action-row > button span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .product-details__action-row > button:active {
   transform: scale(0.985);
 }
-.product-details__action-row {
-  /* 🛒 PRIMARY CHECKOUT CTA BUTTON — ULTIMATE CONVERSION PRIORITY */
-}
 .product-details__action-row .product-details__buy-now-btn {
-  width: 100%;
   background-color: #66704A;
   color: #ffffff;
   border: none;
   box-shadow: 0 4px 14px rgba(102, 112, 74, 0.16);
+  width: 100%;
 }
 .product-details__action-row .product-details__buy-now-btn:hover {
   background-color: #525F3C;
   box-shadow: 0 6px 20px rgba(102, 112, 74, 0.24);
 }
-.product-details__action-row {
-  /* ==========================================================================
-  🌿 🚀 NEW REFACTORED: HIGH-END SPOTLIGHT BARGAINING CTA BUTTON OVERRIDE
-  ========================================================================== */
-}
 .product-details__action-row .product-details__make-offer-btn {
-  width: 100%;
   background-color: #ffffff;
   border: 2px solid #66704A;
   color: #66704A;
   box-shadow: 0 4px 12px rgba(104, 118, 75, 0.04);
+  width: 100%;
 }
 .product-details__action-row .product-details__make-offer-btn svg {
   color: #66704A;
   transition: transform 0.2s ease;
 }
 .product-details__action-row .product-details__make-offer-btn:hover {
-  background-color: #2a2e1c;
-  color: #FFFFFF;
+  background-color: rgba(104, 118, 75, 0.12);
+  color: #525F3C;
   border-color: #525F3C;
   box-shadow: 0 6px 16px rgba(104, 118, 75, 0.1);
 }
 .product-details__action-row .product-details__make-offer-btn:hover svg {
-  color: #FFFFFF;
-  transform: rotate(-12deg) scale(1.08);
-}
-.product-details__action-row {
-  /* AUXILIARY REACTIONARY LIFE ICON ACTION (Wishlist Link Button) */
+  transform: rotate(-10deg) scale(1.06);
 }
 .product-details__action-row .product-details__wishlist-btn {
-  width: 100%;
   background-color: #FFFFFF;
   border: 1px solid #cbd5e1;
   color: #475569;
+  width: 100%;
 }
 .product-details__action-row .product-details__wishlist-btn:hover {
   background-color: #f9f9f9;
@@ -484,7 +514,7 @@
 }
 
 /* ==========================================================================
-3. VALUE PROPOSITIONS HORIZONTAL VALUE ASSURANCES BAR LAYOUT
+3. TRUST BAR
 ========================================================================== */
 .product-details__trust-bar {
   display: flex;
@@ -493,7 +523,6 @@
   border-top: 1px solid #e5e5e5;
   padding-top: 2.5rem;
   box-sizing: border-box;
-  /* MOBILE RESPONSIVE LAYOUTS: Inline swipable horizontal carousel ribbon */
   flex-direction: row;
   overflow-x: auto;
   gap: 24px;
@@ -513,9 +542,6 @@
   align-items: flex-start;
   gap: 12px;
   box-sizing: border-box;
-}
-.product-details__trust-bar {
-  /* DESKTOP VIEWPORTS ADAPTIVITY GATES COLUMN TRANSFORMATION */
 }
 @media (min-width: 1024px) {
   .product-details__trust-bar {
@@ -555,7 +581,7 @@
 }
 
 /* ==========================================================================
-3.a SAME PRODUCTS FROM SELLER REVELATION PROFILE FEED (.products)
+3.a SAME PRODUCTS FROM SELLER CAROUSEL
 ========================================================================== */
 .products.section {
   width: 100%;
@@ -672,59 +698,68 @@
 }
 
 /* ==========================================================================
-4. SLEEK HIGH-FIDELITY FAULT RUNTIME ERROR RIBBON INFRASTRUCTURE
+4. ERROR STATE CONTAINER
 ========================================================================== */
 .product-details__error-state {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 45vh;
+  min-height: 55vh;
   width: 100%;
-  padding: 2rem 1rem;
+  padding: 2.5rem 1rem;
+  background-color: #ffffff;
   box-sizing: border-box;
 }
 
 .product-details__error-message {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.65rem;
-  padding: 0.85rem 1.25rem;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2.5rem 2rem;
   background-color: #FDF2F2;
-  border: 1px solid rgba(194, 75, 75, 0.14);
-  border-radius: 12px;
-  color: #C24B4B;
+  border: 1px dashed rgba(194, 75, 75, 0.24);
+  border-radius: 20px;
+  color: rgb(178.0580912863, 60.3419087137, 60.3419087137);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 0.88rem;
-  font-weight: 600;
-  line-height: 1.45;
-  text-align: left;
-  max-width: 460px;
-  box-shadow: 0 4px 12px rgba(194, 75, 75, 0.03);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 10px 25px -5px rgba(194, 75, 75, 0.05);
   box-sizing: border-box;
-  animation: prodDetailsErrorPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: productDetailsErrorPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .product-details__error-message .product-details__error-icon {
-  font-size: 1.15rem;
+  font-size: 2.5rem;
+  color: #C24B4B;
   flex-shrink: 0;
-  color: rgb(185.6763485477, 62.9236514523, 62.9236514523);
+  filter: drop-shadow(0 4px 10px rgba(194, 75, 75, 0.1));
+}
+.product-details__error-message span {
+  display: block;
+  max-width: 320px;
+  letter-spacing: -0.01em;
 }
 
-/* Entry macro animation keys frames timings profiles */
-@keyframes prodDetailsErrorPop {
+@keyframes productDetailsErrorPopIn {
   from {
     opacity: 0;
-    transform: translateY(6px) scale(0.98);
+    transform: translateY(12px) scale(0.97);
   }
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
-/* Screen Reader Reduced Motions Gates Accessibility Overrides */
 @media (prefers-reduced-motion: reduce) {
   .product-details__error-message,
   .product-details__thumb-trigger,
   .product-card__media img,
+  .product-details__primary-share,
   .product-details__action-row > button {
     animation: none !important;
     transition: none !important;
