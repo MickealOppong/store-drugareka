@@ -241,6 +241,10 @@ function App() {
           path: "admin/listings",
           element: <ProductView />,
         },
+         {
+          path: "admin/listings/:listingId/edit",
+          element: <EditListing />,
+        },
         {
           path: "admin/payouts",
           element: <AdminPayout />,

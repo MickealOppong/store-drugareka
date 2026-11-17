@@ -816,8 +816,8 @@
     "table": {
       "headers": {
         "seller": "Seller",
-        "payout_id": "Settlement ID",
         "order": "Order",
+        "payout_id":"ID",
         "status": "Status",
         "transfer_id": "Transfer id",
         "currency": "Currency",
@@ -1900,6 +1900,69 @@
       "submit": "Send enquiry",
       "close": "Close"
     }
+  },
+
+  "adminDashboard": {
+    "header": {
+      "eyebrow": "Administration",
+      "title": "Dashboard",
+      "description": "An overview of the key data for your marketplace."
+    },
+    "stats": {
+      "users": "Users",
+      "listings": "Listings",
+      "orders": "Orders",
+      "sales": "Sales",
+      "products": "Products",
+      "categories": "Categories",
+      "sellers": "Sellers",
+      "brands": "Brands"
+    },
+    "overview": {
+      "title": "Marketplace",
+      "subtitle": "Overview of the remaining statistics.",
+      "change": "{{increase}} ({{percentage}}) compared with the previous period"
+    },
+    "recentListings": {
+      "title": "Recent listings",
+      "subtitle": "The latest listings submitted by sellers.",
+      "product": "Product",
+      "seller": "Seller",
+      "price": "Price",
+      "status": "Status",
+      "empty": "There are no recent listings."
+    },
+    "recentUsers": {
+      "title": "New users",
+      "subtitle": "Recently registered accounts.",
+      "empty": "There are no recently registered users."
+    },
+    "actions": {
+      "viewAll": "View all"
+    },
+    "listingStatus": {
+      "PUBLISHED": "Published",
+      "PENDING": "Pending",
+      "DRAFT": "Draft",
+      "SOLD": "Sold",
+      "REJECTED": "Rejected"
+    },
+    "roles": {
+      "USER": "User",
+      "SELLER": "Seller",
+      "ADMIN": "Administrator"
+    },
+    "quickActions": {
+      "title": "Quick actions",
+      "addProduct": "Add product",
+      "addProductDescription": "Create a new product in the catalogue",
+      "addCategory": "Add category",
+      "addCategoryDescription": "Manage the category tree",
+      "manageBrands": "Manage brands",
+      "manageBrandsDescription": "Edit the brand dictionary"
+    }
   }
+
+
 
 }

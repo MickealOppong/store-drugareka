@@ -1,14 +1,18 @@
-
 @use "sass:color";
-@use "./Variables.scss" as Variables;
+@use "Variables.scss" as Variables;
 
+/* ==========================================================================
+   MASTER ADMIN DASHBOARD WORKSPACE (.admin-dashboard)
+   ========================================================================== */
 .admin-dashboard {
   width: 100%;
-  min-width: 0;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
   box-sizing: border-box;
-  color: Variables.$color-text-main;
   font-family: Variables.$font-sans;
-
+  color: Variables.$color-text-main;
+  text-align: left;
 
   *,
   *::before,
@@ -16,496 +20,129 @@
     box-sizing: border-box;
   }
 
-  // Header
+  @include Variables.media-up(Variables.$breakpoint-sm) {
+    padding: 2.25rem 2rem 5rem;
+  }
+
+  /* =========================================================
+     1. PAGE HEADER & TYPOGRAPHY
+     ========================================================= */
   &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     margin-bottom: 2rem;
     padding-bottom: 1.25rem;
     border-bottom: 1px solid Variables.$color-border;
   }
 
   &__eyebrow {
-    display: block;
-    margin-bottom: 0.25rem;
-    color: Variables.$color-primary;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 800;
     text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: Variables.$color-primary;
+    margin-bottom: 0.35rem;
   }
 
   &__title {
-    margin: 0;
+    margin: 0 0 0.4rem;
+    font-size: 1.65rem;
+    font-weight: 850;
     color: Variables.$color-text-main;
-    font-size: clamp(1.75rem, 3vw, 2.25rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.035em;
     line-height: 1.2;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      font-size: 2.15rem;
+    }
   }
 
   &__description {
-    margin: 0.5rem 0 0;
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
     color: Variables.$color-text-muted;
-    font-size: 0.875rem;
-    line-height: 1.6;
+    max-width: 680px;
   }
 
-  // Main layout
+  /* =========================================================
+     2. TWO-COLUMN MAIN + SIDEBAR GRID (.admin-dashboard__layout-body)
+     ========================================================= */
   &__layout-body {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
     width: 100%;
+
+    @include Variables.media-up(Variables.$breakpoint-lg) {
+      display: grid;
+      grid-template-columns: minmax(0, 1.65fr) minmax(320px, 0.85fr);
+      align-items: start;
+      gap: 2rem;
+    }
   }
 
-  &__main-content,
+  &__main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    min-width: 0;
+  }
+
   &__sidebar {
     display: flex;
-    min-width: 0;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.75rem;
+    min-width: 0;
+
+    @include Variables.media-up(Variables.$breakpoint-lg) {
+      position: sticky;
+      top: 24px;
+    }
   }
 
-  // Statistics
+  /* =========================================================
+     3. PRIMARY KPI STAT CARDS (.admin-dashboard__stats)
+     ========================================================= */
   &__stats {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+    gap: 12px;
     width: 100%;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      gap: 1rem;
+    }
+
+    @include Variables.media-up(Variables.$breakpoint-md) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
   }
 
   &__stat {
     display: flex;
-    min-width: 0;
     flex-direction: column;
-    padding: 1.125rem;
+    padding: 1.15rem 1.2rem;
+    background-color: #ffffff;
     border: 1px solid Variables.$color-border;
-    border-radius: 0.5rem;
-    background: Variables.$background;
-    color: inherit;
+    border-radius: 16px;
     text-decoration: none;
-    transition:
-      transform 0.2s ease,
-      border-color 0.2s ease,
-      box-shadow 0.2s ease;
+    color: inherit;
+    box-shadow: 0 4px 16px -4px rgba(32, 38, 24, 0.03);
+    transition: border-color 0.18s ease,
+                transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.18s ease;
 
     &:hover {
+      border-color: rgba(Variables.$color-primary, 0.35);
       transform: translateY(-2px);
-      border-color: color.adjust(
-        Variables.$color-border,
-        $lightness: -10%
-      );
-      box-shadow: 0 8px 24px rgba(13, 19, 19, 0.05);
-    }
+      box-shadow: 0 12px 26px -6px rgba(32, 38, 24, 0.07);
 
-    &:focus-visible {
-      outline: 2px solid Variables.$color-primary;
-      outline-offset: 3px;
-    }
-  }
-
-  &__stat-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin-bottom: 1.25rem;
-  }
-
-  &__stat-icon {
-    display: grid;
-    width: 2.375rem;
-    height: 2.375rem;
-    flex-shrink: 0;
-    place-items: center;
-    border-radius: 0.375rem;
-    background: Variables.$color-bg-light;
-    color: Variables.$color-primary;
-
-    svg {
-      width: 1.125rem;
-      height: 1.125rem;
-      stroke-width: 2.25;
-    }
-  }
-
-  &__stat-change {
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    background: Variables.$color-success-bg;
-    color: Variables.$color-success;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  &__stat-value {
-    overflow-wrap: anywhere;
-    margin-bottom: 0.125rem;
-    color: Variables.$color-text-main;
-    font-size: clamp(1.2rem, 2vw, 1.5rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1.3;
-  }
-
-  &__stat-label {
-    color: Variables.$color-text-muted;
-    font-size: 0.8125rem;
-    font-weight: 500;
-  }
-
-  // Shared panels
-  &__panel {
-    width: 100%;
-    min-width: 0;
-    overflow: hidden;
-    border: 1px solid Variables.$color-border;
-    border-radius: 0.5rem;
-    background: Variables.$background;
-  }
-
-  &__panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid Variables.$color-border;
-  }
-
-  &__panel-title {
-    margin: 0;
-    color: Variables.$color-text-main;
-    font-size: 0.9375rem;
-    font-weight: 800;
-    letter-spacing: -0.01em;
-    line-height: 1.4;
-  }
-
-  &__panel-subtitle {
-    margin: 0.25rem 0 0;
-    color: Variables.$color-text-muted;
-    font-size: 0.75rem;
-    line-height: 1.5;
-  }
-
-  &__panel-link {
-    display: inline-flex;
-    flex-shrink: 0;
-    align-items: center;
-    gap: 0.25rem;
-    color: Variables.$color-primary;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: color 0.2s ease;
-
-    svg {
-      width: 0.875rem;
-      height: 0.875rem;
-      transition: transform 0.2s ease;
-    }
-
-    &:hover {
-      color: color.adjust(
-        Variables.$color-primary,
-        $lightness: -10%
-      );
-
-      svg {
-        transform: translateX(2px);
-      }
-    }
-
-    &:focus-visible {
-      border-radius: 2px;
-      outline: 2px solid Variables.$color-primary;
-      outline-offset: 3px;
-    }
-  }
-
-  // Marketplace overview
-  &__overview {
-    width: 100%;
-    padding: 1.25rem 1.5rem;
-    border: 1px solid Variables.$color-border;
-    border-radius: 0.5rem;
-    background: Variables.$background;
-  }
-
-  &__overview-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  &__overview-trend-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    flex-shrink: 0;
-    color: Variables.$color-primary;
-  }
-
-  &__overview-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    width: 100%;
-    border-top: 1px solid Variables.$color-border;
-  }
-
-  &__metric {
-    min-width: 0;
-    padding: 1rem 0.75rem;
-    border-right: 1px solid Variables.$color-border;
-    border-bottom: 1px solid Variables.$color-border;
-
-    &:nth-child(2n) {
-      border-right: 0;
-    }
-
-    &:nth-last-child(-n + 2) {
-      border-bottom: 0;
-    }
-  }
-
-  &__metric-label {
-    display: block;
-    margin-bottom: 0.375rem;
-    color: Variables.$color-text-muted;
-    font-size: 0.75rem;
-    font-weight: 500;
-    line-height: 1.5;
-  }
-
-  &__metric-value {
-    display: block;
-    overflow-wrap: anywhere;
-    margin-bottom: 0.25rem;
-    color: Variables.$color-text-main;
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
-    font-weight: 800;
-    line-height: 1.4;
-  }
-
-  &__metric-trend {
-    display: block;
-    color: Variables.$color-primary;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    line-height: 1.5;
-  }
-
-  // Listings table
-  &__table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  &__table {
-    width: 100%;
-    min-width: 600px;
-    border-collapse: collapse;
-    text-align: left;
-
-    th,
-    td {
-      padding: 1rem 1.5rem;
-      border-bottom: 1px solid Variables.$color-border;
-      font-size: 0.8125rem;
-      text-align: left;
-      vertical-align: middle;
-    }
-
-    th {
-      height: 2.75rem;
-      background: Variables.$color-bg-light;
-      color: Variables.$color-text-muted;
-      font-size: 0.6875rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    tbody tr {
-      transition: background 0.15s ease;
-
-      &:hover {
-        background: Variables.$color-bg-light;
-      }
-
-      &:last-child td {
-        border-bottom: 0;
-      }
-    }
-  }
-
-  &__product-name {
-    color: Variables.$color-text-main;
-    font-weight: 600;
-  }
-
-  &__text-regular {
-    color: Variables.$color-secondary;
-  }
-
-  // Listing status badges
-  &__status {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.25rem 0.625rem;
-    border-radius: 999px;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    white-space: nowrap;
-
-    &--success {
-      background: Variables.$color-success-bg;
-      color: Variables.$color-success;
-    }
-
-    &--pending {
-      background: #fef3c7;
-      color: #92400e;
-    }
-  }
-
-  // Recent users
-  &__users {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem 1.5rem;
-  }
-
-  &__user {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    width: 100%;
-    min-width: 0;
-    padding: 1rem 0;
-    border-bottom: 1px solid Variables.$color-border;
-
-    &:last-child {
-      border-bottom: 0;
-    }
-  }
-
-  &__avatar {
-    display: grid;
-    width: 2.25rem;
-    height: 2.25rem;
-    flex-shrink: 0;
-    place-items: center;
-    border-radius: 50%;
-    background: Variables.$color-bg-light;
-    color: Variables.$color-primary;
-    font-size: 0.8125rem;
-    font-weight: 700;
-  }
-
-  &__user-info {
-    display: flex;
-    min-width: 0;
-    flex: 1;
-    flex-direction: column;
-    gap: 0.125rem;
-  }
-
-  &__user-name,
-  &__user-email {
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  &__user-name {
-    color: Variables.$color-text-main;
-    font-size: 0.8125rem;
-    font-weight: 600;
-  }
-
-  &__user-email {
-    color: Variables.$color-text-muted;
-    font-size: 0.6875rem;
-  }
-
-  &__role {
-    flex-shrink: 0;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-
-    &--user {
-      background: #e2e8f0;
-      color: #475569;
-    }
-
-    &--seller {
-      background: Variables.$color-success-bg;
-      color: Variables.$color-primary;
-    }
-
-    &--admin {
-      background: #ffe4e6;
-      color: Variables.$color-accent;
-    }
-  }
-
-  // Quick actions
-  &__quick {
-    width: 100%;
-    padding: 1.25rem 1.5rem;
-    border: 1px solid Variables.$color-border;
-    border-radius: 0.5rem;
-    background: Variables.$background;
-
-    > h2 {
-      margin: 0 0 1.25rem;
-    }
-  }
-
-  &__quick-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    width: 100%;
-  }
-
-  &__quick-item {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    width: 100%;
-    min-width: 0;
-    padding: 0.85rem 1rem;
-    border: 1px solid Variables.$color-border;
-    border-radius: 0.5rem;
-    color: inherit;
-    text-decoration: none;
-    transition:
-      border-color 0.2s ease,
-      background 0.2s ease;
-
-    &:hover {
-      border-color: color.adjust(
-        Variables.$color-border,
-        $lightness: -10%
-      );
-      background: Variables.$color-bg-light;
-
-      > svg:last-child {
-        transform: translateX(2px);
-        color: Variables.$color-text-main;
+      .admin-dashboard__stat-icon {
+        background-color: Variables.$color-primary;
+        color: #ffffff;
       }
     }
 
@@ -513,148 +150,501 @@
       outline: 2px solid Variables.$color-primary;
       outline-offset: 2px;
     }
+  }
 
-    > svg:first-child {
-      width: 1.125rem;
-      height: 1.125rem;
-      flex-shrink: 0;
-      color: Variables.$color-primary;
+  &__stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+
+  &__stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background-color: Variables.$color-primary-alpha;
+    color: Variables.$color-primary;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    transition: background-color 0.18s ease, color 0.18s ease;
+  }
+
+  &__stat-change {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: 20px;
+    background-color: Variables.$color-bg-light;
+    border: 1px solid Variables.$color-border;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: Variables.$color-primary;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  &__stat-value {
+    font-size: 1.35rem;
+    font-weight: 850;
+    color: Variables.$color-text-main;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 0.3rem;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      font-size: 1.55rem;
+    }
+  }
+
+  &__stat-label {
+    font-size: 0.8rem;
+    font-weight: 650;
+    color: Variables.$color-text-muted;
+  }
+
+  /* =========================================================
+     4. SHARED PANEL & OVERVIEW CARD SURFACES
+     ========================================================= */
+  &__overview,
+  &__panel,
+  &__quick {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.35rem;
+    background-color: #ffffff;
+    border: 1px solid Variables.$color-border;
+    border-radius: 18px;
+    box-shadow: 0 4px 18px -4px rgba(32, 38, 24, 0.03);
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      padding: 1.65rem;
+    }
+  }
+
+  &__overview-header,
+  &__panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid Variables.$color-border;
+  }
+
+  &__panel-title {
+    margin: 0 0 0.2rem;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: Variables.$color-text-main;
+    letter-spacing: -0.02em;
+  }
+
+  &__panel-subtitle {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: Variables.$color-text-muted;
+  }
+
+  &__overview-trend-icon {
+    font-size: 1.25rem;
+    color: Variables.$color-primary;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  &__panel-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.82rem;
+    font-weight: 750;
+    color: Variables.$color-primary;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: color 0.15s ease;
+
+    svg {
+      font-size: 0.95rem;
+      transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    > svg:last-child {
-      width: 0.875rem;
-      height: 0.875rem;
-      flex-shrink: 0;
-      margin-left: auto;
-      color: Variables.$color-text-muted;
-      transition:
-        transform 0.2s ease,
-        color 0.2s ease;
-    }
+    &:hover {
+      color: Variables.$color-primary-hover;
 
-    > div {
-      display: flex;
-      min-width: 0;
-      flex: 1;
-      flex-direction: column;
-      gap: 0.125rem;
-
-      strong {
-        color: Variables.$color-text-main;
-        font-size: 0.75rem;
-        font-weight: 700;
-        line-height: 1.4;
+      svg {
+        transform: translateX(3px);
       }
+    }
+  }
 
-      span {
-        overflow: hidden;
+  /* =========================================================
+     5. SECONDARY OVERVIEW METRICS GRID (.admin-dashboard__overview-grid)
+     ========================================================= */
+  &__overview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+
+    @include Variables.media-up(Variables.$breakpoint-sm) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+  }
+
+  &__metric {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.95rem 1rem;
+    background-color: Variables.$color-bg-light;
+    border: 1px solid Variables.$color-border;
+    border-radius: 12px;
+  }
+
+  &__metric-label {
+    font-size: 0.74rem;
+    font-weight: 750;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: Variables.$color-text-muted;
+  }
+
+  &__metric-value {
+    font-size: 1.35rem;
+    font-weight: 850;
+    color: Variables.$color-text-main;
+    letter-spacing: -0.025em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__metric-trend {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: Variables.$color-primary;
+    line-height: 1.35;
+  }
+
+  /* =========================================================
+     6. RECENT LISTINGS DATA TABLE (.admin-dashboard__table)
+     ========================================================= */
+  &__table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid Variables.$color-border;
+    border-radius: 12px;
+
+    scrollbar-width: thin;
+    scrollbar-color: color.adjust(Variables.$color-border, $lightness: -8%) transparent;
+
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: color.adjust(Variables.$color-border, $lightness: -8%);
+      border-radius: 8px;
+    }
+  }
+
+  &__table {
+    width: 100%;
+    min-width: 540px;
+    border-collapse: collapse;
+    text-align: left;
+
+    thead {
+      background-color: Variables.$color-bg-light;
+      border-bottom: 1px solid Variables.$color-border;
+
+      th {
+        padding: 0.85rem 1rem;
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
         color: Variables.$color-text-muted;
-        font-size: 0.6875rem;
-        line-height: 1.4;
-        text-overflow: ellipsis;
         white-space: nowrap;
       }
     }
-  }
 
-  // Tablet
-  @include Variables.media-up(Variables.$breakpoint-sm) {
-    &__stat {
-      padding: 1.25rem;
-    }
+    tbody {
+      tr {
+        border-bottom: 1px solid Variables.$color-border;
+        transition: background-color 0.15s ease;
 
-    &__overview-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
+        &:last-child {
+          border-bottom: none;
+        }
 
-    &__metric {
-      padding: 1.25rem 1rem 0.5rem;
-      border-right: 1px solid Variables.$color-border;
-      border-bottom: 0;
-
-      &:nth-child(2n) {
-        border-right: 1px solid Variables.$color-border;
+        &:hover {
+          background-color: rgba(Variables.$color-primary, 0.025);
+        }
       }
 
-      &:last-child {
-        border-right: 0;
-      }
-    }
-  }
-
-  // Desktop
-  @include Variables.media-up(Variables.$breakpoint-xl) {
-    &__layout-body {
-      grid-template-columns: minmax(0, 1fr) 360px;
-      gap: 2rem;
-      align-items: start;
-    }
-  }
-
-  // Compact screens
-  @media (max-width: 480px) {
-    &__header {
-      margin-bottom: 1.5rem;
-    }
-
-    &__stats {
-      gap: 0.75rem;
-    }
-
-    &__stat {
-      padding: 0.875rem;
-    }
-
-    &__stat-top {
-      margin-bottom: 0.875rem;
-    }
-
-    &__stat-change {
-      padding: 0.2rem 0.35rem;
-      font-size: 0.625rem;
-    }
-
-    &__overview,
-    &__panel-header,
-    &__quick {
-      padding-right: 1rem;
-      padding-left: 1rem;
-    }
-
-    &__panel-header {
-      align-items: flex-start;
-    }
-
-    &__users {
-      padding-right: 1rem;
-      padding-left: 1rem;
-    }
-
-    &__user {
-      gap: 0.5rem;
-    }
-
-    &__role {
-      padding: 0.2rem 0.35rem;
-      font-size: 0.5625rem;
-    }
-
-    &__table {
-      th,
       td {
-        padding: 0.875rem 1rem;
+        padding: 0.9rem 1rem;
+        font-size: 0.85rem;
+        vertical-align: middle;
       }
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      scroll-behavior: auto !important;
-      transition-duration: 0.01ms !important;
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
+  &__product-name {
+    display: block;
+    max-width: 220px;
+    font-weight: 750;
+    color: Variables.$color-text-main;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__text-regular {
+    color: Variables.$color-text-muted;
+    white-space: nowrap;
+
+    &.font-semibold {
+      font-weight: 750;
+color: Variables.$color-text-main;
+font-variant-numeric: tabular-nums;
+}
+}
+&__status {
+display: inline-flex;
+align-items: center;
+padding: 3px 9px;
+border-radius: 20px;
+font-size: 0.7rem;
+font-weight: 800;
+text-transform: uppercase;
+letter-spacing: 0.03em;
+white-space: nowrap;
+&--success {
+background-color: #f0fdf4;
+border: 1px solid #bbf7d0;
+color: #15803d;
+}
+&--pending {
+background-color: #fffbeb;
+border: 1px solid #fde68a;
+color: #b45309;
+}
+}
+
+  /* =========================================================
+     7. SIDEBAR RECENT USERS LIST (.admin-dashboard__users)
+     ========================================================= */
+  &__users {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    > p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: Variables.$color-text-muted;
     }
   }
+
+  &__user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0.85rem;
+    background-color: Variables.$color-bg-light;
+    border: 1px solid Variables.$color-border;
+    border-radius: 12px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: Variables.$color-primary-alpha;
+    color: Variables.$color-primary;
+    font-size: 0.88rem;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 0; // Allows name and email to take all remaining horizontal width
+  }
+
+  &__user-name {
+    font-size: 0.88rem;
+    font-weight: 750;
+    color: Variables.$color-text-main;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__user-email {
+    font-size: 0.75rem;
+    color: Variables.$color-text-muted;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Single-Column Stacked Role Container (Never takes two horizontal columns) */
+  &__user-roles {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  &__role {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 7px;
+    border-radius: 6px;
+    font-size: 0.64rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    background-color: #ffffff;
+    border: 1px solid Variables.$color-border;
+    color: Variables.$color-text-muted;
+
+    &--role_admin {
+      background-color: Variables.$color-error-bg;
+      border-color: rgba(Variables.$color-error, 0.22);
+      color: Variables.$color-error;
+    }
+
+    &--role_seller {
+      background-color: Variables.$color-primary-alpha;
+      border-color: rgba(Variables.$color-primary, 0.25);
+      color: Variables.$color-primary;
+    }
+  }
+
+/* =========================================================
+8. SIDEBAR QUICK ACTIONS (.admin-dashboard__quick)
+========================================================= */
+&__quick-grid {
+display: flex;
+flex-direction: column;
+gap: 0.65rem;
+}
+&__quick-item {
+display: flex;
+align-items: center;
+gap: 0.85rem;
+padding: 0.85rem 1rem;
+background-color: Variables.$color-bg-light;
+border: 1px solid Variables.$color-border;
+border-radius: 12px;
+text-decoration: none;
+color: inherit;
+transition: border-color 0.16s ease,
+background-color 0.16s ease,
+transform 0.16s ease;
+> svg:first-child {
+font-size: 1.15rem;
+color: Variables.$color-primary;
+flex-shrink: 0;
+}
+> div {
+display: flex;
+flex-direction: column;
+gap: 2px;
+flex: 1;
+min-width: 0;
+strong {
+font-size: 0.86rem;
+font-weight: 750;
+color: Variables.$color-text-main;
+}
+span {
+font-size: 0.76rem;
+color: Variables.$color-text-muted;
+line-height: 1.35;
+}
+}
+> svg:last-child {
+font-size: 1rem;
+color: Variables.$color-text-muted;
+flex-shrink: 0;
+transition: transform 0.16s ease, color 0.16s ease;
+}
+&:hover {
+background-color: #ffffff;
+border-color: Variables.$color-primary;
+transform: translateX(2px);
+> svg:last-child {
+color: Variables.$color-primary;
+transform: translateX(3px);
+}
+}
+&:focus-visible {
+outline: 2px solid Variables.$color-primary;
+outline-offset: 2px;
+}
+}
+}
+/* ==========================================================================
+9. COMPACT MOBILE ADJUSTMENTS & ACCESSIBILITY
+========================================================================== */
+@media (max-width: 480px) {
+.admin-dashboard {
+padding: 1rem 0.75rem 3rem;
+&__stats {
+gap: 8px;
+}
+&__stat {
+padding: 0.95rem;
+border-radius: 14px;
+}
+&__stat-value {
+font-size: 1.2rem;
+}
+&__overview,
+&__panel,
+&__quick {
+padding: 1.1rem;
+border-radius: 14px;
+}
+&__user {
+flex-wrap: wrap;
+}
+&__user-roles {
+width: 100%;
+justify-content: flex-start;
+padding-left: 48px;
+}
+}
+}
+@media (prefers-reduced-motion: reduce) {
+.admin-dashboard__stat,
+.admin-dashboard__quick-item,
+.admin-dashboard__panel-link svg {
+transition: none !important;
+transform: none !important;
+}
 }

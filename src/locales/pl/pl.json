@@ -809,6 +809,7 @@
     "table": {
       "headers": {
         "seller": "Sprzedawca",
+        "payout_id":"Nr",
         "transfer_id": "Identyfikator przelewu",
         "order": "Zamówienie",
         "status": "Status",
@@ -1881,6 +1882,67 @@
       "submitting": "Wysyłanie...",
       "submit": "Wyślij zapytanie",
       "close": "Zamknij"
+    }
+  },
+    
+  "adminDashboard": {
+    "header": {
+      "eyebrow": "Administracja",
+      "title": "Panel główny",
+      "description": "Przegląd najważniejszych danych Twojego marketplace."
+    },
+    "stats": {
+      "users": "Użytkownicy",
+      "listings": "Oferty",
+      "orders": "Zamówienia",
+      "sales": "Sprzedaż",
+      "products": "Produkty",
+      "categories": "Kategorie",
+      "sellers": "Sprzedający",
+      "brands": "Marki"
+    },
+    "overview": {
+      "title": "Marketplace",
+      "subtitle": "Podsumowanie pozostałych statystyk.",
+      "change": "{{increase}} ({{percentage}}) w porównaniu z poprzednim okresem"
+    },
+    "recentListings": {
+      "title": "Ostatnie oferty",
+      "subtitle": "Najnowsze oferty dodane przez sprzedających.",
+      "product": "Produkt",
+      "seller": "Sprzedający",
+      "price": "Cena",
+      "status": "Status",
+      "empty": "Brak ostatnich ofert."
+    },
+    "recentUsers": {
+      "title": "Nowi użytkownicy",
+      "subtitle": "Ostatnio zarejestrowane konta.",
+      "empty": "Brak ostatnio zarejestrowanych użytkowników."
+    },
+    "actions": {
+      "viewAll": "Wszystkie"
+    },
+    "listingStatus": {
+      "PUBLISHED": "Opublikowana",
+      "PENDING": "Oczekuje",
+      "DRAFT": "Wersja robocza",
+      "SOLD": "Sprzedana",
+      "REJECTED": "Odrzucona"
+    },
+    "roles": {
+      "USER": "Użytkownik",
+      "SELLER": "Sprzedający",
+      "ADMIN": "Administrator"
+    },
+    "quickActions": {
+      "title": "Szybkie działania",
+      "addProduct": "Dodaj produkt",
+      "addProductDescription": "Utwórz nowy produkt w katalogu",
+      "addCategory": "Dodaj kategorię",
+      "addCategoryDescription": "Zarządzaj drzewem kategorii",
+      "manageBrands": "Zarządzaj markami",
+      "manageBrandsDescription": "Modyfikuj słownik marek"
     }
   }
 }

@@ -13,6 +13,7 @@ import {
   useGetAllConditionsQuery,
   useGetBrandsQuery,
 } from "../features/api/transApi";
+import { useAppSelector } from "../store";
 import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TListTrans } from "../types/TListTrans";
 import type { TProductData } from "../types/TProductData";
@@ -27,6 +28,8 @@ export type TFile = {
 };
 
 const EditListing = () => {
+
+  const roles = useAppSelector((state)=>state.userSlice.roles)
   const { listingId } = useParams<{ listingId: string }>();
   const [images, setImages] = useState<TFile[]>([]);
   const { data: conditions } = useGetAllConditionsQuery();
@@ -53,6 +56,7 @@ const EditListing = () => {
 
   async function fetchListing() {
     const response = await getListing(parseInt(listingId as string));
+
     
 
     const listing = response.data as TListTrans;
@@ -274,7 +278,8 @@ const EditListing = () => {
       
 
       if (response.data===true) {
-           navigate("/account/listings/me");
+           roles.includes("ROLE_ADMIN")? navigate("/account/admin/listings")
+           : navigate("/account/listings/me");;
       }
 
       if (response.error) {

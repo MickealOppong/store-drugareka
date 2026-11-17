@@ -1,143 +1,182 @@
+import { useTranslation } from "react-i18next";
 import {
   FiArrowRight,
+  FiDollarSign,
   FiGrid,
   FiPackage,
+  FiShoppingCart,
   FiTag,
   FiTrendingUp,
   FiUsers,
 } from "react-icons/fi";
 import { Link, redirect } from "react-router-dom";
-
 import type { Store } from "redux";
-import "../css/AdminDashboard.css"; // Clean target compilation path
+import { Loading } from "../components";
+import "../css/AdminDashboard.css";
+import { useGetAnalyticsQuery } from "../features/api/adminApi";
 import type { RootState } from "../store";
 
 export const loader = (store: Store<RootState>) => async () => {
   const roles = store.getState().userSlice.roles || [];
+
   if (!roles.includes("ROLE_ADMIN")) {
     return redirect("/account/user");
   }
+
   return null;
 };
 
+interface DashboardStat {
+  increase: number;
+  percentageChange: number;
+  previousTotal: number;
+  total: number;
+}
+
+interface RecentListing {
+  id: number | string;
+  product: string;
+  seller: string;
+  price: number | string;
+  status: string;
+}
+
+interface RecentUser {
+  id: number | string;
+  name: string;
+  username: string;
+  role: string[];
+}
+
+interface AdminDashboardDto {
+  recentListings: RecentListing[];
+  recentUsers: RecentUser[];
+  stats: {
+    Sales: DashboardStat;
+    brands: DashboardStat;
+    categories: DashboardStat;
+    listings: DashboardStat;
+    orders: DashboardStat;
+    products: DashboardStat;
+    sellers: DashboardStat;
+    users: DashboardStat;
+  };
+}
+
+const numberFormatter = new Intl.NumberFormat("pl-PL");
+const currencyFormatter = new Intl.NumberFormat("pl-PL", {
+  style: "currency",
+  currency: "PLN",
+  maximumFractionDigits: 2,
+});
+
 const AdminDashboard = () => {
-  const stats = [
+  const { t } = useTranslation();
+  const { data, isLoading } = useGetAnalyticsQuery();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  const dashboard = data as AdminDashboardDto | undefined;
+  const stats = dashboard?.stats;
+  const recentListings = dashboard?.recentListings ?? [];
+  const recentUsers = dashboard?.recentUsers ?? [];
+
+  const formatChange = (percentageChange: number) => {
+    const value = Number(percentageChange ?? 0);
+    return `${value > 0 ? "+" : ""}${numberFormatter.format(value)}%`;
+  };
+
+  const formatPrice = (price: number | string) => {
+    const value = Number(price);
+    return Number.isFinite(value) ? currencyFormatter.format(value) : price;
+  };
+
+  const primaryStats = [
     {
-      label: "Użytkownicy",
-      value: "1,248",
-      change: "+12%",
+      key: "users",
+      label: t("adminDashboard.stats.users"),
+      value: stats?.users?.total ?? 0,
+      change: stats?.users?.percentageChange ?? 0,
       icon: FiUsers,
       path: "/account/admin/users",
     },
     {
-      label: "Produkty",
-      value: "486",
-      change: "+8%",
+      key: "listings",
+      label: t("adminDashboard.stats.listings"),
+      value: stats?.listings?.total ?? 0,
+      change: stats?.listings?.percentageChange ?? 0,
       icon: FiPackage,
       path: "/account/admin/listings",
     },
     {
-      label: "Kategorie",
-      value: "15",
-      change: "",
-      icon: FiGrid,
-      path: "/account/admin/categories",
+      key: "orders",
+      label: t("adminDashboard.stats.orders"),
+      value: stats?.orders?.total ?? 0,
+      change: stats?.orders?.percentageChange ?? 0,
+      icon: FiShoppingCart,
+      path: "/account/admin/orders",
     },
     {
-      label: "Marki",
-      value: "324",
-      change: "+24",
-      icon: FiTag,
-      path: "/account/admin/brands",
-    },
-  ];
-
-  const recentListings = [
-    {
-      id: 1,
-      product: "iPhone 15 128GB",
-      seller: "Anna Nowak",
-      price: "2 799 zł",
-      status: "Opublikowana",
-    },
-    {
-      id: 2,
-      product: "Air Max 270",
-      seller: "Piotr Wiśniewski",
-      price: "420 zł",
-      status: "Opublikowana",
-    },
-    {
-      id: 3,
-      product: "Galaxy S24 128GB",
-      seller: "Tomasz Kamiński",
-      price: "2 150 zł",
-      status: "Oczekuje",
-    },
-    {
-      id: 4,
-      product: "ThinkPad X1 Carbon",
-      seller: "Adam Zieliński",
-      price: "3 900 zł",
-      status: "Opublikowana",
+      key: "sales",
+      label: t("adminDashboard.stats.sales"),
+      value: stats?.Sales?.total ?? 0,
+      change: stats?.Sales?.percentageChange ?? 0,
+      icon: FiDollarSign,
+      path: "/account/admin/orders",
+      isCurrency: true,
     },
   ];
 
-  const recentUsers = [
+  const overviewStats = [
     {
-      id: 1,
-      name: "Michał Kowalski",
-      username: "michal.kowalski@example.com",
-      role: "USER",
+      key: "products",
+      label: t("adminDashboard.stats.products"),
+      stat: stats?.products,
     },
     {
-      id: 2,
-      name: "Anna Nowak",
-      username: "anna.nowak@example.com",
-      role: "SELLER",
+      key: "categories",
+      label: t("adminDashboard.stats.categories"),
+      stat: stats?.categories,
     },
     {
-      id: 3,
-      name: "Piotr Wiśniewski",
-      username: "piotr.wisniewski@example.com",
-      role: "SELLER",
+      key: "sellers",
+      label: t("adminDashboard.stats.sellers"),
+      stat: stats?.sellers,
     },
     {
-      id: 4,
-      name: "Robert Dąbrowski",
-      username: "robert.dabrowski@example.com",
-      role: "ADMIN",
+      key: "brands",
+      label: t("adminDashboard.stats.brands"),
+      stat: stats?.brands,
     },
   ];
 
   return (
     <main className="admin-dashboard">
-      {/* =====================================================
-                HEADER METADATA BLOCK
-          ====================================================== */}
       <header className="admin-dashboard__header">
         <div>
-          <span className="admin-dashboard__eyebrow">Administration</span>
-          <h1 className="admin-dashboard__title">Dashboard</h1>
+          <span className="admin-dashboard__eyebrow">
+            {t("adminDashboard.header.eyebrow")}
+          </span>
+          <h1 className="admin-dashboard__title">
+            {t("adminDashboard.header.title")}
+          </h1>
           <p className="admin-dashboard__description">
-            Przegląd najważniejszych danych Twojego marketplace.
+            {t("adminDashboard.header.description")}
           </p>
         </div>
       </header>
 
-      {/* =====================================================
-                RESPONSIVE TWO-COLUMN GRID ENGINE
-          ====================================================== */}
       <div className="admin-dashboard__layout-body">
-        {/* LEFT COLUMN CONTENT: GENERAL ACTIVE LEDGERS */}
         <div className="admin-dashboard__main-content">
-          {/* HIGH-DENSITY COUNTER STATS ROW */}
           <section className="admin-dashboard__stats">
-            {stats.map((stat) => {
+            {primaryStats.map((stat) => {
               const Icon = stat.icon;
+
               return (
                 <Link
-                  key={stat.label}
+                  key={stat.key}
                   to={stat.path}
                   className="admin-dashboard__stat"
                 >
@@ -145,14 +184,14 @@ const AdminDashboard = () => {
                     <div className="admin-dashboard__stat-icon">
                       <Icon />
                     </div>
-                    {stat.change && (
-                      <span className="admin-dashboard__stat-change">
-                        {stat.change}
-                      </span>
-                    )}
+                    <span className="admin-dashboard__stat-change">
+                      {formatChange(stat.change)}
+                    </span>
                   </div>
                   <div className="admin-dashboard__stat-value">
-                    {stat.value}
+                    {stat.isCurrency
+                      ? formatPrice(stat.value)
+                      : numberFormatter.format(stat.value)}
                   </div>
                   <div className="admin-dashboard__stat-label">
                     {stat.label}
@@ -162,171 +201,178 @@ const AdminDashboard = () => {
             })}
           </section>
 
-          {/* SYSTEM SUMMARY METRICS CARD */}
           <section className="admin-dashboard__overview">
             <div className="admin-dashboard__overview-header">
               <div>
-                <h2 className="admin-dashboard__panel-title">Marketplace</h2>
+                <h2 className="admin-dashboard__panel-title">
+                  {t("adminDashboard.overview.title")}
+                </h2>
                 <p className="admin-dashboard__panel-subtitle">
-                  Podsumowanie ogólnej aktywności.
+                  {t("adminDashboard.overview.subtitle")}
                 </p>
               </div>
               <FiTrendingUp className="admin-dashboard__overview-trend-icon" />
             </div>
 
             <div className="admin-dashboard__overview-grid">
-              <div className="admin-dashboard__metric">
-                <span className="admin-dashboard__metric-label">
-                  Aktywne oferty
-                </span>
-                <strong className="admin-dashboard__metric-value">1,842</strong>
-                <small className="admin-dashboard__metric-trend">
-                  +8.4% w tym miesiącu
-                </small>
-              </div>
-              <div className="admin-dashboard__metric">
-                <span className="admin-dashboard__metric-label">
-                  Zamówienia
-                </span>
-                <strong className="admin-dashboard__metric-value">328</strong>
-                <small className="admin-dashboard__metric-trend">
-                  +14.2% w tym miesiącu
-                </small>
-              </div>
-              <div className="admin-dashboard__metric">
-                <span className="admin-dashboard__metric-label">
-                  Sprzedający
-                </span>
-                <strong className="admin-dashboard__metric-value">214</strong>
-                <small className="admin-dashboard__metric-trend">
-                  18 nowych kont
-                </small>
-              </div>
-              <div className="admin-dashboard__metric">
-                <span className="admin-dashboard__metric-label">
-                  Wartość sprzedaży
-                </span>
-                <strong className="admin-dashboard__metric-value">
-                  84 620 zł
-                </strong>
-                <small className="admin-dashboard__metric-trend">
-                  Bieżący okres
-                </small>
-              </div>
+              {overviewStats.map(({ key, label, stat }) => (
+                <div className="admin-dashboard__metric" key={key}>
+                  <span className="admin-dashboard__metric-label">
+                    {label}
+                  </span>
+                  <strong className="admin-dashboard__metric-value">
+                    {numberFormatter.format(stat?.total ?? 0)}
+                  </strong>
+                  <small className="admin-dashboard__metric-trend">
+                    {t("adminDashboard.overview.change", {
+                      increase: numberFormatter.format(stat?.increase ?? 0),
+                      percentage: formatChange(stat?.percentageChange ?? 0),
+                    })}
+                  </small>
+                </div>
+              ))}
             </div>
           </section>
 
-          {/* DYNAMIC LISTINGS LOGS VIEW PORT */}
           <section className="admin-dashboard__panel">
             <div className="admin-dashboard__panel-header">
               <div>
                 <h2 className="admin-dashboard__panel-title">
-                  Ostatnie oferty
+                  {t("adminDashboard.recentListings.title")}
                 </h2>
                 <p className="admin-dashboard__panel-subtitle">
-                  Najnowsze listingi sprzedających.
+                  {t("adminDashboard.recentListings.subtitle")}
                 </p>
               </div>
               <Link
                 to="/account/admin/listings"
                 className="admin-dashboard__panel-link"
               >
-                <span>Wszystkie</span> <FiArrowRight />
+                <span>{t("adminDashboard.actions.viewAll")}</span>
+                <FiArrowRight />
               </Link>
             </div>
+
             <div className="admin-dashboard__table-wrapper">
               <table className="admin-dashboard__table">
                 <thead>
                   <tr>
-                    <th>Produkt</th>
-                    <th>Sprzedający</th>
-                    <th>Cena</th>
-                    <th>Status</th>
+                    <th>{t("adminDashboard.recentListings.product")}</th>
+                    <th>{t("adminDashboard.recentListings.seller")}</th>
+                    <th>{t("adminDashboard.recentListings.price")}</th>
+                    <th>{t("adminDashboard.recentListings.status")}</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {recentListings.map((listing) => (
-                    <tr key={listing.id}>
-                      <td>
-                        <strong className="admin-dashboard__product-name">
-                          {listing.product}
-                        </strong>
-                      </td>
-                      <td>
-                        <span className="admin-dashboard__text-regular">
-                          {listing.seller}
-                        </span>
-                      </td>
-                      <td>
-                        <span className="admin-dashboard__text-regular font-semibold">
-                          {listing.price}
-                        </span>
-                      </td>
-                      <td>
-                        <span
-                          className={`admin-dashboard__status ${listing.status === "Opublikowana" ? "admin-dashboard__status--success" : "admin-dashboard__status--pending"}`}
-                        >
-                          {listing.status}
-                        </span>
+                  {recentListings.length > 0 ? (
+                    recentListings.map((listing) => (
+                      <tr key={listing.id}>
+                        <td>
+                          <strong className="admin-dashboard__product-name">
+                            {listing.product}
+                          </strong>
+                        </td>
+                        <td>
+                          <span className="admin-dashboard__text-regular">
+                            {listing.seller}
+                          </span>
+                        </td>
+                        <td>
+                          <span className="admin-dashboard__text-regular font-semibold">
+                            {formatPrice(listing.price)}
+                          </span>
+                        </td>
+                        <td>
+                          <span
+                            className={`admin-dashboard__status ${
+                              listing.status === "PUBLISHED"
+                                ? "admin-dashboard__status--success"
+                                : "admin-dashboard__status--pending"
+                            }`}
+                          >
+                            {t(
+                              `adminDashboard.listingStatus.${listing.status}`,
+                              { defaultValue: listing.status },
+                            )}
+                          </span>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={4}>
+                        {t("adminDashboard.recentListings.empty")}
                       </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
           </section>
         </div>
 
-        {/* RIGHT COLUMN ASIDE: QUICK INTERVENTION PANE */}
         <aside className="admin-dashboard__sidebar">
-          {/* USER REGISTRY FEED PANEL */}
           <div className="admin-dashboard__panel">
             <div className="admin-dashboard__panel-header">
               <div>
                 <h2 className="admin-dashboard__panel-title">
-                  Nowi użytkownicy
+                  {t("adminDashboard.recentUsers.title")}
                 </h2>
                 <p className="admin-dashboard__panel-subtitle">
-                  Ostatnio zarejestrowane konta.
+                  {t("adminDashboard.recentUsers.subtitle")}
                 </p>
               </div>
               <Link
                 to="/account/admin/users"
                 className="admin-dashboard__panel-link"
               >
-                <span>Wszyscy</span> <FiArrowRight />
+                <span>{t("adminDashboard.actions.viewAll")}</span>
+                <FiArrowRight />
               </Link>
             </div>
+
             <div className="admin-dashboard__users">
-              {recentUsers.map((user) => (
-                <div
-                  key={user.id}
-                  className="admin-dashboard__user"
-                >
-                  <div className="admin-dashboard__avatar">
-                    {user.name.charAt(0).toUpperCase()}
-                  </div>
-                  <div className="admin-dashboard__user-info">
-                    <strong className="admin-dashboard__user-name">
-                      {user.name}
-                    </strong>
-                    <span className="admin-dashboard__user-email">
-                      {user.username}
-                    </span>
-                  </div>
-                  <span
-                    className={`admin-dashboard__role admin-dashboard__role--${user.role.toLowerCase()}`}
+              {recentUsers.length > 0 ? (
+                recentUsers.map((user) => (
+                  <div
+                    key={user.id}
+                    className="admin-dashboard__user"
                   >
-                    {user.role}
-                  </span>
-                </div>
-              ))}
+                    <div className="admin-dashboard__avatar">
+                      {user.name?.charAt(0).toUpperCase()}
+                    </div>
+                    <div className="admin-dashboard__user-info">
+                      <strong className="admin-dashboard__user-name">
+                        {user.name}
+                      </strong>
+                      <span className="admin-dashboard__user-email">
+                        {user.username}
+                      </span>
+                    </div>
+                    <div className="admin-dashboard__user-roles">
+                      {(user.role ?? []).map((role) => (
+                        <span
+                          key={role}
+                          className={`admin-dashboard__role admin-dashboard__role--${role?.toLowerCase()}`}
+                        >
+                          {t(`adminDashboard.roles.${role.split("_")[1]}`, {
+                            defaultValue: role,
+                          })}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>{t("adminDashboard.recentUsers.empty")}</p>
+              )}
             </div>
           </div>
 
-          {/* ADMINISTRATIVE OVERRIDE UTILITIES PANEL */}
           <div className="admin-dashboard__quick">
-            <h2 className="admin-dashboard__panel-title">Szybkie działania</h2>
+            <h2 className="admin-dashboard__panel-title">
+              {t("adminDashboard.quickActions.title")}
+            </h2>
             <div className="admin-dashboard__quick-grid">
               <Link
                 to="/account/listings/new"
@@ -334,8 +380,10 @@ const AdminDashboard = () => {
               >
                 <FiPackage />
                 <div>
-                  <strong>Dodaj produkt</strong>
-                  <span>Utwórz nowy produkt w katalogu</span>
+                  <strong>{t("adminDashboard.quickActions.addProduct")}</strong>
+                  <span>
+                    {t("adminDashboard.quickActions.addProductDescription")}
+                  </span>
                 </div>
                 <FiArrowRight />
               </Link>
@@ -345,8 +393,10 @@ const AdminDashboard = () => {
               >
                 <FiGrid />
                 <div>
-                  <strong>Dodaj kategorię</strong>
-                  <span>Zarządzaj drzewem kategorii</span>
+                  <strong>{t("adminDashboard.quickActions.addCategory")}</strong>
+                  <span>
+                    {t("adminDashboard.quickActions.addCategoryDescription")}
+                  </span>
                 </div>
                 <FiArrowRight />
               </Link>
@@ -355,7 +405,13 @@ const AdminDashboard = () => {
                 className="admin-dashboard__quick-item"
               >
                 <FiTag />
-                <div>Zarządzaj markamiModyfikuj słowniki marek</div>
+                <div>
+                  <strong>{t("adminDashboard.quickActions.manageBrands")}</strong>
+                  <span>
+                    {t("adminDashboard.quickActions.manageBrandsDescription")}
+                  </span>
+                </div>
+                <FiArrowRight />
               </Link>
             </div>
           </div>
@@ -364,4 +420,5 @@ const AdminDashboard = () => {
     </main>
   );
 };
+
 export default AdminDashboard;

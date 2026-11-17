@@ -96,7 +96,7 @@ const SellerPayout = () => {
               <thead>
                 <tr>
                   <th>{t("payouts.table.headers.seller")}</th>
-                  <th>{t("payouts.table.headers.payout_id")}</th>
+                  <th>{t("payouts.table.headers.transfer_id")}</th>
                   <th>{t("payouts.table.headers.order")}</th>
                   <th>{t("payouts.table.headers.status")}</th>
                   <th>{t("payouts.table.headers.currency")}</th>

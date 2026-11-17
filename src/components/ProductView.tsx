@@ -242,7 +242,7 @@ const ProductView = () => {
                     <td>
                       <div className="data-table__actions" style={{ gap: "0.5rem" }}>
                         <Link
-                          to={`/account/listings/${product.productId}/edit`}
+                          to={`/account/admin/listings/${product.listingId}/edit`}
                           className="data-table__action-link"
                           title="Edytuj"
                         >

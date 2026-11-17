@@ -5,6 +5,7 @@ import { authApi } from "./features/api/authApi";
 import userSlice from "./features/slice/userSlice";
 import utilSlice from "./features/slice/utilSlice";
 
+import { adminApi } from "./features/api/adminApi";
 import { cartApi } from "./features/api/cartApi";
 import { checkoutApi } from "./features/api/checkoutApi";
 import { itemApi } from "./features/api/itemApi";
@@ -22,6 +23,7 @@ export const store = configureStore({
     cartSlice: cartSlice,
     utilSlice: utilSlice,
     [authApi.reducerPath]: authApi.reducer,
+    [adminApi.reducerPath]: adminApi.reducer,
     [sellerApi.reducerPath]: sellerApi.reducer,
     [checkoutApi.reducerPath]: checkoutApi.reducer,
     [itemApi.reducerPath]: itemApi.reducer,
@@ -42,7 +44,8 @@ export const store = configureStore({
       storeApi.middleware,
       itemApi.middleware,
       cartApi.middleware,
-      sellerApi.middleware
+      sellerApi.middleware,
+      adminApi.middleware
     ]);
   },
   
