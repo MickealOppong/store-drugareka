@@ -6,8 +6,8 @@ import { useSearchParams } from "react-router-dom";
 import "../css/GenericViewLayout.css";
 import { useGetSellersQuery } from "../features/api/sellerApi";
 import type {
-    TListPageSellerProfile,
-    TSellers
+  TListPageSellerProfile,
+  TSellers
 } from "../types/TListPageSellerProfile";
 import { isFetchBaseQueryError } from "../util/util";
 import Loading from "./Loading";
@@ -81,6 +81,9 @@ const SellerProfileView = () => {
       refetchOnMountOrArgChange: true,
     },
   );
+
+  console.log(data);
+  
 
   const response = data as TListPageSellerProfile | undefined;
   const sellers = response?.sellers ?? [];
