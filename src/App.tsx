@@ -79,7 +79,7 @@ function App() {
       errorElement: <ErrorPage />,
       children: [
         {
-          index: true,
+          index:true,
           element: <Shop />,
           loader: landingLoader(store),
         },
