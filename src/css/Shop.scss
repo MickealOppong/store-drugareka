@@ -329,7 +329,7 @@
    ========================================================================== */
 .collection-city-filter {
   position: relative;
-  z-index: 100; // Ensures dropdown menu floats above .shop-page__search and .shop-page__products
+  z-index: 10; // Ensures dropdown menu floats above .shop-page__search and .shop-page__products
   overflow: visible; // Prevents clipping of the position: absolute listbox menu
   display: flex;
   flex-direction: column;
@@ -433,6 +433,7 @@
     border-top: 1px dashed Variables.$color-border;
     box-sizing: border-box;
     animation: collectionLocationsReveal 0.18s ease-out both;
+ 
 
     @include Variables.media-up(Variables.$breakpoint-md) {
       max-width: 420px;
