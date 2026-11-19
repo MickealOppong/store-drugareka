@@ -82,7 +82,6 @@ const SellerProfileView = () => {
     },
   );
 
-  console.log(data);
   
 
   const response = data as TListPageSellerProfile | undefined;
