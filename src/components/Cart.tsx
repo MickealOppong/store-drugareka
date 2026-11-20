@@ -208,11 +208,36 @@ handleShippingMethodChange()
                 })}
               </strong>
 
-              <p>
-                {t("cart.private_seller.description", {
-                  defaultValue:
-"Produkty są sprzedawane przez osoby prywatne, a nie przez KASAWA Sp. z o.o. Serwis Kasoa.pl udostępnia platformę ogłoszeniową i pośredniczy w realizacji transakcji. Ochrona konsumenta przysługująca przy zakupach od przedsiębiorców może nie mieć zastosowania do tych transakcji."                })}
-              </p>
+          
+<div className="private-seller-disclaimer">
+  <p>
+    {t("cart.private_seller.description", {
+      defaultValue:
+        "Produkty na Kasoa.pl są sprzedawane przez osoby prywatne, a nie przez KASAWA Sp. z o.o. Kasoa.pl udostępnia platformę handlową i pośredniczy w realizacji transakcji. Ochrona konsumencka przysługująca przy zakupach od przedsiębiorców może nie mieć zastosowania do sprzedaży między osobami prywatnymi."
+    })}
+  </p>
+
+  <h4>
+    {t("cart.private_seller.delivery_title", {
+      defaultValue: "Dostawa i odpowiedzialność Sprzedającego"
+    })}
+  </h4>
+
+  <p>
+    {t("cart.private_seller.delivery_disclaimer", {
+      defaultValue:
+        "Kasoa.pl organizuje odbiór kurierski w imieniu Kupującego po potwierdzeniu zamówienia przez Sprzedającego. Kupujący opłaca dostawę podczas składania zamówienia, a Kasoa.pl nie dolicza marży do kosztu usługi kurierskiej. Jeżeli Sprzedający nie przekaże Towaru kurierowi po zamówieniu odbioru, niezwrócone przez przewoźnika koszty mogą obciążać Kupującego, o ile pozwalają na to obowiązujące przepisy prawa. Kupujący może dochodzić od Sprzedającego naprawienia szkody wynikającej z niewykonania potwierdzonego zamówienia."
+    })}
+  </p>
+
+  <p>
+    {t("cart.private_seller.pickup_disclaimer", {
+      defaultValue:
+        "W przypadku odbioru osobistego Sprzedający zobowiązuje się do udostępnienia Towaru w uzgodnionym miejscu i terminie. Jeżeli Sprzedający nie wywiąże się z tego obowiązku, może ponosić odpowiedzialność za uzasadnione i udokumentowane straty Kupującego."
+    })}
+  </p>
+</div>
+
 
               <a href="/terms">
                 {t("cart.private_seller.terms_link", {

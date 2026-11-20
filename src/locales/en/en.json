@@ -943,11 +943,15 @@
       }
     },
 
-    "private_seller": {
-      "title": "Private seller marketplace",
-      "description": "Products are sold by private individuals, not by KASAWA Sp. z o.o. Kasoa.pl provides the marketplace platform and facilitates transactions. Consumer protections that specifically apply to purchases from businesses may not apply to these sales.",
-      "terms_link": "Read our marketplace terms"
-    },
+  "private_seller": {
+    "title": "Private seller marketplace",
+    "description": "Products are sold by private individuals, not by KASAWA Sp. z o.o. Kasoa.pl provides the marketplace platform and facilitates transactions. Consumer protections that specifically apply to purchases from businesses may not apply to these sales.",
+    "delivery_title": "Delivery and seller responsibility",
+    "delivery_disclaimer": "Courier collection is arranged by Kasoa.pl on behalf of the buyer after the seller confirms the order. The buyer pays the courier charge at checkout, without any markup from Kasoa.pl. If the seller fails to hand over the item after courier collection has been booked, non-refundable courier charges may remain payable by the buyer, subject to applicable law. The buyer may seek compensation from the seller for losses caused by the seller's failure to fulfill the confirmed order.",
+    "pickup_disclaimer": "For personal pickup, the seller is responsible for making the item available at the agreed location and time. The seller may be liable for reasonable, documented losses caused by failing to do so.",
+    "terms_link": "Read our marketplace terms"
+  }
+,
     "header": {
       "title": "Cart",
       "shipping_cost": "Package shipping cost"

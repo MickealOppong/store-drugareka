@@ -252,28 +252,65 @@ const TermsAndConditions: React.FC = () => {
           </h2>
 
           <p className="terms-page__text">
-            Dostawy realizowane są za pośrednictwem zintegrowanych operatorów
-            logistycznych, w szczególności DPD oraz InPost, na terytorium
-            Rzeczypospolitej Polskiej.
+            Kupujący wybiera sposób dostawy podczas składania Zamówienia:
+            odbiór kurierski od Sprzedającego albo odbiór osobisty, jeżeli
+            dana Oferta przewiduje taką możliwość. Cena dostawy jest
+            przedstawiana Kupującemu przed dokonaniem płatności i jest
+            odrębna od opłaty serwisowej Kasoa.pl.
           </p>
 
           <p className="terms-page__text">
-            Sprzedający zobowiązany jest przygotować i przekazać przesyłkę
-            operatorowi logistycznemu w terminie do
-            <strong> 3 dni roboczych</strong> od momentu potwierdzenia
-            płatności za Zamówienie.
+            W przypadku dostawy kurierskiej Kupujący opłaca koszt usługi
+            przewoźnika podczas składania Zamówienia. Kupujący upoważnia
+            KASAWA do nieodpłatnego zorganizowania odbioru przesyłki od
+            Sprzedającego na rzecz Kupującego. KASAWA nie pobiera opłaty za
+            samo zorganizowanie odbioru ani nie dolicza marży do ceny
+            przewoźnika. Opłata za dostawę stanowi koszt usługi przewoźnika,
+            odrębny od opłaty serwisowej Kasoa.pl. KASAWA nie jest
+            Sprzedającym Towaru i nie przejmuje obowiązku jego wydania.
           </p>
 
           <p className="terms-page__text">
-            Łączny przewidywany czas realizacji Zamówienia, obejmujący
-            przygotowanie Towaru przez Sprzedającego oraz dostawę, wynosi od
-            <strong> 2 do 5 dni roboczych</strong>.
+            Sprzedający powinien potwierdzić dostępność Towaru i możliwość
+            realizacji Zamówienia w terminie 24 godzin od otrzymania
+            powiadomienia. Potwierdzenie oznacza również zobowiązanie do
+            przygotowania i odpowiedniego zapakowania Towaru oraz do
+            przekazania go kurierowi zamówionemu przez KASAWA na rzecz Kupującego.
+            Brak
+            potwierdzenia może skutkować anulowaniem Zamówienia.
           </p>
 
           <p className="terms-page__text">
-            Informacje dotyczące przewoźnika oraz statusu przesyłki mogą być
-            udostępniane Kupującemu za pośrednictwem jego Konta lub wiadomości
-            wysyłanych przez Serwis.
+            KASAWA zamawia odbiór kurierski dopiero po potwierdzeniu
+            Zamówienia przez Sprzedającego, działając w zakresie organizacji
+            odbioru na rzecz Kupującego. Kupujący nie musi samodzielnie
+            zamawiać kuriera. Sprzedający nie organizuje samodzielnie
+            przesyłki kurierskiej w ramach tej metody dostawy, chyba że
+            Serwis wyraźnie przewiduje inną procedurę.
+          </p>
+
+          <p className="terms-page__text">
+            Sprzedający zobowiązuje się przygotować i odpowiednio zapakować
+            Towar bez zbędnej zwłoki, co do zasady w ciągu
+            <strong> 3 dni roboczych</strong> od potwierdzenia Zamówienia,
+            oraz przekazać go kurierowi przy odbiorze przesyłki. Przewidywany
+            łączny czas przygotowania i dostawy wynosi
+            <strong> 2 do 5 dni roboczych</strong>, o ile przy danej
+            Ofercie lub metodzie dostawy nie wskazano inaczej.
+          </p>
+
+          <p className="terms-page__text">
+            Przy odbiorze osobistym Sprzedający potwierdza miejsce i termin
+            wydania Towaru. Dokładne dane odbioru są przekazywane Kupującemu
+            po opłaceniu Zamówienia zgodnie z procedurą Serwisu. Sprzedający
+            jest zobowiązany udostępnić Towar w uzgodnionym miejscu i czasie.
+          </p>
+
+          <p className="terms-page__text">
+            Informacje o statusie odbioru i przesyłki mogą być udostępniane
+            Kupującemu w Koncie lub w wiadomościach Serwisu. Szczegółowe
+            zasady rozliczania kosztów niewykonanego odbioru określają
+            punkty 18 i 20 Regulaminu.
           </p>
         </section>
 
@@ -809,19 +846,49 @@ const TermsAndConditions: React.FC = () => {
         <section className="terms-page__section">
           <h2 className="terms-page__section-title">
             <FiTruck />
-            18. Problemy z dostawą
+            18. Problemy z dostawą i niewydanie Towaru
           </h2>
 
           <p className="terms-page__text">
-            W przypadku zagubienia, uszkodzenia lub innego problemu
-            z przesyłką Użytkownik powinien niezwłocznie zgłosić problem
-            za pośrednictwem Serwisu lub na adres kontaktowy Operatora.
+            W przypadku zagubienia, uszkodzenia przesyłki, odmowy jej
+            wydania przewoźnikowi albo nieobecności Sprzedającego w
+            uzgodnionym miejscu odbioru Użytkownik powinien niezwłocznie
+            zgłosić problem za pośrednictwem Serwisu.
           </p>
 
           <p className="terms-page__text">
-            KASAWA może współpracować z właściwym operatorem logistycznym
-            w celu wyjaśnienia statusu przesyłki oraz podjęcia działań
-            przewidzianych dla danego rodzaju zdarzenia.
+            KASAWA może współpracować z przewoźnikiem w celu ustalenia
+            statusu usługi, jej kosztów oraz możliwości anulowania
+            rezerwacji lub odzyskania opłaty.
+          </p>
+
+          <p className="terms-page__text">
+            Jeżeli Sprzedający po potwierdzeniu Zamówienia nie przygotuje
+            Towaru lub nie przekaże go przewoźnikowi z przyczyn, za które
+            ponosi odpowiedzialność, może odpowiadać wobec Kupującego za
+            wynikłą szkodę, w tym uzasadniony i udokumentowany koszt
+            bezskutecznego odbioru kurierskiego. Dotyczy to także sytuacji,
+            gdy przewoźnik pobiera opłatę za zarezerwowaną usługę pomimo
+            braku faktycznego odbioru przesyłki.
+          </p>
+
+          <p className="terms-page__text">
+            W przypadku odbioru osobistego Sprzedający odpowiada na zasadach
+            ogólnych za szkodę wynikającą z niewydania Towaru w uzgodnionym
+            miejscu i terminie, w tym za uzasadnione i udokumentowane
+            koszty bezskutecznego dojazdu Kupującego, jeżeli spełnione
+            są ustawowe przesłanki odpowiedzialności.
+          </p>
+
+          <p className="terms-page__text">
+            Nieodpłatne zorganizowanie odbioru kurierskiego przez KASAWA
+            nie oznacza przejęcia obowiązku Sprzedającego do wydania Towaru.
+            Tak jak przy odbiorze osobistym, szkoda wynikająca z
+            niewydania Towaru przez Sprzedającego może stanowić podstawę
+            roszczenia Kupującego wobec Sprzedającego. KASAWA odpowiada
+            za należyte wykonanie własnych obowiązków związanych z
+            organizacją odbioru. Postanowienie to nie wyłącza odpowiedzialności
+            Operatora wynikającej z bezwzględnie obowiązujących przepisów prawa.
           </p>
         </section>
 
@@ -856,28 +923,51 @@ const TermsAndConditions: React.FC = () => {
 
           <p className="terms-page__text">
             Zamówienie może zostać anulowane w przypadkach przewidzianych
-            w Regulaminie, w szczególności gdy realizacja Zamówienia
-            nie jest możliwa, Towar został wcześniej sprzedany, Oferta
-            została usunięta z powodu naruszenia Regulaminu lub wystąpiły
-            inne okoliczności uniemożliwiające prawidłową realizację
-            transakcji.
+            w Regulaminie, w szczególności gdy Sprzedający nie potwierdzi
+            Zamówienia w wymaganym terminie, Towar jest niedostępny,
+            Sprzedający odmówi jego wydania lub nie dojdzie do odbioru
+            z przyczyn uniemożliwiających realizację sprzedaży.
           </p>
 
           <p className="terms-page__text">
-            W przypadku anulowania Zamówienia, jeżeli płatność została
-            wcześniej dokonana, środki zostaną zwrócone Kupującemu zgodnie
-            z zasadami właściwymi dla zastosowanego sposobu płatności.
+            Jeżeli Zamówienie zostaje anulowane z powodu niewykonania
+            zobowiązania przez Sprzedającego, Kupującemu zwraca się
+            zapłaconą cenę Towaru oraz opłatę serwisową Kasoa.pl,
+            z zastrzeżeniem bezwzględnie obowiązujących przepisów prawa.
+          </p>
+
+          <p className="terms-page__text">
+            Jeżeli do chwili anulowania nie zamówiono usługi kurierskiej,
+            pobrana opłata za dostawę podlega zwrotowi w całości.
+            Jeżeli po potwierdzeniu Zamówienia przez Sprzedającego KASAWA
+            zamówiła już usługę kurierską na rzecz Kupującego, koszt
+            dostawy rozlicza się według rzeczywistych opłat naliczonych
+            przez przewoźnika oraz warunków anulowania tej usługi.
+            Koszt faktycznie naliczony przez przewoźnika, którego nie
+            można odzyskać, może pozostać kosztem Kupującego, nawet jeśli
+            odbiór przesyłki nie nastąpił, o ile pozwalają na to
+            obowiązujące przepisy prawa. KASAWA nie zatrzymuje takiej
+            opłaty jako własnego wynagrodzenia. Sama rezerwacja bez
+            naliczenia bezzwrotnego kosztu nie uzasadnia odmowy zwrotu.
+          </p>
+
+          <p className="terms-page__text">
+            W przypadku zwrotu przez przewoźnika całości lub części
+            opłaty za niezrealizowaną usługę odpowiednia kwota jest
+            zwracana Kupującemu, z uwzględnieniem obowiązujących
+            przepisów prawa. Kupujący może dochodzić od Sprzedającego
+            naprawienia szkody wynikającej z niewykonania potwierdzonego
+            Zamówienia, w tym kosztów dostawy, których nie odzyskał.
           </p>
 
           <p className="terms-page__text">
             Jeżeli anulowanie opłaconego Zamówienia następuje z inicjatywy
-            Sprzedającego lub z przyczyn leżących po jego stronie, Sprzedający
-            ponosi niepodlegające zwrotowi przez Stripe opłaty związane
-            z wykonaniem zwrotu płatności Kupującemu, zgodnie z zasadami
-            określonymi w pkt 14 Regulaminu. Nie dotyczy to sytuacji,
-            w których anulowanie wynika z okoliczności, za które odpowiada
-            KASAWA lub Kupujący, chyba że bezwzględnie obowiązujące przepisy
-            prawa stanowią inaczej.
+            Sprzedającego lub z przyczyn leżących po jego stronie,
+            Sprzedający ponosi niepodlegające zwrotowi przez Stripe opłaty
+            związane z wykonaniem zwrotu płatności Kupującemu, zgodnie
+            z zasadami określonymi w pkt 14 Regulaminu, w zakresie
+            dopuszczalnym przez prawo. Nie dotyczy to sytuacji, za które
+            odpowiada KASAWA lub Kupujący.
           </p>
         </section>
 
