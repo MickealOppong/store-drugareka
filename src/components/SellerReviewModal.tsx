@@ -11,13 +11,11 @@ import {
 } from "react-icons/fi";
 import defImage from "../assets/default.jpeg";
 import '../css/SellerReviewModal.css';
-import { useStripeShippingCostCheckoutMutation } from "../features/api/checkoutApi";
 import {
   useLazyGetBuyerComplaintQuery,
   useUpdateOrderDisputeMutation
 } from "../features/api/itemApi";
 import type { TComplaints } from "../types/TComplaints";
-import type { TResponseDto } from "../types/TResponseDto";
 import Loading from "./Loading";
 
 interface ComplaintImageModalProps {
@@ -36,8 +34,10 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
   const [getComplaint,{ isFetching } ]= useLazyGetBuyerComplaintQuery()
   const[data,setData]=useState<TComplaints>()
 
-  const disputeId = data?.id;
-  const returnUpheld = (data?.status === "AWAITING_RETURN_PAYMENT") || (data?.status==="RETURN_UPHELD") ||(data?.status==="APPROVED");
+  // Only the initial seller-decision state permits submitting a decision.
+  // Adjust this value if your backend uses a different initial enum.
+  const canDecide = data?.status === "AWAITING_SELLER_DECISION";
+  const isPersonalPickup = data?.shippingMethod?.toUpperCase() === "PERSONAL_PICKUP";
 
   // Load the complaint for the currently selected order. Reset all order-specific
   // state first so data from the previously selected order is never displayed.
@@ -88,14 +88,11 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
   // Form states tracking controls
   const [comment, setComment] = useState<string>("");
   const [isSubmitting, setIsProcessing] = useState<boolean>(false);
-  const [processingAction, setProcessingAction] = useState<"APPROVE" | "REJECT" | "CHECKOUT" | null>(null);
+  const [processingAction, setProcessingAction] = useState<"APPROVE" | "REJECT" | null>(null);
 
   // Active Index States for carousel loops independently handled
   const [originalIdx, setOriginalIdx] = useState<number>(0);
   const [complaintIdx, setComplaintIdx] = useState<number>(0);
-
-  //stripe checkout
-  const [checkoutShippingCost] = useStripeShippingCostCheckoutMutation();
 
   // Full-screen image zoom focus tracking keys
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
@@ -107,7 +104,7 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
       if (e.key === "Escape") {
         if (fullscreenImage) {
           setFullscreenImage(null);
-        } else {
+        } else if (!isSubmitting) {
           onClose();
         }
       }
@@ -124,7 +121,7 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = previousOverflow;
     };
-  }, [isOpen, fullscreenImage, onClose]);
+  }, [isOpen, fullscreenImage, onClose, isSubmitting]);
 
   // Reset form parameter entries cleanly when modal closes
   useEffect(() => {
@@ -174,14 +171,27 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
     return apiError?.data?.message ?? apiError?.message ?? t("complaint_modal.errors.generic", { defaultValue: "Coś poszło nie tak. Spróbuj ponownie." });
   };
 
+  const redirectToCheckout = (url: unknown): boolean => {
+    if (typeof url !== "string" || !url.trim()) return false;
+    try {
+      const target = new URL(url);
+      if (target.protocol !== "https:" ||
+          !(target.hostname === "checkout.stripe.com" || target.hostname.endsWith(".checkout.stripe.com"))) {
+        return false;
+      }
+      window.location.assign(target.href);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   const handleDecisionSubmit = async (actionType: "APPROVE" | "REJECT") => {
-    if (isSubmitting || !comment.trim()) return;
+    if (isSubmitting || !comment.trim() || !data || !canDecide) return;
 
     setIsProcessing(true);
     setProcessingAction(actionType);
     setAlertError("");
-
-    // Keep the loading state active after a successful checkout URL is received.
     let redirectStarted = false;
 
     try {
@@ -189,46 +199,45 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
         orderNumber,
         decision: actionType,
         reason: comment.trim(),
-      });
+      }).unwrap();
 
-      if ("error" in response) {
-        setAlertError(getErrorMessage(response.error));
-        return;
-      }
+      console.log(response);
+      
 
-      if (response.data?.httpStatus === 200) {
+      if (actionType === "REJECT" && response.httpStatus === 200) {
         onClose();
         return;
       }
 
-      if (response.data?.httpStatus === 202) {
-        const checkoutResponse = (await checkoutShippingCost(
-          response.data.data,
-        ).unwrap()) as TResponseDto;
-
-        if (checkoutResponse.httpStatus !== 200 || !checkoutResponse.data) {
-          setAlertError(
-            checkoutResponse.message ||
-              t("complaint_modal.errors.checkout_create", {
-                defaultValue: "Nie udało się utworzyć sesji płatności.",
-              }),
-          );
+      if (actionType === "APPROVE" && response.httpStatus === 202) {
+        if (isPersonalPickup) {
+          // Backend initiates refund; response.data is the dispute ID, not a URL.
+          onClose();
           return;
         }
 
-        redirectStarted = true;
-        window.location.assign(checkoutResponse.data);
+        // Courier approval now returns the Stripe Checkout URL directly.
+        redirectStarted = redirectToCheckout(response.data);
+        if (redirectStarted) return;
+        setAlertError(t("complaint_modal.errors.checkout_create", {
+          defaultValue: "Decyzja została zapisana, ale nie udało się otworzyć płatności. Skontaktuj się z obsługą Kasoa.",
+        }));
+        // Decision may already be committed; refresh to show read-only status.
+        const refreshed = await getComplaint(orderNumber).unwrap();
+        setData(refreshed);
         return;
       }
 
-      setAlertError(
-        response.data?.message ||
-          t("complaint_modal.errors.decision_failed", {
-            defaultValue: "Nie udało się zakończyć rozpatrywania reklamacji.",
-          }),
-      );
+      setAlertError(response.message || t("complaint_modal.errors.decision_failed", {
+        defaultValue: "Nie udało się zakończyć rozpatrywania reklamacji.",
+      }));
     } catch (error: unknown) {
       setAlertError(getErrorMessage(error));
+      // A request may have committed even if the response was lost.
+      try {
+        const refreshed = await getComplaint(orderNumber).unwrap();
+        setData(refreshed);
+      } catch { /* retain the original error */ }
     } finally {
       if (!redirectStarted) {
         setIsProcessing(false);
@@ -237,97 +246,6 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
     }
   };
 
-
-    const handleDecisionSubmitForPersonalCollection = async (actionType: "APPROVE" | "REJECT") => {
-    if (isSubmitting || !comment.trim()) return;
-
-    setIsProcessing(true);
-    setProcessingAction(actionType);
-    setAlertError("");
-
-    // Keep the loading state active after a successful checkout URL is received.
-    let redirectStarted = false;
-
-    try {
-      const response = await updateDisputeStatus({
-        orderNumber,
-        decision: actionType,
-        reason: comment.trim(),
-      });
-
-      if ("error" in response) {
-        setAlertError(getErrorMessage(response.error));
-        return;
-      }
-
-      if (response.data?.httpStatus === 200) {
-        onClose();
-        return;
-      }
-
-      setAlertError(
-        response.data?.message ||
-          t("complaint_modal.errors.decision_failed", {
-            defaultValue: "Nie udało się zakończyć rozpatrywania reklamacji.",
-          }),
-      );
-    } catch (error: unknown) {
-      setAlertError(getErrorMessage(error));
-    } finally {
-      if (!redirectStarted) {
-        setIsProcessing(false);
-        setProcessingAction(null);
-      }
-    }
-  };
-
-  const handleCheckout = async () => {
-    if (!disputeId || isSubmitting) {
-      setAlertError(
-        t("complaint_modal.errors.checkout_unavailable", {
-          defaultValue:
-            "Reklamacja lub płatność za przesyłkę zwrotną jest niedostępna.",
-        }),
-      );
-      return;
-    }
-
-    setIsProcessing(true);
-    setProcessingAction("CHECKOUT");
-    setAlertError("");
-
-    let redirectStarted = false;
-
-    try {
-      const checkoutResponse = (await checkoutShippingCost(
-        Number(disputeId),
-      ).unwrap()) as TResponseDto;
-
-      if (checkoutResponse.httpStatus !== 200 || !checkoutResponse.data) {
-        setAlertError(
-          checkoutResponse.message ||
-            t("complaint_modal.errors.checkout_create", {
-              defaultValue: "Nie udało się utworzyć sesji płatności.",
-            }),
-        );
-        return;
-      }
-
-      redirectStarted = true;
-      window.location.assign(checkoutResponse.data);
-    } catch (error: unknown) {
-      setAlertError(getErrorMessage(error));
-    } finally {
-      if (!redirectStarted) {
-        setIsProcessing(false);
-        setProcessingAction(null);
-      }
-    }
-  };
-
-
-
-  
   if(isFetching){
     return <Loading/>
   }
@@ -336,7 +254,7 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
     <>
       <div
         className="cmp-modal-overlay"
-        onClick={onClose}
+        onClick={() => { if (!isSubmitting) onClose(); }}
         role="dialog"
         aria-modal="true"
       >
@@ -361,6 +279,7 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
               type="button"
               className="cmp-modal__close-btn"
               onClick={onClose}
+              disabled={isSubmitting}
               aria-label={t("complaint_modal.accessibility.close", { defaultValue: "Zamknij okno" })}
             >
               <FiX />
@@ -491,45 +410,29 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
              ==================================================== */}
 
         {
-         returnUpheld ? (
-    <div className="cmp-modal__footer cmp-modal__footer--courier">
-      <p>
-        {data?.shippingMethod === "PERSONAL_PICKUP"
-          ? t("complaint_modal.return_upheld_personal_pickup_message", {
-              defaultValue: "Administrator uznał reklamację."
-            })
-          : t("complaint_modal.return_upheld_message", {
-              defaultValue:
-                "Administrator uznał reklamację. Opłać koszt przesyłki zwrotnej, aby zamówić kuriera."
-            })}
-      </p>
-
-      {data?.shippingMethod !== "PERSONAL_PICKUP" && (
-        <button
-          type="button"
-          className="cmp-footer-form__btn cmp-footer-form__btn--approve"
-          onClick={handleCheckout}
-          disabled={isSubmitting || !disputeId}
-        >
-          {isSubmitting ? (
-            <>
-              <span className="cmp-spinner" aria-hidden="true" />
-              <span>
-                {t("complaint_modal.buttons.redirecting", {
-                  defaultValue: "Przekierowanie do płatności..."
-                })}
-              </span>
-            </>
-          ) : (
-            t("complaint_modal.buttons.order_courier", {
-              defaultValue: "Zamów kuriera"
-            })
-          )}
-        </button>
-      )}
-    </div>
-  
-        ) :
+         !canDecide ? (
+           <div className="cmp-modal__footer cmp-modal__footer--courier" role="status">
+             <p>{(() => {
+               switch (data?.status) {
+                 case "AWAITING_RETURN_PAYMENT":
+                   return "Reklamacja została uznana. Oczekujemy na potwierdzenie płatności za przesyłkę zwrotną.";
+                 case "RETURN_UPHELD":
+                 case "APPROVED":
+                   return isPersonalPickup
+                     ? "Reklamacja została uznana. Zwrot płatności jest przetwarzany."
+                     : "Reklamacja została uznana. Dalsza obsługa zwrotu jest w toku.";
+                 case "UNDER_REVIEW":
+                   return "Odrzuciłeś reklamację. Sprawa jest obecnie rozpatrywana przez administratora Kasoa.";
+                 case "REJECTED":
+                   return "Administrator odrzucił reklamację kupującego. Reklamacja została zakończona.";
+                 case "RESOLVED":
+                   return "Reklamacja została rozstrzygnięta i zakończona.";
+                 default:
+                   return data ? "Reklamacja nie wymaga obecnie decyzji sprzedającego." : "Ładowanie statusu reklamacji...";
+               }
+             })()}</p>
+           </div>
+         ) :
             <footer className="cmp-modal__footer">
             <form
               className="cmp-footer-form"
@@ -579,16 +482,7 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
                         defaultValue: "Odrzuć reklamację",
                       })}
                 </button>
-              {
-                data?.shippingMethod==="PERSONAL_PICKUP"?
-                <button type="button" 
-                 onClick={() => handleDecisionSubmitForPersonalCollection("APPROVE")}>
-                  { t("complaint_modal.footer.buttons.approve", {
-                      defaultValue: "Approve",
-                    })}
-                </button>
-                :
-                 <button
+                <button
                   type="button"
                   className="cmp-footer-form__btn cmp-footer-form__btn--approve"
                   onClick={() => handleDecisionSubmit("APPROVE")}
@@ -597,19 +491,14 @@ export const SellerReviewModal: React.FC<ComplaintImageModalProps> = ({
                   {isSubmitting && processingAction === "APPROVE" ? (
                     <>
                       <span className="cmp-spinner" aria-hidden="true" />
-                      <span>
-                        {t("complaint_modal.buttons.redirecting", {
-                          defaultValue: "Przekierowanie do płatności...",
-                        })}
-                      </span>
+                      <span>{isPersonalPickup ? "Przetwarzanie zwrotu..." : "Przekierowanie do płatności..."}</span>
                     </>
                   ) : (
-                    t("complaint_modal.footer.buttons.approve_order", {
-                      defaultValue: "Zamów kuriera",
-                    })
+                    isPersonalPickup
+                      ? t("complaint_modal.footer.buttons.approve", { defaultValue: "Uznaj reklamację" })
+                      : t("complaint_modal.footer.buttons.approve_order", { defaultValue: "Uznaj i opłać zwrot" })
                   )}
                 </button>
-              }
               </div>
             </form>
           </footer>

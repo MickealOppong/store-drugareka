@@ -79,7 +79,7 @@ const Complaints = () => {
                 STATUS CONTROLS TABS
             ====================================================== */}
       <div className="panel-view__tab-group">
-        {["ALL", "OPEN", "UNDER_REVIEW", "RESOLVED","APPROVED","RETURN_UPHELD", "REJECTED","AWAITING_RETURN_PAYMENT"].map((status) => (
+        {["ALL", "AWAITING_SELLER_DECISION", "UNDER_REVIEW", "RESOLVED","APPROVED","RETURN_UPHELD", "REJECTED","AWAITING_RETURN_PAYMENT"].map((status) => (
           <button
             key={status}
             type="button"

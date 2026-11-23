@@ -25,7 +25,6 @@ const OrderDetails = () => {
 
   const orders = (data as TOrdersDto[]) || [];
 
-  console.log(orders);
   
   const totalCost = orders.reduce((accumulator, currentOrder) => {
     return (

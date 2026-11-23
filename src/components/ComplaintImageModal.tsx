@@ -1,6 +1,20 @@
-import React, { useEffect, useState, type ChangeEvent } from "react";
+
+import React, {
+  useEffect,
+  useState,
+  type ChangeEvent,
+} from "react";
 import { useTranslation } from "react-i18next";
-import { FiAlertCircle, FiChevronLeft, FiChevronRight, FiFileText, FiMaximize2, FiMessageSquare, FiX } from "react-icons/fi";
+import {
+  FiAlertCircle,
+  FiChevronLeft,
+  FiChevronRight,
+  FiFileText,
+  FiMaximize2,
+  FiMessageSquare,
+  FiX,
+} from "react-icons/fi";
+
 import defImage from "../assets/default.jpeg";
 import "../css/ComplaintImageModal.scss";
 import { useUpdateOrderDisputeAdminMutation } from "../features/api/itemApi";
@@ -13,34 +27,46 @@ interface ComplaintImageModalProps {
   complaintImages: string[];
 }
 
-export const ComplaintImageModal: React.FC<ComplaintImageModalProps> = ({
+type AdminDecision =
+  | "approve"
+  | "reject"
+  | "not_justified";
+
+export const ComplaintImageModal: React.FC<
+  ComplaintImageModalProps
+> = ({
   isOpen,
   onClose,
   orderNumber,
   originalImages = [],
-  complaintImages = []
+  complaintImages = [],
 }) => {
   const { t } = useTranslation();
 
-  // Active Index States for carousel loops independently handled
-  const [originalIdx, setOriginalIdx] = useState<number>(0);
-  const [complaintIdx, setComplaintIdx] = useState<number>(0);
+  // Image carousel states
+  const [originalIdx, setOriginalIdx] = useState(0);
+  const [complaintIdx, setComplaintIdx] = useState(0);
 
-    // Form states tracking controls
-      const [alertError, setAlertError] = useState<string>("");
-    const [comment, setComment] = useState<string>("");
-    const [isSubmitting, setIsProcessing] = useState<boolean>(false);
-  
-  // Full-screen image zoom focus tracking keys
-  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+  // Admin decision states
+  const [alertError, setAlertError] = useState("");
+  const [comment, setComment] = useState("");
+  const [isSubmitting, setIsProcessing] = useState(false);
 
-  // Keyboard binding escape event listener loop hooks
+  // Fullscreen image
+  const [fullscreenImage, setFullscreenImage] =
+    useState<string | null>(null);
+
+  // API mutation
+  const [updateDisputeStatus] =
+    useUpdateOrderDisputeAdminMutation();
+
+  // Close modal using Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         if (fullscreenImage) {
           setFullscreenImage(null);
-        } else {
+        } else if (!isSubmitting) {
           onClose();
         }
       }
@@ -48,245 +74,453 @@ export const ComplaintImageModal: React.FC<ComplaintImageModalProps> = ({
 
     if (isOpen) {
       window.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden"; // Locks main background scroll containers
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [isOpen, fullscreenImage, onClose]);
+  }, [isOpen, fullscreenImage, onClose, isSubmitting]);
 
+  // Reset modal when opened or order changes
+  useEffect(() => {
+    if (isOpen) {
+      setAlertError("");
+      setComment("");
+      setOriginalIdx(0);
+      setComplaintIdx(0);
+      setFullscreenImage(null);
+    }
+  }, [isOpen, orderNumber]);
 
+  const originalPhotos =
+    originalImages.length > 0 ? originalImages : [defImage];
 
-  // Sizing anchors protection boundaries checks
-  const originalPhotos = originalImages.length > 0 ? originalImages : [defImage];
-  const complaintPhotos = complaintImages.length > 0 ? complaintImages : [defImage];
+  const complaintPhotos =
+    complaintImages.length > 0 ? complaintImages : [defImage];
 
+  // Original listing navigation
   const handlePrevOriginal = () => {
-    setOriginalIdx((prev) => (prev === 0 ? originalPhotos.length - 1 : prev - 1));
+    setOriginalIdx((prev) =>
+      prev === 0 ? originalPhotos.length - 1 : prev - 1
+    );
   };
 
   const handleNextOriginal = () => {
-    setOriginalIdx((prev) => (prev === originalPhotos.length - 1 ? 0 : prev + 1));
+    setOriginalIdx((prev) =>
+      prev === originalPhotos.length - 1 ? 0 : prev + 1
+    );
   };
 
+  // Complaint evidence navigation
   const handlePrevComplaint = () => {
-    setComplaintIdx((prev) => (prev === 0 ? complaintPhotos.length - 1 : prev - 1));
+    setComplaintIdx((prev) =>
+      prev === 0 ? complaintPhotos.length - 1 : prev - 1
+    );
   };
 
   const handleNextComplaint = () => {
-    setComplaintIdx((prev) => (prev === complaintPhotos.length - 1 ? 0 : prev + 1));
+    setComplaintIdx((prev) =>
+      prev === complaintPhotos.length - 1 ? 0 : prev + 1
+    );
   };
 
-  //mutation hook
-  const [updateDisputeStatus] = useUpdateOrderDisputeAdminMutation()
-  
+  // Submit admin decision
+  const handleDecisionSubmit = async (
+    actionType: AdminDecision
+  ) => {
+    if (isSubmitting || !comment.trim()) return;
 
-    const handleDecisionSubmit = async (
-      e: ChangeEvent<HTMLFormElement>,
-      actionType: "APPROVE" | "REJECT",
-    ) => {
-      e.preventDefault();
-      setIsProcessing(true);
-  
-      try {
-        // Perform your RTK Query or Fetch Mutation execution hook here
-        const response = await updateDisputeStatus({
-          orderNumber,
-          decision: actionType,
-          reason: comment,
-        });
-  
-        if (response.error) {
-          const { data } = response.error as { data: any; status: number };
-          const { message } = data as { status: number; message: string };
-          setAlertError(message);
+    setAlertError("");
+    setIsProcessing(true);
+
+    try {
+      await updateDisputeStatus({
+        orderNumber,
+        decision: actionType,
+        reason: comment.trim(),
+      }).unwrap();
+
+      setComment("");
+      onClose();
+    } catch (error: unknown) {
+      let message = t(
+        "complaint_modal.errors.processing_failed",
+        {
+          defaultValue:
+            "Nie udało się zapisać decyzji. Spróbuj ponownie.",
         }
-  
-        onClose();
-        setIsProcessing(false);
-      } catch (err) {
-        console.error("Failed to commit case decision: ", err);
-      } finally {
-        setIsProcessing(false);
+      );
+
+      if (typeof error === "object" && error !== null) {
+        const err = error as {
+          data?:
+            | { message?: unknown; detail?: unknown }
+            | string;
+          error?: string;
+          message?: string;
+        };
+
+        if (
+          typeof err.data === "string" &&
+          err.data.trim()
+        ) {
+          message = err.data;
+        } else if (
+          err.data &&
+          typeof err.data === "object"
+        ) {
+          if (
+            typeof err.data.message === "string" &&
+            err.data.message.trim()
+          ) {
+            message = err.data.message;
+          } else if (
+            typeof err.data.detail === "string" &&
+            err.data.detail.trim()
+          ) {
+            message = err.data.detail;
+          }
+        } else if (
+          typeof err.error === "string" &&
+          err.error.trim()
+        ) {
+          message = err.error;
+        }
       }
-    };
-      if (!isOpen) return null;
+
+      setAlertError(message);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  if (!isOpen) return null;
 
   return (
     <>
-      <div className="cmp-modal-overlay" onClick={onClose} role="dialog" aria-modal="true">
-        <div className="cmp-modal" onClick={(e) => e.stopPropagation()}>
-          
-          {/* ====================================================
-                    MODAL CONTROL LAYER HEADERS
-             ==================================================== */}
+      <div
+        className="cmp-modal-overlay"
+        onClick={() => {
+          if (!isSubmitting) onClose();
+        }}
+        role="dialog"
+        aria-modal="true"
+      >
+        <div
+          className="cmp-modal"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* HEADER */}
           <header className="cmp-modal__header">
             <div className="cmp-modal__badge">
               <FiAlertCircle />
-              <span>{t("complaint_modal.header.badge", { defaultValue: "Complaint Review" })}</span>
-              <span className="cmp-modal__order-tag">#{orderNumber}</span>
+
+              <span>
+                {t("complaint_modal.header.badge", {
+                  defaultValue: "Weryfikacja reklamacji",
+                })}
+              </span>
+
+              <span className="cmp-modal__order-tag">
+                #{orderNumber}
+              </span>
             </div>
-            <button type="button" className="cmp-modal__close-btn" onClick={onClose} aria-label="Close modal">
+
+            <button
+              type="button"
+              className="cmp-modal__close-btn"
+              onClick={onClose}
+              disabled={isSubmitting}
+              aria-label="Zamknij"
+            >
               <FiX />
             </button>
           </header>
 
-          {/* ====================================================
-                    SPLIT PANELS COMPARISON SECTION
-             ==================================================== */}
+          {/* IMAGE COMPARISON */}
           <div className="cmp-modal__body">
-            
-            {/* LEFT LEG CONTAINER: ORIGINAL ITEM CATALOG LOOK */}
+            {/* ORIGINAL LISTING */}
             <section className="cmp-panel">
               <div className="cmp-panel__title-bar">
                 <FiFileText />
-                <h3>{t("complaint_modal.panels.original_title", { defaultValue: "Original Reference Listing" })}</h3>
+
+                <h3>
+                  {t(
+                    "complaint_modal.panels.original_title",
+                    {
+                      defaultValue:
+                        "Zdjęcia z ogłoszenia",
+                    }
+                  )}
+                </h3>
               </div>
-              
+
               <div className="cmp-panel__display-frame">
-                <img 
-                  src={originalPhotos[originalIdx]} 
-                  alt="Original listing reference" 
+                <img
+                  src={originalPhotos[originalIdx]}
+                  alt="Zdjęcie produktu z ogłoszenia"
                   loading="lazy"
                 />
-                
-                <button 
-                  type="button" 
+
+                <button
+                  type="button"
                   className="cmp-panel__zoom-trigger"
-                  onClick={() => setFullscreenImage(originalPhotos[originalIdx])}
-                  title="Zoom image"
+                  onClick={() =>
+                    setFullscreenImage(
+                      originalPhotos[originalIdx]
+                    )
+                  }
+                  title="Powiększ zdjęcie"
                 >
                   <FiMaximize2 />
                 </button>
 
                 {originalPhotos.length > 1 && (
                   <div className="cmp-panel__controls">
-                    <button type="button" onClick={handlePrevOriginal} className="cmp-panel__arrow"><FiChevronLeft /></button>
-                    <span className="cmp-panel__indicator">{originalIdx + 1} / {originalPhotos.length}</span>
-                    <button type="button" onClick={handleNextOriginal} className="cmp-panel__arrow"><FiChevronRight /></button>
+                    <button
+                      type="button"
+                      onClick={handlePrevOriginal}
+                      className="cmp-panel__arrow"
+                      aria-label="Poprzednie zdjęcie"
+                    >
+                      <FiChevronLeft />
+                    </button>
+
+                    <span className="cmp-panel__indicator">
+                      {originalIdx + 1} /{" "}
+                      {originalPhotos.length}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={handleNextOriginal}
+                      className="cmp-panel__arrow"
+                      aria-label="Następne zdjęcie"
+                    >
+                      <FiChevronRight />
+                    </button>
                   </div>
                 )}
               </div>
             </section>
 
-            {/* RIGHT LEG CONTAINER: BUYER COMPLAINT EVIDENCE IMAGES */}
+            {/* BUYER COMPLAINT IMAGES */}
             <section className="cmp-panel cmp-panel--complaint">
               <div className="cmp-panel__title-bar">
                 <FiAlertCircle />
-                <h3>{t("complaint_modal.panels.complaint_title", { defaultValue: "Buyer Damage Complaint Evidence" })}</h3>
+
+                <h3>
+                  {t(
+                    "complaint_modal.panels.complaint_title",
+                    {
+                      defaultValue:
+                        "Zdjęcia dołączone do reklamacji",
+                    }
+                  )}
+                </h3>
               </div>
-              
+
               <div className="cmp-panel__display-frame">
-                <img 
-                  src={complaintPhotos[complaintIdx]} 
-                  alt="Buyer complaint uploaded evidence" 
+                <img
+                  src={complaintPhotos[complaintIdx]}
+                  alt="Zdjęcie przesłane przez kupującego"
                   loading="lazy"
                 />
 
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="cmp-panel__zoom-trigger"
-                  onClick={() => setFullscreenImage(complaintPhotos[complaintIdx])}
-                  title="Zoom image"
+                  onClick={() =>
+                    setFullscreenImage(
+                      complaintPhotos[complaintIdx]
+                    )
+                  }
+                  title="Powiększ zdjęcie"
                 >
                   <FiMaximize2 />
                 </button>
 
                 {complaintPhotos.length > 1 && (
                   <div className="cmp-panel__controls">
-                    <button type="button" onClick={handlePrevComplaint} className="cmp-panel__arrow"><FiChevronLeft /></button>
-                    <span className="cmp-panel__indicator">{complaintIdx + 1} / {complaintPhotos.length}</span>
-                    <button type="button" onClick={handleNextComplaint} className="cmp-panel__arrow"><FiChevronRight /></button>
+                    <button
+                      type="button"
+                      onClick={handlePrevComplaint}
+                      className="cmp-panel__arrow"
+                      aria-label="Poprzednie zdjęcie"
+                    >
+                      <FiChevronLeft />
+                    </button>
+
+                    <span className="cmp-panel__indicator">
+                      {complaintIdx + 1} /{" "}
+                      {complaintPhotos.length}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={handleNextComplaint}
+                      className="cmp-panel__arrow"
+                      aria-label="Następne zdjęcie"
+                    >
+                      <FiChevronRight />
+                    </button>
                   </div>
                 )}
               </div>
             </section>
-
           </div>
-               {/**ERROR */}
-                    {alertError && (
-                      <div className="cmp-modal__alert">
-                        <FiAlertCircle />
-                        <span>{alertError}</span>
-                      </div>
+
+          {/* ERROR MESSAGE */}
+          {alertError && (
+            <div
+              className="cmp-modal__alert"
+              role="alert"
+            >
+              <FiAlertCircle />
+              <span>{alertError}</span>
+            </div>
+          )}
+
+          {/* ADMIN DECISION FOOTER */}
+          <footer className="cmp-modal__footer">
+            <form
+              className="cmp-footer-form"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <div className="cmp-footer-form__field">
+                <label
+                  htmlFor="complaint-comment"
+                  className="cmp-footer-form__label"
+                >
+                  <FiMessageSquare />
+
+                  <span>
+                    {t(
+                      "complaint_modal.footer.comment_label",
+                      {
+                        defaultValue:
+                          "Uzasadnienie decyzji administratora",
+                      }
                     )}
+                  </span>
+                </label>
 
-          {/* ====================================================
-                    MODAL FOOTER REGION BLOCK
-             ==================================================== */}
-           <footer className="cmp-modal__footer">
-                   <form
-                     className="cmp-footer-form"
-                     onSubmit={(e) => e.preventDefault()}
-                   >
-                     <div className="cmp-footer-form__field">
-                       <label
-                         htmlFor="complaint-comment"
-                         className="cmp-footer-form__label"
-                       >
-                         <FiMessageSquare />
-                         <span>
-                           {t("complaint_modal.footer.comment_label", {
-                             defaultValue: "Justification Comment",
-                           })}
-                         </span>
-                       </label>
-                       <textarea
-                         id="complaint-comment"
-                         className="cmp-footer-form__textarea"
-                         value={comment}
-                         onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                           setComment(e.target.value)
-                         }
-                         placeholder={t("complaint_modal.footer.placeholder", {
-                           defaultValue:
-                             "Provide an administrative rationale for this decision...",
-                         })}
-                         disabled={isSubmitting}
-                         maxLength={1000}
-                         required
-                       />
-                     </div>
-       
-                     <div className="cmp-footer-form__actions">
-                       <button
-                         type="button"
-                         className="cmp-footer-form__btn cmp-footer-form__btn--reject"
-                         onClick={(e) => handleDecisionSubmit(e as any, "REJECT")}
-                         disabled={isSubmitting || !comment.trim()}
-                       >
-                         {t("complaint_modal.footer.buttons.reject", {
-                           defaultValue: "Not jusitified",
-                         })}
-                       </button>
-                       <button
-                         type="button"
-                         className="cmp-footer-form__btn cmp-footer-form__btn--approve"
-                         onClick={(e) => handleDecisionSubmit(e as any, "APPROVE")}
-                         disabled={isSubmitting || !comment.trim()}
-                       >
-                         {t("complaint_modal.footer.buttons.approve", {
-                           defaultValue: "Justified",
-                         })}
-                       </button>
-                     </div>
-                   </form>
-                 </footer>
+                <textarea
+                  id="complaint-comment"
+                  className="cmp-footer-form__textarea"
+                  value={comment}
+                  onChange={(
+                    e: ChangeEvent<HTMLTextAreaElement>
+                  ) => {
+                    setComment(e.target.value);
 
+                    if (alertError) {
+                      setAlertError("");
+                    }
+                  }}
+                  placeholder={t(
+                    "complaint_modal.footer.placeholder",
+                    {
+                      defaultValue:
+                        "Podaj uzasadnienie podjętej decyzji...",
+                    }
+                  )}
+                  disabled={isSubmitting}
+                  maxLength={1000}
+                  required
+                />
+              </div>
+
+              <div className="cmp-footer-form__actions">
+                {/* REJECT */}
+                <button
+                  type="button"
+                  className="cmp-footer-form__btn cmp-footer-form__btn--reject"
+                  onClick={() =>
+                    void handleDecisionSubmit("reject")
+                  }
+                  disabled={
+                    isSubmitting || !comment.trim()
+                  }
+                >
+                  {t(
+                    "complaint_modal.footer.buttons.reject",
+                    {
+                      defaultValue: "Odrzuć",
+                    }
+                  )}
+                </button>
+
+                {/* NOT JUSTIFIED - BUYER FAULT */}
+                <button
+                  type="button"
+                  className="cmp-footer-form__btn cmp-footer-form__btn--not-justified"
+                  onClick={() =>
+                    void handleDecisionSubmit(
+                      "not_justified"
+                    )
+                  }
+                  disabled={
+                    isSubmitting || !comment.trim()
+                  }
+                >
+                  {t(
+                    "complaint_modal.footer.buttons.not_justified",
+                    {
+                      defaultValue:
+                        "Nieuzasadniona odmowa odbioru",
+                    }
+                  )}
+                </button>
+
+                {/* JUSTIFIED */}
+                <button
+                  type="button"
+                  className="cmp-footer-form__btn cmp-footer-form__btn--approve"
+                  onClick={() =>
+                    void handleDecisionSubmit("approve")
+                  }
+                  disabled={
+                    isSubmitting || !comment.trim()
+                  }
+                >
+                  {t(
+                    "complaint_modal.footer.buttons.approve",
+                    {
+                      defaultValue: "Uzasadniona",
+                    }
+                  )}
+                </button>
+              </div>
+            </form>
+          </footer>
         </div>
       </div>
 
-      {/* ====================================================
-                LIGHTBOX THE FULLSCREEN LIGHTBOX PORTAL OVERLAY
-         ==================================================== */}
+      {/* FULLSCREEN IMAGE VIEWER */}
       {fullscreenImage && (
-        <div className="cmp-lightbox-overlay" onClick={() => setFullscreenImage(null)} role="dialog">
-          <button type="button" className="cmp-lightbox-close" onClick={() => setFullscreenImage(null)}>
+        <div
+          className="cmp-lightbox-overlay"
+          onClick={() => setFullscreenImage(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <button
+            type="button"
+            className="cmp-lightbox-close"
+            onClick={() => setFullscreenImage(null)}
+            aria-label="Zamknij podgląd"
+          >
             <FiX />
           </button>
-          <img src={fullscreenImage} alt="Fullscreen evidence evaluation focus view" onClick={(e) => e.stopPropagation()} />
+
+          <img
+            src={fullscreenImage}
+            alt="Powiększone zdjęcie"
+            onClick={(e) => e.stopPropagation()}
+          />
         </div>
       )}
     </>

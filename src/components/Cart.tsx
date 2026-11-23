@@ -217,20 +217,20 @@ handleShippingMethodChange()
     })}
   </p>
 
-  <h4>
+  <h4 style={{display:'none'}}>
     {t("cart.private_seller.delivery_title", {
       defaultValue: "Dostawa i odpowiedzialność Sprzedającego"
     })}
   </h4>
 
-  <p>
+  <p style={{display:'none'}}>
     {t("cart.private_seller.delivery_disclaimer", {
       defaultValue:
         "Kasoa.pl organizuje odbiór kurierski w imieniu Kupującego po potwierdzeniu zamówienia przez Sprzedającego. Kupujący opłaca dostawę podczas składania zamówienia, a Kasoa.pl nie dolicza marży do kosztu usługi kurierskiej. Jeżeli Sprzedający nie przekaże Towaru kurierowi po zamówieniu odbioru, niezwrócone przez przewoźnika koszty mogą obciążać Kupującego, o ile pozwalają na to obowiązujące przepisy prawa. Kupujący może dochodzić od Sprzedającego naprawienia szkody wynikającej z niewykonania potwierdzonego zamówienia."
     })}
   </p>
 
-  <p>
+  <p style={{display:'none'}}>
     {t("cart.private_seller.pickup_disclaimer", {
       defaultValue:
         "W przypadku odbioru osobistego Sprzedający zobowiązuje się do udostępnienia Towaru w uzgodnionym miejscu i terminie. Jeżeli Sprzedający nie wywiąże się z tego obowiązku, może ponosić odpowiedzialność za uzasadnione i udokumentowane straty Kupującego."
