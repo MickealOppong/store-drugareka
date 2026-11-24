@@ -1948,10 +1948,10 @@
       "addCategoryDescription": "Zarządzaj drzewem kategorii",
       "manageBrands": "Zarządzaj markami",
       "manageBrandsDescription": "Modyfikuj słownik marek"
-    },
-    "brand_filter": {
+    }
+  },
+      "brand_filter": {
   "view_more": "Pokaż więcej",
   "view_less": "Pokaż mniej"
 }
-  }
 }

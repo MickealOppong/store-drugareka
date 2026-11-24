@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiCheckCircle, FiPlus, FiX } from "react-icons/fi";
 import { useLocation, useNavigate } from "react-router";
-import "../css/ConditionFilter.css";
+import "../css/Filter.css";
 import { useGetAllConditionsQuery } from "../features/api/storeApi";
 
 
@@ -35,25 +35,25 @@ export const ConditionFilter= () => {
   };
 
   return (
-    <div className="mkt-condition-filter">
-      <div className="mkt-condition-filter__header">
-        <span className="mkt-condition-filter__title">
+    <div className="mkt-filter">
+      <div className="mkt-filter__header">
+        <span className="mkt-filter__title">
           {t("product_conditions.title")}
         </span>
 
         {conditions.length > 0 && (
           <button
             type="button"
-            className="mkt-condition-filter__clear-btn"
+            className="mkt-filter__clear-btn"
             onClick={handleClearAll}
           >
             <span>{t("product_conditions.clear")}</span>
-            <FiX className="mkt-condition-filter__clear-icon" />
+            <FiX className="mkt-filter__clear-icon" />
           </button>
         )}
       </div>
 
-      <div className="mkt-condition-filter__grid">
+      <div className="mkt-filter__grid">
         {conditions.map((option) => {
           const isSelected = selectedCondition===option.slug
 
@@ -61,15 +61,15 @@ export const ConditionFilter= () => {
             <button
               key={option.slug}
               type="button"
-              className={`mkt-condition-chip ${isSelected ? "mkt-condition-chip--selected" : ""}`}
+              className={`mkt-filter-chip ${isSelected ? "mkt-filter-chip--selected" : ""}`}
               onClick={() => handleToggleCondition(option.slug)}
               aria-pressed={isSelected}
             >
-              <span className="mkt-condition-chip__label">
+              <span className="mkt-filter-chip__label">
                 {t(`product_conditions.conditions.${option.slug.toLowerCase()}`)}
               </span>
               
-              <div className="mkt-condition-chip__indicator">
+              <div className="mkt-filter-chip__indicator">
                 {isSelected ? <FiCheckCircle /> : <FiPlus />}
               </div>
             </button>

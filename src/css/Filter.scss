@@ -1,0 +1,174 @@
+@use "Variables.scss" as Variables;
+
+.mkt-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  border-top: 1px solid Variables.$color-border;
+  padding-top: 1.25rem;
+  box-sizing: border-box;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__title {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: Variables.$color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__expand-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    width: 100%;
+    min-height: 36px;
+    margin-top: 4px;
+    padding: 8px 12px;
+
+    background: transparent;
+    border: 1px solid Variables.$color-border;
+    border-radius: 6px;
+
+    color: Variables.$color-primary;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+
+    svg {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      background-color: Variables.$color-primary-alpha;
+      border-color: Variables.$color-primary;
+    }
+
+    &:focus-visible {
+      outline: 2px solid Variables.$color-primary;
+      outline-offset: 2px;
+    }
+  }
+
+  &__clear-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: none;
+    color: Variables.$color-primary;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: Variables.$color-primary-alpha;
+    }
+  }
+
+  &__clear-icon {
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-width: 0; 
+    gap: 6px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* COMPACT FILTERS SELECTION CHIPS PILLS CHIPS */
+.mkt-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+  min-height: 34px;
+  height: auto;
+  padding: 7px 8px 7px 10px;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &__label {
+    flex: 1;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: left;
+    line-height: 1.4;
+  }
+
+  &__indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    flex-shrink: 0;
+transition: color 0.15s ease, transform 0.15s ease;
+svg { display: block; }
+}
+&--selected {
+background-color: Variables.$color-primary; // 🌿 Theme Olive Accent Focus
+border-color: Variables.$color-primary;
+color: #ffffff;
+.mkt-filter-chip__indicator {
+color: #ffffff;
+transform: scale(1.02);
+}
+&:hover:not(:disabled) {
+background-color: Variables.$color-primary-hover;
+border-color: Variables.$color-primary-hover;
+}
+}
+@media (hover: hover) and (pointer: fine) {
+&:not(.mkt-filter-chip--selected):hover {
+border-color: #94a3b8;
+color: Variables.$color-text-main;
+background-color: Variables.$color-bg-light;
+}
+}
+&:active { transform: scale(0.98); }
+&:focus-visible { outline: 2px solid Variables.$color-primary; outline-offset: 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mkt-filter-chip { transition: none; transform: none; }
+}

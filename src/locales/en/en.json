@@ -1964,12 +1964,13 @@
       "addCategoryDescription": "Manage the category tree",
       "manageBrands": "Manage brands",
       "manageBrandsDescription": "Edit the brand dictionary"
-    },
-"brand_filter": {
+    }
+
+  },
+  "brand_filter": {
   "view_more": "View more",
   "view_less": "View less"
 }
-  }
 
 
 

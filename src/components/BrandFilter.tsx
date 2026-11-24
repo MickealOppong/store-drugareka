@@ -8,7 +8,7 @@ import {
   FiX,
 } from "react-icons/fi";
 import { useLocation, useNavigate } from "react-router";
-import "../css/ConditionFilter.css";
+import "../css/Filter.css";
 import { useFetchBrandsQuery } from "../features/api/storeApi";
 
 const INITIAL_VISIBLE_BRANDS = 8;
@@ -20,109 +20,118 @@ export const BrandFilter = () => {
 
   const searchParams = new URLSearchParams(search);
 
-  const [selectedCategory, setSelectedCategory] =
-    useState<string>("");
+  const selectedBrand = searchParams.get("brand") || "";
+  const category = searchParams.get("category") || "";
 
-  const [selectedBrand, setSelectedBrand] =
-    useState<string>("");
+  const separatorIndex = category.lastIndexOf("_");
+
+  const selectedCategory =
+    separatorIndex >= 0
+      ? category.substring(0, separatorIndex)
+      : category;
 
   const [isExpanded, setIsExpanded] = useState(false);
 
   const { data: brands = [] } = useFetchBrandsQuery(
-    selectedCategory || ""
+    selectedCategory
   );
 
-  const brand = searchParams.get("brand") || "";
-  const category = searchParams.get("category") || "";
-
-  useEffect(() => {
-    const cleanCategory = category.substring(
-      0,
-      category.lastIndexOf("_")
-    );
-
-    setSelectedBrand(brand);
-    setSelectedCategory(cleanCategory);
-  }, [pathname, category, brand]);
-
-  // Collapse when the category changes
   useEffect(() => {
     setIsExpanded(false);
   }, [category]);
 
   const handleToggleBrand = (brand: string) => {
-    setSelectedBrand(brand);
-    searchParams.set("brand", brand);
+    const params = new URLSearchParams(search);
+
+    if (selectedBrand === brand) {
+      params.delete("brand");
+    } else {
+      params.set("brand", brand);
+    }
+
+    params.set("page", "1");
 
     navigate(
-      `${pathname}?${searchParams.toString()}#category-products`
+      `${pathname}?${params.toString()}#category-products`
     );
   };
 
   const handleClearAll = () => {
-    setSelectedBrand("");
-    searchParams.set("brand", "");
+    const params = new URLSearchParams(search);
 
-    navigate(`${pathname}?${searchParams.toString()}`);
+    params.delete("brand");
+    params.set("page", "1");
+
+    navigate(`${pathname}?${params.toString()}`);
   };
 
-  // Keep the selected brand visible when collapsed
-  const orderedBrands = [
-    ...brands.filter((option) => option.name === selectedBrand),
-    ...brands.filter((option) => option.name !== selectedBrand),
-  ];
+  // Prevent duplicate brand names from being displayed
+  const uniqueBrands = brands.filter(
+    (option, index, array) =>
+      array.findIndex(
+        (item) =>
+          item.name.trim().toLowerCase() ===
+          option.name.trim().toLowerCase()
+      ) === index
+  );
 
   const visibleBrands = isExpanded
-    ? orderedBrands
-    : orderedBrands.slice(0, INITIAL_VISIBLE_BRANDS);
+    ? uniqueBrands
+    : uniqueBrands.slice(0, INITIAL_VISIBLE_BRANDS);
 
   const remainingBrands = Math.max(
     0,
-    brands.length - INITIAL_VISIBLE_BRANDS
+    uniqueBrands.length - INITIAL_VISIBLE_BRANDS
   );
 
   return (
-    <div className="mkt-condition-filter">
-      <div className="mkt-condition-filter__header">
-        <span className="mkt-condition-filter__title">
+    <div className="mkt-filter">
+      <div className="mkt-filter__header">
+        <span className="mkt-filter__title">
           {t("user_products.table.headers.brand")}
         </span>
 
-        {brands.length > 0 && (
+        {selectedBrand && (
           <button
             type="button"
-            className="mkt-condition-filter__clear-btn"
+            className="mkt-filter__clear-btn"
             onClick={handleClearAll}
           >
             <span>{t("product_conditions.clear")}</span>
 
-            <FiX className="mkt-condition-filter__clear-icon" />
+            <FiX className="mkt-filter__clear-icon" />
           </button>
         )}
       </div>
 
-      <div className="mkt-condition-filter__grid">
+      <div className="mkt-filter__grid">
         {visibleBrands.map((option) => {
-          const isSelected = selectedBrand === option.name;
+          const isSelected =
+            selectedBrand !== "" &&
+            selectedBrand === option.name;
 
           return (
             <button
               key={option.slug}
               type="button"
-              className={`mkt-condition-chip ${
+              className={`mkt-filter-chip ${
                 isSelected
-                  ? "mkt-condition-chip--selected"
+                  ? "mkt-filter-chip--selected"
                   : ""
               }`}
               onClick={() => handleToggleBrand(option.name)}
               aria-pressed={isSelected}
             >
-              <span className="mkt-condition-chip__label">
+              <span className="mkt-filter-chip__label">
                 {option.name}
               </span>
 
-              <div className="mkt-condition-chip__indicator">
-                {isSelected ? <FiCheckCircle /> : <FiPlus />}
+              <div className="mkt-filter-chip__indicator">
+                {isSelected ? (
+                  <FiCheckCircle />
+                ) : (
+                  <FiPlus />
+                )}
               </div>
             </button>
           );
@@ -132,7 +141,7 @@ export const BrandFilter = () => {
       {remainingBrands > 0 && (
         <button
           type="button"
-          className="mkt-condition-filter__expand-btn"
+          className="mkt-filter__expand-btn"
           onClick={() => setIsExpanded((prev) => !prev)}
           aria-expanded={isExpanded}
         >

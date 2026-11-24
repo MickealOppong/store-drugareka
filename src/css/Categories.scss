@@ -28,8 +28,8 @@
 
 
   @include Variables.media-up(Variables.$breakpoint-lg) {
-    grid-template-columns: 240px minmax(0, 1fr);
-    gap: 2.5rem;
+    grid-template-columns: clamp(280px, 24vw, 340px) minmax(0, 1fr);
+    gap: 1.5rem;
     padding: 2.5rem 2rem 4rem;
   }
 
@@ -68,9 +68,11 @@
     background: Variables.$background;
     border: 1px solid Variables.$color-border;
     border-radius: 16px;
-    padding: 1.5rem 1.25rem;
+    padding: 1.25rem 1rem;
+    min-width: 0;
     box-shadow: 0 4px 20px -2px rgba(32, 38, 24, 0.02);
     box-sizing: border-box;
+
     /* 🚀 SEAMLESS ACTIVATION GATES: Only render on desktop viewports */
     @include Variables.media-up(Variables.$breakpoint-lg) {
       display: flex;
@@ -321,124 +323,6 @@
   }
 }
 
-/* ==========================================================================
-   2. HIGH-DENSITY QUALITY CONDITION PANEL MODULE (.mkt-condition-filter)
-   ========================================================================== */
-.mkt-condition-filter {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  border-top: 1px solid Variables.$color-border;
-  padding-top: 1.25rem;
-  box-sizing: border-box;
-
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  &__title {
-    font-size: 0.78rem;
-    font-weight: 800;
-    color: Variables.$color-text-muted;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  &__clear-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: transparent;
-    border: none;
-    color: Variables.$color-primary;
-    font-family: inherit;
-    font-size: 0.82rem;
-    font-weight: 700;
-    cursor: pointer;
-    padding: 2px 6px;
-    border-radius: 4px;
-    transition: background-color 0.15s ease;
-
-    &:hover {
-      background-color: Variables.$color-primary-alpha;
-    }
-  }
-
-  &__clear-icon {
-    font-size: 0.9rem;
-    flex-shrink: 0;
-  }
-
-  &__grid {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 6px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-}
-
-/* COMPACT FILTERS SELECTION CHIPS PILLS CHIPS */
-.mkt-condition-chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  height: 30px;
-  padding: 0 8px 0 10px;
-  background-color: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #475569;
-  cursor: pointer;
-  user-select: none;
-  box-sizing: border-box;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-
-  &__label {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  &__indicator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    color: #94a3b8;
-    flex-shrink: 0;
-transition: color 0.15s ease, transform 0.15s ease;
-svg { display: block; }
-}
-&--selected {
-background-color: Variables.$color-primary; // 🌿 Theme Olive Accent Focus
-border-color: Variables.$color-primary;
-color: #ffffff;
-.mkt-condition-chip__indicator {
-color: #ffffff;
-transform: scale(1.02);
-}
-&:hover:not(:disabled) {
-background-color: Variables.$color-primary-hover;
-border-color: Variables.$color-primary-hover;
-}
-}
-&:hover:not(&--selected) {
-border-color: #94a3b8;
-color: Variables.$color-text-main;
-background-color: Variables.$color-bg-light;
-}
-&:active { transform: scale(0.98); }
-&:focus-visible { outline: 2px solid Variables.$color-primary; outline-offset: 2px; }
-}
 /* ==========================================================================
 POPULAR CATEGORIES BANNER CARDS (.top-categories)
 ========================================================================== */
@@ -791,7 +675,6 @@ to { opacity: 1; transform: translateY(0); }
 /* Reduced Motion Guidelines Breakout Overrides */
 @media (prefers-reduced-motion: reduce) {
 .mkt-category-tree__sub-branch { animation: none !important; }
-.mkt-condition-chip,
 .category-card img {
 transition: none !important;
 transform: none !important;

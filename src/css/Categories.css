@@ -25,8 +25,8 @@
 }
 @media (min-width: 1024px) {
   .catalog-browser {
-    grid-template-columns: 240px minmax(0, 1fr);
-    gap: 2.5rem;
+    grid-template-columns: clamp(280px, 24vw, 340px) minmax(0, 1fr);
+    gap: 1.5rem;
     padding: 2.5rem 2rem 4rem;
   }
 }
@@ -64,7 +64,8 @@
   background: #FFFFFF;
   border: 1px solid #e5e5e5;
   border-radius: 16px;
-  padding: 1.5rem 1.25rem;
+  padding: 1.25rem 1rem;
+  min-width: 0;
   box-shadow: 0 4px 20px -2px rgba(32, 38, 24, 0.02);
   box-sizing: border-box;
   /* 🚀 SEAMLESS ACTIVATION GATES: Only render on desktop viewports */
@@ -307,126 +308,6 @@
   color: #66704A;
   font-weight: 700;
   background-color: transparent;
-}
-
-/* ==========================================================================
-   2. HIGH-DENSITY QUALITY CONDITION PANEL MODULE (.mkt-condition-filter)
-   ========================================================================== */
-.mkt-condition-filter {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  border-top: 1px solid #e5e5e5;
-  padding-top: 1.25rem;
-  box-sizing: border-box;
-}
-.mkt-condition-filter__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-.mkt-condition-filter__title {
-  font-size: 0.78rem;
-  font-weight: 800;
-  color: #666666;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.mkt-condition-filter__clear-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: transparent;
-  border: none;
-  color: #66704A;
-  font-family: inherit;
-  font-size: 0.82rem;
-  font-weight: 700;
-  cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 4px;
-  transition: background-color 0.15s ease;
-}
-.mkt-condition-filter__clear-btn:hover {
-  background-color: rgba(104, 118, 75, 0.12);
-}
-.mkt-condition-filter__clear-icon {
-  font-size: 0.9rem;
-  flex-shrink: 0;
-}
-.mkt-condition-filter__grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* COMPACT FILTERS SELECTION CHIPS PILLS CHIPS */
-.mkt-condition-chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  height: 30px;
-  padding: 0 8px 0 10px;
-  background-color: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #475569;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-  box-sizing: border-box;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.mkt-condition-chip__label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.mkt-condition-chip__indicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  color: #94a3b8;
-  flex-shrink: 0;
-  transition: color 0.15s ease, transform 0.15s ease;
-}
-.mkt-condition-chip__indicator svg {
-  display: block;
-}
-.mkt-condition-chip--selected {
-  background-color: #66704A;
-  border-color: #66704A;
-  color: #ffffff;
-}
-.mkt-condition-chip--selected .mkt-condition-chip__indicator {
-  color: #ffffff;
-  transform: scale(1.02);
-}
-.mkt-condition-chip--selected:hover:not(:disabled) {
-  background-color: #525F3C;
-  border-color: #525F3C;
-}
-.mkt-condition-chip:hover:not(.mkt-condition-chip--selected) {
-  border-color: #94a3b8;
-  color: #111111;
-  background-color: #f9f9f9;
-}
-.mkt-condition-chip:active {
-  transform: scale(0.98);
-}
-.mkt-condition-chip:focus-visible {
-  outline: 2px solid #66704A;
-  outline-offset: 2px;
 }
 
 /* ==========================================================================
@@ -820,7 +701,6 @@ HARDWARE-ACCELERATED TIME TIMELINE KEYFRAMES
   .mkt-category-tree__sub-branch {
     animation: none !important;
   }
-  .mkt-condition-chip,
   .category-card img {
     transition: none !important;
     transform: none !important;
