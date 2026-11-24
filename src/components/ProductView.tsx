@@ -22,7 +22,7 @@ const ProductView = () => {
 
   const { data, isLoading: productsLoading, error } = useGetStorelistingsQuery({
     page, 
-    size:5
+    size:50
   });
 
 

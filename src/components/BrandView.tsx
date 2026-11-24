@@ -23,7 +23,7 @@ const BrandView = () => {
 
   // CRUD RTK mutation/query hooks
   const [deleteBrand] = useDeleteBrandMutation();
-  const {data,isLoading:loading} = useGetAllBrandsQuery({page,size:5})
+  const {data,isLoading:loading} = useGetAllBrandsQuery({page,size:25})
 
 const brands = data?.brands as TbrandResponse[]||[]
 
