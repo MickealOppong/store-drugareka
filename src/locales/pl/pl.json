@@ -372,18 +372,18 @@
   "product_conditions": {
     "title": "Stan produktu",
     "clear": "Wyczyść",
-    "conditions": {
-      "new": "Nowy",
-      "almost_new": "Prawie nowy",
-      "open_new": "Otwarty, ale nowy",
-      "new_other": "Nowy (Inny / Magazynowany)",
-      "excellent_condition": "Doskonały",
-      "very_good": "Bardzo dobry",
-      "good": "Dobry",
-      "used_good": "Używany — stan dobry",
-      "used": "Używany",
-      "acceptable": "Zadowalający"
-    }
+ "conditions": {
+    "new": "Nowy",
+    "almost_new": "Jak nowy",
+    "open_new": "Nowy – otwarte opakowanie",
+    "new_other": "Nowy – inne / długo przechowywany",
+    "excellent_condition": "Stan doskonały",
+    "very_good": "Bardzo dobry",
+    "good": "Dobry",
+    "used_good": "Używany – stan dobry",
+    "used": "Używany",
+    "acceptable": "Zadowalający"
+}
   },
   "shop": {
     "header": {
@@ -1948,6 +1948,10 @@
       "addCategoryDescription": "Zarządzaj drzewem kategorii",
       "manageBrands": "Zarządzaj markami",
       "manageBrandsDescription": "Modyfikuj słownik marek"
-    }
+    },
+    "brand_filter": {
+  "view_more": "Pokaż więcej",
+  "view_less": "Pokaż mniej"
+}
   }
 }

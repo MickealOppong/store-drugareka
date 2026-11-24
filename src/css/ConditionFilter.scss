@@ -14,7 +14,7 @@
   border: 1px solid Variables.$color-border;
   border-radius: 14px;
   box-sizing: border-box;
-   margin-top: 1rem;
+  margin-top: 1rem;
 
   &__header {
     display: flex;
@@ -56,10 +56,11 @@
     flex-shrink: 0;
   }
 
-  /* 🚀 COMPACT PATPATCH: Arranges pills side-by-side to optimize vertical space usage */
+  /* Arranges pills side-by-side and lets each pill expand to its content width */
   &__grid {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
+    align-items: stretch;
     gap: 8px;
     width: 100%;
     box-sizing: border-box;
@@ -74,14 +75,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  height: 34px; // Sleek low-profile tactile tap area
-  padding: 0 10px 0 12px;
+  width: max-content;
+  max-width: 100%;
+  min-height: 34px;
+  padding: 6px 10px 6px 12px;
   background-color: #ffffff;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   font-family: inherit;
   font-size: 0.82rem;
   font-weight: 600;
+  line-height: 1.25;
+  text-align: left;
   color: #475569;
   cursor: pointer;
   user-select: none;
@@ -89,9 +94,8 @@
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
   &__label {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
   }
 
   &__indicator {
@@ -102,15 +106,15 @@
     color: #94a3b8;
     flex-shrink: 0;
     transition: color 0.15s ease, transform 0.15s ease;
-    
+
     svg {
       display: block;
     }
   }
 
-  /* 🌿 ACTIVE SELECTED OLIVE THEME MODIFIERS MAPPINGS */
+  /* ACTIVE SELECTED OLIVE THEME MODIFIERS MAPPINGS */
   &--selected {
-    background-color: Variables.$color-primary; // 🌿 Rich Olive Green Accent Fill
+    background-color: Variables.$color-primary;
     border-color: Variables.$color-primary;
     color: #ffffff;
 
@@ -132,7 +136,7 @@
   }
 
   &:active {
-    transform: scale(0.97); // Micro mobile tap interaction scaling feedback
+    transform: scale(0.97);
   }
 
   &:focus-visible {

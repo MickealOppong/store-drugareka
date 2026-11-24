@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* ==========================================================================
    HIGH-DENSITY QUALITY CONDITION PANEL MODULE (.mkt-condition-filter)
    ========================================================================== */
@@ -50,11 +49,12 @@
   flex-shrink: 0;
 }
 .mkt-condition-filter {
-  /* 🚀 COMPACT PATPATCH: Arranges pills side-by-side to optimize vertical space usage */
+  /* Arranges pills side-by-side and lets each pill expand to its content width */
 }
 .mkt-condition-filter__grid {
   display: flex;
   flex-wrap: wrap;
+  align-items: stretch;
   gap: 8px;
   width: 100%;
   box-sizing: border-box;
@@ -68,14 +68,19 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  height: 34px;
-  padding: 0 10px 0 12px;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 100%;
+  min-height: 34px;
+  padding: 6px 10px 6px 12px;
   background-color: #ffffff;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   font-family: inherit;
   font-size: 0.82rem;
   font-weight: 600;
+  line-height: 1.25;
+  text-align: left;
   color: #475569;
   cursor: pointer;
   -webkit-user-select: none;
@@ -85,9 +90,8 @@
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .mkt-condition-chip__label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: break-word;
 }
 .mkt-condition-chip__indicator {
   display: flex;
@@ -102,7 +106,7 @@
   display: block;
 }
 .mkt-condition-chip {
-  /* 🌿 ACTIVE SELECTED OLIVE THEME MODIFIERS MAPPINGS */
+  /* ACTIVE SELECTED OLIVE THEME MODIFIERS MAPPINGS */
 }
 .mkt-condition-chip--selected {
   background-color: #66704A;
