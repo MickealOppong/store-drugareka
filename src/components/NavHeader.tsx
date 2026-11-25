@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FiHeart, FiShoppingBag, FiUser } from "react-icons/fi";
 import { useDispatch } from "react-redux";
@@ -13,10 +12,8 @@ import { userApi } from "../features/api/userApi";
 import { logoutUser } from "../features/slice/userSlice";
 import { useAppSelector } from "../store";
 import Loading from "./Loading";
-import Search from "./Search";
 
 const NavHeader = () => {
-  const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const { email, roles } = useAppSelector((state) => state.userSlice);
   const { guestCartCount } = useAppSelector((state) => state.cartSlice);
   const { t } = useTranslation();
@@ -44,12 +41,11 @@ const NavHeader = () => {
     }
   };
 
-  const onUserButtonClick = () => {
-    if (!email) {
-      return navigate('/login');
-    }
-    roles.includes("ROLE_ADMIN") ? navigate('/account/admin') : navigate('/account/user');
-  };
+  const accountPath = !email
+    ? "/login"
+    : roles?.includes("ROLE_ADMIN")
+      ? "/account/admin"
+      : "/account/user";
 
   const onWishlistButtonClick = () => {
     if (!email) {
@@ -127,15 +123,15 @@ const NavHeader = () => {
             </span>
           </button>
 
-          <button 
-            type="button"
+          <Link
+            to={accountPath}
             className="nav-header__action-btn nav-header__action-btn--account"
-            onClick={onUserButtonClick}
             aria-label={t("navigation.accessibility.view_account")}
+            style={{ textDecoration: "none" }}
           >
             <FiUser />
             <span className="nav-header__btn-text">{t("navigation.actions.account")}</span>
-          </button>
+          </Link>
 
           {email ? (
             <button 
@@ -154,13 +150,6 @@ const NavHeader = () => {
         </div>
       </div>
 
-      <div className="nav-header__search-overlay">
-        <Search
-          isOpen={searchOpen}
-          onClose={() => setSearchOpen(false)}
-          recentSearches={["Nike shoes", "summer dress", "leather bag"]}
-        />
-      </div>
     </header>
   );
 };

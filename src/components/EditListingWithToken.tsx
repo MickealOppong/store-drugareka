@@ -1,17 +1,18 @@
-import { useEffect, useState, type ChangeEvent } from "react";
+import imageCompression from "browser-image-compression";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "../css/AddListing.css";
 import { ITEM_SIZE } from "../data/data";
 import {
-    useEditListingMutation,
-    useLazyGetListingQuery,
+  useEditListingMutation,
+  useLazyGetListingQuery,
 } from "../features/api/sellerApi";
 
 import {
-    useGetAllConditionsQuery,
-    useGetBrandsQuery,
+  useGetAllConditionsQuery,
+  useGetBrandsQuery,
 } from "../features/api/sellerApi";
 import type { TbrandResponse } from "../types/TBrandResponse";
 import type { TListTrans } from "../types/TListTrans";
@@ -21,6 +22,9 @@ import CategoryDropdownSelect from "./CategoryDropdownSelect";
 import CityDropdownSelect from "./CityDropdownSelect";
 import SearchSelect from "./SearchSelect";
 
+const MAX_IMAGES = 8;
+const MAX_TOTAL_IMAGE_BYTES = 5_000_000;
+
 export type TFile = {
   file: Blob;
   preview: string;
@@ -29,6 +33,20 @@ export type TFile = {
 const EditListingWithToken = () => {
   const { listingId } = useParams<{ listingId: string }>();
   const [images, setImages] = useState<TFile[]>([]);
+  const [isCompressing, setIsCompressing] = useState(false);
+  const compressionLock = useRef(false);
+  const previewUrls = useRef(new Set<string>());
+  const mounted = useRef(true);
+
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      previewUrls.current.forEach((url) => URL.revokeObjectURL(url));
+      previewUrls.current.clear();
+    };
+  }, []);
+
 
   //conditions
   const { data: conditions } = useGetAllConditionsQuery();
@@ -197,24 +215,86 @@ const EditListingWithToken = () => {
     }));
   };
 
-  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files as FileList);
+  const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files ?? []);
+    e.target.value = "";
+    if (!files.length || compressionLock.current) return;
 
-    const newImages = files.map((file) => ({
-      file,
-      preview: URL.createObjectURL(file),
-    }));
+    const available = MAX_IMAGES - images.length;
+    if (available <= 0) return;
 
-    setImages((prev) => [...prev, ...newImages]);
+    compressionLock.current = true;
+    setIsCompressing(true);
+    setError("");
+    const newImages: TFile[] = [];
+    const remainingBytes = MAX_TOTAL_IMAGE_BYTES - images.reduce((sum, image) => sum + image.file.size, 0);
+    const targetBytes = Math.min(600_000, Math.floor(remainingBytes / Math.min(files.length, available)));
+
+    try {
+      if (targetBytes <= 0) throw new Error("Usuń zdjęcie, aby zwolnić miejsce.");
+      for (const file of files.slice(0, available)) {
+        if (!file.type.startsWith("image/")) {
+          throw new Error("Wybierz prawidłowy plik zdjęcia.");
+        }
+
+        const compressed = await imageCompression(file, {
+          maxSizeMB: targetBytes / (1024 * 1024),
+          maxWidthOrHeight: 1920,
+          initialQuality: 0.85,
+          useWebWorker: true,
+          fileType: "image/webp",
+          preserveExif: false,
+        });
+
+        // Use the actual encoder output type (some browsers fall back to PNG).
+        const extensions: Record<string, string> = {
+          "image/webp": "webp",
+          "image/jpeg": "jpg",
+          "image/png": "png",
+        };
+        const extension = extensions[compressed.type];
+        if (!extension || compressed.size > targetBytes || compressed.size === 0) {
+          throw new Error("Nie udało się zoptymalizować zdjęcia. Wybierz inne zdjęcie.");
+        }
+        const optimized = new File(
+          [compressed],
+          `${file.name.replace(/\.[^.]+$/, "")}.${extension}`,
+          { type: compressed.type, lastModified: file.lastModified }
+        );
+        if (!mounted.current) return;
+        const preview = URL.createObjectURL(optimized);
+        previewUrls.current.add(preview);
+        newImages.push({ file: optimized, preview });
+      }
+
+      const combined = [...images, ...newImages];
+      if (combined.reduce((sum, image) => sum + image.file.size, 0) > MAX_TOTAL_IMAGE_BYTES) {
+        throw new Error("Łączny rozmiar zdjęć przekracza 5 MB.");
+      }
+      if (mounted.current) setImages(combined);
+    } catch (uploadError) {
+      newImages.forEach(({ preview }) => {
+        URL.revokeObjectURL(preview);
+        previewUrls.current.delete(preview);
+      });
+      console.error("Image compression failed", uploadError);
+      if (mounted.current) {
+        setError(uploadError instanceof Error ? uploadError.message : "Nie udało się przetworzyć zdjęć.");
+      }
+    } finally {
+      compressionLock.current = false;
+      if (mounted.current) setIsCompressing(false);
+    }
   };
-
-
 
   /**
    * REMOVE IMAGE
    * @param index
    */
   const removeImage = (index: number) => {
+    if (compressionLock.current) return;
+    const image = images[index];
+    if (image && previewUrls.current.delete(image.preview)) URL.revokeObjectURL(image.preview);
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
@@ -230,6 +310,11 @@ const EditListingWithToken = () => {
     handleSubmit(action);
   };
   const handleSubmit = async (action: string) => {
+    if (compressionLock.current) return;
+    if (images.length > MAX_IMAGES || images.reduce((sum, image) => sum + image.file.size, 0) > MAX_TOTAL_IMAGE_BYTES) {
+      setError("Maksymalnie 8 zdjęć o łącznym rozmiarze do 5 MB. Usuń lub zastąp zbyt duże zdjęcia.");
+      return;
+    }
 
     const productData: TProductData = {
       ...formData,
@@ -353,6 +438,7 @@ const EditListingWithToken = () => {
             type="button"
             className="add-product__draft-btn"
             onClick={() => handleButtonClick("DRAFT")}
+                      disabled={isCompressing}
           >
             {t("add_listing.header.actions.save_draft")}
           </button>
@@ -362,6 +448,7 @@ const EditListingWithToken = () => {
             form="add-product-form"
             className="add-product__publish-btn"
             onClick={() => handleButtonClick("PUBLISH")}
+                      disabled={isCompressing}
           >
             {t("add_listing.header.actions.publish")}
           </button>
@@ -396,6 +483,7 @@ const EditListingWithToken = () => {
                 </div>
 
                 <span>{images.length}/8</span>
+                {isCompressing && <span role="status">Optymalizowanie zdjęć...</span>}
               </div>
 
               <div className="product-images">
@@ -412,6 +500,7 @@ const EditListingWithToken = () => {
                     <button
                       type="button"
                       onClick={() => removeImage(index)}
+                      disabled={isCompressing}
                       className="product-image__remove"
                     >
                       <FiX />
@@ -432,6 +521,7 @@ const EditListingWithToken = () => {
                       accept="image/*"
                       multiple
                       onChange={handleImageUpload}
+                      disabled={isCompressing}
                     />
 
                     <FiImage />

@@ -23,11 +23,9 @@ import BrandFilter from "./BrandFilter";
 import CategoryTree from "./CategoryTree";
 import ConditionFilter from "./ConditionFilter";
 import Loading from "./Loading";
-import Search from "./Search";
 
 const MobileNav = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
 
   const { t } = useTranslation();
   const { email, roles } = useAppSelector((state) => state.userSlice);
@@ -79,18 +77,11 @@ const MobileNav = () => {
     }
   };
 
-  const onUserButtonClick = () => {
-    closeMenu();
-
-    if (!email) {
-      navigate("/login");
-      return;
-    }
-
-    roles.includes("ROLE_ADMIN")
-      ? navigate("/account/admin")
-      : navigate("/account/user");
-  };
+  const accountPath = !email
+    ? "/login"
+    : roles?.includes("ROLE_ADMIN")
+      ? "/account/admin"
+      : "/account/user";
 
   const onWishlistButtonClick = () => {
     closeMenu();
@@ -148,14 +139,15 @@ const MobileNav = () => {
             </span>
           </button>
 
-          <button
-            type="button"
+          <Link
+            to={accountPath}
             className="mn-header__action-btn"
-            onClick={onUserButtonClick}
+            onClick={closeMenu}
             aria-label={t("navigation.accessibility.view_account")}
+            style={{ textDecoration: "none" }}
           >
             <FiUser />
-          </button>
+          </Link>
 
           <button
             type="button"
@@ -173,11 +165,6 @@ const MobileNav = () => {
           </button>
         </div>
 
-        <Search
-          isOpen={searchOpen}
-          onClose={() => setSearchOpen(false)}
-          recentSearches={["Nike shoes", "summer dress", "leather bag"]}
-        />
       </div>
 
       {menuOpen && (

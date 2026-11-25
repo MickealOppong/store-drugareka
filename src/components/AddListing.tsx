@@ -1,4 +1,5 @@
-import { useState, type ChangeEvent } from "react";
+import imageCompression from "browser-image-compression";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { FiArrowLeft, FiImage, FiX } from "react-icons/fi";
 import { useDispatch } from "react-redux";
@@ -23,8 +24,25 @@ type TFile = {
   preview: string;
 };
 
+const MAX_IMAGES = 8;
+const MAX_TOTAL_IMAGE_BYTES = 5_000_000;
+const TARGET_IMAGE_MB = 4_800_000 / MAX_IMAGES / (1024 * 1024);
+
 const AddListing = () => {
   const [images, setImages] = useState<TFile[]>([]);
+  const [isCompressing, setIsCompressing] = useState(false);
+  const compressionLock = useRef(false);
+  const previewUrls = useRef(new Set<string>());
+  const mounted = useRef(true);
+
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      previewUrls.current.forEach((url) => URL.revokeObjectURL(url));
+      previewUrls.current.clear();
+    };
+  }, []);
   const [error, setError] = useState<string>('');
   const [personalCollectionAvailable, setPersonalCollectionAvailable] = useState(false);
   const [collectionCity, setCollectionCity] = useState("");
@@ -119,17 +137,73 @@ const AddListing = () => {
     }));
   };
 
-  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files ?? []);
+    e.target.value = "";
+    if (!files.length || compressionLock.current) return;
 
-    // Dynamic clean up based on field names
+    const available = MAX_IMAGES - images.length;
+    if (available <= 0) return;
 
-    const newImages = files.map((file) => ({
-      file,
-      preview: URL.createObjectURL(file),
-    }));
+    compressionLock.current = true;
+    setIsCompressing(true);
+    setError("");
+    const newImages: TFile[] = [];
 
-    setImages((prev) => [...prev, ...newImages].slice(0, 8));
+    try {
+      for (const file of files.slice(0, available)) {
+        if (!file.type.startsWith("image/")) {
+          throw new Error("Wybierz prawidłowy plik zdjęcia.");
+        }
+
+        const compressed = await imageCompression(file, {
+          maxSizeMB: TARGET_IMAGE_MB,
+          maxWidthOrHeight: 1920,
+          initialQuality: 0.85,
+          useWebWorker: true,
+          fileType: "image/webp",
+          preserveExif: false,
+        });
+
+        // Use the actual encoder output type (some browsers fall back to PNG).
+        const extensions: Record<string, string> = {
+          "image/webp": "webp",
+          "image/jpeg": "jpg",
+          "image/png": "png",
+        };
+        const extension = extensions[compressed.type];
+        if (!extension || compressed.size > 600_000 || compressed.size === 0) {
+          throw new Error("Nie udało się zoptymalizować zdjęcia. Wybierz inne zdjęcie.");
+        }
+        const optimized = new File(
+          [compressed],
+          `${file.name.replace(/\.[^.]+$/, "")}.${extension}`,
+          { type: compressed.type, lastModified: file.lastModified }
+        );
+        if (!mounted.current) return;
+        const preview = URL.createObjectURL(optimized);
+        previewUrls.current.add(preview);
+        newImages.push({ file: optimized, preview });
+      }
+
+      const combined = [...images, ...newImages];
+      if (combined.reduce((sum, image) => sum + image.file.size, 0) > MAX_TOTAL_IMAGE_BYTES) {
+        throw new Error("Łączny rozmiar zdjęć przekracza 5 MB.");
+      }
+      if (mounted.current) setImages(combined);
+    } catch (uploadError) {
+      newImages.forEach(({ preview }) => {
+        URL.revokeObjectURL(preview);
+        previewUrls.current.delete(preview);
+      });
+      console.error("Image compression failed", uploadError);
+      if (mounted.current) {
+        setError("Nie udało się przetworzyć zdjęć. Spróbuj ponownie lub wybierz zdjęcia JPG, PNG lub WebP.");
+      }
+    } finally {
+      compressionLock.current = false;
+      if (mounted.current) setIsCompressing(false);
+    }
   };
 
   /**
@@ -137,6 +211,12 @@ const AddListing = () => {
    * @param index
    */
   const removeImage = (index: number) => {
+    if (compressionLock.current) return;
+    const image = images[index];
+    if (image) {
+      URL.revokeObjectURL(image.preview);
+      previewUrls.current.delete(image.preview);
+    }
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
@@ -149,7 +229,12 @@ const AddListing = () => {
     handleSubmit(action);
   };
   const handleSubmit = async (action: string) => {
+    if (compressionLock.current) return;
     setError("");
+    if (images.reduce((sum, image) => sum + image.file.size, 0) > MAX_TOTAL_IMAGE_BYTES) {
+      setError("Łączny rozmiar zdjęć przekracza 5 MB.");
+      return;
+    }
 
     if (
       action === "PUBLISH" &&
@@ -200,7 +285,7 @@ const AddListing = () => {
       dataToSend.append("imageSortOrder", String(index));
     });
 
-    console.log(Object.fromEntries(dataToSend));
+  //  console.log(Object.fromEntries(dataToSend));
 
     
     try {
@@ -265,7 +350,6 @@ const AddListing = () => {
     setCityValue(city)
   };
 
-  console.log(category);
   
 
   return (
@@ -292,6 +376,7 @@ const AddListing = () => {
           <button
             type="button"
             className="add-product__draft-btn"
+            disabled={isCompressing}
             onClick={() => handleButtonClick("DRAFT")}
           >
             {t("add_listing.header.actions.save_draft")}
@@ -301,6 +386,7 @@ const AddListing = () => {
             type="button"
             form="add-product-form"
             className="add-product__publish-btn"
+            disabled={isCompressing}
             onClick={() => handleButtonClick("PUBLISH")}
           >
             {t("add_listing.header.actions.publish")}
@@ -335,10 +421,10 @@ const AddListing = () => {
                   <p>{t("add_listing.sections.images.subtitle")}</p>
                 </div>
 
-                <span>{images.length}/8</span>
+                <span>{images.length}/{MAX_IMAGES}</span>
               </div>
 
-              <div className="product-images">
+              <div className="product-images" aria-busy={isCompressing}>
                 {images.map((image, index) => (
                   <div
                     className="product-image"
@@ -351,6 +437,7 @@ const AddListing = () => {
 
                     <button
                       type="button"
+                      disabled={isCompressing}
                       onClick={() => removeImage(index)}
                       className="product-image__remove"
                     >
@@ -365,12 +452,13 @@ const AddListing = () => {
                   </div>
                 ))}
 
-                {images.length < 8 && (
+                {images.length < MAX_IMAGES && (
                   <label className="product-image__upload">
                     <input
                       type="file"
                       accept="image/*"
                       multiple
+                      disabled={isCompressing}
                       onChange={handleImageUpload}
                     />
 
@@ -378,7 +466,7 @@ const AddListing = () => {
 
                     <span>{t("add_listing.sections.images.add_btn")}</span>
 
-                    <small>{t("add_listing.sections.images.hint")}</small>
+                    <small>{isCompressing ? "Optymalizowanie zdjęć..." : "Zdjęcia są automatycznie optymalizowane."}</small>
                   </label>
                 )}
               </div>

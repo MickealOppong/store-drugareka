@@ -279,3 +279,51 @@ return parsedRoles;
 }
 
 
+import imageCompression from "browser-image-compression";
+
+const MAX_TOTAL_SIZE = 5 * 1024 * 1024;
+
+export const compressImages = async (
+  files: File[]
+): Promise<File[]> => {
+  if (files.length === 0) return [];
+
+  // Reserve some space below the 5 MB limit
+  const targetSizeMB = 4.8 / files.length;
+
+  const options = {
+    maxSizeMB: targetSizeMB,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true,
+    initialQuality: 0.85,
+    fileType: "image/webp",
+    preserveExif: false,
+  };
+
+  const compressedImages: File[] = [];
+
+  for (const file of files) {
+    const compressed = await imageCompression(file, options);
+
+    const fileName =
+      file.name.replace(/\.[^.]+$/, "") + ".webp";
+
+    compressedImages.push(
+      new File([compressed], fileName, {
+        type: "image/webp",
+        lastModified: Date.now(),
+      })
+    );
+  }
+
+  const totalSize = compressedImages.reduce(
+    (total, file) => total + file.size,
+    0
+  );
+
+  if (totalSize > MAX_TOTAL_SIZE) {
+    throw new Error("Łączny rozmiar zdjęć przekracza 5 MB.");
+  }
+
+  return compressedImages;
+};
