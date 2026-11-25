@@ -24,6 +24,8 @@ export const loader =(store: Store<RootState>) =>
             changed = true;
         }
 
+        console.log(params.toString());
+        
         if (changed) {
             return replace(`${url.pathname}?${params.toString()}`);
         }

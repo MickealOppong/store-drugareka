@@ -112,7 +112,7 @@ export const BrandFilter = () => {
 
           return (
             <button
-              key={option.slug}
+              key={option.id}
               type="button"
               className={`mkt-filter-chip ${
                 isSelected

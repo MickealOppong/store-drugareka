@@ -58,19 +58,21 @@ export const Categories: React.FC = () => {
   } = useGetCategoryTreeQuery();
 
     //default city and region from localStorage
+    /*
   const default_city = localStorage.getItem('default-city') || ''
   const default_region = localStorage.getItem('default-region')||""
       const default_toggle= localStorage.getItem('isCollection-toggle') ||''
+    */
       
 
   const page = parseInt(searchParams.get("page") || "1", 10);
   const selectedCategory = searchParams.get("category") || "all";
   const condition = searchParams.get("condition") || "";
   const brand = searchParams.get("brand") || "";
-    const region = searchParams.get("region") || default_region;
-  const selectedCollectionCity = searchParams.get("collectionCity") || default_city;
+    const region = searchParams.get("region") || ''
+  const selectedCollectionCity = searchParams.get("collectionCity") || ''
   const isCollectionAvailable =
-    searchParams.get("isCollectionAvailable") || default_toggle;
+    searchParams.get("isCollectionAvailable") || ''
 
   const queryDto: TQueryDto = {
     category: selectedCategory,

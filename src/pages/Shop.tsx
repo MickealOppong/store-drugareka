@@ -53,19 +53,21 @@ const Shop = () => {
   const [sort, setSort] = useState<string>("newest");
 
   //default city and region from localStorage
+  /*
   const default_city = localStorage.getItem('default-city') || ''
   const default_region = localStorage.getItem('default-region')||""
     const default_toggle= localStorage.getItem('isCollection-toggle') || ''
+    */
 
 
   // Safely extract the default active category from URL line, falling back to global state
   const page = parseInt(searchParams.get("page") || "1", 10);
   const selectedCategory = searchParams.get("category") || "all";
   const condition = searchParams.get("condition") || "";
-  const selectedCollectionCity = searchParams.get("collectionCity") || default_city;
-  const region = searchParams.get("region")||  default_region;
+  const selectedCollectionCity = searchParams.get("collectionCity") ||''
+  const region = searchParams.get("region")||''
   const isCollectionAvailable =
-    searchParams.get("isCollectionAvailable") || default_toggle;
+    searchParams.get("isCollectionAvailable") 
     
 
   const queryDto: TQueryDto = {
