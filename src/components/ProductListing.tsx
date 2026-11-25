@@ -60,7 +60,7 @@ const ProductListing = ({
           />
         </Link>
 
-        {(discount > 0 || !isCategory) && (
+        {discount >0 && (
           <span className={`${cardClass}__discount`}>-{discount}%</span>
         )}
 
