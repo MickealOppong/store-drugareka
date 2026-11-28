@@ -6,49 +6,47 @@ import { type AppDispatch, type RootState } from "../store";
 
 import { replace, type LoaderFunctionArgs } from "react-router";
 
-export const loader =(store: Store<RootState>) =>
-    async ({ request }: LoaderFunctionArgs) => {
+export const loader = (store: Store<RootState>) =>
+  async ({ request }: LoaderFunctionArgs) => {
 
-        const url = new URL(request.url);
-        const params = url.searchParams;
+    const url = new URL(request.url);
+    const params = url.searchParams;
 
-        let changed = false;
+    let changed = false;
 
-        if (!params.has("category")) {
-            params.set("category", "all_0");
-            changed = true;
-        }
+    if (!params.has("category")) {
+      params.set("category", "all_0");
+      changed = true;
+    }
 
-        if (!params.has("page")) {
-            params.set("page", "1");
-            changed = true;
-        }
+    if (!params.has("page")) {
+      params.set("page", "1");
+      changed = true;
+    }
 
-        console.log(params.toString());
-        
-        if (changed) {
-            return replace(`${url.pathname}?${params.toString()}`);
-        }
+    if (changed) {
+      return replace(`${url.pathname}?${params.toString()}`);
+    }
 
-        const dispatch = store.dispatch as AppDispatch;
+    const dispatch = store.dispatch as AppDispatch;
 
-        const topCategories = await dispatch(
-            storeApi.endpoints.getTop6ProductCategories.initiate()
-        );
+    const topCategories = await dispatch(
+      storeApi.endpoints.getTop6ProductCategories.initiate()
+    );
 
-        return topCategories.data || [];
-    };
-   
+    return topCategories.data || [];
+  };
+
 
 const Landing = () => {
   return (
     <>
       <div className="landing-desktop">
-        <DesktopLanding/>
+        <DesktopLanding />
       </div>
 
       <div className="landing-mobile">
-        <MobileLanding/>
+        <MobileLanding />
       </div>
     </>
   );

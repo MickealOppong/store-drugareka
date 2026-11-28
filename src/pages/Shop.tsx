@@ -64,11 +64,11 @@ const Shop = () => {
   const page = parseInt(searchParams.get("page") || "1", 10);
   const selectedCategory = searchParams.get("category") || "all";
   const condition = searchParams.get("condition") || "";
-  const selectedCollectionCity = searchParams.get("collectionCity") ||''
-  const region = searchParams.get("region")||''
+  const selectedCollectionCity = searchParams.get("collectionCity") || ''
+  const region = searchParams.get("region") || ''
   const isCollectionAvailable =
-    searchParams.get("isCollectionAvailable") 
-    
+    searchParams.get("isCollectionAvailable")
+
 
   const queryDto: TQueryDto = {
     category: selectedCategory,
@@ -183,10 +183,10 @@ const Shop = () => {
   };
   */
 
-  const hanldeIsAvailableParam = (selected: boolean) => {
+  const handldeIsAvailableParam = (selected: boolean) => {
     const searchParams = new URLSearchParams(search);
     searchParams.set("isCollectionAvailable", String(selected));
-    localStorage.setItem('isCollection-toggle',String(selected))
+    localStorage.setItem('isCollection-toggle', String(selected))
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 
@@ -199,9 +199,9 @@ const Shop = () => {
     nextParams.delete("region");
     nextParams.delete("brand");
     nextParams.set("category", "all_0");
-      localStorage.removeItem('isCollection-toggle')
-             localStorage.removeItem('default-city')
-        localStorage.removeItem('default-region')
+    localStorage.removeItem('isCollection-toggle')
+    localStorage.removeItem('default-city')
+    localStorage.removeItem('default-region')
     navigate(`${window.location.pathname}?${nextParams.toString()}`);
 
   };
@@ -295,7 +295,7 @@ const Shop = () => {
               type="checkbox"
               id="isCollectionAvailable"
               checked={isCollectionAvailable === "true"}
-              onChange={(e) => hanldeIsAvailableParam(e.target.checked)}
+              onChange={(e) => handldeIsAvailableParam(e.target.checked)}
             />
           </div>
 
